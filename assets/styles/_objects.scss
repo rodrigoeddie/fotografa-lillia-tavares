@@ -1,0 +1,199 @@
+@use "@/assets/styles/_variables.scss" as v;
+@use "@/assets/styles/_mixins.scss" as m;
+@use "sass:color";
+
+.title {
+  text-transform: uppercase;
+  font-family: v.$open;
+  font-weight: bold;
+  font-size: 23rem;
+}
+
+@mixin faux-bold($color: black) {
+  $darker-color: color.adjust($color, $lightness: 30%);
+
+  text-shadow:
+    0.5px 0 $darker-color,
+    -0.5px 0 $darker-color,
+    0 0.5px $darker-color,
+    0 -0.5px $darker-color,
+    0.5px 0.5px $darker-color,
+    -0.5px -0.5px $darker-color,
+    0.5px -0.5px $darker-color,
+    -0.5px 0.5px $darker-color;
+}
+
+.big-title {
+  text-transform: uppercase;
+  font-family: v.$lato;
+  align-items: center;
+  padding-top: 70rem;
+  font-weight: 900;
+  font-size: 72rem;
+  color: #b35c4b;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rem;
+
+  @include m.max(md) {
+    font-size: 50rem;
+  }
+
+  .box {
+    padding: 10rem 20rem;
+    text-transform: none;
+    font-weight: bold;
+    align-items: center;
+    font-size: 27rem;
+    color: white;
+    display: flex;
+    top: 2rem;
+
+    @include m.max(md) {
+      font-size: 23rem;
+    }
+  }
+
+  .big {
+    line-height: 1em;
+    display: block;
+  }
+
+  &.centered {
+    justify-content: center;
+  }
+
+  &.green {
+    color: v.$green;
+
+    .big {
+      @include faux-bold(v.$green);
+    }
+
+    .box {
+      color: #f4f2e9;
+      background: v.$green;
+    }
+  }
+
+  &.red {
+    color: v.$light-red;
+
+    .big {
+      @include faux-bold(v.$light-red);
+    }
+
+    .box {
+      color: #f4f2e9;
+      background: v.$light-red;
+    }
+  }
+}
+
+.description {
+  padding-top: 15rem;
+  line-height: 28rem;
+  font-size: 19rem;
+
+  @include m.max(md) {
+    line-height: 19rem;
+    font-size: 13rem;
+  }
+
+  .highlight {
+    padding: 0 5rem 2rem 5rem;
+    font-weight: bold;
+    background: v.$red;
+    color: white;
+
+    &.light {
+      background: #f4f2e9;
+      font-weight: normal;
+      color: v.$green;
+    }
+  }
+
+  &.green {
+    color: v.$green;
+  }
+}
+
+.btn {
+  transition: color .2s, background .2s, border .2s;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+  justify-content: center;
+  display: inline-flex;
+  padding: 16rem 24rem;
+  letter-spacing: 2px;
+  background: black;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20rem;
+  flex-shrink: 0;
+  color: white;
+
+  @include m.max(md) {
+    padding: 6px 10px;
+    font-size: 17rem;
+  }
+
+  &:hover {
+    background: white !important;
+  }
+
+  &.btn-green {
+    background: v.$dark-green;
+
+    &:hover {
+      border-color: v.$green;
+      color: v.$dark-green;
+    }
+  }
+
+  &.btn-green-light {
+    transition: color .2s, background .2s, border .2s;
+    background-color: transparent;
+    color: v.$light-green;
+    font-family: v.$lato;
+    font-size: 40rem;
+    font-weight: 900;
+    line-height: 1em;
+    padding: 0;
+
+    &:hover {
+      color: v.$green;
+    }
+  }
+
+  &.btn-red {
+    background: v.$red;
+
+    &:hover {
+      border-color: v.$red;
+      color: v.$red;
+    }
+  }
+}
+
+.container {
+  width: 1830rem;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.row {
+  display: flex;
+
+  // .col {}
+}
+
+.cover {
+  position: absolute;
+  object-fit: cover;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}

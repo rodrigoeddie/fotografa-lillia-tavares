@@ -1,0 +1,35 @@
+@use 'vendor/normalize';
+@use 'fonts';
+@use 'reset';
+@use 'objects';
+@use 'mixins';
+
+:root {
+    font-size: clamp(.65px, calc(0px + .053vw), 1px);
+}
+
+html {
+    scroll-behavior: smooth;
+
+    ::selection {
+        color: white;
+        background: v.$red;
+    }
+}
+
+$bg-image: url('/assets/images/bg.webp');
+$offset-x: 275rem;
+$offset-y: 125rem;
+$lines: 25;
+
+body {
+    $backgrounds: ();
+    @for $i from 0 through $lines {
+        $backgrounds: list.append($backgrounds, $bg-image ($i * $offset-x) ($i * $offset-y) repeat-x, $separator: comma);
+    }
+
+    background: $backgrounds v.$light-green;
+    background-size: 1100rem;
+    font-family: v.$open;
+    font-size: 16rem;
+}
