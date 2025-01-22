@@ -1,70 +1,36 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
 
 interface FormData {
-  contact: string;
   date: string;
   sessionType: string;
 }
 
 const formData = ref<FormData>({
-  contact: '',
   date: '',
   sessionType: '',
 });
 
-const errors = ref<Partial<FormData>>({});
+const errors = ref<{ [key: string]: string }>({});
 
-const validateForm = (data: FormData): Partial<FormData> => {
-  const errors: Partial<FormData> = {};
+const onSubmit = (e: Event) => {
+  e.preventDefault();
 
-  if (!data.contact) {
-    errors.contact = 'Telefone ou Email é obrigatório';
+  if (!formData.value.date) {
+    errors.value.date = 'Por favor, selecione uma data.';
   } else {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phonePattern = /^\+?[1-9]\d{1,14}$/;
-
-    if (!emailPattern.test(data.contact) && !phonePattern.test(data.contact)) {
-      errors.contact = 'Telefone ou Email inválido';
-    }
+    delete errors.value.date;
   }
 
-  if (!data.date) {
-    errors.date = 'Data é obrigatória';
+  if (!formData.value.sessionType) {
+    errors.value.sessionType = 'Por favor, selecione um tipo de ensaio.';
+  } else {
+    delete errors.value.sessionType;
   }
-
-  if (!data.sessionType) {
-    errors.sessionType = 'Tipo de ensaio é obrigatório';
-  }
-
-  return errors;
-};
-
-const onSubmit = async () => {
-  errors.value = validateForm(formData.value);
 
   if (Object.keys(errors.value).length === 0) {
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData.value),
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao enviar o formulário');
-      }
-
-      alert('Formulário enviado com sucesso!');
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        alert(error.message);
-      } else {
-        alert('Ocorreu um erro desconhecido');
-      }
-    }
+  } else {
+    alert('Erro');
+    return false;
   }
 };
 </script>
@@ -80,24 +46,79 @@ const onSubmit = async () => {
           </div>
 
           <form @submit.prevent="onSubmit">
-            <div>
-              <label for="contact">Telefone ou Email:</label>
-              <input id="contact" v-model="formData.contact" type="text" />
-              <span>{{ errors.contact }}</span>
-            </div>
-            <div>
-              <label for="date">Data que pretende fazer o ensaio:</label>
-              <input id="date" v-model="formData.date" type="date" />
-              <span>{{ errors.date }}</span>
-            </div>
-            <div>
-              <label for="sessionType">Tipo de ensaio:</label>
-              <input id="sessionType" v-model="formData.sessionType" type="text" />
-              <span>{{ errors.sessionType }}</span>
+            <div class="field-group">
+              <label
+                class="title-label"
+                for="date">
+                Data que pretende fazer o ensaio:
+              </label>
+              <input
+                id="date"
+                v-model="formData.date"
+                type="date" />
+
+              <span class="error-msg">
+                {{ errors.date }}
+              </span>
             </div>
 
-            <button type="submit">
-              <span>Enviar</span>
+            <div class="field-group">
+              <label class="title-label">Tipo de ensaio:</label>
+
+              <div class="wrap-radio">
+                <input
+                  type="radio"
+                  id="corporativo"
+                  value="Corporativo"
+                  name="type"
+                  v-model="formData.sessionType"
+                />
+                <label
+                  for="corporativo"
+                  class="label-radio">
+                  Corporativo
+                </label>
+              </div>
+
+              <div class="wrap-radio">
+                <input
+                  type="radio"
+                  id="intimista"
+                  value="Intimista"
+                  name="type"
+                  v-model="formData.sessionType"
+                />
+                <label
+                  for="intimista"
+                  class="label-radio">
+                  Intimista
+                </label>
+              </div>
+
+              <div class="wrap-radio">
+                <input
+                  type="radio"
+                  id="outros"
+                  value="Outros"
+                  name="type"
+                  v-model="formData.sessionType"
+                />
+                <label
+                  for="outros"
+                  class="label-radio">
+                  Outros
+                </label>
+              </div>
+
+              <span class="error-msg">{{ errors.sessionType }}</span>
+            </div>
+
+            <button class="btn-send">
+              <nuxt-icon
+                name="whatsapp"
+                class="icon"/>
+
+              <span>Enviar usando o whatsapp</span>
             </button>
           </form>
         </div>
@@ -121,19 +142,20 @@ const onSubmit = async () => {
 <style scoped lang="scss">
   .wrap-schedule {
     form {
+      align-items: flex-start;
       flex-direction: column;
       padding-top: 40rem;
       margin: 0 auto;
       display: flex;
-      gap: 10rem;
+      gap: 20rem;
 
-      label {
-        margin-bottom: 5rem;
+      .title-label {
         font-weight: bold;
-        font-size: 19rem;
+        font-size: 20rem;
       }
 
       input,
+      select,
       textarea {
         border: 1px solid v.$red;
         border-radius: 4px;
@@ -153,22 +175,64 @@ const onSubmit = async () => {
         min-height: 200rem;
       }
 
-      span {
+      .field-group {
+        flex-direction: column;
+        display: flex;
+        gap: 10rem;
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 5rem;
+
+          input[type="radio"] {
+            -webkit-appearance: auto;
+            width: 20rem;
+            height: 20rem;
+
+            &:checked {
+              accent-color: v.$dark-green; // Cor do botão de rádio quando selecionado
+            }
+          }
+
+          .label-radio {
+            font-weight: normal;
+            font-size: 18rem;
+            margin-bottom: 0;
+            line-height: 1em;
+            padding: 5rem 0;
+          }
+        }
+      }
+
+      .error-msg {
         font-size: 13rem;
         margin-top: 3rem;
+        display: none;
         color: red;
       }
 
-      button[type="submit"] {
+      .btn-send {
         transition: background-color 0.3s ease;
-        padding: 15rem;
-        border: none;
-        border-radius: 4px;
         background-color: v.$green;
         display: inline-flex;
-        color: #fff;
-        flex-shrink: 0;
-        font-size: 20rem;
+        align-items: center;
+        border-radius: 4px;
+        color: white;
+        padding: 15rem;
+        border: none;
+        gap: 10rem;
+
+        span {
+          font-size: 17rem;
+          color: white;
+        }
+
+        .nuxt-icon {
+          font-size: 24rem;
+          line-height: 1em;
+          margin-top: 0;
+        }
 
         &:hover {
           background-color: v.$dark-green;
