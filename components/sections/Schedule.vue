@@ -12,9 +12,8 @@ const formData = ref<FormData>({
 
 const errors = ref<{ [key: string]: string }>({});
 
-const onSubmit = (e: Event) => {
-  e.preventDefault();
-
+const submitEmail = () => {
+  alert('teste');
   if (!formData.value.date) {
     errors.value.date = 'Por favor, selecione uma data.';
   } else {
@@ -45,7 +44,7 @@ const onSubmit = (e: Event) => {
             Se você gostou do meu trabalho e pretende fazer um ensaio fotográfico, <strong>agende</strong> seu horário. <b>Entre em contato</b> comigo e <b>escolha</b> o melhor dia e horário para você:
           </div>
 
-          <form @submit.prevent="onSubmit">
+          <form @submit.prevent="submitEmail">
             <div class="field-group">
               <label
                 class="title-label"

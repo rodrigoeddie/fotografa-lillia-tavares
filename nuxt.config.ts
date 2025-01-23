@@ -1,12 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import { definePerson } from 'nuxt-schema-org/schema';
+
+const siteConfig = {
+  title: 'Fotógrafa Lillia Tavares',
+  description: 'Lillia Tavares: Fotógrafa de retratos femininos que celebra a singularidade das mulheres. Destaque sua realeza com uma sessão única que empodera sua autoestima.',
+  url: 'https://fotografalilliatavares.com.br'
+};
+
 export default defineNuxtConfig({
+  siteConfig: siteConfig,
+
   app: {
     head: {
-      title: 'Fotografa Lillia Tavares',
+      title: siteConfig.title,
       meta: [
         {
           name: 'description',
-          content: 'Lillia Tavares: Fotógrafa de retratos femininos que celebra a singularidade das mulheres. Destaque sua realeza com uma sessão única que empodera sua autoestima.',
+          content: siteConfig.description,
         },
         {
           name: 'theme-color',
@@ -32,6 +43,31 @@ export default defineNuxtConfig({
     // }
   },
 
+  schemaOrg: {
+    identity: definePerson({
+      // Basic Information, if applicable
+      name: siteConfig.title,
+      givenName: 'Lillia',
+      familyName: 'Tavares',
+      additionalName: 'de Oliveira', // middle name or other additional names
+      alternateName: 'Lillia O. Tavares',
+
+      // Profile Information, if applicable
+      image: '/profile-photo.jpg',
+      description: 'Lillia Tavares: Fotógrafa de retratos femininos que celebra a singularidade das mulheres. Destaque sua realeza com uma sessão única que empodera sua autoestima.',
+      jobTitle: 'Fotógrafa',
+
+      // Contact & Social, if applicable
+      email: 'fotografalilliatavares@gmail.com',
+      url: siteConfig.url,
+      sameAs: [
+        'https://www.instagram.com/fotografalilliatavares',
+        'https://www.tiktok.com/@fotografalilliatavares',
+        'https://wa.me/5511911159795',
+      ],
+    })
+  },
+
   devtools: {
     enabled: true
   },
@@ -39,8 +75,10 @@ export default defineNuxtConfig({
   modules: [
     '@hexdigital/nuxt-datocms',
     '@nuxtjs/partytown',
+    'nuxt-schema-org',
     '@nuxtjs/device',
     "nuxt-datocms",
+    '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
     'nuxt-icons',

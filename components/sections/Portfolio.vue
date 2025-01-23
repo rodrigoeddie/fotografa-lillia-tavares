@@ -112,7 +112,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                     v-for="category in item.category" :key="category.id"
                     class="category">
                     <NuxtLink
-                      :to="'/ensaios/' + category.slug">
+                      :to="'/trabalhos/' + category.slug">
                         <span>{{ category.title }}</span>
                     </NuxtLink>
                   </li>
@@ -128,7 +128,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               </div>
 
               <NuxtLink
-                :to="'/ensaios/' + item.category[0].slug + '/' + item.slug"
+                :to="'/trabalhos/' + item.category[0].slug + '/' + item.slug"
                 class="btn btn-green-light">
                   <span>Ver mais</span>
               </NuxtLink>
@@ -199,7 +199,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                     v-for="category in item.category" :key="category.id"
                     class="category">
                     <NuxtLink
-                      :to="'/ensaios/' + category.slug">
+                      :to="'/trabalhos/' + category.slug">
                         <span>{{ category.title }}</span>
                     </NuxtLink>
                   </li>
@@ -215,7 +215,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               </div>
 
               <NuxtLink
-                :to="'/ensaios/' + item.category[0].slug + '/' + item.slug"
+                :to="'/trabalhos/' + item.category[0].slug + '/' + item.slug"
                 class="btn btn-green-light">
                   <span>Ver mais</span>
               </NuxtLink>
