@@ -10,7 +10,7 @@
       <div class="side side-text">
         <h1 class="big-title green">
           <span class="box">
-            <span>Sobre o nosso</span>
+            <span>Sobre o</span>
           </span>
           <span class="big">Estúdio</span>
         </h1>
