@@ -73,11 +73,11 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@hexdigital/nuxt-datocms',
+    // '@hexdigital/nuxt-datocms',
     '@nuxtjs/partytown',
     'nuxt-schema-org',
     '@nuxtjs/device',
-    "nuxt-datocms",
+    // "nuxt-datocms",
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',

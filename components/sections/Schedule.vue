@@ -1,4 +1,6 @@
+
 <script lang="ts" setup>
+import { ref } from 'vue';
 
 interface FormData {
   date: string;
@@ -12,24 +14,38 @@ const formData = ref<FormData>({
 
 const errors = ref<{ [key: string]: string }>({});
 
-const submitEmail = () => {
-  alert('teste');
-  if (!formData.value.date) {
-    errors.value.date = 'Por favor, selecione uma data.';
-  } else {
-    delete errors.value.date;
+const validateField = (field: keyof FormData) => {
+  if (field === 'date' && !formData.value.date) {
+    const currentDate = new Date();
+    const selectedDate = new Date(formData.value.date);
+
+    if (!formData.value.date) {
+      errors.value.date = 'Por favor, selecione uma data.';
+    } else if (selectedDate <= currentDate) {
+      errors.value.date = 'A data deve ser posterior à data atual.';
+    } else {
+      delete errors.value.date;
+    }
   }
 
-  if (!formData.value.sessionType) {
+  if (field === 'sessionType' && !formData.value.sessionType) {
     errors.value.sessionType = 'Por favor, selecione um tipo de ensaio.';
   } else {
     delete errors.value.sessionType;
   }
+};
+
+const enviar = async () => {
+  console.log('teste');
+
+  validateField('date');
+  validateField('sessionType');
 
   if (Object.keys(errors.value).length === 0) {
+    // Lógica para enviar o formulário
+    console.log('Formulário enviado com sucesso!', formData.value);
   } else {
-    alert('Erro');
-    return false;
+    alert('Erro no formulário');
   }
 };
 </script>
@@ -44,21 +60,20 @@ const submitEmail = () => {
             Se você gostou do meu trabalho e pretende fazer um ensaio fotográfico, <strong>agende</strong> seu horário. <b>Entre em contato</b> comigo e <b>escolha</b> o melhor dia e horário para você:
           </div>
 
-          <form @submit.prevent="submitEmail">
+          <form
+            class="form"
+            @submit.prevent="enviar">
             <div class="field-group">
-              <label
-                class="title-label"
-                for="date">
+              <label class="title-label" for="date">
                 Data que pretende fazer o ensaio:
               </label>
               <input
                 id="date"
+                required
                 v-model="formData.date"
-                type="date" />
-
-              <span class="error-msg">
-                {{ errors.date }}
-              </span>
+                type="date"
+                @change="validateField('date')">
+              <span class="error-msg">{{ errors.date }}</span>
             </div>
 
             <div class="field-group">
@@ -69,12 +84,10 @@ const submitEmail = () => {
                   type="radio"
                   id="corporativo"
                   value="Corporativo"
-                  name="type"
                   v-model="formData.sessionType"
-                />
-                <label
-                  for="corporativo"
-                  class="label-radio">
+                  @change="validateField('sessionType')">
+
+                <label for="corporativo" class="label-radio">
                   Corporativo
                 </label>
               </div>
@@ -83,13 +96,12 @@ const submitEmail = () => {
                 <input
                   type="radio"
                   id="intimista"
+                  required
                   value="Intimista"
-                  name="type"
                   v-model="formData.sessionType"
-                />
-                <label
-                  for="intimista"
-                  class="label-radio">
+                  @change="validateField('sessionType')">
+
+                <label for="intimista" class="label-radio">
                   Intimista
                 </label>
               </div>
@@ -98,13 +110,12 @@ const submitEmail = () => {
                 <input
                   type="radio"
                   id="outros"
+                  required
                   value="Outros"
-                  name="type"
                   v-model="formData.sessionType"
-                />
-                <label
-                  for="outros"
-                  class="label-radio">
+                  @change="validateField('sessionType')">
+
+                <label for="outros" class="label-radio">
                   Outros
                 </label>
               </div>
@@ -113,10 +124,7 @@ const submitEmail = () => {
             </div>
 
             <button class="btn-send">
-              <nuxt-icon
-                name="whatsapp"
-                class="icon"/>
-
+              <nuxt-icon name="whatsapp" class="icon"/>
               <span>Enviar usando o whatsapp</span>
             </button>
           </form>
@@ -140,7 +148,7 @@ const submitEmail = () => {
 
 <style scoped lang="scss">
   .wrap-schedule {
-    form {
+    .form {
       align-items: flex-start;
       flex-direction: column;
       padding-top: 40rem;
@@ -207,7 +215,6 @@ const submitEmail = () => {
       .error-msg {
         font-size: 13rem;
         margin-top: 3rem;
-        display: none;
         color: red;
       }
 
@@ -264,5 +271,4 @@ const submitEmail = () => {
       }
     }
   }
-
 </style>
