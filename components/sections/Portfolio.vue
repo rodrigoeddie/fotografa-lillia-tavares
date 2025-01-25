@@ -1,4 +1,34 @@
 <script lang="ts" setup>
+
+const filteredSlides = (item) => {
+  const hasPaisagem = item.photos.some(slide => slide.customData.orientation === 'paisagem');
+  let slides = item.photos.filter(slide => slide.customData.orientation === (hasPaisagem ? 'paisagem' : 'retrato'));
+
+  slides = slides.slice(0, 1);
+  return slides;
+}
+
+const fetchData = async () => {
+  const {
+    data: ensaiosList
+  } = await useAsyncData(() => {
+    return queryCollection('content').path('/trabalhos').first()
+  });
+
+  const ensaiosData = Array.isArray(ensaiosList) ? ensaiosList.map(item => {
+    return {
+      ...item,
+      photos: filteredSlides(item)
+    };
+  }) : [];
+
+  ensaios.value = ensaiosData;
+};
+
+const ensaios = ref([]);
+
+await fetchData();
+
 const classes = ['card card-column', 'card side-by-side', 'wide side-by-side reverse'];
 </script>
 
