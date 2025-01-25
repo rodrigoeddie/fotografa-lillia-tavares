@@ -1,88 +1,73 @@
-
 {
-"title": "Karoline Siqueira",
-"description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam doloribus",
-"category": "Posicionamento de imagem",
-"local": "Estúdio Amorim",
-
-"highlightImage": {
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (12).jpg",
-"orientation": "landscape",
-"alt": ""
-},
-
-"album": [
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (1).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (2).jpg",
-"format": "paisagem",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (3).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (4).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (5).jpg",
-"format": "paisagem",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (6).jpg",
-"format": "paisagem",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (7).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (8).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (9).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (10).jpg",
-"format": "retrato",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (11).jpg",
-"format": "paisagem",
-"alt": ""
-},
-
-{
-"uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (12).jpg",
-"format": "paisagem",
-"alt": ""
-}
-]
+  "title": "Karoline Siqueira",
+  "description": "<p>Posicionamento de imagem feito pela fot&oacute;grafa Lillia Tavares para a linda Karoline Siqueira (<a href=\"https://www.instagram.com/salviacomunicacao/\" title=\"Salvia Comunica&ccedil;&atilde;o\" target=\"_blank\" rel=\"noopener\">@salviacomunicacao</a>) que oferece servi&ccedil;os de <span>estrat&eacute;gia e marketing digital.</span></p>",
+  "category": "Posicionamento de imagem",
+  "local": "Estúdio Amorim",
+  "highlightImage": {
+    "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (12).jpg",
+    "orientation": "landscape",
+    "alt": ""
+  },
+  "album": [
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (1).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (2).jpg",
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (3).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (4).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (5).jpg",
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (6).jpg",
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (7).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (8).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (9).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (10).jpg",
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (11).jpg",
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "uri": "assets/images/portifolio/karol-posiocionamento-de-imagem/karol-posiocionamento-de-imagem (12).jpg",
+      "format": "paisagem",
+      "alt": ""
+    }
+  ]
 }
