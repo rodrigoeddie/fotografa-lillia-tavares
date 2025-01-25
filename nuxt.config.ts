@@ -73,11 +73,10 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    // '@hexdigital/nuxt-datocms',
     '@nuxtjs/partytown',
     'nuxt-schema-org',
     '@nuxtjs/device',
-    // "nuxt-datocms",
+    '@nuxt/content',
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
@@ -124,10 +123,6 @@ export default defineNuxtConfig({
     public: {
       datoCmsToken: process.env.DATO_CMS_TOKEN,
     }
-  },
-
-  datocms: {
-    publicReadOnlyToken: '6cded3639fc92a93f43e1572752f92',
   },
 
   compatibilityDate: '2024-07-05',

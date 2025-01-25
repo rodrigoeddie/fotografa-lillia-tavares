@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-const QUERY = `
-{
-  about {
-    description
-  }
-}
-`;
-const { data, error } = await useGraphqlQuery({ query: QUERY });
+const {
+  data: sobre
+} = await useAsyncData(() => {
+  return queryCollection('content').path('/about').first()
+});
+
 </script>
 
 <template>
