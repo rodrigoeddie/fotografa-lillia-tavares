@@ -1,0 +1,14 @@
+{
+    "categories": [
+      {
+        "slug": "corporativo",
+        "title": "Corporativo",
+        "description": "Também conhecido como 'Posicionamento de imagem'."
+      },
+      {
+        "slug": "intimista",
+        "title": "Intimista",
+        "description": "Também conhecido como 'Posicionamento de imagem'."
+      }
+    ]
+  }
