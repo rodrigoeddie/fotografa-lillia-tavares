@@ -1,10 +1,38 @@
 <script lang="ts" setup>
 const {
-  data: sobre
+  data: about
 } = await useAsyncData(() => {
   return queryCollection('content').path('/about').first()
 });
 
+const renderElement = (el) => {
+  if (typeof el === 'string') {
+    return el;
+  }
+
+  const [tag, attrs, ...children] = el;
+
+  if (tag != 'h1') {
+    const attrsString = Object.entries(attrs)
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return `${key}="${value.join(' ')}"`;
+        }
+        return `${key}="${value}"`;
+      })
+      .join(' ');
+
+    const childrenString = children.map(child => (typeof child === 'string' ? child : renderElement(child))).join('');
+
+    return `<${tag} ${attrsString}>${childrenString}</${tag}>`;
+  }
+};
+
+const renderedContent = ref('');
+
+if (about.value?.body?.value) {
+  renderedContent.value = about.value.body.value.map(renderElement).join('');
+}
 </script>
 
 <template>
@@ -12,8 +40,8 @@ const {
     <div class="wrap-about row">
       <div class="col">
         <div class="about-text">
-          <h1 class="title">Sobre</h1>
-          <div class="description" v-html="data.about.description"></div>
+          <h1 class="title">{{ about.title }}</h1>
+          <div class="description" v-html="renderedContent"></div>
         </div>
 
         <div class="about-ctas">
