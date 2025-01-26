@@ -11,6 +11,8 @@ const siteConfig = {
 export default defineNuxtConfig({
   siteConfig: siteConfig,
 
+  debug: true,
+
   app: {
     head: {
       title: siteConfig.title,

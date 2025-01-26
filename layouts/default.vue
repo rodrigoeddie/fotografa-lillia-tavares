@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-  import { SpeedInsights } from '@vercel/speed-insights/vue';
-
   useSchemaOrg([
     defineWebSite({
       name: 'Fotógrafa Lillia Tavares',
