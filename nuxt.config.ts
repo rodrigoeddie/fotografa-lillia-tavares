@@ -9,6 +9,8 @@ const siteConfig = {
 };
 
 export default defineNuxtConfig({
+  target: 'static',
+
   siteConfig: siteConfig,
 
   app: {
@@ -93,6 +95,9 @@ export default defineNuxtConfig({
   },
 
   image: {
+    cloudflare: {
+      baseURL: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/'
+    },
     quality: 90,
     format: ['webp'],
     densities: [1, 2],
@@ -125,9 +130,6 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      datoCmsToken: process.env.DATO_CMS_TOKEN,
     }
   },
-
-  compatibilityDate: '2024-07-05',
 })

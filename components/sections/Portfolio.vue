@@ -77,14 +77,16 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 v-for="slide in item.photos"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='slide.uri'
+                  provider="cloudflare"
+                  :src='slide.uri + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
+                  provider="cloudflare"
                   v-if="slide.format=='retrato'"
-                  :src='slide.uri'
+                  :src='slide.uri + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -105,14 +107,16 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 :key="slide.id"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='slide.uri'
+                  provider="cloudflare"
+                  :src='slide.uri + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
+                  provider="cloudflare"
                   v-if="slide.format=='retrato'"
-                  :src='slide.uri'
+                  :src='slide.uri + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
