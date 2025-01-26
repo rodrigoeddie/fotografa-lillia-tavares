@@ -7,7 +7,7 @@ export default defineContentConfig({
       source: '**/*.md'
     }),
     works: defineCollection({
-      source: 'works/*.json',
+      source: 'trabalhos/*.json',
       type: 'page',
       // Define custom schema for docs collection
       schema: z.object({
@@ -15,6 +15,10 @@ export default defineContentConfig({
         image: z.string(),
         date: z.date()
       })
-    })
+    }),
+    categories: defineCollection({
+      source: 'categories.json',
+      type: 'page',
+    }),
   }
 })

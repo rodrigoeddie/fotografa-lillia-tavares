@@ -1,84 +1,18 @@
 <script lang="ts" setup>
-const $route   = useRoute();
-const category = $route.params.category;
+const {
+  data: allCategories
+} = await useAsyncData(() => {
+  return queryCollection('categories').all();
+});
 
-const QUERY = `
-{
-  allCategories {
-    id
-    title
-    slug
-  }
-  allEnsaios {
-    id
-    slug
-    title
-    description
-    local
-    instagram {
-      value
-    }
-    quote
-    color {
-      hex
-    }
-    category {
-      id
-      title
-      slug
-    }
-    hero {
-      id
-      alt
-      blurUpThumb
-      format
-      height
-      width
-      url
-    }
-    photos {
-      id
-      alt
-      url
-      title
-      format
-      blurUpThumb
-      customData
-    }
-    seo {
-      description
-      image {
-        url
-      }
-      title
-    }
-    _status
-    _updatedAt
-    _firstPublishedAt
-  }
-  _allEnsaiosMeta {
-    count
-  }
-}
-`;
-
-const { data, error } = await useGraphqlQuery({ query: QUERY });
-
-const filteredSlides = (item) => {
-  const hasPaisagem = item.photos.some(slide => slide.customData.orientation === 'paisagem');
-  let slides = item.photos.filter(slide => slide.customData.orientation === (hasPaisagem ? 'paisagem' : 'retrato'));
-
-  slides = slides.slice(0, 5);
-
-  return slides;
-}
+const categories = allCategories.value[0].body.categories;
 </script>
 
 <template>
   <h1>Trabalhos</h1>
 
   <nav>
-    <template v-for="category in data.allCategories">
+    <template v-for="category in categories">
       <NuxtLink
         :to="'/trabalhos/' + category.slug">
         <span>{{ category.title }}</span>
