@@ -30,7 +30,7 @@ const clickLogo = () => {
 <style scoped lang="scss">
 .header {
   height: 100rem;
-  z-index: 2;
+  z-index: 9;
 
   .logo {
     position: absolute;

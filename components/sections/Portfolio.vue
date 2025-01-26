@@ -50,10 +50,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 
                 <ul class="info-list">
                   <li class="category">
-                    <NuxtLink
-                      :to="'/trabalhos/' + item.category">
-                        <span>{{ item.category }}</span>
-                    </NuxtLink>
+                    <span>{{ item.category.title }}</span>
                   </li>
                   <li class="place">
                     <nuxt-icon
@@ -134,10 +131,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 
                 <ul class="info-list">
                   <li class="category">
-                    <NuxtLink
-                      :to="'/trabalhos/' + item.category">
-                        <span>{{ item.category }}</span>
-                    </NuxtLink>
+                    <span>{{ item.category.title }}</span>
                   </li>
                   <li class="place">
                     <nuxt-icon

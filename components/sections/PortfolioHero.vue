@@ -4,14 +4,14 @@ const photos = [
     "uri": '60ddc9c8-058d-441e-1608-ca6109de1200',
     "alt": 'Mulher sorrindo de roupa branca, sentada no chão',
     "path": 'trabalhos/andresa-maia',
-    "title": 'Andresa Maia',
-    "description": 'Andresa Maia',
+    "title": '<a href="https://www.instagram.com/dre_terapeuta/" target="_blank">Andresa Maia</a>',
+    "description": 'Psicanálise, Terapias energéticas e espirituais',
   },
   {
     "uri": '35b38c8d-3080-48f5-35bb-766c7c1add00',
     "alt": 'Mulher negra de cabelos longos sorrindo e com o celular nas mãos',
     "path": 'trabalhos/karoline-siqueira',
-    "title": 'Karoline Siqueira',
+    "title": '<a href="https://www.instagram.com/salviacomunicacao/" target="_blank">Karoline Siqueira</a>',
     "description": 'Serviços de estratégia e marketing digital',
   },
 ];
@@ -41,7 +41,7 @@ const photos = [
         class="wrap-hero">
         <div class="text">
           <div class="about-text text-slide">
-            <h2 class="title">{{ slide.title }}</h2>
+            <h2 class="title" v-html="slide.title"></h2>
             <div class="description">
               <p>
                 {{ slide.description }}

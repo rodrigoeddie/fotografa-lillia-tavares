@@ -1,13 +1,17 @@
 {
   "title": "Andresa Maia",
-  "description": "<p>Posicionamento de imagem feito pela fot&oacute;grafa Lillia Tavares para a linda Karoline Siqueira (<a href=\"https://www.instagram.com/salviacomunicacao/\" title=\"Salvia Comunica&ccedil;&atilde;o\" target=\"_blank\" rel=\"noopener\">@salviacomunicacao</a>) que oferece servi&ccedil;os de <span>estrat&eacute;gia e marketing digital.</span></p>",
-  "category": "corporativo",
+  "description": "<p>Ensaio para a psicoterapeuta Andresa Maia - Psicanálise, Terapias energéticas e espirituais</p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
   "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
   "highlightImage": {
     "uri": "",
     "orientation": "landscape",
     "alt": ""
   },
+  "site": "https://andresamaia.my.canva.site/",
   "album": [
     {
       "uri": "0a37ed18-db3d-49b2-ac20-68f472793f00",
