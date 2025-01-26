@@ -155,7 +155,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
           <template v-if="index == 2 && currentPath !== '/trabalhos'">
             <NuxtLink
               class="link-see-more big-title red"
-              :to="'/trabalhos/'">
+              :to="'/trabalhos'">
                   <span class="big">veja todos os Trabalhos</span>
                   <span class="box">
                     <span>Clique aqui</span>
@@ -167,13 +167,13 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
         <template v-if="index == 1">
           <NuxtLink
             class="btn-agende btn-agende-01"
-            :to="'/agende-seu-ensaio/'">
+            :to="'/agende-seu-ensaio'">
               <span>Agende seu ensaio</span>
           </NuxtLink>
 
           <NuxtLink
             class="btn-agende btn-agende-02"
-            :to="'/agende-seu-ensaio/'">
+            :to="'/agende-seu-ensaio'">
               <span>Agende seu ensaio</span>
           </NuxtLink>
         </template>
