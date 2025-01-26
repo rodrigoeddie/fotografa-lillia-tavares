@@ -81,9 +81,6 @@ export default defineNuxtConfig({
     'nuxt-schema-org',
     '@nuxtjs/device',
     '@nuxt/content',
-    // '@nuxthq/studio',
-    // '@nuxt/sitemap',
-    // '@nuxt/robots',
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
@@ -135,7 +132,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'cloudflare_pages'
+    preset: 'cloudflare_pages',
+    prerender: {
+      autoSubfolderIndex: false,
+    },
   },
 
   compatibilityDate: "2024-09-19",
