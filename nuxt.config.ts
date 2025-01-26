@@ -10,7 +10,6 @@ const siteConfig = {
 
 export default defineNuxtConfig({
   siteConfig: siteConfig,
-
   debug: true,
 
   app: {
@@ -136,4 +135,6 @@ export default defineNuxtConfig({
       autoSubfolderIndex: false,
     },
   },
+
+  compatibilityDate: '2025-01-26'
 })

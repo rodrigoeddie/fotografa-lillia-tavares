@@ -11,7 +11,6 @@
     <TemplatesHeader />
     <slot />
     <TemplatesFooter />
-    <SpeedInsights />
   </div>
 </template>
 
