@@ -6,7 +6,7 @@
     "postinstall": "nuxt prepare",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "build": "nuxt build",
+    "build": "nuxt build --preset=cloudflare_pages",
     "dev": "nuxt dev"
   },
   "devDependencies": {
