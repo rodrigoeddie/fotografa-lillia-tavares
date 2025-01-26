@@ -1,33 +1,25 @@
 <script lang="ts" setup>
 
 const filteredSlides = (item) => {
-  const hasPaisagem = item.photos.some(slide => slide.customData.orientation === 'paisagem');
-  let slides = item.photos.filter(slide => slide.customData.orientation === (hasPaisagem ? 'paisagem' : 'retrato'));
+  const hasPaisagem = item.album.some(slide => slide.format === 'paisagem');
+  let slides = item.album.filter(slide => slide.format === (hasPaisagem ? 'paisagem' : 'retrato'));
 
   slides = slides.slice(0, 1);
   return slides;
 }
 
-const fetchData = async () => {
-  const {
-    data: ensaiosList
-  } = await useAsyncData(() => {
-    return queryCollection('content').path('/trabalhos').first()
-  });
+const {
+  data: ensaiosList
+} = await useAsyncData(() => {
+  return queryCollection('works').all();
+});
 
-  const ensaiosData = Array.isArray(ensaiosList) ? ensaiosList.map(item => {
-    return {
-      ...item,
-      photos: filteredSlides(item)
-    };
-  }) : [];
-
-  ensaios.value = ensaiosData;
-};
-
-const ensaios = ref([]);
-
-await fetchData();
+const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(item => {
+  return {
+    ...item,
+    photos: filteredSlides(item.body)
+  };
+}) : [];
 
 const classes = ['card card-column', 'card side-by-side', 'wide side-by-side reverse'];
 </script>
@@ -42,7 +34,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
     </h1>
 
     <div class="wrap-portfolio">
-      <template v-for="(item, index) in ensaios">
+      <template v-for="(item, index) in ensaiosData">
         <div :class="'thumb thumb-' + classes[index]">
           <div v-if="index == 2" class="wrap-wide">
             <div class="wrap-info">
@@ -53,11 +45,11 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 
                 <ul class="info-list">
                   <li
-                    v-for="category in item.category" :key="category.id"
+                    v-for="category in item.category"
                     class="category">
                     <NuxtLink
-                      :to="'/trabalhos/' + category.slug">
-                        <span>{{ category.title }}</span>
+                      :to="'/trabalhos/' + category">
+                        <span>{{ category }}</span>
                     </NuxtLink>
                   </li>
                   <li class="place">
@@ -72,7 +64,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               </div>
 
               <NuxtLink
-                :to="'/trabalhos/' + item.category[0].slug + '/' + item.slug"
+                :to="item.path"
                 class="btn btn-green-light">
                   <span>Ver mais</span>
               </NuxtLink>
@@ -83,17 +75,16 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               :slides-per-view="1">
               <SwiperSlide
                 v-for="slide in item.photos"
-                :key="slide.id"
-                :class="'wrap-img ' + slide.customData.orientation">
+                :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='slide.url'
-                  :width="(slide.customData.orientation=='paisagem') ? 700 : 500"
-                  :height="(slide.customData.orientation=='paisagem') ? 500 : 800"
+                  :src='slide.uri'
+                  :width="(slide.format=='paisagem') ? 700 : 500"
+                  :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
-                  v-if="slide.customData.orientation=='retrato'"
-                  :src='slide.url'
+                  v-if="slide.format=='retrato'"
+                  :src='slide.uri'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -112,16 +103,16 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               <SwiperSlide
                 v-for="slide in item.photos"
                 :key="slide.id"
-                :class="'wrap-img ' + slide.customData.orientation">
+                :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='slide.url'
-                  :width="(slide.customData.orientation=='paisagem') ? 700 : 500"
-                  :height="(slide.customData.orientation=='paisagem') ? 500 : 800"
+                  :src='slide.uri'
+                  :width="(slide.format=='paisagem') ? 700 : 500"
+                  :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
-                  v-if="slide.customData.orientation=='retrato'"
-                  :src='slide.url'
+                  v-if="slide.format=='retrato'"
+                  :src='slide.uri'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -140,11 +131,11 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 
                 <ul class="info-list">
                   <li
-                    v-for="category in item.category" :key="category.id"
+                    v-for="category in item.category"
                     class="category">
                     <NuxtLink
-                      :to="'/trabalhos/' + category.slug">
-                        <span>{{ category.title }}</span>
+                      :to="'/trabalhos/' + category">
+                        <span>{{ category }}</span>
                     </NuxtLink>
                   </li>
                   <li class="place">
@@ -159,7 +150,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               </div>
 
               <NuxtLink
-                :to="'/trabalhos/' + item.category[0].slug + '/' + item.slug"
+                :to="item.path"
                 class="btn btn-green-light">
                   <span>Ver mais</span>
               </NuxtLink>

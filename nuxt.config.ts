@@ -77,11 +77,15 @@ export default defineNuxtConfig({
     'nuxt-schema-org',
     '@nuxtjs/device',
     '@nuxt/content',
+    // '@nuxthq/studio',
+    // '@nuxt/sitemap',
+    // '@nuxt/robots',
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
     'nuxt-icons',
     'nuxt-gtag',
+    '@nuxtjs/sitemap'
   ],
 
   gtag: {
