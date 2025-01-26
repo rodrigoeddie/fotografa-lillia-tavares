@@ -12,6 +12,10 @@ export default defineNuxtConfig({
   siteConfig: siteConfig,
   debug: true,
 
+  site: {
+    url: 'fotografa-lillia-tavares.pages.dev'
+  },
+
   app: {
     head: {
       title: siteConfig.title,
@@ -75,7 +79,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/partytown',
-    '@nuxtjs/sitemap',
     'nuxt-schema-org',
     '@nuxtjs/device',
     '@nuxt/content',
