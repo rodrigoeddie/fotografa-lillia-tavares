@@ -1,0 +1,35 @@
+{
+  "title": "Vanessa Lima",
+  "description": "<p>Posicionamento de imagem feito pela fot&oacute;grafa Lillia Tavares para a linda Karoline Siqueira (<a href=\"https://www.instagram.com/salviacomunicacao/\" title=\"Salvia Comunica&ccedil;&atilde;o\" target=\"_blank\" rel=\"noopener\">@salviacomunicacao</a>) que oferece servi&ccedil;os de <span>estrat&eacute;gia e marketing digital.</span></p>",
+  "category": "corporativo",
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "highlightImage": {
+    "uri": "",
+    "orientation": "landscape",
+    "alt": ""
+  },
+  "album": [
+    {
+      "uri": "9b642668-6767-4ca4-8174-e6b0ab4f5200",
+      "format": "retrato",
+      "alt": "Mulher de cabelos enrolados presos em um coque de blazer azul e calças cinzas, ela está sentada de pernas cruzadas e braços sobre o joelho",
+      "canBeThumb": true
+    },
+    {
+      "uri": "a5cfcbd6-014e-47c8-675d-03b246497f00",
+      "format": "retrato",
+      "alt": "Mulher de cabelos enrolados e blazer azul",
+      "canBeThumb": true
+    },
+    {
+      "uri": "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
+      "format": "retrato",
+      "alt": "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm"
+    },
+    {
+      "uri": "a51b820d-2dcd-473b-1527-0b41ddbb1600",
+      "format": "retrato",
+      "alt": "Mulher de cabelos enrolados com uma blusinha preta"
+    }
+  ]
+}

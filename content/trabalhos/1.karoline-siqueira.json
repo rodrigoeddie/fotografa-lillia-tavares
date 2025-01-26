@@ -12,62 +12,66 @@
     {
       "uri": "7b19614c-3f7a-4c90-3a11-705a9b1e4f00",
       "format": "retrato",
-      "alt": ""
-    },
-    {
-      "uri": "2ad64ae9-5fa9-486b-8216-b66dfeabe600",
-      "format": "paisagem",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos sorrindo e com as pernas cruzadas"
     },
     {
       "uri": "21dbf0a8-0729-4eff-ec20-408933cbf700",
       "format": "retrato",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos sorrindo e com as pernas cruzadas e as mãos cruzadas por cima do joelho",
+      "canBeThumb": true
     },
     {
       "uri": "927da4be-4f88-4fe0-44ac-df25d5189c00",
       "format": "retrato",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos sorrindo em pé com os braços cruzados"
     },
     {
       "uri": "febda45a-af09-43ca-14ff-6c247c392500",
       "format": "paisagem",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos olhando o celular"
     },
     {
       "uri": "35b38c8d-3080-48f5-35bb-766c7c1add00",
       "format": "paisagem",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos sorrindo e com o celular nas mãos"
     },
     {
       "uri": "bda54bda-f52f-4cfe-9f8c-717fcb3d9b00",
       "format": "retrato",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos sorrindo olhando pra cima",
+      "canBeThumb": true
     },
     {
       "uri": "55c73b14-19fd-402e-923e-f4fb8bea0600",
       "format": "retrato",
-      "alt": ""
+      "alt": "Mãos olhando para um celular"
     },
     {
       "uri": "8cb5c067-5a47-4692-ada6-727478279600",
       "format": "retrato",
-      "alt": ""
-    },
-    {
-      "uri": "8cb5c067-5a47-4692-ada6-727478279600",
-      "format": "paisagem",
-      "alt": ""
+      "alt": "Mulher negra de braços cruzados revida com um blazer off-white"
     },
     {
       "uri": "8675bf6b-744c-4942-0794-6ad3008d6a00",
-      "format": "retrato",
-      "alt": ""
+      "format": "paisagem",
+      "alt": "Mulher negra de cabelos longos sorrindo com as mãos estendidas mostrando o celular"
     },
     {
       "uri": "150745d5-1a23-48af-775e-30e33db47900",
+      "format": "retrato",
+      "alt": "Mãos olhando mexendo no celular"
+    },
+    {
+      "uri": "7c5ccbc0-d3b4-4e3a-9bd3-49b701338300",
       "format": "paisagem",
-      "alt": ""
+      "alt": "Mulher negra de cabelos longos sorrindo com os braços cruzados, ela está de costas olhando para o espelho, o espelho reflete o rosto dela",
+      "canBeThumb": true
+    },
+    {
+      "uri": "2ad64ae9-5fa9-486b-8216-b66dfeabe600",
+      "format": "paisagem",
+      "alt": "Mulher negra de cabelos longos sentada no sofá branco",
+      "canBeThumb": true
     }
   ]
 }

@@ -1,0 +1,45 @@
+{
+  "title": "Andresa Maia",
+  "description": "<p>Posicionamento de imagem feito pela fot&oacute;grafa Lillia Tavares para a linda Karoline Siqueira (<a href=\"https://www.instagram.com/salviacomunicacao/\" title=\"Salvia Comunica&ccedil;&atilde;o\" target=\"_blank\" rel=\"noopener\">@salviacomunicacao</a>) que oferece servi&ccedil;os de <span>estrat&eacute;gia e marketing digital.</span></p>",
+  "category": "corporativo",
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "highlightImage": {
+    "uri": "",
+    "orientation": "landscape",
+    "alt": ""
+  },
+  "album": [
+    {
+      "uri": "0a37ed18-db3d-49b2-ac20-68f472793f00",
+      "format": "paisagem",
+      "alt": "Mulher com coque e roupa branca, sentada no tapete, encostada no sofá tomando um chá",
+      "canBeThumb": true
+    },
+    {
+      "uri": "60ddc9c8-058d-441e-1608-ca6109de1200",
+      "format": "paisagem",
+      "alt": "Mulher sorrindo de roupa branca, sentada no chão",
+      "canBeThumb": true
+    },
+    {
+      "uri": "cb3583c6-889a-4e41-85c6-423b37ad7100",
+      "format": "retrato",
+      "alt": "Mulher sorrindo de roupa branca, sentada no chão"
+    },
+    {
+      "uri": "afca9f7a-f36d-47a8-e030-dde8000c5f00",
+      "format": "retrato",
+      "alt": "Mulher de blazer salmão mexendo no macbook"
+    },
+    {
+      "uri": "310b242c-7394-4e41-750f-dd4924098500",
+      "format": "retrato",
+      "alt": "Mulher de branco, sentada no sofá"
+    },
+    {
+      "uri": "0cd3c286-1724-40f9-187b-b77f9bede200",
+      "format": "retrato",
+      "alt": "Mulher sorrindo com os braços cruzados"
+    }
+  ]
+}

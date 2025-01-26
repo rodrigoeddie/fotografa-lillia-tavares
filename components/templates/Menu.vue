@@ -22,12 +22,6 @@
         </NuxtLink>
         <span class="separe">•</span>
         <NuxtLink
-            to="/perguntas-frequentes"
-            class="link">
-            <span class="txt">FAQ</span>
-        </NuxtLink>
-        <span class="separe">•</span>
-        <NuxtLink
             to="/agende-seu-ensaio"
             class="link">
             <span class="txt">Agende seu ensaio</span>

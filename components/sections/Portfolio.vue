@@ -2,9 +2,11 @@
 
 const filteredSlides = (item) => {
   const hasPaisagem = item.album.some(slide => slide.format === 'paisagem');
-  let slides = item.album.filter(slide => slide.format === (hasPaisagem ? 'paisagem' : 'retrato'));
+  let slides = item.album.filter(slide => 
+    slide.format === (hasPaisagem ? 'paisagem' : 'retrato') && slide.canBeThumb === true
+  );
 
-  slides = slides.slice(0, 1);
+  slides = slides.slice(0, 2);
   return slides;
 }
 
@@ -16,8 +18,9 @@ const {
 
 const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(item => {
   return {
-    ...item,
-    photos: filteredSlides(item.body)
+    ...item.body,
+    photos: filteredSlides(item.body),
+    path: item.path
   };
 }) : [];
 
@@ -44,19 +47,17 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 </h2>
 
                 <ul class="info-list">
-                  <li
-                    v-for="category in item.category"
-                    class="category">
+                  <li class="category">
                     <NuxtLink
-                      :to="'/trabalhos/' + category">
-                        <span>{{ category }}</span>
+                      :to="'/trabalhos/' + item.category">
+                        <span>{{ item.category }}</span>
                     </NuxtLink>
                   </li>
                   <li class="place">
                     <nuxt-icon
                       name="location-pin-solid"
                       class="icon icon-location-pin"/>
-                    <span>{{ item.local }}</span>
+                    <span v-html="item.local"></span>
                   </li>
                 </ul>
 
@@ -77,16 +78,14 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 v-for="slide in item.photos"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  provider="cloudflare"
-                  :src='slide.uri + "/thumb"'
+                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
-                  provider="cloudflare"
                   v-if="slide.format=='retrato'"
-                  :src='slide.uri + "/thumb"'
+                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -94,7 +93,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   loading="lazy"/>
               </SwiperSlide>
 
-              <!-- <BlocksSwiperControls v-if="item.photos.length > 1" /> -->
+              <BlocksSwiperControls v-if="item.photos.length > 1" />
             </Swiper>
           </div>
 
@@ -107,16 +106,14 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 :key="slide.id"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  provider="cloudflare"
-                  :src='slide.uri + "/thumb"'
+                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
-                  provider="cloudflare"
                   v-if="slide.format=='retrato'"
-                  :src='slide.uri + "/thumb"'
+                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -124,7 +121,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   loading="lazy"/>
               </SwiperSlide>
 
-              <!-- <BlocksSwiperControls v-if="item.photos.length > 1" /> -->
+              <BlocksSwiperControls v-if="item.photos.length > 1" />
             </Swiper>
 
             <div class="wrap-info">
@@ -134,19 +131,17 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 </h2>
 
                 <ul class="info-list">
-                  <li
-                    v-for="category in item.category"
-                    class="category">
+                  <li class="category">
                     <NuxtLink
-                      :to="'/trabalhos/' + category">
-                        <span>{{ category }}</span>
+                      :to="'/trabalhos/' + item.category">
+                        <span>{{ item.category }}</span>
                     </NuxtLink>
                   </li>
                   <li class="place">
                     <nuxt-icon
                       name="location-pin-solid"
                       class="icon icon-location-pin"/>
-                    <span>{{ item.local }}</span>
+                    <span v-html="item.local"></span>
                   </li>
                 </ul>
 
@@ -420,6 +415,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
           .bg-thumb {
             width: 100%;
           }
+        }
+
+        &.paisagem {
+          aspect-ratio: 600/400;
         }
       }
     }
