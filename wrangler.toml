@@ -1,12 +1,6 @@
 name = "fotografa-lillia-tavares"
-
-account_id = "42898107514264f0fe5e673681735246"
-workers_dev = true
 compatibility_date = "2023-10-10"
-pages_build_output_dir = "./dist"
-
-[site]
-bucket = "./.output/public"
+pages_build_output_dir = "./.output/public"
 
 main = "workers-site/index.js"
 
