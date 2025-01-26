@@ -73,7 +73,9 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    'nitro-cloudflare-dev',
     '@nuxtjs/partytown',
+    '@nuxtjs/sitemap',
     'nuxt-schema-org',
     '@nuxtjs/device',
     '@nuxt/content',
@@ -85,7 +87,6 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     'nuxt-icons',
     'nuxt-gtag',
-    '@nuxtjs/sitemap'
   ],
 
   gtag: {
@@ -130,4 +131,10 @@ export default defineNuxtConfig({
     public: {
     }
   },
+
+  nitro: {
+    preset: 'cloudflare_pages'
+  },
+
+  compatibilityDate: "2024-09-19",
 })
