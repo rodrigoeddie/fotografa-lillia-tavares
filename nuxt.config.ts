@@ -9,8 +9,6 @@ const siteConfig = {
 };
 
 export default defineNuxtConfig({
-  target: 'static',
-
   siteConfig: siteConfig,
 
   app: {
