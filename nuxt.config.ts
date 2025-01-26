@@ -75,7 +75,6 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    'nitro-cloudflare-dev',
     '@nuxtjs/partytown',
     '@nuxtjs/sitemap',
     'nuxt-schema-org',
@@ -132,11 +131,8 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'cloudflare_pages',
     prerender: {
       autoSubfolderIndex: false,
     },
   },
-
-  compatibilityDate: "2024-09-19",
 })
