@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const $route      = useRoute();
+const currentPath = $route.path;
 
 const filteredSlides = (item) => {
   const hasPaisagem = item.album.some(slide => slide.format === 'paisagem');
@@ -156,7 +158,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             </div>
           </template>
 
-          <template v-if="index == 2">
+          <template v-if="index == 2 && currentPath !== '/trabalhos'">
             <NuxtLink
               class="link-see-more big-title red"
               :to="'/trabalhos/'">

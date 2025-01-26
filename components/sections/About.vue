@@ -9,7 +9,7 @@ const renderElement = (el) => {
   if (typeof el === 'string') {
     return el;
   }
-
+  
   const [tag, attrs, ...children] = el;
 
   if (tag != 'h1') {
@@ -108,6 +108,8 @@ if (about.value?.body?.value) {
           strong,
           b {
             background: #892c1a;
+            padding-right: 3rem;
+            padding-left: 3rem;
             color: white;
           }
         }
