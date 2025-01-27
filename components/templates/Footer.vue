@@ -29,6 +29,8 @@
         <footer>
             <TemplatesMenu class="from-footer" />
         </footer>
+
+        <address>Copyright® <b>Fotógrafa Lillia Tavares</b> - Todos os direitos reservados</address>
     </div>
 </template>
 
@@ -81,11 +83,23 @@
         background: #832b18;
         align-items: center;
         text-align: center;
+        flex-wrap: wrap;
         height: 420rem;
         display: flex;
 
         @include m.max(md) {
-            height: 200rem;
+            padding-bottom: 20px;
+            padding-top: 20px;
+            height: auto;
         }
+    }
+
+    address {
+        font-style: normal;
+        text-align: center;
+        font-size: 16px;
+        padding: 20px;
+        color: v.$red;
+        width: 100%;
     }
 </style>

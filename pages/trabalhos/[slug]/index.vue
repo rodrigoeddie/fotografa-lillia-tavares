@@ -6,6 +6,7 @@ const { data: work } = await useAsyncData(path, () => {
 })
 
 const highlight = work.value.body.album.filter(item => item.highlight);
+const album = work.value.body.album.filter(item => !item.highlight);
 </script>
 
 <template>
@@ -13,27 +14,91 @@ const highlight = work.value.body.album.filter(item => item.highlight);
     <div class="wrap-hero">
       <div class="text">
         <div class="about-text text-slide">
-          <h2 class="title" v-html="work.title"></h2>
+          <h1 class="title" v-html="work.title"></h1>
           <div class="description" v-html="work.description"></div>
+        </div>
+
+        <div class="about-ctas">
+          <ul class="info-list">
+            <li class="category">
+              <h2>
+                <nuxt-icon
+                  name="category"
+                  class="icon icon-category"/>
+                <span>Categoria:</span>
+              </h2>
+              
+              <span class="list-item-text">{{ work.body.category.title }}</span>
+            </li>
+
+            <li class="place">
+              <h2>
+                <nuxt-icon
+                  name="location-pin-solid"
+                  class="icon icon-location-pin"/>
+                <span>Local do Ensaio:</span>
+              </h2>
+              <span class="list-item-text" v-html="work.body.local"></span>
+            </li>
+
+            <li class="site">
+              <h2>
+                <nuxt-icon
+                  name="external-link"
+                  class="icon icon-external-link"/>
+                <span>Site:</span>
+              </h2>
+              <a
+                class="list-item-text"
+                :href="work.body.site"
+                target="_blank">Cliquei aqui para acessar</a>
+            </li>
+
+            <li class="site">
+              <h2>
+                <nuxt-icon
+                  name="instagram"
+                  class="icon icon-instagram"/>
+                <span>Instagram:</span>
+              </h2>
+              <a
+                class="list-item-text"
+                :href="work.body.instagram.uri"
+                target="_blank">{{ work.body.instagram.title }}</a>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div :class="{'has-two': highlight[1]}" class="wrap-img-hero">
         <nuxt-img
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[0].uri + "/public"'
+          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[0].uri + "/" + highlight[0].format'
           width="1920"
+          :alt="highlight[0].alt"
           loading="lazy"/>
         <nuxt-img
           v-if="highlight[1]"
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[1].uri + "/public"'
+          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[1].uri + "/" + highlight[1].format'
           width="1920"
+          :alt="highlight[1].alt"
           loading="lazy"/>
       </div>
+    </div>
+
+    <div class="portfolio-images">
+      <template v-for="item in album">
+        <nuxt-img
+            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.uri + "/" + item.format'
+            width="1920"
+            :alt="item.alt"
+            :class="item.format"
+            loading="lazy"/>
+      </template>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .wrap-hero {
   display: flex;
 
@@ -41,17 +106,23 @@ const highlight = work.value.body.album.filter(item => item.highlight);
     flex-shrink: 0;
     display: flex;
     width: 55%;
-    
-    &.has-two {
-      height: 80dvh;
-      width: auto;
 
+    &.has-two {
       img {
+        object-fit: cover;
         flex-shrink: 0;
-        height: 100%;
-        width: auto;
+        width: 50%;
+
+        &:nth-child(2) {
+          // border-left: 1px solid white
+        }
       }
     }
+  }
+
+  .title {
+    font-family: v.$openExtra;
+    padding-bottom: 1px;
   }
 
   .text {
@@ -64,6 +135,10 @@ const highlight = work.value.body.album.filter(item => item.highlight);
 
   .about-text {
     padding: 180rem v.$space v.$space;
+
+    a {
+      text-decoration: underline;
+    }
 
     .description {
       padding-top: 0;
@@ -98,25 +173,49 @@ const highlight = work.value.body.album.filter(item => item.highlight);
   }
 
   .about-ctas {
-    justify-content: center;
     padding: 20rem v.$space;
     background: #892c1a;
-    align-items: center;
-    height: 150rem;
     display: flex;
 
-    .btn {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      top: 0;
+    .info-list {
+      font-size: 18rem;
+      flex-wrap: wrap;
+      color: white;
+      display: flex;
+      width: 100%;
+      gap: 20rem;
 
-      &:hover {
-        background-color: #6d1d0b !important;
-        color: white;
+      .nuxt-icon {
+        margin-right: 10rem;
+      }
+
+      li {
+        width: calc(50% - 10rem);
+
+        h2 {
+          font-weight: bold;
+          font-size: 19rem;
+        }
+
+        .list-item-text {
+          padding-left: 29rem;
+        }
       }
     }
+  }
+}
+
+.portfolio-images {
+  flex-wrap: wrap;
+  display: flex;
+
+  img {
+    // border: 1px solid white;
+    object-fit: cover;
+  }
+
+  .retrato {
+    width: 33%;
   }
 }
 </style>

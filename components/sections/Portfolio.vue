@@ -185,6 +185,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 <style scoped lang="scss">
   .big-title {
     margin-bottom: -8rem;
+
+    @include m.max(sm) {
+      margin-bottom: 0;
+    }
   }
 
   .wrap-portfolio {
@@ -219,6 +223,11 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
         @include m.max(md) {
           width: 320rem;
         }
+
+        @include m.max(sm) {
+          transform: none;
+          width: 100%;
+        }
       }
 
       &.btn-agende-01 {
@@ -227,10 +236,20 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
         @include m.min(md) {
           width: calc(10% - 15rem);
         }
+
+        @include m.max(sm) {
+          padding: 10px 0;
+          font-size: 25px;
+          width: 100%;
+        }
       }
 
       &.btn-agende-02 {
         width: calc(8% - 15rem);
+
+        @include m.max(sm) {
+          display: none;
+        }
       }
 
       &:hover {
@@ -293,6 +312,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
       &.thumb-card {
         width: calc(45% - 15rem);
 
+        @include m.max(md) {
+          width: 100%;
+        }
+
         &.side-by-side {
           .swiper {
             aspect-ratio: 1/1.3;
@@ -326,6 +349,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
         flex-wrap: wrap;
         padding: 0;
 
+        @include m.max(md) {
+          width: 100%;
+        }
+
         .swiper {
           aspect-ratio: 2/1;
           width: calc(65% - 6rem);
@@ -339,6 +366,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             flex-shrink: 0;
             display: flex;
             width: 100%;
+
+            @include m.max(sm) {
+              padding: 10px;
+            }
           }
 
           .wrap-info {
@@ -364,6 +395,11 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               font-size: 30rem;
               width: 214rem;
             }
+            
+            @include m.max(sm) {
+              font-size: 15px;
+              width: auto;
+            }
           }
 
           &:hover {
@@ -376,7 +412,6 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
           }
         }
       }
-
     }
 
     .swiper {

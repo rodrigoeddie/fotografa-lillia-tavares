@@ -32,6 +32,10 @@ const clickLogo = () => {
   height: 100rem;
   z-index: 9;
 
+  @include m.max(sm) {
+    height: 80px
+  }
+
   .logo {
     position: absolute;
     left: v.$space;
@@ -41,6 +45,12 @@ const clickLogo = () => {
     span {
       text-indent: -9999px;
       display: block;
+    }
+
+    @include m.max(sm) {
+      width: 180px;
+      left: 20px;
+      top: 50px;
     }
   }
 }

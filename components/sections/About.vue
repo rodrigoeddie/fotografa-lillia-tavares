@@ -74,7 +74,7 @@ if (about.value?.body?.value) {
 
       <div class="col about-img">
         <nuxt-img
-          src="assets/images/lillia-tavares-no-escritorio.png"
+          src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"
           alt="Lillia Tavares sentada na mesa, com um notebook e uma câmera fotográfica"
           width="1021"
           height="680"
@@ -121,13 +121,16 @@ if (about.value?.body?.value) {
 <style scoped lang="scss">
   .wrap-about {
     background: white;
-
     @include m.max(md) {
       flex-wrap: wrap;
     }
 
     .about-text {
       padding: 180rem v.$space v.$space;
+
+      @include m.max(sm) {
+        padding-top: 80px;
+      }
 
       .description {
         padding-top: 0;
@@ -148,6 +151,12 @@ if (about.value?.body?.value) {
         font-size: 20rem;
         display: flex;
         gap: 15rem;
+
+        @include m.max(sm) {
+          font-size: 14px;
+          margin: 0 auto;
+          width: 320px;
+        }
 
         &:nth-child(2) {
           border-bottom: #b35c4b 1px solid;

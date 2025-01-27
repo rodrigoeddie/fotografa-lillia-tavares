@@ -10,7 +10,7 @@ const siteConfig = {
 
 export default defineNuxtConfig({
   siteConfig: siteConfig,
-  debug: true,
+  debug: false,
 
   site: {
     url: 'fotografa-lillia-tavares.pages.dev'
@@ -74,7 +74,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: true
+    enabled: false
   },
 
   modules: [

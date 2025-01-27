@@ -11,6 +11,11 @@
     "orientation": "landscape",
     "alt": ""
   },
+  "instagram": {
+    "uri": "https://www.instagram.com/salviacomunicacao",
+    "title": "@salviacomunicacao"
+  },
+  "site": "https://salviacomunicacao.com.br/pagina-link-na-bio/",
   "album": [
     {
       "uri": "7b19614c-3f7a-4c90-3a11-705a9b1e4f00",
@@ -55,13 +60,14 @@
       "alt": "Mulher negra de braços cruzados revida com um blazer off-white"
     },
     {
-      "uri": "8675bf6b-744c-4942-0794-6ad3008d6a00",
+      "uri": "2ad64ae9-5fa9-486b-8216-b66dfeabe600",
       "format": "paisagem",
-      "alt": "Mulher negra de cabelos longos sorrindo com as mãos estendidas mostrando o celular"
+      "alt": "Mulher negra de cabelos longos sentada no sofá branco",
+      "canBeThumb": true
     },
     {
       "uri": "150745d5-1a23-48af-775e-30e33db47900",
-      "format": "retrato",
+      "format": "paisagem",
       "alt": "Mãos olhando mexendo no celular"
     },
     {
@@ -72,10 +78,9 @@
       "highlight": true
     },
     {
-      "uri": "2ad64ae9-5fa9-486b-8216-b66dfeabe600",
-      "format": "paisagem",
-      "alt": "Mulher negra de cabelos longos sentada no sofá branco",
-      "canBeThumb": true
+      "uri": "8675bf6b-744c-4942-0794-6ad3008d6a00",
+      "format": "retrato",
+      "alt": "Mulher negra de cabelos longos sorrindo com as mãos estendidas mostrando o celular"
     }
   ]
 }

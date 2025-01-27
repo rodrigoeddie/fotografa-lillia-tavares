@@ -41,8 +41,27 @@
             font-size: 20rem;
         }
 
+        @include m.max(sm) {
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 14px;
+            height: 100rem;
+            display: flex;
+            bottom: auto;
+            width: 70dvw;
+            gap: 3px;
+            top: 0;
+        }
+        
         .link {
             color: #832b18;
+            
+            @include m.max(sm) {
+                display: inline-block;
+                padding-right: 20px;
+                padding-top: 11px;
+                line-height: 1em;
+            }
 
             &.router-link-active {
                 &::before {
@@ -53,6 +72,10 @@
 
         .separe {
             color: #7b785b;
+
+            @include m.max(sm) {
+                display: none;
+            }
         }
     }
 
@@ -63,8 +86,17 @@
             font-size: 29rem;
         }
 
+        @include m.max(sm) {
+            font-size: 16px;
+            width: 100dvw;
+        }
+
         .link {
             color: white;
+
+            @include m.max(sm) {
+                display: block;
+            }
 
             &.router-link-active {
                 &::before {
@@ -94,6 +126,14 @@
                 bottom: 0;
                 right: 0;
                 left: 0;
+
+                @include m.max(sm) {
+                    content: none;
+                }
+            }
+
+            @include m.max(sm) {
+                display: none;
             }
         }
 

@@ -139,7 +139,7 @@
 
       @include m.max(md) {
         align-items: flex-start;
-        width: 50%;
+        width: 100%;
       }
 
       .big-title {
@@ -160,7 +160,7 @@
         font-size: 26rem;
 
         @include m.max(md) {
-          font-size: 19rem;
+          font-size: 16px;
         }
       }
 
@@ -186,7 +186,7 @@
       gap: 6px;
 
       @include m.max(md) {
-        width: 50%;
+        width: 100%;
       }
 
       &:before {
@@ -206,6 +206,10 @@
       img {
         height: auto;
         width: calc(50% - 3px);
+
+        @include m.max(md) {
+          width: 100%;
+        }
       }
     }
 
