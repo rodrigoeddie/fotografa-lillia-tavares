@@ -6,18 +6,14 @@
     "title": "Corporativo"
   },
   "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
-  "highlightImage": {
-    "uri": "",
-    "orientation": "landscape",
-    "alt": ""
-  },
   "site": "https://andresamaia.my.canva.site/",
   "album": [
     {
       "uri": "0a37ed18-db3d-49b2-ac20-68f472793f00",
       "format": "paisagem",
       "alt": "Mulher com coque e roupa branca, sentada no tapete, encostada no sofá tomando um chá",
-      "canBeThumb": true
+      "canBeThumb": true,
+      "highlight": true
     },
     {
       "uri": "60ddc9c8-058d-441e-1608-ca6109de1200",

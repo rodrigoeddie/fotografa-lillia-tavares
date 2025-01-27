@@ -17,13 +17,15 @@
       "uri": "9b642668-6767-4ca4-8174-e6b0ab4f5200",
       "format": "retrato",
       "alt": "Mulher de cabelos enrolados presos em um coque de blazer azul e calças cinzas, ela está sentada de pernas cruzadas e braços sobre o joelho",
-      "canBeThumb": true
+      "canBeThumb": true,
+      "highlight": true
     },
     {
       "uri": "a5cfcbd6-014e-47c8-675d-03b246497f00",
       "format": "retrato",
       "alt": "Mulher de cabelos enrolados e blazer azul",
-      "canBeThumb": true
+      "canBeThumb": true,
+      "highlight": true
     },
     {
       "uri": "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
