@@ -76,11 +76,24 @@ const photos = [
   width: 45%;
   z-index: 2;
   top: 0;
+
+  @media (prefers-color-scheme: dark) {
+    background: v.$dark-green;
+  }
+
+  @include m.max(sm) {
+    position: static;
+    width: 100%;
+  }
 }
 
 .intro-hero,
 .wrap-hero {
   display: flex;
+
+  @include m.max(sm) {
+    flex-direction: column-reverse;
+  }
 
   .text {
     justify-content: flex-end;
@@ -90,6 +103,10 @@ const photos = [
     display: flex;
     width: 45%;
 
+    @include m.max(sm) {
+      width: 100%;
+    }
+
     @media (prefers-color-scheme: dark) {
       background: v.$dark-green;
     }
@@ -97,6 +114,10 @@ const photos = [
 
   .about-text {
     padding: 180rem v.$space v.$space;
+
+    @include m.max(sm) {
+      padding-top: 80px;
+    }
 
     .description {
       padding-top: 0;
@@ -167,6 +188,16 @@ const photos = [
 
   .img-hero {
     width: 55%;
+
+    @include m.max(sm) {
+      width: 100%;
+    }
+  }
+}
+
+.wrap-hero {
+  @include m.max(sm) {
+    display: none;
   }
 }
 </style>

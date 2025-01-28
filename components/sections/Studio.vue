@@ -77,6 +77,10 @@
     overflow: hidden;
 
     &.from-page-studio {
+      @include m.max(sm) {
+        padding-top: 80px;
+      }
+
       .container {
         background: white;
 

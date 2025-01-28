@@ -14,11 +14,21 @@ const formData = ref<FormData>({
 
 const errors = ref<{ [key: string]: string }>({});
 
-const validateField = (field: keyof FormData) => {
-  if (field === 'date' && !formData.value.date) {
-    const currentDate = new Date();
-    const selectedDate = new Date(formData.value.date);
+const formatDate = (date: string) => {
+  const [year, month, day] = date.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
 
+const validateField = (field: keyof FormData) => {
+  if (field === 'date') {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
+
+    const selectedDate = formatDate(formData.value.date);
+    selectedDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
+
+    console.log('Current Date:', currentDate);
+    console.log('Selected Date:', selectedDate);
     if (!formData.value.date) {
       errors.value.date = 'Por favor, selecione uma data.';
     } else if (selectedDate <= currentDate) {
@@ -34,18 +44,16 @@ const validateField = (field: keyof FormData) => {
     delete errors.value.sessionType;
   }
 };
-
+console.log(errors.value.sessionType);
 const enviar = async () => {
-  console.log('teste');
-
   validateField('date');
   validateField('sessionType');
+
+  console.log(errors);
 
   if (Object.keys(errors.value).length === 0) {
     // Lógica para enviar o formulário
     console.log('Formulário enviado com sucesso!', formData.value);
-  } else {
-    alert('Erro no formulário');
   }
 };
 </script>
@@ -71,9 +79,8 @@ const enviar = async () => {
                 id="date"
                 required
                 v-model="formData.date"
-                type="date"
-                @change="validateField('date')">
-              <span class="error-msg">{{ errors.date }}</span>
+                type="date">
+                <span class="error-msg" :class="{ show: errors.date }">{{ errors.date }}</span>
             </div>
 
             <div class="field-group">
@@ -84,8 +91,7 @@ const enviar = async () => {
                   type="radio"
                   id="corporativo"
                   value="Corporativo"
-                  v-model="formData.sessionType"
-                  @change="validateField('sessionType')">
+                  v-model="formData.sessionType">
 
                 <label for="corporativo" class="label-radio">
                   Corporativo
@@ -120,7 +126,7 @@ const enviar = async () => {
                 </label>
               </div>
 
-              <span class="error-msg">{{ errors.sessionType }}</span>
+              <span class="error-msg" :class="{ show: errors.sessionType }">{{ errors.sessionType }}</span>
             </div>
 
             <button class="btn-send">
@@ -188,6 +194,7 @@ const enviar = async () => {
       }
 
       .field-group {
+        align-items: flex-start;
         flex-direction: column;
         display: flex;
         gap: 10rem;
@@ -220,7 +227,14 @@ const enviar = async () => {
       .error-msg {
         font-size: 13rem;
         margin-top: 3rem;
-        color: red;
+        color: white;
+        background: red;
+        padding: 5px 15px;
+        display: none;
+
+        &.show {
+          display: inline-block;
+        }
       }
 
       .btn-send {
@@ -273,6 +287,10 @@ const enviar = async () => {
 
     .about-text {
       padding: 180rem v.$space v.$space;
+
+      @include m.max(sm) {
+        padding-top: 80px;
+      }
 
       .description {
         padding-top: 0;

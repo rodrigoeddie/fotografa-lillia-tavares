@@ -78,6 +78,10 @@
         align-items: flex-start;
         width: 50%;
       }
+      
+      @include m.max(sm) {
+        width: 100%;
+      }
 
       .big-title {
         padding-bottom: 30rem;
@@ -126,6 +130,10 @@
         width: 50%;
       }
 
+      @include m.max(sm) {
+        width: 100%;
+      }
+
       &:before {
         content: '';
 
@@ -143,6 +151,10 @@
       img {
         height: auto;
         width: calc(50% - 3px);
+
+        @include m.max(sm) {
+          width: 100%;
+        }
       }
     }
 
