@@ -108,6 +108,13 @@
         }
       }
 
+      @media (prefers-color-scheme: dark) and (min-width: 1024px) {
+        &:before {
+          background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
+          // background: v.$dark-red;
+        }
+      }
+
       @include m.min(md) {
         &:after {
           content: '';
@@ -121,6 +128,13 @@
           left: 50vw;
           bottom: 0;
           top: 0;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) and (min-width: 1024px) {
+        &:after {
+          background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-green 1px);
+          // background: v.$dark-green;
         }
       }
 
@@ -184,6 +198,10 @@
       display: flex;
       z-index: 3;
       gap: 6px;
+        
+      @media (prefers-color-scheme: dark) {
+        background:  v.$dark-red;
+      }
 
       @include m.max(md) {
         width: 100%;
@@ -201,6 +219,10 @@
         right: 0;
         left: 0;
         top: 0;
+        
+        @media (prefers-color-scheme: dark) {
+          background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
+        }
       }
 
       img {

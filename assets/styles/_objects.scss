@@ -71,6 +71,10 @@
   &.green {
     color: v.$green;
 
+    @media (prefers-color-scheme: dark) {
+      color: v.$dark-green;
+    }
+
     .big {
       @include faux-bold(v.$green);
     }
@@ -78,19 +82,35 @@
     .box {
       color: #f4f2e9;
       background: v.$green;
+
+      @media (prefers-color-scheme: dark) {
+        background: v.$dark-green;
+      }
     }
   }
 
   &.red {
     color: v.$light-red;
 
+    @media (prefers-color-scheme: dark) {
+      color: v.$dark-green;
+    }
+
     .big {
       @include faux-bold(v.$light-red);
+
+      @media (prefers-color-scheme: dark) {
+        @include faux-bold(v.$green);
+      }
     }
 
     .box {
-      color: #f4f2e9;
       background: v.$light-red;
+      color: #f4f2e9;
+
+      @media (prefers-color-scheme: dark) {
+        background: v.$dark-green;
+      }
     }
   }
 }
@@ -120,6 +140,10 @@
 
   &.green {
     color: v.$green;
+    
+    @media (prefers-color-scheme: dark) {
+      color: v.$dark-green;
+    }
   }
 }
 

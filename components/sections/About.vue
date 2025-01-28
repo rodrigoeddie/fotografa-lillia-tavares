@@ -53,6 +53,7 @@ if (about.value?.body?.value) {
               class="icon icon-calendar"/>
             <span><u>Clique aqui</u> e <b>agende</b> seu ensaio fotográfico</span>
           </NuxtLink>
+
           <NuxtLink
             to="/estudio"
             class="link">
@@ -61,6 +62,7 @@ if (about.value?.body?.value) {
               class="icon icon-location-pin"/>
             <span>Conheça meu <b>estúdio</b>, também disponível para <b>locação</b></span>
           </NuxtLink>
+
           <NuxtLink
             to="/trabalhos"
             class="link">
@@ -99,6 +101,10 @@ if (about.value?.body?.value) {
             text-decoration: underline;
             background: #f4f2e9;
 
+            @media (prefers-color-scheme: dark) {
+              color: black;
+            }
+
             &:hover {
               background-color: v.$red;
               color: white;
@@ -121,6 +127,11 @@ if (about.value?.body?.value) {
 <style scoped lang="scss">
   .wrap-about {
     background: white;
+
+    @media (prefers-color-scheme: dark) {
+      background: v.$dark-green;
+    }
+
     @include m.max(md) {
       flex-wrap: wrap;
     }

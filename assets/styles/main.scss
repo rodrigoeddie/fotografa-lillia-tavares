@@ -32,4 +32,9 @@ body {
     background-size: 1100rem;
     font-family: v.$open;
     font-size: 16rem;
+
+    @media (prefers-color-scheme: dark) {
+        background: #918d6a;
+        color: white;
+    }
 }

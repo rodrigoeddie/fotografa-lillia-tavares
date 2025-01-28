@@ -17,10 +17,18 @@
               @click="clickLogo"
               class="logo">
                 <nuxt-img
-                src="assets/images/logo-lillia-tavares-fotografia.png"
-                alt="Logo Lillia Tavares Fotografia"
-                width="370"
-                loading="lazy"/>
+                  src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/054a1bce-78a3-4e53-7afa-a30d92e86500/logo"
+                  alt="Logo Lillia Tavares Fotografia"
+                  width="370"
+                  class="logo-black"
+                  loading="lazy"/>
+                
+                <nuxt-img
+                  src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"
+                  alt="Logo Lillia Tavares Fotografia"
+                  width="385"
+                  class="logo-white"
+                  loading="lazy"/>
                 <span>Fotógrafa Lillia Tavares</span>
             </NuxtLink>
 
@@ -45,6 +53,10 @@
         display: flex;
         gap: v.$space;
 
+        @media (prefers-color-scheme: dark) {
+            background: v.$dark-red;
+        }
+
         @include m.max(md) {
             gap: 20rem;
         }
@@ -61,10 +73,29 @@
             right: 0;
             left: 0;
             top: 0;
+
+            @media (prefers-color-scheme: dark) {
+                background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
+                background-color: v.$dark-red;
+            }
         }
 
         .logo {
             width: 370rem;
+
+            .logo-black {
+                @media (prefers-color-scheme: dark) {
+                    display: none;
+                }
+            }
+
+            .logo-white {
+                display: none;
+
+                @media (prefers-color-scheme: dark) {
+                    display: block;
+                }
+            }
 
             @include m.max(md) {
                 width: 245rem;
@@ -101,5 +132,9 @@
         padding: 20px;
         color: v.$red;
         width: 100%;
+    
+        @media (prefers-color-scheme: dark) {
+        color: v.$dark-red;
+        }
     }
 </style>

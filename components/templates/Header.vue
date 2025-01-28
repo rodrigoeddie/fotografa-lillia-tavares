@@ -14,9 +14,16 @@ const clickLogo = () => {
     <h1 class="logo">
       <NuxtLink to="/" @click="clickLogo">
         <nuxt-img
-          src="assets/images/logo-lillia-tavares-fotografia.png"
+          src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/054a1bce-78a3-4e53-7afa-a30d92e86500/logo"
           alt="Logo Lillia Tavares Fotografia"
           width="385"
+          class="logo-black"
+          loading="lazy"/>
+        <nuxt-img
+          src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"
+          alt="Logo Lillia Tavares Fotografia"
+          width="385"
+          class="logo-white"
           loading="lazy"/>
         <span>Lillia Tavares Fotografia</span>
       </NuxtLink>
@@ -41,6 +48,20 @@ const clickLogo = () => {
     left: v.$space;
     width: 385rem;
     top: 45rem;
+
+    .logo-black {
+      @media (prefers-color-scheme: dark) {
+        display: none;
+      }
+    }
+
+    .logo-white {
+      display: none;
+
+      @media (prefers-color-scheme: dark) {
+        display: block;
+      }
+    }
 
     span {
       text-indent: -9999px;

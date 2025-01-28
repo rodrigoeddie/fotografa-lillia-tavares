@@ -263,10 +263,22 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
       background: white;
       padding: 30rem;
 
+      @media (prefers-color-scheme: dark) {
+        background: v.$red;
+      }
+
+      @include m.max(sm) {
+        padding: 10px;
+      }
+
       .wrap-info {
         padding-bottom: 50rem;
         padding-top: 20rem;
         color: v.$dark-red;
+
+        @media (prefers-color-scheme: dark) {
+          color: white
+        }
 
         .title {
           font-size: 23rem;
@@ -299,6 +311,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               width: 12rem;
               left: 2rem;
               top: 8rem;
+
+              @media (prefers-color-scheme: dark) {
+                background: white;
+              }
             }
           }
 
@@ -366,6 +382,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             flex-shrink: 0;
             display: flex;
             width: 100%;
+
+            @media (prefers-color-scheme: dark) {
+              background: v.$red;
+            }
 
             @include m.max(sm) {
               padding: 10px;
