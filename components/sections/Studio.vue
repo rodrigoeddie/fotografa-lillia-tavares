@@ -105,6 +105,14 @@
           background: transparent;
         }
       }
+
+      .side-text {
+        padding-bottom: 0;
+        
+        @include m.max(sm) {
+          padding-bottom: 30px;
+        }
+      }
     }
 
     .wrap-map {
@@ -176,6 +184,10 @@
       display: flex;
       width: 32%;
 
+      @include m.max(lg) {
+        width: 45%;
+      }
+
       @include m.max(md) {
         align-items: flex-start;
         width: 100%;
@@ -184,6 +196,10 @@
       .big-title {
         padding-bottom: 30rem;
         padding-top: 0;
+
+        @include m.max(lg) {
+          padding-bottom: 0;
+        }
 
         @include m.max(md) {
           padding-bottom: 10rem;
@@ -226,6 +242,10 @@
         margin-top: 60rem;
         float: right;
 
+        @include m.max(lg) {
+          margin-top: 20px;
+        }
+
         @include m.max(md) {
           display: inline-flex;
           margin-top: 30rem;
@@ -242,6 +262,10 @@
       display: flex;
       z-index: 3;
       gap: 6px;
+
+      @include m.max(lg) {
+        width: 55%;
+      }
 
       &.is-studio {
         padding: 6px;

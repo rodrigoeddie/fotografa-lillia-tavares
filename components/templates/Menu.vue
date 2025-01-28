@@ -37,8 +37,16 @@
         bottom: -11rem;
         right: 0;
 
+        @include m.max(lg) {
+            right: 20px;
+        }
+
         @include m.max(md) {
             font-size: 20rem;
+        }
+        
+        @include m.max(sm) {
+            right: 0;
         }
 
         @include m.max(sm) {
@@ -85,6 +93,10 @@
 
     &.from-footer {
         font-size: 55rem;
+
+        @include m.max(lg) {
+            font-size: 40rem;
+        }
 
         @include m.max(md) {
             font-size: 29rem;

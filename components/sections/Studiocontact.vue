@@ -73,13 +73,19 @@
       display: flex;
       width: 32%;
 
+      @include m.max(lg) {
+        padding-bottom: 0;
+      }
+
       @include m.max(md) {
         align-items: flex-start;
         width: 50%;
       }
-      
+
       @include m.max(sm) {
         width: 100%;
+        padding-bottom: 30px;
+        padding-top: 30px;
       }
 
       .big-title {

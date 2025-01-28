@@ -91,14 +91,22 @@ const album = work.value.body.album.filter(item => !item.highlight);
             :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.uri + "/" + item.format'
             width="1920"
             :alt="item.alt"
-            :class="item.format"
+            :class="[item.format, item.customClass]"
             loading="lazy"/>
       </template>
+
+      <div class="empty"></div>
+      <div class="empty"></div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+.empty {
+  min-width: 33%;
+  height: 1px;
+}
+
 .wrap-hero {
   display: flex;
 
@@ -235,6 +243,14 @@ const album = work.value.body.album.filter(item => !item.highlight);
 
   .retrato {
     width: 33%;
+    
+    &.w50 {
+      width: 50%;
+
+      @include m.max(sm) {
+        width: 100%;
+      }
+    }
 
     @include m.max(sm) {
       width: 100%;

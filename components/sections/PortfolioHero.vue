@@ -72,14 +72,13 @@ const photos = [
 
 <style scoped lang="scss">
 .intro-hero {
-  background: white;
   position: absolute;
   width: 45%;
   z-index: 2;
   top: 0;
 
-  @media (prefers-color-scheme: dark) {
-    background: v.$dark-green;
+  @include m.max(lg) {
+    width: 50%;
   }
 
   @include m.max(sm) {
@@ -104,6 +103,10 @@ const photos = [
     display: flex;
     width: 45%;
 
+    @include m.max(lg) {
+      width: 50%;
+    }
+
     @include m.max(sm) {
       width: 100%;
     }
@@ -116,8 +119,17 @@ const photos = [
   .about-text {
     padding: 180rem v.$space v.$space;
 
+    @include m.max(lg) {
+      padding-top: 100px;
+    }
+
     @include m.max(sm) {
       padding-top: 80px;
+      background: white;
+    }
+
+    @media (prefers-color-scheme: dark) and (max-width: 900px) {
+      background: v.$dark-green;
     }
 
     .description {
@@ -152,11 +164,20 @@ const photos = [
 
       .title {
         padding-top: 20rem;
+
+        @include m.max(lg) {
+          padding-bottom: 0;
+          padding-top: 10px;
+        }
       }
 
       .description {
         padding-bottom: 20rem;
         margin-bottom: -35rem;
+
+        @include m.max(lg) {
+          padding-bottom: 10px;
+        }
 
         p {
           padding-top: 0 !important;
@@ -172,6 +193,10 @@ const photos = [
     align-items: center;
     height: 150rem;
     display: flex;
+
+    @include m.max(lg) {
+      height: 80rem;
+    }
 
     .btn {
       position: absolute;
@@ -189,6 +214,10 @@ const photos = [
 
   .img-hero {
     width: 55%;
+
+    @include m.max(lg) {
+      width: 50%;
+    }
 
     @include m.max(sm) {
       width: 100%;

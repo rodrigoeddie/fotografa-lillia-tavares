@@ -140,6 +140,10 @@ if (about.value?.body?.value) {
     .about-text {
       padding: 180rem v.$space v.$space;
 
+      @include m.max(lg) {
+        padding-top: 100px;
+      }
+
       @include m.max(sm) {
         padding-top: 80px;
       }

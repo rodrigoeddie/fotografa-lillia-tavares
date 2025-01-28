@@ -40,6 +40,10 @@ button {
   z-index: 3;
   bottom: 20rem;
 
+  @include m.max(lg) {
+    bottom: 14rem;
+  }
+
   .icon svg {
     height: 17rem;
     width: 27rem;
@@ -49,12 +53,21 @@ button {
   &.btnPrev {
     right: 90rem;
 
+    @include m.max(lg) {
+      right: 101rem;
+    }
+
     .icon {
       transform: rotate(180deg);
     }
   }
+
   &.btnNext {
     right: 20rem;
+
+    @include m.max(lg) {
+      right: 31rem;
+    }
   }
 }
 </style>

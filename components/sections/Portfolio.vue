@@ -254,6 +254,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
       &.btn-agende-02 {
         width: calc(8% - 15rem);
 
+        @include m.max(lg) {
+          font-size: 28px;
+        }
+
         @include m.max(sm) {
           display: none;
         }
@@ -416,6 +420,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             justify-content: flex-end;
             font-size: 33rem;
             width: 550rem;
+
+            @include m.max(lg) {
+              width: 398rem;
+            }
 
             @include m.max(md) {
               justify-content: center;

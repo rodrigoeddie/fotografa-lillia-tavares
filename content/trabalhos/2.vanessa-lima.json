@@ -34,11 +34,13 @@
     {
       "uri": "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
       "format": "retrato",
+      "customClass": "w50",
       "alt": "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm"
     },
     {
       "uri": "a51b820d-2dcd-473b-1527-0b41ddbb1600",
       "format": "retrato",
+      "customClass": "w50",
       "alt": "Mulher de cabelos enrolados com uma blusinha preta"
     }
   ]
