@@ -19,6 +19,14 @@ const formatDate = (date: string) => {
   return new Date(year, month - 1, day);
 };
 
+const formatDateToBR = (date: string) => {
+  const [year, month, day] = date.split('-').map(Number);
+  const formattedMonth     = String(month).padStart(2, '0');
+  const formattedDay       = String(day).padStart(2, '0');
+
+  return `${formattedDay}/${formattedMonth}/${year}`;
+};
+
 const validateField = (field: keyof FormData) => {
   if (field === 'date') {
     const currentDate = new Date();
@@ -27,8 +35,6 @@ const validateField = (field: keyof FormData) => {
     const selectedDate = formatDate(formData.value.date);
     selectedDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
 
-    console.log('Current Date:', currentDate);
-    console.log('Selected Date:', selectedDate);
     if (!formData.value.date) {
       errors.value.date = 'Por favor, selecione uma data.';
     } else if (selectedDate <= currentDate) {
@@ -44,16 +50,17 @@ const validateField = (field: keyof FormData) => {
     delete errors.value.sessionType;
   }
 };
-console.log(errors.value.sessionType);
+
 const enviar = async () => {
   validateField('date');
   validateField('sessionType');
 
-  console.log(errors);
-
   if (Object.keys(errors.value).length === 0) {
-    // Lógica para enviar o formulário
-    console.log('Formulário enviado com sucesso!', formData.value);
+    const whatsappNumber = '5511911159795';
+    const message        = `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${ formatDateToBR(formData.value.date) } com o tipo de ensaio ${ formData.value.sessionType }. (mensagem do site)`;
+    const whatsappUrl    = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
   }
 };
 </script>
@@ -90,7 +97,9 @@ const enviar = async () => {
                 <input
                   type="radio"
                   id="corporativo"
+                  required
                   value="Corporativo"
+                  name="type"
                   v-model="formData.sessionType">
 
                 <label for="corporativo" class="label-radio">
@@ -104,8 +113,8 @@ const enviar = async () => {
                   id="intimista"
                   required
                   value="Intimista"
-                  v-model="formData.sessionType"
-                  @change="validateField('sessionType')">
+                  name="type"
+                  v-model="formData.sessionType">
 
                 <label for="intimista" class="label-radio">
                   Intimista
@@ -118,8 +127,8 @@ const enviar = async () => {
                   id="outros"
                   required
                   value="Outros"
-                  v-model="formData.sessionType"
-                  @change="validateField('sessionType')">
+                  name="type"
+                  v-model="formData.sessionType">
 
                 <label for="outros" class="label-radio">
                   Outros

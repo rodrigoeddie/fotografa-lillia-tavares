@@ -108,7 +108,7 @@
 
       .side-text {
         padding-bottom: 0;
-        
+
         @include m.max(sm) {
           padding-bottom: 30px;
         }
