@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-const $route      = useRoute();
-const currentPath = $route.path;
+const $route       = useRoute();
+const currentPath  = $route.path;
+const configPublic = useRuntimeConfig().public;
 
 const filteredSlides = (item) => {
   const hasPaisagem = item.album.some(slide => slide.format === 'paisagem');
@@ -77,18 +78,17 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 v-for="slide in item.photos"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
                   v-if="slide.format=='retrato'"
-                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
-                  :modifiers="{blur: 10}"
                   loading="lazy"/>
               </SwiperSlide>
 
@@ -105,18 +105,17 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 :key="slide.id"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
                   loading="lazy"/>
                 <nuxt-img
                   v-if="slide.format=='retrato'"
-                  :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
-                  :modifiers="{blur: 10}"
                   loading="lazy"/>
               </SwiperSlide>
 

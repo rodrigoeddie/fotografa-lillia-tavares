@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const configPublic = useRuntimeConfig().public;
+
 const { gtag } = useGtag();
 
 const clickLogo = () => {
@@ -14,16 +16,18 @@ const clickLogo = () => {
     <h1 class="logo">
       <NuxtLink to="/" @click="clickLogo">
         <nuxt-img
-          src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/054a1bce-78a3-4e53-7afa-a30d92e86500/logo"
+          :src='configPublic.cloudflareURI + "054a1bce-78a3-4e53-7afa-a30d92e86500/logo"'
           alt="Logo Lillia Tavares Fotografia"
           width="385"
           class="logo-black"
+          fetchpriority="high"
           loading="lazy"/>
         <nuxt-img
-          src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"
+          :src='configPublic.cloudflareURI + "8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"'
           alt="Logo Lillia Tavares Fotografia"
           width="385"
           class="logo-white"
+          fetchpriority="high"
           loading="lazy"/>
         <span>Lillia Tavares Fotografia</span>
       </NuxtLink>

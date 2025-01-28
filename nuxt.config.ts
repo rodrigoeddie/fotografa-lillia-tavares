@@ -129,6 +129,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      cloudflareURI: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/',
     }
   },
 

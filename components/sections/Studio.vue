@@ -1,7 +1,8 @@
 
 <script setup lang="ts">
-  const $route      = useRoute();
-  const currentPath = $route.path;
+  const $route       = useRoute();
+  const currentPath  = $route.path;
+  const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -29,39 +30,35 @@
         </NuxtLink>
       </div>
 
-      <div class="side wrap-images">
+      <div class="side wrap-images" :class="{'is-studio': currentPath === '/estudio'}">
           <nuxt-img
-              src='assets/images/cenario-intimista-e-casual-do-estudio-fotografa-lillia-tavares.png'
-              width="1280"
-              height="853"
+              :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
+              width="612"
+              height="408"
               class="img-studio"
-              format="webp"
-              quality="85"
-              loading="lazy"/>
+              alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+              loading="lazy" />
           <nuxt-img
-              src='assets/images/cantinho-do-cafe-do-estudio-fotografa-lillia-tavares.png'
-              width="1280"
-              height="853"
+              :src='configPublic.cloudflareURI + "45bb3714-18c8-4b40-f986-5b0074589c00/thumb"'
+              width="612"
+              height="408"
               class="img-studio"
-              format="webp"
-              quality="85"
-              loading="lazy"/>
+              alt="Um canto do café, com xicaras e canecas, e várias cápsulas de Dolce Gusto"
+              loading="lazy" />
           <nuxt-img
-              src='assets/images/escritorio-e-cenario-do-estudio-fotografa-lillia-tavares.png'
-              width="1280"
-              height="853"
+              :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
+              width="612"
+              height="408"
               class="img-studio"
-              format="webp"
-              quality="85"
-              loading="lazy"/>
+              alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
+              loading="lazy" />
           <nuxt-img
-              src='assets/images/fundo-fotografico-do-estudio-fotografa-lillia-tavares.png'
-              width="1280"
-              height="853"
+              :src='configPublic.cloudflareURI + "c9f3cea1-c80c-4822-f585-144615c7ec00/thumb"'
+              width="612"
+              height="408"
               class="img-studio"
-              format="webp"
-              quality="85"
-              loading="lazy"/>
+              alt="O fundo infinito do estúdio, há 3 rolos de cores de fundo (branco, bege, e azul)"
+              loading="lazy" />
       </div>
 
       <div class="wrap-map" v-if="currentPath === '/estudio'">
@@ -206,6 +203,10 @@
       display: flex;
       z-index: 3;
       gap: 6px;
+
+      &.is-studio {
+        padding: 6px;
+      }
 
       @media (prefers-color-scheme: dark) {
         background:  v.$dark-red;

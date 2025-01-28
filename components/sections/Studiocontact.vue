@@ -2,6 +2,7 @@
 <script setup lang="ts">
   const $route      = useRoute();
   const currentPath = $route.path;
+  const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -28,21 +29,19 @@
 
       <div class="side wrap-images">
           <nuxt-img
-              src='assets/images/cenario-intimista-e-casual-do-estudio-fotografa-lillia-tavares.png'
-              width="1280"
-              height="853"
+              :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
+              width="612"
+              height="408"
               class="img-studio"
-              format="webp"
-              quality="85"
-              loading="lazy"/>
+              alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+              loading="lazy" />
           <nuxt-img
-              src='assets/images/escritorio-e-cenario-do-estudio-fotografa-lillia-tavares.png'
-              width="1280"
-              height="853"
+              :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
+              width="612"
+              height="408"
               class="img-studio"
-              format="webp"
-              quality="85"
-              loading="lazy"/>
+              alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
+              loading="lazy" />
       </div>
 
       <h2 class="title title-map">Estamos localizados em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light"><span>Mogi das cruzes, SP</span>. <nuxt-icon name="external-link" class="icon"/></a></h2>

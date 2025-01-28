@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const configPublic = useRuntimeConfig().public;
+
 const {
   data: about
 } = await useAsyncData(() => {
@@ -9,7 +11,7 @@ const renderElement = (el) => {
   if (typeof el === 'string') {
     return el;
   }
-  
+
   const [tag, attrs, ...children] = el;
 
   if (tag != 'h1') {
@@ -76,13 +78,11 @@ if (about.value?.body?.value) {
 
       <div class="col about-img">
         <nuxt-img
-          src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"
+          :src='configPublic.cloudflareURI + "9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"'
           alt="Lillia Tavares sentada na mesa, com um notebook e uma câmera fotográfica"
           width="1021"
           height="680"
-          format="webp"
-          quality="85"
-          fit="fill"
+          fetchpriority="high"
           class="img cover"/>
       </div>
     </div>
@@ -192,6 +192,10 @@ if (about.value?.body?.value) {
 
       @include m.max(md) {
         width: 100%;
+      }
+
+      @include m.max(sm) {
+        display: none;
       }
     }
   }

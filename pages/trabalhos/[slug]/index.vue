@@ -27,7 +27,7 @@ const album = work.value.body.album.filter(item => !item.highlight);
                   class="icon icon-category"/>
                 <span>Categoria:</span>
               </h2>
-              
+
               <span class="list-item-text">{{ work.body.category.title }}</span>
             </li>
 
@@ -112,10 +112,6 @@ const album = work.value.body.album.filter(item => !item.highlight);
         object-fit: cover;
         flex-shrink: 0;
         width: 50%;
-
-        &:nth-child(2) {
-          // border-left: 1px solid white
-        }
       }
     }
   }
@@ -131,6 +127,11 @@ const album = work.value.body.album.filter(item => !item.highlight);
     background: white;
     display: flex;
     width: 45%;
+    
+    @media (prefers-color-scheme: dark) {
+      background: v.$dark-green;
+      color: white
+    }
   }
 
   .about-text {
@@ -206,6 +207,7 @@ const album = work.value.body.album.filter(item => !item.highlight);
 }
 
 .portfolio-images {
+  justify-content: space-between;
   flex-wrap: wrap;
   display: flex;
 

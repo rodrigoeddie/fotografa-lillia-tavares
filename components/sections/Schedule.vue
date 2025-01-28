@@ -1,6 +1,6 @@
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+const configPublic = useRuntimeConfig().public;
 
 interface FormData {
   date: string;
@@ -139,13 +139,11 @@ const enviar = async () => {
 
       <div class="col about-img">
         <nuxt-img
-          src="assets/images/fundo-fotografico-com-equipamentos.png"
+          :src='configPublic.cloudflareURI + "0e29fb7d-191c-4447-7a71-95448ed4fd00/public"'
           alt="Um fundo fotográfico com equipamentos fotográficos"
           width="1021"
           height="680"
-          format="webp"
-          quality="85"
-          fit="fill"
+          fetchpriority="high"
           class="img cover"/>
       </div>
     </div>
