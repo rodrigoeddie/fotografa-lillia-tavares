@@ -201,6 +201,12 @@ if (about.value?.body?.value) {
       @include m.max(sm) {
         display: none;
       }
+
+      .cover {
+        @include m.max(sm) {
+          display: none;
+        }
+      }
     }
   }
 // background: v.$green;
