@@ -102,7 +102,8 @@ if (about.value?.body?.value) {
             background: #f4f2e9;
 
             @media (prefers-color-scheme: dark) {
-              color: black;
+              background: v.$dark-green;
+              color: white;
             }
 
             &:hover {

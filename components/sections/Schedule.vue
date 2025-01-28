@@ -170,6 +170,11 @@ const enviar = async () => {
         padding: 15rem;
         height: 50rem;
         width: 100%;
+
+        @media (prefers-color-scheme: dark) {
+          border-color: white;
+          color-scheme: dark;
+        }
       }
 
       input:focus,
@@ -242,6 +247,14 @@ const enviar = async () => {
 
         &:hover {
           background-color: v.$dark-green;
+
+          @media (prefers-color-scheme: dark) {
+            background: v.$light-green;
+
+            span {
+              color: black
+            }
+          }
         }
       }
     }
@@ -249,6 +262,10 @@ const enviar = async () => {
 
   .wrap-schedule {
     background: white;
+
+    @media (prefers-color-scheme: dark) {
+      background: v.$dark-green;
+    }
 
     @include m.max(md) {
       flex-wrap: wrap;

@@ -79,6 +79,10 @@
     &.from-page-studio {
       .container {
         background: white;
+
+        @media (prefers-color-scheme: dark) {
+          background: transparent;
+        }
       }
     }
 
@@ -104,7 +108,7 @@
           width: 100vw;
           left: 50vw;
           bottom: 0;
-          top: 0;
+          top: -1px;
         }
       }
 
@@ -198,7 +202,7 @@
       display: flex;
       z-index: 3;
       gap: 6px;
-        
+
       @media (prefers-color-scheme: dark) {
         background:  v.$dark-red;
       }
@@ -219,7 +223,7 @@
         right: 0;
         left: 0;
         top: 0;
-        
+
         @media (prefers-color-scheme: dark) {
           background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
         }
@@ -250,6 +254,10 @@
         transition: background-color 0.2s, color 0.2s;
         background: #f4f2e9;
         padding: 3rem 7rem;
+
+        @media (prefers-color-scheme: dark) {
+          background: v.$dark-red;
+        }
 
         span {
           text-decoration: underline;

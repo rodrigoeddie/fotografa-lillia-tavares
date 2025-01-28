@@ -52,10 +52,14 @@
             gap: 3px;
             top: 0;
         }
-        
+
         .link {
             color: #832b18;
-            
+
+            @media (prefers-color-scheme: dark) {
+                color: white;
+            }
+
             @include m.max(sm) {
                 display: inline-block;
                 padding-right: 20px;
@@ -140,8 +144,16 @@
         &:hover {
             color: v.$dark-green;
 
+            @media (prefers-color-scheme: dark) {
+                color: black;
+            }
+
             &::before {
                 background: v.$dark-green;
+
+                @media (prefers-color-scheme: dark) {
+                    background: black;
+                }
             }
         }
     }

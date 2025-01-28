@@ -135,12 +135,17 @@
       background: #f4f2e9;
       font-weight: normal;
       color: v.$green;
+
+      @media (prefers-color-scheme: dark) {
+        background: v.$green;
+        color: #f4f2e9;
+      }
     }
   }
 
   &.green {
     color: v.$green;
-    
+
     @media (prefers-color-scheme: dark) {
       color: v.$dark-green;
     }

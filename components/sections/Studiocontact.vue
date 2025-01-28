@@ -16,7 +16,7 @@
         </h1>
 
         <p class="description green">
-          Se antes de agendar, você deseja conhecer o estúdio, fique à vontade para marcar uma visita conosco ❤️
+          Se antes de agendar você deseja conhecer o estúdio, fique à vontade para marcar uma visita conosco ❤️
         </p>
 
         <NuxtLink
@@ -161,6 +161,10 @@
         transition: background-color 0.2s, color 0.2s;
         background: #f4f2e9;
         padding: 3rem 7rem;
+
+        @media (prefers-color-scheme: dark) {
+          background: v.$dark-red;
+        }
 
         span {
           text-decoration: underline;

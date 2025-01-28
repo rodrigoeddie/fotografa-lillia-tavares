@@ -89,6 +89,10 @@ const photos = [
     flex-shrink: 0;
     display: flex;
     width: 45%;
+
+    @media (prefers-color-scheme: dark) {
+      background: v.$dark-green;
+    }
   }
 
   .about-text {
@@ -118,6 +122,10 @@ const photos = [
         background: #e3dfcb;
         padding-right: 30rem;
         text-align: center;
+
+        @media (prefers-color-scheme: dark) {
+          background: black;
+        }
       }
 
       .title {

@@ -60,10 +60,11 @@
       "alt": "Mulher negra de braços cruzados revida com um blazer off-white"
     },
     {
-      "uri": "2ad64ae9-5fa9-486b-8216-b66dfeabe600",
+      "uri": "7c5ccbc0-d3b4-4e3a-9bd3-49b701338300",
       "format": "paisagem",
-      "alt": "Mulher negra de cabelos longos sentada no sofá branco",
-      "canBeThumb": true
+      "alt": "Mulher negra de cabelos longos sorrindo com os braços cruzados, ela está de costas olhando para o espelho, o espelho reflete o rosto dela",
+      "canBeThumb": true,
+      "highlight": true
     },
     {
       "uri": "150745d5-1a23-48af-775e-30e33db47900",
@@ -71,11 +72,10 @@
       "alt": "Mãos olhando mexendo no celular"
     },
     {
-      "uri": "7c5ccbc0-d3b4-4e3a-9bd3-49b701338300",
+      "uri": "2ad64ae9-5fa9-486b-8216-b66dfeabe600",
       "format": "paisagem",
-      "alt": "Mulher negra de cabelos longos sorrindo com os braços cruzados, ela está de costas olhando para o espelho, o espelho reflete o rosto dela",
-      "canBeThumb": true,
-      "highlight": true
+      "alt": "Mulher negra de cabelos longos sentada no sofá branco",
+      "canBeThumb": true
     },
     {
       "uri": "8675bf6b-744c-4942-0794-6ad3008d6a00",

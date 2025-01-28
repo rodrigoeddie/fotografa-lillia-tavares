@@ -132,9 +132,9 @@
         padding: 20px;
         color: v.$red;
         width: 100%;
-    
+
         @media (prefers-color-scheme: dark) {
-        color: v.$dark-red;
+          color: v.$dark-red;
         }
     }
 </style>
