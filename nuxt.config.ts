@@ -18,6 +18,9 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'pt-BR',
+      },
       title: siteConfig.title,
       meta: [
         {
@@ -58,7 +61,7 @@ export default defineNuxtConfig({
       alternateName: 'Lillia O. Tavares',
 
       // Profile Information, if applicable
-      image: '/profile-photo.jpg',
+      image: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/9a8558fb-cbb6-46a8-cec5-636f21a9db00/public',
       description: 'Lillia Tavares: Fotógrafa de retratos femininos que celebra a singularidade das mulheres. Destaque sua realeza com uma sessão única que empodera sua autoestima.',
       jobTitle: 'Fotógrafa',
 

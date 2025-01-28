@@ -82,6 +82,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
+                  :alt="slide.alt"
                   loading="lazy"/>
                 <nuxt-img
                   v-if="slide.format=='retrato'"
@@ -89,6 +90,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   width="700"
                   height="500"
                   class="bg-thumb"
+                  :alt="slide.alt"
                   loading="lazy"/>
               </SwiperSlide>
 
@@ -109,6 +111,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
+                  :alt="slide.alt"
                   loading="lazy"/>
                 <nuxt-img
                   v-if="slide.format=='retrato'"
@@ -116,6 +119,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   width="700"
                   height="500"
                   class="bg-thumb"
+                  :alt="slide.alt"
                   loading="lazy"/>
               </SwiperSlide>
 
@@ -206,6 +210,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
       font-size: 50rem;
       color: white;
       display: flex;
+
+      @media (prefers-color-scheme: dark) {
+        background: v.$dark-green;
+      }
 
       @include m.max(md) {
         font-size: 30rem;
@@ -414,7 +422,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
               font-size: 30rem;
               width: 214rem;
             }
-            
+
             @include m.max(sm) {
               font-size: 15px;
               width: auto;

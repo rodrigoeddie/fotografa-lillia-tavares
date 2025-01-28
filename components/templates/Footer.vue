@@ -20,14 +20,16 @@
                 <nuxt-img
                   :src='configPublic.cloudflareURI + "054a1bce-78a3-4e53-7afa-a30d92e86500/logo"'
                   alt="Logo Lillia Tavares Fotografia"
-                  width="370"
+                  width="284"
+                  height="121"
                   class="logo-black"
                   loading="lazy"/>
 
                 <nuxt-img
                   :src='configPublic.cloudflareURI + "8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"'
                   alt="Logo Lillia Tavares Fotografia"
-                  width="385"
+                  width="284"
+                  height="121"
                   class="logo-white"
                   loading="lazy"/>
                 <span>Fotógrafa Lillia Tavares</span>
@@ -83,6 +85,10 @@
 
         .logo {
             width: 370rem;
+
+            img {
+                height: auto;
+            }
 
             .logo-black {
                 @media (prefers-color-scheme: dark) {

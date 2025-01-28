@@ -70,12 +70,32 @@
 </template>
 
 <style scoped lang="scss">
+  @use "sass:color";
+  @mixin faux-bold($color: black) {
+    $darker-color: color.adjust($color, $lightness: 30%);
+
+    text-shadow:
+      0.5px 0 $darker-color,
+      -0.5px 0 $darker-color,
+      0 0.5px $darker-color,
+      0 -0.5px $darker-color,
+      0.5px 0.5px $darker-color,
+      -0.5px -0.5px $darker-color,
+      0.5px -0.5px $darker-color,
+      -0.5px 0.5px $darker-color;
+  }
+
   .wrapper {
     overflow: hidden;
 
     &.from-page-studio {
       @include m.max(sm) {
+        background: white;
         padding-top: 80px;
+      }
+
+      @media (prefers-color-scheme: dark) and (max-width: 900px) {
+        background: v.$dark-green;
       }
 
       .container {
@@ -168,6 +188,21 @@
         @include m.max(md) {
           padding-bottom: 10rem;
         }
+
+        .big {
+          @media (prefers-color-scheme: dark) and (max-width: 900px) {
+              @include faux-bold(v.$dark-green);
+              color: white;
+          }
+        }
+
+        .box {
+          @media (prefers-color-scheme: dark) and (max-width: 900px) {
+            background: white;
+            color: v.$dark-green;
+            @include faux-bold(white);
+          }
+        }
       }
 
       .title {
@@ -180,6 +215,10 @@
 
         @include m.max(md) {
           font-size: 16px;
+        }
+
+        @media (prefers-color-scheme: dark) and (max-width: 900px) {
+          color: white;
         }
       }
 

@@ -99,7 +99,7 @@
 }
 
 .icon-whatsapp * {
-    stroke: v.$red !important;
+    stroke: v.$dark-red !important;
 
     @media (prefers-color-scheme: dark) {
         stroke: white !important;

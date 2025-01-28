@@ -102,16 +102,29 @@ const album = work.value.body.album.filter(item => !item.highlight);
 .wrap-hero {
   display: flex;
 
+  @include m.max(sm) {
+    flex-direction: column;
+  }
+
   .wrap-img-hero {
     flex-shrink: 0;
     display: flex;
     width: 55%;
+
+    @include m.max(sm) {
+      flex-direction: column;
+      width: 100%;
+    }
 
     &.has-two {
       img {
         object-fit: cover;
         flex-shrink: 0;
         width: 50%;
+
+        @include m.max(sm) {
+          width: 100%;
+        }
       }
     }
   }
@@ -127,7 +140,11 @@ const album = work.value.body.album.filter(item => !item.highlight);
     background: white;
     display: flex;
     width: 45%;
-    
+
+    @include m.max(sm) {
+      width: 100%;
+    }
+
     @media (prefers-color-scheme: dark) {
       background: v.$dark-green;
       color: white
@@ -218,6 +235,10 @@ const album = work.value.body.album.filter(item => !item.highlight);
 
   .retrato {
     width: 33%;
+
+    @include m.max(sm) {
+      width: 100%;
+    }
   }
 }
 </style>

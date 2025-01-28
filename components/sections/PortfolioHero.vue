@@ -72,6 +72,7 @@ const photos = [
 
 <style scoped lang="scss">
 .intro-hero {
+  background: white;
   position: absolute;
   width: 45%;
   z-index: 2;
@@ -145,7 +146,7 @@ const photos = [
         text-align: center;
 
         @media (prefers-color-scheme: dark) {
-          background: black;
+          background: v.$dark-red;
         }
       }
 

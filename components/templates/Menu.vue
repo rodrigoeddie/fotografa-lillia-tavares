@@ -136,9 +136,9 @@
                 }
             }
 
-            @include m.max(sm) {
-                display: none;
-            }
+            // @include m.max(sm) {
+            //     display: none;
+            // }
         }
 
         &:hover {
