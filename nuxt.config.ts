@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   debug: false,
 
   site: {
-    url: 'fotografa-lillia-tavares.pages.dev'
+    url: 'fotografalilliatavares.com.br'
   },
 
   app: {
