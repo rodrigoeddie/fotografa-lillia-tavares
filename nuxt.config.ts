@@ -69,6 +69,7 @@ export default defineNuxtConfig({
       email: 'fotografalilliatavares@gmail.com',
       url: siteConfig.url,
       sameAs: [
+        'https://www.facebook.com/fotografalilliatavares',
         'https://www.instagram.com/fotografalilliatavares',
         'https://www.tiktok.com/@fotografalilliatavares',
         'https://wa.me/5511911159795',

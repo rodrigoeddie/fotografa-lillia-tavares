@@ -1,4 +1,19 @@
 <script lang="ts" setup>
+const title = 'Trabalhos | Fotógrafa Lillia Tavares';
+const description = 'Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da fotógrafa Lillia Tavares e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.';
+
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    name: title,
+    url: 'https://fotografalilliatavares.com.br/trabalhos',
+  })
+]);
+
+useSeoMeta({
+  title: title,
+  description: description
+});
 </script>
 
 <template>

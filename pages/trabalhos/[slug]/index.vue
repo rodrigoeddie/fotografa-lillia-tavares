@@ -7,8 +7,22 @@ const { data: work } = await useAsyncData(path, () => {
 
 const highlight = work.value.body.album.filter(item => item.highlight);
 const album = work.value.body.album.filter(item => !item.highlight);
-</script>
 
+const title = work.value.title + ' | Trabalhos | Fotógrafa Lillia Tavares';
+
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'ItemPage',
+    name: title,
+    url: 'https://fotografalilliatavares.com.br' + path,
+  })
+]);
+
+useSeoMeta({
+  title: title,
+  description: work.value.description
+});
+</script>
 <template>
   <div class="container no-padding">
     <div class="wrap-hero">

@@ -5,9 +5,11 @@ const {
   return queryCollection('content').path('/').first()
 });
 
+const title = home.value?.title + ' | Fotógrafa Lillia Tavares';
+
 useSchemaOrg([
   defineWebPage({
-    name: home.value?.title + ' | Fotógrafa Lillia Tavares',
+    name: title,
     url: 'https://fotografalilliatavares.com.br'
   })
 ]);

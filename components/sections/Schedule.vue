@@ -72,7 +72,7 @@ const enviar = async () => {
         <div class="about-text">
           <h1 class="title">Agende seu ensaio</h1>
           <div class="description">
-            Se você gostou do meu trabalho e pretende fazer um ensaio fotográfico, <strong>agende</strong> seu horário. <b>Entre em contato</b> comigo e <b>escolha</b> o melhor dia e horário para você:
+            Se você gostou do meu trabalho e pretende fazer um ensaio fotográfico, <strong>agende</strong> seu horário. <b>Entre em contato</b> comigo e <b>escolha</b> o melhor dia:
           </div>
 
           <form
