@@ -59,4 +59,6 @@ useSeoMeta({
 
 <template>
   <SectionsStudio class="from-page-studio" />
+  <SectionsStudioBgs />
+  <SectionsStudioMap />
 </template>

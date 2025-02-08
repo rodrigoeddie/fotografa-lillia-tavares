@@ -3,7 +3,9 @@ const path = useRoute().path
 
 const { data: work } = await useAsyncData(path, () => {
   return queryCollection('works').path(path).first()
-})
+});
+
+console.log(work.value);
 
 const highlight = work.value.body.album.filter(item => item.highlight);
 const album = work.value.body.album.filter(item => !item.highlight);
@@ -24,7 +26,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <div class="container no-padding">
+  <div class="container no-padding" :style="{ '--color-highlight': work.body.colorHighlight }">
     <div class="wrap-hero">
       <div class="text">
         <div class="about-text text-slide">
@@ -157,6 +159,7 @@ useSeoMeta({
   }
 
   .text {
+    color: var(--color-highlight, v.$dark-green);
     justify-content: flex-end;
     flex-direction: column;
     background: white;
@@ -168,7 +171,8 @@ useSeoMeta({
     }
 
     @media (prefers-color-scheme: dark) {
-      background: v.$dark-green;
+      // background: v.$dark-green;
+      background: var(--color-highlight, v.$dark-green);
       color: white
     }
   }
@@ -213,9 +217,13 @@ useSeoMeta({
   }
 
   .about-ctas {
+    background: var(--color-highlight, v.$dark-green);
     padding: 20rem v.$space;
-    background: #892c1a;
     display: flex;
+
+    @media (prefers-color-scheme: dark) {
+      background: white;
+    }
 
     .info-list {
       font-size: 18rem;
@@ -224,6 +232,10 @@ useSeoMeta({
       display: flex;
       width: 100%;
       gap: 20rem;
+
+      @media (prefers-color-scheme: dark) {
+        color: var(--color-highlight, v.$dark-green);
+      }
 
       .nuxt-icon {
         margin-right: 10rem;
@@ -257,7 +269,7 @@ useSeoMeta({
 
   .retrato {
     width: 33%;
-    
+
     &.w50 {
       width: 50%;
 
