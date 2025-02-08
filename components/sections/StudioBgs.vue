@@ -34,7 +34,7 @@
     }">
         <SwiperSlide class="item bg-blue">
             <nuxt-img
-              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              src='/exemplo-fundo-fotografico-azul.png'
               width="300"
               height="420"
               provider="cloudflare"
@@ -44,7 +44,7 @@
         </SwiperSlide>
         <SwiperSlide class="item bg-beige">
             <nuxt-img
-              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              src='/exemplo-fundo-fotografico-bege.png'
               width="300"
               height="420"
               provider="cloudflare"
@@ -54,7 +54,7 @@
         </SwiperSlide>
         <SwiperSlide class="item bg-gray">
             <nuxt-img
-              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              src='/exemplo-fundo-fotografico-cinza.png'
               width="300"
               height="420"
               provider="cloudflare"
@@ -64,7 +64,7 @@
         </SwiperSlide>
         <SwiperSlide class="item bg-white">
             <nuxt-img
-              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              src='/exemplo-fundo-fotografico-branco.png'
               width="300"
               height="420"
               provider="cloudflare"
