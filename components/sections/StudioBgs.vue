@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -34,40 +35,36 @@
     }">
         <SwiperSlide class="item bg-blue">
             <nuxt-img
-              src='/exemplo-fundo-fotografico-azul.png'
+              :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/logo"'
               width="300"
               height="420"
-              provider="cloudflare"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
               loading="lazy" />
         </SwiperSlide>
         <SwiperSlide class="item bg-beige">
             <nuxt-img
-              src='/exemplo-fundo-fotografico-bege.png'
+              :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/logo"'
               width="300"
               height="420"
-              provider="cloudflare"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
               loading="lazy" />
         </SwiperSlide>
         <SwiperSlide class="item bg-gray">
             <nuxt-img
-              src='/exemplo-fundo-fotografico-cinza.png'
+              :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/logo"'
               width="300"
               height="420"
-              provider="cloudflare"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
               loading="lazy" />
         </SwiperSlide>
         <SwiperSlide class="item bg-white">
             <nuxt-img
-              src='/exemplo-fundo-fotografico-branco.png'
+              :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/logo"'
               width="300"
               height="420"
-              provider="cloudflare"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
               loading="lazy" />
