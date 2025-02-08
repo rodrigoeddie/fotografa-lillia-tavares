@@ -17,48 +17,64 @@
         </p>
     </div>
 
-    <div class="wrap-bgs">
-        <div class="item bg-blue">
+    <Swiper
+      class="wrap-bgs"
+      :loop="false"
+      :slides-per-view="1"
+      :breakpoints="{
+        450: {
+            slidesPerView: 2
+        },
+        700: {
+            slidesPerView: 3
+        },
+        1024: {
+            slidesPerView: 4
+        },
+    }">
+        <SwiperSlide class="item bg-blue">
             <nuxt-img
-                src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
-                width="300"
-                height="420"
-                provider="cloudflare"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                loading="lazy" />
-        </div>
-        <div class="item bg-beige">
+              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              width="300"
+              height="420"
+              provider="cloudflare"
+              class="img-fundo"
+              alt="Exemplo de fundo fotográfico na cor branca"
+              loading="lazy" />
+        </SwiperSlide>
+        <SwiperSlide class="item bg-beige">
             <nuxt-img
-                src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
-                width="300"
-                height="420"
-                provider="cloudflare"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                loading="lazy" />
-        </div>
-        <div class="item bg-gray">
+              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              width="300"
+              height="420"
+              provider="cloudflare"
+              class="img-fundo"
+              alt="Exemplo de fundo fotográfico na cor branca"
+              loading="lazy" />
+        </SwiperSlide>
+        <SwiperSlide class="item bg-gray">
             <nuxt-img
-                src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
-                width="300"
-                height="420"
-                provider="cloudflare"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                loading="lazy" />
-        </div>
-        <div class="item bg-white">
+              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              width="300"
+              height="420"
+              provider="cloudflare"
+              class="img-fundo"
+              alt="Exemplo de fundo fotográfico na cor branca"
+              loading="lazy" />
+        </SwiperSlide>
+        <SwiperSlide class="item bg-white">
             <nuxt-img
-                src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
-                width="300"
-                height="420"
-                provider="cloudflare"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                loading="lazy" />
-        </div>
-    </div>
+              src='e565d57c-cc18-40a3-ffcc-3eeba2da3100'
+              width="300"
+              height="420"
+              provider="cloudflare"
+              class="img-fundo"
+              alt="Exemplo de fundo fotográfico na cor branca"
+              loading="lazy" />
+        </SwiperSlide>
+
+        <BlocksSwiperControls class="centered from-bgs" />
+    </Swiper>
   </div>
 </template>
 
@@ -74,9 +90,18 @@ $white: #e4e1e5;
     align-items: center;
     display: flex;
 
+    @include m.max(sm) {
+        margin-bottom: 0;
+        display: block;
+    }
+
     .big-title {
         padding-right: 20rem;
         padding-top: 0;
+
+        @include m.max(sm) {
+            padding-right: 0;
+        }
 
         .box {
           @media (prefers-color-scheme: dark) {
@@ -93,11 +118,17 @@ $white: #e4e1e5;
 
     .description {
         padding-top: 0;
+
+        @include m.max(sm) {
+            padding-bottom: 10rem;
+            text-align: center;
+            padding-top: 5rem;
+        }
     }
 }
 
 .wrapper {
-    padding-bottom: 100rem;
+    padding-bottom: 50rem;
     background: v.$red;
     padding-top: 50rem;
     margin-top: 50rem;
@@ -105,7 +136,16 @@ $white: #e4e1e5;
 
 .wrap-bgs {
     justify-content: center;
+    padding-bottom: 100rem;
+    margin: 0 auto;
     display: flex;
+    width: 90%;
+
+    @include m.max(xs) {
+        padding-bottom: 170rem;
+        display: flex;
+        width: 90%;
+    }
 
     .example {
         border: 1px;
@@ -116,9 +156,12 @@ $white: #e4e1e5;
         justify-content: center;
         aspect-ratio: 500/580;
         align-items: self-end;
-        max-width: 505rem;
         display: flex;
         width: 24%;
+
+        @include m.max(xs) {
+            width: 100%;
+        }
 
         &.bg-blue {
             background: $blue;
@@ -134,9 +177,9 @@ $white: #e4e1e5;
         }
 
         img {
-            aspect-ratio: 300/420;
             border: 1px solid white;
-            margin-bottom: -10%;
+            margin-bottom: -100rem;
+            aspect-ratio: 300/420;
             display: block;
             height: auto;
             width: 60%;
