@@ -1,7 +1,17 @@
 <script lang="ts" setup>
+import { split } from 'postcss/lib/list';
+
 const $route       = useRoute();
-const currentPath  = $route.path;
+// const currentPath  = $route.path;
 const configPublic = useRuntimeConfig().public;
+
+const props = defineProps({
+  fromHero: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+});
 
 const filteredSlides = (item) => {
   const hasPaisagem = item.album.some(slide => slide.format === 'paisagem');
@@ -13,10 +23,32 @@ const filteredSlides = (item) => {
   return slides;
 }
 
+const { data: navigation } = await useAsyncData('navigation', () => {
+  return queryCollectionNavigation('works');
+});
+
+const categories = navigation.value[0].children;
+const workPage   = navigation.value[0].path;
+const category   = $route.params.category || '';
+
+const currentCategory = categories.find(cat => cat.stem === `ensaio-fotografico/${category}`);
+
+console.log(currentCategory);
+
 const {
   data: ensaiosList
 } = await useAsyncData(() => {
-  return queryCollection('works').all();
+  const query = queryCollection('works')
+
+  if(props.fromHero) {
+    query.limit(3);
+  }
+
+  if (category) {
+    query.where('path', 'LIKE', `%/${category}%`);
+  }
+
+  return query.all();
 });
 
 const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(item => {
@@ -27,16 +59,29 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(ite
   };
 }) : [];
 
-const classes = ['card card-column', 'card side-by-side', 'wide side-by-side reverse'];
+const classes = [
+  'card card-column',
+  'card side-by-side',
+  'wide side-by-side reverse',
+  'card side-by-side card-50',
+  'card card-column card-50'
+];
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  return new Date(dateString).toLocaleDateString('pt-BR', options);
+};
 </script>
 
 <template>
-  <div class="container">
+  <div class="container no-padding">
     <h1 class="big-title red centered">
       <span class="box">
-        <span>Explore meus</span>
+        <span v-if="!currentCategory">Explore meus</span>
+        <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
       </span>
-      <span class="big">Últimos trabalhos</span>
+      <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
+      <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
     </h1>
 
     <div class="wrap-portfolio">
@@ -51,13 +96,22 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 
                 <ul class="info-list">
                   <li class="category">
-                    <span>{{ item.category.title }}</span>
+                    <NuxtLink
+                    :to="workPage + '/' + item.category.slug">
+                      <span>{{ item.category.title }}</span>
+                    </NuxtLink>
                   </li>
                   <li class="place">
                     <nuxt-icon
                       name="location-pin-solid"
                       class="icon icon-location-pin"/>
                     <span v-html="item.local"></span>
+                  </li>
+                  <li class="place" v-if="item.date">
+                    <nuxt-icon
+                      name="location-pin-solid"
+                      class="icon icon-location-pin"/>
+                    <span v-html="formatDate(item.date)"></span>
                   </li>
                 </ul>
 
@@ -78,7 +132,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 v-for="slide in item.photos"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
@@ -86,7 +140,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   loading="lazy"/>
                 <nuxt-img
                   v-if="slide.format=='retrato'"
-                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -107,7 +161,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                 :key="slide.id"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
-                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
                   :width="(slide.format=='paisagem') ? 700 : 500"
                   :height="(slide.format=='paisagem') ? 500 : 800"
                   class="img-thumb"
@@ -115,7 +169,7 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
                   loading="lazy"/>
                 <nuxt-img
                   v-if="slide.format=='retrato'"
-                  :src='configPublic.cloudflareURI + slide.uri + "/thumb"'
+                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
                   width="700"
                   height="500"
                   class="bg-thumb"
@@ -134,13 +188,22 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
 
                 <ul class="info-list">
                   <li class="category">
-                    <span>{{ item.category.title }}</span>
+                    <NuxtLink
+                      :to="workPage + '/' + item.category.slug">
+                      <span>{{ item.category.title }}</span>
+                    </NuxtLink>
                   </li>
                   <li class="place">
                     <nuxt-icon
                       name="location-pin-solid"
                       class="icon icon-location-pin"/>
                     <span v-html="item.local"></span>
+                  </li>
+                  <li class="place" v-if="item.date">
+                    <nuxt-icon
+                      name="location-pin-solid"
+                      class="icon icon-location-pin"/>
+                    <span v-html="formatDate(item.date)"></span>
                   </li>
                 </ul>
 
@@ -155,10 +218,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             </div>
           </template>
 
-          <template v-if="index == 2 && currentPath !== '/trabalhos'">
+          <template v-if="index == 2 && props.fromHero">
             <NuxtLink
               class="link-see-more big-title red"
-              :to="'/trabalhos'">
+              :to="workPage">
                   <span class="big">veja todos os Trabalhos</span>
                   <span class="box">
                     <span>Clique aqui</span>
@@ -170,14 +233,16 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
         <template v-if="index == 1">
           <NuxtLink
             class="btn-agende btn-agende-01"
-            :to="'/agende-seu-ensaio'">
-              <span>Agende seu ensaio</span>
+            :to="'/preco-ensaio-fotografico'">
+            <span>Agende seu ensaio</span>
           </NuxtLink>
+        </template>
 
+        <template v-if="index == 1 && ensaiosData.length > 2">
           <NuxtLink
             class="btn-agende btn-agende-02"
-            :to="'/agende-seu-ensaio'">
-              <span>Agende seu ensaio</span>
+            :to="'/preco-ensaio-fotografico'">
+            <span>Agende seu ensaio</span>
           </NuxtLink>
         </template>
       </template>
@@ -348,6 +413,18 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             aspect-ratio: 1/1.3;
             flex-shrink: 0;
             width: 60%;
+
+            @include m.max(xs) {
+              width: 50%;
+            }
+          }
+        }
+
+        &.card-50 {
+          width: calc(50% - 15rem);
+
+          @include m.max(xs) {
+            width: 100%;
           }
         }
       }
@@ -384,6 +461,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
           aspect-ratio: 2/1;
           width: calc(65% - 6rem);
           flex-shrink: 0;
+
+          @include m.max(xs) {
+            width: 50%;
+          }
         }
 
         &.reverse {
@@ -408,6 +489,10 @@ const classes = ['card card-column', 'card side-by-side', 'wide side-by-side rev
             width: calc(34%);
             padding-left: 0;
             padding-top: 0;
+
+            @include m.max(xs) {
+              width: 50%;
+            }
           }
         }
 

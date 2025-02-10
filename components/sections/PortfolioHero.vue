@@ -1,24 +1,32 @@
 <script setup lang="ts">
 const photos = [
   {
-    "uri": '60ddc9c8-058d-441e-1608-ca6109de1200',
+    "colorHighlight": "#975a35",
+    "imageId": '60ddc9c8-058d-441e-1608-ca6109de1200',
     "alt": 'Mulher sorrindo de roupa branca, sentada no chão',
-    "path": 'trabalhos/andresa-maia',
-    "title": '<a href="https://www.instagram.com/dre_terapeuta/" target="_blank">Andresa Maia</a>',
+    "path": '/ensaio-fotografico/corporativo/andresa-maia',
+    "title": 'Andresa Maia',
     "description": 'Psicanálise, Terapias energéticas e espirituais',
   },
   {
-    "uri": '35b38c8d-3080-48f5-35bb-766c7c1add00',
+    "colorHighlight": "#455754",
+    "imageId": '35b38c8d-3080-48f5-35bb-766c7c1add00',
     "alt": 'Mulher negra de cabelos longos sorrindo e com o celular nas mãos',
-    "path": 'trabalhos/karoline-siqueira',
-    "title": '<a href="https://www.instagram.com/salviacomunicacao/" target="_blank">Karoline Siqueira</a>',
+    "path": '/ensaio-fotografico/corporativo/karoline-siqueira',
+    "title": 'Karoline Siqueira',
     "description": 'Serviços de estratégia e marketing digital',
   },
 ];
+
+const { data: navigation } = await useAsyncData('navigation', () => {
+  return queryCollectionNavigation('works');
+});
+
+const categories      = navigation.value[0].children;
 </script>
 
 <template>
-  <div class="container no-padding">
+  <div class="container no-padding sbs">
     <div class="intro-hero">
       <div class="about-text">
         <h1 class="title">Trabalhos</h1>
@@ -31,17 +39,29 @@ const photos = [
           </p>
         </div>
       </div>
+
+      <div class="about-ctas">
+        <nav class="menu-category">
+          <template v-for="item in categories">
+            <NuxtLink
+              :to="item.path"
+              class="link-category">
+              {{ item.title }}
+            </NuxtLink>
+          </template>
+        </nav>
+      </div>
     </div>
 
     <Swiper
       :loop="true"
-      :slides-per-view="1">
+      :slides-per-view="1"
+      class="wrap-highlights">
       <SwiperSlide
-        v-for="slide in photos"
-        class="wrap-hero">
-        <div class="text">
+        v-for="slide in photos">
+        <div class="about-highlight" :style="{ '--color-highlight': slide.colorHighlight }">
           <div class="about-text text-slide">
-            <h2 class="title" v-html="slide.title"></h2>
+            <h2 class="title">{{ slide.title }}</h2>
             <div class="description">
               <p>
                 {{ slide.description }}
@@ -55,44 +75,40 @@ const photos = [
               class="btn btn-green-light">
                 <span>Ver mais</span>
             </NuxtLink>
-
-            <BlocksSwiperControls v-if="photos.length > 1" />
           </div>
         </div>
 
         <nuxt-img
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.uri + "/public"'
+          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.imageId + "/public"'
           width="1920"
           class="img-hero"
           loading="lazy"/>
       </SwiperSlide>
+
+      <BlocksSwiperControls v-if="photos.length > 1" />
     </Swiper>
   </div>
 </template>
 
 <style scoped lang="scss">
-.intro-hero {
-  position: absolute;
-  width: 45%;
-  z-index: 2;
-  top: 0;
+.sbs {
+  display: flex;
+}
 
-  @include m.max(lg) {
-    width: 50%;
+.intro-hero {
+  justify-content: space-between;
+  flex-direction: column;
+  background: white;
+  display: flex;
+  width: 45%;
+
+  @media (prefers-color-scheme: dark) {
+    background: v.$dark-green;
   }
 
   @include m.max(sm) {
     position: static;
     width: 100%;
-  }
-}
-
-.intro-hero,
-.wrap-hero {
-  display: flex;
-
-  @include m.max(sm) {
-    flex-direction: column-reverse;
   }
 
   .text {
@@ -102,6 +118,10 @@ const photos = [
     flex-shrink: 0;
     display: flex;
     width: 45%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
 
     @include m.max(lg) {
       width: 50%;
@@ -111,9 +131,9 @@ const photos = [
       width: 100%;
     }
 
-    @media (prefers-color-scheme: dark) {
-      background: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: v.$dark-green;
+    // }
   }
 
   .about-text {
@@ -210,24 +230,69 @@ const photos = [
         color: white;
       }
     }
-  }
 
-  .img-hero {
-    width: 55%;
-
-    @include m.max(lg) {
-      width: 50%;
+    .menu-category {
+      display: flex;
+      gap: 20rem;
     }
 
-    @include m.max(sm) {
-      width: 100%;
+    .link-category {
+      margin-left: 25rem;
+      display: list-item;
+      font-size: 25rem;
+      list-style: disc;
+
+      &.router-link-active {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+
+      &:first-child {
+        list-style: none;
+        margin-left: 0;
+      }
     }
   }
 }
 
-.wrap-hero {
-  @include m.max(sm) {
+.wrap-highlights {
+  width: 55%;
+
+  @include m.max(xs) {
     display: none;
+  }
+
+  .about-highlight {
+    color: var(--color-highlight, v.$dark-green);
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+  .img-hero {
+    position: absolute;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .description {
+    padding-top: 0;
+  }
+
+  .btn {
+    color: var(--color-highlight, v.$dark-green);
+    margin-top: 10rem;
+    font-size: 35rem;
+  }
+
+  .about-highlight {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.7), transparent);
+    padding-left: 30rem;
+    padding-top: 20rem;
+    height: 150rem;
   }
 }
 </style>

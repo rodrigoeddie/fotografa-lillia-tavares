@@ -21,7 +21,7 @@
         </p>
 
         <NuxtLink
-          :to="currentPath === '/estudio' ? '/agende-seu-ensaio' : '/estudio'"
+          :to="currentPath === '/estudio' ? '/preco-ensaio-fotografico' : '/estudio'"
           class="btn btn-red">
             <span>Sobre o estúdio</span>
         </NuxtLink>

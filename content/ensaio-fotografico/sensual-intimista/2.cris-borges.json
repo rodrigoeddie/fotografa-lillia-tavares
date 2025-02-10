@@ -1,0 +1,65 @@
+{
+  "colorHighlight": "#455754",
+  "title": "Cris Borges",
+  "description": "<p>Ensaio Sensual realizado pela fot&oacute;grafa Lillia Tavares para a linda Cris Borges. O ensaio intimista feminino foi produzido no LV Estúdio.</p>",
+  "local": "LV Estúdio",
+  "category": {
+    "slug": "sensual-intimista",
+    "title": "Sensual / Intimista"
+  },
+  "album": [
+    {
+      "imageId": "d9d92383-3794-4bc4-10d4-5f4bc59a9200",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher deitada no sofá, mexendo nos cabelos"
+    },
+    {
+      "imageId": "2e2305a0-35f5-474c-9fa4-cf03e98f6000",
+      "format": "paisagem",
+      "alt": "Foto sensual com mulher sentada na mesa com vinho ao lado",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "e93c77a4-39f4-465a-9b78-e3b547f20300",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher deitada no braço do sofá"
+    },
+    {
+      "imageId": "b2c02c9d-fb68-42fc-a735-b9997c552b00",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher vestida com vestido azul, tomando vinho, acima do sofá"
+    },
+    {
+      "imageId": "d6cdad2a-12c4-49ec-9de0-f31558e0a200",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher atras do vidro, vestida com um body cor off-white"
+    },
+    {
+      "imageId": "467668dd-b1ca-451b-42d1-8493b25fbb00",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher de pernas cruzadas usando um boné"
+    },
+    {
+      "imageId": "190b0d76-d9db-4d44-d58d-75f47e7a5d00",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher de lingerie, subindo na cama"
+    },
+    {
+      "imageId": "2a0867b6-5830-4c9f-e94c-f0f3be4c6b00",
+      "format": "retrato",
+      "alt": "Foto sensual com mulher acima da cama, com as costas nuas"
+    },
+    {
+      "imageId": "d2339b82-aaff-460d-f6db-416642463600",
+      "format": "paisagem",
+      "canBeThumb": true,
+      "alt": "Foto sensual com mulher acima da cama, deitada de bruços, e braços esticados"
+    },
+    {
+      "imageId": "97642e93-93c2-4e44-2d40-5bcfd8170a00",
+      "format": "retrato",
+      "alt": "Foto sensual em preto e branco com mulher nua de lado, seus braços estão escondendo seus seios"
+    }
+  ]
+}

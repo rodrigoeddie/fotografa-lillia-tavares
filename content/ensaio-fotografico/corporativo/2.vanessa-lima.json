@@ -1,17 +1,13 @@
 {
+  "date": "2024-12-20",
   "colorHighlight": "#111d2c",
   "title": "Vanessa Lima",
-  "description": "<p>Ensaio corporativo para a engenheira civil Vanessa Lima com especialização em Gestão de Projetos pela USP</p>",
+  "description": "<p>Posicionamento de imagem realizado pela fot&oacute;grafa Lillia Tavares para a engenheira civil Vanessa Lima (<a href=\"https://www.instagram.com/vanessademelo.lima/\" title=\"Vanessa Lima\" target=\"_blank\" rel=\"noopener\">@vanessademelo.lima</a>) especializada em Gestão de Projetos pela USP e acessibilidade. O ensaio corporativo feminino foi produzido no (<a href=\"https://www.fotografalilliatavares.com.br/estudio\" title=\"Estúdio Lillia Tavares\" target=\"_blank\" rel=\"noopener\">Estúdio Lillia Tavares</a>).</p>",
   "category": {
     "slug": "corporativo",
     "title": "Corporativo"
   },
   "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
-  "highlightImage": {
-    "uri": "",
-    "orientation": "landscape",
-    "alt": ""
-  },
   "site": "https://gbertuzziloos.wixsite.com/vertcon",
   "instagram": {
     "uri": "https://www.instagram.com/vanessademelo.lima",
@@ -19,27 +15,27 @@
   },
   "album": [
     {
-      "uri": "9b642668-6767-4ca4-8174-e6b0ab4f5200",
+      "imageId": "9b642668-6767-4ca4-8174-e6b0ab4f5200",
       "format": "retrato",
       "alt": "Mulher de cabelos enrolados presos em um coque de blazer azul e calças cinzas, ela está sentada de pernas cruzadas e braços sobre o joelho",
       "canBeThumb": true,
       "highlight": true
     },
     {
-      "uri": "a5cfcbd6-014e-47c8-675d-03b246497f00",
+      "imageId": "a5cfcbd6-014e-47c8-675d-03b246497f00",
       "format": "retrato",
       "alt": "Mulher de cabelos enrolados e blazer azul",
       "canBeThumb": true,
       "highlight": true
     },
     {
-      "uri": "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
+      "imageId": "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm"
     },
     {
-      "uri": "a51b820d-2dcd-473b-1527-0b41ddbb1600",
+      "imageId": "a51b820d-2dcd-473b-1527-0b41ddbb1600",
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos enrolados com uma blusinha preta"

@@ -48,7 +48,7 @@ if (about.value?.body?.value) {
 
         <div class="about-ctas">
           <NuxtLink
-            to="/agende-seu-ensaio"
+            to="/preco-ensaio-fotografico"
             class="link">
             <nuxt-icon
               name="calendar-regular"
@@ -66,7 +66,7 @@ if (about.value?.body?.value) {
           </NuxtLink>
 
           <NuxtLink
-            to="/trabalhos"
+            to="/ensaio-fotografico"
             class="link">
             <nuxt-icon
               name="image-regular"

@@ -1,18 +1,23 @@
 <script lang="ts" setup>
-const title = 'Trabalhos | Fotógrafa Lillia Tavares';
+const title = 'Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
 const description = 'Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da fotógrafa Lillia Tavares e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.';
+
+const { data: navigation } = await useAsyncData('navigation', () => {
+  return queryCollectionNavigation('works');
+});
 
 useSchemaOrg([
   defineWebPage({
     '@type': 'CollectionPage',
     name: title,
-    url: 'https://fotografalilliatavares.com.br/trabalhos',
+    url: 'https://fotografalilliatavares.com.br/ensaio-fotografico',
   })
 ]);
 
 useSeoMeta({
   title: title,
-  description: description
+  description: description,
+  keywords: 'Ensaios fotográficos'
 });
 </script>
 

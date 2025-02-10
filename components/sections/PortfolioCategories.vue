@@ -12,7 +12,7 @@ const categories = allCategories.value[0].body.categories;
   <nav>
     <template v-for="category in categories">
       <NuxtLink
-        :to="'/trabalhos' + category.slug">
+        :to="'/ensaio-fotografico' + category.slug">
         <span>{{ category.title }}</span>
       </NuxtLink>
     </template>

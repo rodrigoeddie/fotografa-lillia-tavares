@@ -1,7 +1,8 @@
 {
+  "date": "2024-12-01",
   "colorHighlight": "#975a35",
   "title": "Andresa Maia",
-  "description": "<p>Ensaio para a psicoterapeuta Andresa Maia - Psicanálise, Terapias energéticas e espirituais</p>",
+  "description": "<p>Posicionamento de imagem realizado pela fot&oacute;grafa Lillia Tavares para a psicoterapeuta Andresa Maia (<a href=\"https://www.instagram.com/dre_terapeuta/\" title=\"Andresa Maia\" target=\"_blank\" rel=\"noopener\">@dre_terapeuta</a>) - Psicanálise, Terapias energéticas e espirituais. O ensaio corporativo feminino foi produzido no (<a href=\"https://www.fotografalilliatavares.com.br/estudio\" title=\"Estúdio Lillia Tavares\" target=\"_blank\" rel=\"noopener\">Estúdio Lillia Tavares</a>).</p>",
   "category": {
     "slug": "corporativo",
     "title": "Corporativo"
@@ -14,35 +15,35 @@
   },
   "album": [
     {
-      "uri": "0a37ed18-db3d-49b2-ac20-68f472793f00",
+      "imageId": "0a37ed18-db3d-49b2-ac20-68f472793f00",
       "format": "paisagem",
       "alt": "Mulher com coque e roupa branca, sentada no tapete, encostada no sofá tomando um chá",
       "canBeThumb": true,
       "highlight": true
     },
     {
-      "uri": "60ddc9c8-058d-441e-1608-ca6109de1200",
+      "imageId": "60ddc9c8-058d-441e-1608-ca6109de1200",
       "format": "paisagem",
       "alt": "Mulher sorrindo de roupa branca, sentada no chão",
       "canBeThumb": true
     },
     {
-      "uri": "cb3583c6-889a-4e41-85c6-423b37ad7100",
+      "imageId": "cb3583c6-889a-4e41-85c6-423b37ad7100",
       "format": "retrato",
       "alt": "Mulher sorrindo de roupa branca, sentada no chão"
     },
     {
-      "uri": "afca9f7a-f36d-47a8-e030-dde8000c5f00",
+      "imageId": "afca9f7a-f36d-47a8-e030-dde8000c5f00",
       "format": "retrato",
       "alt": "Mulher de blazer salmão mexendo no macbook"
     },
     {
-      "uri": "310b242c-7394-4e41-750f-dd4924098500",
+      "imageId": "310b242c-7394-4e41-750f-dd4924098500",
       "format": "retrato",
       "alt": "Mulher de branco, sentada no sofá"
     },
     {
-      "uri": "0cd3c286-1724-40f9-187b-b77f9bede200",
+      "imageId": "0cd3c286-1724-40f9-187b-b77f9bede200",
       "format": "retrato",
       "alt": "Mulher sorrindo com os braços cruzados"
     }

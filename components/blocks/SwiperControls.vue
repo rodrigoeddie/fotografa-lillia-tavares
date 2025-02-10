@@ -79,6 +79,10 @@ button {
 }
 
 .wrap-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
   &.centered {
     justify-content: center;
     position: absolute;

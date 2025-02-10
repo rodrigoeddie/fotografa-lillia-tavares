@@ -1,0 +1,51 @@
+{
+  "colorHighlight": "#051745",
+  "title": "Cris Pole e Lira",
+  "description": "<p>Ensaio de Pole Sport e Lira realizado pela fot&oacute;grafa Lillia Tavares para a linda Cris. O ensaio intimista feminino foi produzido no (<a href=\"https://www.instagram.com/studiololaschueler\" title=\"Studio Lola Schueler\" target=\"_blank\" rel=\"noopener\">Studio Lola Schueler</a>).</span></p>",
+  "local": "<a href='https://www.instagram.com/studiololaschueler' target=\"_blank\">Studio Lola Schueler</a>",
+  "category": {
+    "slug": "sensual-intimista",
+    "title": "Sensual / Intimista"
+  },
+  "album": [
+    {
+      "imageId": "b34724f1-b079-4824-53d2-afd972014600",
+      "format": "retrato",
+      "alt": "Ensaio de lira acrobática com mulher vestida de body azul sentada na lira"
+    },
+    {
+      "imageId": "42811399-2c76-4ad1-0ea5-296bdefc3500",
+      "format": "retrato",
+      "alt": "Ensaio de lira acrobática com mulher vestida de body azul deitada na lira"
+    },
+    {
+      "imageId": "bffb27e7-17f9-409e-5df6-28c9cd1d9400",
+      "canBeThumb": true,
+      "format": "retrato",
+      "alt": "Ensaio de lira acrobática com mulher vestida de body azul em pé na lira"
+    },
+    {
+      "imageId": "7b5ee027-6587-48cb-170b-b1e8b337b000",
+      "format": "retrato",
+      "canBeThumb": true,
+      "alt": "Ensaio de Pole Dance com mulher vestida de body preto e vermelho, olhando para cima com a perna para tras"
+    },
+    {
+      "imageId": "88a3d035-c5e1-4866-1a67-d2e111b8fb00",
+      "format": "retrato",
+      "alt": "Ensaio de Pole Dance com mulher de lingerie azul"
+    },
+    {
+      "imageId": "692870a1-1895-4695-2bd7-8e5611f50300",
+      "format": "paisagem",
+      "canBeThumb": true,
+      "alt": "Ensaio de Pole Dance com mulher de lingerie azul",
+      "highlight": true
+    },
+    {
+      "imageId": "b11ad583-373f-49a3-9378-ebf129867e00",
+      "format": "retrato",
+      "alt": "Ensaio de Pole Dance com mulher vestida de body preto e vermelho, olhando para cima com as pernas cruzadas"
+    }
+  ]
+}

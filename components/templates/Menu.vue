@@ -10,7 +10,7 @@
         </NuxtLink>
         <span class="separe">•</span>
         <NuxtLink
-            to="/trabalhos"
+            to="/ensaio-fotografico"
             class="link">
             <span class="txt">Trabalhos</span>
         </NuxtLink>
@@ -22,7 +22,7 @@
         </NuxtLink>
         <span class="separe">•</span>
         <NuxtLink
-            to="/agende-seu-ensaio"
+            to="/preco-ensaio-fotografico"
             class="link">
             <span class="txt">Agende seu ensaio</span>
         </NuxtLink>
@@ -44,7 +44,7 @@
         @include m.max(md) {
             font-size: 20rem;
         }
-        
+
         @include m.max(sm) {
             right: 0;
         }

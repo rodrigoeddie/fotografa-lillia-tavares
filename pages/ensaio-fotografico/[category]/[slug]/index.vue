@@ -5,10 +5,14 @@ const { data: work } = await useAsyncData(path, () => {
   return queryCollection('works').path(path).first()
 });
 
-console.log(work.value);
+const { data: navigation } = await useAsyncData('navigation', () => {
+  return queryCollectionNavigation('works');
+});
 
-const highlight = work.value.body.album.filter(item => item.highlight);
-const album = work.value.body.album.filter(item => !item.highlight);
+const workPage = navigation.value[0].path;
+
+const highlight = work.value.album.filter(item => item.highlight);
+const album = work.value.album.filter(item => !item.highlight);
 
 const title = work.value.title + ' | Trabalhos | Fotógrafa Lillia Tavares';
 
@@ -26,7 +30,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <div class="container no-padding" :style="{ '--color-highlight': work.body.colorHighlight }">
+  <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
     <div class="wrap-hero">
       <div class="text">
         <div class="about-text text-slide">
@@ -44,7 +48,10 @@ useSeoMeta({
                 <span>Categoria:</span>
               </h2>
 
-              <span class="list-item-text">{{ work.body.category.title }}</span>
+              <NuxtLink
+                :to="workPage + '/' + work.category.slug">
+                <span class="list-item-text">{{ work.category.title }}</span>
+              </NuxtLink>
             </li>
 
             <li class="place">
@@ -54,10 +61,10 @@ useSeoMeta({
                   class="icon icon-location-pin"/>
                 <span>Local do Ensaio:</span>
               </h2>
-              <span class="list-item-text" v-html="work.body.local"></span>
+              <span class="list-item-text" v-html="work.local"></span>
             </li>
 
-            <li class="site">
+            <li class="site" v-if="work.site">
               <h2>
                 <nuxt-icon
                   name="external-link"
@@ -66,11 +73,11 @@ useSeoMeta({
               </h2>
               <a
                 class="list-item-text"
-                :href="work.body.site"
+                :href="work.site"
                 target="_blank">Cliquei aqui para acessar</a>
             </li>
 
-            <li class="site">
+            <li class="site" v-if="work.instagram">
               <h2>
                 <nuxt-icon
                   name="instagram"
@@ -79,8 +86,8 @@ useSeoMeta({
               </h2>
               <a
                 class="list-item-text"
-                :href="work.body.instagram.uri"
-                target="_blank">{{ work.body.instagram.title }}</a>
+                :href="work.instagram.uri"
+                target="_blank">{{ work.instagram.title }}</a>
             </li>
           </ul>
         </div>
@@ -88,13 +95,13 @@ useSeoMeta({
 
       <div :class="{'has-two': highlight[1]}" class="wrap-img-hero">
         <nuxt-img
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[0].uri + "/" + highlight[0].format'
+          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[0].imageId + "/" + highlight[0].format'
           width="1920"
           :alt="highlight[0].alt"
           loading="lazy"/>
         <nuxt-img
           v-if="highlight[1]"
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[1].uri + "/" + highlight[1].format'
+          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[1].imageId + "/" + highlight[1].format'
           width="1920"
           :alt="highlight[1].alt"
           loading="lazy"/>
@@ -104,7 +111,7 @@ useSeoMeta({
     <div class="portfolio-images">
       <template v-for="item in album">
         <nuxt-img
-            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.uri + "/" + item.format'
+            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.imageId + "/" + item.format'
             width="1920"
             :alt="item.alt"
             :class="[item.format, item.customClass]"
