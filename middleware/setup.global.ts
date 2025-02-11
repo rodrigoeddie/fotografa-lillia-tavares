@@ -14,4 +14,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
     } else if (to.path === '/ensaios/cris-pole-e-lira') {
         return navigateTo('/ensaio-fotografico/sensual-intimista/cris-pole-e-lira', { redirectCode: 301 })
     }
+
+    if (process.client && to.path !== from.path) {
+        window.location.href = to.fullPath;
+    }
   })

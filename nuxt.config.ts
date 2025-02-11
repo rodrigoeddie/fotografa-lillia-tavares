@@ -16,6 +16,10 @@ export default defineNuxtConfig({
     url: 'fotografalilliatavares.com.br'
   },
 
+  router: {
+    middleware: ['force-reload']
+  },
+
   app: {
     head: {
       htmlAttrs: {

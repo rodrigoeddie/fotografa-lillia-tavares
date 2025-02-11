@@ -33,8 +33,6 @@ const category   = $route.params.category || '';
 
 const currentCategory = categories.find(cat => cat.stem === `ensaio-fotografico/${category}`);
 
-console.log(currentCategory);
-
 const {
   data: ensaiosList
 } = await useAsyncData(() => {
