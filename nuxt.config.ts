@@ -44,6 +44,22 @@ export default defineNuxtConfig({
           content: 'https://www.fotografalilliatavares.com.br/share.webp?v3',
         },
       ],
+      script: [
+        {
+          type: 'text/javascript',
+          innerHTML: `
+            window.smartlook||(function(d) {
+              var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+              var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+              c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c);
+            })(document);
+            smartlook('init', '03d8d5209060cf01f72fb068bb5405e907929694', { region: 'eu' });
+          `,
+        },
+      ],
+      __dangerouslyDisableSanitizersByTagID: {
+        'smartlook-script': ['innerHTML']
+      },
     },
     // pageTransition: {
     //   name: 'page',
@@ -82,7 +98,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxtjs/partytown',
+    // '@nuxtjs/partytown',
     'nuxt-schema-org',
     '@nuxtjs/device',
     '@nuxt/content',
