@@ -285,6 +285,14 @@ useSeoMeta({
       }
     }
 
+    &.w25 {
+      width: 25%;
+
+      @include m.max(sm) {
+        width: 100%;
+      }
+    }
+
     @include m.max(sm) {
       width: 100%;
     }
