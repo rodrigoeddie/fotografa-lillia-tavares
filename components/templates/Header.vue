@@ -35,10 +35,46 @@ const clickLogo = () => {
 
     <!-- <TemplatesSocial class="from-header" /> -->
     <TemplatesMenu class="from-header" />
+
+    <NuxtLink
+      to="https://wa.me/5511911159795"
+      class="fixed-whatsapp"
+      target="_blank">
+      <nuxt-icon
+        name="whatsapp"
+        class="icon"/>
+      <span class="txt-social">Whatsapp</span>
+    </NuxtLink>
   </div>
 </template>
 
 <style scoped lang="scss">
+.fixed-whatsapp {
+  transition: color .2s, border .2s;
+  background-color: white;
+  border: 2px solid #128c7e;
+  padding: 5rem 15rem;
+  border-radius: 8rem;
+  align-items: center;
+  box-shadow: 0 0 5px;
+  color: #128c7e;
+  font-size: 17rem;
+  position: fixed;
+  bottom: 20rem;
+  display: flex;
+  right: 20rem;
+  gap: 10rem;
+
+  &:hover {
+    border-color: #075e54;
+    color: #075e54;
+  }
+
+  .nuxt-icon {
+    font-size: 25rem;
+  }
+}
+
 .header {
   height: 100rem;
   z-index: 9;
