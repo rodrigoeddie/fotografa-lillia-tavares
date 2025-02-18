@@ -30,6 +30,7 @@
     {
       "imageId": "cb3583c6-889a-4e41-85c6-423b37ad7100",
       "format": "retrato",
+      "canBeThumb": true,
       "alt": "Mulher sorrindo de roupa branca, sentada no chão"
     },
     {
@@ -45,6 +46,7 @@
     {
       "imageId": "0cd3c286-1724-40f9-187b-b77f9bede200",
       "format": "retrato",
+      "canBeThumb": true,
       "alt": "Mulher sorrindo com os braços cruzados"
     }
   ]

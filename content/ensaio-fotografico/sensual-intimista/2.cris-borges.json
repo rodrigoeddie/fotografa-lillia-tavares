@@ -11,6 +11,7 @@
     {
       "imageId": "d9d92383-3794-4bc4-10d4-5f4bc59a9200",
       "format": "retrato",
+      "canBeThumb": true,
       "alt": "Foto sensual com mulher deitada no sofá, mexendo nos cabelos"
     },
     {
@@ -46,15 +47,16 @@
       "alt": "Foto sensual com mulher de lingerie, subindo na cama"
     },
     {
-      "imageId": "2a0867b6-5830-4c9f-e94c-f0f3be4c6b00",
-      "format": "retrato",
-      "alt": "Foto sensual com mulher acima da cama, com as costas nuas"
-    },
-    {
       "imageId": "d2339b82-aaff-460d-f6db-416642463600",
       "format": "paisagem",
       "canBeThumb": true,
       "alt": "Foto sensual com mulher acima da cama, deitada de bruços, e braços esticados"
+    },
+    {
+      "imageId": "2a0867b6-5830-4c9f-e94c-f0f3be4c6b00",
+      "format": "retrato",
+      "canBeThumb": true,
+      "alt": "Foto sensual com mulher acima da cama, com as costas nuas"
     },
     {
       "imageId": "97642e93-93c2-4e44-2d40-5bcfd8170a00",

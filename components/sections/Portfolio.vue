@@ -14,13 +14,17 @@ const props = defineProps({
 });
 
 const filteredSlides = (item) => {
-  const hasPaisagem = item.album.some(slide => slide.format === 'paisagem');
-  let slides = item.album.filter(slide => 
-    slide.format === (hasPaisagem ? 'paisagem' : 'retrato') && slide.canBeThumb === true
-  );
+  const retratoSlides  = item.album
+                          .filter(slide => slide.format === 'retrato' && slide.canBeThumb === true)
+                          .slice(0, 2);
+  const paisagemSlides = item.album
+                          .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
+                          .slice(0, 2);
 
-  slides = slides.slice(0, 2);
-  return slides;
+  return {
+    retrato: retratoSlides,
+    paisagem: paisagemSlides
+  };
 }
 
 const { data: navigation } = await useAsyncData('navigation', () => {
@@ -58,11 +62,26 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(ite
 }) : [];
 
 const classes = [
-  'card card-column',
-  'card side-by-side',
-  'wide side-by-side reverse',
-  'card side-by-side card-50',
-  'card card-column card-50'
+  {
+    class: 'card card-column',
+    format: 'paisagem',
+  },
+  {
+    class: 'card side-by-side',
+    format: 'retrato',
+  },
+  {
+    class: 'wide side-by-side reverse',
+    format: 'paisagem',
+  },
+  {
+    class: 'card side-by-side card-50',
+    format: 'retrato',
+  },
+  {
+    class: 'card card-column card-50',
+    format: 'paisagem',
+  },
 ];
 
 const formatDate = (dateString) => {
@@ -84,7 +103,7 @@ const formatDate = (dateString) => {
 
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
-        <div :class="'thumb thumb-' + classes[index]">
+        <div :class="'thumb thumb-' + classes[index % classes.length].class">
           <div v-if="index == 2" class="wrap-wide">
             <div class="wrap-info">
               <div class="wrap-text">
@@ -127,7 +146,7 @@ const formatDate = (dateString) => {
               :loop="true"
               :slides-per-view="1">
               <SwiperSlide
-                v-for="slide in item.photos"
+                v-for="slide in item.photos[classes[index % classes.length].format]"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
                   :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
@@ -146,7 +165,7 @@ const formatDate = (dateString) => {
                   loading="lazy"/>
               </SwiperSlide>
 
-              <BlocksSwiperControls v-if="item.photos.length > 1" />
+              <BlocksSwiperControls v-if="item.photos[classes[index % classes.length].format].length > 1" />
             </Swiper>
           </div>
 
@@ -155,7 +174,7 @@ const formatDate = (dateString) => {
               :loop="true"
               :slides-per-view="1">
               <SwiperSlide
-                v-for="slide in item.photos"
+                v-for="slide in item.photos[classes[index % classes.length].format]"
                 :key="slide.id"
                 :class="'wrap-img ' + slide.format">
                 <nuxt-img
@@ -175,7 +194,7 @@ const formatDate = (dateString) => {
                   loading="lazy"/>
               </SwiperSlide>
 
-              <BlocksSwiperControls v-if="item.photos.length > 1" />
+              <BlocksSwiperControls v-if="item.photos[classes[index % classes.length].format].length > 1" />
             </Swiper>
 
             <div class="wrap-info">
