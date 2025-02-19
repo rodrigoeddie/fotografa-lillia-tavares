@@ -274,6 +274,16 @@ useSeoMeta({
     object-fit: cover;
   }
 
+  .paisagem {
+    &.w50 {
+      width: 50%;
+
+      @include m.max(sm) {
+        width: 100%;
+      }
+    }
+  }
+
   .retrato {
     width: 33.3%;
 

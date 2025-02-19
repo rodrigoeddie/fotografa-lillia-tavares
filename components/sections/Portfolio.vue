@@ -104,7 +104,7 @@ const formatDate = (dateString) => {
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
         <div :class="'thumb thumb-' + classes[index % classes.length].class">
-          <div v-if="index == 2" class="wrap-wide">
+          <div v-if="index == 2 || index == 7" class="wrap-wide">
             <div class="wrap-info">
               <div class="wrap-text">
                 <h2 class="title">
@@ -169,7 +169,7 @@ const formatDate = (dateString) => {
             </Swiper>
           </div>
 
-          <template v-if="index != 2">
+          <template v-if="index != 2 && index != 7">
             <Swiper
               :loop="true"
               :slides-per-view="1">
@@ -247,7 +247,7 @@ const formatDate = (dateString) => {
           </template>
         </div>
 
-        <template v-if="index == 1 || index ==6">
+        <template v-if="index == 1 || index == 6">
           <NuxtLink
             class="btn-agende btn-agende-01"
             :to="'/preco-ensaio-fotografico'">
@@ -255,7 +255,7 @@ const formatDate = (dateString) => {
           </NuxtLink>
         </template>
 
-        <template v-if="index == 1 && ensaiosData.length > 2">
+        <template v-if="(index == 1 && ensaiosData.length > 2) || index == 6">
           <NuxtLink
             class="btn-agende btn-agende-02"
             :to="'/preco-ensaio-fotografico'">

@@ -1,0 +1,58 @@
+{
+  "date": "2024-12-20",
+  "colorHighlight": "#607299",
+  "title": "Nelma Caroline",
+  "description": "<p>Ensaio corporativo pela fot&oacute;grafa Lillia Tavares para a fonoaudióloga Nelma Caroline (<a href=\"https://www.instagram.com/fono_nelmacaroline/\" title=\"Nelma Caroline\" target=\"_blank\" rel=\"noopener\">@fono_nelmacaroline</a>) que trabalha com 🔹 Linguagem infantil: autismo, trocas fonológicas, gagueira, leitura/escrita, seletividade alimentar, 🔹Motricidade orofacial 🔹TPAC. O ensaio corporativo feminino foi produzido no (<a href=\"https://www.fotografalilliatavares.com.br/estudio\" title=\"Estúdio Lillia Tavares\" target=\"_blank\" rel=\"noopener\">Estúdio Lillia Tavares</a>).</p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "site": "https://maps.app.goo.gl/LiWH8T4B2nKSKS9W6",
+  "instagram": {
+    "uri": "https://www.instagram.com/fono_nelmacaroline",
+    "title": "@fono_nelmacaroline"
+  },
+  "album": [
+    {
+      "imageId": "1336bba0-3b69-4402-048b-ba7b734e8c00",
+      "format": "retrato",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "44a69ad1-f464-4541-acbd-2c5327039200",
+      "format": "retrato",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "f30ada63-ea49-478f-59ec-652553d05400",
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "dc010e39-2f60-49b0-612f-2c57eee0f100",
+      "format": "paisagem",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "imageId": "1800249c-b112-49d3-9624-fb5506dec000",
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "9fe1489e-2f52-4069-8401-87bbd3d73400",
+      "format": "paisagem",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": ""
+    }
+  ]
+}
