@@ -1,0 +1,61 @@
+{
+  "date": "2024-12-20",
+  "colorHighlight": "#632e4d",
+  "title": "Pollyanna Gonçalves",
+  "description": "<p>Quem disse que foto corporativa precisa ser séria e sem charme? Bora mostrar que profissionalismo também pode ter leveza, personalidade e muita autenticidade!<br>O ensaio com a Psicoterapeuta Pollyanna é a prova disso!</p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "site": "https://trocardepele.my.canva.site/site-pollyanna",
+  "instagram": {
+    "uri": "https://www.instagram.com/apsipollyanna",
+    "title": "@apsipollyanna"
+  },
+  "album": [
+    {
+      "imageId": "ba0f1af3-4673-47e4-ab41-28bf987e9800",
+      "format": "paisagem",
+      "alt": "06",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "f1b2c33f-6b30-4a2b-f5b1-b04209153000",
+      "format": "retrato",
+      "alt": "-"
+    },
+    {
+      "imageId": "5bc0029d-f02b-4ae9-5c32-35c562b54b00",
+      "format": "retrato",
+      "alt": "01",
+      "canBeThumb": true
+    },
+    {
+      "imageId": "d9e9d135-728b-491c-13c5-6617aa329a00",
+      "format": "retrato",
+      "alt": "02",
+      "canBeThumb": true
+    },
+    {
+      "imageId": "50e4339d-3ba4-4f6a-4b0d-c8618632fb00",
+      "format": "paisagem",
+      "alt": "05",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "5e35e0d4-710f-48f8-8d2e-df39c1ec6e00",
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "03"
+    },
+    {
+      "imageId": "9759c4b9-73fb-4f5f-aef0-81d3002e8500",
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "04"
+    }
+  ]
+}

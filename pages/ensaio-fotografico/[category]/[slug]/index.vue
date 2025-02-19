@@ -111,7 +111,7 @@ useSeoMeta({
     <div class="portfolio-images">
       <template v-for="item in album">
         <nuxt-img
-            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.imageId + "/" + item.format'
+            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.imageId + "/" + item.format + "interna"'
             width="1920"
             :alt="item.alt"
             :class="[item.format, item.customClass]"

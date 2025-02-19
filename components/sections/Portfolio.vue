@@ -427,7 +427,7 @@ const formatDate = (dateString) => {
 
         &.side-by-side {
           .swiper {
-            aspect-ratio: 1/1.3;
+            aspect-ratio: 1/1.47;
             flex-shrink: 0;
             width: 60%;
 
@@ -572,18 +572,8 @@ const formatDate = (dateString) => {
           width: 100%;
         }
 
-        &.retrato {
-          .img-thumb {
-            transform: translateX(-50%);
-            z-index: 2;
-            width: 35%;
-            left: 50%;
-          }
-
-          .bg-thumb {
-            width: 100%;
-          }
-        }
+        // &.retrato {
+        // }
 
         &.paisagem {
           aspect-ratio: 600/400;
