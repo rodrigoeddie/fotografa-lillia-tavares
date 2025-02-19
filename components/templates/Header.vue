@@ -79,7 +79,7 @@ const clickLogo = () => {
   height: 100rem;
   z-index: 9;
 
-  @include m.max(sm) {
+  @include m.max(md) {
     height: 80px
   }
 
@@ -108,7 +108,7 @@ const clickLogo = () => {
       display: block;
     }
 
-    @include m.max(sm) {
+    @include m.max(md) {
       width: 180px;
       left: 20px;
       top: 50px;

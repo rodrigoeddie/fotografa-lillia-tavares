@@ -30,39 +30,77 @@
         </NuxtLink>
       </div>
 
-      <div class="side wrap-images" :class="{'is-studio': currentPath === '/estudio'}">
-          <nuxt-img
-              :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
-              width="612"
-              height="408"
-              class="img-studio"
-              alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
-              loading="lazy" />
-          <nuxt-img
+      <Swiper
+        class="side wrap-images"
+        :class="{'is-studio': currentPath === '/estudio'}"
+        :loop="true"
+        :slides-per-view="1"
+        :breakpoints="{
+          450: {
+              slidesPerView: 2
+          },
+          1024: {
+              slidesPerView: 4
+          },
+        }">
+          <SwiperSlide class="item">
+            <nuxt-img
+                :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
+                width="612"
+                height="408"
+                class="img-studio"
+                alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+                loading="lazy" />
+          </SwiperSlide>
+
+          <SwiperSlide class="item">
+            <nuxt-img
               :src='configPublic.cloudflareURI + "45bb3714-18c8-4b40-f986-5b0074589c00/thumb"'
               width="612"
               height="408"
               class="img-studio"
               alt="Um canto do café, com xicaras e canecas, e várias cápsulas de Dolce Gusto"
               loading="lazy" />
-          <nuxt-img
+          </SwiperSlide>
+
+          <SwiperSlide class="item">
+            <nuxt-img
               :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
               width="612"
               height="408"
               class="img-studio"
               alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
               loading="lazy" />
-          <nuxt-img
+          </SwiperSlide>
+
+          <SwiperSlide class="item">
+            <nuxt-img
               :src='configPublic.cloudflareURI + "c9f3cea1-c80c-4822-f585-144615c7ec00/thumb"'
               width="612"
               height="408"
               class="img-studio"
               alt="O fundo infinito do estúdio, há 3 rolos de cores de fundo (branco, bege, e azul)"
               loading="lazy" />
-      </div>
+          </SwiperSlide>
+
+          <BlocksSwiperControls class="centered studio-controls" />
+      </Swiper>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.wrap-images .swiper-wrapper {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 6px;
+
+  @include m.max(md) {
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+}
+</style>
 
 <style scoped lang="scss">
   @use "sass:color";
@@ -83,13 +121,19 @@
   .wrapper {
     overflow: hidden;
 
-    &.from-page-studio {
+    .studio-controls {
       @include m.max(sm) {
+        bottom: 10rem;
+      }
+    }
+
+    &.from-page-studio {
+      @include m.max(md) {
         background: white;
         padding-top: 80px;
       }
 
-      @media (prefers-color-scheme: dark) and (max-width: 900px) {
+      @media (prefers-color-scheme: dark) and (max-width: 1023px) {
         background: v.$dark-green;
       }
 
@@ -104,7 +148,7 @@
       .side-text {
         padding-bottom: 0;
 
-        @include m.max(sm) {
+        @include m.max(md) {
           padding-bottom: 30px;
         }
       }
@@ -197,14 +241,14 @@
         }
 
         .big {
-          @media (prefers-color-scheme: dark) and (max-width: 900px) {
+          @media (prefers-color-scheme: dark) and (max-width: 1024px) {
               @include faux-bold(v.$dark-green);
               color: white;
           }
         }
 
         .box {
-          @media (prefers-color-scheme: dark) and (max-width: 900px) {
+          @media (prefers-color-scheme: dark) and (max-width: 1024px) {
             background: white;
             color: v.$dark-green;
             @include faux-bold(white);
@@ -224,7 +268,7 @@
           font-size: 16px;
         }
 
-        @media (prefers-color-scheme: dark) and (max-width: 900px) {
+        @media (prefers-color-scheme: dark) and (max-width: 1024px) {
           color: white;
         }
       }
@@ -262,6 +306,10 @@
         padding: 6px;
       }
 
+      @include m.max(sm) {
+        padding-bottom: 75rem !important;
+      }
+
       @media (prefers-color-scheme: dark) {
         background:  v.$dark-red;
       }
@@ -288,11 +336,21 @@
         }
       }
 
-      img {
+      .item {
         height: auto;
-        width: calc(50% - 3px);
+        width: calc(50% - 3px) !important;
 
         @include m.max(md) {
+          width: 50% !important;
+        }
+
+        @media (max-width: 450px) {
+          width: 100% !important;
+        }
+
+        .img-studio {
+          display: block;
+          height: auto;
           width: 100%;
         }
       }

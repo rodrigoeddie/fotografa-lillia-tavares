@@ -88,7 +88,7 @@ button {
     position: absolute;
     margin: 0 auto;
     display: flex;
-    width: 200rem;
+    width: 100%;
     gap: 15rem;
     bottom: 0;
 
@@ -97,6 +97,7 @@ button {
       bottom: auto;
       right: auto;
     }
+
     .btnNext {
       position: relative;
       bottom: auto;
@@ -104,6 +105,7 @@ button {
     }
   }
 
+  &.studio-controls,
   &.from-bgs {
     @include m.min(md) {
       display: none;
