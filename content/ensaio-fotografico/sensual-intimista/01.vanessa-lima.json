@@ -1,0 +1,60 @@
+{
+  "colorHighlight": "#000000",
+  "title": "Vanessa Lima",
+  "description": "<p>Ensaio Sensual/intimista realizado pela fot&oacute;grafa Lillia Tavares para a Vanessa Lima. O ensaio intimista feminino foi produzido no Estúdio de fotografia Lillia Tavares.</p>",
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "category": {
+    "slug": "sensual-intimista",
+    "title": "Sensual / Intimista"
+  },
+  "album": [
+    {
+      "imageId": "4c9605da-8014-4078-7710-f823ff81d700",
+      "format": "paisagem",
+      "alt": "34",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "e6b2344f-6045-41f8-c01b-a051fd388200",
+      "format": "retrato",
+      "alt": "24",
+      "customClass": "w25"
+    },
+    {
+      "imageId": "e92b1a3e-0a3d-4553-8402-ac250a882d00",
+      "format": "retrato",
+      "alt": "30",
+      "canBeThumb": true,
+      "customClass": "w25"
+    },
+    {
+      "imageId": "080d11e9-5ef8-45eb-8f93-70fb5426c500",
+      "format": "retrato",
+      "alt": "36",
+      "customClass": "w25"
+    },
+    {
+      "imageId": "5f09bf4f-4335-42b8-8ac0-8517ccc5b900",
+      "format": "retrato",
+      "alt": "43",
+      "customClass": "w25"
+    },
+    {
+      "imageId": "504faadb-59cb-4bcb-98dc-80253d802400",
+      "format": "retrato",
+      "alt": "59"
+    },
+    {
+      "imageId": "9b27581a-cd10-41f4-dbe7-36ed7504e400",
+      "format": "retrato",
+      "alt": "61"
+    },
+    {
+      "imageId": "cf26baa3-00b0-4732-4a73-5e10fa282400",
+      "format": "retrato",
+      "alt": "72",
+      "canBeThumb": true
+    }
+  ]
+}

@@ -247,7 +247,7 @@ const formatDate = (dateString) => {
           </template>
         </div>
 
-        <template v-if="index == 1">
+        <template v-if="index == 1 || index ==6">
           <NuxtLink
             class="btn-agende btn-agende-01"
             :to="'/preco-ensaio-fotografico'">

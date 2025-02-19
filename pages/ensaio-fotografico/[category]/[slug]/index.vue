@@ -275,7 +275,7 @@ useSeoMeta({
   }
 
   .retrato {
-    width: 33%;
+    width: 33.3%;
 
     &.w50 {
       width: 50%;
