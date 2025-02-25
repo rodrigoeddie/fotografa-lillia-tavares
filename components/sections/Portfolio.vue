@@ -431,7 +431,7 @@ const formatDate = (dateString) => {
             flex-shrink: 0;
             width: 60%;
 
-            @include m.max(xs) {
+            @include m.max(sm) {
               width: 50%;
             }
           }
@@ -440,7 +440,7 @@ const formatDate = (dateString) => {
         &.card-50 {
           width: calc(50% - 15rem);
 
-          @include m.max(xs) {
+          @include m.max(sm) {
             width: 100%;
           }
         }

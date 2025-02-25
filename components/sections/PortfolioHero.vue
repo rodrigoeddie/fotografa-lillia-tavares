@@ -22,7 +22,7 @@ const { data: navigation } = await useAsyncData('navigation', () => {
   return queryCollectionNavigation('works');
 });
 
-const categories      = navigation.value[0].children;
+const categories = navigation.value[0].children;
 </script>
 
 <template>
@@ -42,6 +42,12 @@ const categories      = navigation.value[0].children;
 
       <div class="about-ctas">
         <nav class="menu-category">
+          <NuxtLink
+            to="/ensaio-fotografico"
+            class="link-category">
+            <span class="txt">todos</span>
+          </NuxtLink>
+
           <template v-for="item in categories">
             <NuxtLink
               :to="item.path"
@@ -68,14 +74,14 @@ const categories      = navigation.value[0].children;
               </p>
             </div>
           </div>
+        </div>
 
-          <div class="about-ctas">
-            <NuxtLink
-              :to="slide.path"
-              class="btn btn-green-light">
-                <span>Ver mais</span>
-            </NuxtLink>
-          </div>
+        <div class="about-ctas">
+          <NuxtLink
+            :to="slide.path"
+            class="btn btn-green-light">
+              <span>Ver mais</span>
+          </NuxtLink>
         </div>
 
         <nuxt-img
@@ -93,6 +99,10 @@ const categories      = navigation.value[0].children;
 <style scoped lang="scss">
 .sbs {
   display: flex;
+
+  @include m.max(sm) {
+    flex-direction: column;
+  }
 }
 
 .intro-hero {
@@ -115,13 +125,13 @@ const categories      = navigation.value[0].children;
     justify-content: flex-end;
     flex-direction: column;
     background: white;
+    position: absolute;
     flex-shrink: 0;
     display: flex;
     width: 45%;
-    position: absolute;
+    bottom: 0;
     right: 0;
     top: 0;
-    bottom: 0;
 
     @include m.max(lg) {
       width: 50%;
@@ -218,6 +228,10 @@ const categories      = navigation.value[0].children;
       height: 80rem;
     }
 
+    @include m.max(sm) {
+      padding: 20rem;
+    }
+
     .btn {
       position: absolute;
       bottom: 0;
@@ -242,6 +256,12 @@ const categories      = navigation.value[0].children;
       font-size: 25rem;
       list-style: disc;
 
+      @include m.max(sm) {
+        text-indent: -5rem;
+        margin-left: 15rem;
+        font-size: 18rem;
+      }
+
       &.router-link-active {
         text-decoration: underline;
         font-weight: bold;
@@ -258,41 +278,82 @@ const categories      = navigation.value[0].children;
 .wrap-highlights {
   width: 55%;
 
-  @include m.max(xs) {
-    display: none;
+  @include m.max(sm) {
+    aspect-ratio: 1.35/1;
+    height: 100%;
+    width: 100%;
+  }
+
+  .about-ctas {
+    color: var(--color-highlight, v.$dark-green);
+    position: absolute;
+    bottom: 30rem;
+    left: 130rem;
+
+    @include m.max(sm) {
+      background-color: v.$dark-green;
+      height: 60rem;
+      left: 100rem;
+      width: 100%;
+      bottom: 0;
+      right: 0;
+    }
+
+    .btn {
+      @include m.max(sm) {
+        justify-content: flex-start;
+        padding-left: 25rem;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 0;
+      }
+    }
   }
 
   .about-highlight {
-    color: var(--color-highlight, v.$dark-green);
+    background-color: var(--color-highlight, v.$dark-green);
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+    padding-left: 30rem;
+    padding-top: 20rem;
     position: absolute;
+    color: white;
+    height: 100rem;
     z-index: 2;
+    top: 100%;
     bottom: 0;
     right: 0;
     left: 0;
+
+    .description {
+      padding-top: 0;
+
+      @include m.max(sm) {
+        font-size: 12px;
+      }
+    }
+
+    // .btn {
+    //   // color: var(--color-highlight, v.$dark-green);
+    //   margin-top: 10rem;
+    //   font-size: 35rem;
+    //   display: none;
+    // }
   }
 
   .img-hero {
     position: absolute;
-    height: 100%;
     object-fit: cover;
+    display: block;
+    height: 100%;
     width: 100%;
-  }
 
-  .description {
-    padding-top: 0;
-  }
-
-  .btn {
-    color: var(--color-highlight, v.$dark-green);
-    margin-top: 10rem;
-    font-size: 35rem;
-  }
-
-  .about-highlight {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.7), transparent);
-    padding-left: 30rem;
-    padding-top: 20rem;
-    height: 150rem;
+    @include m.max(sm) {
+      height: calc(100% - 60rem);
+    }
   }
 }
 </style>

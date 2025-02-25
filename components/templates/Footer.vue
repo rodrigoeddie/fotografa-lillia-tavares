@@ -143,5 +143,9 @@
         @media (prefers-color-scheme: dark) {
           color: v.$dark-red;
         }
+
+        @include m.max(sm) {
+            font-size: 12px;
+        }
     }
 </style>
