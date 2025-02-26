@@ -13,7 +13,9 @@ export default defineNuxtConfig({
   debug: false,
 
   site: {
-    url: 'fotografalilliatavares.com.br'
+    url: siteConfig.url,
+    name: siteConfig.title,
+    description: siteConfig.description,
   },
 
   router: {

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-const title = 'Sobre o Estúdio | Fotógrafa Lillia Tavares';
+const title = 'Sobre o Estúdio';
 const description = 'O estúdio está localizado em Mogi das cruzes, no coração da cidade, com ótimas opções para estacionamento e transportes.';
 
 useSchemaOrg([
   defineWebPage({
-    name: title,
+    name: title + ' | Fotógrafa Lillia Tavares',
     url: 'https://fotografalilliatavares.com.br/estudio'
   }),
   defineLocalBusiness({

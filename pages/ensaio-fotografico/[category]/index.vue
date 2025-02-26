@@ -1,10 +1,17 @@
 <script lang="ts" setup>
-const title = 'Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
-const description = 'Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da fotógrafa Lillia Tavares e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.';
+const path = useRoute().path
 
-const { data: navigation } = await useAsyncData('navigation', () => {
-  return queryCollectionNavigation('works');
+const { data: pageData } = await useAsyncData(path, () => {
+  return queryCollection('works').path(path).first()
 });
+
+let titlePage = '';
+if(pageData.value) {
+  titlePage = pageData.value.title + ' | ';
+}
+
+const title = titlePage + 'Ensaios fotográficos profissionais';
+const description = 'Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da fotógrafa Lillia Tavares e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.';
 
 useSchemaOrg([
   defineWebPage({

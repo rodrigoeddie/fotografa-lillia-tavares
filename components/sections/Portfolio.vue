@@ -14,6 +14,13 @@ const props = defineProps({
 });
 
 const filteredSlides = (item) => {
+  if (!item.album) {
+    return {
+      retrato: [],
+      paisagem: []
+    };
+  }
+
   const retratoSlides  = item.album
                           .filter(slide => slide.format === 'retrato' && slide.canBeThumb === true)
                           .slice(0, 2);
@@ -35,7 +42,7 @@ const categories = navigation.value[0].children;
 const workPage   = navigation.value[0].path;
 const category   = $route.params.category || '';
 
-const currentCategory = categories.find(cat => cat.stem === `ensaio-fotografico/${category}`);
+const currentCategory = categories.find(cat => cat.stem === `ensaio-fotografico/${category}/index`);
 
 const {
   data: ensaiosList
@@ -50,8 +57,12 @@ const {
     query.where('path', 'LIKE', `%/${category}%`);
   }
 
+  query.where('id', 'NOT LIKE', `%/index.json%`);
+
   return query.all();
 });
+
+// console.log(ensaiosList);
 
 const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(item => {
   return {
@@ -112,7 +123,7 @@ const formatDate = (dateString) => {
                 </h2>
 
                 <ul class="info-list">
-                  <li class="category">
+                  <li class="category" v-if="item.category.slug">
                     <NuxtLink
                     :to="workPage + '/' + item.category.slug">
                       <span>{{ item.category.title }}</span>
@@ -204,7 +215,7 @@ const formatDate = (dateString) => {
                 </h2>
 
                 <ul class="info-list">
-                  <li class="category">
+                  <li class="category" v-if="item.category.slug">
                     <NuxtLink
                       :to="workPage + '/' + item.category.slug">
                       <span>{{ item.category.title }}</span>
