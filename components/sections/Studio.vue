@@ -3,6 +3,34 @@
   const $route       = useRoute();
   const currentPath  = $route.path;
   const configPublic = useRuntimeConfig().public;
+
+  const visibleRef = ref(false);
+  const indexRef = ref(0);
+  const imgs = [
+    {
+      src: configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb",
+      title: ""
+    },
+    {
+      src: configPublic.cloudflareURI + "45bb3714-18c8-4b40-f986-5b0074589c00/thumb",
+      title: ""
+    },
+    {
+      src: configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb",
+      title: ""
+    },
+    {
+      src: configPublic.cloudflareURI + "c9f3cea1-c80c-4822-f585-144615c7ec00/thumb",
+      title: ""
+    },
+  ];
+
+  const showImg = (index) => {
+    indexRef.value = index;
+    visibleRef.value = true;
+  };
+
+  const onHide = () => (visibleRef.value = false);
 </script>
 
 <template>
@@ -48,6 +76,7 @@
                 :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
                 width="612"
                 height="408"
+                @click="() => showImg(0)"
                 class="img-studio"
                 alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
                 loading="lazy" />
@@ -58,6 +87,7 @@
               :src='configPublic.cloudflareURI + "45bb3714-18c8-4b40-f986-5b0074589c00/thumb"'
               width="612"
               height="408"
+              @click="() => showImg(1)"
               class="img-studio"
               alt="Um canto do café, com xicaras e canecas, e várias cápsulas de Dolce Gusto"
               loading="lazy" />
@@ -68,6 +98,7 @@
               :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
               width="612"
               height="408"
+              @click="() => showImg(2)"
               class="img-studio"
               alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
               loading="lazy" />
@@ -78,6 +109,7 @@
               :src='configPublic.cloudflareURI + "c9f3cea1-c80c-4822-f585-144615c7ec00/thumb"'
               width="612"
               height="408"
+              @click="() => showImg(3)"
               class="img-studio"
               alt="O fundo infinito do estúdio, há 3 rolos de cores de fundo (branco, bege, e azul)"
               loading="lazy" />
@@ -86,6 +118,15 @@
           <BlocksSwiperControls class="centered studio-controls" />
       </Swiper>
     </div>
+
+    <VueEasyLightbox
+      :visible="visibleRef"
+      :imgs="imgs"
+      :index="indexRef"
+      :rotateDisabled="true"
+      :zoomDisabled="true"
+      @hide="onHide"
+    />
   </div>
 </template>
 

@@ -1,5 +1,33 @@
 <script setup lang="ts">
     const configPublic = useRuntimeConfig().public;
+
+    const visibleRef = ref(false);
+    const indexRef = ref(0);
+    const imgs = [
+        {
+            src: configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato",
+            title: ""
+        },
+        {
+            src: configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/retrato",
+            title: ""
+        },
+        {
+            src: configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/retrato",
+            title: ""
+        },
+        {
+            src: configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/retrato",
+            title: ""
+        },
+    ];
+
+    const showImg = (index) => {
+        indexRef.value = index;
+        visibleRef.value = true;
+    };
+
+    const onHide = () => (visibleRef.value = false);
 </script>
 
 <template>
@@ -36,43 +64,56 @@
     >
         <SwiperSlide class="item bg-blue">
             <nuxt-img
-              :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/logo"'
+              :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato"'
               width="300"
               height="420"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
+              @click="() => showImg(0)"
               loading="lazy" />
         </SwiperSlide>
         <SwiperSlide class="item bg-beige">
             <nuxt-img
-              :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/logo"'
+              :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/retrato"'
               width="300"
               height="420"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
+              @click="() => showImg(1)"
               loading="lazy" />
         </SwiperSlide>
         <SwiperSlide class="item bg-gray">
             <nuxt-img
-              :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/logo"'
+              :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/retrato"'
               width="300"
               height="420"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
+              @click="() => showImg(2)"
               loading="lazy" />
         </SwiperSlide>
         <SwiperSlide class="item bg-white">
             <nuxt-img
-              :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/logo"'
+              :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/retrato"'
               width="300"
               height="420"
               class="img-fundo"
               alt="Exemplo de fundo fotográfico na cor branca"
+              @click="() => showImg(3)"
               loading="lazy" />
         </SwiperSlide>
 
         <BlocksSwiperControls class="centered from-bgs" />
     </Swiper>
+
+    <VueEasyLightbox
+      :visible="visibleRef"
+      :imgs="imgs"
+      :index="indexRef"
+      :rotateDisabled="true"
+      :zoomDisabled="true"
+      @hide="onHide"
+    />
   </div>
 </template>
 
