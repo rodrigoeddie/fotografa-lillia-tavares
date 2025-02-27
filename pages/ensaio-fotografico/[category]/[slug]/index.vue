@@ -183,7 +183,7 @@ useSeoMeta({
 nav[aria-label="breadcrumb"] {
   position: absolute;
   top: 160rem;
-  
+
   @include m.max(sm) {
     top: 110rem;
   }
@@ -196,6 +196,10 @@ nav[aria-label="breadcrumb"] {
     li,
     a {
       font-size: 19rem;
+
+      @include m.max(sm) {
+        font-size: 16rem;
+      }
     }
 
     a:hover {
