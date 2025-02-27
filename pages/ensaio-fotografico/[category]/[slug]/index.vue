@@ -9,18 +9,58 @@ const { data: navigation } = await useAsyncData('navigation', () => {
   return queryCollectionNavigation('works');
 });
 
-const workPage = navigation.value[0].path;
-
+const workPage  = navigation.value[0].path;
 const highlight = work.value.album.filter(item => item.highlight);
-const album = work.value.album.filter(item => !item.highlight);
+const album     = work.value.album.filter(item => !item.highlight);
+const title     = work.value.title + ' | Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
 
-const title = work.value.title + ' | Trabalhos | Fotógrafa Lillia Tavares';
+const siteURI = 'https://fotografalilliatavares.com.br';
 
 useSchemaOrg([
   defineWebPage({
     '@type': 'ItemPage',
     name: title,
+    url: siteURI + path,
+  }),
+  defineImage({
+    '@type': 'ImageObject',
+    name: work.value.title,
+    description: work.value.description,
+    author: {
+      '@type': 'Person',
+      name: 'Fotógrafa Lillia Tavares',
+    },
+    datePublished: work.value.date,
+    contentUrl: album.map(item => `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${item.imageId}/${item.format}`),
     url: 'https://fotografalilliatavares.com.br' + path,
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteURI
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Ensaios Fotográficos',
+        item: siteURI + '/ensaio-fotografico'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: work.value.category.title,
+        item: siteURI + '/ensaio-fotografico/' + work.value.category.slug
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: work.value.title,
+        item: siteURI + path
+      }
+    ]
   })
 ]);
 
@@ -32,6 +72,21 @@ useSeoMeta({
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
     <div class="wrap-hero">
+      <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <NuxtLink to="/">Home</NuxtLink>
+          </li>
+          <li class="breadcrumb-item">
+            <NuxtLink to="/ensaio-fotografico">Trabalhos</NuxtLink>
+          </li>
+          <li class="breadcrumb-item">
+            <NuxtLink :to="`/ensaio-fotografico/${work.category.slug}`">{{ work.category.title }}</NuxtLink>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{ work.title }}</li>
+        </ul>
+      </nav>
+
       <div class="text">
         <div class="about-text text-slide">
           <h1 class="title" v-html="work.title"></h1>
@@ -125,6 +180,36 @@ useSeoMeta({
 </template>
 
 <style lang="scss">
+nav[aria-label="breadcrumb"] {
+  position: absolute;
+  top: 160rem;
+  
+  @include m.max(sm) {
+    top: 110rem;
+  }
+
+  .breadcrumb {
+    padding: 0 0 0 35rem;
+    display: flex;
+    z-index: 3;
+
+    li,
+    a {
+      font-size: 19rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    li:not(:last-child)::after {
+      display: inline-block;
+      margin: 0 10rem;
+      content: "→";
+    }
+  }
+}
+
 .empty {
   min-width: 33%;
   height: 1px;
