@@ -10,8 +10,20 @@ const { data: navigation } = await useAsyncData('navigation', () => {
 });
 
 const workPage  = navigation.value[0].path;
-const highlight = work.value.album.filter(item => item.highlight);
-const album     = work.value.album.filter(item => !item.highlight);
+const highlight = work.value.album
+                    .map((item, index) => ({
+                      ...item,
+                      index
+                    }))
+                    .filter(item => item.highlight);
+
+const album     = work.value.album
+                    .map((item, index) => ({
+                      ...item,
+                      index
+                    }))
+                    .filter(item => !item.highlight)
+                    ;
 const title     = work.value.title + ' | Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
 
 const siteURI = 'https://fotografalilliatavares.com.br';
@@ -68,6 +80,25 @@ useSeoMeta({
   title: title,
   description: work.value.description
 });
+
+const visibleRef = ref(false);
+const indexRef = ref(0);
+const imgs = ref([]);
+
+work.value.album.map(item => {
+  imgs.value.push({
+    src: `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${item.imageId}/${item.format}`,
+    title: "",
+  });
+});
+
+const showImg = (index) => {
+  console.log(index);
+  indexRef.value = index;
+  visibleRef.value = true;
+};
+
+const onHide = () => (visibleRef.value = false);
 </script>
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
@@ -153,12 +184,14 @@ useSeoMeta({
           :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[0].imageId + "/" + highlight[0].format'
           width="1920"
           :alt="highlight[0].alt"
+          @click="() => showImg(highlight[0].index)"
           loading="lazy"/>
         <nuxt-img
           v-if="highlight[1]"
           :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[1].imageId + "/" + highlight[1].format'
           width="1920"
           :alt="highlight[1].alt"
+          @click="() => showImg(highlight[1].index)"
           loading="lazy"/>
       </div>
     </div>
@@ -170,12 +203,22 @@ useSeoMeta({
             width="1920"
             :alt="item.alt"
             :class="[item.format, item.customClass]"
+            @click="() => showImg(item.index)"
             loading="lazy"/>
       </template>
 
       <div class="empty"></div>
       <div class="empty"></div>
     </div>
+
+    <VueEasyLightbox
+      :visible="visibleRef"
+      :imgs="imgs"
+      :index="indexRef"
+      :rotateDisabled="true"
+      :zoomDisabled="true"
+      @hide="onHide"
+    />
   </div>
 </template>
 
