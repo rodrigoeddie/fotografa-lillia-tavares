@@ -283,6 +283,11 @@ nav[aria-label="breadcrumb"] {
     .description {
       padding-top: 0;
 
+      @include m.max(sm) {
+        line-height: 1.3em;
+        font-size: 19rem;
+      }
+
       p {
         padding-top: 15rem !important;
       }
@@ -300,10 +305,18 @@ nav[aria-label="breadcrumb"] {
       .title {
         padding-top: 20rem;
         padding-bottom: 30rem;
+
+        @include m.max(sm) {
+          padding-top: 0;
+        }
       }
 
       .description {
         padding-bottom: 20rem;
+
+        @include m.max(sm) {
+          padding-bottom: 0;
+        }
 
         p {
           padding-top: 0 !important;
