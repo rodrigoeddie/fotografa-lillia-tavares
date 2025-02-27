@@ -9,12 +9,20 @@ const clickLogo = () => {
     screen_name: 'Header'
   })
 }
+const clickWhats = () => {
+  gtag('event', 'click-whats', {
+    app_name: 'Site',
+    screen_name: 'Header'
+  })
+}
 </script>
 
 <template>
   <div class="container header">
     <h1 class="logo">
-      <NuxtLink to="/" @click="clickLogo">
+      <NuxtLink
+        to="/"
+        @click="clickLogo">
         <nuxt-img
           :src='configPublic.cloudflareURI + "054a1bce-78a3-4e53-7afa-a30d92e86500/logo"'
           alt="Logo Lillia Tavares Fotografia"
@@ -39,6 +47,7 @@ const clickLogo = () => {
     <NuxtLink
       to="https://wa.me/5511911159795"
       class="fixed-whatsapp"
+      @click="clickWhats"
       target="_blank">
       <nuxt-icon
         name="whatsapp"

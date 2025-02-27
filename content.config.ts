@@ -10,6 +10,7 @@ export default defineContentConfig({
       source: 'ensaio-fotografico/**/*.json',
       type: 'page',
       schema: z.object({
+        home: z.boolean(),
         date: z.date(),
         category: z.object({
           slug: z.string(),

@@ -22,6 +22,6 @@ useSeoMeta({
 
 <template>
   <SectionsAbout />
-  <SectionsPortfolio :fromHero="true" />
+  <SectionsPortfolio :fromHome="true" />
   <SectionsStudio class="from-home-studio" />
 </template>

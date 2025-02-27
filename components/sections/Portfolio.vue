@@ -6,7 +6,7 @@ const $route       = useRoute();
 const configPublic = useRuntimeConfig().public;
 
 const props = defineProps({
-  fromHero: {
+  fromHome: {
     type: Boolean,
     required: false,
     default: false
@@ -49,8 +49,9 @@ const {
 } = await useAsyncData(() => {
   const query = queryCollection('works')
 
-  if(props.fromHero) {
+  if(props.fromHome) {
     query.limit(3);
+    query.where('home', '=', true);
   }
 
   if (category) {
@@ -62,15 +63,25 @@ const {
   return query.all();
 });
 
-// console.log(ensaiosList);
+const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
+  .map(item => {
+    return {
+      ...item.body,
+      photos: filteredSlides(item.body),
+      path: item.path
+    };
+  })
+  .sort((a, b) => {
+    if (props.fromHome) {
+      if (a.homeOrder && b.homeOrder) {
+        return a.homeOrder - b.homeOrder;
+      }
 
-const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value.map(item => {
-  return {
-    ...item.body,
-    photos: filteredSlides(item.body),
-    path: item.path
-  };
-}) : [];
+      return 0;
+    }
+
+    return 0;
+  }) : [];
 
 const classes = [
   {
@@ -246,7 +257,7 @@ const formatDate = (dateString) => {
             </div>
           </template>
 
-          <template v-if="index == 2 && props.fromHero">
+          <template v-if="index == 2 && props.fromHome">
             <NuxtLink
               class="link-see-more big-title red"
               :to="workPage">

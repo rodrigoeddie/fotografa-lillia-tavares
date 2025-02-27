@@ -1,5 +1,7 @@
 
 <script lang="ts" setup>
+const { gtag } = useGtag();
+
 const configPublic = useRuntimeConfig().public;
 
 interface FormData {
@@ -61,6 +63,11 @@ const enviar = async () => {
     const whatsappUrl    = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, '_blank');
+
+    gtag('event', 'envio-form', {
+      app_name: 'Site',
+      screen_name: 'Agende seu ensaio'
+    });
   }
 };
 </script>
