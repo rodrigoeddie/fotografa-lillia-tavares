@@ -113,6 +113,32 @@
       }
     }
   }
+
+  &.white-green {
+    color: v.$dark-green;
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+    }
+
+    // .big {
+    //   @include faux-bold(v.$dark-green);
+
+    //   @media (prefers-color-scheme: dark) {
+    //     @include faux-bold(white);
+    //   }
+    // }
+
+    .box {
+      background: white;
+      color: v.$dark-green;
+
+      @media (prefers-color-scheme: dark) {
+        background: white;
+        color: v.$dark-green;
+      }
+    }
+  }
 }
 
 .description {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { split } from 'postcss/lib/list';
+// import { split } from 'postcss/lib/list';
 
 const $route       = useRoute();
 // const currentPath  = $route.path;
@@ -110,6 +110,12 @@ const formatDate = (dateString) => {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return new Date(dateString).toLocaleDateString('pt-BR', options);
 };
+
+const swiperRefs = ref<HTMLElement[]>([]);
+
+const itemRefs = useTemplateRef('items');
+
+console.log(itemRefs);
 </script>
 
 <template>
@@ -126,98 +132,37 @@ const formatDate = (dateString) => {
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
         <div :class="'thumb thumb-' + classes[index % classes.length].class">
-          <div v-if="index == 2 || index == 7" class="wrap-wide">
-            <div class="wrap-info">
-              <div class="wrap-text">
-                <h2 class="title">
-                  {{ item.title }}
-                </h2>
+            <ClientOnly>
+              <swiper-container
+                class="swiper"
+                ref="items"
+                :slides-per-view="1">
+                <swiper-slide
+                  v-for="slide in item.photos[classes[index % classes.length].format]"
+                  :key="slide.id"
+                  :class="'wrap-img ' + slide.format">
+                  <nuxt-img
+                    :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
+                    :width="(slide.format=='paisagem') ? 700 : 500"
+                    :height="(slide.format=='paisagem') ? 500 : 800"
+                    class="img-thumb"
+                    :alt="slide.alt"
+                    loading="lazy"/>
+                  <nuxt-img
+                    v-if="slide.format=='retrato'"
+                    :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
+                    width="700"
+                    height="500"
+                    class="bg-thumb"
+                    :alt="slide.alt"
+                    loading="lazy"/>
+                </swiper-slide>
+              </swiper-container>
+            </ClientOnly>
 
-                <ul class="info-list">
-                  <li class="category" v-if="item.category.slug">
-                    <NuxtLink
-                    :to="workPage + '/' + item.category.slug">
-                      <span>{{ item.category.title }}</span>
-                    </NuxtLink>
-                  </li>
-                  <li class="place">
-                    <nuxt-icon
-                      name="location-pin-solid"
-                      class="icon icon-location-pin"/>
-                    <span v-html="item.local"></span>
-                  </li>
-                  <li class="place" v-if="item.date">
-                    <nuxt-icon
-                      name="location-pin-solid"
-                      class="icon icon-location-pin"/>
-                    <span v-html="formatDate(item.date)"></span>
-                  </li>
-                </ul>
-
-                <div class="description" v-html="item.description"></div>
-              </div>
-
-              <NuxtLink
-                :to="item.path"
-                class="btn btn-green-light">
-                  <span>Ver mais</span>
-              </NuxtLink>
-            </div>
-
-            <Swiper
-              :loop="true"
-              :slides-per-view="1">
-              <SwiperSlide
-                v-for="slide in item.photos[classes[index % classes.length].format]"
-                :class="'wrap-img ' + slide.format">
-                <nuxt-img
-                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                  :width="(slide.format=='paisagem') ? 700 : 500"
-                  :height="(slide.format=='paisagem') ? 500 : 800"
-                  class="img-thumb"
-                  :alt="slide.alt"
-                  loading="lazy"/>
-                <nuxt-img
-                  v-if="slide.format=='retrato'"
-                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                  width="700"
-                  height="500"
-                  class="bg-thumb"
-                  :alt="slide.alt"
-                  loading="lazy"/>
-              </SwiperSlide>
-
-              <BlocksSwiperControls v-if="item.photos[classes[index % classes.length].format].length > 1" />
-            </Swiper>
-          </div>
-
-          <template v-if="index != 2 && index != 7">
-            <Swiper
-              :loop="true"
-              :slides-per-view="1">
-              <SwiperSlide
-                v-for="slide in item.photos[classes[index % classes.length].format]"
-                :key="slide.id"
-                :class="'wrap-img ' + slide.format">
-                <nuxt-img
-                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                  :width="(slide.format=='paisagem') ? 700 : 500"
-                  :height="(slide.format=='paisagem') ? 500 : 800"
-                  class="img-thumb"
-                  :alt="slide.alt"
-                  loading="lazy"/>
-                <nuxt-img
-                  v-if="slide.format=='retrato'"
-                  :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                  width="700"
-                  height="500"
-                  class="bg-thumb"
-                  :alt="slide.alt"
-                  loading="lazy"/>
-              </SwiperSlide>
-
-              <BlocksSwiperControls v-if="item.photos[classes[index % classes.length].format].length > 1" />
-            </Swiper>
+            <BlocksSwiperControls
+              v-if="swiperRefs[index]"
+              :swiperContainerRef="swiperRefs[index]" />
 
             <div class="wrap-info">
               <div class="wrap-text">
@@ -255,7 +200,6 @@ const formatDate = (dateString) => {
                   <span>Ver mais</span>
               </NuxtLink>
             </div>
-          </template>
 
           <template v-if="index == 2 && props.fromHome">
             <NuxtLink

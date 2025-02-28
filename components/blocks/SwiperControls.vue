@@ -1,5 +1,41 @@
 <script setup lang="ts">
-    const swiper = useSwiper();
+const props = defineProps({
+  swiperContainerRef: {
+    type: Object,
+    required: true
+  }
+});
+
+const ariaLabel      = ref('');
+const activeIndex    = ref(0);
+const isPrevDisabled = ref(false);
+const isNextDisabled = ref(false);
+
+const updateAriaLabel = () => {
+  if (props.swiperContainerRef) {
+    activeIndex.value = props.swiperContainerRef.instance.value.activeIndex;
+    ariaLabel.value   = props.swiperContainerRef.instance.value.slides[activeIndex.value].getAttribute('aria-label');
+
+    if(activeIndex.value === 0) {
+      isPrevDisabled.value = true;
+    } else {
+      isPrevDisabled.value = false;
+
+      if(activeIndex.value === props.swiperContainerRef.instance.value.slides.length - 1) {
+        isNextDisabled.value = true;
+      } else {
+        isNextDisabled.value = false;
+      }
+    }
+  }
+};
+
+props.swiperContainerRef.instance.value.on('slideChange', updateAriaLabel);
+
+updateAriaLabel();
+
+const prev = () => props.swiperContainerRef.prev()
+const next = () => props.swiperContainerRef.next()
 </script>
 
 <template>
@@ -7,16 +43,20 @@
     <button
       class="btnPrev"
       aria-label="Foto Anterior"
-      @click="swiper.slidePrev()">
+      :disabled="isPrevDisabled"
+      @click="prev()">
       <nuxt-icon
         name="arrow-right"
         class="icon"/>
     </button>
 
+    <span class="slide-count">{{ ariaLabel }}</span>
+
     <button
       class="btnNext"
       aria-label="Próxima Foto"
-      @click="swiper.slideNext()">
+      :disabled="isNextDisabled"
+      @click="next()">
       <nuxt-icon
         name="arrow-right"
         class="icon"/>
@@ -43,7 +83,6 @@ button {
   background: white;
   align-items: center;
   border-radius: 50%;
-  position: absolute;
   font-weight: bold;
   font-size: 28rem;
   height: 50rem;
@@ -51,35 +90,30 @@ button {
   width: 50rem;
   color: v.$red;
   z-index: 3;
-  bottom: 20rem;
+
+  &[disabled] {
+    background: #f1f1f1;
+    cursor: default;
+    color: grey;
+    opacity: .4;
+  }
 
   @include m.max(lg) {
     bottom: 14rem;
   }
 
   &.btnPrev {
-    right: 90rem;
-
-    @include m.max(lg) {
-      right: 101rem;
-    }
-
     .icon {
       transform: rotate(180deg);
-    }
-  }
-
-  &.btnNext {
-    right: 20rem;
-
-    @include m.max(lg) {
-      right: 31rem;
     }
   }
 }
 
 .wrap-buttons {
+  align-items: center;
   position: absolute;
+  display: flex;
+  gap: 15rem;
   bottom: 0;
   right: 0;
 
@@ -87,9 +121,7 @@ button {
     justify-content: center;
     position: absolute;
     margin: 0 auto;
-    display: flex;
     width: 100%;
-    gap: 15rem;
     bottom: 0;
 
     .btnPrev {
@@ -105,11 +137,43 @@ button {
     }
   }
 
-  &.studio-controls,
+  &.studio-controls {
+    width: 55%;
+    bottom: 15rem;
+
+    @include m.max(md) {
+      width: 100%;
+    }
+
+    .slide-count {
+      color: v.$dark-red;
+
+      @include m.max(md) {
+        color: white;
+      }
+    }
+  }
+
   &.from-bgs {
     @include m.min(md) {
       display: none;
     }
   }
+
+  &.from-bgs {
+    @include m.max(xs) {
+      bottom: 15rem;
+    }
+  }
+}
+
+.slide-count {
+  font-weight: bold;
+  font-size: 18rem;
+  color: white;
+  z-index: 3;
+
+  // @include m.max(lg) {
+  // }
 }
 </style>

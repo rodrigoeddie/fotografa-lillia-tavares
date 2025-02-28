@@ -1,6 +1,6 @@
 <script setup lang="ts">
     const configPublic = useRuntimeConfig().public;
-
+    const containerRef = ref(null);
     const visibleRef = ref(false);
     const indexRef = ref(0);
     const imgs = [
@@ -28,6 +28,8 @@
     };
 
     const onHide = () => (visibleRef.value = false);
+
+    const swiper = useSwiper(containerRef);
 </script>
 
 <template>
@@ -45,66 +47,70 @@
             Temos 4 opções de cores para harmonizar suas fotos perfeitamente com o seu estilo
         </p>
     </div>
+    <ClientOnly>
+        <swiper-container
+          class="wrap-bgs"
+          ref="containerRef"
+          :loop="false"
+          :slides-per-view="1"
+          :breakpoints="{
+            450: {
+                slidesPerView: 2
+            },
+            700: {
+                slidesPerView: 3
+            },
+            1024: {
+                slidesPerView: 4
+            },
+        }">
+            <swiper-slide class="item bg-blue">
+                <nuxt-img
+                :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato"'
+                width="300"
+                height="420"
+                class="img-fundo"
+                alt="Exemplo de fundo fotográfico na cor branca"
+                @click="() => showImg(0)"
+                loading="lazy" />
+            </swiper-slide>
+            <swiper-slide class="item bg-beige">
+                <nuxt-img
+                :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/retrato"'
+                width="300"
+                height="420"
+                class="img-fundo"
+                alt="Exemplo de fundo fotográfico na cor branca"
+                @click="() => showImg(1)"
+                loading="lazy" />
+            </swiper-slide>
+            <swiper-slide class="item bg-gray">
+                <nuxt-img
+                :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/retrato"'
+                width="300"
+                height="420"
+                class="img-fundo"
+                alt="Exemplo de fundo fotográfico na cor branca"
+                @click="() => showImg(2)"
+                loading="lazy" />
+            </swiper-slide>
+            <swiper-slide class="item bg-white">
+                <nuxt-img
+                :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/retrato"'
+                width="300"
+                height="420"
+                class="img-fundo"
+                alt="Exemplo de fundo fotográfico na cor branca"
+                @click="() => showImg(3)"
+                loading="lazy" />
+            </swiper-slide>
+        </swiper-container>
 
-    <Swiper
-      class="wrap-bgs"
-      :loop="false"
-      :slides-per-view="1"
-      :breakpoints="{
-        450: {
-            slidesPerView: 2
-        },
-        700: {
-            slidesPerView: 3
-        },
-        1024: {
-            slidesPerView: 4
-        },
-      }"
-    >
-        <SwiperSlide class="item bg-blue">
-            <nuxt-img
-              :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato"'
-              width="300"
-              height="420"
-              class="img-fundo"
-              alt="Exemplo de fundo fotográfico na cor branca"
-              @click="() => showImg(0)"
-              loading="lazy" />
-        </SwiperSlide>
-        <SwiperSlide class="item bg-beige">
-            <nuxt-img
-              :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/retrato"'
-              width="300"
-              height="420"
-              class="img-fundo"
-              alt="Exemplo de fundo fotográfico na cor branca"
-              @click="() => showImg(1)"
-              loading="lazy" />
-        </SwiperSlide>
-        <SwiperSlide class="item bg-gray">
-            <nuxt-img
-              :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/retrato"'
-              width="300"
-              height="420"
-              class="img-fundo"
-              alt="Exemplo de fundo fotográfico na cor branca"
-              @click="() => showImg(2)"
-              loading="lazy" />
-        </SwiperSlide>
-        <SwiperSlide class="item bg-white">
-            <nuxt-img
-              :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/retrato"'
-              width="300"
-              height="420"
-              class="img-fundo"
-              alt="Exemplo de fundo fotográfico na cor branca"
-              @click="() => showImg(3)"
-              loading="lazy" />
-        </SwiperSlide>
-
-        <BlocksSwiperControls class="centered from-bgs" />
-    </Swiper>
+        <BlocksSwiperControls
+          class="centered from-bgs"
+          v-if="containerRef"
+          :swiperContainerRef="swiper" />
+    </ClientOnly>
 
     <VueEasyLightbox
       :visible="visibleRef"
@@ -175,13 +181,12 @@ $white: #e4e1e5;
 
 .wrap-bgs {
     justify-content: center;
-    padding-bottom: 100rem;
     margin: 0 auto;
     display: flex;
     width: 90%;
 
     @include m.max(xs) {
-        padding-bottom: 170rem;
+        padding-bottom: 30rem;
         display: flex;
         width: 90%;
     }
@@ -195,6 +200,7 @@ $white: #e4e1e5;
         justify-content: center;
         aspect-ratio: 500/580;
         align-items: self-end;
+        margin-bottom: 100rem;
         display: flex;
         width: 24%;
 

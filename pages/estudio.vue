@@ -58,7 +58,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <SectionsStudio class="from-page-studio" />
+  <SectionsStudio
+    class="from-page-studio"
+    :fromStudio="true" />
   <SectionsStudioBgs />
   <SectionsStudioMap />
 </template>
