@@ -47,6 +47,7 @@
             Temos 4 opções de cores para harmonizar suas fotos perfeitamente com o seu estilo
         </p>
     </div>
+
     <ClientOnly>
         <swiper-container
           class="wrap-bgs"
@@ -156,7 +157,10 @@ $white: #e4e1e5;
 
         .big {
             text-shadow: none;
-            color: white;
+
+            @media (prefers-color-scheme: dark) {
+                color: white;
+            }
         }
     }
 
@@ -173,9 +177,13 @@ $white: #e4e1e5;
 
 .wrapper {
     padding-bottom: 50rem;
-    background: v.$red;
     padding-top: 50rem;
     margin-top: 50rem;
+    background: white;
+
+    @media (prefers-color-scheme: dark) {
+        background: v.$red;
+    }
 }
 
 .wrap-bgs {

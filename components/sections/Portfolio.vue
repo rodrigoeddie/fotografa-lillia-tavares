@@ -474,7 +474,14 @@ const formatDate = (dateString: string) => {
             }
 
             @include m.max(sm) {
+              flex-wrap: wrap;
               padding: 10px;
+            }
+          }
+
+          .slider {
+            @include m.max(xs) {
+              width: 100%;
             }
           }
 
@@ -485,7 +492,7 @@ const formatDate = (dateString: string) => {
             padding-top: 0;
 
             @include m.max(xs) {
-              width: 50%;
+              width: 100%;
             }
           }
         }

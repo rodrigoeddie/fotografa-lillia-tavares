@@ -260,7 +260,11 @@ const categories = navigation.value[0].children;
 
     .menu-category {
       display: flex;
+      color: white;
       gap: 20rem;
+
+      // @media (prefers-color-scheme: dark) {
+      // }
     }
 
     .link-category {
