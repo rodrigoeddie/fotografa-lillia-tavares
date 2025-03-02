@@ -141,7 +141,8 @@
         width: 100%;
 
         @media (prefers-color-scheme: dark) {
-          color: v.$dark-red;
+            background: v.$dark-green;
+            color: white;
         }
 
         @include m.max(sm) {

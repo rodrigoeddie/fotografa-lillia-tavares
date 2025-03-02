@@ -4,7 +4,7 @@
       name: 'Fotógrafa Lillia Tavares',
       url: 'https://fotografalilliatavares.com.br'
     })
-  ])
+  ]);
 </script>
 <template>
   <div class="wrapper-main">

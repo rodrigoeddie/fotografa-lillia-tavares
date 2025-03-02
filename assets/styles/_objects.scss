@@ -45,10 +45,10 @@
   }
 
   .box {
-    padding: 10rem 20rem;
+    padding: 15rem 30rem;
     text-transform: none;
-    font-weight: bold;
     align-items: center;
+    font-weight: bold;
     font-size: 27rem;
     color: white;
     display: flex;
@@ -76,7 +76,7 @@
     }
 
     .big {
-      @include faux-bold(v.$green);
+      // @include faux-bold(v.$green);
     }
 
     .box {
@@ -97,10 +97,10 @@
     }
 
     .big {
-      @include faux-bold(v.$light-red);
+      // @include faux-bold(v.$light-red);
 
       @media (prefers-color-scheme: dark) {
-        @include faux-bold(v.$green);
+        // @include faux-bold(v.$green);
       }
     }
 
@@ -114,24 +114,16 @@
     }
   }
 
-  &.white-green {
+  &.from-studio {
     color: v.$dark-green;
 
     @media (prefers-color-scheme: dark) {
       color: white;
     }
 
-    // .big {
-    //   @include faux-bold(v.$dark-green);
-
-    //   @media (prefers-color-scheme: dark) {
-    //     @include faux-bold(white);
-    //   }
-    // }
-
     .box {
-      background: white;
-      color: v.$dark-green;
+      background: v.$dark-green;
+      color: white;
 
       @media (prefers-color-scheme: dark) {
         background: white;
@@ -188,7 +180,7 @@
   letter-spacing: 2px;
   background: black;
   align-items: center;
-  font-weight: bold;
+  font-weight: 900;
   font-size: 20rem;
   flex-shrink: 0;
   color: white;
@@ -268,4 +260,123 @@
   right: 0;
   left: 0;
   top: 0;
+}
+
+.swiper-button-next {
+  justify-content: center;
+  border: 2px solid v.$red;
+  background: white;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 28rem;
+  height: 50rem;
+  display: flex;
+  width: 50rem;
+  color: v.$red;
+  z-index: 3;
+
+  svg {
+    fill: v.$dark-red
+  }
+}
+
+.slider-wrap-buttons {
+  align-items: center;
+  position: absolute;
+  display: flex;
+  gap: 15rem;
+  bottom: 0;
+  right: 0;
+
+  button {
+    justify-content: center;
+    border: 2px solid v.$red;
+    background: white;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 28rem;
+    height: 50rem;
+    display: flex;
+    width: 50rem;
+    color: v.$red;
+    z-index: 3;
+
+    &[disabled] {
+      background: #f1f1f1;
+      cursor: default;
+      color: grey;
+      opacity: .4;
+    }
+
+    @include m.max(lg) {
+      bottom: 14rem;
+    }
+
+    &.btnPrev {
+      .icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &.centered {
+    justify-content: center;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    bottom: 0;
+
+    .btnPrev {
+      position: relative;
+      bottom: auto;
+      right: auto;
+    }
+
+    .btnNext {
+      position: relative;
+      bottom: auto;
+      right: auto;
+    }
+  }
+
+  &.studio-controls {
+    width: 55%;
+    bottom: 15rem;
+
+    @include m.max(md) {
+      width: 100%;
+    }
+
+    .slide-count {
+      color: v.$dark-red;
+
+      @include m.max(md) {
+        color: white;
+      }
+    }
+  }
+
+  &.from-bgs {
+    @include m.min(md) {
+      display: none;
+    }
+  }
+
+  &.from-bgs {
+    @include m.max(xs) {
+      bottom: 15rem;
+    }
+  }
+
+  .slide-count {
+    font-weight: bold;
+    font-size: 18rem;
+    color: white;
+    z-index: 3;
+
+    // @include m.max(lg) {
+    // }
+  }
 }

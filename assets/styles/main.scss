@@ -6,6 +6,30 @@
 
 :root {
     font-size: clamp(.65px, calc(0px + .053vw), 1px);
+
+    // NAVIGATION
+    --swiper-navigation-size: 20px !important;
+    --swiper-navigation-top-offset: 50%;
+    --swiper-navigation-sides-offset: 10px;
+    --swiper-navigation-color: #892c1a;
+
+    // PAGINATION
+    --swiper-pagination-color: #892c1a;
+    --swiper-pagination-left: auto;
+    --swiper-pagination-right: 8px;
+    --swiper-pagination-bottom: 8px;
+    --swiper-pagination-top: auto;
+    --swiper-pagination-fraction-color: inherit;
+    --swiper-pagination-progressbar-bg-color: rgba(255, 255, 255, 0.25);
+    --swiper-pagination-progressbar-size: 4px;
+    --swiper-pagination-bullet-size: 12rem;
+    --swiper-pagination-bullet-width: 12rem;
+    --swiper-pagination-bullet-height: 12rem;
+    --swiper-pagination-bullet-inactive-color: white;
+    --swiper-pagination-bullet-inactive-opacity: 0.2;
+    --swiper-pagination-bullet-opacity: 1;
+    --swiper-pagination-bullet-horizontal-gap: 4px;
+    --swiper-pagination-bullet-vertical-gap: 6px;
 }
 
 html {
@@ -14,6 +38,11 @@ html {
     ::selection {
         color: white;
         background: v.$red;
+    }
+
+    &:deep(.swiper-pagination-bullet) {
+        border: 1px solid white;
+        border-color: white;
     }
 }
 

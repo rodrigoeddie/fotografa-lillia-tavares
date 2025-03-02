@@ -11,7 +11,6 @@
   const $route       = useRoute();
   const currentPath  = $route.path;
   const configPublic = useRuntimeConfig().public;
-  const containerRef = ref(null);
   const visibleRef = ref(false);
   const indexRef = ref(0);
   const imgs = [
@@ -40,6 +39,7 @@
 
   const onHide = () => (visibleRef.value = false);
 
+  const containerRef = ref(null);
   const swiper = useSwiper(containerRef);
 </script>
 
@@ -47,7 +47,7 @@
   <div class="wrapper">
     <div class="wrap-inner row container">
       <div class="side side-text">
-        <h1 :class="['big-title', props.fromStudio ? 'white-green' : 'green']">
+        <h1 :class="['big-title', props.fromStudio ? 'from-studio' : 'green']">
           <span class="box">
             <span>Sobre o</span>
           </span>
@@ -68,71 +68,72 @@
         </NuxtLink>
       </div>
 
-      <ClientOnly>
-        <swiper-container
-          class="side wrap-images"
-          :class="{'is-studio': currentPath === '/estudio'}"
-          ref="containerRef"
-          :loop="false"
-          :slides-per-view="1"
-          :breakpoints="{
-            450: {
-              slidesPerView: 2
-            },
-            1024: {
-              slidesPerView: 1
-            },
-          }">
-            <swiper-slide class="item">
-              <nuxt-img
-                  :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
+      <div class="slider">
+        <ClientOnly>
+          <swiper-container
+            class="side wrap-images"
+            :class="{'is-studio': currentPath === '/estudio'}"
+            ref="containerRef"
+            :loop="false"
+            :slides-per-view="1"
+            :breakpoints="{
+              450: {
+                slidesPerView: 2
+              },
+              1024: {
+                slidesPerView: 1
+              },
+            }"
+            :pagination="{
+              clickable: true,
+            }"
+            :navigation="true">
+              <swiper-slide class="item">
+                <nuxt-img
+                    :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
+                    width="612"
+                    height="408"
+                    @click="() => showImg(0)"
+                    class="img-studio"
+                    alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+                    loading="lazy" />
+              </swiper-slide>
+
+              <swiper-slide class="item">
+                <nuxt-img
+                  :src='configPublic.cloudflareURI + "45bb3714-18c8-4b40-f986-5b0074589c00/thumb"'
                   width="612"
                   height="408"
-                  @click="() => showImg(0)"
+                  @click="() => showImg(1)"
                   class="img-studio"
-                  alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+                  alt="Um canto do café, com xicaras e canecas, e várias cápsulas de Dolce Gusto"
                   loading="lazy" />
-            </swiper-slide>
+              </swiper-slide>
 
-            <swiper-slide class="item">
-              <nuxt-img
-                :src='configPublic.cloudflareURI + "45bb3714-18c8-4b40-f986-5b0074589c00/thumb"'
-                width="612"
-                height="408"
-                @click="() => showImg(1)"
-                class="img-studio"
-                alt="Um canto do café, com xicaras e canecas, e várias cápsulas de Dolce Gusto"
-                loading="lazy" />
-            </swiper-slide>
+              <swiper-slide class="item">
+                <nuxt-img
+                  :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
+                  width="612"
+                  height="408"
+                  @click="() => showImg(2)"
+                  class="img-studio"
+                  alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
+                  loading="lazy" />
+              </swiper-slide>
 
-            <swiper-slide class="item">
-              <nuxt-img
-                :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
-                width="612"
-                height="408"
-                @click="() => showImg(2)"
-                class="img-studio"
-                alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
-                loading="lazy" />
-            </swiper-slide>
-
-            <swiper-slide class="item">
-              <nuxt-img
-                :src='configPublic.cloudflareURI + "c9f3cea1-c80c-4822-f585-144615c7ec00/thumb"'
-                width="612"
-                height="408"
-                @click="() => showImg(3)"
-                class="img-studio"
-                alt="O fundo infinito do estúdio, há 3 rolos de cores de fundo (branco, bege, e azul)"
-                loading="lazy" />
-            </swiper-slide>
-        </swiper-container>
-
-        <BlocksSwiperControls
-          class="centered studio-controls"
-          v-if="containerRef"
-          :swiperContainerRef="swiper" />
-      </ClientOnly>
+              <swiper-slide class="item">
+                <nuxt-img
+                  :src='configPublic.cloudflareURI + "c9f3cea1-c80c-4822-f585-144615c7ec00/thumb"'
+                  width="612"
+                  height="408"
+                  @click="() => showImg(3)"
+                  class="img-studio"
+                  alt="O fundo infinito do estúdio, há 3 rolos de cores de fundo (branco, bege, e azul)"
+                  loading="lazy" />
+              </swiper-slide>
+          </swiper-container>
+        </ClientOnly>
+      </div>
     </div>
 
     <VueEasyLightbox
@@ -160,6 +161,46 @@
       -0.5px -0.5px $darker-color,
       0.5px -0.5px $darker-color,
       -0.5px 0.5px $darker-color;
+  }
+
+  .slider {
+    aspect-ratio: 1006/675;
+    padding: 6px 6px 0 6px;
+    background: white;
+    display: block;
+    flex-shrink: 0;
+    height: 100%;
+    width: 55%;
+    z-index: 3;
+
+    @include m.max(md) {
+      padding-bottom: 75rem !important;
+      flex-wrap: nowrap;
+      width: 100%;
+      gap: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      background:  v.$dark-green;
+    }
+
+    &:before {
+      content: '';
+
+      background-image:  linear-gradient(#7B785B 1px, transparent 1px), linear-gradient(to right, #7B785B 1px, #ffffff 1px);
+      background-color: #ffffff;
+      background-size: 20px 20px;
+      position: absolute;
+      opacity: 0.05;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+
+      @media (prefers-color-scheme: dark) {
+        background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
+      }
+    }
   }
 
   .wrapper {
@@ -190,7 +231,7 @@
       }
 
       .side-text {
-        padding-bottom: 0;
+        padding-bottom: 6px;
 
         @include m.max(md) {
           padding-bottom: 30px;
@@ -335,43 +376,8 @@
     }
 
     .wrap-images {
-      padding: 6px 6px 0 6px;
-      background: white;
-      flex-shrink: 0;
-      z-index: 3;
-      width: 55%;
-
-      @include m.max(md) {
-        padding-bottom: 75rem !important;
-        flex-wrap: nowrap;
-        width: 100%;
-        gap: 0;
-      }
-
       &.is-studio {
         padding: 6px;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        background:  v.$dark-green;
-      }
-
-      &:before {
-        content: '';
-
-        background-image:  linear-gradient(#7B785B 1px, transparent 1px), linear-gradient(to right, #7B785B 1px, #ffffff 1px);
-        background-color: #ffffff;
-        background-size: 20px 20px;
-        position: absolute;
-        opacity: 0.05;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        top: 0;
-
-        @media (prefers-color-scheme: dark) {
-          background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
-        }
       }
 
       .item {

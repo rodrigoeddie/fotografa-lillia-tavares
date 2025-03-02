@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-// import { split } from 'postcss/lib/list';
-
 const $route       = useRoute();
-// const currentPath  = $route.path;
 const configPublic = useRuntimeConfig().public;
 
 const props = defineProps({
@@ -106,16 +103,10 @@ const classes = [
   },
 ];
 
-const formatDate = (dateString) => {
+const formatDate = (dateString: string) => {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return new Date(dateString).toLocaleDateString('pt-BR', options);
 };
-
-const swiperRefs = ref<HTMLElement[]>([]);
-
-const itemRefs = useTemplateRef('items');
-
-console.log(itemRefs);
 </script>
 
 <template>
@@ -132,37 +123,39 @@ console.log(itemRefs);
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
         <div :class="'thumb thumb-' + classes[index % classes.length].class">
-            <ClientOnly>
-              <swiper-container
-                class="swiper"
-                ref="items"
-                :slides-per-view="1">
-                <swiper-slide
-                  v-for="slide in item.photos[classes[index % classes.length].format]"
-                  :key="slide.id"
-                  :class="'wrap-img ' + slide.format">
-                  <nuxt-img
-                    :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                    :width="(slide.format=='paisagem') ? 700 : 500"
-                    :height="(slide.format=='paisagem') ? 500 : 800"
-                    class="img-thumb"
-                    :alt="slide.alt"
-                    loading="lazy"/>
-                  <nuxt-img
-                    v-if="slide.format=='retrato'"
-                    :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                    width="700"
-                    height="500"
-                    class="bg-thumb"
-                    :alt="slide.alt"
-                    loading="lazy"/>
-                </swiper-slide>
-              </swiper-container>
-            </ClientOnly>
-
-            <BlocksSwiperControls
-              v-if="swiperRefs[index]"
-              :swiperContainerRef="swiperRefs[index]" />
+          <div :class="{'inner-thumb': true, 'wrap-wide': classes[index % classes.length].class === 'wide side-by-side reverse'}">
+            <div class="slider">
+              <ClientOnly>
+                <swiper-container
+                  class="swiper"
+                  :slides-per-view="1"
+                  :pagination="{
+                    clickable: true,
+                  }"
+                  :navigation="true">
+                  <swiper-slide
+                    v-for="slide in item.photos[classes[index % classes.length].format]"
+                    :key="slide.id"
+                    :class="'wrap-img ' + slide.format">
+                    <nuxt-img
+                      :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
+                      :width="(slide.format=='paisagem') ? 700 : 500"
+                      :height="(slide.format=='paisagem') ? 500 : 800"
+                      class="img-thumb"
+                      :alt="slide.alt"
+                      loading="lazy"/>
+                    <nuxt-img
+                      v-if="slide.format=='retrato'"
+                      :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
+                      width="700"
+                      height="500"
+                      class="bg-thumb"
+                      :alt="slide.alt"
+                      loading="lazy"/>
+                  </swiper-slide>
+                </swiper-container>
+              </ClientOnly>
+            </div>
 
             <div class="wrap-info">
               <div class="wrap-text">
@@ -200,18 +193,19 @@ console.log(itemRefs);
                   <span>Ver mais</span>
               </NuxtLink>
             </div>
-
-          <template v-if="index == 2 && props.fromHome">
-            <NuxtLink
-              class="link-see-more big-title red"
-              :to="workPage">
-                  <span class="big">veja todos os Trabalhos</span>
-                  <span class="box">
-                    <span>Clique aqui</span>
-                  </span>
-            </NuxtLink>
-          </template>
+          </div>
         </div>
+
+        <template v-if="index == 2 && props.fromHome">
+          <NuxtLink
+            class="link-see-more big-title red big-title-home"
+            :to="workPage">
+                <span class="big">veja todos os Trabalhos</span>
+                <span class="box">
+                  <span>Clique aqui</span>
+                </span>
+          </NuxtLink>
+        </template>
 
         <template v-if="index == 1 || index == 6">
           <NuxtLink
@@ -234,8 +228,15 @@ console.log(itemRefs);
 </template>
 
 <style scoped lang="scss">
-  .big-title {
+  .slider {
+    background: #f6f6f6;
+  }
+
+  .big-title-home {
+    justify-content: center;
     margin-bottom: -8rem;
+    padding-top: 0;
+    width: 100%;
 
     @include m.max(sm) {
       margin-bottom: 0;
@@ -392,7 +393,7 @@ console.log(itemRefs);
         }
 
         &.side-by-side {
-          .swiper {
+          .slider {
             aspect-ratio: 1/1.47;
             flex-shrink: 0;
             width: 60%;
@@ -410,15 +411,25 @@ console.log(itemRefs);
             width: 100%;
           }
         }
+
+        .slider {
+          aspect-ratio: 568/378;
+          height: 100%;
+
+          .swiper {
+            height: 100%;
+          }
+        }
       }
 
-      &.card-column {
+      &.card-column .inner-thumb {
         flex-direction: column;
         display: flex;
       }
 
-      &.side-by-side {
+      &.side-by-side .inner-thumb {
         display: flex;
+        height: 100%;
 
         .swiper {
           height: 100%;
@@ -433,14 +444,14 @@ console.log(itemRefs);
       &.thumb-wide {
         background-color: transparent;
         width: calc(92% - 15rem);
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         padding: 0;
 
         @include m.max(md) {
           width: 100%;
         }
 
-        .swiper {
+        .slider {
           aspect-ratio: 2/1;
           width: calc(65% - 6rem);
           flex-shrink: 0;
@@ -454,9 +465,9 @@ console.log(itemRefs);
           .wrap-wide {
             background: white;
             padding: 30rem;
-            flex-shrink: 0;
             display: flex;
             width: 100%;
+            gap: 20rem;
 
             @media (prefers-color-scheme: dark) {
               background: v.$red;

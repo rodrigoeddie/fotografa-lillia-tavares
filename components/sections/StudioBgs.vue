@@ -63,7 +63,11 @@
             1024: {
                 slidesPerView: 4
             },
-        }">
+        }"
+        :pagination="{
+            clickable: true,
+        }"
+        :navigation="true">
             <swiper-slide class="item bg-blue">
                 <nuxt-img
                 :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato"'
@@ -105,11 +109,6 @@
                 loading="lazy" />
             </swiper-slide>
         </swiper-container>
-
-        <BlocksSwiperControls
-          class="centered from-bgs"
-          v-if="containerRef"
-          :swiperContainerRef="swiper" />
     </ClientOnly>
 
     <VueEasyLightbox

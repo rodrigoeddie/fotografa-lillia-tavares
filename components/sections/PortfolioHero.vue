@@ -45,7 +45,7 @@ const categories = navigation.value[0].children;
           <NuxtLink
             to="/ensaio-fotografico"
             class="link-category">
-            <span class="txt">todos</span>
+            <span class="txt">Todos</span>
           </NuxtLink>
 
           <template v-for="item in categories">
@@ -59,51 +59,64 @@ const categories = navigation.value[0].children;
       </div>
     </div>
 
-    <Swiper
-      :loop="true"
-      :slides-per-view="1"
-      class="wrap-highlights">
-      <SwiperSlide
-        v-for="slide in photos">
-        <div class="about-highlight" :style="{ '--color-highlight': slide.colorHighlight }">
-          <div class="about-text text-slide">
-            <h2 class="title">{{ slide.title }}</h2>
-            <div class="description">
-              <p>
-                {{ slide.description }}
-              </p>
+    <ClientOnly>
+      <swiper-container
+        :loop="false"
+        :slides-per-view="1"
+        class="wrap-highlights"
+        :pagination="{
+          clickable: true,
+        }"
+        :navigation="false">
+        <swiper-slide
+          v-for="slide in photos">
+          <div class="about-highlight" :style="{ '--color-highlight': slide.colorHighlight }">
+            <div class="about-text text-slide">
+              <h2 class="title">{{ slide.title }}</h2>
+              <div class="description">
+                <p>
+                  {{ slide.description }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="about-ctas">
-          <NuxtLink
-            :to="slide.path"
-            class="btn btn-green-light">
-              <span>Ver mais</span>
-          </NuxtLink>
-        </div>
+          <div class="about-ctas">
+            <NuxtLink
+              :to="slide.path"
+              class="btn btn-green-light">
+                <span>Ver mais</span>
+            </NuxtLink>
+          </div>
 
-        <nuxt-img
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.imageId + "/public"'
-          width="1920"
-          class="img-hero"
-          loading="lazy"/>
-      </SwiperSlide>
-
-      <BlocksSwiperControls v-if="photos.length > 1" />
-    </Swiper>
+          <nuxt-img
+            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.imageId + "/public"'
+            width="1920"
+            class="img-hero"
+            loading="lazy"/>
+        </swiper-slide>
+      </swiper-container>
+    </ClientOnly>
   </div>
 </template>
 
 <style scoped lang="scss">
-.sbs {
-  display: flex;
+.container {
+  background: white;
 
-  @include m.max(sm) {
-    flex-direction: column;
+  @media (prefers-color-scheme: dark) {
+    background: v.$dark-green;
+  }
+
+  &.sbs {
+    display: flex;
+
+    @include m.max(sm) {
+      flex-direction: column;
+    }
   }
 }
+
 
 .intro-hero {
   justify-content: space-between;
