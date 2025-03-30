@@ -71,43 +71,43 @@
         :navigation="true">
             <swiper-slide class="item bg-blue">
                 <nuxt-img
-                :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato"'
-                width="300"
-                height="420"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                @click="() => showImg(0)"
-                loading="lazy" />
+                  :src='configPublic.cloudflareURI + "5521a1b8-36d3-4c93-b93b-f2bf8c6be200/retrato"'
+                  width="300"
+                  height="420"
+                  class="img-fundo"
+                  alt="Exemplo de fundo fotográfico na cor branca"
+                  @click="() => showImg(0)"
+                  loading="lazy" />
             </swiper-slide>
             <swiper-slide class="item bg-beige">
                 <nuxt-img
-                :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/retrato"'
-                width="300"
-                height="420"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                @click="() => showImg(1)"
-                loading="lazy" />
+                  :src='configPublic.cloudflareURI + "993be2e4-4a5a-498c-8957-43909448c300/retrato"'
+                  width="300"
+                  height="420"
+                  class="img-fundo"
+                  alt="Exemplo de fundo fotográfico na cor branca"
+                  @click="() => showImg(1)"
+                  loading="lazy" />
             </swiper-slide>
             <swiper-slide class="item bg-gray">
                 <nuxt-img
-                :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/retrato"'
-                width="300"
-                height="420"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                @click="() => showImg(2)"
-                loading="lazy" />
+                  :src='configPublic.cloudflareURI + "f6d249c4-f1bb-40db-7264-09ca91888d00/retrato"'
+                  width="300"
+                  height="420"
+                  class="img-fundo"
+                  alt="Exemplo de fundo fotográfico na cor branca"
+                  @click="() => showImg(2)"
+                  loading="lazy" />
             </swiper-slide>
             <swiper-slide class="item bg-white">
                 <nuxt-img
-                :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/retrato"'
-                width="300"
-                height="420"
-                class="img-fundo"
-                alt="Exemplo de fundo fotográfico na cor branca"
-                @click="() => showImg(3)"
-                loading="lazy" />
+                  :src='configPublic.cloudflareURI + "e565d57c-cc18-40a3-ffcc-3eeba2da3100/retrato"'
+                  width="300"
+                  height="420"
+                  class="img-fundo"
+                  alt="Exemplo de fundo fotográfico na cor branca"
+                  @click="() => showImg(3)"
+                  loading="lazy" />
             </swiper-slide>
         </swiper-container>
     </ClientOnly>

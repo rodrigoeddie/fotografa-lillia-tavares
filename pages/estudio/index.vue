@@ -62,5 +62,6 @@ useSeoMeta({
     class="from-page-studio"
     :fromStudio="true" />
   <SectionsStudioBgs />
+  <SectionsStudioCenarios />
   <SectionsStudioMap />
 </template>
