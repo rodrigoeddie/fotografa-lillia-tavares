@@ -2,6 +2,11 @@
 @use "@/assets/styles/_mixins.scss" as m;
 @use "sass:color";
 
+.vel-img {
+  max-height: 85vh !important;
+  max-width: 85vw !important;
+}
+
 .title {
   text-transform: uppercase;
   font-family: v.$open;
@@ -378,5 +383,34 @@
 
     // @include m.max(lg) {
     // }
+  }
+}
+
+nav[aria-label=breadcrumb] {
+  .breadcrumb {
+      display: flex;
+
+      li,
+      a {
+          font-size: 19rem;
+
+          @include m.max(sm) {
+              font-size: 16rem;
+          }
+
+          &.active {
+              font-weight: bold;
+          }
+      }
+
+      a:hover {
+          text-decoration: underline;
+      }
+
+      li:not(:last-child)::after {
+          display: inline-block;
+          margin: 0 10rem;
+          content: "→";
+      }
   }
 }

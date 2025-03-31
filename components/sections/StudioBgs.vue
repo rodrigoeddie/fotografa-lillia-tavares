@@ -129,6 +129,10 @@ $beige: #b99879;
 $gray:  #241f21;
 $white: #e4e1e5;
 
+.img-fundo {
+    cursor: zoom-in;
+}
+
 .wrap-title {
     justify-content: center;
     margin-bottom: -9rem;

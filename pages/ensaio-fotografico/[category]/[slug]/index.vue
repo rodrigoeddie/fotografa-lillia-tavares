@@ -233,31 +233,7 @@ nav[aria-label="breadcrumb"] {
 
   .breadcrumb {
     padding: 0 0 0 35rem;
-    display: flex;
     z-index: 3;
-
-    li,
-    a {
-      font-size: 19rem;
-
-      @include m.max(sm) {
-        font-size: 16rem;
-      }
-
-      &.active {
-          font-weight: bold;
-      }
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    li:not(:last-child)::after {
-      display: inline-block;
-      margin: 0 10rem;
-      content: "→";
-    }
   }
 }
 
