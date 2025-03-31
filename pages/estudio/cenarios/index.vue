@@ -13,6 +13,7 @@
                 alt: "Mulher branca de cabelos enrolados na altura do pescoço sentada na cadeira de escritório branca ela está sorrindo vestida de blusinha roxa",
                 link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
                 title: 'Pollyanna Gonçalves',
+                orientation: 'paisagem',
             },
         },
         {
@@ -27,34 +28,37 @@
             //     alt: "",
             //     link: '',
             //     title: '',
+                // orientation: 'paisagem',
             // },
         },
         {
             title: 'Fundos infinitos',
-            descricao: '',
+            descricao: 'Atualmemente oferecemos 4 opções de cores de fundos fotográficos dois claros (bege e branco) e dois escuros (grafite e azul marinho), além da iluminação profissional e de alguns acessórios, como banquetas, uma poltrona, e caixas brancas',
             imageBg: {
                 src: configPublic.cloudflareURI + "b6dc36df-86b3-4485-52de-8b91ba144f00",
                 alt: "Um fundo fotográfico com equipamentos fotográficos"
             },
-            // example: {
-            //     src: configPublic.cloudflareURI + "",
-            //     alt: "",
-            //     link: '',
-            //     title: '',
-            // },
+            example: {
+                src: configPublic.cloudflareURI + "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
+                alt: "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm",
+                link: '/ensaio-fotografico/corporativo/vanessa-lima',
+                title: 'Vanessa Lima',
+                orientation: 'retrato',
+            },
         },
         {
             title: 'Cantinho do espelho',
             descricao: '',
             imageBg: {
                 src: configPublic.cloudflareURI + "e8d30eab-936f-45fd-b450-a21295e9a200",
-                alt: ""
+                alt: "Uma parede laranja com 4 estantes brancas suspensas, uma poltrona, um espelho grande e um puff"
             },
             example: {
                 src: configPublic.cloudflareURI + "60ddc9c8-058d-441e-1608-ca6109de1200",
-                alt: "",
-                link: '',
-                title: '',
+                alt: "Mulher sorrindo de roupa branca, sentada no chão, uma parte da parede é de madeira freijó, outra, é laranja, há um vaso de plantas grande, e um espelho grande",
+                link: '/ensaio-fotografico/corporativo/andresa-maia',
+                title: 'Andresa Maia',
+                orientation: 'paisagem',
             },
         },
         {
@@ -62,13 +66,14 @@
             descricao: `A arquiteta <a href="https://www.instagram.com/studiocnmais" target="_blank">Camila Nogueira</a> estava inspirada ao pensar todos as funções do estúdio como um cenário, sim, nosso cantinho da recepção também tem essa função ❤️`,
             imageBg: {
                 src: configPublic.cloudflareURI + "de0a3700-d07a-46fd-1f69-8cc47ebca000",
-                alt: ""
+                alt: "Um canto com um sofá e vários quadros na parede verde musgo, Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café"
             },
             example: {
                 src: configPublic.cloudflareURI + "ba0f1af3-4673-47e4-ab41-28bf987e9800",
-                alt: "",
-                link: '',
-                title: '',
+                alt: "Um canto com um sofá e vários quadros na parede verde musgo",
+                link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
+                title: 'Pollyanna Gonçalves',
+                orientation: 'paisagem',
             },
         },
         {
@@ -81,8 +86,9 @@
             example: {
                 src: configPublic.cloudflareURI + "0a37ed18-db3d-49b2-ac20-68f472793f00",
                 alt: "",
-                link: '',
-                title: '',
+                link: '/ensaio-fotografico/corporativo/andresa-maia',
+                title: 'Andresa Maia',
+                orientation: 'paisagem',
             },
         },
         // {
@@ -204,15 +210,15 @@
                       width="300"
                       height="200"
                       loading="lazy"
-                      class="img-example"
+                      :class='"img-example " + cenario.example.orientation'
                       @click="() => showImg(8)"/>
                     <NuxtLink
                       v-if='cenario.example.link'
                       class="link-example"
                       to="/ensaio-fotografico/corporativo/pollyanna-goncalves">
-                            <span>Acessar trabalho com esse cenário:<br>
-                                <strong>{{ cenario.example.title }}</strong>
-                            </span>
+                        <span>Acessar trabalho com esse cenário:<br>
+                            <strong>{{ cenario.example.title }}</strong>
+                        </span>
                     </NuxtLink>
                 </div>
 
@@ -303,7 +309,10 @@ nav[aria-label=breadcrumb] {
     }
 
     .img-cenario {
+        max-height: 650rem;
         cursor: zoom-in;
+        height: auto;
+        width: auto;
     }
 
     .wrap-link-example {
@@ -324,9 +333,17 @@ nav[aria-label=breadcrumb] {
 
         .img-example {
             border: 3rem solid white;
-            aspect-ratio: 1920/1280;
             cursor: zoom-in;
             display: block;
+            height: auto;
+
+            &.paisagem {
+                width: 380rem;
+            }
+
+            &.retrato {
+                width: 285rem;
+            }
         }
     }
 
