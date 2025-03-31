@@ -5,10 +5,12 @@
             title: 'Escritório',
             descricao: 'Nosso escritório no coração de Mogi das Cruzes foi projetado para também ser um cenário, com perfil despojado, seguindo uma palheta de tons claros atende bem todos estilos corporativos, nossa mesa com textura de marmore branco foi desenvolvida exclusivamente para tornar esse ambiente único!',
             imageBg: {
+                id: 0,
                 src: configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800",
                 alt: "O escritório, uma parede verde musgo de fundo com quadros, no centro a mesa, e uma estante na direita"
             },
             example: {
+                id: 1,
                 src: configPublic.cloudflareURI + "50e4339d-3ba4-4f6a-4b0d-c8618632fb00",
                 alt: "Mulher branca de cabelos enrolados na altura do pescoço sentada na cadeira de escritório branca ela está sorrindo vestida de blusinha roxa",
                 link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
@@ -20,6 +22,7 @@
             title: 'Cenário Intimista',
             descricao: 'Desde o início de sua jornada como fotógrafa em 2018, Lillia Tavares trabalha com fotos sensual intimistas, sendo elas grande inspiração para um olhar delicado e de bom gosto, para que os modelos tenham a melhor visão de sua real beleza. Fizemos esse cantinho pensando na estética boho, esse é o único cenário nesse estilo em Mogi das Cruzes.',
             imageBg: {
+                id: 2,
                 src: configPublic.cloudflareURI + "5aaf4778-101f-4296-bd37-a5e870ea3400",
                 alt: ""
             },
@@ -35,10 +38,12 @@
             title: 'Fundos infinitos',
             descricao: 'Atualmemente oferecemos 4 opções de cores de fundos fotográficos dois claros (bege e branco) e dois escuros (grafite e azul marinho), além da iluminação profissional e de alguns acessórios, como banquetas, uma poltrona, e caixas brancas.',
             imageBg: {
+                id: 3,
                 src: configPublic.cloudflareURI + "b6dc36df-86b3-4485-52de-8b91ba144f00",
                 alt: "Um fundo fotográfico com equipamentos fotográficos"
             },
             example: {
+                id: 4,
                 src: configPublic.cloudflareURI + "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
                 alt: "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm",
                 link: '/ensaio-fotografico/corporativo/vanessa-lima',
@@ -50,10 +55,12 @@
             title: 'Cantinho do espelho',
             descricao: 'O canto preferido da fotógrafa Lillia Tavares para suas selfies, a combinação da parede de madeira freijó com o laranja e o verde das plantas trazem uma estética bem agradável para sua fotos.',
             imageBg: {
+                id: 5,
                 src: configPublic.cloudflareURI + "e8d30eab-936f-45fd-b450-a21295e9a200",
                 alt: "Uma parede laranja com 4 estantes brancas suspensas, uma poltrona, um espelho grande e um puff"
             },
             example: {
+                id: 6,
                 src: configPublic.cloudflareURI + "60ddc9c8-058d-441e-1608-ca6109de1200",
                 alt: "Mulher sorrindo de roupa branca, sentada no chão, uma parte da parede é de madeira freijó, outra, é laranja, há um vaso de plantas grande, e um espelho grande",
                 link: '/ensaio-fotografico/corporativo/andresa-maia',
@@ -65,10 +72,12 @@
             title: 'Sofá da recepção',
             descricao: `A arquiteta <a href="https://www.instagram.com/studiocnmais" target="_blank">Camila Nogueira</a> estava inspirada ao pensar todos as funções do estúdio como um cenário, sim, nosso cantinho da recepção também tem essa função ❤️, os quadros remetem a referências estéticas da fotógrafa.`,
             imageBg: {
+                id: 7,
                 src: configPublic.cloudflareURI + "de0a3700-d07a-46fd-1f69-8cc47ebca000",
                 alt: "Um canto com um sofá e vários quadros na parede verde musgo, Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café"
             },
             example: {
+                id: 8,
                 src: configPublic.cloudflareURI + "ba0f1af3-4673-47e4-ab41-28bf987e9800",
                 alt: "Um canto com um sofá e vários quadros na parede verde musgo",
                 link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
@@ -80,10 +89,12 @@
             title: 'Sofá',
             descricao: 'Junto com o cenário intimista, esse é o cenário que mais se beneficia da luz natural e isso traz um grande benefício para a estética de suas fotos, aproveite o período da tarde para tornar suas fotos ainda melhores',
             imageBg: {
+                id: 9,
                 src: configPublic.cloudflareURI + "8e112adf-8f3a-4ca8-0d95-ea0176b80600",
                 alt: ""
             },
             example: {
+                id: 10,
                 src: configPublic.cloudflareURI + "0a37ed18-db3d-49b2-ac20-68f472793f00",
                 alt: "",
                 link: '/ensaio-fotografico/corporativo/andresa-maia',
@@ -109,51 +120,26 @@
 
     const visibleRef = ref(false);
     const indexRef = ref(0);
-    const imgs = [
-        {
-            src: configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "5aaf4778-101f-4296-bd37-a5e870ea3400/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "b6dc36df-86b3-4485-52de-8b91ba144f00/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "e8d30eab-936f-45fd-b450-a21295e9a200/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "de0a3700-d07a-46fd-1f69-8cc47ebca000/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "8e112adf-8f3a-4ca8-0d95-ea0176b80600/public",
-            title: ""
-        },
-        //
-        {
-            src: configPublic.cloudflareURI + "0a37ed18-db3d-49b2-ac20-68f472793f00/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "ba0f1af3-4673-47e4-ab41-28bf987e9800/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "50e4339d-3ba4-4f6a-4b0d-c8618632fb00/public",
-            title: ""
-        },
-        {
-            src: configPublic.cloudflareURI + "60ddc9c8-058d-441e-1608-ca6109de1200/public",
-            title: ""
-        },
-    ];
 
-    const showImg = (index) => {
+    const imgs = cenarios.flatMap(cenario => {
+        const images = [{
+            id: cenario.imageBg.id,
+            src: cenario.imageBg.src + '/public',
+            title: '',
+        }];
+
+        if (cenario.example) {
+            images.push({
+                id: cenario.example.id,
+                src: cenario.example.src + '/public',
+                title: '',
+            });
+        }
+
+        return images;
+    });
+
+    const showImg = (index: number) => {
         indexRef.value   = index;
         visibleRef.value = true;
     };
@@ -197,7 +183,7 @@
                   :src='cenario.imageBg.src + "/public"'
                   width="612"
                   height="408"
-                  @click="() => showImg(0)"
+                  @click="() => showImg(cenario.imageBg.id)"
                   class="img-cenario"
                   :alt='cenario.imageBg.alt'
                   loading="lazy" />
@@ -211,7 +197,7 @@
                       height="200"
                       loading="lazy"
                       :class='"img-example " + cenario.example.orientation'
-                      @click="() => showImg(8)"/>
+                      @click="() => showImg(cenario.example.id)"/>
                     <NuxtLink
                       v-if='cenario.example.link'
                       class="link-example"
