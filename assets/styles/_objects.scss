@@ -148,6 +148,26 @@
     font-size: 15px;
   }
 
+  a {
+    transition: background-color 0.2s, color 0.2s;
+    text-decoration: underline;
+    background: #f4f2e9;
+
+    @media (prefers-color-scheme: dark) {
+      background: #57170c;
+      color: white;
+    }
+
+    &:hover {
+      background-color: #9b9788;
+      color: white;
+
+      @media (prefers-color-scheme: dark) {
+        background: black;
+      }
+    }
+  }
+
   .highlight {
     padding: 0 5rem 2rem 5rem;
     font-weight: bold;

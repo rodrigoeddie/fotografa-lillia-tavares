@@ -96,22 +96,6 @@ if (about.value?.body?.value) {
         p {
           padding-top: 15rem !important;
 
-          a {
-            transition: background-color 0.2s, color 0.2s;
-            text-decoration: underline;
-            background: #f4f2e9;
-
-            @media (prefers-color-scheme: dark) {
-              background: v.$dark-green;
-              color: white;
-            }
-
-            &:hover {
-              background-color: v.$red;
-              color: white;
-            }
-          }
-
           strong,
           b {
             background: #892c1a;

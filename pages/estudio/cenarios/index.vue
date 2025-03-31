@@ -22,12 +22,12 @@
                 src: configPublic.cloudflareURI + "5aaf4778-101f-4296-bd37-a5e870ea3400",
                 alt: ""
             },
-            example: {
-                src: configPublic.cloudflareURI + "",
-                alt: "",
-                link: '',
-                title: '',
-            },
+            // example: {
+            //     src: configPublic.cloudflareURI + "",
+            //     alt: "",
+            //     link: '',
+            //     title: '',
+            // },
         },
         {
             title: 'Fundos infinitos',
@@ -36,12 +36,12 @@
                 src: configPublic.cloudflareURI + "b6dc36df-86b3-4485-52de-8b91ba144f00",
                 alt: "Um fundo fotográfico com equipamentos fotográficos"
             },
-            example: {
-                src: configPublic.cloudflareURI + "",
-                alt: "",
-                link: '',
-                title: '',
-            },
+            // example: {
+            //     src: configPublic.cloudflareURI + "",
+            //     alt: "",
+            //     link: '',
+            //     title: '',
+            // },
         },
         {
             title: 'Cantinho do espelho',
@@ -185,39 +185,40 @@
 
         <div
           class="cenario"
-          v-for="(item, index) in cenarios">
+          v-for="(cenario, index) in cenarios">
             <div class="container">
                 <nuxt-img
-                  :src='configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800/public"'
+                  :src='cenario.imageBg.src + "/public"'
                   width="612"
                   height="408"
                   @click="() => showImg(0)"
                   class="img-cenario"
-                  alt="O escritório, uma parede verde musgo de fundo com quadros, no centro a mesa, e uma estante na direita"
+                  :alt='cenario.imageBg.alt'
                   loading="lazy" />
-                <div class="wrap-link-example">
+                <div
+                  class="wrap-link-example"
+                  v-if='cenario.example'>
                     <nuxt-img
-                      :src='configPublic.cloudflareURI + "50e4339d-3ba4-4f6a-4b0d-c8618632fb00/public"'
-                      alt="Mulher branca de cabelos enrolados na altura do pescoço sentada na cadeira de escritório branca ela está sorrindo vestida de blusinha roxa"
+                      :src='cenario.example.src + "/public"'
+                      :alt='cenario.example.alt'
                       width="300"
                       height="200"
                       loading="lazy"
                       class="img-example"
                       @click="() => showImg(8)"/>
                     <NuxtLink
+                      v-if='cenario.example.link'
                       class="link-example"
                       to="/ensaio-fotografico/corporativo/pollyanna-goncalves">
                             <span>Acessar trabalho com esse cenário:<br>
-                                <strong>Pollyanna Gonçalves</strong>
+                                <strong>{{ cenario.example.title }}</strong>
                             </span>
                     </NuxtLink>
                 </div>
 
                 <div class="text">
-                    <h2>Escritório</h2>
-                    <p class="description">
-                        Nosso escritório foi projetado para também ser um cenário, com perfil despojado, seguindo uma palheta de tons claros atende bem todos estilos corporativos, nossa mesa com textura de marmore branco foi desenvolvida exclusivamente para tornar esse ambiente único!
-                    </p>
+                    <h2>{{ cenario.title }}</h2>
+                    <p class="description" v-html='cenario.descricao'></p>
                 </div>
             </div>
         </div>
@@ -358,6 +359,12 @@ nav[aria-label=breadcrumb] {
         font-size: 30rem;
         padding-bottom: 10rem;
         font-weight: 900;
+    }
+}
+
+.description {
+    a {
+        text-decoration: underline;
     }
 }
 </style>
