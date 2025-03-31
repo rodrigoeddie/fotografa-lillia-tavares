@@ -243,6 +243,10 @@ nav[aria-label="breadcrumb"] {
       @include m.max(sm) {
         font-size: 16rem;
       }
+
+      &.active {
+          font-weight: bold;
+      }
     }
 
     a:hover {

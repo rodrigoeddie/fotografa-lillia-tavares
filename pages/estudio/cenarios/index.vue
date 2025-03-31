@@ -38,7 +38,7 @@
             title: ""
         },
         {
-            src: configPublic.cloudflareURI + "dc010e39-2f60-49b0-612f-2c57eee0f100/public",
+            src: configPublic.cloudflareURI + "50e4339d-3ba4-4f6a-4b0d-c8618632fb00/public",
             title: ""
         },
         {
@@ -58,53 +58,62 @@
 <template>
     <div class="wrapper">
         <div class="hero">
-            <div class="wrap-title">
-                <h1 class="big-title red centered">
-                    <span class="box">
-                        <span>Conheça os</span>
-                    </span>
+            <div class="container">
+                <div class="wrap-title">
+                    <h1 class="big-title red centered">
+                        <span class="box">
+                            <span>Conheça os</span>
+                        </span>
+    
+                        <span class="big">Cenários</span>
+                    </h1>
+                </div>
 
-                    <span class="big">Cenários</span>
-                </h1>
+                <nav aria-label="breadcrumb">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <NuxtLink to="/">Home</NuxtLink>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <NuxtLink to="/estudio">Estúdio</NuxtLink>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Cenários</li>
+                    </ul>
+                </nav>
             </div>
-
-            <nav aria-label="breadcrumb">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/">Home</NuxtLink>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/estudio">Estúdio</NuxtLink>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/cenarios">Cenários</NuxtLink>
-                    </li>
-                </ul>
-            </nav>
         </div>
 
         <div class="cenario">
             <div class="container">
                 <nuxt-img
-                :src='configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800/public"'
-                width="612"
-                height="408"
-                @click="() => showImg(0)"
-                class="img-cenario"
-                alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
-                loading="lazy" />
-                <nuxt-img
-                :src='configPublic.cloudflareURI + "dc010e39-2f60-49b0-612f-2c57eee0f100/public"'
-                alt="Um fundo fotográfico com equipamentos fotográficos"
-                width="300"
-                height="200"
-                class="img-example"
-                @click="() => showImg(8)"
-                fetchpriority="high"/>
+                  :src='configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800/public"'
+                  width="612"
+                  height="408"
+                  @click="() => showImg(0)"
+                  class="img-cenario"
+                  alt="O escritório, uma parede verde musgo de fundo com quadros, no centro a mesa, e uma estante na direita"
+                  loading="lazy" />
+                <div class="wrap-link-example">
+                    <nuxt-img
+                      :src='configPublic.cloudflareURI + "50e4339d-3ba4-4f6a-4b0d-c8618632fb00/public"'
+                      alt="Mulher branca de cabelos enrolados na altura do pescoço sentada na cadeira de escritório branca ela está sorrindo vestida de blusinha roxa"
+                      width="300"
+                      height="200"
+                      class="img-example"
+                      @click="() => showImg(8)"/>
+                    <NuxtLink
+                      class="link-example"
+                      to="/ensaio-fotografico/corporativo/pollyanna-goncalves">
+                            <span>Acessar trabalho com esse cenário:<br>
+                                <strong>Pollyanna Gonçalves</strong>
+                            </span>
+                    </NuxtLink>
+                </div>
+
                 <div class="text">
                     <h2>Escritório</h2>
                     <p class="description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At obcaecati magni, magnam expedita fuga maiores mollitia, rerum veritatis facere odit praesentium suscipit nemo maxime quod voluptatem consequuntur enim labore libero.
+                        Nosso escritório foi projetado para também ser um cenário, com perfil despojado, seguindo uma palheta de tons claros atende bem todos estilos corporativos, nossa mesa com textura de marmore branco foi desenvolvida exclusivamente para tornar esse ambiente único!
                     </p>
                 </div>
             </div>
@@ -242,40 +251,50 @@
 
 <style scoped lang="scss">
 nav[aria-label=breadcrumb] {
-    top: 130rem !important;
-}
-.breadcrumb {
-    padding: 0 !important;
-    display: flex;
-    z-index: 3;
+    top: 90% !important;
+    position: absolute;
+    left: 35rem;
 
-    li,
-    a {
-        font-size: 19rem;
+    .breadcrumb {
+        padding: 0 !important;
+        display: flex;
+        z-index: 3;
 
-        @include m.max(sm) {
-            font-size: 16rem;
+        li,
+        a {
+            font-size: 19rem;
+
+            @include m.max(sm) {
+                font-size: 16rem;
+            }
+
+            &.active {
+                font-weight: bold;
+            }
         }
-    }
 
-    a:hover {
-        text-decoration: underline;
-    }
+        a:hover {
+            text-decoration: underline;
+        }
 
-    li:not(:last-child)::after {
-        display: inline-block;
-        margin: 0 10rem;
-        content: "→";
+        li:not(:last-child)::after {
+            display: inline-block;
+            margin: 0 10rem;
+            content: "→";
+        }
     }
 }
 
 .hero {
-    justify-content: center;
     background: #2c2a15;
-    align-items: flex-end;
     // aspect-ratio: 7/1;
-    height: 250rem;
-    display: flex;
+
+    .container {
+        justify-content: center;
+        align-items: flex-end;
+        height: 250rem;
+        display: flex;
+    }
 
     .wrap-title {
         margin-bottom: -8rem;
@@ -322,12 +341,40 @@ nav[aria-label=breadcrumb] {
         gap: 30rem;
     }
 
+    .img-cenario {
+        cursor: zoom-in;
+    }
+
+    .wrap-link-example {
+        flex-shrink: 0;
+
+        .link-example {
+            // position: absolute;
+            font-size: 16rem;
+            padding: 5rem 10rem;
+            background: white;
+            margin-top: 10rem;
+            display: block;
+            color: v.$red;
+            width: 100%;
+            top: 102%;
+            right: 0;
+        }
+
+        .img-example {
+            border: 3rem solid white;
+            aspect-ratio: 1920/1280;
+            cursor: zoom-in;
+            display: block;
+        }
+    }
+
     &:nth-child(even) {
         background: #892c1a;
         padding-right: 30rem;
 
-        .img-example {
-            margin-left: -100rem;
+        .wrap-link-example {
+            margin-left: -130rem;
         }
     }
 
@@ -335,18 +382,14 @@ nav[aria-label=breadcrumb] {
         background: #2c2a15;
         padding-left: 30rem;
         text-align: right;
- 
+
         .container {
             flex-direction: row-reverse;
         }
 
-        .img-example {
+        .wrap-link-example {
             margin-right: -100rem;
         }
-    }
-
-    .img-example {
-        border: 3rem solid white;
     }
 
     h2 {
