@@ -3,7 +3,7 @@
     const cenarios = [
         {
             title: 'Escritório',
-            descricao: 'Nosso escritório foi projetado para também ser um cenário, com perfil despojado, seguindo uma palheta de tons claros atende bem todos estilos corporativos, nossa mesa com textura de marmore branco foi desenvolvida exclusivamente para tornar esse ambiente único!',
+            descricao: 'Nosso escritório no coração de Mogi das Cruzes foi projetado para também ser um cenário, com perfil despojado, seguindo uma palheta de tons claros atende bem todos estilos corporativos, nossa mesa com textura de marmore branco foi desenvolvida exclusivamente para tornar esse ambiente único!',
             imageBg: {
                 src: configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800",
                 alt: "O escritório, uma parede verde musgo de fundo com quadros, no centro a mesa, e uma estante na direita"
@@ -18,7 +18,7 @@
         },
         {
             title: 'Cenário Intimista',
-            descricao: '',
+            descricao: 'Desde o início de sua jornada como fotógrafa em 2018, Lillia Tavares trabalha com fotos sensual intimistas, sendo elas grande inspiração para um olhar delicado e de bom gosto, para que os modelos tenham a melhor visão de sua real beleza. Fizemos esse cantinho pensando na estética boho, esse é o único cenário nesse estilo em Mogi das Cruzes.',
             imageBg: {
                 src: configPublic.cloudflareURI + "5aaf4778-101f-4296-bd37-a5e870ea3400",
                 alt: ""
@@ -33,7 +33,7 @@
         },
         {
             title: 'Fundos infinitos',
-            descricao: 'Atualmemente oferecemos 4 opções de cores de fundos fotográficos dois claros (bege e branco) e dois escuros (grafite e azul marinho), além da iluminação profissional e de alguns acessórios, como banquetas, uma poltrona, e caixas brancas',
+            descricao: 'Atualmemente oferecemos 4 opções de cores de fundos fotográficos dois claros (bege e branco) e dois escuros (grafite e azul marinho), além da iluminação profissional e de alguns acessórios, como banquetas, uma poltrona, e caixas brancas.',
             imageBg: {
                 src: configPublic.cloudflareURI + "b6dc36df-86b3-4485-52de-8b91ba144f00",
                 alt: "Um fundo fotográfico com equipamentos fotográficos"
@@ -48,7 +48,7 @@
         },
         {
             title: 'Cantinho do espelho',
-            descricao: '',
+            descricao: 'O canto preferido da fotógrafa Lillia Tavares para suas selfies, a combinação da parede de madeira freijó com o laranja e o verde das plantas trazem uma estética bem agradável para sua fotos.',
             imageBg: {
                 src: configPublic.cloudflareURI + "e8d30eab-936f-45fd-b450-a21295e9a200",
                 alt: "Uma parede laranja com 4 estantes brancas suspensas, uma poltrona, um espelho grande e um puff"
@@ -63,7 +63,7 @@
         },
         {
             title: 'Sofá da recepção',
-            descricao: `A arquiteta <a href="https://www.instagram.com/studiocnmais" target="_blank">Camila Nogueira</a> estava inspirada ao pensar todos as funções do estúdio como um cenário, sim, nosso cantinho da recepção também tem essa função ❤️`,
+            descricao: `A arquiteta <a href="https://www.instagram.com/studiocnmais" target="_blank">Camila Nogueira</a> estava inspirada ao pensar todos as funções do estúdio como um cenário, sim, nosso cantinho da recepção também tem essa função ❤️, os quadros remetem a referências estéticas da fotógrafa.`,
             imageBg: {
                 src: configPublic.cloudflareURI + "de0a3700-d07a-46fd-1f69-8cc47ebca000",
                 alt: "Um canto com um sofá e vários quadros na parede verde musgo, Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café"
@@ -78,7 +78,7 @@
         },
         {
             title: 'Sofá',
-            descricao: '',
+            descricao: 'Junto com o cenário intimista, esse é o cenário que mais se beneficia da luz natural e isso traz um grande benefício para a estética de suas fotos, aproveite o período da tarde para tornar suas fotos ainda melhores',
             imageBg: {
                 src: configPublic.cloudflareURI + "8e112adf-8f3a-4ca8-0d95-ea0176b80600",
                 alt: ""
@@ -215,7 +215,7 @@
                     <NuxtLink
                       v-if='cenario.example.link'
                       class="link-example"
-                      to="/ensaio-fotografico/corporativo/pollyanna-goncalves">
+                      :to="cenario.example.link">
                         <span>Acessar trabalho com esse cenário:<br>
                             <strong>{{ cenario.example.title }}</strong>
                         </span>
