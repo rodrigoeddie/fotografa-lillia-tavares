@@ -39,21 +39,26 @@
 }
 
 .wrap-title {
-    transform: translate(-50%, -50%);
     background-color: #360e06;
     justify-content: center;
     display: inline-flex;
     align-items: center;
-    position: absolute;
     padding-bottom: 5rem;
-    padding-left: 12rem;
     padding-top: 5rem;
     z-index: 2;
-    left: 50%;
-    top: 50%;
 
-    // @include m.max(sm) {
-    // }
+    @include m.max(sm) {
+        margin-bottom: 15rem;
+        width: 100%;
+    }
+
+    @include m.min(sm) {
+        transform: translate(-50%, -50%);
+        padding-left: 12rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
 
     .big-title {
         padding-right: 20rem;
