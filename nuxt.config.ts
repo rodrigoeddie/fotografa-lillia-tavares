@@ -167,5 +167,7 @@ export default defineNuxtConfig({
     // },
   },
 
+  //Comando da build: bun install && bun run generate
+
   compatibilityDate: '2024-11-01',
 })
