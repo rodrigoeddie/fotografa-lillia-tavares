@@ -6,7 +6,6 @@ const props = defineProps({
   }
 });
 
-
 const ariaLabel      = ref('');
 const activeIndex    = ref(0);
 const isPrevDisabled = ref(false);
