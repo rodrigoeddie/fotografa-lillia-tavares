@@ -24,7 +24,7 @@
             imageBg: {
                 id: 2,
                 src: configPublic.cloudflareURI + "5aaf4778-101f-4296-bd37-a5e870ea3400",
-                alt: ""
+                alt: "Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, uma cama e um violão"
             },
             // example: {
             //     src: configPublic.cloudflareURI + "",
@@ -74,12 +74,12 @@
             imageBg: {
                 id: 7,
                 src: configPublic.cloudflareURI + "de0a3700-d07a-46fd-1f69-8cc47ebca000",
-                alt: "Um canto com um sofá e vários quadros na parede verde musgo, Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café"
+                alt: "Um canto com um sofá e vários quadros na parede verde musgo"
             },
             example: {
                 id: 8,
                 src: configPublic.cloudflareURI + "ba0f1af3-4673-47e4-ab41-28bf987e9800",
-                alt: "Um canto com um sofá e vários quadros na parede verde musgo",
+                alt: "Um canto com um sofá e vários quadros na parede verde musgo, Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café",
                 link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
                 title: 'Pollyanna Gonçalves',
                 orientation: 'paisagem',
@@ -91,7 +91,7 @@
             imageBg: {
                 id: 9,
                 src: configPublic.cloudflareURI + "8e112adf-8f3a-4ca8-0d95-ea0176b80600",
-                alt: ""
+                alt: "Foto de um comodo com a cortina iluminada de fundo, dois vazos de planta ao fundo, e um sofá redondo na frente, a parede é de madeira freijó."
             },
             example: {
                 id: 10,
@@ -156,7 +156,7 @@
                         <span class="box">
                             <span>Conheça os</span>
                         </span>
-    
+
                         <span class="big">Cenários</span>
                     </h1>
                 </div>
@@ -232,6 +232,10 @@ nav[aria-label=breadcrumb] {
     position: absolute;
     left: 35rem;
 
+    @include m.max(xs) {
+        top: 40% !important;
+    }
+
     .breadcrumb {
         padding: 0 !important;
         z-index: 3;
@@ -256,9 +260,6 @@ nav[aria-label=breadcrumb] {
         padding-left: 12rem;
         padding-top: 5rem;
         z-index: 2;
-
-        // @include m.max(sm) {
-        // }
 
         .big-title {
             padding-right: 20rem;
@@ -292,6 +293,21 @@ nav[aria-label=breadcrumb] {
         display: flex;
         padding: 20px;
         gap: 30rem;
+
+        @include m.max(md) {
+            flex-direction: column;
+            max-width: 1024rem;
+        }
+
+        @include m.max(xs) {
+            max-width: 100%;
+        }
+    }
+
+    .text {
+        @include m.max(md) {
+            order: 1;
+        }
     }
 
     .img-cenario {
@@ -299,10 +315,21 @@ nav[aria-label=breadcrumb] {
         cursor: zoom-in;
         height: auto;
         width: auto;
+
+        @include m.max(md) {
+            max-height: none;
+            width: 100%;
+            order: 2;
+        }
     }
 
     .wrap-link-example {
         flex-shrink: 0;
+
+        @include m.max(md) {
+            margin-top: -100rem;
+            order: 3;
+        }
 
         .link-example {
             // position: absolute;
@@ -335,24 +362,40 @@ nav[aria-label=breadcrumb] {
 
     &:nth-child(even) {
         background: #892c1a;
-        padding-right: 30rem;
+
+        @include m.min(md) {
+            padding-right: 30rem;
+        }
 
         .wrap-link-example {
             margin-left: -130rem;
+
+            @include m.max(md) {
+                margin-left: 0;
+            }
         }
     }
 
     &:nth-child(odd) {
         background: #2c2a15;
-        padding-left: 30rem;
-        text-align: right;
+
+        @include m.min(md) {
+            padding-left: 30rem;
+            text-align: right;
+        }
 
         .container {
-            flex-direction: row-reverse;
+            @include m.min(md) {
+                flex-direction: row-reverse;
+            }
         }
 
         .wrap-link-example {
             margin-right: -100rem;
+
+            @include m.max(md) {
+                margin-right: 0;
+            }
         }
     }
 

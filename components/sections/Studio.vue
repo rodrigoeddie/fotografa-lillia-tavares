@@ -95,7 +95,7 @@
                     height="408"
                     @click="() => showImg(0)"
                     class="img-studio"
-                    alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+                    alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um sofá"
                     loading="lazy" />
               </swiper-slide>
 
