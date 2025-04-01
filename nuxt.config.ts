@@ -161,10 +161,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    // preset: 'cloudflare_pages',
-    // prerender: {
-    //   autoSubfolderIndex: false,
-    // },
+    preset: 'cloudflare_pages',
+    prerender: {
+      autoSubfolderIndex: false,
+    },
   },
 
   //Comando da build: bun install && bun run generate
