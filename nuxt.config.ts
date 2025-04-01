@@ -164,10 +164,30 @@ export default defineNuxtConfig({
     // preset: 'cloudflare_pages',
     prerender: {
       autoSubfolderIndex: false,
+      routes: [
+        '/', // Página inicial
+         // Páginas estáticas
+        '/ensaio-fotografico/',
+        '/estudio/',
+        '/estudio/cenarios',
+        '/preco-ensaio-fotografico',
+        // Página dinâmicas
+        '/ensaio-fotografico/corporativo',
+        '/ensaio-fotografico/sensual-intimista',
+        '/ensaio-fotografico/sensual-intimista/vanessa-lima',
+        '/ensaio-fotografico/sensual-intimista/cris-borges',
+        '/ensaio-fotografico/sensual-intimista/cris-pole-e-lira',
+        '/ensaio-fotografico/corporativo/karoline-siqueira',
+        '/ensaio-fotografico/corporativo/vanessa-lima',
+        '/ensaio-fotografico/corporativo/andresa-maia',
+        '/ensaio-fotografico/corporativo/camila-nogueira',
+        '/ensaio-fotografico/corporativo/nelma-caroline',
+        '/ensaio-fotografico/corporativo/pollyanna-goncalves',
+      ],
     },
   },
 
   //Comando da build: bun install && bun run generate
 
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: '2025-04-01',
 })
