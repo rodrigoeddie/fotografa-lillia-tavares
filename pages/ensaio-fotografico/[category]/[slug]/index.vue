@@ -170,10 +170,12 @@ const onHide = () => (visibleRef.value = false);
                   class="icon icon-instagram"/>
                 <span>Instagram:</span>
               </h2>
-              <a
+              <NuxtLink
                 class="list-item-text"
-                :href="work.instagram.uri"
-                target="_blank">{{ work.instagram.title }}</a>
+                :to="work.instagram.uri"
+                target="_blank">
+                {{ work.instagram.title }}
+              </NuxtLink>
             </li>
           </ul>
         </div>
