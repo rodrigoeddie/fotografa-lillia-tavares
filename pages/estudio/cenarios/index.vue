@@ -139,6 +139,12 @@
         return images;
     });
 
+    // imgs.push({
+    //     id: 11,
+    //     src: configPublic.cloudflareURI + "49da8cca-e5b8-4c30-8f5d-4807f088da00/public",
+    //     title: '',
+    // });
+
     const showImg = (index: number) => {
         indexRef.value   = index;
         visibleRef.value = true;
@@ -150,29 +156,48 @@
 <template>
     <div class="wrapper">
         <div class="hero">
-            <div class="container">
-                <div class="wrap-title">
-                    <h1 class="big-title red centered">
-                        <span class="box">
-                            <span>Conheça os</span>
-                        </span>
+            <div class="wrap-breadcrumb">
+                <div class="container">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <NuxtLink to="/">Home</NuxtLink>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <NuxtLink to="/estudio">Estúdio</NuxtLink>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Cenários</li>
+                        </ul>
+                    </nav>
 
-                        <span class="big">Cenários</span>
-                    </h1>
+                    <div class="wrap-title-hero">
+                        <h1 class="title-hero">
+                            <span class="day">Dia das</span>
+                            <span class="break"></span>
+                            <span class="mother">Mães</span>
+                            <span class="break"></span>
+                            <span class="year">2025</span>
+                        </h1>
+                    </div>
                 </div>
-
-                <nav aria-label="breadcrumb">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <NuxtLink to="/">Home</NuxtLink>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <NuxtLink to="/estudio">Estúdio</NuxtLink>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Cenários</li>
-                    </ul>
-                </nav>
             </div>
+
+            <nuxt-img
+              :src='configPublic.cloudflareURI + "49da8cca-e5b8-4c30-8f5d-4807f088da00/public"'
+              width="1920"
+              height="868"
+              class="img-hero"
+              alt='Arranjo de flores em um aramado dourado, um sofá, e dois pendentes de madeira' />
+        </div>
+
+        <div class="wrap-title">
+            <h2 class="big-title red centered">
+                <span class="box">
+                    <span>Conheça os</span>
+                </span>
+
+                <span class="big">Cenários</span>
+            </h2>
         </div>
 
         <div
@@ -209,7 +234,7 @@
                 </div>
 
                 <div class="text">
-                    <h2>{{ cenario.title }}</h2>
+                    <h3>{{ cenario.title }}</h3>
                     <p class="description" v-html='cenario.descricao'></p>
                 </div>
             </div>
@@ -244,12 +269,97 @@ nav[aria-label=breadcrumb] {
 
 .hero {
     background: #2c2a15;
+    overflow: hidden;
     // aspect-ratio: 7/1;
+
+    &:before {
+        content: '';
+
+        background: radial-gradient(circle, rgba(44,42,21,1) 0%, rgba(255,255,255, 0) 50%);
+        position: absolute;
+        left: -65%;
+        top: -50%;
+        height: 150%;
+        display: block;
+        opacity: .75;
+        width: 150%;
+        z-index: 2;
+    }
+
+    &:after {
+        content: '';
+
+        background: #611e10;
+        position: absolute;
+        display: block;
+        height: 10px;
+        z-index: 4;
+        width: 50%;
+        right: 0;
+        top: 0;
+    }
+
+    .wrap-breadcrumb {
+        position: absolute;
+        height: 100%;
+        z-index: 3;
+        right: 0;
+        left: 0;
+        top: 0;
+
+        .container {
+            height: 100%;
+            justify-content: flex-end;
+        }
+    }
+
+    .wrap-title-hero {
+        .title-hero {
+            text-transform: uppercase;
+            justify-content: center;
+            flex-direction: column;
+            align-items: flex-end;
+            padding-bottom: 20rem;
+            font-family: v.$lato;
+            font-weight: 900;
+            color: white;
+            display: flex;
+            height: 100%;
+            right: 0;
+
+            span {
+                background: rgba(169, 122, 9, .7);
+                padding: 0 30rem;
+                margin: 5rem 0;
+
+                &.break {
+                    display: block;
+                }
+            }
+
+            .day {
+                font-size: 48rem;
+                // color: #f0deda;
+            }
+            .mother {
+                font-size: 150rem;
+            }
+            .year {
+                font-size: 115rem;
+                // color: #f0deda;
+            }
+        }
+    }
+
+    .img-hero {
+        display: block;
+        margin: 0 auto;
+        height: auto;
+    }
 
     .container {
         justify-content: center;
         align-items: flex-end;
-        height: 250rem;
         display: flex;
     }
 
