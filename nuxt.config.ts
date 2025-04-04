@@ -166,23 +166,32 @@ export default defineNuxtConfig({
       autoSubfolderIndex: false,
       routes: [
         '/', // Página inicial
+
          // Páginas estáticas
-        '/ensaio-fotografico/',
-        '/estudio/',
+        '/ensaio-fotografico',
+
+        '/estudio',
         '/estudio/cenarios',
+        '/estudio/cenarios/dia-das-maes-2025',
+
         '/preco-ensaio-fotografico',
+
         // Página dinâmicas
         '/ensaio-fotografico/corporativo',
-        '/ensaio-fotografico/sensual-intimista',
-        '/ensaio-fotografico/sensual-intimista/vanessa-lima',
-        '/ensaio-fotografico/sensual-intimista/cris-borges',
-        '/ensaio-fotografico/sensual-intimista/cris-pole-e-lira',
-        '/ensaio-fotografico/corporativo/karoline-siqueira',
         '/ensaio-fotografico/corporativo/vanessa-lima',
         '/ensaio-fotografico/corporativo/andresa-maia',
-        '/ensaio-fotografico/corporativo/camila-nogueira',
         '/ensaio-fotografico/corporativo/nelma-caroline',
+        '/ensaio-fotografico/corporativo/camila-nogueira',
+        '/ensaio-fotografico/corporativo/karoline-siqueira',
         '/ensaio-fotografico/corporativo/pollyanna-goncalves',
+
+        '/ensaio-fotografico/sensual-intimista',
+        '/ensaio-fotografico/sensual-intimista/cris-borges',
+        '/ensaio-fotografico/sensual-intimista/vanessa-lima',
+        '/ensaio-fotografico/sensual-intimista/cris-pole-e-lira',
+
+        '/ensaio-fotografico/dia-das-maes-2025',
+        '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares',
       ],
     },
   },
