@@ -89,6 +89,7 @@ if (about.value?.body?.value) {
   </div>
 </template>
 
+
 <style lang="scss">
   .wrap-about {
     .about-text {
