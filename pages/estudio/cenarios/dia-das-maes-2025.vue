@@ -1,105 +1,49 @@
 <script setup lang="ts">
     const configPublic = useRuntimeConfig().public;
     const cenarios = [
+        //3a423fad-5856-4554-c680-fe995c0bcb00
+        //img - retrato
+
         {
-            title: 'Escritório',
-            descricao: 'Nosso escritório no coração de Mogi das Cruzes foi projetado para também ser um cenário, com perfil despojado, seguindo uma palheta de tons claros atende bem todos estilos corporativos, nossa mesa com textura de marmore branco foi desenvolvida exclusivamente para tornar esse ambiente único!',
+            title: 'O Cenário',
+            descricao: 'Para uma visão geral do cenário que preparamos para o <b>Dia das Mães 2025</b> fizemos um cantinho cheio de sofisticação com cores puxadas para o dourado e off-white.',
             imageBg: {
                 id: 0,
-                src: configPublic.cloudflareURI + "d4e38b52-1ce0-4e1d-03c8-518779aa9800",
-                alt: "O escritório, uma parede verde musgo de fundo com quadros, no centro a mesa, e uma estante na direita"
+                src: configPublic.cloudflareURI + "58acda17-3c27-42e0-227d-e760faa76d00",
+                alt: "Nosso cenário para o dia das mães: Um floral em um aramado dourado na esquerda, um sofá off-white redonto, pendentes de madeira, e uma cortina branca"
             },
             example: {
                 id: 1,
-                src: configPublic.cloudflareURI + "50e4339d-3ba4-4f6a-4b0d-c8618632fb00",
-                alt: "Mulher branca de cabelos enrolados na altura do pescoço sentada na cadeira de escritório branca ela está sorrindo vestida de blusinha roxa",
-                link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
-                title: 'Pollyanna Gonçalves',
-                orientation: 'paisagem',
+                src: configPublic.cloudflareURI + "b25c4856-522b-4367-2aac-6f1c36111100",
+                alt: "No fundo cenário do dia das mães: Sentadas no sofá da esquerda pra direita: Uma mulher (a mãe) com vestido longo azul, uma mulher mais velha com paletó branco, calça branca e camisa azul (a avó), e uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as três mulheres são negras de cabelos crespos",
+                link: '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares',
+                title: 'Dia das Mães - Lillia Tavares',
             },
         },
         {
-            title: 'Cenário Intimista',
-            descricao: 'Desde o início de sua jornada como fotógrafa em 2018, Lillia Tavares trabalha com fotos sensual intimistas, sendo elas grande inspiração para um olhar delicado e de bom gosto, para que os modelos tenham a melhor visão de sua real beleza. Fizemos esse cantinho pensando na estética boho, esse é o único cenário nesse estilo em Mogi das Cruzes.',
+            title: 'Decoração',
+            descricao: 'Um zoom nos detalhes da decoração que escolhemos para o cenário do Dia das Mães.',
             imageBg: {
                 id: 2,
-                src: configPublic.cloudflareURI + "5aaf4778-101f-4296-bd37-a5e870ea3400",
-                alt: "Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, uma cama e um violão"
+                src: configPublic.cloudflareURI + "49636a87-a093-4577-4b61-4b1bed232500",
+                alt: ""
             },
-            // example: {
-            //     src: configPublic.cloudflareURI + "",
-            //     alt: "",
-            //     link: '',
-            //     title: '',
-                // orientation: 'paisagem',
-            // },
         },
         {
-            title: 'Fundos infinitos',
-            descricao: 'Atualmemente oferecemos 4 opções de cores de fundos fotográficos dois claros (bege e branco) e dois escuros (grafite e azul marinho), além da iluminação profissional e de alguns acessórios, como banquetas, uma poltrona, e caixas brancas.',
+            title: 'Floral',
+            descricao: 'No <b>Dia das Mães</a> não podem faltar as flores, e demos nosso melhor para que as cores do arranjo converse perfeitamente com todos os elementos do cenário, esperamos que você tenha gostado.',
             imageBg: {
                 id: 3,
-                src: configPublic.cloudflareURI + "b6dc36df-86b3-4485-52de-8b91ba144f00",
-                alt: "Um fundo fotográfico com equipamentos fotográficos"
+                src: configPublic.cloudflareURI + "6ea326b0-e9e1-4b05-29c1-46146f52a400",
+                alt: ""
             },
             example: {
                 id: 4,
-                src: configPublic.cloudflareURI + "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
-                alt: "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm",
-                link: '/ensaio-fotografico/corporativo/vanessa-lima',
-                title: 'Vanessa Lima',
+                src: configPublic.cloudflareURI + "1754195e-e114-473f-941f-bfd589ab7a00",
+                alt: "No fundo cenário do dia das mães: Uma mulher em pé com calça bege, e uma blusinha de manga longa branca, sentada de mãos dadas está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos",
+                link: '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares',
+                title: 'Dia das Mães - Lillia Tavares',
                 orientation: 'retrato',
-            },
-        },
-        {
-            title: 'Cantinho do espelho',
-            descricao: 'O canto preferido da fotógrafa Lillia Tavares para suas selfies, a combinação da parede de madeira freijó com o laranja e o verde das plantas trazem uma estética bem agradável para sua fotos.',
-            imageBg: {
-                id: 5,
-                src: configPublic.cloudflareURI + "e8d30eab-936f-45fd-b450-a21295e9a200",
-                alt: "Uma parede laranja com 4 estantes brancas suspensas, uma poltrona, um espelho grande e um puff"
-            },
-            example: {
-                id: 6,
-                src: configPublic.cloudflareURI + "60ddc9c8-058d-441e-1608-ca6109de1200",
-                alt: "Mulher sorrindo de roupa branca, sentada no chão, uma parte da parede é de madeira freijó, outra, é laranja, há um vaso de plantas grande, e um espelho grande",
-                link: '/ensaio-fotografico/corporativo/andresa-maia',
-                title: 'Andresa Maia',
-                orientation: 'paisagem',
-            },
-        },
-        {
-            title: 'Sofá da recepção',
-            descricao: `A arquiteta <a href="https://www.instagram.com/studiocnmais" target="_blank">Camila Nogueira</a> estava inspirada ao pensar todos as funções do estúdio como um cenário, sim, nosso cantinho da recepção também tem essa função ❤️, os quadros remetem a referências estéticas da fotógrafa.`,
-            imageBg: {
-                id: 7,
-                src: configPublic.cloudflareURI + "de0a3700-d07a-46fd-1f69-8cc47ebca000",
-                alt: "Um canto com um sofá e vários quadros na parede verde musgo"
-            },
-            example: {
-                id: 8,
-                src: configPublic.cloudflareURI + "ba0f1af3-4673-47e4-ab41-28bf987e9800",
-                alt: "Um canto com um sofá e vários quadros na parede verde musgo, Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café",
-                link: '/ensaio-fotografico/corporativo/pollyanna-goncalves',
-                title: 'Pollyanna Gonçalves',
-                orientation: 'paisagem',
-            },
-        },
-        {
-            title: 'Sofá',
-            descricao: 'Junto com o cenário intimista, esse é o cenário que mais se beneficia da luz natural e isso traz um grande benefício para a estética de suas fotos, aproveite o período da tarde para tornar suas fotos ainda melhores',
-            imageBg: {
-                id: 9,
-                src: configPublic.cloudflareURI + "8e112adf-8f3a-4ca8-0d95-ea0176b80600",
-                alt: "Foto de um comodo com a cortina iluminada de fundo, dois vazos de planta ao fundo, e um sofá redondo na frente, a parede é de madeira freijó."
-            },
-            example: {
-                id: 10,
-                src: configPublic.cloudflareURI + "0a37ed18-db3d-49b2-ac20-68f472793f00",
-                alt: "",
-                link: '/ensaio-fotografico/corporativo/andresa-maia',
-                title: 'Andresa Maia',
-                orientation: 'paisagem',
             },
         },
         // {
@@ -155,57 +99,37 @@
 
 <template>
     <div class="wrapper">
-        <NuxtLink
-          class="hero"
-          to="cenarios/dia-das-maes-2025">
+        <div class="hero">
             <div class="wrap-breadcrumb">
                 <div class="container">
-                    <div class="wrap-title-hero">
-                        <h1 class="title-hero">
-                            <span class="day">Dia das</span>
-                            <span class="break"></span>
-                            <span class="mother">Mães</span>
-                            <span class="break"></span>
-                            <span class="year">2025</span>
-                        </h1>
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <NuxtLink to="/">Home</NuxtLink>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <NuxtLink to="/estudio">Estúdio</NuxtLink>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Cenários</li>
+                        </ul>
+                    </nav>
+
+                    <div class="wrap-title">
+                        <h2 class="big-title red centered">
+                            <span class="box">
+                                <span>Conheça nosso cenário do</span>
+                            </span>
+
+                            <span class="big"> dia das mães 2025</span>
+                        </h2>
                     </div>
                 </div>
-            </div>
-
-            <nuxt-img
-              :src='configPublic.cloudflareURI + "49da8cca-e5b8-4c30-8f5d-4807f088da00/public"'
-              width="1920"
-              height="868"
-              class="img-hero"
-              alt='Arranjo de flores em um aramado dourado, um sofá, e dois pendentes de madeira' />
-        </NuxtLink>
-
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/">Home</NuxtLink>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/estudio">Estúdio</NuxtLink>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Cenários</li>
-                </ul>
-            </nav>
-
-            <div class="wrap-title">
-                <h2 class="big-title red centered">
-                    <span class="box">
-                        <span>Conheça os</span>
-                    </span>
-    
-                    <span class="big">Cenários</span>
-                </h2>
             </div>
         </div>
 
         <div
           class="cenario"
+          :class="'cenario-' + index"
           v-for="(cenario, index) in cenarios">
             <div class="container">
                 <nuxt-img
@@ -257,9 +181,13 @@
 
 <style scoped lang="scss">
 nav[aria-label=breadcrumb] {
-    top: 115% !important;
+    top: 145% !important;
     position: absolute;
     left: 35rem;
+
+    @media (prefers-color-scheme: light) {
+        color: white;
+    }
 
     @include m.max(xs) {
         top: 40% !important;
@@ -273,39 +201,40 @@ nav[aria-label=breadcrumb] {
 
 .hero {
     background: #2c2a15;
-    overflow: hidden;
+    height: 200rem;
     // aspect-ratio: 7/1;
 
-    &:before {
-        content: '';
-
-        background: radial-gradient(circle, rgba(44, 42, 21, 1) 0%, rgba(255,255,255, 0) 50%);
-        position: absolute;
-        display: block;
-        opacity: .75;
-        height: 150%;
-        width: 150%;
-        z-index: 2;
-        left: -65%;
-        top: -50%;
-
-        @media (prefers-color-scheme: light) {
-            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255,255,255, 0) 50%);
-            opacity: .7;
-        }
+    @media (prefers-color-scheme: light) {
+        background: white;
     }
 
-    &:after {
-        content: '';
+    @media (prefers-color-scheme: dark) {
+        &:before {
+            content: '';
 
-        background: #611e10;
-        position: absolute;
-        display: block;
-        height: 10px;
-        z-index: 4;
-        width: 50%;
-        right: 0;
-        top: 0;
+            background: radial-gradient(circle, rgba(44,42,21,1) 0%, rgba(255,255,255, 0) 50%);
+            position: absolute;
+            left: -65%;
+            top: -50%;
+            height: 150%;
+            display: block;
+            opacity: .75;
+            width: 150%;
+            z-index: 2;
+        }
+
+        &:after {
+            content: '';
+
+            background: #611e10;
+            position: absolute;
+            display: block;
+            height: 10px;
+            z-index: 4;
+            width: 67%;
+            right: 0;
+            top: 0;
+        }
     }
 
     .wrap-breadcrumb {
@@ -318,7 +247,7 @@ nav[aria-label=breadcrumb] {
 
         .container {
             height: 100%;
-            justify-content: flex-end;
+            justify-content: center;
         }
     }
 
@@ -407,6 +336,7 @@ nav[aria-label=breadcrumb] {
 }
 
 .cenario {
+
     .container {
         align-items: center;
         display: flex;
@@ -500,10 +430,10 @@ nav[aria-label=breadcrumb] {
     }
 
     &:nth-child(odd) {
-        background: #2c2a15;
+        background: white;
 
-        @media (prefers-color-scheme: light) {
-            background: white;
+        @media (prefers-color-scheme: dark) {
+            background: #2c2a15;
         }
 
         @include m.min(md) {
@@ -524,6 +454,10 @@ nav[aria-label=breadcrumb] {
                 margin-right: 0;
             }
         }
+    }
+
+    &.cenario-0 {
+        padding-top: 100rem;
     }
 
     h3 {

@@ -238,7 +238,7 @@ const categories = navigation.value[0].children;
     display: flex;
 
     @include m.max(lg) {
-      height: 80rem;
+      height: 100rem;
     }
 
     @include m.max(sm) {
@@ -259,9 +259,10 @@ const categories = navigation.value[0].children;
     }
 
     .menu-category {
-      display: flex;
+      flex-wrap: wrap;
       color: white;
-      gap: 20rem;
+      display: flex;
+      gap: 0 20rem;
 
       // @media (prefers-color-scheme: dark) {
       // }
@@ -272,6 +273,7 @@ const categories = navigation.value[0].children;
       display: list-item;
       font-size: 25rem;
       list-style: disc;
+      width: 40%;
 
       @include m.max(sm) {
         text-indent: -5rem;
@@ -286,7 +288,6 @@ const categories = navigation.value[0].children;
 
       &:first-child {
         list-style: none;
-        margin-left: 0;
       }
     }
   }
@@ -306,6 +307,7 @@ const categories = navigation.value[0].children;
     position: absolute;
     bottom: 30rem;
     left: 130rem;
+    z-index: 2;
 
     @include m.max(sm) {
       background-color: v.$dark-green;
