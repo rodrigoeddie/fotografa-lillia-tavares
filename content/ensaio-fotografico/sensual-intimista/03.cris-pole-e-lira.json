@@ -10,33 +10,50 @@
   "album": [
     {
       "imageId": "b34724f1-b079-4824-53d2-afd972014600",
+      "width": 567,
+      "height": 850,
+      "customClass": "w33",
       "format": "retrato",
       "alt": "Ensaio de lira acrobática com mulher vestida de body azul sentada na lira"
     },
     {
       "imageId": "42811399-2c76-4ad1-0ea5-296bdefc3500",
+      "width": 567,
+      "height": 850,
+      "customClass": "w33",
       "format": "retrato",
       "alt": "Ensaio de lira acrobática com mulher vestida de body azul deitada na lira"
     },
     {
       "imageId": "bffb27e7-17f9-409e-5df6-28c9cd1d9400",
+      "width": 567,
+      "height": 850,
+      "customClass": "w33",
       "canBeThumb": true,
       "format": "retrato",
       "alt": "Ensaio de lira acrobática com mulher vestida de body azul em pé na lira"
     },
     {
       "imageId": "7b5ee027-6587-48cb-170b-b1e8b337b000",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "canBeThumb": true,
       "alt": "Ensaio de Pole Dance com mulher vestida de body preto e vermelho, olhando para cima com a perna para tras"
     },
     {
       "imageId": "88a3d035-c5e1-4866-1a67-d2e111b8fb00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Ensaio de Pole Dance com mulher de lingerie azul"
     },
     {
       "imageId": "692870a1-1895-4695-2bd7-8e5611f50300",
+      "width": 935,
+      "height": 624,
       "format": "paisagem",
       "canBeThumb": true,
       "alt": "Ensaio de Pole Dance com mulher de lingerie azul",
@@ -44,7 +61,10 @@
     },
     {
       "imageId": "b11ad583-373f-49a3-9378-ebf129867e00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Ensaio de Pole Dance com mulher vestida de body preto e vermelho, olhando para cima com as pernas cruzadas"
     }
   ]

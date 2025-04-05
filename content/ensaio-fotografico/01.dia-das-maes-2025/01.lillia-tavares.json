@@ -11,8 +11,10 @@
   },
   "album": [
     {
-      "order": 2,
       "imageId": "5af23931-2164-4ea5-a218-3539d8067c00",
+      "width": 935,
+      "height": 624,
+      "order": 2,
       "format": "paisagem",
       "canBeThumb": true,
       "alt": "No fundo cenário do dia das mães: Uma mulher sentada com vestido longo azul, e uma mulher mais velha com blazer branco e camisa azul, as duas mulheres são negras de cabelos crespos",
@@ -20,6 +22,8 @@
     },
     {
       "imageId": "1754195e-e114-473f-941f-bfd589ab7a00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
       "alt": "No fundo cenário do dia das mães: Uma mulher em pé com calça bege, e uma blusinha de manga longa branca, sentada de mãos dadas está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos",
       "canBeThumb": true,
@@ -27,24 +31,32 @@
     },
     {
       "imageId": "85de3499-00e4-4eb8-f856-1d9eb7e0b000",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
       "alt": "No fundo cenário do dia das mães: Uma mulher em pé cestido longo azul",
       "customClass": "w33"
     },
     {
       "imageId": "8f556890-defb-4e77-4fe5-2836a2eff400",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
       "alt": "No fundo cenário do dia das mães: Uma mulher em pé com calça bege, e uma blusinha de manga longa branca, sentada de mãos dadas está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos, ambas estão sorrindo",
       "customClass": "w33"
     },
     {
       "imageId": "b25c4856-522b-4367-2aac-6f1c36111100",
+      "width": 1700,
+      "height": 1134,
       "format": "paisagem",
       "alt": "No fundo cenário do dia das mães: Sentadas no sofá da esquerda pra direita: Uma mulher (a mãe) com vestido longo azul, uma mulher mais velha com paletó branco, calça branca e camisa azul (a avó), e uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as três mulheres são negras de cabelos crespos"
     },
     {
       "order": 1,
       "imageId": "9bc08c57-d6a4-4a72-9709-5af079eb7500",
+      "width": 850,
+      "height": 567,
       "format": "paisagem",
       "alt": "No fundo cenário do dia das mães: Uma mulher sentada com vestido longo azul, em pé de mãos dadas está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos",
       "customClass": "w50",
@@ -52,6 +64,8 @@
     },
     {
       "imageId": "23e9ce51-d071-46e2-4dee-b08823ea2700",
+      "width": 850,
+      "height": 567,
       "format": "paisagem",
       "alt": "No fundo cenário do dia das mães: Uma mulher sentada com vestido longo azul a direita, e a esquerda abraçando está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos",
       "customClass": "w50"

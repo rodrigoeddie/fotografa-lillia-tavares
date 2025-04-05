@@ -78,11 +78,13 @@ if (about.value?.body?.value) {
 
       <div class="col about-img">
         <nuxt-img
-          :src='configPublic.cloudflareURI + "9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"'
+          provider="cloudflare"
+          :src='"https://images.fotografalilliatavares.com.br/images/9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"'
           alt="Lillia Tavares sentada na mesa, com um notebook e uma câmera fotográfica"
-          width="1021"
-          height="680"
+          width="935"
+          height="796"
           fetchpriority="high"
+          placeholder
           class="img cover"/>
       </div>
     </div>

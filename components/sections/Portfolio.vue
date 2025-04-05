@@ -87,22 +87,42 @@ const classes = [
   {
     class: 'card card-column',
     format: 'paisagem',
+    image: {
+      width: 690,
+      height: 460,
+    }
   },
   {
     class: 'card side-by-side',
     format: 'retrato',
+    image: {
+      width: 414,
+      height: 790,
+    }
   },
   {
     class: 'wide side-by-side reverse',
     format: 'paisagem',
+    image: {
+      width: 962,
+      height: 481,
+    }
   },
   {
     class: 'card side-by-side card-60',
     format: 'retrato',
+    image: {
+      width: 567,
+      height: 834,
+    }
   },
   {
     class: 'card card-column card-40',
     format: 'paisagem',
+    image: {
+      width: 605,
+      height: 403,
+    }
   },
 ];
 
@@ -149,19 +169,25 @@ const formatDate = (dateString: string) => {
                     :key="slide.id"
                     :class="'wrap-img ' + slide.format">
                     <nuxt-img
-                      :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                      :width="(slide.format=='paisagem') ? 700 : 500"
-                      :height="(slide.format=='paisagem') ? 500 : 800"
+                      provider="cloudflare"
+                      :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                      :width="classes[index % classes.length].image.width"
+                      :height="classes[index % classes.length].image.height"
+                      :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
                       class="img-thumb"
                       :alt="slide.alt"
+                      placeholder
                       loading="lazy"/>
                     <nuxt-img
+                      provider="cloudflare"
                       v-if="slide.format=='retrato'"
-                      :src='configPublic.cloudflareURI + slide.imageId + "/thumb"'
-                      width="700"
-                      height="500"
+                      :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                      :width="classes[index % classes.length].image.width"
+                      :height="classes[index % classes.length].image.height"
+                      :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
                       class="bg-thumb"
                       :alt="slide.alt"
+                      placeholder
                       loading="lazy"/>
                   </swiper-slide>
                 </swiper-container>
@@ -375,6 +401,10 @@ const formatDate = (dateString: string) => {
         padding-top: 20rem;
         color: v.$dark-red;
 
+        @include m.max(sm) {
+          padding-bottom: 65rem;
+        }
+
         @media (prefers-color-scheme: dark) {
           color: white
         }
@@ -585,13 +615,22 @@ const formatDate = (dateString: string) => {
       }
 
       .btn {
+        padding: 26rem 30rem 10rem 30rem;
+        align-items: flex-end;
+        background: #e3dfcb;
         position: absolute;
-        padding: 30rem;
+        color: #7b785b;
+        display: flex;
         bottom: 0;
         right: 0;
 
+        @include m.max(sm) {
+          padding: 15rem 22rem 10rem 22rem;
+        }
+
         @media (prefers-color-scheme: dark) {
-          // background: black;
+          background: #918d6a;
+          color: v.$dark-green;
         }
       }
     }

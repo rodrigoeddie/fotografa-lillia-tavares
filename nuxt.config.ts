@@ -122,7 +122,7 @@ export default defineNuxtConfig({
 
   image: {
     cloudflare: {
-      baseURL: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/'
+      baseURL: 'https://images.fotografalilliatavares.com.br'
     },
     quality: 90,
     format: ['webp'],

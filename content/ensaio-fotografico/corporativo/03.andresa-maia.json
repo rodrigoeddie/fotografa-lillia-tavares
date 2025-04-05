@@ -16,6 +16,8 @@
   "album": [
     {
       "imageId": "0a37ed18-db3d-49b2-ac20-68f472793f00",
+      "width": 935,
+      "height": 624,
       "format": "paisagem",
       "alt": "Mulher com coque e roupa branca, sentada no tapete, encostada no sofá tomando um chá",
       "canBeThumb": true,
@@ -23,6 +25,8 @@
     },
     {
       "imageId": "cb3583c6-889a-4e41-85c6-423b37ad7100",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "canBeThumb": true,
       "customClass": "w25",
@@ -30,18 +34,24 @@
     },
     {
       "imageId": "afca9f7a-f36d-47a8-e030-dde8000c5f00",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "customClass": "w25",
       "alt": "Mulher de blazer salmão mexendo no macbook"
     },
     {
       "imageId": "310b242c-7394-4e41-750f-dd4924098500",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "customClass": "w25",
       "alt": "Mulher de branco, sentada no sofá"
     },
     {
       "imageId": "0cd3c286-1724-40f9-187b-b77f9bede200",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "customClass": "w25",
       "canBeThumb": true,
@@ -49,6 +59,8 @@
     },
     {
       "imageId": "60ddc9c8-058d-441e-1608-ca6109de1200",
+      "width": 1700,
+      "height": 1134,
       "format": "paisagem",
       "alt": "Mulher sorrindo de roupa branca, sentada no chão",
       "canBeThumb": true
