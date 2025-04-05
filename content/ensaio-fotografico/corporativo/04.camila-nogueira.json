@@ -18,6 +18,8 @@
   "album": [
     {
       "imageId": "f00300d2-e52f-4b6f-9710-350a173fdf00",
+      "width": 468,
+      "height": 703,
       "format": "retrato",
       "alt": "Mulher negra em pé, olhando para baixo e sorrindo de blazer bege, blusinha preta, e calça jeans, usamos o fundo bege do Estúdio de fotografia Lillia Tavares",
       "canBeThumb": true,
@@ -25,18 +27,24 @@
     },
     {
       "imageId": "27860490-6b23-48ee-386c-9c491a33fc00",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Mulher negra sentada em uma banqueta, olhando para a camera de blazer bege e calça jeans, usamos o fundo bege do Estúdio de fotografia Lillia Tavares",
       "customClass": "w25"
     },
     {
       "imageId": "6d768995-575c-49cd-4401-cc91a658d400",
+      "width": 468,
+      "height": 703,
       "format": "retrato",
       "alt": "Mulher negra sentada, olhando para a camera e sorrindo de blusa amarela e calça jeans, usamos o fundo bege do Estúdio de fotografia Lillia Tavares",
       "highlight": true
     },
     {
       "imageId": "3d6cbe4e-2a25-4904-8b7a-d6706be69900",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Mulher negra sorrindo e olhando para seus projetos arquitetonicos espalhados pelo chão, ela está sentada no chão, de calça jeans e camisa branca, usamos o fundo branco do Estúdio de fotografia Lillia Tavares",
       "canBeThumb": true,
@@ -44,25 +52,35 @@
     },
     {
       "imageId": "ea968edc-8f69-4005-d122-b8b8c0846e00",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Mulher negra em pé, olhando para a camera e sorrindo de blazer bege, blusinha preta, e calça jeans, usamos o fundo bege do Estúdio de fotografia Lillia Tavares",
       "customClass": "w25"
     },
     {
       "imageId": "ddcec0c8-4fff-4a8a-8ad8-b735036c7700",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Mulher negra sorrindo e olhando para a direita, segurando uma xícara com seu logo, ela está de calça jeans e camisa branca, há um macbook no chão, usamos o fundo branco do Estúdio de fotografia Lillia Tavares",
       "customClass": "w25"
     },
     {
       "imageId": "49396ff2-872b-442c-dc06-fd1970b96700",
+      "width": 850,
+      "height": 567,
       "format": "paisagem",
+      "customClass": "w50",
       "alt": "Da esquerda pra direita, a ponta de uma cama, uma mulher negra sentada no chão, ela está apoiada no sofá redondo a direita, seus projetos estão a seus pés, ela está no cenário intimista do Estúdio de fotografia Lillia Tavares",
       "canBeThumb": true
     },
     {
       "imageId": "dd127bf1-6818-4b90-44e0-5853e6176300",
+      "width": 850,
+      "height": 567,
       "format": "paisagem",
+      "customClass": "w50",
       "alt": "Perfil da Camila projetando um cômodo de uma casa, há na cena uma calculadora, alguns papéis, lapiseiras, uma régua, e sua caneca com o logotipo CN (Camila Nogueira)",
       "canBeThumb": true
     }

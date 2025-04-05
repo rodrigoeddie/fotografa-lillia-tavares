@@ -16,6 +16,8 @@
   "album": [
     {
       "imageId": "ba0f1af3-4673-47e4-ab41-28bf987e9800",
+      "width": 935,
+      "height": 624,
       "format": "paisagem",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá ela está sorrindo vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá, o direito segurando uma xícara de café",
       "canBeThumb": true,
@@ -23,35 +25,50 @@
     },
     {
       "imageId": "f1b2c33f-6b30-4a2b-f5b1-b04209153000",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá chaise redondo ela está sorrindo com um livro nas mãos, vestida de blusinha roxa e calça bege"
     },
     {
       "imageId": "5bc0029d-f02b-4ae9-5c32-35c562b54b00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada ao lado do sofá chaise redondo ela está sorrindo com uma xícara de café nas mãos, vestida de blusinha roxa e calça bege",
       "canBeThumb": true
     },
     {
       "imageId": "d9e9d135-728b-491c-13c5-6617aa329a00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada no sofá chaise redondo ela está sorrindo olhando para a esquerda, vestida de blusinha roxa e calça bege, seu braço esquerdo está apoiado nos braços do sofá",
       "canBeThumb": true
     },
     {
       "imageId": "50e4339d-3ba4-4f6a-4b0d-c8618632fb00",
+      "width": 1700,
+      "height": 1134,
       "format": "paisagem",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada na cadeira de escritório branca ela está sorrindo vestida de blusinha roxa ",
       "canBeThumb": true
     },
     {
       "imageId": "5e35e0d4-710f-48f8-8d2e-df39c1ec6e00",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada de pernas cruzadas no sofá chaise redondo com o notebook apoiado no seu colo ela está com uma mão no notebook e outra na xícara de café, ela está vestida de blusinha roxa e calça bege"
     },
     {
       "imageId": "9759c4b9-73fb-4f5f-aef0-81d3002e8500",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher branca de cabelos enrolados na altura do pescoço sentada de pernas cruzadas na banqueta preta, cortinas no fundo, ela está vestida de blusinha roxa e calça bege"

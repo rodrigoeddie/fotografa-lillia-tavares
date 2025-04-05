@@ -190,8 +190,7 @@ const onHide = () => (visibleRef.value = false);
             :height="highlight[0].height"
             :alt="highlight[0].alt"
             @click="() => showImg(highlight[0].index)"
-            fetchpriority="high"
-            loading="lazy"/>
+            fetchpriority="high"/>
         <nuxt-img
           v-if="highlight[1]"
             provider="cloudflare"
@@ -200,8 +199,7 @@ const onHide = () => (visibleRef.value = false);
             :height="highlight[1].height"
             :alt="highlight[1].alt"
             @click="() => showImg(highlight[1].index)"
-            fetchpriority="high"
-            loading="lazy"/>
+            fetchpriority="high"/>
       </div>
     </div>
 
