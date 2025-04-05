@@ -12,6 +12,8 @@
   "album": [
     {
       "imageId": "4c9605da-8014-4078-7710-f823ff81d700",
+      "width": 935,
+      "height": 624,
       "format": "paisagem",
       "alt": "Foto em preto e branco de uma mulher com botas pretas, e body preto ela está com as pernas apoiadas no chão e o tronco levantado pelo braço, ela está de cabelos enrolados e longos, o fundo é o fundo branco do estúdio Lillia Tavares",
       "canBeThumb": true,
@@ -19,12 +21,16 @@
     },
     {
       "imageId": "e6b2344f-6045-41f8-c01b-a051fd388200",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados e longos com botas pretas, e body preto, ela está sentada em uma caixa mdf branca de lado olhando para a direita, a perna da frente dobrada em 90 graus, e a outra esticada, o fundo é o fundo branco do estúdio Lillia Tavares",
       "customClass": "w25"
     },
     {
       "imageId": "e92b1a3e-0a3d-4553-8402-ac250a882d00",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados e longos com botas pretas, e body preto, ela está sentada em uma caixa mdf branca de frente para a fotografa, a perna direita esticada, e a esquerda dobrada para tras ela está olhando para a sua direita, o fundo é o fundo branco do estúdio Lillia Tavares",
       "canBeThumb": true,
@@ -32,29 +38,42 @@
     },
     {
       "imageId": "080d11e9-5ef8-45eb-8f93-70fb5426c500",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados e longos com botas pretas, e body preto, ela está de frente pra foto, no chão branco, a perna direita cruzada a frente de seu corpo, e a perna esquerda cruzada para trás de seu corpo, o fundo é o fundo branco do estúdio Lillia Tavares",
       "customClass": "w25"
     },
     {
       "imageId": "5f09bf4f-4335-42b8-8ac0-8517ccc5b900",
+      "width": 425,
+      "height": 638,
       "format": "retrato",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados e longos com botas pretas, e body preto, ela está de pé com o corpo virado para a direita, mas ela está com o tronco rotacionado para a foto, seu tronco está curvado em 45 graus, seu braço direito está apoiado nas costas e o esquerdo no joelho da perna esquerda, o fundo é o fundo branco do estúdio Lillia Tavares",
       "customClass": "w25"
     },
     {
       "imageId": "504faadb-59cb-4bcb-98dc-80253d802400",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados amarrados em coque, ela está de pé usando uma camisa branca, virada para a esquerda, olhando para a foto com o braço esquerdo angulado em 90 graus encostando a cortina, ao fundo são as cortinas do estúdio Lillia Tavares"
     },
     {
       "imageId": "9b27581a-cd10-41f4-dbe7-36ed7504e400",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados amarrados em coque, ela está de pé usando uma camisa branca, olhando para a esquerda, seu corpo está virado para a foto, ao fundo são as cortinas do estúdio Lillia Tavares"
     },
     {
       "imageId": "cf26baa3-00b0-4732-4a73-5e10fa282400",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados longos e soltos, ela está de pé usando uma camisa branca, ela está virada para a esquerda olhando para a foto suas duas mãos estão levantando o cabelo pra cima, deixando-o cair em cascata, ao fundo são as cortinas do estúdio Lillia Tavares",
       "canBeThumb": true
     }

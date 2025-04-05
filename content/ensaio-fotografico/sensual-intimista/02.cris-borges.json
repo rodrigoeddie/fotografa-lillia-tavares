@@ -10,12 +10,17 @@
   "album": [
     {
       "imageId": "d9d92383-3794-4bc4-10d4-5f4bc59a9200",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
       "canBeThumb": true,
+      "customClass": "w33",
       "alt": "Foto sensual com mulher deitada no sofá, mexendo nos cabelos"
     },
     {
       "imageId": "2e2305a0-35f5-474c-9fa4-cf03e98f6000",
+      "width": 935,
+      "height": 624,
       "format": "paisagem",
       "alt": "Foto sensual com mulher sentada na mesa com vinho ao lado",
       "canBeThumb": true,
@@ -23,44 +28,67 @@
     },
     {
       "imageId": "e93c77a4-39f4-465a-9b78-e3b547f20300",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto sensual com mulher deitada no braço do sofá"
     },
     {
       "imageId": "b2c02c9d-fb68-42fc-a735-b9997c552b00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto sensual com mulher vestida com vestido azul, tomando vinho, acima do sofá"
     },
     {
       "imageId": "d6cdad2a-12c4-49ec-9de0-f31558e0a200",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto sensual com mulher atras do vidro, vestida com um body cor off-white"
     },
     {
       "imageId": "467668dd-b1ca-451b-42d1-8493b25fbb00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto sensual com mulher de pernas cruzadas usando um boné"
     },
     {
       "imageId": "190b0d76-d9db-4d44-d58d-75f47e7a5d00",
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": "Foto sensual com mulher de lingerie, subindo na cama"
     },
     {
       "imageId": "d2339b82-aaff-460d-f6db-416642463600",
+      "width": 1700,
+      "height": 1134,
       "format": "paisagem",
       "canBeThumb": true,
       "alt": "Foto sensual com mulher acima da cama, deitada de bruços, e braços esticados"
     },
     {
       "imageId": "2a0867b6-5830-4c9f-e94c-f0f3be4c6b00",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
+      "customClass": "w50",
       "canBeThumb": true,
       "alt": "Foto sensual com mulher acima da cama, com as costas nuas"
     },
     {
       "imageId": "97642e93-93c2-4e44-2d40-5bcfd8170a00",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
+      "customClass": "w50",
       "alt": "Foto sensual em preto e branco com mulher nua de lado, seus braços estão escondendo seus seios"
     }
   ]
