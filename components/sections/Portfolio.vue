@@ -18,12 +18,15 @@ const filteredSlides = (item) => {
     };
   }
 
-  const retratoSlides  = item.album
-                          .filter(slide => slide.format === 'retrato' && slide.canBeThumb === true)
-                          .slice(0, 2);
+  const retratoSlides = item.album
+    .filter(slide => slide.format === 'retrato' && slide.canBeThumb === true)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .slice(0, 2);
+
   const paisagemSlides = item.album
-                          .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
-                          .slice(0, 2);
+    .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .slice(0, 2);
 
   return {
     retrato: retratoSlides,
@@ -39,7 +42,7 @@ const categories = navigation.value[0].children;
 const workPage   = navigation.value[0].path;
 const category   = $route.params.category || '';
 
-const currentCategory = categories.find(cat => cat.stem === `ensaio-fotografico/${category}/index`);
+const currentCategory = categories.find(cat => cat.path === `/ensaio-fotografico/${category}`);
 
 const {
   data: ensaiosList
@@ -94,11 +97,11 @@ const classes = [
     format: 'paisagem',
   },
   {
-    class: 'card side-by-side card-50',
+    class: 'card side-by-side card-60',
     format: 'retrato',
   },
   {
-    class: 'card card-column card-50',
+    class: 'card card-column card-40',
     format: 'paisagem',
   },
 ];
@@ -111,6 +114,14 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container no-padding">
+    <template v-if="props.fromHome">
+      <NuxtLink
+        class="highlight-new"
+        :to="'/ensaio-fotografico/dia-das-maes-2025'">
+            <span> Dia das Mães 2025 </span>
+      </NuxtLink>
+    </template>
+
     <h1 class="big-title red centered">
       <span class="box">
         <span v-if="!currentCategory">Explore meus</span>
@@ -159,9 +170,9 @@ const formatDate = (dateString: string) => {
 
             <div class="wrap-info">
               <div class="wrap-text">
-                <h2 class="title">
+                <h3 class="title">
                   {{ item.title }}
-                </h2>
+                </h3>
 
                 <ul class="info-list">
                   <li class="category" v-if="item.category.slug">
@@ -186,14 +197,14 @@ const formatDate = (dateString: string) => {
 
                 <div class="description" v-html="item.description"></div>
               </div>
-
-              <NuxtLink
-                :to="item.path"
-                class="btn btn-green-light">
-                  <span>Ver mais</span>
-              </NuxtLink>
             </div>
           </div>
+
+          <NuxtLink
+            :to="item.path"
+            class="btn btn-green-light">
+              <span>Ver mais</span>
+          </NuxtLink>
         </div>
 
         <template v-if="index == 2 && props.fromHome">
@@ -228,6 +239,28 @@ const formatDate = (dateString: string) => {
 </template>
 
 <style scoped lang="scss">
+  .highlight-new {
+    background: rgba(169, 122, 9, 0.7);
+    border-bottom: 10rem solid #4d3703b3;
+    transition: background .2s;
+    margin-bottom: 15px;
+    line-height: 110rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 60rem;
+    display: block;
+    color: white;
+    width: 100%;
+
+    @include m.max(sm) {
+      font-size: 50rem;
+    }
+
+    &:hover {
+      background: #815d06b3;
+    }
+  }
+
   .slider {
     background: #f6f6f6;
   }
@@ -240,6 +273,12 @@ const formatDate = (dateString: string) => {
 
     @include m.max(sm) {
       margin-bottom: 0;
+    }
+  }
+
+  .big-title {
+    @include m.max(sm) {
+      padding-top: 35rem;
     }
   }
 
@@ -344,12 +383,6 @@ const formatDate = (dateString: string) => {
           font-size: 23rem;
         }
 
-        .btn {
-          position: absolute;
-          bottom: -7rem;
-          right: 0;
-        }
-
         .info-list {
           line-height: 28rem;
           padding-top: 10rem;
@@ -412,6 +445,22 @@ const formatDate = (dateString: string) => {
           }
         }
 
+        &.card-60 {
+          width: calc(60% - 15rem);
+
+          @include m.max(sm) {
+            width: 100%;
+          }
+        }
+
+        &.card-40 {
+          width: calc(40% - 15rem);
+
+          @include m.max(sm) {
+            width: 100%;
+          }
+        }
+
         .slider {
           aspect-ratio: 568/378;
           height: 100%;
@@ -424,6 +473,7 @@ const formatDate = (dateString: string) => {
 
       &.card-column .inner-thumb {
         flex-direction: column;
+        padding-bottom: 35rem;
         display: flex;
       }
 
@@ -531,6 +581,17 @@ const formatDate = (dateString: string) => {
               background: v.$red;
             }
           }
+        }
+      }
+
+      .btn {
+        position: absolute;
+        padding: 30rem;
+        bottom: 0;
+        right: 0;
+
+        @media (prefers-color-scheme: dark) {
+          // background: black;
         }
       }
     }

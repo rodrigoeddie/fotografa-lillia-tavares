@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const { isMobile } = useDevice();
+
+const configPublic = useRuntimeConfig().public;
 const photos = [
   {
     "colorHighlight": "#975a35",
@@ -22,81 +25,70 @@ const { data: navigation } = await useAsyncData('navigation', () => {
   return queryCollectionNavigation('works');
 });
 
-const categories = navigation.value[0].children;
+const categories = await Promise.all(
+  navigation.value[0].children.map(async (category) => {
+    const path = category.children[1]?.path;
+
+    if (path) {
+      const pageData = await queryCollection('works').path(path).first();
+
+      const paisagemSlides = pageData.album
+        .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
+        .slice(0, 1);
+
+      category.image = paisagemSlides[0];
+    }
+
+    return category;
+  })
+);
 </script>
 
 <template>
-  <div class="container no-padding sbs">
-    <div class="intro-hero">
-      <div class="about-text">
-        <h1 class="title">Trabalhos</h1>
-        <div class="description">
-          <p>
-            Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da <strong>fotógrafa Lillia Tavares</strong> e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.
-          </p>
-          <p>
-            Confira abaixo o resultado de alguns de nossos trabalhos!
-          </p>
+  <div>
+    <div class="container no-padding sbs">
+      <div class="intro-hero">
+        <div class="about-text">
+          <h1 class="title">Trabalhos</h1>
+          <div class="description">
+            <p>
+              Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da <strong>fotógrafa Lillia Tavares</strong> e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.
+            </p>
+            <p>
+              Confira abaixo o resultado de alguns de nossos trabalhos!
+            </p>
+          </div>
         </div>
-      </div>
-
-      <div class="about-ctas">
-        <nav class="menu-category">
-          <NuxtLink
-            to="/ensaio-fotografico"
-            class="link-category">
-            <span class="txt">Todos</span>
-          </NuxtLink>
-
-          <template v-for="item in categories">
-            <NuxtLink
-              :to="item.path"
-              class="link-category">
-              {{ item.title }}
-            </NuxtLink>
-          </template>
-        </nav>
       </div>
     </div>
 
-    <ClientOnly>
-      <swiper-container
-        :loop="false"
-        :slides-per-view="1"
-        class="wrap-highlights"
-        :pagination="{
-          clickable: true,
-        }"
-        :navigation="false">
-        <swiper-slide
-          v-for="slide in photos">
-          <div class="about-highlight" :style="{ '--color-highlight': slide.colorHighlight }">
-            <div class="about-text text-slide">
-              <h2 class="title">{{ slide.title }}</h2>
-              <div class="description">
-                <p>
-                  {{ slide.description }}
-                </p>
-              </div>
-            </div>
-          </div>
+    <div class="category-ctas">
+      <nav class="menu-category">
+        <h2 class="title-category">Categorias</h2>
 
-          <div class="about-ctas">
-            <NuxtLink
-              :to="slide.path"
-              class="btn btn-green-light">
-                <span>Ver mais</span>
-            </NuxtLink>
-          </div>
+        <NuxtLink
+          to="/ensaio-fotografico"
+          class="link-category">
+          <span class="category-label">Todos</span>
+        </NuxtLink>
 
-          <nuxt-img
-            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + slide.imageId + "/public"'
-            width="1920"
-            class="img-hero"
-            loading="lazy"/>
-        </swiper-slide>
-      </swiper-container>
-    </ClientOnly>
+        <template v-for="item in categories">
+          <NuxtLink
+            :to="item.path"
+            class="link-category"
+            :class="{'mobile': isMobile}">
+            <span class="category-label">{{ item.title }}</span>
+            <nuxt-img
+              :src='configPublic.cloudflareURI + item.image.imageId + "/tinyThumb"'
+              :width="'400'"
+              :height="'266'"
+              class="thumb-category"
+              :alt="item.image.alt"
+              loading="lazy"/>
+          </NuxtLink>
+        </template>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -117,13 +109,12 @@ const categories = navigation.value[0].children;
   }
 }
 
-
 .intro-hero {
   justify-content: space-between;
   flex-direction: column;
   background: white;
   display: flex;
-  width: 45%;
+  width: 100%;
 
   @media (prefers-color-scheme: dark) {
     background: v.$dark-green;
@@ -228,66 +219,151 @@ const categories = navigation.value[0].children;
       }
     }
   }
+}
 
-  .about-ctas {
-    justify-content: center;
-    padding: 20rem v.$space;
-    background: #892c1a;
-    align-items: center;
-    height: 150rem;
-    display: flex;
+.category-ctas {
+  width: 1700rem;
+  margin: 0 auto;
+  max-width: 100%;
+  justify-content: center;
+  padding: 20rem 0;
+  padding-bottom: 20rem;
+  align-items: center;
+  padding-top: 50rem;
+  display: flex;
 
-    @include m.max(lg) {
-      height: 100rem;
+  @include m.max(sm) {
+    padding: 20rem;
+  }
+
+  .title-category {
+    color: v.$dark-green;
+    font-size: 30rem;
+    font-weight: 700;
+    width: 100%;
+    // @media (prefers-color-scheme: light) {
+    // }
+  }
+
+  .btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+
+    &:hover {
+      background-color: #6d1d0b !important;
+      color: white;
     }
+  }
+
+  .menu-category {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: white;
+    display: flex;
+    width: 100%;
+    gap: 15rem;
+
+    // @media (prefers-color-scheme: dark) {
+    // }
+  }
+
+  .link-category {
+    transition: background .3s;
+    width: calc(25% - 20rem);
+    justify-content: center;
+    aspect-ratio: 400/266;
+    background: #892c1a;
+    font-weight: 700;
+    font-size: 30rem;
+    overflow: hidden;
+    display: flex;
+    height: 100%;
 
     @include m.max(sm) {
-      padding: 20rem;
+      width: calc(50% - 10rem);
+      font-size: 18rem;
     }
 
-    .btn {
+    &:before {
+      content: '';
+
+      background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 90%);
+      transition: opacity .4s;
       position: absolute;
+      opacity: 0;
+      z-index: 1;
+      bottom: 0;
+      right: 0;
+      top: 50%;
+      left: 0;
+    }
+
+    .category-label {
+      padding: 0 0 20rem 0;
+      transition: top .4s;
+      text-align: center;
+      position: absolute;
+      z-index: 2;
+      top: 47%;
+      right: 0;
+      left: 0;
+    }
+
+    .thumb-category {
+      transition: opacity .5s, transform .7s;
+      transform: scale(1.3);
+      aspect-ratio: 400/266;
+      position: absolute;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      opacity: .3;
       bottom: 0;
       right: 0;
       left: 0;
       top: 0;
+    }
 
-      &:hover {
-        background-color: #6d1d0b !important;
-        color: white;
+    &.router-link-active,
+    &.mobile:hover {
+      background-color: #6d1d0b !important;
+      align-items: flex-end;
+
+      &:before {
+        opacity: 1;
+      }
+
+      .category-label {
+        top: 70%;
+      }
+
+      .thumb-category {
+        transform: scale(1);
+        opacity: 1;
       }
     }
 
-    .menu-category {
-      flex-wrap: wrap;
-      color: white;
-      display: flex;
-      gap: 0 20rem;
+    &.router-link-active {
+      pointer-events: none;
 
-      // @media (prefers-color-scheme: dark) {
-      // }
-    }
-
-    .link-category {
-      margin-left: 25rem;
-      display: list-item;
-      font-size: 25rem;
-      list-style: disc;
-      width: 40%;
-
-      @include m.max(sm) {
-        text-indent: -5rem;
-        margin-left: 15rem;
-        font-size: 18rem;
+      .thumb-category {
+        opacity: .75;
       }
 
-      &.router-link-active {
-        text-decoration: underline;
-        font-weight: bold;
-      }
+      &:after {
+        content: '';
 
-      &:first-child {
-        list-style: none;
+        background: #4b1407;
+        position: absolute;
+        display: block;
+        height: 20rem;
+        z-index: 3;
+        bottom: 0;
+        right: 0;
+        left: 0;
       }
     }
   }

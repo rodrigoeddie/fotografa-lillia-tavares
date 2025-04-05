@@ -103,6 +103,20 @@ const enviar = async () => {
               <div class="wrap-radio">
                 <input
                   type="radio"
+                  id="dia-das-maes"
+                  required
+                  value="Dia das Mães"
+                  name="type"
+                  v-model="formData.sessionType">
+
+                <label for="dia-das-maes" class="label-radio">
+                  Dia das Mães
+                </label>
+              </div>
+
+              <div class="wrap-radio">
+                <input
+                  type="radio"
                   id="corporativo"
                   required
                   value="Corporativo"

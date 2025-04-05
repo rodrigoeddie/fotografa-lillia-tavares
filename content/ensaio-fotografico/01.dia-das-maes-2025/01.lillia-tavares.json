@@ -1,7 +1,7 @@
 {
   "home": true,
   "homeOrder": 2,
-  "colorHighlight": "rgba(169, 122, 9, .7)",
+  "colorHighlight": "#43689b",
   "title": "Lillia Tavares",
   "description": "<p>O dia em que a fotógrafa vira a modelo, fiz esse ensaio para homenagear as mulheres mais fortes e inspiradoras da minha vida, minha avó Maria e minha mãe Sandra, entre em contato e agende um ensaio com sua rainha também ❤️</p>",
   "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/cenarios/dia-das-maes-2025'>Estúdio Lillia Tavares</a>",
@@ -11,8 +11,10 @@
   },
   "album": [
     {
+      "order": 2,
       "imageId": "5af23931-2164-4ea5-a218-3539d8067c00",
       "format": "paisagem",
+      "canBeThumb": true,
       "alt": "No fundo cenário do dia das mães: Uma mulher sentada com vestido longo azul, e uma mulher mais velha com blazer branco e camisa azul, as duas mulheres são negras de cabelos crespos",
       "highlight": true
     },
@@ -41,6 +43,7 @@
       "alt": "No fundo cenário do dia das mães: Sentadas no sofá da esquerda pra direita: Uma mulher (a mãe) com vestido longo azul, uma mulher mais velha com paletó branco, calça branca e camisa azul (a avó), e uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as três mulheres são negras de cabelos crespos"
     },
     {
+      "order": 1,
       "imageId": "9bc08c57-d6a4-4a72-9709-5af079eb7500",
       "format": "paisagem",
       "alt": "No fundo cenário do dia das mães: Uma mulher sentada com vestido longo azul, em pé de mãos dadas está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos",

@@ -15,7 +15,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/ensaio-fotografico/sensual-intimista/cris-pole-e-lira', { redirectCode: 301 })
     }
 
-    if (process.client && to.path !== from.path) {
-        window.location.href = to.fullPath;
-    }
+    // if (process.client && to.path !== from.path) {
+    //     window.location.href = to.fullPath;
+    // }
   })
