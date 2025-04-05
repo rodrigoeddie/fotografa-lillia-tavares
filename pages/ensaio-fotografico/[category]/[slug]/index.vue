@@ -189,6 +189,7 @@ const onHide = () => (visibleRef.value = false);
             :width="highlight[0].width"
             :height="highlight[0].height"
             :alt="highlight[0].alt"
+            placeholder
             @click="() => showImg(highlight[0].index)"
             fetchpriority="high"/>
         <nuxt-img
@@ -198,6 +199,7 @@ const onHide = () => (visibleRef.value = false);
             :width="highlight[1].width"
             :height="highlight[1].height"
             :alt="highlight[1].alt"
+            placeholder
             @click="() => showImg(highlight[1].index)"
             fetchpriority="high"/>
       </div>
