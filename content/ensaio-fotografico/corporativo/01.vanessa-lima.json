@@ -16,6 +16,8 @@
   "album": [
     {
       "imageId": "d4f1a0f0-523d-4bca-4c8d-e5af785bc100",
+      "width": 935,
+      "height": 624,
       "format": "paisagem",
       "alt": "Mulher de cabelos enrolados presos em um coque de blazer azul e calças cinzas",
       "canBeThumb": true,
@@ -23,6 +25,8 @@
     },
     {
       "imageId": "9b642668-6767-4ca4-8174-e6b0ab4f5200",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos enrolados presos em um coque de blazer azul e calças cinzas, ela está sentada de pernas cruzadas e braços sobre o joelho",
@@ -30,6 +34,8 @@
     },
     {
       "imageId": "a5cfcbd6-014e-47c8-675d-03b246497f00",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos enrolados e blazer azul",
@@ -37,12 +43,16 @@
     },
     {
       "imageId": "9cfdca56-4b5a-4d12-ae0d-2cfc92489f00",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos enrolados e blazer azul, esla está de pé com uma perna apoiada em um box branco de madeira 30cm x 30cm"
     },
     {
       "imageId": "a51b820d-2dcd-473b-1527-0b41ddbb1600",
+      "width": 850,
+      "height": 1275,
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos enrolados com uma blusinha preta"

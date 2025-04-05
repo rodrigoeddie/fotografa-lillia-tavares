@@ -84,6 +84,7 @@ if (about.value?.body?.value) {
           width="935"
           height="796"
           fetchpriority="high"
+          placeholder
           class="img cover"/>
       </div>
     </div>

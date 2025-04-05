@@ -24,19 +24,22 @@ const clickWhats = () => {
         to="/"
         @click="clickLogo">
         <nuxt-img
-          :src='configPublic.cloudflareURI + "054a1bce-78a3-4e53-7afa-a30d92e86500/logo"'
+          provider="cloudflare"
+          :src='"https://images.fotografalilliatavares.com.br/images/054a1bce-78a3-4e53-7afa-a30d92e86500/public"'
           alt="Logo Lillia Tavares Fotografia"
           width="385"
+          height="164"
           class="logo-black"
           fetchpriority="high"
-          loading="lazy"/>
+          placeholder />
         <nuxt-img
-          :src='configPublic.cloudflareURI + "8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"'
+          :src='"https://images.fotografalilliatavares.com.br/images/8a01bb94-bd4f-4e5b-aecf-b260b8726e00/public"'
           alt="Logo Lillia Tavares Fotografia"
           width="385"
+          height="164"
           class="logo-white"
           fetchpriority="high"
-          loading="lazy"/>
+          placeholder />
         <span>Lillia Tavares Fotografia</span>
       </NuxtLink>
     </h1>
@@ -97,6 +100,10 @@ const clickWhats = () => {
     left: v.$space;
     width: 385rem;
     top: 45rem;
+
+    img {
+      height: auto;
+    }
 
     .logo-black {
       @media (prefers-color-scheme: dark) {

@@ -80,10 +80,13 @@ const categories = await Promise.all(
             :class="{'mobile': isMobile, 'desktop': !isMobile}">
             <span class="category-label">{{ item.title }}</span>
             <nuxt-img
-              :src='configPublic.cloudflareURI + item.image.imageId + "/tinyThumb"'
-              :width="'400'"
-              :height="'266'"
+              provider="cloudflare"
+              :src='"https://images.fotografalilliatavares.com.br/images/" + item.image.imageId + "/public"'
+              :width="'405'"
+              :height="'270'"
               class="thumb-category"
+              fetchpriority="high"
+              placeholder
               :alt="item.image.alt"
               loading="lazy"/>
           </NuxtLink>

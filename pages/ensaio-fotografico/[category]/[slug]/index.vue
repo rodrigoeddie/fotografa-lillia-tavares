@@ -184,28 +184,38 @@ const onHide = () => (visibleRef.value = false);
 
       <div :class="{'has-two': highlight[1]}" class="wrap-img-hero">
         <nuxt-img
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[0].imageId + "/" + highlight[0].format'
-          width="1920"
-          :alt="highlight[0].alt"
-          @click="() => showImg(highlight[0].index)"
-          loading="lazy"/>
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + highlight[0].imageId + "/public"'
+            :width="highlight[0].width"
+            :height="highlight[0].height"
+            :alt="highlight[0].alt"
+            @click="() => showImg(highlight[0].index)"
+            fetchpriority="high"
+            loading="lazy"/>
         <nuxt-img
           v-if="highlight[1]"
-          :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + highlight[1].imageId + "/" + highlight[1].format'
-          width="1920"
-          :alt="highlight[1].alt"
-          @click="() => showImg(highlight[1].index)"
-          loading="lazy"/>
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + highlight[1].imageId + "/public"'
+            :width="highlight[1].width"
+            :height="highlight[1].height"
+            :alt="highlight[1].alt"
+            @click="() => showImg(highlight[1].index)"
+            fetchpriority="high"
+            loading="lazy"/>
       </div>
     </div>
 
     <div class="portfolio-images">
       <template v-for="item in album">
         <nuxt-img
-            :src='"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/" + item.imageId + "/" + item.format + "interna"'
-            width="1920"
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + item.imageId + "/public"'
+            :sizes="'100vw md:50vw lg:' + item.width + 'px'"
+            :width="item.width"
+            :height="item.height"
             :alt="item.alt"
             :class="[item.format, item.customClass]"
+            placeholder
             @click="() => showImg(item.index)"
             loading="lazy"/>
       </template>
@@ -260,6 +270,10 @@ nav[aria-label="breadcrumb"] {
     @include m.max(sm) {
       flex-direction: column;
       width: 100%;
+    }
+
+    img {
+      height: auto;
     }
 
     &.has-two {
@@ -400,6 +414,7 @@ nav[aria-label="breadcrumb"] {
   img {
     // border: 1px solid white;
     object-fit: cover;
+    height: auto;
   }
 
   .paisagem {
