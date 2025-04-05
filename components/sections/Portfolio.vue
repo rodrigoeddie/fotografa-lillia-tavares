@@ -375,6 +375,10 @@ const formatDate = (dateString: string) => {
         padding-top: 20rem;
         color: v.$dark-red;
 
+        @include m.max(sm) {
+          padding-bottom: 65rem;
+        }
+
         @media (prefers-color-scheme: dark) {
           color: white
         }
@@ -585,13 +589,22 @@ const formatDate = (dateString: string) => {
       }
 
       .btn {
+        padding: 26rem 30rem 10rem 30rem;
+        align-items: flex-end;
+        background: #e3dfcb;
         position: absolute;
-        padding: 30rem;
+        color: #7b785b;
+        display: flex;
         bottom: 0;
         right: 0;
 
+        @include m.max(sm) {
+          padding: 15rem 22rem 10rem 22rem;
+        }
+
         @media (prefers-color-scheme: dark) {
-          // background: black;
+          background: #918d6a;
+          color: v.$dark-green;
         }
       }
     }

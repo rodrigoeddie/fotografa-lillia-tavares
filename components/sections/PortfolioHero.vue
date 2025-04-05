@@ -52,10 +52,10 @@ const categories = await Promise.all(
           <h1 class="title">Trabalhos</h1>
           <div class="description">
             <p>
-              Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da <strong>fotógrafa Lillia Tavares</strong> e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.
+              Com o espaço acolhedor do estúdio, a sensibilidade da fotógrafa Lillia Tavares e a beleza de cada cliente, cada ensaio se torna uma experiência única.
             </p>
             <p>
-              Confira abaixo o resultado de alguns de nossos trabalhos!
+              <b>Confira abaixo alguns de nossos trabalhos!</b>
             </p>
           </div>
         </div>
@@ -272,6 +272,7 @@ const categories = await Promise.all(
   }
 
   .link-category {
+    border: 2px solid transparent;
     transition: background .3s;
     width: calc(25% - 20rem);
     justify-content: center;
@@ -349,6 +350,7 @@ const categories = await Promise.all(
 
     &.router-link-active {
       pointer-events: none;
+      border-color: white;
 
       .thumb-category {
         opacity: .75;
