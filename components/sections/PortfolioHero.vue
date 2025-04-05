@@ -76,7 +76,7 @@ const categories = await Promise.all(
           <NuxtLink
             :to="item.path"
             class="link-category"
-            :class="{'mobile': isMobile}">
+            :class="{'mobile': isMobile, 'desktop': !isMobile}">
             <span class="category-label">{{ item.title }}</span>
             <nuxt-img
               :src='configPublic.cloudflareURI + item.image.imageId + "/tinyThumb"'
@@ -328,7 +328,7 @@ const categories = await Promise.all(
     }
 
     &.router-link-active,
-    &.mobile:hover {
+    &.desktop:hover {
       background-color: #6d1d0b !important;
       align-items: flex-end;
 
