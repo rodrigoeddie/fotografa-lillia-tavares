@@ -205,6 +205,7 @@ const onHide = () => (visibleRef.value = false);
       </div>
     </div>
 
+    
     <div class="portfolio-images">
       <template v-for="item in album">
         <nuxt-img
