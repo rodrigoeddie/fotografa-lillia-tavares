@@ -68,7 +68,8 @@ const categories = await Promise.all(
 
         <NuxtLink
           to="/ensaio-fotografico"
-          class="link-category">
+          class="link-category"
+          :class="{'mobile': isMobile, 'desktop': !isMobile}">
           <span class="category-label">Todos</span>
         </NuxtLink>
 
