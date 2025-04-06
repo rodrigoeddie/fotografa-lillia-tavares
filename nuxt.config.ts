@@ -184,6 +184,8 @@ export default defineNuxtConfig({
         '/ensaio-fotografico/corporativo/camila-nogueira',
         '/ensaio-fotografico/corporativo/karoline-siqueira',
         '/ensaio-fotografico/corporativo/pollyanna-goncalves',
+        '/ensaio-fotografico/corporativo/gustavo-okazaki',
+        '/ensaio-fotografico/corporativo/02-bruna-freire',
 
         '/ensaio-fotografico/sensual-intimista',
         '/ensaio-fotografico/sensual-intimista/cris-borges',
