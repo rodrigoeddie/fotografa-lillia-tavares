@@ -53,14 +53,6 @@
       "customClass": "w25"
     },
     {
-      "imageId": "504faadb-59cb-4bcb-98dc-80253d802400",
-      "width": 567,
-      "height": 850,
-      "format": "retrato",
-      "customClass": "w33",
-      "alt": "Foto em preto e branco de uma mulher de cabelos enrolados amarrados em coque, ela está de pé usando uma camisa branca, virada para a esquerda, olhando para a foto com o braço esquerdo angulado em 90 graus encostando a cortina, ao fundo são as cortinas do estúdio Lillia Tavares"
-    },
-    {
       "imageId": "9b27581a-cd10-41f4-dbe7-36ed7504e400",
       "width": 567,
       "height": 850,
@@ -76,6 +68,14 @@
       "customClass": "w33",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados longos e soltos, ela está de pé usando uma camisa branca, ela está virada para a esquerda olhando para a foto suas duas mãos estão levantando o cabelo pra cima, deixando-o cair em cascata, ao fundo são as cortinas do estúdio Lillia Tavares",
       "canBeThumb": true
+    },
+    {
+      "imageId": "504faadb-59cb-4bcb-98dc-80253d802400",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": "Foto em preto e branco de uma mulher de cabelos enrolados amarrados em coque, ela está de pé usando uma camisa branca, virada para a esquerda, olhando para a foto com o braço esquerdo angulado em 90 graus encostando a cortina, ao fundo são as cortinas do estúdio Lillia Tavares"
     }
   ]
 }

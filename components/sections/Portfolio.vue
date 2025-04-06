@@ -105,7 +105,7 @@ const classes = [
     format: 'paisagem',
     image: {
       width: 962,
-      height: 481,
+      height: 602,
     }
   },
   {
@@ -532,7 +532,7 @@ const formatDate = (dateString: string) => {
         }
 
         .slider {
-          aspect-ratio: 2/1;
+          aspect-ratio: 2/1.25;
           width: calc(65% - 6rem);
           flex-shrink: 0;
 

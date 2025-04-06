@@ -1,0 +1,339 @@
+{
+  "date": "2024-12-20",
+  "colorHighlight": "#2e2c31",
+  "title": "Bruna Freire",
+  "description": "<p></p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "id": "03",
+      "imageId": "5bac882e-bd3d-4495-1fca-a4d5af117100",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "02",
+      "imageId": "daa37442-bd0f-46d4-2888-262b30ecce00",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "id": "04",
+      "imageId": "03be7ea4-3861-47f1-4f42-87e6c3373900",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "08",
+      "imageId": "38a4c6ca-ffdd-4ae9-6361-48d8319f0100",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "id": "09",
+      "imageId": "cbe79bcf-ef70-4347-53a6-9b4766955200",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "id": "10",
+      "imageId": "1e40ed24-fc9c-423b-d9d9-ad49d1f47f00",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "id": "11",
+      "imageId": "06646d34-1b9b-4475-89dc-502277a50000",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "id": "06",
+      "imageId": "3d983e43-2e45-41ec-7d7a-7223f64c4000",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "05",
+      "imageId": "334d57f4-92d4-489c-3e88-661c383ef200",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "07",
+      "imageId": "48a4aaeb-5afc-41d7-c3b2-2fef6c2ded00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "12",
+      "imageId": "497a3fb4-2c51-4c57-fa2a-b43839dab200",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "id": "14",
+      "imageId": "b8efcc51-da98-4b12-b341-e541ed58b300",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "id": "13",
+      "imageId": "96175674-55a6-4f2b-13ed-d5e83894c900",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "id": "15",
+      "imageId": "20b8682d-9a61-4303-cd3b-daa034746400",
+      "width": 425,
+      "height": 638,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "id": "16",
+      "imageId": "5332276e-278e-4289-74b8-761d2787de00",
+      "width": 935,
+      "height": 624,
+      "format": "paisagem",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "id": "17",
+      "imageId": "e6f2ea01-9470-4c16-1043-281b49300b00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "01",
+      "imageId": "7992012f-9e52-4056-8c79-fa14e2933c00",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "alt": ""
+    },
+    {
+      "id": "19",
+      "imageId": "e72f3b6e-84e7-44f6-2a12-01b5de001b00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "24",
+      "imageId": "9690ece9-9552-4281-01e8-b9bdd0756800",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "id": "36",
+      "imageId": "f3ed03da-8a40-4ec3-83f1-4b9e084a9100",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "id": "20",
+      "imageId": "88ce2852-6b0a-4566-0f3b-7ce612b14400",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "21",
+      "imageId": "7265721b-80c6-40a4-ba8f-924df5607a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "23",
+      "imageId": "959d4e55-6185-401a-593d-d0f346be8a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "25",
+      "imageId": "b95778f4-fe08-4b7e-f2e6-ea7548b3db00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "28",
+      "imageId": "5e375a9e-1c1d-4558-bd03-66ca3a863a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "26",
+      "imageId": "c7e0de08-63be-4d1c-b2c9-0e6685910000",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "39",
+      "imageId": "7315cb0d-f42b-4733-d583-cdcd9b08a800",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "id": "40",
+      "imageId": "b6fa2c35-9704-476d-8cc8-72b32f446d00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "id": "27",
+      "imageId": "38586b2c-bfaf-4815-2a4c-cb5d76249800",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "30",
+      "imageId": "8b190dbf-de2c-4023-ad2a-f21a8b99a300",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "29",
+      "imageId": "c54c1d2b-5807-498c-6e5e-a7fd1ce51a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "38",
+      "imageId": "f4e04200-c917-40b4-21f6-83df6a893e00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "id": "37",
+      "imageId": "4dec3ab1-56fa-4251-6113-d40fa31a7f00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "id": "32",
+      "imageId": "84c1cc11-3bd9-44e9-5447-0cd4e6c67e00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "31",
+      "imageId": "67612faa-d94e-4dc3-15d5-67692b738100",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "id": "33",
+      "imageId": "cf3cf32d-4ab1-4d68-8291-b0989c754d00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    }
+  ]
+}
