@@ -161,11 +161,11 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    // preset: 'cloudflare_pages',
     prerender: {
       autoSubfolderIndex: false,
       routes: [
-        '/', // Página inicial
+        // Página inicial
+        '/',
 
          // Páginas estáticas
         '/ensaio-fotografico',
@@ -185,7 +185,7 @@ export default defineNuxtConfig({
         '/ensaio-fotografico/corporativo/karoline-siqueira',
         '/ensaio-fotografico/corporativo/pollyanna-goncalves',
         '/ensaio-fotografico/corporativo/gustavo-okazaki',
-        '/ensaio-fotografico/corporativo/02-bruna-freire',
+        '/ensaio-fotografico/corporativo/bruna-freire',
 
         '/ensaio-fotografico/sensual-intimista',
         '/ensaio-fotografico/sensual-intimista/cris-borges',
@@ -197,8 +197,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  //Comando da build: bun install && bun run generate
 
   compatibilityDate: '2025-04-01',
 })
