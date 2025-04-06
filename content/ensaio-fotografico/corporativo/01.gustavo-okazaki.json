@@ -1,5 +1,7 @@
 {
-  "date": "2024-12-20",
+  "home": true,
+  "homeOrder": 3,
+  "date": "2025-12-20",
   "colorHighlight": "#131a22",
   "title": "Gustavo Okazaki",
   "description": "<p></p>",
