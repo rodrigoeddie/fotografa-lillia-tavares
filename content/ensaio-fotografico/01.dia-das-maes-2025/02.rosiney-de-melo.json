@@ -1,0 +1,91 @@
+{
+  "home": true,
+  "homeOrder": 2,
+  "colorHighlight": "#ae7267",
+  "title": "Rosiney de Melo",
+  "description": "<p>Um ensaio com 3 lindas gerações, a vovó Rose, a mamãe Vanessa e a netinha Giugiu, elas me deram a alegria de fotografá-las ❤️</p>",
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/cenarios/dia-das-maes-2025'>Estúdio Lillia Tavares</a>",
+  "category": {
+    "slug": "dia-das-maes-2025",
+    "title": "Dia das Mães 2025"
+  },
+  "album": [
+    {
+      "imageId": "f15c8181-5d19-48f1-0525-8142dda65500",
+      "width": 567,
+      "height": 850,
+      "order": 2,
+      "format": "retrato",
+      "canBeThumb": true,
+      "alt": "",
+      "highlight": true
+    },
+    {
+      "imageId": "4552c7b3-0e6e-4371-6658-f36e0d8c5000",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "ab9b7002-756e-4484-d7cb-bdb65f3a1700",
+      "width": 850,
+      "height": 567,
+      "canBeThumb": true,
+      "format": "paisagem",
+      "alt": "",
+      "customClass": "w50"
+    },
+    {
+      "imageId": "c46a3468-a2dd-4446-5caa-ac555c7dd400",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "alt": "",
+      "customClass": "w50"
+    },
+    {
+      "imageId": "446e23c6-955b-489b-6b30-beeaa24f6000",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "order": 1,
+      "imageId": "70a6e385-99f5-4194-5ed7-0ce8e098fc00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "alt": "",
+      "customClass": "w50",
+      "canBeThumb": true
+    },
+    {
+      "imageId": "d8e67391-5a03-4f9d-61bb-8fc9f8a8a600",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "alt": "",
+      "customClass": "w50"
+    },
+    {
+      "imageId": "1a2f8e90-79ff-45f4-8d22-a5395d3df400",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "alt": "",
+      "customClass": "w50"
+    },
+    {
+      "imageId": "228de383-da97-4d89-1997-43160e526b00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "alt": "",
+      "customClass": "w50"
+    }
+  ]
+}
