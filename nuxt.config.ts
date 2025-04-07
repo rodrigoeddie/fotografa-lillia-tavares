@@ -194,6 +194,7 @@ export default defineNuxtConfig({
 
         '/ensaio-fotografico/dia-das-maes-2025',
         '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares',
+        '/ensaio-fotografico/dia-das-maes-2025/rosiney-de-melo',
       ],
     },
   },
