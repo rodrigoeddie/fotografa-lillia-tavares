@@ -28,8 +28,10 @@
     "vue-router": "^4.5.0"
   },
   "dependencies": {
+    "@internationalized/date": "^3.7.0",
     "@nuxt/content": "^3.4.0",
     "@nuxt/image": "^1.10.0",
+    "@nuxt/ui": "^3.0.2",
     "@nuxtjs/partytown": "^1.6.0",
     "@vuestic/nuxt": "^1.0.21",
     "mime-types": "^3.0.1",

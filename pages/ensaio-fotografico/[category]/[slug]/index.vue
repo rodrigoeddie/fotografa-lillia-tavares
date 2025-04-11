@@ -205,7 +205,6 @@ const onHide = () => (visibleRef.value = false);
       </div>
     </div>
 
-    
     <div class="portfolio-images">
       <template v-for="item in album">
         <nuxt-img
@@ -221,10 +220,11 @@ const onHide = () => (visibleRef.value = false);
             loading="lazy"/>
       </template>
 
-      
       <div class="empty"></div>
       <div class="empty"></div>
     </div>
+
+    <SectionsScheduleCustom />
 
     <VueEasyLightbox
       :visible="visibleRef"

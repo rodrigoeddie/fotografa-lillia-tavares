@@ -114,6 +114,7 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     'nuxt-icons',
     'nuxt-gtag',
+    '@nuxt/ui',
   ],
 
   gtag: {
@@ -129,7 +130,9 @@ export default defineNuxtConfig({
     densities: [1, 2],
   },
 
-  css: ['~/assets/styles/main.scss'],
+  css: [
+    '~/assets/styles/main.scss'
+  ],
 
   vite: {
     css: {
