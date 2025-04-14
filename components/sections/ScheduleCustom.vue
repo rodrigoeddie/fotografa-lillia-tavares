@@ -103,7 +103,7 @@ const enviar = async () => {
           <span class="big">Agende o seu:</span>
         </h1>
         <p class="description">
-          Preencha no calendário ao lado a data que pretende fazer o ensaio e clique no botão <b>"Enviar usando o Whatsapp"</b>, você será redirecionado para seu aplicativo do Whatsapp com a mensagem já configurada, prontinha pra ser enviada ☺️:
+          Preencha no calendário a data que pretende fazer o ensaio e clique no botão <b>"Enviar usando o Whatsapp"</b>, você será redirecionado para seu aplicativo do Whatsapp com a mensagem já configurada, prontinha pra ser enviada ☺️:
         </p>
       </div>
 

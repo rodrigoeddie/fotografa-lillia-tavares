@@ -244,7 +244,7 @@ const formatDate = (dateString: string) => {
           </NuxtLink>
         </template>
 
-        <template v-if="index == 1 || index == 6">
+        <template v-if="(index - 1) % 5 === 0">
           <NuxtLink
             class="btn-agende btn-agende-01"
             :to="'/preco-ensaio-fotografico'">
@@ -252,7 +252,7 @@ const formatDate = (dateString: string) => {
           </NuxtLink>
         </template>
 
-        <template v-if="(index == 1 && ensaiosData.length > 2) || index == 6">
+        <template v-if="(index - 1) % 5 === 0 || (index === 1 && ensaiosData.length > 2)">
           <NuxtLink
             class="btn-agende btn-agende-02"
             :to="'/preco-ensaio-fotografico'">
