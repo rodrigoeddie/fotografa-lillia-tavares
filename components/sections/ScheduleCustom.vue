@@ -93,12 +93,12 @@ const enviar = async () => {
 </script>
 
 <template>
-  <div class="container wrap-schedule">
-    <h1 class="title">Agende seu ensaio</h1>
-    <div class="description">
-      Se você gostou do meu trabalho e pretende fazer um ensaio fotográfico, <strong>agende</strong> seu horário. <b>Entre em contato</b> comigo e <b>escolha</b> o melhor dia:
-    </div>
+  <h1 class="big-title red centered">
+    <span class="box"><span>Gostou do ensaio?</span></span>
+    <span class="big">Agende o seu <nuxt-icon name="whatsapp" class="icon"/></span>
+  </h1>
 
+  <div class="container wrap-schedule">
     <form
       class="form"
       @submit.prevent="enviar">
@@ -127,13 +127,29 @@ const enviar = async () => {
   </div>
 </template>
 <style lang="scss">
+.big-title {
+  margin-bottom: -4rem;
+
+  .big {
+    padding-right: 85rem;
+  }
+
+  .icon {
+    position: absolute;
+    bottom: -8rem;
+    right: 0;
+  }
+}
+
 .calendar {
+  margin: 20rem auto;
   color: black;
-  --ui-text-muted: #ccc;
+
+  --ui-text-muted: #c7c7c7;
   --font-weight-medium: 500;
-  --spacing: 8rem;
-  --text-sm: 25rem;
-  --text-xs: 21rem;
+  --spacing: 7rem;
+  --text-sm: 27rem;
+  --text-xs: 23rem;
   --tw-space-y-reverse {
       syntax: "*";
       inherits: false;
@@ -273,8 +289,9 @@ const enviar = async () => {
     gap: 20rem;
 
     .title-label {
+      color: v.$red;
       font-weight: bold;
-      font-size: 20rem;
+      font-size: 25rem;
     }
 
     input,
@@ -347,20 +364,20 @@ const enviar = async () => {
       transition: background-color 0.3s ease;
       background-color: v.$green;
       display: inline-flex;
+      padding: 15rem 25rem;
       align-items: center;
       border-radius: 4px;
       color: white;
-      padding: 15rem;
       border: none;
       gap: 10rem;
 
       span {
-        font-size: 17rem;
+        font-size: 25rem;
         color: white;
       }
 
       .nuxt-icon {
-        font-size: 24rem;
+        font-size: 38rem;
         line-height: 1em;
         margin-top: 0;
       }
