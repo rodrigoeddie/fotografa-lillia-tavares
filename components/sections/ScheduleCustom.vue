@@ -3,6 +3,14 @@
 import { CalendarDate } from '@internationalized/date';
 import type { DateValue } from '@internationalized/date'
 
+const props = defineProps({
+  formType: {
+      type: String,
+      required: false,
+      default: false
+    }
+  });
+
 const { gtag } = useGtag();
 
 const configPublic = useRuntimeConfig().public;
@@ -14,7 +22,7 @@ interface FormData {
 
 const formData = ref<FormData>({
   date: new CalendarDate('gregory', new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()),
-  sessionType: 'Dia das Mães',
+  sessionType: props.formType,
 });
 
 const isDateUnavailable = (date: DateValue) => {
@@ -39,14 +47,6 @@ const errors = ref<{ [key: string]: string }>({});
 
 const formatDate = (date: DateValue) => {
   return new Date(date.year, date.month - 1, date.day);
-};
-
-const formatDateToBR = (date: string) => {
-  const [year, month, day] = date.split('-').map(Number);
-  const formattedMonth     = String(month).padStart(2, '0');
-  const formattedDay       = String(day).padStart(2, '0');
-
-  return `${formattedDay}/${formattedMonth}/${year}`;
 };
 
 const validateField = (field: keyof FormData) => {
@@ -79,7 +79,7 @@ const enviar = async () => {
 
   if (Object.keys(errors.value).length === 0) {
     const whatsappNumber = '5511911159795';
-    const message        = `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${ formatDateToBR(formData.value.date) } com o tipo de ensaio ${ formData.value.sessionType }. (mensagem do site)`;
+    const message        = `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${ formData.value.date.day }/${ formData.value.date.month }/${ formData.value.date.year } com o tipo de ensaio ${ formData.value.sessionType }. (mensagem do site)`;
     const whatsappUrl    = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, '_blank');
@@ -93,57 +93,47 @@ const enviar = async () => {
 </script>
 
 <template>
-  <h1 class="big-title red centered">
-    <span class="box"><span>Gostou do ensaio?</span></span>
-    <span class="big">Agende o seu <nuxt-icon name="whatsapp" class="icon"/></span>
-  </h1>
-
   <div class="container wrap-schedule">
     <form
-      class="form"
-      @submit.prevent="enviar">
-      <div class="field-group">
-        <label class="title-label" for="date">
-          Data que pretende fazer o ensaio:
-        </label>
+    class="form"
+    @submit.prevent="enviar">
+      <div class="field-text">
+        <h1 class="big-title red">
+          <span class="box"><span>Gostou do ensaio?</span></span>
+          <span class="big">Agende o seu:</span>
+        </h1>
+        <p class="description">
+          Preencha no calendário ao lado a data que pretende fazer o ensaio e clique no botão <b>"Enviar usando o Whatsapp"</b>, você será redirecionado para seu aplicativo do Whatsapp com a mensagem já configurada, prontinha pra ser enviada ☺️:
+        </p>
+      </div>
 
+      <div class="field-calendar">
         <UCalendar
           class="calendar"
           v-model="formData.date"
           :is-date-unavailable="isDateUnavailable"
           locale="pt-BR" />
-      </div>
+        <span class="error-msg" :class="{ show: errors.date }">{{ errors.date }}</span>
 
-      <input
-        type="hidden"
-        name="type"
-        v-model="formData.sessionType">
+        <input
+          type="hidden"
+          name="type"
+          v-model="formData.sessionType">
+      </div>
 
       <button class="btn-send">
         <nuxt-icon name="whatsapp" class="icon"/>
-        <span>Enviar usando o whatsapp</span>
+        <span>Clique aqui para enviar<br>usando o <b>Whatsapp</b></span>
       </button>
     </form>
   </div>
 </template>
+
 <style lang="scss">
-.big-title {
-  margin-bottom: -4rem;
-
-  .big {
-    padding-right: 85rem;
-  }
-
-  .icon {
-    position: absolute;
-    bottom: -8rem;
-    right: 0;
-  }
-}
-
 .calendar {
   margin: 20rem auto;
   color: black;
+  flex-shrink: 0;
 
   --ui-text-muted: #c7c7c7;
   --font-weight-medium: 500;
@@ -154,6 +144,10 @@ const enviar = async () => {
       syntax: "*";
       inherits: false;
       initial-value: 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
   }
 
   .mx-auto {
@@ -229,6 +223,11 @@ const enviar = async () => {
   .data-\[selected\]\:bg-\(--ui-primary\)[data-selected] {
       background-color: v.$dark-red;
       color: white;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+        color: v.$dark-green;
+      }
   }
   .text-\(--ui-primary\),
   .text-\(--ui-primary\)\/75 {
@@ -259,6 +258,10 @@ const enviar = async () => {
   }
   .data-unavailable\:text-\(--ui-text-muted\)[data-unavailable] {
     color: var(--ui-text-muted);
+
+    @media (prefers-color-scheme: dark) {
+      color: #666;
+    }
   }
   @media (hover: hover) {
     @supports (color:color-mix(in lab,red,red)) {
@@ -271,22 +274,49 @@ const enviar = async () => {
 </style>
 
 <style scoped lang="scss">
+.field-text {
+  width: 550rem;
+}
+
+.big-title {
+  padding-top: 0;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+
+  .box {
+    @media (prefers-color-scheme: dark) {
+      background: white;
+      color: v.$dark-green
+    }
+  }
+
+  .big {
+    padding-right: 0;
+    margin-top: 0;
+  }
+}
+
 .wrap-schedule {
   margin-bottom: 40rem;
   background: white;
   padding: 40rem;
 
   @media (prefers-color-scheme: dark) {
-    background: white;
+    background: v.$dark-green;
   }
 
   .form {
-    align-items: flex-start;
-    flex-direction: column;
-    padding-top: 40rem;
+    justify-content: space-between;
+    align-items: center;
     margin: 0 auto;
     display: flex;
-    gap: 20rem;
+    gap: 30rem;
+
+    @include m.max(sm) {
+      flex-direction: column;
+    }
 
     .title-label {
       color: v.$red;
@@ -348,7 +378,7 @@ const enviar = async () => {
     }
 
     .error-msg {
-      font-size: 13rem;
+      font-size: 18rem;
       margin-top: 3rem;
       color: white;
       background: red;
@@ -367,17 +397,19 @@ const enviar = async () => {
       padding: 15rem 25rem;
       align-items: center;
       border-radius: 4px;
+      text-align: left;
       color: white;
+      flex-shrink: 0;
       border: none;
       gap: 10rem;
 
       span {
-        font-size: 25rem;
+        font-size: 30rem;
         color: white;
       }
 
       .nuxt-icon {
-        font-size: 38rem;
+        font-size: 52rem;
         line-height: 1em;
         margin-top: 0;
       }

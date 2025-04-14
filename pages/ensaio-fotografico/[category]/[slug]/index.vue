@@ -100,6 +100,7 @@ const showImg = (index) => {
 
 const onHide = () => (visibleRef.value = false);
 </script>
+
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
     <div class="wrap-hero">
@@ -224,7 +225,8 @@ const onHide = () => (visibleRef.value = false);
       <div class="empty"></div>
     </div>
 
-    <SectionsScheduleCustom />
+    <SectionsScheduleCustom
+    :formType="work.category.title" />
 
     <VueEasyLightbox
       :visible="visibleRef"
