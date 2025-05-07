@@ -34,6 +34,7 @@
     "@nuxt/ui": "^3.0.2",
     "@nuxtjs/partytown": "^1.6.0",
     "@vuestic/nuxt": "^1.0.21",
+    "crypto": "^1.0.1",
     "gsap": "^3.12.7",
     "mime-types": "^3.0.1",
     "nuxt-icons": "^3.2.1",
