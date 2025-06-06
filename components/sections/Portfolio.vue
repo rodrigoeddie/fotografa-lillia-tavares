@@ -134,14 +134,6 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container no-padding">
-    <template v-if="props.fromHome">
-      <NuxtLink
-        class="highlight-new"
-        :to="'/ensaio-fotografico/dia-das-maes-2025'">
-            <span> Dia das Mães 2025 </span>
-      </NuxtLink>
-    </template>
-
     <h1 class="big-title red centered">
       <span class="box">
         <span v-if="!currentCategory">Explore meus</span>
