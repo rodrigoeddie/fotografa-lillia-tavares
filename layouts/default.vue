@@ -14,4 +14,8 @@
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.wrapper-main {
+  padding-top: 100rem;
+}
+</style>

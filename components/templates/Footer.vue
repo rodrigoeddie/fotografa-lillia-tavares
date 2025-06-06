@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <div class="wrap-footer">
+    <div class="wrap-footer" data-component="templates/footer">
         <header>
             <NuxtLink
               to="/"
@@ -37,6 +37,7 @@
 
             <TemplatesSocial class="from-footer" />
         </header>
+
         <footer>
             <TemplatesMenu class="from-footer" />
         </footer>
