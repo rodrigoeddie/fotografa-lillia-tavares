@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe - Campanhas Sazonais - Lillia Tavares Fotografia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f5f2ed;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #f5f2ed;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0d9d0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 200px;
+            height: 80px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        nav ul li {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        nav ul li a:hover {
+            color: #a67c52;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 5px;
+            padding: 10px 0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .dropdown-content a:hover {
+            background-color: #f5f2ed;
+        }
+        .hero {
+            height: 400px;
+            background-color: #ddd;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            color: #fff;
+            z-index: 2;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #a67c52;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            background-color: #8a6642;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #a67c52;
+        }
+        .intro-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+        .intro-section p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .current-campaign {
+            margin-bottom: 60px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .campaign-header {
+            background-color: #a67c52;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        .campaign-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .campaign-header p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .campaign-countdown {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .countdown-item {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .countdown-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .campaign-badge {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transform: rotate(15deg);
+        }
+        .campaign-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+        .campaign-image {
+            height: 400px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .campaign-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .campaign-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #a67c52;
+        }
+        .campaign-info p {
+            margin-bottom: 20px;
+        }
+        .campaign-details {
+            margin-bottom: 20px;
+        }
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .detail-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f5f2ed;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            color: #a67c52;
+            font-size: 1.2rem;
+        }
+        .detail-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .detail-text p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0;
+        }
+        .campaign-cta {
+            margin-top: auto;
+        }
+        .campaign-cta .btn {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .campaign-cta .btn-outline {
+            background-color: transparent;
+            border: 2px solid #a67c52;
+            color: #a67c52;
+        }
+        .campaign-cta .btn-outline:hover {
+            background-color: #a67c52;
+            color: #fff;
+        }
+        .campaign-slots {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f7f4;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .campaign-slots h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #e74c3c;
+        }
+        .slots-progress {
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .slots-filled {
+            height: 100%;
+            width: 70%;
+            background-color: #e74c3c;
+        }
+        .slots-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .upcoming-campaigns {
+            margin-bottom: 60px;
+        }
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .campaign-card {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        .campaign-card:hover {
+            transform: translateY(-10px);
+        }
+        .campaign-card-img {
+            height: 200px;
+            background-color: #ddd;
+            position: relative;
+        }
+        .campaign-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        .campaign-card-content {
+            padding: 20px;
+        }
+        .campaign-card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #a67c52;
+        }
+        .campaign-card-content p {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .campaign-card-content .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        .campaign-card-content .btn-outline {
+            background-color: transparent;
+            border: 2px solid #a67c52;
+            color: #a67c52;
+        }
+        .campaign-card-content .btn-outline:hover {
+            background-color: #a67c52;
+            color: #fff;
+        }
+        .past-campaigns {
+            margin-bottom: 60px;
+        }
+        .past-campaigns-slider {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0 30px;
+            margin: 0 -10px;
+        }
+        .past-campaign-slide {
+            min-width: 300px;
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 0 10px;
+        }
+        .past-campaign-img {
+            height: 180px;
+            background-color: #ddd;
+        }
+        .past-campaign-content {
+            padding: 15px;
+        }
+        .past-campaign-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #a67c52;
+        }
+        .past-campaign-content p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .past-campaign-content a {
+            color: #a67c52;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .past-campaign-content a::after {
+            content: '→';
+            margin-left: 5px;
+        }
+        .calendar-section {
+            margin-bottom: 60px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .calendar-title {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .calendar-nav {
+            display: flex;
+        }
+        .calendar-nav-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .calendar-nav-btn:hover {
+            background-color: #a67c52;
+            color: #fff;
+        }
+        .calendar-grid {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #f5f2ed;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(5, 100px);
+            gap: 1px;
+            background-color: #eee;
+        }
+        .calendar-day {
+            background-color: #fff;
+            padding: 10px;
+            position: relative;
+        }
+        .day-number {
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .day-event {
+            margin-top: 5px;
+            padding: 3px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            color: #fff;
+            background-color: #a67c52;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .day-event.natal {
+            background-color: #e74c3c;
+        }
+        .day-event.maes {
+            background-color: #e67e22;
+        }
+        .day-event.corporativo {
+            background-color: #3498db;
+        }
+        .newsletter-section {
+            background-color: #f9f7f4;
+            padding: 60px 0;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .newsletter-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .newsletter-content p {
+            margin-bottom: 30px;
+        }
+        .newsletter-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .newsletter-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        .newsletter-btn {
+            padding: 15px 30px;
+            background-color: #a67c52;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .newsletter-btn:hover {
+            background-color: #8a6642;
+        }
+        .newsletter-note {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        .faq-section {
+            margin-bottom: 60px;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+        }
+        .faq-answer {
+            color: #555;
+        }
+        .cta-section {
+            padding: 60px 0;
+            background-color: #a67c52;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .cta-btn {
+            background-color: #fff;
+            color: #a67c52;
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+        .cta-btn:hover {
+            background-color: #f5f5f5;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #a67c52;
+        }
+        .footer-column p, .footer-column li {
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-column a:hover {
+            color: #fff;
+        }
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .social-link:hover {
+            background-color: #a67c52;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+        
+        /* Wireframe style overlay */
+        .wireframe-label {
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 2px dashed red;
+            padding: 5px;
+            font-size: 12px;
+            color: red;
+            z-index: 100;
+        }
+        
+        @media (max-width: 992px) {
+            .campaign-content {
+                grid-template-columns: 1fr;
+            }
+            .campaigns-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .calendar-days {
+                grid-template-rows: repeat(5, 80px);
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .campaigns-grid {
+                grid-template-columns: 1fr;
+            }
+            .newsletter-form {
+                flex-direction: column;
+            }
+            .newsletter-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            .newsletter-btn {
+                border-radius: 5px;
+            }
+            .calendar-days {
+                grid-template-rows: repeat(5, 60px);
+            }
+            .day-event {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Logo Lillia Tavares</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li class="dropdown">
+                        <a href="#">Ensaios</a>
+                        <div class="dropdown-content">
+                            <a href="#">Natal em Família</a>
+                            <a href="#">Corporativo</a>
+                            <a href="#">Sensual/Intimista</a>
+                            <a href="#">Espetáculos</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Consultoria</a>
+                        <div class="dropdown-content">
+                            <a href="#">Coloração Pessoal</a>
+                            <a href="#">Análise de Estilo</a>
+                            <a href="#">Consultoria de Guarda-roupa</a>
+                        </div>
+                    </li>
+                    <li><a href="#">Estúdio</a></li>
+                    <li><a href="#">Investimento</a></li>
+                    <li class="dropdown">
+                        <a href="#">Recursos</a>
+                        <div class="dropdown-content">
+                            <a href="#">Presença Local</a>
+                            <a href="#">Campanhas Sazonais</a>
+                            <a href="#">Guias Educativos</a>
+                            <a href="#">Parcerias</a>
+                        </div>
+                    </li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <div class="wireframe-label" style="top: 10px; right: 10px;">
+                NOVO: Menu de navegação completo com todas as páginas
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Campanhas Sazonais</h1>
+            <p>Ensaios temáticos especiais para celebrar momentos importantes do ano</p>
+            <a href="#" class="btn">Ver campanha atual</a>
+            
+            <div class="wireframe-label" style="top: 10px; right: 10px;">
+                NOVO: Hero com título e descrição otimizados para SEO
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="container intro-section">
+        <p>Ao longo do ano, oferecemos campanhas temáticas especiais para celebrar datas importantes como Dia das Mães, Natal, Dia dos Pais e outras ocasiões. Estas campanhas são oportunidades únicas para criar memórias inesquecíveis com cenários exclusivos, props especiais e condições diferenciadas.</p>
+        <p>Fique atento ao nosso calendário e garanta sua vaga com antecedência, pois as vagas são limitadas e costumam esgotar rapidamente!</p>
+    </section>
+
+    <!-- Current Campaign Section -->
+    <section class="container current-campaign">
+        <div class="campaign-header">
+            <h2>Campanha Dia das Mães 2025</h2>
+            <p>Celebre o amor entre mães e filhos com um ensaio especial</p>
+            <div class="campaign-countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number">15</span>
+                    <span class="countdown-label">Dias</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">08</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">45</span>
+                    <span class="countdown-label">Min</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">30</span>
+                    <span class="countdown-label">Seg</span>
+                </div>
+            </div>
+            <div class="campaign-badge">Vagas Limitadas</div>
+            
+            <div class="wireframe-label" style="top: 10px; left: 10px;">
+                NOVO: Contagem regressiva para criar urgência
+            </div>
+        </div>
+        <div class="campaign-content">
+            <div class="campaign-image"></div>
+            <div class="campaign-info">
+                <h3>Eternize o amor entre mães e filhos</h3>
+                <p>Nossa campanha especial de Dia das Mães 2025 traz um cenário exclusivo com decoração floral e tons suaves, criando o ambiente perfeito para celebrar essa relação tão especial. Ideal para mães e filhos de todas as idades, incluindo ensaios com múltiplas gerações.</p>
+                <div class="campaign-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">D</div>
+                        <div class="detail-text">
+                            <h4>Datas disponíveis</h4>
+                            <p>20 de Abril a 10 de Maio de 2025</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">L</div>
+                        <div class="detail-text">
+                            <h4>Local</h4>
+                            <p>Estúdio Lillia Tavares em Mogi das Cruzes</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">I</div>
+                        <div class="detail-text">
+                            <h4>Investimento</h4>
+                            <p>A partir de R$ 450 (pacote básico)</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">F</div>
+                        <div class="detail-text">
+                            <h4>O que está incluso</h4>
+                            <p>Ensaio de 30 minutos, 10 fotos digitais, 1 ampliação 15x21cm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="campaign-cta">
+                    <a href="#" class="btn">Reservar meu horário</a>
+                    <a href="#" class="btn btn-outline">Ver pacotes completos</a>
+                </div>
+                <div class="campaign-slots">
+                    <h4>Apenas 30% das vagas disponíveis!</h4>
+                    <div class="slots-progress">
+                        <div class="slots-filled"></div>
+                    </div>
+                    <p class="slots-text">21 de 30 horários já foram reservados</p>
+                </div>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; right: 20px;">
+                NOVO: Detalhes da campanha atual com indicador de escassez
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Campaigns Section -->
+    <section class="container upcoming-campaigns">
+        <div class="section-title">
+            <h2>Próximas Campanhas</h2>
+        </div>
+        <div class="campaigns-grid">
+            <div class="campaign-card">
+                <div class="campaign-card-img">
+                    <div class="campaign-date">Junho 2025</div>
+                </div>
+                <div class="campaign-card-content">
+                    <h3>Dia dos Namorados</h3>
+                    <p>Ensaios românticos para casais celebrarem seu amor com fotos que capturam a cumplicidade e o carinho.</p>
+                    <a href="#" class="btn">Pré-agendar</a>
+                </div>
+            </div>
+            <div class="campaign-card">
+                <div class="campaign-card-img">
+                    <div class="campaign-date">Agosto 2025</div>
+                </div>
+                <div class="campaign-card-content">
+                    <h3>Dia dos Pais</h3>
+                    <p>Ensaios especiais para celebrar o vínculo entre pais e filhos, com cenário exclusivo e props temáticos.</p>
+                    <a href="#" class="btn btn-outline">Lista de espera</a>
+                </div>
+            </div>
+            <div class="campaign-card">
+                <div class="campaign-card-img">
+                    <div class="campaign-date">Outubro 2025</div>
+                </div>
+                <div class="campaign-card-content">
+                    <h3>Halloween</h3>
+                    <p>Ensaios divertidos com temática de Halloween para famílias que adoram esta data especial.</p>
+                    <a href="#" class="btn btn-outline">Lista de espera</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; left: 20px;">
+            NOVO: Próximas campanhas com opção de pré-agendamento
+        </div>
+    </section>
+
+    <!-- Past Campaigns Section -->
+    <section class="container past-campaigns">
+        <div class="section-title">
+            <h2>Campanhas Anteriores</h2>
+        </div>
+        <div class="past-campaigns-slider">
+            <div class="past-campaign-slide">
+                <div class="past-campaign-img"></div>
+                <div class="past-campaign-content">
+                    <h3>Natal 2024</h3>
+                    <p>Ensaios natalinos com cenário exclusivo e decoração festiva.</p>
+                    <a href="#">Ver galeria</a>
+                </div>
+            </div>
+            <div class="past-campaign-slide">
+                <div class="past-campaign-img"></div>
+                <div class="past-campaign-content">
+                    <h3>Dia das Mães 2024</h3>
+                    <p>Celebração do amor materno com cenário floral e tons suaves.</p>
+                    <a href="#">Ver galeria</a>
+                </div>
+            </div>
+            <div class="past-campaign-slide">
+                <div class="past-campaign-img"></div>
+                <div class="past-campaign-content">
+                    <h3>Dia dos Pais 2024</h3>
+                    <p>Momentos especiais entre pais e filhos capturados com sensibilidade.</p>
+                    <a href="#">Ver galeria</a>
+                </div>
+            </div>
+            <div class="past-campaign-slide">
+                <div class="past-campaign-img"></div>
+                <div class="past-campaign-content">
+                    <h3>Páscoa 2024</h3>
+                    <p>Ensaios temáticos de Páscoa com cenário especial para crianças.</p>
+                    <a href="#">Ver galeria</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; right: 20px;">
+            NOVO: Galeria de campanhas anteriores para inspiração
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="container calendar-section">
+        <div class="section-title">
+            <h2>Calendário Anual</h2>
+        </div>
+        <div class="calendar-header">
+            <div class="calendar-title">Maio 2025</div>
+            <div class="calendar-nav">
+                <div class="calendar-nav-btn">←</div>
+                <div class="calendar-nav-btn">→</div>
+            </div>
+        </div>
+        <div class="calendar-grid">
+            <div class="calendar-weekdays">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+            <div class="calendar-days">
+                <div class="calendar-day">
+                    <div class="day-number">27</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">28</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">29</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">30</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">1</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">2</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">3</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">4</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">5</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">6</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">7</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">8</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">9</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">10</div>
+                    <div class="day-event maes">Dia das Mães</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">11</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">12</div>
+                    <div class="day-event corporativo">Corporativo</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">13</div>
+                    <div class="day-event corporativo">Corporativo</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">14</div>
+                    <div class="day-event corporativo">Corporativo</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">15</div>
+                    <div class="day-event corporativo">Corporativo</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">16</div>
+                    <div class="day-event corporativo">Corporativo</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">17</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">18</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">19</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">20</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">21</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">22</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">23</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">24</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">25</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">26</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">27</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">28</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">29</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">30</div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-number">31</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; left: 20px;">
+            NOVO: Calendário visual de campanhas do ano
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Fique por dentro das próximas campanhas</h2>
+                <p>Receba em primeira mão informações sobre nossas campanhas sazonais, datas de lançamento e ofertas exclusivas.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Seu melhor e-mail">
+                    <button type="submit" class="newsletter-btn">Inscrever-se</button>
+                </form>
+                <p class="newsletter-note">Ao se inscrever, você concorda em receber e-mails sobre nossas campanhas. Você pode cancelar a inscrição a qualquer momento.</p>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; right: 20px;">
+                NOVO: Captura de leads para notificações de campanhas
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="container faq-section">
+        <div class="section-title">
+            <h2>Perguntas Frequentes</h2>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Como funcionam as campanhas sazonais?</div>
+            <div class="faq-answer">
+                <p>As campanhas sazonais são ensaios temáticos realizados em períodos específicos do ano, com cenários exclusivos e condições especiais. Cada campanha tem um número limitado de vagas e é necessário fazer reserva antecipada para garantir seu horário.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Posso agendar uma campanha fora do período anunciado?</div>
+            <div class="faq-answer">
+                <p>Infelizmente, os cenários das campanhas sazonais são montados apenas durante o período anunciado. No entanto, podemos criar ensaios personalizados com temáticas similares em outras datas, mediante consulta de disponibilidade e valores.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Como faço para garantir minha vaga em uma campanha?</div>
+            <div class="faq-answer">
+                <p>Para garantir sua vaga, é necessário fazer a reserva através do site, WhatsApp ou telefone, e efetuar o pagamento de uma taxa de reserva (geralmente 50% do valor do pacote escolhido). O restante do valor pode ser pago no dia do ensaio.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Posso cancelar ou remarcar meu horário em uma campanha?</div>
+            <div class="faq-answer">
+                <p>Cancelamentos podem ser feitos com até 7 dias de antecedência, com devolução de 70% do valor da taxa de reserva. Remarcações dentro do período da campanha estão sujeitas à disponibilidade de horários e podem ser solicitadas com até 48 horas de antecedência.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Quais campanhas são realizadas ao longo do ano?</div>
+            <div class="faq-answer">
+                <p>Realizamos campanhas para as principais datas comemorativas do ano, incluindo Dia das Mães, Dia dos Pais, Dia das Crianças, Natal, além de campanhas temáticas como Páscoa, Halloween e Mini Wedding. O calendário completo é divulgado no início de cada ano.</p>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; left: 20px;">
+            NOVO: FAQ específico sobre campanhas sazonais
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Não perca a próxima campanha!</h2>
+                <p>Garanta seu horário na campanha atual ou entre na lista de espera para as próximas.</p>
+                <a href="#" class="btn cta-btn">Ver campanhas disponíveis</a>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; right: 20px;">
+                NOVO: CTA persuasivo focado em urgência
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sobre</h3>
+                    <p>Fotógrafa especialista em retratos femininos e consultora de imagem, com estúdio localizado em Mogi das Cruzes.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">IG</a>
+                        <a href="#" class="social-link">WA</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="#">Ensaios Fotográficos</a></li>
+                        <li><a href="#">Consultoria de Imagem</a></li>
+                        <li><a href="#">Aluguel de Estúdio</a></li>
+                        <li><a href="#">Workshops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Presença Local</a></li>
+                        <li><a href="#">Campanhas Sazonais</a></li>
+                        <li><a href="#">Guias Educativos</a></li>
+                        <li><a href="#">Parcerias</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li>Estúdio em Mogi das Cruzes, SP</li>
+                        <li>fotografalilliatavares@gmail.com</li>
+                        <li>(11) 91115-9795</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Fotógrafa Lillia Tavares. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe - Página Interna de Ensaio - Lillia Tavares Fotografia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f5f2ed;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #f5f2ed;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0d9d0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 200px;
+            height: 80px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 30px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #a67c52;
+        }
+        .breadcrumb {
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+        .breadcrumb a {
+            color: #a67c52;
+            text-decoration: none;
+        }
+        .breadcrumb span {
+            margin: 0 10px;
+            color: #999;
+        }
+        .ensaio-header {
+            margin-bottom: 40px;
+        }
+        .ensaio-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .ensaio-description {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+        .ensaio-meta {
+            display: flex;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .ensaio-meta-item {
+            margin-right: 30px;
+            display: flex;
+            align-items: center;
+        }
+        .ensaio-meta-item i {
+            width: 20px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .gallery-container {
+            margin-bottom: 60px;
+        }
+        .gallery-main {
+            height: 600px;
+            background-color: #ddd;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .gallery-nav-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .gallery-nav-btn:hover {
+            background-color: #a67c52;
+            color: #fff;
+        }
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+        .gallery-thumbnail {
+            height: 120px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .gallery-thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .gallery-thumbnail.active {
+            border: 3px solid #a67c52;
+        }
+        .client-testimonial {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 5px;
+            margin-bottom: 60px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 20px;
+        }
+        .testimonial-author h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        .testimonial-author p {
+            color: #777;
+        }
+        .testimonial-content {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .testimonial-rating {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .star {
+            width: 20px;
+            height: 20px;
+            background-color: #ffc107;
+            margin-right: 5px;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        .ensaio-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .ensaio-info {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .ensaio-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #a67c52;
+        }
+        .ensaio-info p {
+            margin-bottom: 15px;
+        }
+        .ensaio-info ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .ensaio-info li {
+            margin-bottom: 10px;
+        }
+        .ensaio-cta {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        .ensaio-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #a67c52;
+        }
+        .ensaio-cta p {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #a67c52;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            background-color: #8a6642;
+        }
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #a67c52;
+            color: #a67c52;
+            margin-top: 15px;
+        }
+        .btn-outline:hover {
+            background-color: #a67c52;
+            color: #fff;
+        }
+        .related-ensaios {
+            margin-bottom: 60px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .section-title h2 {
+            font-size: 2rem;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #a67c52;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .related-item {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        .related-item:hover {
+            transform: translateY(-10px);
+        }
+        .related-img {
+            height: 250px;
+            background-color: #ddd;
+        }
+        .related-content {
+            padding: 20px;
+        }
+        .related-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .related-content p {
+            color: #777;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .related-link {
+            color: #a67c52;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .related-link::after {
+            content: '→';
+            margin-left: 5px;
+        }
+        .share-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .share-text {
+            font-weight: 600;
+        }
+        .share-buttons {
+            display: flex;
+        }
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #f5f2ed;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        .share-btn:hover {
+            background-color: #a67c52;
+            color: #fff;
+        }
+        .cta-section {
+            padding: 60px 0;
+            background-color: #a67c52;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .cta-btn {
+            background-color: #fff;
+            color: #a67c52;
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+        .cta-btn:hover {
+            background-color: #f5f5f5;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #a67c52;
+        }
+        .footer-column p, .footer-column li {
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-column a:hover {
+            color: #fff;
+        }
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .social-link:hover {
+            background-color: #a67c52;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+        
+        /* Wireframe style overlay */
+        .wireframe-label {
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 2px dashed red;
+            padding: 5px;
+            font-size: 12px;
+            color: red;
+            z-index: 100;
+        }
+        
+        @media (max-width: 992px) {
+            .ensaio-details {
+                grid-template-columns: 1fr;
+            }
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-thumbnails {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 20px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .ensaio-title {
+                font-size: 2rem;
+            }
+            .gallery-main {
+                height: 400px;
+            }
+            .gallery-thumbnails {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Logo Lillia Tavares</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Ensaios</a></li>
+                    <li><a href="#">Estúdio</a></li>
+                    <li><a href="#">Investimento</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">Home</a> <span>›</span> 
+            <a href="#">Ensaios</a> <span>›</span> 
+            <a href="#">Dia das Mães 2025</a> <span>›</span> 
+            <span>Rosiney de Melo</span>
+            
+            <div class="wireframe-label" style="top: 10px; right: 10px;">
+                NOVO: Breadcrumb para melhorar navegação e SEO
+            </div>
+        </div>
+
+        <!-- Ensaio Header -->
+        <div class="ensaio-header">
+            <h1 class="ensaio-title">Ensaio Dia das Mães 2025 - Rosiney de Melo</h1>
+            <p class="ensaio-description">Um ensaio com 3 lindas gerações, a vovó Rose, a mamãe Vanessa e a netinha Giugiu, elas me deram a alegria de fotografá-las em um momento especial que celebra o amor e a conexão entre mães e filhas.</p>
+            <div class="ensaio-meta">
+                <div class="ensaio-meta-item">
+                    <i></i>
+                    <span>Categoria: Dia das Mães 2025</span>
+                </div>
+                <div class="ensaio-meta-item">
+                    <i></i>
+                    <span>Local: Estúdio Lillia Tavares</span>
+                </div>
+                <div class="ensaio-meta-item">
+                    <i></i>
+                    <span>Data: Abril 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="gallery-container">
+            <div class="gallery-main"></div>
+            <div class="gallery-nav">
+                <div class="gallery-nav-btn">←</div>
+                <div class="gallery-nav-btn">→</div>
+            </div>
+            <div class="gallery-thumbnails">
+                <div class="gallery-thumbnail active"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+                <div class="gallery-thumbnail"></div>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; left: 20px;">
+                NOVO: Galeria interativa com navegação intuitiva
+            </div>
+        </div>
+
+        <!-- Client Testimonial -->
+        <div class="client-testimonial">
+            <div class="testimonial-header">
+                <div class="testimonial-img"></div>
+                <div class="testimonial-author">
+                    <h3>Rosiney de Melo</h3>
+                    <p>Cliente - Ensaio Dia das Mães 2025</p>
+                </div>
+            </div>
+            <div class="testimonial-content">
+                <p>"Foi uma experiência incrível poder reunir três gerações da nossa família em um ensaio tão especial. A Lillia nos deixou super à vontade e soube captar momentos de carinho e conexão que vamos guardar para sempre. As fotos ficaram lindas e emocionantes, superando todas as nossas expectativas!"</p>
+            </div>
+            <div class="testimonial-rating">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; right: 20px;">
+                NOVO: Depoimento da cliente com avaliação
+            </div>
+        </div>
+
+        <!-- Ensaio Details -->
+        <div class="ensaio-details">
+            <div class="ensaio-info">
+                <h3>Sobre este Ensaio</h3>
+                <p>O ensaio Dia das Mães é uma celebração do vínculo especial entre mães e filhas, capturando momentos de carinho, cumplicidade e amor que atravessam gerações.</p>
+                <p>Neste ensaio com a família de Rosiney, tivemos a oportunidade de registrar três gerações juntas, criando memórias que serão guardadas com carinho por muitos anos.</p>
+                <h3>Detalhes do Ensaio</h3>
+                <ul>
+                    <li>Duração: 2 horas</li>
+                    <li>Cenário: Especial Dia das Mães 2025</li>
+                    <li>Fotos entregues: 20 imagens digitais em alta resolução</li>
+                    <li>Tempo de entrega: 5 dias úteis</li>
+                </ul>
+                <h3>Preparação para o Ensaio</h3>
+                <p>Para este ensaio, recomendamos roupas em tons neutros ou pastéis, que combinam perfeitamente com a decoração floral do cenário. A família optou por um look coordenado em branco e rosa, criando uma harmonia visual que valorizou ainda mais as fotos.</p>
+            </div>
+            <div class="ensaio-cta">
+                <h3>Quer um ensaio como este?</h3>
+                <p>A campanha de Dia das Mães 2025 está com vagas limitadas. Garanta seu horário e crie memórias inesquecíveis com sua família.</p>
+                <a href="#" class="btn btn-block">Quero agendar agora</a>
+                <a href="#" class="btn btn-block btn-outline">Ver pacotes e valores</a>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; left: 20px;">
+                NOVO: Informações detalhadas sobre o ensaio e CTA destacado
+            </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section">
+            <div class="share-text">Compartilhe este ensaio:</div>
+            <div class="share-buttons">
+                <a href="#" class="share-btn">FB</a>
+                <a href="#" class="share-btn">IG</a>
+                <a href="#" class="share-btn">WA</a>
+                <a href="#" class="share-btn">PT</a>
+            </div>
+            
+            <div class="wireframe-label" style="top: -30px; right: 20px;">
+                NOVO: Botões de compartilhamento para aumentar alcance
+            </div>
+        </div>
+
+        <!-- Related Ensaios -->
+        <div class="related-ensaios">
+            <div class="section-title">
+                <h2>Outros Ensaios de Dia das Mães</h2>
+            </div>
+            <div class="related-grid">
+                <div class="related-item">
+                    <div class="related-img"></div>
+                    <div class="related-content">
+                        <h3>Família Santos</h3>
+                        <p>Um lindo ensaio celebrando o amor entre mãe e filha em nosso cenário especial de Dia das Mães.</p>
+                        <a href="#" class="related-link">Ver ensaio</a>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="related-img"></div>
+                    <div class="related-content">
+                        <h3>Família Oliveira</h3>
+                        <p>Três gerações reunidas em um ensaio emocionante que celebra a maternidade e os laços familiares.</p>
+                        <a href="#" class="related-link">Ver ensaio</a>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="related-img"></div>
+                    <div class="related-content">
+                        <h3>Família Costa</h3>
+                        <p>Momentos de carinho e cumplicidade entre mãe e filhos capturados em nosso estúdio.</p>
+                        <a href="#" class="related-link">Ver ensaio</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; left: 20px;">
+                NOVO: Ensaios relacionados para aumentar tempo no site
+            </div>
+        </div>
+    </main>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Eternize momentos especiais com sua família</h2>
+                <p>Agende seu ensaio de Dia das Mães e crie memórias que durarão para sempre.</p>
+                <a href="#" class="btn cta-btn">Quero ser fotografada</a>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; right: 20px;">
+                NOVO: CTA persuasivo focado em benefício emocional
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sobre</h3>
+                    <p>Fotógrafa especialista em retratos femininos e posicionamento de imagem corporativo, com estúdio localizado em Mogi das Cruzes.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">IG</a>
+                        <a href="#" class="social-link">WA</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Ensaios</h3>
+                    <ul>
+                        <li><a href="#">Natal em Família</a></li>
+                        <li><a href="#">Corporativo</a></li>
+                        <li><a href="#">Sensual/Intimista</a></li>
+                        <li><a href="#">Espetáculos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                        <li><a href="#">Como se Preparar</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li>Estúdio em Mogi das Cruzes, SP</li>
+                        <li>fotografalilliatavares@gmail.com</li>
+                        <li>(11) 91115-9795</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Fotógrafa Lillia Tavares. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
