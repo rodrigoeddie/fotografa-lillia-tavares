@@ -21,7 +21,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <SectionsAbout />
+  <SectionsAboutCta />
   <SectionsPortfolio :fromHome="true" />
   <SectionsStudio class="from-home-studio" />
 </template>

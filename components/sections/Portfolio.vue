@@ -257,6 +257,10 @@ const formatDate = (dateString: string) => {
 </template>
 
 <style scoped lang="scss">
+  :deep(.swiper) {
+      --swiper-navigation-size: 30rem !important;
+  }
+
   .highlight-new {
     background: rgba(169, 122, 9, 0.7);
     border-bottom: 10rem solid #4d3703b3;

@@ -166,7 +166,7 @@ if (about.value?.body?.value) {
         }
 
         &:hover {
-          background-color: #6d1d0b;
+          background-color: v.$dark-red;
           color: white;
         }
       }

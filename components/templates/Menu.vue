@@ -12,6 +12,12 @@
         <NuxtLink
             to="/ensaio-fotografico"
             class="link">
+            <span class="txt">Sobre</span>
+        </NuxtLink>
+        <span class="separe">•</span>
+        <NuxtLink
+            to="/ensaio-fotografico"
+            class="link">
             <span class="txt">Trabalhos</span>
         </NuxtLink>
         <span class="separe">•</span>
@@ -39,7 +45,7 @@
 .menu {
     &.from-header {
         position: absolute;
-        font-size: 35rem;
+        font-size: 30rem;
         bottom: -11rem;
         right: 0;
 
@@ -98,7 +104,7 @@
     }
 
     &.from-footer {
-        font-size: 55rem;
+        font-size: 45rem;
 
         @include m.max(lg) {
             font-size: 40rem;
@@ -136,6 +142,7 @@
         text-transform: uppercase;
         font-family: v.$openExtra;
         transition: color 0.2s;
+        font-weight: 900;
 
         &.router-link-active {
             &::before {

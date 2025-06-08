@@ -1,5 +1,7 @@
 # Sobre
 
-Fotografa formada pelo Senac e Etec de artes, especialista em retratos femininos e em posicionamento de imagem (corporativo). Capturo a essência e beleza de mulheres em diversos contextos. Com um portfólio de mais de 100 mulheres, celebro a singularidade das modelos sob o slogan '**Somos rainhas**'.
+Lillia Tavares é uma fotógrafa com [estúdio em Mogi das Cruzes](./estudio), formada pelo Senac, especializada em retratos e posicionamento de imagem corporativo. Com uma visão única, transformo cada sessão em uma experiência envolvente, criando um ambiente onde os modelos se sentem à vontade.
 
-[Meu estúdio](https://fotografalilliatavares.com.br/estudio) está localizado em [Mogi das Cruzes](https://fotografalilliatavares.com.br/estudio). Convido você a viver a experiência de ser fotografada e destacar sua realeza. Se busca uma sessão fotográfica que celebre sua individualidade e empodere sua autoestima, eu sou a fotógrafa ideal. ❤️
+Possuo a sensibilidade necessária para capturar imagens que revelam não apenas a aparência, mas também a personalidade de cada pessoa.
+
+[Clique aqui e saiba mais sobre a Fotógrafa Lillia Tavares](./sobre)
