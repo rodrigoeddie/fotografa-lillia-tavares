@@ -64,13 +64,11 @@ const categories = await Promise.all(
 
     <div class="category-ctas">
       <nav class="menu-category">
-        <h2 class="title-category">Categorias</h2>
-
         <NuxtLink
           to="/ensaio-fotografico"
-          class="link-category"
+          class="link-category link-category-all"
           :class="{'mobile': isMobile, 'desktop': !isMobile}">
-          <span class="category-label">Todos</span>
+          <h2 class="category-label">Todas as categorias</h2>
         </NuxtLink>
 
         <template v-for="item in categories">
@@ -268,12 +266,12 @@ const categories = await Promise.all(
   }
 
   .link-category {
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     transition: background .3s;
     width: calc(25% - 20rem);
     justify-content: center;
-    aspect-ratio: 400/266;
-    background: #892c1a;
+    aspect-ratio: 400/230;
+    background: white;
     font-weight: 700;
     font-size: 30rem;
     overflow: hidden;
@@ -288,10 +286,10 @@ const categories = await Promise.all(
     &:before {
       content: '';
 
-      background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 90%);
-      transition: opacity .4s;
+      background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 90%);
+      transition: background .4s;
       position: absolute;
-      opacity: 0;
+      // opacity: 0;
       z-index: 1;
       bottom: 0;
       right: 0;
@@ -304,21 +302,24 @@ const categories = await Promise.all(
       transition: top .4s;
       text-align: center;
       position: absolute;
+      color: black;
+      bottom: 20rem;
       z-index: 2;
-      top: 47%;
       right: 0;
       left: 0;
     }
 
     .thumb-category {
-      transition: opacity .5s, transform .7s;
+      transition: opacity .5s, transform .5s, filter .5s;
       transform: scale(1.3);
-      aspect-ratio: 400/266;
+      // aspect-ratio: 400/266;
+      aspect-ratio: 400/230;
       position: absolute;
+      filter: blur(2px);
       object-fit: cover;
       height: 100%;
       width: 100%;
-      opacity: .3;
+      opacity: .2;
       bottom: 0;
       right: 0;
       left: 0;
@@ -327,20 +328,21 @@ const categories = await Promise.all(
 
     &.router-link-active,
     &.desktop:hover {
-      background-color: #6d1d0b !important;
       align-items: flex-end;
 
       &:before {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 90%);
         opacity: 1;
       }
 
       .category-label {
-        top: 70%;
+        color: white;
       }
 
       .thumb-category {
         transform: scale(1);
-        opacity: 1;
+        opacity: 1 !important;
+        filter: blur(0);
       }
     }
 

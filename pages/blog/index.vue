@@ -29,6 +29,7 @@ const formatDate = (date: Date) => {
 
 <template>
   <div class="post-list">
+    <h1>BLOG</h1>
     <article v-for="post in posts" :key="post._id" class="post-item">
       <h2>
         <NuxtLink :to="post._path">{{ post.title }}</NuxtLink>

@@ -109,7 +109,7 @@ const classes = [
     }
   },
   {
-    class: 'card side-by-side card-60',
+    class: 'card side-by-side card-50',
     format: 'retrato',
     image: {
       width: 567,
@@ -117,7 +117,7 @@ const classes = [
     }
   },
   {
-    class: 'card card-column card-40',
+    class: 'card card-column card-50',
     format: 'paisagem',
     image: {
       width: 605,
@@ -149,40 +149,43 @@ const formatDate = (dateString: string) => {
           <div :class="{'inner-thumb': true, 'wrap-wide': classes[index % classes.length].class === 'wide side-by-side reverse'}">
             <div class="slider">
               <ClientOnly>
-                <swiper-container
-                  class="swiper"
-                  :slides-per-view="1"
-                  :pagination="{
-                    clickable: true,
-                  }"
-                  :navigation="true">
-                  <swiper-slide
-                    v-for="slide in item.photos[classes[index % classes.length].format]"
-                    :key="slide.id"
-                    :class="'wrap-img ' + slide.format">
-                    <nuxt-img
-                      provider="cloudflare"
-                      :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                      :width="classes[index % classes.length].image.width"
-                      :height="classes[index % classes.length].image.height"
-                      :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
-                      class="img-thumb"
-                      :alt="slide.alt"
-                      placeholder
-                      loading="lazy"/>
-                    <nuxt-img
-                      provider="cloudflare"
-                      v-if="slide.format=='retrato'"
-                      :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                      :width="classes[index % classes.length].image.width"
-                      :height="classes[index % classes.length].image.height"
-                      :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
-                      class="bg-thumb"
-                      :alt="slide.alt"
-                      placeholder
-                      loading="lazy"/>
-                  </swiper-slide>
-                </swiper-container>
+                <NuxtLink
+                  :to="item.path">
+                  <swiper-container
+                    class="swiper"
+                    :slides-per-view="1"
+                    :pagination="{
+                      clickable: true,
+                    }"
+                    :navigation="true">
+                    <swiper-slide
+                      v-for="slide in item.photos[classes[index % classes.length].format]"
+                      :key="slide.id"
+                      :class="'wrap-img ' + slide.format">
+                      <nuxt-img
+                        provider="cloudflare"
+                        :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                        :width="classes[index % classes.length].image.width"
+                        :height="classes[index % classes.length].image.height"
+                        :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
+                        class="img-thumb"
+                        :alt="slide.alt"
+                        placeholder
+                        loading="lazy"/>
+                      <nuxt-img
+                        provider="cloudflare"
+                        v-if="slide.format=='retrato'"
+                        :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                        :width="classes[index % classes.length].image.width"
+                        :height="classes[index % classes.length].image.height"
+                        :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
+                        class="bg-thumb"
+                        :alt="slide.alt"
+                        placeholder
+                        loading="lazy"/>
+                    </swiper-slide>
+                  </swiper-container>
+                </NuxtLink>
               </ClientOnly>
             </div>
 
@@ -213,16 +216,16 @@ const formatDate = (dateString: string) => {
                   </li>
                 </ul>
 
-                <div class="description" v-html="item.description"></div>
+                <div class="description ensaio-description" v-html="item.description"></div>
+
+                <NuxtLink
+                  :to="item.path"
+                  class="link">
+                    <span>Veja mais sobre esse ensaio</span>
+                </NuxtLink>
               </div>
             </div>
           </div>
-
-          <NuxtLink
-            :to="item.path"
-            class="btn btn-green-light">
-              <span>Ver mais</span>
-          </NuxtLink>
         </div>
 
         <template v-if="index == 2 && props.fromHome">
@@ -240,7 +243,7 @@ const formatDate = (dateString: string) => {
           <NuxtLink
             class="btn-agende btn-agende-01"
             :to="'/preco-ensaio-fotografico'">
-            <span>Agende seu ensaio</span>
+            <span>Gostou? Agende o seu</span>
           </NuxtLink>
         </template>
 
@@ -248,7 +251,7 @@ const formatDate = (dateString: string) => {
           <NuxtLink
             class="btn-agende btn-agende-02"
             :to="'/preco-ensaio-fotografico'">
-            <span>Agende seu ensaio</span>
+            <span>Gostou? Agende o seu</span>
           </NuxtLink>
         </template>
       </template>
@@ -316,14 +319,9 @@ const formatDate = (dateString: string) => {
       justify-content: center;
       background: v.$green;
       align-items: center;
-      font-weight: bold;
-      font-size: 50rem;
+      font-size: 40rem;
       color: white;
       display: flex;
-
-      // @media (prefers-color-scheme: dark) {
-      //   background: v.$dark-green;
-      // }
 
       @include m.max(md) {
         font-size: 30rem;
@@ -348,11 +346,7 @@ const formatDate = (dateString: string) => {
       }
 
       &.btn-agende-01 {
-        width: calc(16% - 15rem);
-
-        @include m.min(md) {
-          width: calc(10% - 15rem);
-        }
+        width: 4%;
 
         @include m.max(sm) {
           padding: 10px 0;
@@ -382,28 +376,11 @@ const formatDate = (dateString: string) => {
 
     .thumb {
       background: white;
-      padding: 30rem;
-
-      // @media (prefers-color-scheme: dark) {
-      //   background: v.$red;
-      // }
-
-      @include m.max(sm) {
-        padding: 10px;
-      }
+      border: 1px solid v.$green;
 
       .wrap-info {
-        padding-bottom: 50rem;
-        padding-top: 20rem;
-        color: v.$dark-red;
-
-        @include m.max(sm) {
-          padding-bottom: 65rem;
-        }
-
-        // @media (prefers-color-scheme: dark) {
-        //   color: white
-        // }
+        color: v.$green;
+        padding: 30rem;
 
         .title {
           font-size: 23rem;
@@ -422,7 +399,7 @@ const formatDate = (dateString: string) => {
             &:before {
               content: '';
 
-              background-color: v.$dark-red;
+              background-color: v.$green;
               display: inline-block;
               position: absolute;
               border-radius: 50%;
@@ -430,10 +407,6 @@ const formatDate = (dateString: string) => {
               width: 12rem;
               left: 2rem;
               top: 8rem;
-
-              // @media (prefers-color-scheme: dark) {
-              //   background: white;
-              // }
             }
           }
 
@@ -442,10 +415,14 @@ const formatDate = (dateString: string) => {
             left: -1rem;
           }
         }
+
+        .ensaio-description {
+          padding-bottom: 40rem;
+        }
       }
 
       &.thumb-card {
-        width: calc(45% - 15rem);
+        width: calc(48% - 15rem);
 
         @include m.max(md) {
           width: 100%;
@@ -455,7 +432,7 @@ const formatDate = (dateString: string) => {
           .slider {
             aspect-ratio: 1/1.47;
             flex-shrink: 0;
-            width: 60%;
+            width: 62%;
 
             @include m.max(sm) {
               width: 50%;
@@ -480,7 +457,7 @@ const formatDate = (dateString: string) => {
         }
 
         &.card-40 {
-          width: calc(40% - 15rem);
+          width: 40%;
 
           @include m.max(sm) {
             width: 100%;
@@ -499,7 +476,6 @@ const formatDate = (dateString: string) => {
 
       &.card-column .inner-thumb {
         flex-direction: column;
-        padding-bottom: 35rem;
         display: flex;
       }
 
@@ -510,17 +486,11 @@ const formatDate = (dateString: string) => {
         .swiper {
           height: 100%;
         }
-
-        .wrap-info {
-          padding-left: 20rem;
-          padding-top: 0;
-        }
       }
 
       &.thumb-wide {
         background-color: transparent;
-        width: calc(92% - 15rem);
-        // flex-wrap: wrap;
+        width: 92%;
         padding: 0;
 
         @include m.max(md) {
@@ -528,8 +498,8 @@ const formatDate = (dateString: string) => {
         }
 
         .slider {
-          aspect-ratio: 2/1.25;
           width: calc(65% - 6rem);
+          aspect-ratio: 2/1.25;
           flex-shrink: 0;
 
           @include m.max(xs) {
@@ -540,18 +510,12 @@ const formatDate = (dateString: string) => {
         &.reverse {
           .wrap-wide {
             background: white;
-            padding: 30rem;
+            padding: 0;
             display: flex;
             width: 100%;
-            gap: 20rem;
-
-            // @media (prefers-color-scheme: dark) {
-            //   background: v.$red;
-            // }
 
             @include m.max(sm) {
               flex-wrap: wrap;
-              padding: 10px;
             }
           }
 
@@ -562,10 +526,7 @@ const formatDate = (dateString: string) => {
           }
 
           .wrap-info {
-            margin-right: 20rem;
             width: calc(34%);
-            padding-left: 0;
-            padding-top: 0;
 
             @include m.max(xs) {
               width: 100%;
@@ -610,24 +571,12 @@ const formatDate = (dateString: string) => {
         }
       }
 
-      .btn {
-        padding: 26rem 30rem 10rem 30rem;
+      .link {
+        text-decoration: underline;
         align-items: flex-end;
-        background: #e3dfcb;
-        position: absolute;
-        color: #7b785b;
+        font-size: 20rem;
+        color: v.$green;
         display: flex;
-        bottom: 0;
-        right: 0;
-
-        @include m.max(sm) {
-          padding: 15rem 22rem 10rem 22rem;
-        }
-
-        // @media (prefers-color-scheme: dark) {
-        //   background: #918d6a;
-        //   color: v.$dark-green;
-        // }
       }
     }
 
@@ -651,9 +600,6 @@ const formatDate = (dateString: string) => {
           height: 100%;
           width: 100%;
         }
-
-        // &.retrato {
-        // }
 
         &.paisagem {
           aspect-ratio: 600/400;
