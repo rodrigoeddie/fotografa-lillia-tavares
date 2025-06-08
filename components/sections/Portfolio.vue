@@ -317,9 +317,9 @@ const formatDate = (dateString: string) => {
       color: white;
       display: flex;
 
-      @media (prefers-color-scheme: dark) {
-        background: v.$dark-green;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: v.$dark-green;
+      // }
 
       @include m.max(md) {
         font-size: 30rem;
@@ -380,9 +380,9 @@ const formatDate = (dateString: string) => {
       background: white;
       padding: 30rem;
 
-      @media (prefers-color-scheme: dark) {
-        background: v.$red;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: v.$red;
+      // }
 
       @include m.max(sm) {
         padding: 10px;
@@ -397,9 +397,9 @@ const formatDate = (dateString: string) => {
           padding-bottom: 65rem;
         }
 
-        @media (prefers-color-scheme: dark) {
-          color: white
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   color: white
+        // }
 
         .title {
           font-size: 23rem;
@@ -427,9 +427,9 @@ const formatDate = (dateString: string) => {
               left: 2rem;
               top: 8rem;
 
-              @media (prefers-color-scheme: dark) {
-                background: white;
-              }
+              // @media (prefers-color-scheme: dark) {
+              //   background: white;
+              // }
             }
           }
 
@@ -541,9 +541,9 @@ const formatDate = (dateString: string) => {
             width: 100%;
             gap: 20rem;
 
-            @media (prefers-color-scheme: dark) {
-              background: v.$red;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //   background: v.$red;
+            // }
 
             @include m.max(sm) {
               flex-wrap: wrap;
@@ -620,10 +620,10 @@ const formatDate = (dateString: string) => {
           padding: 15rem 22rem 10rem 22rem;
         }
 
-        @media (prefers-color-scheme: dark) {
-          background: #918d6a;
-          color: v.$dark-green;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   background: #918d6a;
+        //   color: v.$dark-green;
+        // }
       }
     }
 

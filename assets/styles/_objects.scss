@@ -76,9 +76,9 @@
   &.green {
     color: v.$green;
 
-    @media (prefers-color-scheme: dark) {
-      color: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   color: v.$dark-green;
+    // }
 
     .big {
       // @include faux-bold(v.$green);
@@ -88,52 +88,52 @@
       color: #f4f2e9;
       background: v.$green;
 
-      @media (prefers-color-scheme: dark) {
-        background: v.$dark-green;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: v.$dark-green;
+      // }
     }
   }
 
   &.red {
     color: v.$light-red;
 
-    @media (prefers-color-scheme: dark) {
-      color: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   color: v.$dark-green;
+    // }
 
     .big {
       // @include faux-bold(v.$light-red);
 
-      @media (prefers-color-scheme: dark) {
-        // @include faux-bold(v.$green);
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   // @include faux-bold(v.$green);
+      // }
     }
 
     .box {
       background: v.$light-red;
       color: #f4f2e9;
 
-      @media (prefers-color-scheme: dark) {
-        background: v.$dark-green;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: v.$dark-green;
+      // }
     }
   }
 
   &.from-studio {
     color: v.$dark-green;
 
-    @media (prefers-color-scheme: dark) {
-      color: white;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   color: white;
+    // }
 
     .box {
       background: v.$dark-green;
       color: white;
 
-      @media (prefers-color-scheme: dark) {
-        background: white;
-        color: v.$dark-green;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: white;
+      //   color: v.$dark-green;
+      // }
     }
   }
 }
@@ -153,18 +153,18 @@
     text-decoration: underline;
     background: #f4f2e9;
 
-    @media (prefers-color-scheme: dark) {
-      background: #57170c;
-      color: white;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: #57170c;
+    //   color: white;
+    // }
 
     &:hover {
       background-color: #9b9788;
       color: white;
 
-      @media (prefers-color-scheme: dark) {
-        background: black;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: black;
+      // }
     }
   }
 
@@ -179,19 +179,19 @@
       font-weight: normal;
       color: v.$green;
 
-      @media (prefers-color-scheme: dark) {
-        background: v.$green;
-        color: #f4f2e9;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: v.$green;
+      //   color: #f4f2e9;
+      // }
     }
   }
 
   &.green {
     color: v.$green;
 
-    @media (prefers-color-scheme: dark) {
-      color: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   color: v.$dark-green;
+    // }
   }
 }
 

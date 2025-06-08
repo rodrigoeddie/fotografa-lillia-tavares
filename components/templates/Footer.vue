@@ -57,9 +57,9 @@
         display: flex;
         gap: v.$space;
 
-        @media (prefers-color-scheme: dark) {
-            background: v.$dark-red;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //     background: v.$dark-red;
+        // }
 
         @include m.max(md) {
             gap: 20rem;
@@ -78,10 +78,10 @@
             left: 0;
             top: 0;
 
-            @media (prefers-color-scheme: dark) {
-                background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
-                background-color: v.$dark-red;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
+            //     background-color: v.$dark-red;
+            // }
         }
 
         .logo {
@@ -92,17 +92,17 @@
             }
 
             .logo-black {
-                @media (prefers-color-scheme: dark) {
-                    display: none;
-                }
+                // @media (prefers-color-scheme: dark) {
+                //     display: none;
+                // }
             }
 
             .logo-white {
                 display: none;
 
-                @media (prefers-color-scheme: dark) {
-                    display: block;
-                }
+                // @media (prefers-color-scheme: dark) {
+                //     display: block;
+                // }
             }
 
             @include m.max(md) {
@@ -141,10 +141,10 @@
         color: v.$red;
         width: 100%;
 
-        @media (prefers-color-scheme: dark) {
-            background: v.$dark-green;
-            color: white;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //     background: v.$dark-green;
+        //     color: white;
+        // }
 
         @include m.max(sm) {
             font-size: 12px;

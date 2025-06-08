@@ -100,9 +100,9 @@ const categories = await Promise.all(
 .container {
   background: white;
 
-  @media (prefers-color-scheme: dark) {
-    background: v.$dark-green;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   background: v.$dark-green;
+  // }
 
   &.sbs {
     display: flex;
@@ -120,9 +120,9 @@ const categories = await Promise.all(
   display: flex;
   width: 100%;
 
-  @media (prefers-color-scheme: dark) {
-    background: v.$dark-green;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   background: v.$dark-green;
+  // }
 
   @include m.max(sm) {
     position: static;
@@ -148,10 +148,6 @@ const categories = await Promise.all(
     @include m.max(sm) {
       width: 100%;
     }
-
-    // @media (prefers-color-scheme: dark) {
-    //   background: v.$dark-green;
-    // }
   }
 
   .about-text {
@@ -166,9 +162,9 @@ const categories = await Promise.all(
       background: white;
     }
 
-    @media (prefers-color-scheme: dark) and (max-width: 900px) {
-      background: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) and (max-width: 900px) {
+    //   background: v.$dark-green;
+    // }
 
     .description {
       padding-top: 0;
@@ -195,9 +191,9 @@ const categories = await Promise.all(
         padding-right: 30rem;
         text-align: center;
 
-        @media (prefers-color-scheme: dark) {
-          background: v.$dark-red;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   background: v.$dark-red;
+        // }
       }
 
       .title {
@@ -269,9 +265,6 @@ const categories = await Promise.all(
     display: flex;
     width: 100%;
     gap: 15rem;
-
-    // @media (prefers-color-scheme: dark) {
-    // }
   }
 
   .link-category {

@@ -22,6 +22,12 @@
         </NuxtLink>
         <span class="separe">•</span>
         <NuxtLink
+            to="/blog"
+            class="link">
+            <span class="txt">Blog</span>
+        </NuxtLink>
+        <span class="separe">•</span>
+        <NuxtLink
             to="/preco-ensaio-fotografico"
             class="link">
             <span class="txt">Agende seu ensaio</span>
@@ -62,11 +68,11 @@
         }
 
         .link {
-            color: #832b18;
+            color: black;
 
-            @media (prefers-color-scheme: dark) {
-                color: white;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     color: white;
+            // }
 
             @include m.max(sm) {
                 display: inline-block;
@@ -77,7 +83,7 @@
 
             &.router-link-active {
                 &::before {
-                    background: #832b18;
+                    background: black;
                 }
             }
         }
@@ -138,7 +144,7 @@
                 transition: background 0.2s;
                 position: absolute;
                 display: block;
-                height: 8rem;
+                height: 4rem;
                 bottom: 0;
                 right: 0;
                 left: 0;
@@ -156,16 +162,16 @@
         &:hover {
             color: v.$dark-green;
 
-            @media (prefers-color-scheme: dark) {
-                color: black;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     color: black;
+            // }
 
             &::before {
                 background: v.$dark-green;
 
-                @media (prefers-color-scheme: dark) {
-                    background: black;
-                }
+                // @media (prefers-color-scheme: dark) {
+                //     background: black;
+                // }
             }
         }
     }

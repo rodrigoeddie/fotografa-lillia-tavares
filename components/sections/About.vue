@@ -115,9 +115,9 @@ if (about.value?.body?.value) {
   .wrap-about {
     background: white;
 
-    @media (prefers-color-scheme: dark) {
-      background: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: v.$dark-green;
+    // }
 
     @include m.max(md) {
       flex-wrap: wrap;
@@ -142,7 +142,7 @@ if (about.value?.body?.value) {
     .about-ctas {
       padding: 20rem v.$space;
       flex-direction: column;
-      background: #892c1a;
+      background: v.$red;
       display: flex;
 
       .link {

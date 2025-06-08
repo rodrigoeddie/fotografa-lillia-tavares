@@ -66,9 +66,9 @@
         height: 35rem;
         gap: 10rem;
 
-        @media (prefers-color-scheme: dark) {
-            color: white;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //     color: white;
+        // }
 
         .txt-social {
             @include m.max(xs) {
@@ -79,9 +79,9 @@
         &:hover {
             background: color.scale(v.$beige, $lightness: 20%);
 
-            @media (prefers-color-scheme: dark) {
-                background: black;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     background: black;
+            // }
 
             .icon {
                 transition: fill .2s, stroke .2s;
@@ -101,8 +101,8 @@
 .icon-whatsapp * {
     stroke: v.$dark-red !important;
 
-    @media (prefers-color-scheme: dark) {
-        stroke: white !important;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //     stroke: white !important;
+    // }
 }
 </style>

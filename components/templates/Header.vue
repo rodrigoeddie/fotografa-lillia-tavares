@@ -169,17 +169,17 @@ onUnmounted(() => {
     }
 
     .logo-black {
-      @media (prefers-color-scheme: dark) {
-        display: none;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   display: none;
+      // }
     }
 
     .logo-white {
       display: none;
 
-      @media (prefers-color-scheme: dark) {
-        display: block;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   display: block;
+      // }
     }
 
     span {
@@ -198,9 +198,9 @@ onUnmounted(() => {
     background: white;
     position: fixed;
 
-    @media (prefers-color-scheme: dark) {
-      background: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: v.$dark-green;
+    // }
 
     .logo {
       width: 185rem;
