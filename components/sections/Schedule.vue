@@ -314,11 +314,7 @@ const enviar = async () => {
     }
 
     .about-text {
-      padding: 180rem v.$space v.$space;
-
-      @include m.max(sm) {
-        padding-top: 80px;
-      }
+      padding: 35rem;
 
       .description {
         padding-top: 0;

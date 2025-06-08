@@ -115,24 +115,12 @@ if (about.value?.body?.value) {
   .wrap-about {
     background: white;
 
-    // @media (prefers-color-scheme: dark) {
-    //   background: v.$dark-green;
-    // }
-
     @include m.max(md) {
       flex-wrap: wrap;
     }
 
     .about-text {
-      padding: 180rem v.$space v.$space;
-
-      @include m.max(lg) {
-        padding-top: 100px;
-      }
-
-      @include m.max(sm) {
-        padding-top: 80px;
-      }
+      padding: 45rem;
 
       .description {
         padding-top: 0;

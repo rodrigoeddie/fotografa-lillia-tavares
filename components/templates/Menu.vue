@@ -10,7 +10,7 @@
         </NuxtLink>
         <span class="separe">•</span>
         <NuxtLink
-            to="/ensaio-fotografico"
+            to="/sobre"
             class="link">
             <span class="txt">Sobre</span>
         </NuxtLink>
@@ -44,10 +44,7 @@
 <style scoped lang="scss">
 .menu {
     &.from-header {
-        position: absolute;
-        font-size: 30rem;
-        bottom: -11rem;
-        right: 0;
+        font-size: 25rem;
 
         @include m.max(lg) {
             right: 20px;
@@ -75,10 +72,6 @@
 
         .link {
             color: black;
-
-            // @media (prefers-color-scheme: dark) {
-            //     color: white;
-            // }
 
             @include m.max(sm) {
                 display: inline-block;
@@ -184,8 +177,8 @@
     }
 
     .separe {
-        padding-right: 30rem;
-        padding-left: 30rem;
+        padding-right: 20rem;
+        padding-left: 20rem;
 
         @include m.max(md) {
             padding-right: 15rem;

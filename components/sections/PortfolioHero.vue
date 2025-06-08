@@ -52,10 +52,7 @@ const categories = await Promise.all(
           <h1 class="title">Trabalhos</h1>
           <div class="description">
             <p>
-              Com o espaço acolhedor do estúdio, a sensibilidade da fotógrafa Lillia Tavares e a beleza de cada cliente, cada ensaio se torna uma experiência única.
-            </p>
-            <p>
-              <b>Confira abaixo alguns de nossos trabalhos!</b>
+              Com o espaço acolhedor do <NuxtLink to="/estudio">estúdio em Mogi das Cruzes</NuxtLink>, e a sensibilidade da <NuxtLink to="/sobre">fotógrafa Lillia Tavares</NuxtLink>, cada ensaio se torna uma experiência única, conheça meu trabalho.
             </p>
           </div>
         </div>
@@ -98,10 +95,6 @@ const categories = await Promise.all(
 .container {
   background: white;
 
-  // @media (prefers-color-scheme: dark) {
-  //   background: v.$dark-green;
-  // }
-
   &.sbs {
     display: flex;
 
@@ -117,10 +110,6 @@ const categories = await Promise.all(
   background: white;
   display: flex;
   width: 100%;
-
-  // @media (prefers-color-scheme: dark) {
-  //   background: v.$dark-green;
-  // }
 
   @include m.max(sm) {
     position: static;
@@ -149,27 +138,14 @@ const categories = await Promise.all(
   }
 
   .about-text {
-    padding: 180rem v.$space v.$space;
-
-    @include m.max(lg) {
-      padding-top: 100px;
-    }
-
-    @include m.max(sm) {
-      padding-top: 80px;
-      background: white;
-    }
-
-    // @media (prefers-color-scheme: dark) and (max-width: 900px) {
-    //   background: v.$dark-green;
-    // }
+    gap: 20rem;
+    align-items: center;
+    padding: 35rem;
+    display: flex;
 
     .description {
       padding-top: 0;
-
-      p {
-        padding-top: 15rem !important;
-      }
+      line-height: 1em;
 
       strong,
       b {

@@ -180,10 +180,6 @@
       gap: 0;
     }
 
-    // @media (prefers-color-scheme: dark) {
-    //   background:  v.$dark-green;
-    // }
-
     &:before {
       content: '';
 
@@ -196,10 +192,6 @@
       right: 0;
       left: 0;
       top: 0;
-
-      // @media (prefers-color-scheme: dark) {
-      //   background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
-      // }
     }
   }
 
@@ -218,16 +210,8 @@
         padding-top: 80px;
       }
 
-      // @media (prefers-color-scheme: dark) and (max-width: 1023px) {
-      //   background: v.$dark-green;
-      // }
-
       .container {
         background: white;
-
-        // @media (prefers-color-scheme: dark) {
-        //   background: v.$dark-green;
-        // }
       }
 
       .side-text {
@@ -241,9 +225,6 @@
 
     .wrap-inner {
       flex-wrap: wrap;
-      // @include m.max(md) {
-      //   flex-wrap: wrap;
-      // }
     }
 
     &.from-home-studio {
@@ -261,13 +242,6 @@
         }
       }
 
-      // @media (prefers-color-scheme: dark) and (min-width: 1024px) {
-      //   &:before {
-      //     background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
-      //     // background: v.$dark-red;
-      //   }
-      // }
-
       @include m.min(md) {
         &:after {
           content: '';
@@ -282,23 +256,6 @@
           bottom: 0;
           top: 0;
         }
-      }
-
-      // @media (prefers-color-scheme: dark) and (min-width: 1024px) {
-      //   &:after {
-      //     background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-green 1px);
-      //     // background: v.$dark-green;
-      //   }
-      // }
-
-      // .container {
-      //   width: 1890rem;
-      // }
-
-      .wrap-images {
-        // @media (prefers-color-scheme: dark) {
-        //   background:  v.$dark-red;
-        // }
       }
     }
 
@@ -326,21 +283,6 @@
         @include m.max(md) {
           padding-bottom: 10rem;
         }
-
-        // .big {
-        //   @media (prefers-color-scheme: dark) and (max-width: 1024px) {
-        //       @include faux-bold(v.$dark-green);
-        //       color: white;
-        //   }
-        // }
-
-        // .box {
-        //   @media (prefers-color-scheme: dark) and (max-width: 1024px) {
-        //     background: white;
-        //     color: v.$dark-green;
-        //     @include faux-bold(white);
-        //   }
-        // }
       }
 
       .title {
@@ -354,10 +296,6 @@
         @include m.max(md) {
           font-size: 16px;
         }
-
-        // @media (prefers-color-scheme: dark) and (max-width: 1024px) {
-        //   color: white;
-        // }
       }
 
       .btn {

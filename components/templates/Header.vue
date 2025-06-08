@@ -94,7 +94,6 @@ onUnmounted(() => {
             class="logo-white"
             fetchpriority="high"
             placeholder />
-          <span>Lillia Tavares Fotografia</span>
         </NuxtLink>
       </h1>
 
@@ -144,42 +143,28 @@ onUnmounted(() => {
 
 .header {
   justify-content: center;
-  position: absolute;
   display: flex;
   width: 100%;
   z-index: 9;
-  top: 0;
+  margin-bottom: 20rem;
 
   .container {
-    height: 100rem;
-  }
-
-  @include m.max(md) {
-    height: 80px
+    padding: 20rem 35rem;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .logo {
-    position: absolute;
-    left: v.$space;
-    width: 385rem;
-    top: 45rem;
+    width: 300rem;
 
     img {
       height: auto;
     }
 
-    .logo-black {
-      // @media (prefers-color-scheme: dark) {
-      //   display: none;
-      // }
-    }
-
     .logo-white {
       display: none;
-
-      // @media (prefers-color-scheme: dark) {
-      //   display: block;
-      // }
     }
 
     span {
@@ -189,26 +174,16 @@ onUnmounted(() => {
 
     @include m.max(md) {
       width: 180px;
-      left: 20px;
-      top: 50px;
     }
   }
 
   &.is-scrolled {
+    border-bottom: 1px solid v.$green;
     background: white;
     position: fixed;
 
-    // @media (prefers-color-scheme: dark) {
-    //   background: v.$dark-green;
-    // }
-
     .logo {
       width: 185rem;
-      top: 10rem;
-    }
-
-    .menu.from-header {
-      bottom: 25rem;
     }
   }
 }
