@@ -20,45 +20,58 @@ import { gsap } from 'gsap';
 
 const isScrolled = ref(false); // Estado para controlar se o header está "scrolled"
 const headerRef = ref<HTMLElement | null>(null); // Referência ao elemento do header
+let lastScrollTop = 0;
+let headerPassedOnce = false;
+let initialHeaderTopPosition = 0; // Posição inicial do header (capturada apenas uma vez)
 
 const handleScroll = () => {
-  console.log(document.querySelector('[data-component="sections/hero"]'));
-
-  const scrollTop     = window.scrollY; // Obtém a posição do scroll
-  const heroHeight    = 200
-  const footerVisible = document.querySelector('[data-component="templates/footer"]')?.getBoundingClientRect().top || 0;
-
-  if (scrollTop > heroHeight && footerVisible > window.innerHeight) {
-    if (!isScrolled.value) {
-      isScrolled.value = true;
-      headerRef.value?.classList.add('is-scrolled');
-
-      if (!headerRef.value?.dataset.show) {
-        gsap.fromTo(
-          headerRef.value,
-          { top: '-100%', opacity: 1 },
-          { top: '0%', opacity: 1, duration: 0.4, ease: 'power2.out' }
-        );
+  const scrollTop = window.scrollY;
+  
+  const headerElement = document.querySelector('.header');
+  
+  if (headerElement) {
+    const headerRect = headerElement.getBoundingClientRect();
+    
+    // Capturar a posição inicial do header apenas uma vez
+    if (initialHeaderTopPosition === 0) {
+      initialHeaderTopPosition = headerRect.top + scrollTop;
+    }
+    
+    // Se o header alcançou a posição 0 (topo da tela) pela primeira vez
+    if (headerRect.top <= 0 && !headerPassedOnce) {
+      headerPassedOnce = true;
+      
+      if (!isScrolled.value) {
+        isScrolled.value = true;
+        headerRef.value?.classList.add('is-scrolled');
+        
+        const wrapperMain = document.querySelector('.wrapper-main');
+        if (wrapperMain && headerRef.value) {
+          const headerHeight = headerRef.value.clientHeight;
+          const paddingTop = headerHeight + 30;
+          (wrapperMain as HTMLElement).style.paddingTop = `${paddingTop}px`;
+        }
       }
     }
-  } else {
-    if (isScrolled.value) {
-      isScrolled.value = false;
+    
+    // Se voltou para a posição inicial do header
+    if (scrollTop <= initialHeaderTopPosition && headerPassedOnce) {
+      headerPassedOnce = false;
+      
+      if (isScrolled.value) {
+        isScrolled.value = false;
+        
+        const wrapperMain = document.querySelector('.wrapper-main');
+        if (wrapperMain) {
+          (wrapperMain as HTMLElement).style.paddingTop = '';
+        }
 
-      if (!headerRef.value?.dataset.show) {
-        gsap.to(headerRef.value, {
-          opacity: 0,
-          duration: 0.1,
-          onComplete: () => {
-            headerRef.value?.classList.remove('is-scrolled');
-            gsap.to(headerRef.value, { opacity: 1, duration: 0.1, clearProps: 'transform' });
-          },
-        });
-      } else {
         headerRef.value?.classList.remove('is-scrolled');
       }
     }
   }
+  
+  lastScrollTop = scrollTop;
 };
 
 onMounted(() => {
@@ -143,21 +156,22 @@ onUnmounted(() => {
 
 .header {
   justify-content: center;
+  padding-bottom: 20rem;
   display: flex;
   width: 100%;
   z-index: 9;
-  margin-bottom: 20rem;
-
+  
   .container {
-    padding: 20rem 35rem;
-    background: white;
-    display: flex;
+    border-bottom: 1px solid v.$green;
     justify-content: space-between;
+    padding: 15rem 25rem;
+    background: white;
     align-items: center;
+    display: flex;
   }
 
   .logo {
-    width: 300rem;
+    width: 270rem;
 
     img {
       height: auto;
@@ -178,13 +192,8 @@ onUnmounted(() => {
   }
 
   &.is-scrolled {
-    border-bottom: 1px solid v.$green;
-    background: white;
     position: fixed;
-
-    .logo {
-      width: 185rem;
-    }
+    top: 0;
   }
 }
 </style>

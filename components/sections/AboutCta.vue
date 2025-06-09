@@ -79,10 +79,9 @@ if (about.value?.body?.value) {
       <div class="col about-img">
         <nuxt-img
           provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"'
-          alt="Lillia Tavares sentada na mesa, com um notebook e uma câmera fotográfica"
+          :src='"https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"'
+          alt="Fotógrafa Lillia Tavares segurando sua câmera fotográfica"
           width="935"
-          height="796"
           fetchpriority="high"
           placeholder
           class="img cover"/>
@@ -112,6 +111,8 @@ if (about.value?.body?.value) {
 </style>
 
 <style scoped lang="scss">
+  @use 'sass:color';
+
   .wrap-about {
     background: white;
 
@@ -166,7 +167,11 @@ if (about.value?.body?.value) {
 
     .about-img {
       flex-shrink: 0;
-      width: 55%;
+      width: 50%;
+
+      .cover {
+        object-position: center 20%;
+      }
 
       @include m.max(md) {
         width: 100%;
@@ -183,10 +188,4 @@ if (about.value?.body?.value) {
       }
     }
   }
-// background: v.$green;
-//     height: 100vh;
-
-//     @include m.max(md) {
-//       height: 680px;
-//     }
 </style>

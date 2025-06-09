@@ -316,16 +316,13 @@ const formatDate = (dateString: string) => {
     .btn-agende {
       transition: color .2s, background .2s, border .2s;
       border: 1px solid transparent;
+      text-transform: uppercase;
       justify-content: center;
       background: v.$green;
       align-items: center;
-      font-size: 40rem;
+      font-size: 30rem;
       color: white;
       display: flex;
-
-      @include m.max(md) {
-        font-size: 30rem;
-      }
 
       span {
         transform: rotate(-90deg);
