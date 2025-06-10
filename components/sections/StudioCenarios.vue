@@ -69,18 +69,18 @@
         }
 
         .box {
-          @media (prefers-color-scheme: dark) {
-            background: white;
-            color: v.$red;
-          }
+        //   @media (prefers-color-scheme: dark) {
+        //     background: white;
+        //     color: v.$red;
+        //   }
         }
 
         .big {
             text-shadow: none;
 
-            @media (prefers-color-scheme: dark) {
-                color: white;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     color: white;
+            // }
         }
     }
 }

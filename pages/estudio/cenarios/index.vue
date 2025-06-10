@@ -289,10 +289,10 @@ nav[aria-label=breadcrumb] {
         left: -65%;
         top: -50%;
 
-        @media (prefers-color-scheme: light) {
-            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255,255,255, 0) 50%);
-            opacity: .7;
-        }
+        // @media (prefers-color-scheme: light) {
+        //     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255,255,255, 0) 50%);
+        //     opacity: .7;
+        // }
     }
 
     &:after {
@@ -388,20 +388,20 @@ nav[aria-label=breadcrumb] {
                 padding-right: 0;
             }
 
-            .box {
-                @media (prefers-color-scheme: dark) {
-                    background: white;
-                    color: #2c2a15;
-                }
-            }
+            // .box {
+            //     @media (prefers-color-scheme: dark) {
+            //         background: white;
+            //         color: #2c2a15;
+            //     }
+            // }
 
-            .big {
-                text-shadow: none;
+            // .big {
+            //     text-shadow: none;
 
-                @media (prefers-color-scheme: dark) {
-                    color: white;
-                }
-            }
+            //     @media (prefers-color-scheme: dark) {
+            //         color: white;
+            //     }
+            // }
         }
     }
 }
@@ -482,9 +482,9 @@ nav[aria-label=breadcrumb] {
     &:nth-child(even) {
         background: #892c1a;
 
-        @media (prefers-color-scheme: light) {
-            color: white;
-        }
+        // @media (prefers-color-scheme: light) {
+        //     color: white;
+        // }
 
         @include m.min(md) {
             padding-right: 30rem;
@@ -502,9 +502,9 @@ nav[aria-label=breadcrumb] {
     &:nth-child(odd) {
         background: #2c2a15;
 
-        @media (prefers-color-scheme: light) {
-            background: white;
-        }
+        // @media (prefers-color-scheme: light) {
+        //     background: white;
+        // }
 
         @include m.min(md) {
             padding-left: 30rem;

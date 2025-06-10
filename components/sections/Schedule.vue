@@ -205,10 +205,10 @@ const enviar = async () => {
         height: 50rem;
         width: 100%;
 
-        @media (prefers-color-scheme: dark) {
-          border-color: white;
-          color-scheme: dark;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   border-color: white;
+        //   color-scheme: dark;
+        // }
       }
 
       input:focus,
@@ -290,13 +290,13 @@ const enviar = async () => {
         &:hover {
           background-color: v.$dark-green;
 
-          @media (prefers-color-scheme: dark) {
-            background: v.$light-green;
+          // @media (prefers-color-scheme: dark) {
+          //   background: v.$light-green;
 
-            span {
-              color: black
-            }
-          }
+          //   span {
+          //     color: black
+          //   }
+          // }
         }
       }
     }
@@ -305,20 +305,16 @@ const enviar = async () => {
   .wrap-schedule {
     background: white;
 
-    @media (prefers-color-scheme: dark) {
-      background: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: v.$dark-green;
+    // }
 
     @include m.max(md) {
       flex-wrap: wrap;
     }
 
     .about-text {
-      padding: 180rem v.$space v.$space;
-
-      @include m.max(sm) {
-        padding-top: 80px;
-      }
+      padding: 35rem;
 
       .description {
         padding-top: 0;

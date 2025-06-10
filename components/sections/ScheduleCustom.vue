@@ -146,9 +146,9 @@ const enviar = async () => {
       initial-value: 0;
   }
 
-  @media (prefers-color-scheme: dark) {
-    color: white;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   color: white;
+  // }
 
   .mx-auto {
     text-transform: uppercase;
@@ -224,10 +224,10 @@ const enviar = async () => {
       background-color: v.$dark-red;
       color: white;
 
-      @media (prefers-color-scheme: dark) {
-        background-color: white;
-        color: v.$dark-green;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background-color: white;
+      //   color: v.$dark-green;
+      // }
   }
   .text-\(--ui-primary\),
   .text-\(--ui-primary\)\/75 {
@@ -259,9 +259,9 @@ const enviar = async () => {
   .data-unavailable\:text-\(--ui-text-muted\)[data-unavailable] {
     color: var(--ui-text-muted);
 
-    @media (prefers-color-scheme: dark) {
-      color: #666;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   color: #666;
+    // }
   }
   @media (hover: hover) {
     @supports (color:color-mix(in lab,red,red)) {
@@ -281,15 +281,15 @@ const enviar = async () => {
 .big-title {
   padding-top: 0;
 
-  @media (prefers-color-scheme: dark) {
-    color: white;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   color: white;
+  // }
 
   .box {
-    @media (prefers-color-scheme: dark) {
-      background: white;
-      color: v.$dark-green
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: white;
+    //   color: v.$dark-green
+    // }
   }
 
   .big {
@@ -303,9 +303,9 @@ const enviar = async () => {
   background: white;
   padding: 40rem;
 
-  @media (prefers-color-scheme: dark) {
-    background: v.$dark-green;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   background: v.$dark-green;
+  // }
 
   .form {
     justify-content: space-between;
@@ -334,10 +334,10 @@ const enviar = async () => {
       height: 50rem;
       width: 100%;
 
-      @media (prefers-color-scheme: dark) {
-        border-color: white;
-        color-scheme: dark;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   border-color: white;
+      //   color-scheme: dark;
+      // }
     }
 
     input:focus,
@@ -417,13 +417,13 @@ const enviar = async () => {
       &:hover {
         background-color: v.$dark-green;
 
-        @media (prefers-color-scheme: dark) {
-          background: v.$light-green;
+        // @media (prefers-color-scheme: dark) {
+        //   background: v.$light-green;
 
-          span {
-            color: black
-          }
-        }
+        //   span {
+        //     color: black
+        //   }
+        // }
       }
     }
   }

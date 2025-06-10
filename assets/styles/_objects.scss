@@ -10,8 +10,8 @@
 .title {
   text-transform: uppercase;
   font-family: v.$open;
-  font-weight: bold;
-  font-size: 23rem;
+  font-size: 28rem;
+  font-weight: 900;
 }
 
 @mixin faux-bold($color: black) {
@@ -76,9 +76,9 @@
   &.green {
     color: v.$green;
 
-    @media (prefers-color-scheme: dark) {
-      color: v.$dark-green;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   color: v.$dark-green;
+    // }
 
     .big {
       // @include faux-bold(v.$green);
@@ -88,52 +88,30 @@
       color: #f4f2e9;
       background: v.$green;
 
-      @media (prefers-color-scheme: dark) {
-        background: v.$dark-green;
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   background: v.$dark-green;
+      // }
     }
   }
 
   &.red {
-    color: v.$light-red;
-
-    @media (prefers-color-scheme: dark) {
-      color: v.$dark-green;
-    }
+    color: v.$red;
 
     .big {
-      // @include faux-bold(v.$light-red);
-
-      @media (prefers-color-scheme: dark) {
-        // @include faux-bold(v.$green);
-      }
     }
 
     .box {
-      background: v.$light-red;
+      background: v.$red;
       color: #f4f2e9;
-
-      @media (prefers-color-scheme: dark) {
-        background: v.$dark-green;
-      }
     }
   }
 
   &.from-studio {
     color: v.$dark-green;
 
-    @media (prefers-color-scheme: dark) {
-      color: white;
-    }
-
     .box {
       background: v.$dark-green;
       color: white;
-
-      @media (prefers-color-scheme: dark) {
-        background: white;
-        color: v.$dark-green;
-      }
     }
   }
 }
@@ -144,8 +122,8 @@
   font-size: 19rem;
 
   @include m.max(md) {
-    line-height: 19px;
-    font-size: 15px;
+    line-height: 18px;
+    font-size: 14px;
   }
 
   a {
@@ -153,18 +131,9 @@
     text-decoration: underline;
     background: #f4f2e9;
 
-    @media (prefers-color-scheme: dark) {
-      background: #57170c;
-      color: white;
-    }
-
     &:hover {
       background-color: #9b9788;
       color: white;
-
-      @media (prefers-color-scheme: dark) {
-        background: black;
-      }
     }
   }
 
@@ -178,20 +147,11 @@
       background: #f4f2e9;
       font-weight: normal;
       color: v.$green;
-
-      @media (prefers-color-scheme: dark) {
-        background: v.$green;
-        color: #f4f2e9;
-      }
     }
   }
 
   &.green {
     color: v.$green;
-
-    @media (prefers-color-scheme: dark) {
-      color: v.$dark-green;
-    }
   }
 }
 
@@ -273,8 +233,6 @@
 
 .row {
   display: flex;
-
-  // .col {}
 }
 
 .cover {
@@ -400,9 +358,6 @@
     font-size: 18rem;
     color: white;
     z-index: 3;
-
-    // @include m.max(lg) {
-    // }
   }
 }
 

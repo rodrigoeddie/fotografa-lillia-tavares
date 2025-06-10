@@ -310,11 +310,11 @@ nav[aria-label="breadcrumb"] {
       width: 100%;
     }
 
-    @media (prefers-color-scheme: dark) {
-      // background: v.$dark-green;
-      background: var(--color-highlight, v.$dark-green);
-      color: white
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   // background: v.$dark-green;
+    //   background: var(--color-highlight, v.$dark-green);
+    //   color: white
+    // }
   }
 
   .about-text {
@@ -374,9 +374,9 @@ nav[aria-label="breadcrumb"] {
     padding: 20rem v.$space;
     display: flex;
 
-    @media (prefers-color-scheme: dark) {
-      background: white;
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   background: white;
+    // }
 
     .info-list {
       font-size: 18rem;
@@ -386,9 +386,9 @@ nav[aria-label="breadcrumb"] {
       width: 100%;
       gap: 20rem;
 
-      @media (prefers-color-scheme: dark) {
-        color: var(--color-highlight, v.$dark-green);
-      }
+      // @media (prefers-color-scheme: dark) {
+      //   color: var(--color-highlight, v.$dark-green);
+      // }
 
       .nuxt-icon {
         margin-right: 10rem;

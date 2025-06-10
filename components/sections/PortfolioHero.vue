@@ -52,10 +52,7 @@ const categories = await Promise.all(
           <h1 class="title">Trabalhos</h1>
           <div class="description">
             <p>
-              Com o espaço acolhedor do estúdio, a sensibilidade da fotógrafa Lillia Tavares e a beleza de cada cliente, cada ensaio se torna uma experiência única.
-            </p>
-            <p>
-              <b>Confira abaixo alguns de nossos trabalhos!</b>
+              Com o espaço acolhedor do <NuxtLink to="/estudio">estúdio em Mogi das Cruzes</NuxtLink>, e a sensibilidade da <NuxtLink to="/sobre">fotógrafa Lillia Tavares</NuxtLink>, cada ensaio se torna uma experiência única, conheça meu trabalho.
             </p>
           </div>
         </div>
@@ -64,13 +61,11 @@ const categories = await Promise.all(
 
     <div class="category-ctas">
       <nav class="menu-category">
-        <h2 class="title-category">Categorias</h2>
-
         <NuxtLink
           to="/ensaio-fotografico"
-          class="link-category"
+          class="link-category link-category-all"
           :class="{'mobile': isMobile, 'desktop': !isMobile}">
-          <span class="category-label">Todos</span>
+          <h2 class="category-label">Todas as categorias</h2>
         </NuxtLink>
 
         <template v-for="item in categories">
@@ -100,10 +95,6 @@ const categories = await Promise.all(
 .container {
   background: white;
 
-  @media (prefers-color-scheme: dark) {
-    background: v.$dark-green;
-  }
-
   &.sbs {
     display: flex;
 
@@ -119,10 +110,6 @@ const categories = await Promise.all(
   background: white;
   display: flex;
   width: 100%;
-
-  @media (prefers-color-scheme: dark) {
-    background: v.$dark-green;
-  }
 
   @include m.max(sm) {
     position: static;
@@ -148,34 +135,24 @@ const categories = await Promise.all(
     @include m.max(sm) {
       width: 100%;
     }
-
-    // @media (prefers-color-scheme: dark) {
-    //   background: v.$dark-green;
-    // }
   }
 
   .about-text {
-    padding: 180rem v.$space v.$space;
-
-    @include m.max(lg) {
-      padding-top: 100px;
-    }
-
-    @include m.max(sm) {
-      padding-top: 80px;
-      background: white;
-    }
-
-    @media (prefers-color-scheme: dark) and (max-width: 900px) {
-      background: v.$dark-green;
+    align-items: center;
+    padding: 35rem;
+    display: flex;
+    gap: 20rem;
+    
+    @include m.max(xs) {
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 15px;
+      gap: 10px
     }
 
     .description {
       padding-top: 0;
-
-      p {
-        padding-top: 15rem !important;
-      }
+      line-height: 1em;
 
       strong,
       b {
@@ -195,9 +172,9 @@ const categories = await Promise.all(
         padding-right: 30rem;
         text-align: center;
 
-        @media (prefers-color-scheme: dark) {
-          background: v.$dark-red;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   background: v.$dark-red;
+        // }
       }
 
       .title {
@@ -269,18 +246,15 @@ const categories = await Promise.all(
     display: flex;
     width: 100%;
     gap: 15rem;
-
-    // @media (prefers-color-scheme: dark) {
-    // }
   }
 
   .link-category {
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     transition: background .3s;
     width: calc(25% - 20rem);
     justify-content: center;
-    aspect-ratio: 400/266;
-    background: #892c1a;
+    aspect-ratio: 400/230;
+    background: white;
     font-weight: 700;
     font-size: 30rem;
     overflow: hidden;
@@ -295,10 +269,10 @@ const categories = await Promise.all(
     &:before {
       content: '';
 
-      background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 90%);
-      transition: opacity .4s;
+      background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 90%);
+      transition: background .4s;
       position: absolute;
-      opacity: 0;
+      // opacity: 0;
       z-index: 1;
       bottom: 0;
       right: 0;
@@ -311,21 +285,24 @@ const categories = await Promise.all(
       transition: top .4s;
       text-align: center;
       position: absolute;
+      color: black;
+      bottom: 20rem;
       z-index: 2;
-      top: 47%;
       right: 0;
       left: 0;
     }
 
     .thumb-category {
-      transition: opacity .5s, transform .7s;
+      transition: opacity .5s, transform .5s, filter .5s;
       transform: scale(1.3);
-      aspect-ratio: 400/266;
+      // aspect-ratio: 400/266;
+      aspect-ratio: 400/230;
       position: absolute;
+      filter: blur(2px);
       object-fit: cover;
       height: 100%;
       width: 100%;
-      opacity: .3;
+      opacity: .2;
       bottom: 0;
       right: 0;
       left: 0;
@@ -334,20 +311,21 @@ const categories = await Promise.all(
 
     &.router-link-active,
     &.desktop:hover {
-      background-color: #6d1d0b !important;
       align-items: flex-end;
 
       &:before {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 90%);
         opacity: 1;
       }
 
       .category-label {
-        top: 70%;
+        color: white;
       }
 
       .thumb-category {
         transform: scale(1);
-        opacity: 1;
+        opacity: 1 !important;
+        filter: blur(0);
       }
     }
 

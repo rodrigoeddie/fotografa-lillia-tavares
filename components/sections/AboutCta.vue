@@ -40,7 +40,7 @@ if (about.value?.body?.value) {
 <template>
   <div class="container">
     <div class="wrap-about row">
-      <div class="col">
+      <div class="col col-text">
         <div class="about-text">
           <h1 class="title">{{ about.title }}</h1>
           <div class="description" v-html="renderedContent"></div>
@@ -49,7 +49,7 @@ if (about.value?.body?.value) {
         <div class="about-ctas">
           <NuxtLink
             to="/preco-ensaio-fotografico"
-            class="link">
+            class="link link-agende">
             <nuxt-icon
               name="calendar-regular"
               class="icon icon-calendar"/>
@@ -62,7 +62,7 @@ if (about.value?.body?.value) {
             <nuxt-icon
               name="location-pin-solid"
               class="icon icon-location-pin"/>
-            <span>Conheça meu <b>estúdio</b>, também disponível para <b>locação</b></span>
+            <span>Conheça meu <b>estúdio</b>, (disponível para locação).</span>
           </NuxtLink>
 
           <NuxtLink
@@ -79,10 +79,9 @@ if (about.value?.body?.value) {
       <div class="col about-img">
         <nuxt-img
           provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/9a8558fb-cbb6-46a8-cec5-636f21a9db00/public"'
-          alt="Lillia Tavares sentada na mesa, com um notebook e uma câmera fotográfica"
+          :src='"https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"'
+          alt="Fotógrafa Lillia Tavares segurando sua câmera fotográfica"
           width="935"
-          height="796"
           fetchpriority="high"
           placeholder
           class="img cover"/>
@@ -98,6 +97,13 @@ if (about.value?.body?.value) {
         p {
           padding-top: 15rem !important;
 
+          &:nth-child(2),
+          &:nth-child(3) {
+            @include m.max(xs) {
+              display: none;
+            }
+          }
+
           strong,
           b {
             background: #892c1a;
@@ -112,26 +118,24 @@ if (about.value?.body?.value) {
 </style>
 
 <style scoped lang="scss">
+  @use 'sass:color';
+
   .wrap-about {
     background: white;
 
-    @media (prefers-color-scheme: dark) {
-      background: v.$dark-green;
-    }
-
-    @include m.max(md) {
+    @include m.max(xs) {
       flex-wrap: wrap;
     }
 
     .about-text {
-      padding: 180rem v.$space v.$space;
-
-      @include m.max(lg) {
-        padding-top: 100px;
-      }
+      padding: 45rem;
 
       @include m.max(sm) {
-        padding-top: 80px;
+        padding: 30rem;
+      }
+
+      @include m.max(xs) {
+        padding: 0 15px 15px;
       }
 
       .description {
@@ -142,8 +146,12 @@ if (about.value?.body?.value) {
     .about-ctas {
       padding: 20rem v.$space;
       flex-direction: column;
-      background: #892c1a;
+      background: v.$red;
       display: flex;
+
+      @include m.max(sm) {
+        padding: 6px;
+      }
 
       .link {
         transition: color 0.2s, background-color 0.2s;
@@ -153,52 +161,76 @@ if (about.value?.body?.value) {
         font-size: 20rem;
         display: flex;
         gap: 15rem;
-
-        @include m.max(sm) {
+        
+        @include m.max(xs) {
+          padding: 10rem 0;
           font-size: 14px;
           margin: 0 auto;
-          width: 320px;
+          width: 100%;
+          gap: 5px;
         }
 
         &:nth-child(2) {
           border-bottom: #b35c4b 1px solid;
-          border-top: #b35c4b 1px solid;
+
+          @include m.min(xs) {
+            border-top: #b35c4b 1px solid;
+          }
+        }
+
+        &.link-agende {
+          @include m.max(xs) {
+            display: none;
+          }
         }
 
         &:hover {
-          background-color: #6d1d0b;
+          background-color: v.$dark-red;
           color: white;
         }
       }
 
       .icon {
         font-size: 40rem;
+
+        @include m.max(xs) {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .col-text {
+      @include m.max(xs) {
+        order: 2;
+      }
+      
+      .title {
+        @include m.max(xs) {
+          margin-top: -18px;
+          text-shadow: 0px 0px 3px white, 0px 2px 3px white, 2px 0px 3px white;
+        }
       }
     }
 
     .about-img {
       flex-shrink: 0;
-      width: 55%;
+      width: 50%;
 
-      @include m.max(md) {
+      @include m.max(xs) {
+        height: 225px;
         width: 100%;
-      }
-
-      @include m.max(sm) {
-        display: none;
+        order: 1;
       }
 
       .cover {
-        @include m.max(sm) {
-          display: none;
+        object-position: center 20%;
+      }
+
+      .cover {
+        @include m.max(xs) {
+          position: relative;
         }
       }
     }
   }
-// background: v.$green;
-//     height: 100vh;
-
-//     @include m.max(md) {
-//       height: 680px;
-//     }
 </style>

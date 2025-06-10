@@ -17,11 +17,15 @@ useSchemaOrg([
 useSeoMeta({
   title: home.value?.title,
   description: home.value?.description
+});
+
+definePageMeta({
+  layout: 'home'
 })
 </script>
 
-<template>
-  <SectionsAbout />
+<template >
+  <SectionsAboutCta />
   <SectionsPortfolio :fromHome="true" />
   <SectionsStudio class="from-home-studio" />
 </template>

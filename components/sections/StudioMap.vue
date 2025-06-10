@@ -19,6 +19,10 @@
 <style lang="scss">
     .wrap-map {
         width: 100%;
+
+        @include m.max(md) {
+            height: 100vw;
+        }
     }
 
     .title-map {
@@ -37,9 +41,9 @@
             background: #f4f2e9;
             padding: 3rem 7rem;
 
-            @media (prefers-color-scheme: dark) {
-                background: v.$dark-red;
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     background: v.$dark-red;
+            // }
 
             span {
                 text-decoration: underline;

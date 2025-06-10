@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe - Página de Investimento - Lillia Tavares Fotografia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f5f2ed;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #f5f2ed;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0d9d0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 200px;
+            height: 80px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 30px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #a67c52;
+        }
+        .hero {
+            height: 400px;
+            background-color: #ddd;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            color: #fff;
+            z-index: 2;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #a67c52;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            background-color: #8a6642;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #fff;
+            margin-left: 15px;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #a67c52;
+        }
+        .investment-intro {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+        .investment-intro p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .package-card {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+        .package-header {
+            padding: 20px;
+            background-color: #a67c52;
+            color: #fff;
+            text-align: center;
+        }
+        .package-header h3 {
+            font-size: 1.5rem;
+        }
+        .package-content {
+            padding: 30px;
+        }
+        .package-price {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #a67c52;
+        }
+        .package-features {
+            margin-bottom: 30px;
+        }
+        .package-features li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #a67c52;
+        }
+        .package-btn {
+            display: block;
+            text-align: center;
+            background-color: #a67c52;
+            color: #fff;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .package-btn:hover {
+            background-color: #8a6642;
+        }
+        .package-popular {
+            position: relative;
+            overflow: visible;
+        }
+        .package-popular::before {
+            content: 'Mais Popular';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 3px;
+            z-index: 1;
+        }
+        .comparison {
+            margin-bottom: 60px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-table th {
+            background-color: #a67c52;
+            color: #fff;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f7f4;
+        }
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        .check-icon {
+            color: #a67c52;
+            font-size: 1.2rem;
+        }
+        .addons {
+            margin-bottom: 60px;
+        }
+        .addons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .addon-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .addon-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #f5f2ed;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #a67c52;
+        }
+        .addon-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .addon-price {
+            font-size: 1.5rem;
+            color: #a67c52;
+            margin-bottom: 15px;
+        }
+        .addon-card p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .payment-info {
+            background-color: #f9f7f4;
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+        .payment-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .payment-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #a67c52;
+        }
+        .payment-text p {
+            margin-bottom: 20px;
+        }
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .payment-method {
+            width: 60px;
+            height: 40px;
+            background-color: #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .payment-image {
+            height: 300px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .faq-section {
+            margin-bottom: 60px;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+        }
+        .faq-answer {
+            color: #555;
+        }
+        .testimonials {
+            padding: 60px 0;
+            background-color: #fff;
+            margin-bottom: 60px;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        .testimonial-card {
+            background-color: #f9f7f4;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .testimonial-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 20px;
+        }
+        .testimonial-author h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .testimonial-author p {
+            color: #777;
+        }
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+        }
+        .cta-section {
+            padding: 60px 0;
+            background-color: #a67c52;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .cta-btn {
+            background-color: #fff;
+            color: #a67c52;
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+        .cta-btn:hover {
+            background-color: #f5f5f5;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #a67c52;
+        }
+        .footer-column p, .footer-column li {
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-column a:hover {
+            color: #fff;
+        }
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .social-link:hover {
+            background-color: #a67c52;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+        
+        /* Wireframe style overlay */
+        .wireframe-label {
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 2px dashed red;
+            padding: 5px;
+            font-size: 12px;
+            color: red;
+            z-index: 100;
+        }
+        
+        @media (max-width: 992px) {
+            .packages, .addons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .payment-content, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 20px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .packages, .addons-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            .comparison-table th, .comparison-table td {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Logo Lillia Tavares</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Ensaios</a></li>
+                    <li><a href="#">Estúdio</a></li>
+                    <li><a href="#">Investimento</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Investimento</h1>
+            <p>Conheça os pacotes e valores para seu ensaio fotográfico</p>
+            
+            <div class="wireframe-label" style="top: 10px; right: 10px;">
+                NOVO: Página dedicada a pacotes e preços
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Intro -->
+    <section class="container investment-intro">
+        <p>Mais do que fotos, ofereço uma experiência completa que valoriza sua beleza e essência. Cada pacote foi cuidadosamente elaborado para atender diferentes necessidades e orçamentos, garantindo sempre a qualidade e atenção aos detalhes que são a marca do meu trabalho.</p>
+        <p>Escolha o pacote que melhor se adapta ao seu momento e prepare-se para uma experiência fotográfica transformadora.</p>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="container packages">
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Pacote Essencial</h3>
+            </div>
+            <div class="package-content">
+                <div class="package-price">
+                    <p>A partir de R$ 350</p>
+                </div>
+                <ul class="package-features">
+                    <li>Sessão de 1 hora</li>
+                    <li>1 cenário</li>
+                    <li>10 fotos digitais</li>
+                    <li>Orientação de poses</li>
+                    <li>Entrega em até 7 dias</li>
+                </ul>
+                <a href="#" class="package-btn">Agendar agora</a>
+            </div>
+        </div>
+        <div class="package-card package-popular">
+            <div class="package-header">
+                <h3>Pacote Premium</h3>
+            </div>
+            <div class="package-content">
+                <div class="package-price">
+                    <p>A partir de R$ 650</p>
+                </div>
+                <ul class="package-features">
+                    <li>Sessão de 2 horas</li>
+                    <li>2 cenários</li>
+                    <li>20 fotos digitais</li>
+                    <li>Orientação de poses</li>
+                    <li>1 troca de roupa</li>
+                    <li>Entrega em até 5 dias</li>
+                </ul>
+                <a href="#" class="package-btn">Agendar agora</a>
+            </div>
+        </div>
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Pacote Realeza</h3>
+            </div>
+            <div class="package-content">
+                <div class="package-price">
+                    <p>A partir de R$ 950</p>
+                </div>
+                <ul class="package-features">
+                    <li>Sessão de 3 horas</li>
+                    <li>3 cenários</li>
+                    <li>30 fotos digitais</li>
+                    <li>Orientação de poses</li>
+                    <li>2 trocas de roupa</li>
+                    <li>Maquiagem profissional</li>
+                    <li>Álbum impresso 20x30cm</li>
+                    <li>Entrega em até 3 dias</li>
+                </ul>
+                <a href="#" class="package-btn">Agendar agora</a>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; left: 20px;">
+            NOVO: Pacotes com preços transparentes e destaque para o mais popular
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="container comparison">
+        <div class="section-title">
+            <h2>Comparativo de Pacotes</h2>
+        </div>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Serviços</th>
+                    <th>Essencial</th>
+                    <th>Premium</th>
+                    <th>Realeza</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Duração da sessão</td>
+                    <td>1 hora</td>
+                    <td>2 horas</td>
+                    <td>3 horas</td>
+                </tr>
+                <tr>
+                    <td>Número de cenários</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Fotos digitais entregues</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Trocas de roupa</td>
+                    <td>-</td>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Maquiagem profissional</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Álbum impresso</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Prazo de entrega</td>
+                    <td>7 dias</td>
+                    <td>5 dias</td>
+                    <td>3 dias</td>
+                </tr>
+                <tr>
+                    <td>Orientação de poses</td>
+                    <td><span class="check-icon">✓</span></td>
+                    <td><span class="check-icon">✓</span></td>
+                    <td><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Fotos extras (unitário)</td>
+                    <td>R$ 35</td>
+                    <td>R$ 30</td>
+                    <td>R$ 25</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="wireframe-label" style="top: 20px; right: 20px;">
+            NOVO: Tabela comparativa para facilitar decisão de compra
+        </div>
+    </section>
+
+    <!-- Add-ons Section -->
+    <section class="container addons">
+        <div class="section-title">
+            <h2>Serviços Adicionais</h2>
+        </div>
+        <div class="addons-grid">
+            <div class="addon-card">
+                <div class="addon-icon">M</div>
+                <h3>Maquiagem Profissional</h3>
+                <div class="addon-price">R$ 150</div>
+                <p>Maquiagem completa realizada por profissional especializada em fotografia.</p>
+            </div>
+            <div class="addon-card">
+                <div class="addon-icon">A</div>
+                <h3>Álbum Impresso</h3>
+                <div class="addon-price">A partir de R$ 250</div>
+                <p>Álbum fotográfico de alta qualidade em diversos tamanhos e acabamentos.</p>
+            </div>
+            <div class="addon-card">
+                <div class="addon-icon">F</div>
+                <h3>Fotos Extras</h3>
+                <div class="addon-price">A partir de R$ 25/foto</div>
+                <p>Fotos adicionais além das incluídas no pacote escolhido.</p>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; left: 20px;">
+            NOVO: Serviços adicionais para aumentar ticket médio
+        </div>
+    </section>
+
+    <!-- Payment Info -->
+    <section class="payment-info">
+        <div class="container">
+            <div class="payment-content">
+                <div class="payment-text">
+                    <h3>Formas de Pagamento</h3>
+                    <p>Para sua comodidade, oferecemos diversas opções de pagamento:</p>
+                    <ul>
+                        <li>Cartão de crédito em até 6x sem juros</li>
+                        <li>Cartão de débito</li>
+                        <li>PIX</li>
+                        <li>Transferência bancária</li>
+                        <li>Dinheiro</li>
+                    </ul>
+                    <p>É necessário um sinal de 50% para reserva da data e o restante pode ser pago no dia do ensaio.</p>
+                    <div class="payment-methods">
+                        <div class="payment-method">Visa</div>
+                        <div class="payment-method">MC</div>
+                        <div class="payment-method">Amex</div>
+                        <div class="payment-method">PIX</div>
+                    </div>
+                </div>
+                <div class="payment-image"></div>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; right: 20px;">
+            NOVO: Informações claras sobre formas de pagamento
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="container faq-section">
+        <div class="section-title">
+            <h2>Perguntas Frequentes</h2>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Como funciona o agendamento?</div>
+            <div class="faq-answer">
+                <p>O agendamento é feito mediante o pagamento de 50% do valor do pacote escolhido. Após a confirmação do pagamento, a data e horário ficam reservados exclusivamente para você. O restante do valor pode ser pago no dia do ensaio.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Posso personalizar meu pacote?</div>
+            <div class="faq-answer">
+                <p>Sim! Os pacotes apresentados são sugestões, mas podemos personalizar de acordo com suas necessidades específicas. Entre em contato para discutirmos as possibilidades.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Qual a política de cancelamento?</div>
+            <div class="faq-answer">
+                <p>Cancelamentos com mais de 7 dias de antecedência recebem reembolso de 100% do sinal. Entre 3 e 7 dias, o reembolso é de 50%. Cancelamentos com menos de 3 dias não têm direito a reembolso, mas o valor pode ser utilizado como crédito para um futuro agendamento dentro de 3 meses.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Quanto tempo leva para receber as fotos?</div>
+            <div class="faq-answer">
+                <p>O prazo de entrega varia de acordo com o pacote escolhido: 7 dias para o Pacote Essencial, 5 dias para o Premium e 3 dias para o Realeza. Em períodos de alta demanda (como Natal e Dia das Mães), pode haver um acréscimo de 2 a 3 dias no prazo.</p>
+            </div>
+        </div>
+        
+        <div class="wireframe-label" style="top: 20px; left: 20px;">
+            NOVO: FAQ específico sobre investimento para reduzir dúvidas
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O que dizem nossos clientes</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-img"></div>
+                        <div class="testimonial-author">
+                            <h4>Mariana Costa</h4>
+                            <p>Pacote Premium</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>"Cada centavo investido valeu a pena! As fotos ficaram incríveis e a experiência foi muito além do que eu esperava. A Lillia tem um olhar único e consegue captar nossa melhor versão. Recomendo o pacote Premium, que oferece um ótimo custo-benefício."</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-img"></div>
+                        <div class="testimonial-author">
+                            <h4>Carla Mendes</h4>
+                            <p>Pacote Realeza</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        <p>"Optei pelo pacote Realeza para meu ensaio corporativo e foi a melhor decisão. A maquiagem profissional fez toda diferença nas fotos e o álbum impresso é de uma qualidade impressionante. Um investimento que trouxe retorno imediato para minha imagem profissional."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; right: 20px;">
+                NOVO: Depoimentos específicos sobre o valor do investimento
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronta para investir em memórias inesquecíveis?</h2>
+                <p>Escolha o pacote ideal para você e agende seu ensaio fotográfico hoje mesmo.</p>
+                <a href="#" class="btn cta-btn">Agendar meu ensaio</a>
+            </div>
+            
+            <div class="wireframe-label" style="top: 20px; left: 20px;">
+                NOVO: CTA focado em valor e não apenas preço
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sobre</h3>
+                    <p>Fotógrafa especialista em retratos femininos e posicionamento de imagem corporativo, com estúdio localizado em Mogi das Cruzes.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">IG</a>
+                        <a href="#" class="social-link">WA</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Ensaios</h3>
+                    <ul>
+                        <li><a href="#">Natal em Família</a></li>
+                        <li><a href="#">Corporativo</a></li>
+                        <li><a href="#">Sensual/Intimista</a></li>
+                        <li><a href="#">Espetáculos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                        <li><a href="#">Como se Preparar</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li>Estúdio em Mogi das Cruzes, SP</li>
+                        <li>fotografalilliatavares@gmail.com</li>
+                        <li>(11) 91115-9795</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Fotógrafa Lillia Tavares. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
