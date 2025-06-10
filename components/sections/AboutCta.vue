@@ -62,7 +62,7 @@ if (about.value?.body?.value) {
             <nuxt-icon
               name="location-pin-solid"
               class="icon icon-location-pin"/>
-            <span>Conheça meu <b>estúdio</b>, também disponível para <b>locação</b></span>
+            <span>Conheça meu <b>estúdio</b>, (disponível para locação).</span>
           </NuxtLink>
 
           <NuxtLink

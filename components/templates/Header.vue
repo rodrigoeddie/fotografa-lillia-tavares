@@ -173,9 +173,9 @@ onUnmounted(() => {
     background: white;
     align-items: center;
     display: flex;
-
+    
     @include m.max(xs) {
-      padding-bottom: 0;
+      padding-bottom: 5px;
       padding-top: 5px;
     }
   }
@@ -185,9 +185,6 @@ onUnmounted(() => {
 
     @include m.max(md) {
       width: 140px;
-    }
-    @include m.max(xs) {
-      top: 5px;
     }
 
     img {
