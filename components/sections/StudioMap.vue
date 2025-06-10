@@ -19,6 +19,10 @@
 <style lang="scss">
     .wrap-map {
         width: 100%;
+
+        @include m.max(md) {
+            height: 100vw;
+        }
     }
 
     .title-map {

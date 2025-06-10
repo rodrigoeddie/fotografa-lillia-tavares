@@ -138,10 +138,17 @@ const categories = await Promise.all(
   }
 
   .about-text {
-    gap: 20rem;
     align-items: center;
     padding: 35rem;
     display: flex;
+    gap: 20rem;
+    
+    @include m.max(xs) {
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 15px;
+      gap: 10px
+    }
 
     .description {
       padding-top: 0;

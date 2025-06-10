@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const configPublic = useRuntimeConfig().public;
+const { isMobile } = useDevice();
 
 const { gtag } = useGtag();
 
@@ -84,7 +85,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="headerRef" class="header">
+  <div
+    ref="headerRef"
+    class="header"
+    :class="{'mobile': isMobile, 'desktop': !isMobile}">
     <div class="container">
       <h1 class="logo">
         <NuxtLink
@@ -203,6 +207,7 @@ onUnmounted(() => {
     }
   }
 
+  &.mobile:not(.from-home),
   &.is-scrolled {
     position: fixed;
     top: 0;

@@ -207,7 +207,7 @@
     &.from-page-studio {
       @include m.max(md) {
         background: white;
-        padding-top: 80px;
+        padding-top: 20px;
       }
 
       .container {

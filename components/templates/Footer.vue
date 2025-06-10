@@ -39,7 +39,7 @@
         </header>
 
         <footer>
-            <TemplatesMenu class="from-footer" />
+            <TemplatesMenu class="from-footer" :fromFooter="true" />
         </footer>
 
         <address>Copyright® <b>Fotógrafa Lillia Tavares</b> - Todos os direitos reservados</address>

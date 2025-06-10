@@ -16,6 +16,6 @@
 
 <style scoped lang="scss">
 .wrapper-main {
-  padding-top: 30px;
+  padding-top: 73px !important;
 }
 </style>

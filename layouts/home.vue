@@ -18,7 +18,7 @@
         placeholder
         class="banner-hero"/>
     </div>
-    <TemplatesHeader />
+    <TemplatesHeader class="from-home" />
     <slot />
     <TemplatesFooter />
   </div>

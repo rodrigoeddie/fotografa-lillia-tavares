@@ -1,4 +1,14 @@
 <script lang="ts" setup>
+const { isMobile } = useDevice();
+
+const props = defineProps({
+  fromFooter: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+});
+
 const isOpen = ref(false);
 
 function toggleMenu() {
@@ -9,7 +19,12 @@ function toggleMenu() {
 <template>
     <div>
         <nav
-          v-if="isOpen"
+          :class="{
+            'opened': isOpen, 
+            'not-opened': !isOpen,
+            'visible': props.fromFooter || !isMobile || (isOpen && isMobile),
+            'hidden': !props.fromFooter && isMobile && !isOpen
+          }"
           class="menu">
             <NuxtLink
                 to="/"
@@ -57,17 +72,25 @@ function toggleMenu() {
         </nav>
 
         <button
-            class="hamburger"
-            :aria-expanded="isOpen"
-            aria-label="Abrir menu"
-            @click="toggleMenu"
+          v-if="!props.fromFooter && isMobile"
+          class="hamburger"
+          :aria-expanded="isOpen"
+          aria-label="Abrir menu"
+          @click="toggleMenu"
         >
             <span :class="{ open: isOpen }"></span>
             <span :class="{ open: isOpen }"></span>
             <span :class="{ open: isOpen }"></span>
         </button>
 
-        <div v-if="isOpen" class="overlay"></div>
+        <div
+          :class="{
+            'opened': isOpen, 
+            'not-opened': !isOpen,
+            'visible': props.fromFooter || (isOpen && isMobile),
+            'hidden': !props.fromFooter && (!isOpen || !isMobile)
+          }"
+          class="overlay"></div>
     </div>
 </template>
 
@@ -88,8 +111,8 @@ function toggleMenu() {
             @include m.max(xs) {
                 flex-direction: column;
                 align-items: flex-end;
-                padding-right: 0;
                 position: absolute;
+                padding-right: 0;
                 font-size: 14px;
                 height: 100rem;
                 display: flex;
@@ -98,11 +121,50 @@ function toggleMenu() {
                 z-index: 2;
                 top: 59px;
                 right: 0;
-                gap: 3px;
+                gap: 5px;
+            }
+
+            &.hidden {
+                opacity: 0;
+                pointer-events: none;
+                visibility: hidden;
+            }
+            
+            &.visible {
+                opacity: 1;
+                pointer-events: auto;
+                visibility: visible;
             }
 
             .link {
                 color: black;
+                transition: left .4s;
+
+                @include m.max(xs) {
+                    left: -60px;
+                }
+
+                &:nth-child(1) {
+                    transition-delay: .03s;
+                }
+                &:nth-child(2) {
+                    transition-delay: .04s;
+                }
+                &:nth-child(3) {
+                    transition-delay: .05s;
+                }
+                &:nth-child(4) {
+                    transition-delay: .06s;
+                }
+                &:nth-child(5) {
+                    transition-delay: .07s;
+                }
+                &:nth-child(6) {
+                    transition-delay: .08s;
+                }
+                &:nth-child(7) {
+                    transition-delay: .09s;
+                }
 
                 &:last-child {
                     padding-right: 0;
@@ -118,7 +180,6 @@ function toggleMenu() {
                     padding-top: 11px;
                     line-height: 1em;
                 }
-
                 @include m.max(xs) {
                     background: white;
                     padding: 15px 30px;
@@ -127,6 +188,14 @@ function toggleMenu() {
                 &.router-link-active {
                     &::before {
                         background: black;
+                    }
+                }
+            }
+
+            &.opened {
+                .link {
+                    @include m.max(xs) {
+                        left: 0;
                     }
                 }
             }
@@ -141,14 +210,28 @@ function toggleMenu() {
         }
 
         .overlay {
+            background: rgba(73, 22, 22, 0.3);
+            backdrop-filter: blur(4px);
+            transition: opacity .3s;
             position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(5px);
+            opacity: 0;
             z-index: 1;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+
+            &.hidden {
+                opacity: 0;
+                pointer-events: none;
+                visibility: hidden;
+            }
+            
+            &.visible {
+                opacity: 1;
+                pointer-events: auto;
+                visibility: visible;
+            }
         }
     }
 
@@ -262,23 +345,27 @@ function toggleMenu() {
     }
 
     span {
-        display: block;
-        height: 4px;
-        width: 100%;
-        background: #222;
-        margin: 6px 0;
+        background: v.$dark-green;
         border-radius: 2px;
         transition: 0.3s;
+        display: block;
+        margin: 4px 0;
+        height: 4px;
+        width: 100%;
+    }
+
+    &[aria-expanded="true"] span {
+        background: black;
     }
 
     span.open:nth-child(1) {
-        transform: translateY(13px) rotate(45deg);
+        transform: translateY(12px) rotate(45deg);
     }
     span.open:nth-child(2) {
         opacity: 0;
     }
     span.open:nth-child(3) {
-        transform: translateY(-13px) rotate(-45deg);
+        transform: translateY(-12px) rotate(-45deg);
     }
 }
 </style>
