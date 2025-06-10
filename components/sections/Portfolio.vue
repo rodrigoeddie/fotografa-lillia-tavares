@@ -288,6 +288,7 @@ const formatDate = (dateString: string) => {
 
   .slider {
     background: #f6f6f6;
+    width: 100%;
   }
 
   .big-title-home {

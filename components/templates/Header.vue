@@ -159,7 +159,6 @@ onUnmounted(() => {
 }
 
 .header {
-  box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
   justify-content: center;
   padding-bottom: 20rem;
   display: flex;
@@ -171,6 +170,7 @@ onUnmounted(() => {
   }
   
   .container {
+    box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid v.$green;
     justify-content: space-between;
     padding: 15rem 25rem;

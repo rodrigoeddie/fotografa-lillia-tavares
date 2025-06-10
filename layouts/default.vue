@@ -16,6 +16,10 @@
 
 <style scoped lang="scss">
 .wrapper-main {
-  padding-top: 73px !important;
+  padding-top: 20px !important;
+
+  @include m.max(sm) {
+    padding-top: 73px !important;
+  }
 }
 </style>
