@@ -175,7 +175,9 @@ onUnmounted(() => {
     display: flex;
     
     @include m.max(xs) {
+      padding-left: 15px;
       padding-bottom: 5px;
+      padding-right: 0;
       padding-top: 5px;
     }
   }

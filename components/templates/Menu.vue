@@ -1,137 +1,191 @@
 <script lang="ts" setup>
+const isOpen = ref(false);
+
+function toggleMenu() {
+    isOpen.value = !isOpen.value;
+}
 </script>
 
 <template>
-    <nav class="menu">
-        <NuxtLink
-            to="/"
-            class="link">
-            <span class="txt">Home</span>
-        </NuxtLink>
-        <span class="separe">•</span>
-        <!--
+    <div>
+        <nav
+          v-if="isOpen"
+          class="menu">
             <NuxtLink
-                to="/sobre"
-                class="link">
-                <span class="txt">Sobre</span>
+                to="/"
+                class="link"
+                @click="isOpen = false">
+                <span class="txt">Home</span>
             </NuxtLink>
-        
-        <span class="separe">•</span>-->
-        <NuxtLink
-            to="/ensaio-fotografico"
-            class="link">
-            <span class="txt">Trabalhos</span>
-        </NuxtLink>
-        <span class="separe">•</span>
-        <NuxtLink
-            to="/estudio"
-            class="link">
-            <span class="txt">Estúdio</span>
-        </NuxtLink>
-        <span class="separe">•</span>
-        <!-- <NuxtLink
-            to="/blog"
-            class="link">
-            <span class="txt">Blog</span>
-        </NuxtLink>
-        <span class="separe">•</span> -->
-        <NuxtLink
-            to="/preco-ensaio-fotografico"
-            class="link">
-            <span class="txt">Agende seu ensaio</span>
-        </NuxtLink>
-    </nav>
+            <span class="separe">•</span>
+            <!--
+                <NuxtLink
+                    to="/sobre"
+                    class="link"
+                    @click="isOpen = false">
+                    <span class="txt">Sobre</span>
+                </NuxtLink>
+            
+            <span class="separe">•</span>-->
+            <NuxtLink
+                to="/ensaio-fotografico"
+                class="link"
+                @click="isOpen = false">
+                <span class="txt">Trabalhos</span>
+            </NuxtLink>
+            <span class="separe">•</span>
+            <NuxtLink
+                to="/estudio"
+                class="link"
+                @click="isOpen = false">
+                <span class="txt">Estúdio</span>
+            </NuxtLink>
+            <span class="separe">•</span>
+            <!-- <NuxtLink
+                to="/blog"
+                class="link"
+                @click="isOpen = false">
+                <span class="txt">Blog</span>
+            </NuxtLink>
+            <span class="separe">•</span> -->
+            <NuxtLink
+                to="/preco-ensaio-fotografico"
+                class="link"
+                @click="isOpen = false">
+                <span class="txt">Agende seu ensaio</span>
+            </NuxtLink>
+        </nav>
+
+        <button
+            class="hamburger"
+            :aria-expanded="isOpen"
+            aria-label="Abrir menu"
+            @click="toggleMenu"
+        >
+            <span :class="{ open: isOpen }"></span>
+            <span :class="{ open: isOpen }"></span>
+            <span :class="{ open: isOpen }"></span>
+        </button>
+
+        <div v-if="isOpen" class="overlay"></div>
+    </div>
 </template>
 
 <style scoped lang="scss">
-.menu {
-    &.from-header {
-        font-size: 25rem;
+    .from-header {
+        .menu {
+            font-size: 25rem;
 
-        @include m.max(lg) {
-            right: 20px;
-        }
+            @include m.max(lg) {
+                right: 20px;
+            }
 
-        @include m.max(md) {
-            font-size: 20rem;
-            right: 0;
-        }
+            @include m.max(md) {
+                font-size: 20rem;
+                right: 0;
+            }
 
-        @include m.max(xs) {
-            flex-direction: column;
-            align-items: flex-end;
-            font-size: 14px;
-            height: 100rem;
-            display: none;
-            // display: flex;
-            bottom: auto;
-            width: 70dvw;
-            gap: 3px;
-            top: 0;
-        }
-
-        .link {
-            color: black;
-
-            &:last-child {
+            @include m.max(xs) {
+                flex-direction: column;
+                align-items: flex-end;
                 padding-right: 0;
+                position: absolute;
+                font-size: 14px;
+                height: 100rem;
+                display: flex;
+                bottom: auto;
+                width: 70dvw;
+                z-index: 2;
+                top: 59px;
+                right: 0;
+                gap: 3px;
             }
 
-            @include m.max(sm) {
-                display: inline-block;
-                padding-right: 20px;
-                padding-top: 11px;
-                line-height: 1em;
+            .link {
+                color: black;
+
+                &:last-child {
+                    padding-right: 0;
+
+                    @include m.max(xs) {
+                        padding-right: 30px;
+                    }
+                }
+
+                @include m.max(sm) {
+                    display: inline-block;
+                    padding-right: 20px;
+                    padding-top: 11px;
+                    line-height: 1em;
+                }
+
+                @include m.max(xs) {
+                    background: white;
+                    padding: 15px 30px;
+                }
+
+                &.router-link-active {
+                    &::before {
+                        background: black;
+                    }
+                }
             }
 
-            &.router-link-active {
-                &::before {
-                    background: black;
+            .separe {
+                color: #7b785b;
+
+                @include m.max(sm) {
+                    display: none;
                 }
             }
         }
 
-        .separe {
-            color: #7b785b;
-
-            @include m.max(sm) {
-                display: none;
-            }
+        .overlay {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1;
         }
     }
 
-    &.from-footer {
-        font-size: 45rem;
+    .from-footer {
+        .menu {
+            font-size: 45rem;
 
-        @include m.max(lg) {
-            font-size: 40rem;
-        }
+            @include m.max(lg) {
+                font-size: 40rem;
+            }
 
-        @include m.max(md) {
-            font-size: 29rem;
-        }
-
-        @include m.max(sm) {
-            font-size: 16px;
-            width: 100dvw;
-        }
-
-        .link {
-            color: white;
+            @include m.max(md) {
+                font-size: 29rem;
+            }
 
             @include m.max(sm) {
-                display: block;
+                font-size: 16px;
+                width: 100dvw;
             }
 
-            &.router-link-active {
-                &::before {
-                    background: white;
+            .link {
+                color: white;
+
+                @include m.max(sm) {
+                    display: block;
+                }
+
+                &.router-link-active {
+                    &::before {
+                        background: white;
+                    }
                 }
             }
-        }
 
-        .separe {
-            color: white;
+            .separe {
+                color: white;
+            }
         }
     }
 
@@ -188,6 +242,43 @@
             padding-right: 15rem;
             padding-left: 15rem;
         }
+    }
+
+
+.hamburger {
+    background: transparent;
+    justify-content: center;
+    flex-direction: column;
+    padding-right: 15px;
+    cursor: pointer;
+    display: none;
+    height: 40px;
+    border: none;
+    z-index: 1001;
+    width: 55px;
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
+
+    span {
+        display: block;
+        height: 4px;
+        width: 100%;
+        background: #222;
+        margin: 6px 0;
+        border-radius: 2px;
+        transition: 0.3s;
+    }
+
+    span.open:nth-child(1) {
+        transform: translateY(13px) rotate(45deg);
+    }
+    span.open:nth-child(2) {
+        opacity: 0;
+    }
+    span.open:nth-child(3) {
+        transform: translateY(-13px) rotate(-45deg);
     }
 }
 </style>

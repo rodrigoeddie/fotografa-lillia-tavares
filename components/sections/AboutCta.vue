@@ -135,7 +135,7 @@ if (about.value?.body?.value) {
       }
 
       @include m.max(xs) {
-        padding: 0 30rem 30rem;
+        padding: 0 15px 15px;
       }
 
       .description {
