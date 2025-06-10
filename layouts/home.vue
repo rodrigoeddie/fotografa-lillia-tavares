@@ -27,5 +27,13 @@
 <style scoped lang="scss">
 .wrapper-main {
   padding-top: 30px;
+
+  @include m.max(xs) {
+    padding-top: 10px;
+  }
+
+  .banner-hero {
+    display: block;
+  }
 }
 </style>

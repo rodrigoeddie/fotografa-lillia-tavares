@@ -9,12 +9,14 @@
             <span class="txt">Home</span>
         </NuxtLink>
         <span class="separe">•</span>
-        <NuxtLink
-            to="/sobre"
-            class="link">
-            <span class="txt">Sobre</span>
-        </NuxtLink>
-        <span class="separe">•</span>
+        <!--
+            <NuxtLink
+                to="/sobre"
+                class="link">
+                <span class="txt">Sobre</span>
+            </NuxtLink>
+        
+        <span class="separe">•</span>-->
         <NuxtLink
             to="/ensaio-fotografico"
             class="link">
@@ -27,12 +29,12 @@
             <span class="txt">Estúdio</span>
         </NuxtLink>
         <span class="separe">•</span>
-        <NuxtLink
+        <!-- <NuxtLink
             to="/blog"
             class="link">
             <span class="txt">Blog</span>
         </NuxtLink>
-        <span class="separe">•</span>
+        <span class="separe">•</span> -->
         <NuxtLink
             to="/preco-ensaio-fotografico"
             class="link">
@@ -52,18 +54,16 @@
 
         @include m.max(md) {
             font-size: 20rem;
-        }
-
-        @include m.max(sm) {
             right: 0;
         }
 
-        @include m.max(sm) {
+        @include m.max(xs) {
             flex-direction: column;
             align-items: flex-end;
             font-size: 14px;
             height: 100rem;
-            display: flex;
+            display: none;
+            // display: flex;
             bottom: auto;
             width: 70dvw;
             gap: 3px;
@@ -72,6 +72,10 @@
 
         .link {
             color: black;
+
+            &:last-child {
+                padding-right: 0;
+            }
 
             @include m.max(sm) {
                 display: inline-block;

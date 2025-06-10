@@ -26,25 +26,25 @@ let initialHeaderTopPosition = 0; // Posição inicial do header (capturada apen
 
 const handleScroll = () => {
   const scrollTop = window.scrollY;
-  
+
   const headerElement = document.querySelector('.header');
-  
+
   if (headerElement) {
     const headerRect = headerElement.getBoundingClientRect();
-    
+
     // Capturar a posição inicial do header apenas uma vez
     if (initialHeaderTopPosition === 0) {
       initialHeaderTopPosition = headerRect.top + scrollTop;
     }
-    
+
     // Se o header alcançou a posição 0 (topo da tela) pela primeira vez
     if (headerRect.top <= 0 && !headerPassedOnce) {
       headerPassedOnce = true;
-      
+
       if (!isScrolled.value) {
         isScrolled.value = true;
         headerRef.value?.classList.add('is-scrolled');
-        
+
         const wrapperMain = document.querySelector('.wrapper-main');
         if (wrapperMain && headerRef.value) {
           const headerHeight = headerRef.value.clientHeight;
@@ -53,14 +53,14 @@ const handleScroll = () => {
         }
       }
     }
-    
+
     // Se voltou para a posição inicial do header
     if (scrollTop <= initialHeaderTopPosition && headerPassedOnce) {
       headerPassedOnce = false;
-      
+
       if (isScrolled.value) {
         isScrolled.value = false;
-        
+
         const wrapperMain = document.querySelector('.wrapper-main');
         if (wrapperMain) {
           (wrapperMain as HTMLElement).style.paddingTop = '';
@@ -70,7 +70,7 @@ const handleScroll = () => {
       }
     }
   }
-  
+
   lastScrollTop = scrollTop;
 };
 
@@ -155,11 +155,16 @@ onUnmounted(() => {
 }
 
 .header {
+  box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
   justify-content: center;
   padding-bottom: 20rem;
   display: flex;
   width: 100%;
   z-index: 9;
+
+  @include m.max(md) {
+    padding-bottom: 0;
+  }
   
   .container {
     border-bottom: 1px solid v.$green;
@@ -168,10 +173,22 @@ onUnmounted(() => {
     background: white;
     align-items: center;
     display: flex;
+
+    @include m.max(xs) {
+      padding-bottom: 0;
+      padding-top: 5px;
+    }
   }
 
   .logo {
     width: 270rem;
+
+    @include m.max(md) {
+      width: 140px;
+    }
+    @include m.max(xs) {
+      top: 5px;
+    }
 
     img {
       height: auto;
@@ -184,10 +201,6 @@ onUnmounted(() => {
     span {
       text-indent: -9999px;
       display: block;
-    }
-
-    @include m.max(md) {
-      width: 180px;
     }
   }
 

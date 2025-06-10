@@ -40,7 +40,7 @@ if (about.value?.body?.value) {
 <template>
   <div class="container">
     <div class="wrap-about row">
-      <div class="col">
+      <div class="col col-text">
         <div class="about-text">
           <h1 class="title">{{ about.title }}</h1>
           <div class="description" v-html="renderedContent"></div>
@@ -49,7 +49,7 @@ if (about.value?.body?.value) {
         <div class="about-ctas">
           <NuxtLink
             to="/preco-ensaio-fotografico"
-            class="link">
+            class="link link-agende">
             <nuxt-icon
               name="calendar-regular"
               class="icon icon-calendar"/>
@@ -97,6 +97,13 @@ if (about.value?.body?.value) {
         p {
           padding-top: 15rem !important;
 
+          &:nth-child(2),
+          &:nth-child(3) {
+            @include m.max(xs) {
+              display: none;
+            }
+          }
+
           strong,
           b {
             background: #892c1a;
@@ -116,12 +123,20 @@ if (about.value?.body?.value) {
   .wrap-about {
     background: white;
 
-    @include m.max(md) {
+    @include m.max(xs) {
       flex-wrap: wrap;
     }
 
     .about-text {
       padding: 45rem;
+
+      @include m.max(sm) {
+        padding: 30rem;
+      }
+
+      @include m.max(xs) {
+        padding: 0 30rem 30rem;
+      }
 
       .description {
         padding-top: 0;
@@ -134,6 +149,10 @@ if (about.value?.body?.value) {
       background: v.$red;
       display: flex;
 
+      @include m.max(sm) {
+        padding: 6px;
+      }
+
       .link {
         transition: color 0.2s, background-color 0.2s;
         padding: 10rem 15rem;
@@ -142,16 +161,27 @@ if (about.value?.body?.value) {
         font-size: 20rem;
         display: flex;
         gap: 15rem;
-
-        @include m.max(sm) {
+        
+        @include m.max(xs) {
+          padding: 10rem 0;
           font-size: 14px;
           margin: 0 auto;
-          width: 320px;
+          width: 100%;
+          gap: 5px;
         }
 
         &:nth-child(2) {
           border-bottom: #b35c4b 1px solid;
-          border-top: #b35c4b 1px solid;
+
+          @include m.min(xs) {
+            border-top: #b35c4b 1px solid;
+          }
+        }
+
+        &.link-agende {
+          @include m.max(xs) {
+            display: none;
+          }
         }
 
         &:hover {
@@ -162,6 +192,23 @@ if (about.value?.body?.value) {
 
       .icon {
         font-size: 40rem;
+
+        @include m.max(xs) {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .col-text {
+      @include m.max(xs) {
+        order: 2;
+      }
+      
+      .title {
+        @include m.max(xs) {
+          margin-top: -18px;
+          text-shadow: 0px 0px 3px white, 0px 2px 3px white, 2px 0px 3px white;
+        }
       }
     }
 
@@ -169,21 +216,19 @@ if (about.value?.body?.value) {
       flex-shrink: 0;
       width: 50%;
 
+      @include m.max(xs) {
+        height: 225px;
+        width: 100%;
+        order: 1;
+      }
+
       .cover {
         object-position: center 20%;
       }
 
-      @include m.max(md) {
-        width: 100%;
-      }
-
-      @include m.max(sm) {
-        display: none;
-      }
-
       .cover {
-        @include m.max(sm) {
-          display: none;
+        @include m.max(xs) {
+          position: relative;
         }
       }
     }
