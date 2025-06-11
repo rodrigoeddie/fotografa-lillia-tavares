@@ -4,7 +4,6 @@ const configPublic = useRuntimeConfig().public;
 const props = defineProps<{ data: any }>();
 
 const about = props.data.meta.sobre_cta || {};
-console.log(about);
 </script>
 
 <template>

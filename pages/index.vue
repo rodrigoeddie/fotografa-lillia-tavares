@@ -5,8 +5,6 @@ const {
   return queryCollection('content').path('/').first()
 });
 
-console.log(home.value);
-
 const title = home.value?.title + ' | Fotógrafa Lillia Tavares';
 
 useSchemaOrg([
@@ -28,6 +26,6 @@ definePageMeta({
 
 <template >
   <SectionsHomeAboutCta :data="home" />
-  <SectionsPortfolio :fromHome="true" />
+  <SectionsHomePortfolio />
   <SectionsStudio class="from-home-studio" />
 </template>

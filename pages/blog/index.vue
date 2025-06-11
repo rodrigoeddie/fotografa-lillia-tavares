@@ -16,7 +16,7 @@ useSeoMeta({
 });
 
 const { data: posts } = await queryCollection('blog').all();
-console.log(posts);
+
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
