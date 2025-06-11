@@ -19,7 +19,6 @@ useSchemaOrg([
 useSeoMeta({
   title: title,
   description: description,
-  keywords: 'Preço Ensaio Fotográfico'
 });
 </script>
 

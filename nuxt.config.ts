@@ -12,6 +12,10 @@ export default defineNuxtConfig({
   siteConfig: siteConfig,
   debug: false,
 
+  future: {
+    compatibilityVersion: 4,
+  },
+
   site: {
     url: siteConfig.url,
     name: siteConfig.title,

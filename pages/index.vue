@@ -5,6 +5,8 @@ const {
   return queryCollection('content').path('/').first()
 });
 
+console.log(home.value);
+
 const title = home.value?.title + ' | Fotógrafa Lillia Tavares';
 
 useSchemaOrg([
@@ -16,7 +18,7 @@ useSchemaOrg([
 
 useSeoMeta({
   title: home.value?.title,
-  description: home.value?.description
+  description: home.value?.description,
 });
 
 definePageMeta({
@@ -25,7 +27,7 @@ definePageMeta({
 </script>
 
 <template >
-  <SectionsAboutCta />
+  <SectionsHomeAboutCta :data="home" />
   <SectionsPortfolio :fromHome="true" />
   <SectionsStudio class="from-home-studio" />
 </template>

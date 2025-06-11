@@ -33,15 +33,15 @@ function toggleMenu() {
                 <span class="txt">Home</span>
             </NuxtLink>
             <span class="separe">•</span>
-            <!--
-                <NuxtLink
-                    to="/sobre"
-                    class="link"
-                    @click="isOpen = false">
-                    <span class="txt">Sobre</span>
-                </NuxtLink>
-            
-            <span class="separe">•</span>-->
+
+            <NuxtLink
+                to="/sobre"
+                class="link"
+                @click="isOpen = false">
+                <span class="txt">Sobre</span>
+            </NuxtLink>
+            <span class="separe">•</span>
+
             <NuxtLink
                 to="/ensaio-fotografico"
                 class="link"
@@ -49,6 +49,7 @@ function toggleMenu() {
                 <span class="txt">Trabalhos</span>
             </NuxtLink>
             <span class="separe">•</span>
+
             <NuxtLink
                 to="/estudio"
                 class="link"
@@ -56,13 +57,15 @@ function toggleMenu() {
                 <span class="txt">Estúdio</span>
             </NuxtLink>
             <span class="separe">•</span>
-            <!-- <NuxtLink
+
+            <NuxtLink
                 to="/blog"
                 class="link"
                 @click="isOpen = false">
                 <span class="txt">Blog</span>
             </NuxtLink>
-            <span class="separe">•</span> -->
+            <span class="separe">•</span>
+
             <NuxtLink
                 to="/preco-ensaio-fotografico"
                 class="link"

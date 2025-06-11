@@ -24,7 +24,6 @@ useSchemaOrg([
 useSeoMeta({
   title: title,
   description: description,
-  keywords: 'Ensaios fotográficos'
 });
 </script>
 

@@ -1,40 +1,10 @@
 <script lang="ts" setup>
 const configPublic = useRuntimeConfig().public;
 
-const {
-  data: about
-} = await useAsyncData(() => {
-  return queryCollection('content').path('/about').first()
-});
+const props = defineProps<{ data: any }>();
 
-const renderElement = (el) => {
-  if (typeof el === 'string') {
-    return el;
-  }
-
-  const [tag, attrs, ...children] = el;
-
-  if (tag != 'h1') {
-    const attrsString = Object.entries(attrs)
-      .map(([key, value]) => {
-        if (Array.isArray(value)) {
-          return `${key}="${value.join(' ')}"`;
-        }
-        return `${key}="${value}"`;
-      })
-      .join(' ');
-
-    const childrenString = children.map(child => (typeof child === 'string' ? child : renderElement(child))).join('');
-
-    return `<${tag} ${attrsString}>${childrenString}</${tag}>`;
-  }
-};
-
-const renderedContent = ref('');
-
-if (about.value?.body?.value) {
-  renderedContent.value = about.value.body.value.map(renderElement).join('');
-}
+const about = props.data.meta.sobre_cta || {};
+console.log(about);
 </script>
 
 <template>
@@ -43,7 +13,7 @@ if (about.value?.body?.value) {
       <div class="col col-text">
         <div class="about-text">
           <h1 class="title">{{ about.title }}</h1>
-          <div class="description" v-html="renderedContent"></div>
+          <div class="description" v-html="about.description"></div>
         </div>
 
         <div class="about-ctas">

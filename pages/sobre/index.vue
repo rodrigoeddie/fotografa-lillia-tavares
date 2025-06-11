@@ -13,7 +13,6 @@ useSchemaOrg([
 useSeoMeta({
   title: title,
   description: description,
-  keywords: 'Fotógrafa, Lillia Tavares, Sobre, Fotografia, Ensaios Fotográficos, estudio, locação, mogi das cruzes',
 });
 
 </script>

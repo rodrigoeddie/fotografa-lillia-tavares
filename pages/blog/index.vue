@@ -13,7 +13,6 @@ useSchemaOrg([
 useSeoMeta({
   title: title,
   description: description,
-  keywords: 'Ensaios fotográficos, blog, curiosidades, novidades, conhecimentos'
 });
 
 const { data: posts } = await queryCollection('blog').all();
