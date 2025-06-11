@@ -1,5 +1,27 @@
 <script lang="ts" setup>
-const { isMobile } = useDevice();
+const isMobile = ref(false);
+
+onMounted(() => {
+  if (process.client) {
+    const checkMobile = () => {
+      return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+    
+    isMobile.value = checkMobile();
+    
+    // Listener para mudanças de tela
+    const handleResize = () => {
+      isMobile.value = checkMobile();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleResize);
+    });
+  }
+});
 
 const props = defineProps({
   fromFooter: {
@@ -99,6 +121,12 @@ function toggleMenu() {
 
 <style scoped lang="scss">
     .from-header {
+        @include m.max(xs) {
+            position: absolute;
+            top: 16px;
+            right: 0;
+        }
+
         .menu {
             font-size: 25rem;
 
@@ -110,7 +138,6 @@ function toggleMenu() {
                 font-size: 20rem;
                 right: 0;
             }
-
             @include m.max(xs) {
                 flex-direction: column;
                 align-items: flex-end;
@@ -342,6 +369,9 @@ function toggleMenu() {
     border: none;
     z-index: 1001;
     width: 55px;
+    position: absolute;
+    right: 0;
+    top: 0;
 
     @media (max-width: 768px) {
         display: flex;

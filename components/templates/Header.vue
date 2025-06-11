@@ -1,6 +1,28 @@
 <script lang="ts" setup>
 const configPublic = useRuntimeConfig().public;
-const { isMobile } = useDevice();
+const isMobile = ref(false);
+
+onMounted(() => {
+  if (process.client) {
+    const checkMobile = () => {
+      return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+    
+    isMobile.value = checkMobile();
+    
+    // Listener para mudanças de tela
+    const handleResize = () => {
+      isMobile.value = checkMobile();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleResize);
+    });
+  }
+});
 
 const { gtag } = useGtag();
 
@@ -16,8 +38,6 @@ const clickWhats = () => {
     screen_name: 'Header'
   })
 }
-
-import { gsap } from 'gsap';
 
 const isScrolled = ref(false); // Estado para controlar se o header está "scrolled"
 const headerRef = ref<HTMLElement | null>(null); // Referência ao elemento do header

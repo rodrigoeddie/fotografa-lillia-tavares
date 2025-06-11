@@ -1,5 +1,27 @@
 <script setup lang="ts">
-const { isMobile } = useDevice();
+const isMobile = ref(false);
+
+onMounted(() => {
+  if (process.client) {
+    const checkMobile = () => {
+      return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+    
+    isMobile.value = checkMobile();
+    
+    // Listener para mudanças de tela
+    const handleResize = () => {
+      isMobile.value = checkMobile();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleResize);
+    });
+  }
+});
 
 const configPublic = useRuntimeConfig().public;
 const photos = [
