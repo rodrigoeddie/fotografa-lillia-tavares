@@ -15,6 +15,7 @@
         alt="Fotógrafias feitas por Lillia Tavares, fotos corportivas"
         width="1700"
         sizes="100vw sm:50vw md:1700px"
+        format="webp"
         fetchpriority="high"
         placeholder
         preload

@@ -119,6 +119,7 @@ onUnmounted(() => {
             width="385"
             height="164"
             class="logo-black"
+            format="webp"
             fetchpriority="high"
             preload
             placeholder />

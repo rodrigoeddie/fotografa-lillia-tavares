@@ -156,6 +156,7 @@ const formatDate = (dateString: string) => {
                         :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
                         class="img-thumb"
                         :alt="slide.alt"
+                        format="webp"
                         placeholder
                         loading="lazy"/>
                       <nuxt-img
@@ -167,6 +168,7 @@ const formatDate = (dateString: string) => {
                         :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
                         class="bg-thumb"
                         :alt="slide.alt"
+                        format="webp"
                         placeholder
                         loading="lazy"/>
                     </swiper-slide>

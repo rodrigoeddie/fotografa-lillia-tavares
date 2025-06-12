@@ -54,6 +54,7 @@ const about = props.data.meta.sobre_cta || {};
           fetchpriority="high"
           preload
           sizes="100vw sm:50vw md:935px"
+          format="webp"
           placeholder
           class="img cover"/>
       </div>
