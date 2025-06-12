@@ -480,11 +480,7 @@ nav[aria-label=breadcrumb] {
     }
 
     &:nth-child(even) {
-        background: #892c1a;
-
-        // @media (prefers-color-scheme: light) {
-        //     color: white;
-        // }
+        // background: white;
 
         @include m.min(md) {
             padding-right: 30rem;
@@ -500,11 +496,7 @@ nav[aria-label=breadcrumb] {
     }
 
     &:nth-child(odd) {
-        background: #2c2a15;
-
-        // @media (prefers-color-scheme: light) {
-        //     background: white;
-        // }
+        background: rgba(255, 255, 255, .8);
 
         @include m.min(md) {
             padding-left: 30rem;

@@ -242,7 +242,7 @@ const onHide = () => (visibleRef.value = false);
 <style lang="scss">
 nav[aria-label="breadcrumb"] {
   position: absolute;
-  top: 160rem;
+  top: 30rem;
 
   @include m.max(sm) {
     top: 110rem;

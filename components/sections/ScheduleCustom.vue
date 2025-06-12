@@ -146,10 +146,6 @@ const enviar = async () => {
       initial-value: 0;
   }
 
-  // @media (prefers-color-scheme: dark) {
-  //   color: white;
-  // }
-
   .mx-auto {
     text-transform: uppercase;
   }
@@ -220,14 +216,9 @@ const enviar = async () => {
   .rounded-full {
     border-radius: 3.40282e+38px;
   }
-  .data-\[selected\]\:bg-\(--ui-primary\)[data-selected] {
+  [aria-selected] {
       background-color: v.$dark-red;
       color: white;
-
-      // @media (prefers-color-scheme: dark) {
-      //   background-color: white;
-      //   color: v.$dark-green;
-      // }
   }
   .text-\(--ui-primary\),
   .text-\(--ui-primary\)\/75 {
@@ -333,11 +324,6 @@ const enviar = async () => {
       padding: 15rem;
       height: 50rem;
       width: 100%;
-
-      // @media (prefers-color-scheme: dark) {
-      //   border-color: white;
-      //   color-scheme: dark;
-      // }
     }
 
     input:focus,

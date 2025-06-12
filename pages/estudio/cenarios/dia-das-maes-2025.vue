@@ -200,7 +200,6 @@ nav[aria-label=breadcrumb] {
 }
 
 .hero {
-    background: #2c2a15;
     height: 200rem;
     // aspect-ratio: 7/1;
 
@@ -410,11 +409,7 @@ nav[aria-label=breadcrumb] {
     }
 
     &:nth-child(even) {
-        background: #892c1a;
-
-        // @media (prefers-color-scheme: light) {
-        //     color: white;
-        // }
+        // background: rgba(255, 255, 255, .5);
 
         @include m.min(md) {
             padding-right: 30rem;
@@ -430,11 +425,7 @@ nav[aria-label=breadcrumb] {
     }
 
     &:nth-child(odd) {
-        background: white;
-
-        // @media (prefers-color-scheme: dark) {
-        //     background: #2c2a15;
-        // }
+        background: rgba(255, 255, 255, .8);
 
         @include m.min(md) {
             padding-left: 30rem;
