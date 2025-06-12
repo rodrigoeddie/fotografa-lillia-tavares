@@ -71,10 +71,6 @@ export default defineNuxtConfig({
         'smartlook-script': ['innerHTML']
       },
     },
-    // pageTransition: {
-    //   name: 'page',
-    //   mode: 'out-in'
-    // }
   },
 
   schemaOrg: {

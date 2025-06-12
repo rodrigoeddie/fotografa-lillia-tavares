@@ -52,6 +52,8 @@ const about = props.data.meta.sobre_cta || {};
           alt="Fotógrafa Lillia Tavares segurando sua câmera fotográfica"
           width="935"
           fetchpriority="high"
+          preload
+          sizes="100vw sm:50vw md:935px"
           placeholder
           class="img cover"/>
       </div>

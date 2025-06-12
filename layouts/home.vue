@@ -13,9 +13,11 @@
         provider="cloudflare"
         :src='"https://images.fotografalilliatavares.com.br/images/adbbe897-d46d-4f36-4ae3-a77243e78400/public"'
         alt="Fotógrafias feitas por Lillia Tavares, fotos corportivas"
-        width="1920"
+        width="1700"
+        sizes="100vw sm:50vw md:1700px"
         fetchpriority="high"
         placeholder
+        preload
         class="banner-hero"/>
     </div>
     <TemplatesHeader class="from-home" />

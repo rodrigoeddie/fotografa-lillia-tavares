@@ -7,17 +7,15 @@ onMounted(() => {
     const checkMobile = () => {
       return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     };
-    
+
     isMobile.value = checkMobile();
-    
-    // Listener para mudanças de tela
+
     const handleResize = () => {
       isMobile.value = checkMobile();
     };
-    
+
     window.addEventListener('resize', handleResize);
-    
-    // Cleanup
+
     onUnmounted(() => {
       window.removeEventListener('resize', handleResize);
     });
@@ -122,14 +120,7 @@ onUnmounted(() => {
             height="164"
             class="logo-black"
             fetchpriority="high"
-            placeholder />
-          <nuxt-img
-            :src='"https://images.fotografalilliatavares.com.br/images/8a01bb94-bd4f-4e5b-aecf-b260b8726e00/public"'
-            alt="Logo Lillia Tavares Fotografia"
-            width="385"
-            height="164"
-            class="logo-white"
-            fetchpriority="high"
+            preload
             placeholder />
         </NuxtLink>
       </h1>
@@ -188,7 +179,7 @@ onUnmounted(() => {
   @include m.max(md) {
     padding-bottom: 0;
   }
-  
+
   .container {
     box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid v.$green;
@@ -197,16 +188,20 @@ onUnmounted(() => {
     background: white;
     align-items: center;
     display: flex;
-    
+    height: 90rem;
+
     @include m.max(xs) {
       padding-left: 15px;
       padding-bottom: 5px;
       padding-right: 0;
       padding-top: 5px;
+      height: 48px;
     }
   }
 
   .logo {
+    transition: width .3s;
+    margin-top: -48rem;
     width: 270rem;
 
     @include m.max(md) {
@@ -231,6 +226,11 @@ onUnmounted(() => {
   &.is-scrolled {
     position: fixed;
     top: 0;
+
+    .logo {
+      width: 175rem;
+      margin-top: 0;
+    }
   }
 }
 </style>
