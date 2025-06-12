@@ -5,8 +5,7 @@ const configPublic = useRuntimeConfig().public;
 const filteredSlides = (item) => {
   if (!item.album) {
     return {
-      retrato: [],
-      paisagem: []
+      retrato: []
     };
   }
 
@@ -15,14 +14,8 @@ const filteredSlides = (item) => {
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
     .slice(0, 2);
 
-  const paisagemSlides = item.album
-    .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    .slice(0, 2);
-
   return {
-    retrato: retratoSlides,
-    paisagem: paisagemSlides
+    retrato: retratoSlides
   };
 }
 
@@ -60,57 +53,7 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
       photos: filteredSlides(item.body),
       path: item.path
     };
-  })
-  .sort((a, b) => {
-    if (a.homeOrder && b.homeOrder) {
-      return a.homeOrder - b.homeOrder;
-    }
-
-    return 0;
   }) : [];
-
-const classes = [
-  {
-    class: 'card card-column',
-    format: 'paisagem',
-    image: {
-      width: 690,
-      height: 460,
-    }
-  },
-  {
-    class: 'card side-by-side',
-    format: 'retrato',
-    image: {
-      width: 414,
-      height: 790,
-    }
-  },
-  {
-    class: 'wide side-by-side reverse',
-    format: 'paisagem',
-    image: {
-      width: 962,
-      height: 602,
-    }
-  },
-  {
-    class: 'card side-by-side card-50',
-    format: 'retrato',
-    image: {
-      width: 567,
-      height: 834,
-    }
-  },
-  {
-    class: 'card card-column card-50',
-    format: 'paisagem',
-    image: {
-      width: 605,
-      height: 403,
-    }
-  },
-];
 
 const formatDate = (dateString: string) => {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -131,8 +74,8 @@ const formatDate = (dateString: string) => {
 
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
-        <div :class="'thumb thumb-' + classes[index % classes.length].class">
-          <div :class="{'inner-thumb': true, 'wrap-wide': classes[index % classes.length].class === 'wide side-by-side reverse'}">
+        <div class="thumb thumb-vertical">
+          <div class="inner-thumb">
             <div class="slider">
               <ClientOnly>
                 <NuxtLink
@@ -145,27 +88,15 @@ const formatDate = (dateString: string) => {
                     }"
                     :navigation="true">
                     <swiper-slide
-                      v-for="slide in item.photos[classes[index % classes.length].format]"
+                      v-for="slide in item.photos['retrato']"
                       :key="slide.id"
                       :class="'wrap-img ' + slide.format">
                       <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        :width="classes[index % classes.length].image.width"
-                        :height="classes[index % classes.length].image.height"
-                        :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
-                        class="img-thumb"
-                        :alt="slide.alt"
-                        format="webp"
-                        placeholder
-                        loading="lazy"/>
-                      <nuxt-img
-                        provider="cloudflare"
-                        v-if="slide.format=='retrato'"
-                        :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        :width="classes[index % classes.length].image.width"
-                        :height="classes[index % classes.length].image.height"
-                        :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
+                        width="384"
+                        height="594"
+                        sizes="'100vw md:50vw lg:384px"
                         class="bg-thumb"
                         :alt="slide.alt"
                         format="webp"
@@ -204,8 +135,6 @@ const formatDate = (dateString: string) => {
                   </li>
                 </ul>
 
-                <div class="description ensaio-description" v-html="item.description"></div>
-
                 <NuxtLink
                   :to="item.path"
                   class="link">
@@ -224,22 +153,6 @@ const formatDate = (dateString: string) => {
                 <span class="box">
                   <span>Clique aqui</span>
                 </span>
-          </NuxtLink>
-        </template>
-
-        <template v-if="index == 1 || index == 6">
-          <NuxtLink
-            class="btn-agende btn-agende-01"
-            :to="'/preco-ensaio-fotografico'">
-            <span>Gostou? Agende o seu</span>
-          </NuxtLink>
-        </template>
-
-        <template v-if="(index == 1 && ensaiosData.length > 2) || index == 6">
-          <NuxtLink
-            class="btn-agende btn-agende-02"
-            :to="'/preco-ensaio-fotografico'">
-            <span>Gostou? Agende o seu</span>
           </NuxtLink>
         </template>
       </template>
@@ -275,7 +188,9 @@ const formatDate = (dateString: string) => {
   }
 
   .slider {
+    aspect-ratio: 384/500;
     background: #f6f6f6;
+    flex-shrink: 0;
     width: 100%;
   }
 
@@ -297,72 +212,26 @@ const formatDate = (dateString: string) => {
   }
 
   .wrap-portfolio {
+    justify-content: space-between;
     margin-bottom: 50rem;
     flex-wrap: wrap;
     display: flex;
     gap: 15rem;
 
-    .btn-agende {
-      transition: color .2s, background .2s, border .2s;
-      border: 1px solid transparent;
-      text-transform: uppercase;
-      justify-content: center;
-      background: v.$green;
-      align-items: center;
-      font-size: 30rem;
-      color: white;
-      display: flex;
-
-      span {
-        transform: rotate(-90deg);
-        transform-origin: center;
-        text-align: center;
-        display: block;
-        flex-shrink: 0;
-        width: 472rem;
-
-        @include m.max(md) {
-          width: 320rem;
-        }
-
-        @include m.max(sm) {
-          transform: none;
-          width: 100%;
-        }
-      }
-
-      &.btn-agende-01 {
-        width: 4%;
-
-        @include m.max(sm) {
-          padding: 10px 0;
-          font-size: 25px;
-          width: 100%;
-        }
-      }
-
-      &.btn-agende-02 {
-        width: calc(8% - 15rem);
-
-        @include m.max(lg) {
-          font-size: 28px;
-        }
-
-        @include m.max(sm) {
-          display: none;
-        }
-      }
-
-      &:hover {
-        background: white !important;
-        border-color: v.$green;
-        color: v.$green;
-      }
+    @include m.max(xs) {
+      display: block;
     }
 
     .thumb {
-      background: white;
       border: 1px solid v.$green;
+      width: calc(33% - 5rem);
+      background: white;
+
+      @include m.max(xs) {
+        margin-bottom: 20px;
+        margin-left: 3%;
+        width: 94%;
+      }
 
       .wrap-info {
         color: v.$green;
@@ -402,7 +271,7 @@ const formatDate = (dateString: string) => {
             top: 7rem;
           }
 
-          a {
+          :deep(a) {
             display: block;
             padding: 5px 0;
           }
@@ -413,175 +282,23 @@ const formatDate = (dateString: string) => {
         }
       }
 
-      &.thumb-card {
-        width: calc(48% - 15rem);
-
-        @include m.max(md) {
-          width: 100%;
-        }
-
-        &.side-by-side {
-          .slider {
-            aspect-ratio: 1/1.47;
-            flex-shrink: 0;
-            width: 62%;
-
-            @include m.max(sm) {
-              width: 50%;
-            }
-          }
-        }
-
-        &.card-50 {
-          width: calc(50% - 15rem);
-
-          @include m.max(sm) {
-            width: 100%;
-          }
-        }
-
-        &.card-60 {
-          width: calc(60% - 15rem);
-
-          @include m.max(sm) {
-            width: 100%;
-          }
-        }
-
-        &.card-40 {
-          width: 40%;
-
-          @include m.max(sm) {
-            width: 100%;
-          }
-        }
-
-        .slider {
-          aspect-ratio: 568/378;
-          height: 100%;
-
-          .swiper {
-            height: 100%;
-          }
-        }
-      }
-
-      &.card-column .inner-thumb {
-        flex-direction: column;
-        display: flex;
-      }
-
-      &.side-by-side .inner-thumb {
-        display: flex;
-        height: 100%;
-
-        .swiper {
-          height: 100%;
-        }
-      }
-
-      &.thumb-wide {
-        background-color: transparent;
-        width: 92%;
-        padding: 0;
-
-        @include m.max(md) {
-          width: 100%;
-        }
-
-        .slider {
-          width: calc(65% - 6rem);
-          aspect-ratio: 2/1.25;
-          flex-shrink: 0;
-
-          @include m.max(xs) {
-            width: 50%;
-          }
-        }
-
-        &.reverse {
-          .wrap-wide {
-            background: white;
-            padding: 0;
-            display: flex;
-            width: 100%;
-
-            @include m.max(sm) {
-              flex-wrap: wrap;
-            }
-          }
-
-          .slider {
-            @include m.max(xs) {
-              width: 100%;
-            }
-          }
-
-          .wrap-info {
-            width: calc(34%);
-
-            @include m.max(xs) {
-              width: 100%;
-            }
-          }
-        }
-
-        .link-see-more {
-          margin-top: 10rem;
-          padding-top: 0;
-          width: 100%;
-
-          .box {
-            justify-content: flex-end;
-            font-size: 33rem;
-            width: 550rem;
-
-            @include m.max(lg) {
-              width: 398rem;
-            }
-
-            @include m.max(md) {
-              justify-content: center;
-              font-size: 30rem;
-              width: 214rem;
-            }
-
-            @include m.max(sm) {
-              font-size: 15px;
-              width: auto;
-            }
-          }
-
-          &:hover {
-            border-color: v.$red;
-            color: v.$red;
-
-            .box {
-              background: v.$red;
-            }
-          }
-        }
-      }
-
       .link {
         text-decoration: underline;
         align-items: flex-end;
-        font-size: 20rem;
+        padding-top: 30rem;
+        font-size: 30rem;
         color: v.$green;
         display: flex;
       }
     }
 
     .swiper {
+      height: 100%;
       width: 100%;
 
-      @include m.min(md) {
-        height: 89%;
-      }
-
-      @include m.max(md) {
-        height: 60vw;
-      }
+      // @include m.max(md) {
+      //   height: 60vw;
+      // }
 
       .wrap-img {
         height: 100%;
@@ -591,10 +308,6 @@ const formatDate = (dateString: string) => {
           object-fit: cover;
           height: 100%;
           width: 100%;
-        }
-
-        &.paisagem {
-          aspect-ratio: 600/400;
         }
       }
     }
