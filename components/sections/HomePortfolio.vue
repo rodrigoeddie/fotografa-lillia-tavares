@@ -392,13 +392,19 @@ const formatDate = (dateString: string) => {
               height: 12rem;
               width: 12rem;
               left: 2rem;
-              top: 8rem;
+              top: 16rem;
             }
           }
 
           li.place .nuxt-icon {
             position: absolute;
             left: -1rem;
+            top: 7rem;
+          }
+
+          a {
+            display: block;
+            padding: 5px 0;
           }
         }
 

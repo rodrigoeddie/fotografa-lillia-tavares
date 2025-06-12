@@ -4,6 +4,7 @@
         <NuxtLink
           to="https://www.instagram.com/fotografalilliatavares/"
           target="_blank"
+          aria-label="Instagram: @fotografalilliatavares"
           class="link-social">
           <nuxt-icon
             name="instagram"
@@ -13,7 +14,8 @@
 
         <NuxtLink
           to="mailto:fotografalilliatavares@gmail.com"
-          class="link-social">
+          class="link-social"
+          aria-label="Email: fotografalilliatavares@gmail.com">
           <nuxt-icon
             name="email"
             class="icon icon-email"/>
@@ -23,7 +25,8 @@
         <NuxtLink
           to="https://wa.me/5511911159795"
           class="link-social icon-whatsapp"
-          target="_blank">
+          target="_blank"
+          aria-label="Telefone: (11) 91115-9795">
           <nuxt-icon
             name="whatsapp"
             class="icon"/>
