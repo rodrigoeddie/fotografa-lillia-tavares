@@ -10,7 +10,37 @@ const props = defineProps({
   }
 });
 
-const filteredSlides = (item) => {
+interface SlideFormat {
+  retrato: any[];
+  paisagem: any[];
+}
+
+interface EnsaioItem {
+  title: string;
+  description: string;
+  local?: string;
+  date?: string;
+  category?: {
+    slug: string;
+    title: string;
+  };
+  album?: any[];
+  photos: SlideFormat;
+  path: string;
+  homeOrder?: number;
+  [key: string]: any; // Para permitir outras propriedades do body
+}
+
+interface ClassConfig {
+  class: string;
+  format: 'paisagem' | 'retrato';
+  image: {
+    width: number;
+    height: number;
+  };
+}
+
+const filteredSlides = (item: any): SlideFormat => {
   if (!item.album) {
     return {
       retrato: [],
@@ -19,13 +49,13 @@ const filteredSlides = (item) => {
   }
 
   const retratoSlides = item.album
-    .filter(slide => slide.format === 'retrato' && slide.canBeThumb === true)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .filter((slide: any) => slide.format === 'retrato' && slide.canBeThumb === true)
+    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
     .slice(0, 2);
 
   const paisagemSlides = item.album
-    .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .filter((slide: any) => slide.format === 'paisagem' && slide.canBeThumb === true)
+    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
     .slice(0, 2);
 
   return {
@@ -38,52 +68,102 @@ const { data: navigation } = await useAsyncData('navigation', () => {
   return queryCollectionNavigation('works');
 });
 
-const categories = navigation.value[0].children;
-const workPage   = navigation.value[0].path;
-const category   = $route.params.category || '';
+const workPage        = ref('');
+const currentCategory = ref<any>(null);
 
-const currentCategory = categories.find(cat => cat.path === `/ensaio-fotografico/${category}`);
-
-const {
-  data: ensaiosList
-} = await useAsyncData(() => {
-  const query = queryCollection('works')
-
-  if(props.fromHome) {
-    query.limit(3);
-    query.where('home', '=', true);
-  }
-
-  if (category) {
-    query.where('path', 'LIKE', `%/${category}%`);
-  }
-
-  query.where('id', 'NOT LIKE', `%/index.json%`);
-
-  return query.all();
+// Computed para gerar a key do useAsyncData baseada nos parâmetros atuais
+const asyncDataKey = computed(() => {
+  const category = $route.params.category || '';
+  return `ensaios-${category}-${props.fromHome}`;
 });
 
-const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
-  .map(item => {
-    return {
-      ...item.body,
-      photos: filteredSlides(item.body),
-      path: item.path
-    };
-  })
-  .sort((a, b) => {
-    if (props.fromHome) {
-      if (a.homeOrder && b.homeOrder) {
-        return a.homeOrder - b.homeOrder;
-      }
+// Computed para gerar a query baseada nos parâmetros atuais
+const queryConfig = computed(() => {
+  const category = $route.params.category || '';
+  return {
+    category,
+    fromHome: props.fromHome
+  };
+});
 
-      return 0;
+// useAsyncData no nível do componente com chave reativa
+const { data: ensaiosList, refresh: refreshEnsaios } = await useAsyncData(
+  asyncDataKey,
+  () => {
+    const query = queryCollection('works');
+    const { category, fromHome } = queryConfig.value;
+
+    if (fromHome) {
+      query.limit(3);
+      query.where('home', '=', true);
     }
 
-    return 0;
-  }) : [];
+    if (category) {
+      query.where('path', 'LIKE', `%/${category}%`);
+    }
 
-const classes = [
+    query.where('id', 'NOT LIKE', `%/index.json%`);
+
+    return query.all();
+  }
+);
+
+// Computed para processar os dados dos ensaios
+const ensaiosData = computed(() => {
+  if (!ensaiosList.value || !Array.isArray(ensaiosList.value)) {
+    return [];
+  }
+
+  return ensaiosList.value
+    .map((item: any) => {
+      return {
+        // Adicionar todas as propriedades do body (que contém os dados do JSON)
+        ...(item.body as any),
+        // Adicionar fotos filtradas
+        photos: filteredSlides(item.body),
+        // Adicionar path
+        path: item.path
+      };
+    })
+    .sort((a: any, b: any) => {
+      if (props.fromHome) {
+        if (a.homeOrder && b.homeOrder) {
+          return a.homeOrder - b.homeOrder;
+        }
+        return 0;
+      }
+      return 0;
+    });
+});
+
+// Função para atualizar conteúdo baseado na rota
+function atualizarConteudoComBaseNaRota(newRoute: any) {
+  if (!navigation.value || !navigation.value[0]) return;
+
+  const categories = navigation.value[0].children;
+  workPage.value = navigation.value[0].path;
+  const category = newRoute.params.category || '';
+
+  currentCategory.value = categories?.find(cat => cat.path === `/ensaio-fotografico/${category}`) || null;
+}
+
+// Executar inicialmente
+atualizarConteudoComBaseNaRota($route);
+
+// Watcher para mudanças de rota
+watch(
+  () => $route.fullPath,
+  (novoFullPath, antigoFullPath) => {
+    if (novoFullPath !== antigoFullPath) {
+      atualizarConteudoComBaseNaRota($route);
+      // Refresh dos dados quando a rota mudar
+      refreshEnsaios();
+    }
+  },
+  { immediate: false }
+);
+
+const classes: ClassConfig[] = [
   {
     class: 'card card-column',
     format: 'paisagem',
@@ -127,7 +207,7 @@ const classes = [
 ];
 
 const formatDate = (dateString: string) => {
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return new Date(dateString).toLocaleDateString('pt-BR', options);
 };
 </script>
@@ -144,9 +224,9 @@ const formatDate = (dateString: string) => {
     </h1>
 
     <div class="wrap-portfolio">
-      <template v-for="(item, index) in ensaiosData">
-        <div :class="'thumb thumb-' + classes[index % classes.length].class">
-          <div :class="{'inner-thumb': true, 'wrap-wide': classes[index % classes.length].class === 'wide side-by-side reverse'}">
+      <template v-for="(item, index) in ensaiosData" :key="item.path">
+        <div :class="'thumb thumb-' + classes[index % classes.length]?.class">
+          <div :class="{'inner-thumb': true, 'wrap-wide': classes[index % classes.length]?.class === 'wide side-by-side reverse'}">
             <div class="slider">
               <ClientOnly>
                 <NuxtLink
@@ -159,15 +239,15 @@ const formatDate = (dateString: string) => {
                     }"
                     :navigation="true">
                     <swiper-slide
-                      v-for="slide in item.photos[classes[index % classes.length].format]"
+                      v-for="slide in item.photos?.[classes[index % classes.length]?.format || 'paisagem'] || []"
                       :key="slide.id"
                       :class="'wrap-img ' + slide.format">
                       <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        :width="classes[index % classes.length].image.width"
-                        :height="classes[index % classes.length].image.height"
-                        :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
+                        :width="classes[index % classes.length]?.image.width || 690"
+                        :height="classes[index % classes.length]?.image.height || 460"
+                        :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 690) + 'px'"
                         class="img-thumb"
                         :alt="slide.alt"
                         placeholder
@@ -176,9 +256,9 @@ const formatDate = (dateString: string) => {
                         provider="cloudflare"
                         v-if="slide.format=='retrato'"
                         :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        :width="classes[index % classes.length].image.width"
-                        :height="classes[index % classes.length].image.height"
-                        :sizes="'100vw md:50vw lg:' + classes[index % classes.length].image.width + 'px'"
+                        :width="classes[index % classes.length]?.image.width || 690"
+                        :height="classes[index % classes.length]?.image.height || 460"
+                        :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 690) + 'px'"
                         class="bg-thumb"
                         :alt="slide.alt"
                         placeholder
@@ -196,7 +276,7 @@ const formatDate = (dateString: string) => {
                 </h3>
 
                 <ul class="info-list">
-                  <li class="category" v-if="item.category.slug">
+                  <li class="category" v-if="item.category?.slug">
                     <NuxtLink
                       :to="workPage + '/' + item.category.slug">
                       <span>{{ item.category.title }}</span>

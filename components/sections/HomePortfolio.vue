@@ -110,9 +110,9 @@ const formatDate = (dateString: string) => {
 
             <div class="wrap-info">
               <div class="wrap-text">
-                <h3 class="title">
+                <h2 class="title">
                   {{ item.title }}
-                </h3>
+                </h2>
 
                 <ul class="info-list">
                   <li class="category" v-if="item.category.slug">
