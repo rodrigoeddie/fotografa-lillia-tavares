@@ -7,6 +7,11 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  category: {
+    type: String,
+    required: false,
+    default: undefined
   }
 });
 
@@ -97,8 +102,12 @@ const { data: ensaiosList, refresh: refreshEnsaios } = await useAsyncData(
       query.where('home', '=', true);
     }
 
-    if (category) {
+    if (category && !props.category) {
       query.where('path', 'LIKE', `%/${category}%`);
+    }
+
+    if (props.category) {
+      query.where('path', 'LIKE', `%/${props.category}%`);
     }
 
     query.where('id', 'NOT LIKE', `%/index.json%`);
@@ -215,11 +224,13 @@ const formatDate = (dateString: string) => {
   <div class="container no-padding">
     <h1 class="big-title red centered">
       <span class="box">
-        <span v-if="!currentCategory">Explore meus</span>
-        <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
+      <span v-if="props.category">Trabalhos</span>
+      <span v-else-if="currentCategory">Ensaios fotográficos da categoria</span>
+      <span v-else>Explore meus</span>
       </span>
-      <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
-      <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
+      <span class="big" v-if="props.category">com esse cenário</span>
+      <span class="big" v-else-if="currentCategory">{{ currentCategory.title }}</span>
+      <span class="big" v-else>Últimos trabalhos</span>
     </h1>
 
     <div class="wrap-portfolio">
@@ -326,12 +337,14 @@ const formatDate = (dateString: string) => {
           </NuxtLink>
         </template>
 
-        <template v-if="(index - 1) % 5 === 0 || (index === 1 && ensaiosData.length > 2)">
-          <NuxtLink
-            class="btn-agende btn-agende-02"
-            :to="'/preco-ensaio-fotografico'">
-            <span>Gostou? Agende o seu</span>
-          </NuxtLink>
+        <template v-if="ensaiosData.length > 2">
+          <template v-if="(index - 1) % 5 === 0 || (index === 1)">
+            <NuxtLink
+              class="btn-agende btn-agende-02"
+              :to="'/preco-ensaio-fotografico'">
+              <span>Gostou? Agende o seu</span>
+            </NuxtLink>
+          </template>
         </template>
       </template>
     </div>

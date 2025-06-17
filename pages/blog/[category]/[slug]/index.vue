@@ -5,6 +5,10 @@ const { data: post } = await useAsyncData(path, () => {
   return queryCollection('blog').path(path).first()
 });
 
+// const ensaiosList = await queryCollection('works')
+//                              .where('path', 'LIKE', `%/${post.value.works}%`)
+//                              .all();
+
 // const { data: navigation } = await useAsyncData('navigation', () => {
 //   return queryCollectionNavigation('works');
 // });
@@ -62,7 +66,9 @@ useSeoMeta({
 
     <h2 class="subtitle">{{ post.title }}</h2>
     <p class="description">{{ post.description }}</p>
-  </div>
+
+    <SectionsPortfolio :category="post.works" />
+  </div>  
 </template>
 
 <style scoped lang="scss">

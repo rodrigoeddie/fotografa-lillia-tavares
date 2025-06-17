@@ -38,6 +38,7 @@ export default defineContentConfig({
         date: z.date(),
         category: z.string(),
         categoryTitle: z.string(),
+        works: z.string(),
       })
     }),
   }
