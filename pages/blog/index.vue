@@ -14,10 +14,10 @@ useSeoMeta({
   title: title,
   description: description,
 });
-
-const posts = await queryCollection('blog')
-                      .where('id', 'NOT LIKE', `%/index.md%`)
-                      .all();
+const posts = (await queryCollection('blog')
+  .where('id', 'NOT LIKE', `%/index.md%`)
+  .all())
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('pt-BR', {
@@ -40,8 +40,14 @@ const formatDate = (date: Date) => {
         {{ post.description }}
       </div>
       <div class="post-meta">
+        <nuxt-icon
+          name="calendar-regular"
+          class="icon icon-calendar"/>
         <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
-        <NuxtLink :to="'/blog/' + post.category">
+        <NuxtLink :to="'/blog/' + post.category" class="category-link">
+          <nuxt-icon
+            name="category"
+            class="icon icon-category"/>
           <span class="category">{{ post.categoryTitle }}</span>
         </NuxtLink>
       </div>
@@ -51,13 +57,9 @@ const formatDate = (date: Date) => {
 
 <style scoped lang="scss">
 .post-list {
-  background: white;
   margin: 0 auto 30rem;
+  background: white;
   padding: 20px;
-}
-
-.time {
-  font-size: 12px;
 }
 
 .post-item {
@@ -73,15 +75,32 @@ const formatDate = (date: Date) => {
 
 .post-meta {
   margin-bottom: 15px;
+  align-items: center;
   font-size: 18px;
-  display: flex;
   color: #666;
-  gap: 15px;
+  display: flex;
+  gap: 10px;
 
-  .category {
-    background: #f0f0f0;
-    padding: 5px 15px;
-    border-radius: 4px;
+  .time,
+  .category-link {
+    padding-top: 2rem;
+    font-size: 13px;
+    color: #999;
+  }
+
+  .category-link {
+    padding-left: 20rem;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+
+    .nuxt-icon {
+      font-size: 22px;
+    }
+  }
+
+  .nuxt-icon {
+    font-size: 18px;
   }
 }
 

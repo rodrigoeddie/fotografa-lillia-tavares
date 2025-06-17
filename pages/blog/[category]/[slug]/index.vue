@@ -5,15 +5,17 @@ const { data: post } = await useAsyncData(path, () => {
   return queryCollection('blog').path(path).first()
 });
 
-// const ensaiosList = await queryCollection('works')
-//                              .where('path', 'LIKE', `%/${post.value.works}%`)
-//                              .all();
-
-// const { data: navigation } = await useAsyncData('navigation', () => {
-//   return queryCollectionNavigation('works');
+// Se você quiser listar posts relacionados por data:
+// const { data: relatedPosts } = await useAsyncData('related-posts', () => {
+//   return queryCollection('blog')
+//     .where('category', post.value?.category)
+//     .where('path', '!=', path)
+//     .sort([{ date: -1 }]) // -1 para mais recente primeiro, 1 para mais antigo primeiro
+//     .limit(5)
+//     .all()
 // });
 
-const title     = post.value.title + ' | Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
+const title = post.value.title + ' | Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
 
 const siteURI = 'https://fotografalilliatavares.com.br';
 
@@ -40,8 +42,8 @@ useSchemaOrg([
       {
         '@type': 'ListItem',
         position: 3,
-        name: post.value.category.title,
-        item: siteURI + '/blog/' + post.value.category.slug
+        name: post.value.categoryTitle,
+        item: siteURI + '/blog/' + post.value.category
       },
       {
         '@type': 'ListItem',
@@ -57,7 +59,6 @@ useSeoMeta({
   title: title,
   description: post.value.description
 });
-
 </script>
 
 <template>
