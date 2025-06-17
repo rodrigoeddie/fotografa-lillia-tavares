@@ -277,11 +277,7 @@ function toggleMenu() {
 
     .from-footer {
         .menu {
-            font-size: 45rem;
-
-            @include m.max(lg) {
-                font-size: 40rem;
-            }
+            font-size: 40rem;
 
             @include m.max(md) {
                 font-size: 29rem;
@@ -376,7 +372,7 @@ function toggleMenu() {
     height: 40px;
     border: none;
     width: 55px;
-    top: -8px;
+    top: -4px;
     right: 0;
 
     @include m.max(sm) {

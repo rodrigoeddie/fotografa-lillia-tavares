@@ -185,18 +185,16 @@ onUnmounted(() => {
     box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid v.$green;
     justify-content: space-between;
-    padding: 15rem 25rem;
     background: white;
     align-items: center;
-    display: flex;
+    padding: 0 25rem;
     height: 90rem;
+    display: flex;
 
     @include m.max(xs) {
       padding-left: 15px;
-      padding-bottom: 5px;
       padding-right: 0;
-      padding-top: 5px;
-      height: 48px;
+      height: 55px;
     }
   }
 
