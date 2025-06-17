@@ -86,7 +86,6 @@ const queryConfig = computed(() => {
   };
 });
 
-// useAsyncData no nível do componente com chave reativa
 const { data: ensaiosList, refresh: refreshEnsaios } = await useAsyncData(
   asyncDataKey,
   () => {

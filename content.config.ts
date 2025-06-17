@@ -31,12 +31,13 @@ export default defineContentConfig({
       })
     }),
     blog: defineCollection({
-      source: 'blog/*.md',
+      source: 'blog/**/*.md',
       type: 'page',
       schema: z.object({
         title: z.string(),
         date: z.date(),
         category: z.string(),
+        categoryTitle: z.string(),
       })
     }),
   }

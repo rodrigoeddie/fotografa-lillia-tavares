@@ -15,7 +15,9 @@ useSeoMeta({
   description: description,
 });
 
-const { data: posts } = await queryCollection('blog').all();
+const posts = await queryCollection('blog')
+                      .where('id', 'NOT LIKE', `%/index.md%`)
+                      .all();
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('pt-BR', {
@@ -27,18 +29,21 @@ const formatDate = (date: Date) => {
 </script>
 
 <template>
-  <div class="post-list">
-    <h1>BLOG</h1>
-    <article v-for="post in posts" :key="post._id" class="post-item">
-      <h2>
-        <NuxtLink :to="post._path">{{ post.title }}</NuxtLink>
+  <div class="container post-list">
+    <h1 class="title">BLOG</h1>
+
+    <article v-for="post in posts" :key="post.id" class="post-item">
+      <h2 class="subtitle">
+        <NuxtLink :to="post.path">{{ post.title }}</NuxtLink>
       </h2>
-      <div class="post-meta">
-        <time :datetime="post.date">{{ formatDate(post.date) }}</time>
-        <span class="category">{{ post.category }}</span>
+      <div class="description" v-if="post.description">
+        {{ post.description }}
       </div>
-      <div class="post-excerpt" v-if="post.excerpt">
-        {{ post.excerpt }}
+      <div class="post-meta">
+        <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
+        <NuxtLink :to="'/blog/' + post.category">
+          <span class="category">{{ post.categoryTitle }}</span>
+        </NuxtLink>
       </div>
     </article>
   </div>
@@ -46,15 +51,20 @@ const formatDate = (date: Date) => {
 
 <style scoped lang="scss">
 .post-list {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+  background: white;
+  margin: 0 auto 30rem;
+  padding: 20px;
+}
+
+.time {
+  font-size: 12px;
 }
 
 .post-item {
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
   border-bottom: 1px solid #eee;
+  padding-bottom: 20rem;
+  padding-top: 10px;
+  margin-top: 20px;
 
   &:last-child {
     border-bottom: none;
@@ -62,21 +72,26 @@ const formatDate = (date: Date) => {
 }
 
 .post-meta {
+  margin-bottom: 15px;
+  font-size: 18px;
   display: flex;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
   color: #666;
-  font-size: 0.9rem;
+  gap: 15px;
 
   .category {
     background: #f0f0f0;
-    padding: 0.2rem 0.5rem;
+    padding: 5px 15px;
     border-radius: 4px;
   }
 }
 
-.post-excerpt {
-  color: #666;
-  line-height: 1.5;
+.description {
+  padding-bottom: 20rem;
+  display: block;
+}
+
+.post-meta {
+  align-items: center;
+  display: flex;
 }
 </style>
