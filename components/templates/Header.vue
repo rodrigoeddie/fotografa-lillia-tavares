@@ -200,7 +200,7 @@ onUnmounted(() => {
 
   .logo {
     transition: width .3s;
-    margin-top: -48rem;
+    margin-top: -35rem;
     width: 270rem;
 
     @include m.max(md) {
