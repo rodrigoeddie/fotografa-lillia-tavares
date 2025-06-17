@@ -39,13 +39,12 @@ function toggleMenu() {
 <template>
     <div>
         <nav
+          class="menu"
           :class="{
             'opened': isOpen, 
             'not-opened': !isOpen,
-            'visible': props.fromFooter || !isMobile || (isOpen && isMobile),
             'hidden': !props.fromFooter && isMobile && !isOpen
-          }"
-          class="menu">
+          }">
             <NuxtLink
                 to="/"
                 class="link"
@@ -95,7 +94,7 @@ function toggleMenu() {
         </nav>
 
         <button
-          v-if="!props.fromFooter && isMobile"
+          v-if="!props.fromFooter"
           class="hamburger"
           :aria-expanded="isOpen"
           aria-label="Abrir menu"
@@ -119,6 +118,10 @@ function toggleMenu() {
 
 <style scoped lang="scss">
     .from-header {
+        @include m.min(xs) {
+            height: 100%;
+        }
+
         @include m.max(xs) {
             position: absolute;
             top: 11px;
@@ -128,10 +131,14 @@ function toggleMenu() {
         .menu {
             font-size: 25rem;
 
+            @include m.min(xs) {
+                height: 100%;
+            }
+
             @include m.max(lg) {
                 right: 20px;
             }
-
+            
             @include m.max(md) {
                 font-size: 20rem;
                 right: 0;
@@ -150,56 +157,51 @@ function toggleMenu() {
                 top: 59px;
                 right: 0;
                 gap: 5px;
-            }
-
-            &.hidden {
                 opacity: 0;
                 pointer-events: none;
                 visibility: hidden;
             }
             
-            &.visible {
+            &.opened {
                 opacity: 1;
                 pointer-events: auto;
                 visibility: visible;
             }
 
             .link {
+                transition: left .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 color: black;
-                transition: left .4s;
+     
+                @include m.min(xs) {
+                    display: inline-flex;
+                    align-items: center;
+                    height: 100%;
+                }
 
                 @include m.max(xs) {
                     left: -60px;
                 }
 
                 &:nth-child(1) {
-                    transition-delay: .03s;
+                    transition-delay: .035s;
                 }
                 &:nth-child(2) {
-                    transition-delay: .04s;
+                    transition-delay: .045s;
                 }
                 &:nth-child(3) {
-                    transition-delay: .05s;
+                    transition-delay: .055s;
                 }
                 &:nth-child(4) {
-                    transition-delay: .06s;
+                    transition-delay: .065s;
                 }
                 &:nth-child(5) {
-                    transition-delay: .07s;
+                    transition-delay: .075s;
                 }
                 &:nth-child(6) {
-                    transition-delay: .08s;
+                    transition-delay: .085s;
                 }
                 &:nth-child(7) {
-                    transition-delay: .09s;
-                }
-
-                &:last-child {
-                    padding-right: 0;
-
-                    @include m.max(xs) {
-                        padding-right: 30px;
-                    }
+                    transition-delay: .095s;
                 }
 
                 @include m.max(sm) {
@@ -214,8 +216,17 @@ function toggleMenu() {
                 }
 
                 &.router-link-active {
+                    pointer-events: none;
+
                     &::before {
                         background: black;
+                    }
+                }
+
+                &:hover{
+                    &::before {
+                        background: #f4f2e9;
+                        height: 100%;
                     }
                 }
             }
@@ -229,7 +240,8 @@ function toggleMenu() {
             }
 
             .separe {
-                color: #7b785b;
+                color: #d8d4c5;
+                padding: 0;
 
                 @include m.max(sm) {
                     display: none;
@@ -304,28 +316,24 @@ function toggleMenu() {
         text-transform: uppercase;
         font-family: v.$openExtra;
         transition: color 0.2s;
+        padding-right: 20rem;
+        padding-left: 20rem;
         font-weight: 900;
 
-        &.router-link-active {
-            &::before {
-                content: '';
+        &::before {
+            content: '';
 
-                transition: background 0.2s;
-                position: absolute;
-                display: block;
-                height: 4rem;
-                bottom: 0;
-                right: 0;
-                left: 0;
+            transition: background .2s, height .2s;
+            position: absolute;
+            display: block;
+            height: 4rem;
+            bottom: 0;
+            right: 0;
+            left: 0;
 
-                @include m.max(sm) {
-                    content: none;
-                }
+            @include m.max(sm) {
+                content: none;
             }
-
-            // @include m.max(sm) {
-            //     display: none;
-            // }
         }
 
         &:hover {
@@ -361,17 +369,17 @@ function toggleMenu() {
     justify-content: center;
     flex-direction: column;
     padding-right: 15px;
+    position: absolute;
     cursor: pointer;
+    z-index: 1001;
     display: none;
     height: 40px;
     border: none;
-    z-index: 1001;
     width: 55px;
-    position: absolute;
+    top: -8px;
     right: 0;
-    top: 0;
 
-    @media (max-width: 768px) {
+    @include m.max(sm) {
         display: flex;
     }
 
