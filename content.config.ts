@@ -39,6 +39,7 @@ export default defineContentConfig({
         category: z.string(),
         categoryTitle: z.string(),
         works: z.string(),
+        image: z.string(),
       })
     }),
   }
