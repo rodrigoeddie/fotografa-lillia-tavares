@@ -116,20 +116,16 @@ const { data: ensaiosList, refresh: refreshEnsaios } = await useAsyncData(
   }
 );
 
-// Computed para processar os dados dos ensaios
 const ensaiosData = computed(() => {
   if (!ensaiosList.value || !Array.isArray(ensaiosList.value)) {
     return [];
   }
 
-  return ensaiosList.value
+  const items = ensaiosList.value
     .map((item: any) => {
       return {
-        // Adicionar todas as propriedades do body (que contém os dados do JSON)
         ...(item.body as any),
-        // Adicionar fotos filtradas
         photos: filteredSlides(item.body),
-        // Adicionar path
         path: item.path
       };
     })
@@ -142,9 +138,10 @@ const ensaiosData = computed(() => {
       }
       return 0;
     });
+
+  return props.category ? items.slice(0, 3) : items;
 });
 
-// Função para atualizar conteúdo baseado na rota
 function atualizarConteudoComBaseNaRota(newRoute: any) {
   if (!navigation.value || !navigation.value[0]) return;
 
@@ -155,10 +152,8 @@ function atualizarConteudoComBaseNaRota(newRoute: any) {
   currentCategory.value = categories?.find(cat => cat.path === `/ensaio-fotografico/${category}`) || null;
 }
 
-// Executar inicialmente
 atualizarConteudoComBaseNaRota($route);
 
-// Watcher para mudanças de rota
 watch(
   () => $route.fullPath,
   (novoFullPath, antigoFullPath) => {
@@ -228,7 +223,7 @@ const formatDate = (dateString: string) => {
       <span v-else-if="currentCategory">Ensaios fotográficos da categoria</span>
       <span v-else>Explore meus</span>
       </span>
-      <span class="big" v-if="props.category">com esse cenário</span>
+      <span class="big" v-if="props.category">com esse tema</span>
       <span class="big" v-else-if="currentCategory">{{ currentCategory.title }}</span>
       <span class="big" v-else>Últimos trabalhos</span>
     </h1>
@@ -346,6 +341,17 @@ const formatDate = (dateString: string) => {
             </NuxtLink>
           </template>
         </template>
+      </template>
+
+      <template v-if="props.category">
+        <NuxtLink
+          class="link-see-more big-title red big-title-home"
+          :to="'/ensaio-fotografico/' + props.category">
+              <span class="big">veja todos os Trabalhos</span>
+              <span class="box">
+                <span>Clique aqui</span>
+              </span>
+        </NuxtLink>
       </template>
     </div>
   </div>
