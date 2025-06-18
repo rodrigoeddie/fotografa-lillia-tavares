@@ -188,7 +188,7 @@ const formatDate = (dateString: string) => {
   }
 
   .slider {
-    aspect-ratio: 384/500;
+    aspect-ratio: 384/470;
     background: #f6f6f6;
     flex-shrink: 0;
     width: 100%;
@@ -197,7 +197,7 @@ const formatDate = (dateString: string) => {
   .big-title-home {
     justify-content: center;
     margin-bottom: -8rem;
-    padding-top: 0;
+    padding-top: 0 !important;
     width: 100%;
 
     @include m.max(sm) {
@@ -224,7 +224,7 @@ const formatDate = (dateString: string) => {
 
     .thumb {
       border: 1px solid v.$green;
-      width: calc(33% - 5rem);
+      width: calc(33% - 6rem);
       background: white;
 
       @include m.max(xs) {
