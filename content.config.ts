@@ -19,6 +19,7 @@ export default defineContentConfig({
         local: z.string(),
         colorHighlight: z.string(),
         site: z.string(),
+        video: z.string(),
         instagram: z.object({
           uri: z.string(),
           title: z.string()

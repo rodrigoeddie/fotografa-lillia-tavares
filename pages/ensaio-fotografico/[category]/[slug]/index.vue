@@ -93,7 +93,6 @@ work.value.album.map(item => {
 });
 
 const showImg = (index) => {
-  console.log(index);
   indexRef.value = index;
   visibleRef.value = true;
 };
@@ -183,7 +182,9 @@ const onHide = () => (visibleRef.value = false);
         </div>
       </div>
 
-      <div :class="{'has-two': highlight[1]}" class="wrap-img-hero">
+      <div :class="{'has-two': highlight[1], 'has-video': work.video}" class="wrap-img-hero">
+        <div class="video" v-if="work.video" v-html="work.video"></div>
+
         <nuxt-img
             provider="cloudflare"
             :src='"https://images.fotografalilliatavares.com.br/images/" + highlight[0].imageId + "/public"'
@@ -280,6 +281,12 @@ nav[aria-label="breadcrumb"] {
       height: auto;
     }
 
+    .video iframe {
+      height: 100%;
+      width: 100%;
+      border: 0;
+    }
+
     &.has-two {
       img {
         object-fit: cover;
@@ -289,6 +296,27 @@ nav[aria-label="breadcrumb"] {
         @include m.max(sm) {
           width: 100%;
         }
+      }
+    }
+
+    &.has-video {
+      .video,
+      img {
+        object-fit: cover;
+        flex-shrink: 0;
+        width: 50%;
+
+        @include m.max(sm) {
+          width: 100%;
+        }
+      }
+
+      img {
+        width: 54.3%;
+      }
+
+      .video {
+        width: 45.7%;
       }
     }
   }
