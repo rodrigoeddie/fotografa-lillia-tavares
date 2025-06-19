@@ -32,7 +32,7 @@ export default defineContentConfig({
       })
     }),
     blog: defineCollection({
-      source: 'blog/**/*.md',
+      source: 'blog/**/*.{md,json}',
       type: 'page',
       schema: z.object({
         title: z.string(),

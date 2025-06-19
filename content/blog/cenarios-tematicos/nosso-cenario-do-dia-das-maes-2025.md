@@ -5,6 +5,7 @@ date: 2025-05-01
 category: "cenarios-tematicos"
 categoryTitle: "Cenários Temáticos"
 works: "dia-das-maes-2025"
+page: estudio/cenarios/dia-das-maes-2025
 image: "58acda17-3c27-42e0-227d-e760faa76d00"
 ---
 

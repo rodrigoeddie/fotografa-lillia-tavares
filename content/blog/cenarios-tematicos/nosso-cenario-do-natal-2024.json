@@ -1,0 +1,92 @@
+{
+    "title": "Nosso cenário do natal 2024",
+    "date": "2024-12-20",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati maxime, a eligendi excepturi saepe laudantium dolores iure hic, soluta quaerat dolor? Incidunt doloremque beatae aspernatur ratione est! Explicabo, quae laboriosam.",
+    "category": "cenarios-tematicos",
+    "categoryTitle": "Cenários Temáticos",
+    "image": "d6f77463-35af-4310-e91f-2b2da4a72f00",
+    "works": "natal-2024",
+    "page": "",
+    "content": [
+        {
+            "content": "<p class='description'>lore</p>"
+        },
+        {
+            "content": "<p class='description'>lore</p>"
+        }
+    ],
+    "album": [
+        {
+            "imageId": "ccfd5937-1c12-49e8-29b5-495a57f2e100",
+            "width": 468,
+            "height": 703,
+            "format": "retrato",
+            "customClass": "w33",
+            "alt": ""
+        },
+        {
+            "imageId": "2a2fd3a7-3738-4e74-fb36-597891dc1400",
+            "width": 468,
+            "height": 703,
+            "format": "retrato",
+            "customClass": "w33",
+            "alt": ""
+        },
+        {
+            "imageId": "773e07c8-28e1-4f08-ecac-5349b6561400",
+            "width": 468,
+            "height": 703,
+            "format": "retrato",
+            "customClass": "w33",
+            "alt": ""
+        },
+        {
+            "imageId": "dcebbd91-190e-40d1-6854-81795b3e2a00",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "0c157f6a-45ac-4bb2-e971-8b050016e300",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "6134aee5-471d-465e-071c-cb477c03d900",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "7468269a-7b97-4c75-867f-afd0171e9b00",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "76cc36dd-972b-4dd3-2b97-49af4a1d0a00",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "7fa7818b-eca5-4131-949e-842a5f0cc700",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        }
+    ]
+}
