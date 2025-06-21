@@ -82,11 +82,11 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Merriweather:wght@400&display=swap'
+          href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap'
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap'
+          href: 'https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap'
         }
       ]
     },

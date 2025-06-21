@@ -124,6 +124,11 @@ const onHide = () => (visibleRef.value = false);
           <div class="description" v-html="work.description"></div>
         </div>
 
+        <BlocksTestimonial
+          v-if="work.testimonial"
+          :name="work.title"
+          :testimonial="work.testimonial" />
+
         <div class="about-ctas">
           <ul class="info-list">
             <li class="category">
@@ -226,8 +231,7 @@ const onHide = () => (visibleRef.value = false);
       <div class="empty"></div>
     </div>
 
-    <SectionsScheduleCustom
-    :formType="work.category.title" />
+    <SectionsScheduleCustom :formType="work.category.title" />
 
     <VueEasyLightbox
       :visible="visibleRef"

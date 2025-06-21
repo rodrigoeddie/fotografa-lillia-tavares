@@ -1,4 +1,5 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+import type Testimonial from './components/blocks/Testimonial.vue'
 
 export default defineContentConfig({
   collections: {
@@ -15,6 +16,12 @@ export default defineContentConfig({
         category: z.object({
           slug: z.string(),
           title: z.string()
+        }),
+        testimonial: z.object({
+          text: z.string(),
+          avatar: z.string(),
+          link: z.string(),
+          source: z.string()
         }),
         local: z.string(),
         colorHighlight: z.string(),

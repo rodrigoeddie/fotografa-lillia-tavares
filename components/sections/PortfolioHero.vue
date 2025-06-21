@@ -23,26 +23,6 @@ onMounted(() => {
   }
 });
 
-const configPublic = useRuntimeConfig().public;
-const photos = [
-  {
-    "colorHighlight": "#975a35",
-    "imageId": '60ddc9c8-058d-441e-1608-ca6109de1200',
-    "alt": 'Mulher sorrindo de roupa branca, sentada no chão',
-    "path": '/ensaio-fotografico/corporativo/andresa-maia',
-    "title": 'Andresa Maia',
-    "description": 'Psicanálise, Terapias energéticas e espirituais',
-  },
-  {
-    "colorHighlight": "#455754",
-    "imageId": '35b38c8d-3080-48f5-35bb-766c7c1add00',
-    "alt": 'Mulher negra de cabelos longos sorrindo e com o celular nas mãos',
-    "path": '/ensaio-fotografico/corporativo/karoline-siqueira',
-    "title": 'Karoline Siqueira',
-    "description": 'Serviços de estratégia e marketing digital',
-  },
-];
-
 const { data: navigation } = await useAsyncData('navigation', () => {
   return queryCollectionNavigation('works');
 });
