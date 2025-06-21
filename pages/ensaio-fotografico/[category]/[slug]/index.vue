@@ -282,6 +282,7 @@ nav[aria-label="breadcrumb"] {
     }
 
     img {
+      object-fit: cover;
       height: auto;
     }
 
@@ -350,7 +351,7 @@ nav[aria-label="breadcrumb"] {
   }
 
   .about-text {
-    padding: 180rem v.$space v.$space;
+    padding: 120rem v.$space 20rem;
 
     a {
       text-decoration: underline;

@@ -63,8 +63,9 @@ const props = defineProps({
             }
 
             .from {
-                display: block;
+                padding-top: 5rem;
                 text-align: right;
+                display: block;
             }
         }
     }
