@@ -26,7 +26,7 @@
     --swiper-pagination-bullet-width: 22rem;
     --swiper-pagination-bullet-height: 22rem;
     --swiper-pagination-bullet-inactive-color: white;
-    --swiper-pagination-bullet-inactive-opacity: 0.2;
+    --swiper-pagination-bullet-inactive-opacity: 0.5;
     --swiper-pagination-bullet-opacity: 1;
     --swiper-pagination-bullet-horizontal-gap: 4px;
     --swiper-pagination-bullet-vertical-gap: 6px;
@@ -38,11 +38,6 @@ html {
     ::selection {
         color: white;
         background: v.$red;
-    }
-
-    &:deep(.swiper-pagination-bullet) {
-        border: 1px solid white;
-        border-color: white;
     }
 }
 

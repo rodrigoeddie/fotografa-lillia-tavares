@@ -239,6 +239,7 @@ const formatDate = (dateString: string) => {
                   <swiper-container
                     class="swiper"
                     :slides-per-view="1"
+                    :effect="'flip'"
                     :pagination="{
                       clickable: true,
                     }"

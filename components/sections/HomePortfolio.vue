@@ -63,14 +63,16 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container no-padding">
-    <h1 class="big-title red centered">
-      <span class="box">
-        <span v-if="!currentCategory">Explore meus</span>
-        <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
-      </span>
-      <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
-      <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
-    </h1>
+    <NuxtLink :to="workPage">
+      <h1 class="big-title red centered">
+        <span class="box">
+          <span v-if="!currentCategory">Explore meus</span>
+          <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
+        </span>
+        <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
+        <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
+      </h1>
+    </NuxtLink>
 
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
@@ -83,6 +85,7 @@ const formatDate = (dateString: string) => {
                   <swiper-container
                     class="swiper"
                     :slides-per-view="1"
+                    :effect="'flip'"
                     :pagination="{
                       clickable: true,
                     }"
@@ -144,18 +147,9 @@ const formatDate = (dateString: string) => {
             </div>
           </div>
         </div>
-
-        <template v-if="index == 2">
-          <NuxtLink
-            class="link-see-more big-title red big-title-home"
-            :to="workPage">
-                <span class="big">veja todos os Trabalhos</span>
-                <span class="box">
-                  <span>Clique aqui</span>
-                </span>
-          </NuxtLink>
-        </template>
       </template>
+
+      <SectionsHomeTestimonials />
     </div>
   </div>
 </template>

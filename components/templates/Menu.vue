@@ -306,7 +306,9 @@ function toggleMenu() {
             }
 
             &:after {
-                right: -10rem;
+                font-size: 10px;
+                right: -4rem;
+                top: 33%;
 
                 @include m.max(sm) {
                     content: '';
@@ -358,6 +360,18 @@ function toggleMenu() {
 
         &::before {
             background: v.$dark-green;
+        }
+    }
+
+    &:last-child {
+        padding-right: 0;
+
+        &::after {
+            display: none;
+        }
+
+        @include m.max(sm) {
+            padding-right: 20px;
         }
     }
 }
