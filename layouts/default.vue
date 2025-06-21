@@ -19,7 +19,7 @@
   padding-top: 20px;
 
   @include m.max(sm) {
-    padding-top: 73px !important;
+    padding-top: 55px !important;
   }
 }
 </style>

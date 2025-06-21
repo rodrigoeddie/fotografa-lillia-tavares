@@ -250,7 +250,11 @@ nav[aria-label="breadcrumb"] {
   top: 30rem;
 
   @include m.max(sm) {
-    top: 110rem;
+    position: relative;
+    background: white;
+    padding-top: 20rem;
+    display: block;
+    top: 0;
   }
 
   .breadcrumb {
@@ -352,6 +356,10 @@ nav[aria-label="breadcrumb"] {
 
   .about-text {
     padding: 120rem v.$space 20rem;
+
+    @include m.max(sm) {
+      padding-top: 20rem;
+    }
 
     a {
       text-decoration: underline;
