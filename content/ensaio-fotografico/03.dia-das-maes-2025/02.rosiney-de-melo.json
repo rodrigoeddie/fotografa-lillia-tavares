@@ -10,6 +10,7 @@
     "slug": "dia-das-maes-2025",
     "title": "Dia das Mães 2025"
   },
+  "video": "<iframe src='https://customer-wozwag8lva9thgts.cloudflarestream.com/4ec31f4e8da55ec45f6f55ec047b79ad/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-wozwag8lva9thgts.cloudflarestream.com%2F4ec31f4e8da55ec45f6f55ec047b79ad%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600' loading='lazy' allow='accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;' allowfullscreen='true' ></iframe>",
   "album": [
     {
       "imageId": "f15c8181-5d19-48f1-0525-8142dda65500",
@@ -19,15 +20,6 @@
       "format": "retrato",
       "canBeThumb": true,
       "alt": "",
-      "highlight": true
-    },
-    {
-      "imageId": "4552c7b3-0e6e-4371-6658-f36e0d8c5000",
-      "width": 567,
-      "height": 850,
-      "format": "retrato",
-      "alt": "",
-      "canBeThumb": true,
       "highlight": true
     },
     {
@@ -86,6 +78,15 @@
       "height": 567,
       "format": "paisagem",
       "alt": "",
+      "customClass": "w50"
+    },
+    {
+      "imageId": "4552c7b3-0e6e-4371-6658-f36e0d8c5000",
+      "width": 1000,
+      "height": 1500,
+      "format": "retrato",
+      "alt": "",
+      "canBeThumb": true,
       "customClass": "w50"
     }
   ]

@@ -117,7 +117,7 @@ function toggleMenu() {
         height: 100%;
     }
 
-    @include m.max(xs) {
+    @include m.max(sm) {
         position: absolute;
         top: 11px;
         right: 0;
@@ -133,12 +133,13 @@ function toggleMenu() {
         @include m.max(lg) {
             right: 20px;
         }
-        
+
         @include m.max(md) {
             font-size: 20rem;
             right: 0;
         }
-        @include m.max(xs) {
+
+        @include m.max(sm) {
             flex-direction: column;
             align-items: flex-end;
             position: absolute;
@@ -156,7 +157,7 @@ function toggleMenu() {
             pointer-events: none;
             visibility: hidden;
         }
-        
+
         &.opened {
             opacity: 1;
             pointer-events: auto;
@@ -166,14 +167,14 @@ function toggleMenu() {
         .link {
             transition: left .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             color: black;
-    
+
             @include m.min(xs) {
                 display: inline-flex;
                 align-items: center;
                 height: 100%;
             }
 
-            @include m.max(xs) {
+            @include m.max(sm) {
                 left: -60px;
             }
 
@@ -202,10 +203,8 @@ function toggleMenu() {
             @include m.max(sm) {
                 display: inline-block;
                 padding-right: 20px;
-                padding-top: 11px;
+                // padding-top: 11px;
                 line-height: 1em;
-            }
-            @include m.max(xs) {
                 background: white;
                 padding: 15px 30px;
             }
@@ -238,7 +237,7 @@ function toggleMenu() {
 
         &.opened {
             .link {
-                @include m.max(xs) {
+                @include m.max(sm) {
                     left: 0;
                 }
             }
@@ -262,7 +261,7 @@ function toggleMenu() {
             pointer-events: none;
             visibility: hidden;
         }
-        
+
         &.visible {
             opacity: 1;
             pointer-events: auto;
@@ -274,20 +273,25 @@ function toggleMenu() {
 .from-footer {
     .menu {
         font-size: 40rem;
+        display: flex;
 
         @include m.max(md) {
             font-size: 29rem;
         }
 
         @include m.max(sm) {
+            flex-direction: column;
             font-size: 16px;
             width: 100dvw;
         }
 
         .link {
+            padding-right: 20rem;
             color: white;
+            display: flex;
 
             @include m.max(sm) {
+                padding-bottom: 15px;
                 display: block;
             }
 
@@ -297,9 +301,23 @@ function toggleMenu() {
                 }
             }
 
+            .txt {
+                display: block;
+            }
+
             &:after {
-                color: white;
                 right: -10rem;
+
+                @include m.max(sm) {
+                    content: '';
+
+                    background: rgba(255, 255, 255, .5);
+                    display: block;
+                    margin: 5px;
+                    height: 1px;
+                    right: 0;
+                    left: 0;
+                }
             }
         }
     }
@@ -331,7 +349,7 @@ function toggleMenu() {
 
     &::after {
         content: '•';
-        
+
         position: absolute;
     }
 

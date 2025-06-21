@@ -19,6 +19,7 @@ export default defineContentConfig({
         local: z.string(),
         colorHighlight: z.string(),
         site: z.string(),
+        video: z.string(),
         instagram: z.object({
           uri: z.string(),
           title: z.string()
@@ -31,7 +32,7 @@ export default defineContentConfig({
       })
     }),
     blog: defineCollection({
-      source: 'blog/**/*.md',
+      source: 'blog/**/*.{md,json}',
       type: 'page',
       schema: z.object({
         title: z.string(),
