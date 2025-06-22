@@ -140,7 +140,7 @@ const formatDate = (dateString: string) => {
 
                 <NuxtLink
                   :to="item.path"
-                  class="link">
+                  class="btn btn-red">
                     <span>Veja mais sobre esse ensaio</span>
                 </NuxtLink>
               </div>
@@ -182,7 +182,7 @@ const formatDate = (dateString: string) => {
   }
 
   .slider {
-    aspect-ratio: 384/470;
+    aspect-ratio: 384/450;
     background: #f6f6f6;
     flex-shrink: 0;
     width: 100%;
@@ -216,6 +216,16 @@ const formatDate = (dateString: string) => {
       display: block;
     }
 
+    .btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin-left: -31rem;
+      margin-right: -31rem;
+      margin-bottom: -31rem;
+    }
+
     .thumb {
       border: 1px solid v.$green;
       width: calc(33% - 6rem);
@@ -230,6 +240,10 @@ const formatDate = (dateString: string) => {
       .wrap-info {
         color: v.$green;
         padding: 30rem;
+
+        .wrap-text {
+          padding-bottom: 45rem;
+        }
 
         .title {
           font-size: 23rem;
@@ -256,6 +270,10 @@ const formatDate = (dateString: string) => {
               width: 12rem;
               left: 2rem;
               top: 16rem;
+              
+              @include m.max(xs) {
+                top: 9rem;
+              }
             }
           }
 
@@ -263,11 +281,19 @@ const formatDate = (dateString: string) => {
             position: absolute;
             left: -1rem;
             top: 7rem;
+              
+            @include m.max(xs) {
+              top: -2rem;
+            }
           }
 
           :deep(a) {
             display: block;
             padding: 5px 0;
+
+            @include m.max(xs) {
+              padding: 0;
+            }
           }
         }
 
