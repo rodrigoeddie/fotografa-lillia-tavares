@@ -86,7 +86,7 @@ const formatDate = (date: Date) => {
         <nuxt-img
           v-if="post.image"
           provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/" + post.image + "/public"'
+          :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
           :width="690"
           :height="460"
           :sizes="'100vw md:50vw lg:690px'"

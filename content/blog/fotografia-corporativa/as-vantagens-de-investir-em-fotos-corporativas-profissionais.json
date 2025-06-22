@@ -1,0 +1,33 @@
+{
+    "colorHighlight": "#2e2c31",
+    "title": "As vantagens de investir em fotos corporativas profissionais",
+    "date": "2025-06-17",
+    "description": "Descubra as vantagens do ensaio fotográfico corporativo para profissionais como dentistas, advogados e psicólogos em Mogi das Cruzes.",
+    "category": {
+        "slug": "fotografia-corporativa",
+        "title": "Fotografia Corporativa"
+    },
+    "image": {
+        "imageId": "9690ece9-9552-4281-01e8-b9bdd0756800",
+        "width": 690,
+        "height": 460,
+        "format": "paisagem",
+        "customClass": "w100",
+        "alt": ""
+    },
+    "works": "corporativo",
+    "page": "estudio/cenarios/dia-das-maes-2025",
+    "content": [
+        "<p class='description'>Se você é médico, advogado, psicólogo ou outro profissional em Mogi das Cruzes e região, investir em um ensaio fotográfico corporativo pode elevar sua imagem, atrair mais clientes e transmitir profissionalismo desde o primeiro contato. Neste post, explicamos as principais vantagens das fotos profissionais para perfis nas redes sociais, sites, cartões de visita e materiais de divulgação.</p>"
+    ],
+    "album": [
+        {
+            "imageId": "ccfd5937-1c12-49e8-29b5-495a57f2e100",
+            "width": 468,
+            "height": 703,
+            "format": "retrato",
+            "customClass": "w33",
+            "alt": ""
+        }
+    ]
+}

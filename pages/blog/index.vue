@@ -34,17 +34,19 @@ const formatDate = (date: Date) => {
 
     <div class="wrap-posts">
       <article v-for="post in posts" :key="post.id" class="post-item">
-        <nuxt-img
-          v-if="post.image"
-          provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/" + post.image + "/public"'
-          :width="690"
-          :height="460"
-          :sizes="'100vw md:50vw lg:690px'"
-          class="img-thumb"
-          :alt="'Imagem do post ' + post.title"
-          placeholder
-          loading="lazy"/>
+        <NuxtLink :to="post.path">
+          <nuxt-img
+            v-if="post.image"
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
+            :width="690"
+            :height="460"
+            :sizes="'100vw md:50vw lg:690px'"
+            class="img-thumb"
+            :alt="'Imagem do post ' + post.title"
+            placeholder
+            loading="lazy"/>
+        </NuxtLink>
         <div class="text">
           <h2 class="subtitle">
             <NuxtLink :to="post.path">{{ post.title }}</NuxtLink>
@@ -57,11 +59,11 @@ const formatDate = (date: Date) => {
               name="calendar-regular"
               class="icon icon-calendar"/>
             <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
-            <NuxtLink :to="'/blog/' + post.category" class="category-link">
+            <NuxtLink :to="'/blog/' + post.category.slug" class="category-link">
               <nuxt-icon
                 name="category"
                 class="icon icon-category"/>
-              <span class="category">{{ post.categoryTitle }}</span>
+              <span class="category">{{ post.category.title }}</span>
             </NuxtLink>
           </div>
         </div>
@@ -75,6 +77,10 @@ const formatDate = (date: Date) => {
   justify-content: space-between;
   flex-wrap: wrap;
   display: flex;
+
+  @include m.max(sm) {
+    flex-direction: column;
+  }
 }
 
 .post-list {
@@ -93,19 +99,39 @@ const formatDate = (date: Date) => {
   gap: 30rem 0;
   width: 32%;
   
+  @include m.max(sm) {
+    // flex-direction: row;
+    gap: 15rem 0;
+    width: 100%;
+  }
+  
   .subtitle {
     min-height: 63rem;
+
+    @include m.max(sm) {
+      min-height: auto;
+    }
   }
 
   .description {
     padding-bottom: 20rem;
     min-height: 172rem;
     display: block;
+    
+    @include m.max(sm) {
+      min-height: auto;
+    }
   }
   
   .img-thumb {
     height: auto;
     width: 100%;
+
+    @include m.max(sm) {
+      aspect-ratio: 200 / 110;
+      object-fit: cover;
+      height: 100%;
+    }
   }
 
   &:last-child {
@@ -119,6 +145,10 @@ const formatDate = (date: Date) => {
     color: #666;
     display: flex;
     gap: 10px;
+    
+    @include m.max(sm) {
+      margin-bottom: 0;
+    }
 
     .time,
     .category-link {

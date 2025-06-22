@@ -42,12 +42,33 @@ export default defineContentConfig({
       source: 'blog/**/*.{md,json}',
       type: 'page',
       schema: z.object({
+        colorHighlight: z.string(),
         title: z.string(),
-        date: z.date(),
-        category: z.string(),
-        categoryTitle: z.string(),
+        date: z.string(),
+        description: z.string(),
+        category: z.object({
+          slug: z.string(),
+          title: z.string()
+        }),
+        image: z.object({
+          imageId: z.string(),
+          width: z.number(),
+          height: z.number(),
+          format: z.string(),
+          customClass: z.string(),
+          alt: z.string(),
+        }),
         works: z.string(),
-        image: z.string(),
+        page: z.string(),
+        content: z.array(z.any()),
+        album: z.object({
+          imageId: z.string(),
+          width: z.number(),
+          height: z.number(),
+          format: z.string(),
+          customClass: z.string(),
+          alt: z.string(),
+        }),
       })
     }),
   }

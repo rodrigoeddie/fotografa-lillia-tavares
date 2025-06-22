@@ -408,6 +408,7 @@ const formatDate = (dateString: string) => {
   }
 
   .wrap-portfolio {
+    padding-bottom: 30rem;
     margin-bottom: 50rem;
     flex-wrap: wrap;
     display: flex;

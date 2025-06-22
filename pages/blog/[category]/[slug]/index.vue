@@ -62,14 +62,16 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="title">BLOG</h1>
-
-    <h2 class="subtitle">{{ post.title }}</h2>
-    <p class="description">{{ post.description }}</p>
-
-    <SectionsPortfolio :category="post.works" />
-  </div>  
+  <div class="container no-padding" :style="{ '--color-highlight': post.colorHighlight }">
+    <SectionsHero :data="post" />
+    <div class="blog-content">
+      <template v-if="post && Array.isArray(post.content)" v-for="(block, idx) in post.content" :key="idx">
+        <div v-html="block"></div>
+      </template>
+    </div>
+    <SectionsGallery v-if="post.album" :album="post.album" />
+    <SectionsPortfolio v-if="post.works" :category="post.works" class="blog-portfolio" />
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -77,5 +79,9 @@ useSeoMeta({
   background-color: white;
   margin-bottom: 30rem;
   padding: 30rem;
+
+  .blog-content {
+    padding: 30rem;
+  }
 }
 </style>
