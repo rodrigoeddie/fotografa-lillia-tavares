@@ -18,7 +18,7 @@ useSeoMeta({
 
 <template>
   <SectionsPortfolioHero />
-  <SectionsPortfolio />
+  <SectionsPortfolio class="no-padding" />
 </template>
 
 <style scoped lang="scss">

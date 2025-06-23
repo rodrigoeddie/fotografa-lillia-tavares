@@ -68,6 +68,9 @@ export default defineContentConfig({
           format: z.string(),
           customClass: z.string(),
           alt: z.string(),
+          nome: z.string(),
+          ratio: z.string(),
+          instagram: z.string(),
         }),
       })
     }),

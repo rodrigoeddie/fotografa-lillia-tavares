@@ -30,17 +30,29 @@ const onHide = () => (visibleRef.value = false);
 <template>
     <div class="portfolio-images">
       <template v-for="item in album">
-        <nuxt-img
-            provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + item.imageId + "/public"'
-            :sizes="'100vw md:50vw lg:' + item.width + 'px'"
-            :width="item.width"
-            :height="item.height"
-            :alt="item.alt"
-            :class="[item.format, item.customClass]"
-            placeholder
-            @click="() => showImg(item.index)"
-            loading="lazy"/>
+        <div class="item" :class="[item.format, item.customClass]" :style="'--ratio:' + (item.ratio || 'auto')">
+          <nuxt-img
+              provider="cloudflare"
+              :src='"https://images.fotografalilliatavares.com.br/images/" + item.imageId + "/public"'
+              :sizes="'100vw md:50vw lg:' + item.width + 'px'"
+              :width="item.width"
+              :height="item.height"
+              :alt="item.alt"
+              placeholder
+              @click="() => showImg(item.index)"
+              loading="lazy"/>
+
+          <div class="info" v-if="item.nome && item.instagram">
+            <p class="description">
+              <a :href="item.instagram" target="_blank" rel="noopener noreferrer">
+                <nuxt-icon
+                  name="instagram"
+                  class="icon icon-instagram"/>
+                <span>{{ item.nome }}</span>
+              </a>
+            </p>
+          </div>
+        </div>
       </template>
 
       <div class="empty"></div>
@@ -58,20 +70,31 @@ const onHide = () => (visibleRef.value = false);
 </template>
 
 <style lang="scss">
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
 .empty {
   min-width: 33%;
   height: 1px;
 }
 
+.info {
+  height: 100rem;
+}
+
 .portfolio-images {
   justify-content: space-between;
+  padding: 30rem;
   flex-wrap: wrap;
   display: flex;
+  gap: 5rem;
 
   img {
-    // border: 1px solid white;
+    aspect-ratio: var(--ratio, auto);
     object-fit: cover;
-    height: auto;
+    height: 100%;
   }
 
   .paisagem {
@@ -85,7 +108,11 @@ const onHide = () => (visibleRef.value = false);
   }
 
   .retrato {
-    width: 33.3%;
+    width: calc(100% / 3 - 5rem);
+
+    &.square {
+      aspect-ratio: 1;
+    }
 
     &.w50 {
       width: 50%;
