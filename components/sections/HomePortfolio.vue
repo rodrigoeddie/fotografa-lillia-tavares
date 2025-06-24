@@ -63,14 +63,16 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container no-padding">
-    <h1 class="big-title red centered">
-      <span class="box">
-        <span v-if="!currentCategory">Explore meus</span>
-        <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
-      </span>
-      <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
-      <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
-    </h1>
+    <NuxtLink :to="workPage">
+      <h1 class="big-title red centered">
+        <span class="box">
+          <span v-if="!currentCategory">Explore meus</span>
+          <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
+        </span>
+        <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
+        <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
+      </h1>
+    </NuxtLink>
 
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
@@ -83,6 +85,7 @@ const formatDate = (dateString: string) => {
                   <swiper-container
                     class="swiper"
                     :slides-per-view="1"
+                    :effect="'flip'"
                     :pagination="{
                       clickable: true,
                     }"
@@ -137,25 +140,16 @@ const formatDate = (dateString: string) => {
 
                 <NuxtLink
                   :to="item.path"
-                  class="link">
-                    <span>Veja mais sobre esse ensaio</span>
+                  class="btn btn-red">
+                    <span>Acesse esse ensaio</span>
                 </NuxtLink>
               </div>
             </div>
           </div>
         </div>
-
-        <template v-if="index == 2">
-          <NuxtLink
-            class="link-see-more big-title red big-title-home"
-            :to="workPage">
-                <span class="big">veja todos os Trabalhos</span>
-                <span class="box">
-                  <span>Clique aqui</span>
-                </span>
-          </NuxtLink>
-        </template>
       </template>
+
+      <SectionsHomeTestimonials />
     </div>
   </div>
 </template>
@@ -163,6 +157,10 @@ const formatDate = (dateString: string) => {
 <style scoped lang="scss">
   :deep(.swiper) {
       --swiper-navigation-size: 30rem !important;
+  }
+
+  .btn.btn-red {
+    font-size: 12px;
   }
 
   .highlight-new {
@@ -188,7 +186,7 @@ const formatDate = (dateString: string) => {
   }
 
   .slider {
-    aspect-ratio: 384/500;
+    aspect-ratio: 384/450;
     background: #f6f6f6;
     flex-shrink: 0;
     width: 100%;
@@ -197,7 +195,7 @@ const formatDate = (dateString: string) => {
   .big-title-home {
     justify-content: center;
     margin-bottom: -8rem;
-    padding-top: 0;
+    padding-top: 0 !important;
     width: 100%;
 
     @include m.max(sm) {
@@ -218,16 +216,26 @@ const formatDate = (dateString: string) => {
     display: flex;
     gap: 15rem;
 
-    @include m.max(xs) {
+    @include m.max(sm) {
       display: block;
+    }
+
+    .btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin-left: -31rem;
+      margin-right: -31rem;
+      margin-bottom: -31rem;
     }
 
     .thumb {
       border: 1px solid v.$green;
-      width: calc(33% - 5rem);
+      width: calc(33% - 7rem);
       background: white;
 
-      @include m.max(xs) {
+      @include m.max(sm) {
         margin-bottom: 20px;
         margin-left: 3%;
         width: 94%;
@@ -236,6 +244,10 @@ const formatDate = (dateString: string) => {
       .wrap-info {
         color: v.$green;
         padding: 30rem;
+
+        .wrap-text {
+          padding-bottom: 45rem;
+        }
 
         .title {
           font-size: 23rem;
@@ -262,6 +274,10 @@ const formatDate = (dateString: string) => {
               width: 12rem;
               left: 2rem;
               top: 16rem;
+              
+              @include m.max(sm) {
+                top: 9rem;
+              }
             }
           }
 
@@ -269,11 +285,19 @@ const formatDate = (dateString: string) => {
             position: absolute;
             left: -1rem;
             top: 7rem;
+              
+            @include m.max(sm) {
+              top: -2rem;
+            }
           }
 
           :deep(a) {
             display: block;
             padding: 5px 0;
+
+            @include m.max(sm) {
+              padding: 0;
+            }
           }
         }
 

@@ -13,6 +13,11 @@
   font-size: 28rem;
   font-weight: 900;
 }
+.subtitle {
+  font-family: v.$open;
+  font-size: 25rem;
+  font-weight: 900;
+}
 
 @mixin faux-bold($color: black) {
   $darker-color: color.adjust($color, $lightness: 30%);

@@ -5,6 +5,12 @@
   "colorHighlight": "#2e2c31",
   "title": "Bruna Freire",
   "description": "<p></p>",
+  "testimonial": {
+    "text": "O trabalho da Lillia é incrível! Atendimento impecável do começo ao fim! Eu nem havia terminado e já estava pensando em fazer outros ensaios.",
+    "avatar": "c592e234-acdc-44e0-ee2c-5bfe5a12dd00",
+    "link": "https://maps.app.goo.gl/FvF2Pb3SorykTBGC8",
+    "source": "Google Maps"
+  },
   "category": {
     "slug": "corporativo",
     "title": "Corporativo"

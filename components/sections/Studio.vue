@@ -225,6 +225,7 @@
 
     .wrap-inner {
       flex-wrap: wrap;
+      align-items: center;
     }
 
     &.from-home-studio {
