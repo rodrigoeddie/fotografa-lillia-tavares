@@ -271,6 +271,20 @@ function toggleMenu() {
 }
 
 .from-footer {
+    &:before {
+        @include m.max(sm) {
+            content: '';
+            
+            background: rgba(255, 255, 255, .5);
+            transform: translateX(-50%);
+            position: absolute;
+            display: block;
+            height: 100%;
+            width: 1px;
+            left: 50%;
+        }
+    }
+
     .menu {
         font-size: 40rem;
         display: flex;
@@ -280,7 +294,7 @@ function toggleMenu() {
         }
 
         @include m.max(sm) {
-            flex-direction: column;
+            flex-wrap: wrap;
             font-size: 16px;
             width: 100dvw;
         }
@@ -291,8 +305,9 @@ function toggleMenu() {
             display: flex;
 
             @include m.max(sm) {
-                padding-bottom: 15px;
+                padding: 15px 0;
                 display: block;
+                width: 50%;
             }
 
             &.router-link-active {
@@ -317,8 +332,16 @@ function toggleMenu() {
                     display: block;
                     margin: 5px;
                     height: 1px;
+                    top: -7px;
                     right: 0;
                     left: 0;
+                }
+            }
+
+            &:nth-child(2)::after,
+            &:first-child::after {
+                @include m.max(sm) {
+                    display: none;
                 }
             }
         }

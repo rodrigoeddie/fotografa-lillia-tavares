@@ -141,7 +141,7 @@ const formatDate = (dateString: string) => {
                 <NuxtLink
                   :to="item.path"
                   class="btn btn-red">
-                    <span>Veja mais sobre esse ensaio</span>
+                    <span>Acesse esse ensaio</span>
                 </NuxtLink>
               </div>
             </div>
@@ -157,6 +157,10 @@ const formatDate = (dateString: string) => {
 <style scoped lang="scss">
   :deep(.swiper) {
       --swiper-navigation-size: 30rem !important;
+  }
+
+  .btn.btn-red {
+    font-size: 12px;
   }
 
   .highlight-new {
@@ -212,7 +216,7 @@ const formatDate = (dateString: string) => {
     display: flex;
     gap: 15rem;
 
-    @include m.max(xs) {
+    @include m.max(sm) {
       display: block;
     }
 
@@ -228,10 +232,10 @@ const formatDate = (dateString: string) => {
 
     .thumb {
       border: 1px solid v.$green;
-      width: calc(33% - 6rem);
+      width: calc(33% - 7rem);
       background: white;
 
-      @include m.max(xs) {
+      @include m.max(sm) {
         margin-bottom: 20px;
         margin-left: 3%;
         width: 94%;
@@ -271,7 +275,7 @@ const formatDate = (dateString: string) => {
               left: 2rem;
               top: 16rem;
               
-              @include m.max(xs) {
+              @include m.max(sm) {
                 top: 9rem;
               }
             }
@@ -282,7 +286,7 @@ const formatDate = (dateString: string) => {
             left: -1rem;
             top: 7rem;
               
-            @include m.max(xs) {
+            @include m.max(sm) {
               top: -2rem;
             }
           }
@@ -291,7 +295,7 @@ const formatDate = (dateString: string) => {
             display: block;
             padding: 5px 0;
 
-            @include m.max(xs) {
+            @include m.max(sm) {
               padding: 0;
             }
           }
