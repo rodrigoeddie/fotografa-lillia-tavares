@@ -1,8 +1,8 @@
 {
-    "colorHighlight": "#b98b19",
+    "colorHighlight": "#4f333b",
     "title": "Nosso cenário do dia das mães 2025",
     "date": "2025-05-01",
-    "description": "Preparado com muito carinho para acolher você e sua família neste Natal, cada cantinho foi pensado para trazer aconchego e alegria, longe dos clichês tradicionais.",
+    "description": "Cenário especial para o Dia das Mães com arco floral em aramado, sofá redondo e tons pastel delicados. Elegância e carinho para eternizar o amor mais nobre que existe. Porque mãe merece ser retratada como a rainha que é. 👑💖",
     "category": {
         "slug": "cenarios-tematicos",
         "title": "Cenários Temáticos"
@@ -18,13 +18,48 @@
     "works": "dia-das-maes-2025",
     "page": "estudio/cenarios/dia-das-maes-2025",
     "content": [
-        "<p class='description'>Este ano, nossa intenção era fazer algo que fugisse do clichê. Pensamos em aliar a estética boho já presente no estúdio e nos afastar um pouco do padrão verde e vermelho.</p>",
-        "<p class='description'>Nosso estúdio tem um cantinho cuja cor predominante é o dourado e tons terrosos. Achamos por bem investir nessas cores. Nesse caso, mantivemos o verde e dourado como as cores do nosso Natal 2024, com umas pitadinhas de prateado, aliando acessórios que já tínhamos no nosso ambiente.</p>",
-        "<p class='description'>Conseguimos um resultado incrível com essa estética. É muito prazeroso para nós marcar a vida de vocês com nossas ideias de decoração. Ficamos muito contentes em fazer parte de suas vidas em forma de memórias e, quando se trata de família, o trabalho ganha ainda mais afetividade. Muito obrigado a todos e um ótimo Natal 2024!</p>"
+        "<h2 class='title'>🌸 Um cenário digno da realeza 👑</h2>",
+        "<p class='description'>Neste Dia das Mães, preparamos um ambiente especial para eternizar o amor mais nobre que existe: o amor de mãe.</p>",
+        "<p class='description'>Criamos um cenário delicado e encantador com tons pastel suaves, um sofá redondo acolhedor e um lindo arco floral em aramado — elementos que juntos celebram a beleza, a força e a doçura das nossas rainhas da vida real.</p>",
+        "<p class='description'>Cada detalhe foi pensado para que nossas mães se sintam como merecem: honradas, admiradas e celebradas.</p>",
+        "<p class='description'>📷 Uma oportunidade única de registrar esse amor com leveza, elegância e muito carinho.</p>",
+        "<p class='description'>Reserve seu ensaio e eternize esse momento com quem sempre esteve ao seu lado, desde o primeiro instante. 💖</p>"
     ],
     "album": [
         {
-            "imageId": "ccfd5937-1c12-49e8-29b5-495a57f2e100",
+            "imageId": "b25c4856-522b-4367-2aac-6f1c36111100",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "49636a87-a093-4577-4b61-4b1bed232500",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "6ea326b0-e9e1-4b05-29c1-46146f52a400",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "c46a3468-a2dd-4446-5caa-ac555c7dd400",
+            "width": 850,
+            "height": 567,
+            "format": "paisagem",
+            "customClass": "w50",
+            "alt": ""
+        },
+        {
+            "imageId": "f15c8181-5d19-48f1-0525-8142dda65500",
             "width": 468,
             "height": 703,
             "format": "retrato",
@@ -32,7 +67,7 @@
             "alt": ""
         },
         {
-            "imageId": "2a2fd3a7-3738-4e74-fb36-597891dc1400",
+            "imageId": "1754195e-e114-473f-941f-bfd589ab7a00",
             "width": 468,
             "height": 703,
             "format": "retrato",
@@ -40,59 +75,11 @@
             "alt": ""
         },
         {
-            "imageId": "773e07c8-28e1-4f08-ecac-5349b6561400",
+            "imageId": "4552c7b3-0e6e-4371-6658-f36e0d8c5000",
             "width": 468,
             "height": 703,
             "format": "retrato",
             "customClass": "w33",
-            "alt": ""
-        },
-        {
-            "imageId": "dcebbd91-190e-40d1-6854-81795b3e2a00",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "0c157f6a-45ac-4bb2-e971-8b050016e300",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "6134aee5-471d-465e-071c-cb477c03d900",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "7468269a-7b97-4c75-867f-afd0171e9b00",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "76cc36dd-972b-4dd3-2b97-49af4a1d0a00",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "7fa7818b-eca5-4131-949e-842a5f0cc700",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
             "alt": ""
         }
     ]

@@ -53,13 +53,6 @@ function toggleMenu() {
             </NuxtLink>
 
             <NuxtLink
-                to="/sobre"
-                class="link"
-                @click="isOpen = false">
-                <span class="txt">Sobre</span>
-            </NuxtLink>
-
-            <NuxtLink
                 to="/ensaio-fotografico"
                 class="link"
                 @click="isOpen = false">

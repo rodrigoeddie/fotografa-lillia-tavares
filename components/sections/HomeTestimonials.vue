@@ -15,15 +15,14 @@ const {
         <h2 class="title">Depoimentos</h2>
         <swiper-container
             class="swiper-testimonials"
-            :slides-per-view="1"
             :effect="'flip'"
             :auto-height="true"
             :autoplay="{
-                    delay: 4000,
-                    disableOnInteraction: false
+                delay: 4000,
+                disableOnInteraction: false
             }"
             :pagination="{
-                    clickable: true,
+                clickable: true,
             }">
                 <swiper-slide
                     v-for="work in works"

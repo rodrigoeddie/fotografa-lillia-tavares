@@ -216,7 +216,7 @@ const formatDate = (dateString: string) => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" v-if="ensaiosData.length > 0">
     <h1 class="big-title red centered">
       <span class="box">
       <span v-if="props.category">Trabalhos</span>

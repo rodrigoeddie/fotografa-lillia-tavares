@@ -81,7 +81,30 @@ useSeoMeta({
   padding: 30rem;
 
   .blog-content {
+    color: var(--color-highlight, v.$dark-green);
     padding: 30rem;
+  }
+
+  :deep(.subtitle) {
+    padding-top: 20rem;
+  }
+
+  :deep(.rows) {
+    flex-wrap: wrap;
+    display: flex;
+    gap: 15rem;
+    padding: 30rem 0;
+
+    > div {
+      background: whitesmoke;
+      border-radius: 5rem;
+      padding: 15rem;
+      width: calc(50% - 7.5rem);
+
+      p {
+        padding-left: 28rem;
+      }
+    }
   }
 }
 </style>

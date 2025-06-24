@@ -69,7 +69,7 @@ const onHide = () => (visibleRef.value = false);
     />
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .item {
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ const onHide = () => (visibleRef.value = false);
 
   .paisagem {
     &.w50 {
-      width: 50%;
+      width: calc(100% / 2 - 3rem);
 
       @include m.max(sm) {
         width: 100%;
