@@ -125,14 +125,14 @@ const formatDate = (dateString: string) => {
                     </NuxtLink>
                   </li>
                   <li class="place">
-                    <nuxt-icon
-                      name="location-pin-solid"
+                    <Icon
+                      name="custom:location-pin-solid"
                       class="icon icon-location-pin"/>
                     <span v-html="item.local"></span>
                   </li>
                   <li class="place" v-if="item.date">
-                    <nuxt-icon
-                      name="location-pin-solid"
+                    <Icon
+                      name="custom:location-pin-solid"
                       class="icon icon-location-pin"/>
                     <span v-html="formatDate(item.date)"></span>
                   </li>
@@ -281,7 +281,7 @@ const formatDate = (dateString: string) => {
             }
           }
 
-          li.place .nuxt-icon {
+          li.place .icon {
             position: absolute;
             left: -1rem;
             top: 7rem;

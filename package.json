@@ -17,8 +17,7 @@
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.0.6",
     "nitro-cloudflare-dev": "^0.2.2",
-    "nuxt": "^3.17.5",
-    "nuxt-easy-lightbox": "^1.0.2",
+    "nuxt": "^4.0.3",
     "nuxt-gtag": "^3.0.2",
     "postcss-preset-env": "^10.1.5",
     "postcss-responsive-type": "^1.0.0",
@@ -37,13 +36,13 @@
     "crypto": "^1.0.1",
     "gsap": "^3.12.7",
     "mime-types": "^3.0.1",
-    "nuxt-icons": "^3.2.1",
     "nuxt-schema-org": "^5.0.4",
     "nuxt-swiper": "^2.0.0",
     "postcss": "^8.5.3",
     "postcss-import": "^16.1.0",
     "schema-org": "^0.2.1",
     "sharp": "^0.33.5",
-    "unenv": "^1.10.0"
+    "unenv": "^1.10.0",
+    "vue-easy-lightbox": "^1.19.0"
   }
 }

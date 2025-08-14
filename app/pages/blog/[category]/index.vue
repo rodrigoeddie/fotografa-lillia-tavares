@@ -102,13 +102,13 @@ const formatDate = (date: Date) => {
             {{ post.description }}
           </div>
           <div class="post-meta">
-            <nuxt-icon
-              name="calendar-regular"
+            <Icon
+              name="local:calendar-regular"
               class="icon icon-calendar"/>
             <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
             <NuxtLink :to="'/blog/' + post.category" class="category-link">
-              <nuxt-icon
-                name="category"
+              <Icon
+                name="custom:category"
                 class="icon icon-category"/>
               <span class="category">{{ post.categoryTitle }}</span>
             </NuxtLink>
@@ -197,13 +197,13 @@ const formatDate = (date: Date) => {
       display: flex;
       gap: 10px;
 
-      .nuxt-icon {
+      .icon {
         font-size: 22px;
         color: #666
       }
     }
 
-    .nuxt-icon {
+    .icon {
       font-size: 18px;
     }
   }

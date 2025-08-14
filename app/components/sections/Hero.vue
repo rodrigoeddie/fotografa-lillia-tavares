@@ -66,8 +66,8 @@ const formatDate = (date: Date) => {
         <ul class="info-list">
           <li class="category">
             <h2>
-              <nuxt-icon
-                name="category"
+              <Icon
+                name="custom:category"
                 class="icon icon-category"/>
               <span>Categoria:</span>
             </h2>
@@ -80,8 +80,8 @@ const formatDate = (date: Date) => {
 
           <li class="time" v-if="data.date">
             <h2>
-              <nuxt-icon
-                name="calendar-regular"
+              <Icon
+                name="local:calendar-regular"
                 class="icon icon-calendar"/>
               <span>Data:</span>
             </h2>
@@ -90,8 +90,8 @@ const formatDate = (date: Date) => {
 
           <li class="place" v-if="data.local">
             <h2>
-              <nuxt-icon
-                name="location-pin-solid"
+              <Icon
+                name="local:location-pin-solid"
                 class="icon icon-location-pin"/>
               <span>Local:</span>
             </h2>
@@ -100,8 +100,8 @@ const formatDate = (date: Date) => {
 
           <li class="site" v-if="data.site">
             <h2>
-              <nuxt-icon
-                name="external-link"
+              <Icon
+                name="custom:external-link"
                 class="icon icon-external-link"/>
               <span>Site:</span>
             </h2>
@@ -113,8 +113,8 @@ const formatDate = (date: Date) => {
 
           <li class="site" v-if="data.instagram">
             <h2>
-              <nuxt-icon
-                name="instagram"
+              <Icon
+                name="custom:instagram"
                 class="icon icon-instagram"/>
               <span>Instagram:</span>
             </h2>
@@ -322,7 +322,7 @@ nav[aria-label="breadcrumb"] {
       width: 100%;
       gap: 20rem;
 
-      .nuxt-icon {
+      .icon {
         margin-right: 10rem;
       }
 

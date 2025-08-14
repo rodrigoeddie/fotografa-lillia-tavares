@@ -124,20 +124,30 @@ export default defineNuxtConfig({
 
   modules: [
     // '@nuxtjs/partytown',
-    'nuxt-easy-lightbox',
+    // 'nuxt-easy-lightbox', // Temporariamente removido - incompatível com Nuxt 4
     'nuxt-schema-org',
     '@nuxtjs/device',
     '@nuxt/content',
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
-    'nuxt-icons',
+    '@nuxt/icon',
     'nuxt-gtag',
     '@nuxt/ui',
   ],
 
   gtag: {
     id: 'G-8L15WEPJQE'
+  },
+
+  icon: {
+    serverBundle: 'local',
+    customCollections: [
+      {
+        prefix: 'custom',
+        dir: './public/icons'
+      }
+    ]
   },
 
   image: {
