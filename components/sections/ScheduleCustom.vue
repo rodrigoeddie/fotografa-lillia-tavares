@@ -99,7 +99,7 @@ const enviar = async () => {
     @submit.prevent="enviar">
       <div class="field-text">
         <h1 class="big-title red">
-          <span class="box"><span>Gostou do ensaio?</span></span>
+          <span class="box"><span>Gostou?</span></span>
           <span class="big">Agende o seu:</span>
         </h1>
         <p class="description">

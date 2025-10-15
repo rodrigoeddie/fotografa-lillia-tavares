@@ -49,7 +49,8 @@ const postsData = computed(() => {
         ...item,
         ...(item.body as any),
       };
-    });
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 });
 
 watch(
@@ -83,17 +84,19 @@ const formatDate = (date: Date) => {
   
     <div class="wrap-posts">
       <article v-for="post in postsData" :key="post.id" class="post-item">
-        <nuxt-img
-          v-if="post.image"
-          provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
-          :width="690"
-          :height="460"
-          :sizes="'100vw md:50vw lg:690px'"
-          class="img-thumb"
-          :alt="'Imagem do post ' + post.title"
-          placeholder
-          loading="lazy"/>
+        <NuxtLink :to="post.path">
+          <nuxt-img
+            v-if="post.image"
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
+            :width="690"
+            :height="460"
+            :sizes="'100vw md:50vw lg:690px'"
+            class="img-thumb"
+            :alt="'Imagem do post ' + post.title"
+            placeholder
+            loading="lazy"/>
+        </NuxtLink>
         <div class="text">
           <h2 class="subtitle">
             <NuxtLink :to="post.path">{{ post.title }}</NuxtLink>

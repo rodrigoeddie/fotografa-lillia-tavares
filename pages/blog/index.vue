@@ -39,9 +39,9 @@ const formatDate = (date: Date) => {
             v-if="post.image"
             provider="cloudflare"
             :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
-            :width="690"
-            :height="460"
-            :sizes="'100vw md:50vw lg:690px'"
+            :width="822"
+            :height="548"
+            :sizes="'100vw md:50vw lg:822px'"
             class="img-thumb"
             :alt="'Imagem do post ' + post.title"
             placeholder
@@ -97,7 +97,7 @@ const formatDate = (date: Date) => {
   margin-top: 20px;
   display: flex;
   gap: 30rem 0;
-  width: 32%;
+  width: 49.5%;
   
   @include m.max(sm) {
     // flex-direction: row;
@@ -106,7 +106,7 @@ const formatDate = (date: Date) => {
   }
   
   .subtitle {
-    min-height: 63rem;
+    // min-height: 63rem;
 
     @include m.max(sm) {
       min-height: auto;
@@ -115,7 +115,7 @@ const formatDate = (date: Date) => {
 
   .description {
     padding-bottom: 20rem;
-    min-height: 172rem;
+    // min-height: 172rem;
     display: block;
     
     @include m.max(sm) {
@@ -135,7 +135,9 @@ const formatDate = (date: Date) => {
   }
 
   &:last-child {
-    border-bottom: none;
+    @include m.max(sm) {
+      border-bottom: none;
+    }
   }
 
   .post-meta {

@@ -155,30 +155,18 @@
 
 <template>
     <div class="wrapper">
-        <NuxtLink
-          class="hero"
-          to="cenarios/dia-das-maes-2025">
-            <div class="wrap-breadcrumb">
-                <div class="container">
-                    <div class="wrap-title-hero">
-                        <h1 class="title-hero">
-                            <span class="day">Dia das</span>
-                            <span class="break"></span>
-                            <span class="mother">Mães</span>
-                            <span class="break"></span>
-                            <span class="year">2025</span>
-                        </h1>
-                    </div>
-                </div>
-            </div>
-
-            <nuxt-img
-              :src='configPublic.cloudflareURI + "49da8cca-e5b8-4c30-8f5d-4807f088da00/public"'
-              width="1920"
-              height="868"
-              class="img-hero"
-              alt='Arranjo de flores em um aramado dourado, um sofá, e dois pendentes de madeira' />
-        </NuxtLink>
+        <div class="container">
+            <NuxtLink
+            class="hero"
+            to="blog/cenarios-tematicos/nosso-cenario-do-natal-2025">
+                <nuxt-img
+                :src='configPublic.cloudflareURI + "bf482491-462d-4e2e-1500-2fceba068700/public"'
+                width="1920"
+                height="681"
+                class="img-hero"
+                alt='Natal 2025' />
+            </NuxtLink>
+        </div>
 
         <div class="container">
             <nav aria-label="breadcrumb">
@@ -272,93 +260,7 @@ nav[aria-label=breadcrumb] {
 }
 
 .hero {
-    background: #2c2a15;
     overflow: hidden;
-    // aspect-ratio: 7/1;
-
-    &:before {
-        content: '';
-
-        background: radial-gradient(circle, rgba(44, 42, 21, 1) 0%, rgba(255,255,255, 0) 50%);
-        position: absolute;
-        display: block;
-        opacity: .75;
-        height: 150%;
-        width: 150%;
-        z-index: 2;
-        left: -65%;
-        top: -50%;
-
-        // @media (prefers-color-scheme: light) {
-        //     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255,255,255, 0) 50%);
-        //     opacity: .7;
-        // }
-    }
-
-    &:after {
-        content: '';
-
-        background: #611e10;
-        position: absolute;
-        display: block;
-        height: 10px;
-        z-index: 4;
-        width: 50%;
-        right: 0;
-        top: 0;
-    }
-
-    .wrap-breadcrumb {
-        position: absolute;
-        height: 100%;
-        z-index: 3;
-        right: 0;
-        left: 0;
-        top: 0;
-
-        .container {
-            height: 100%;
-            justify-content: flex-end;
-        }
-    }
-
-    .wrap-title-hero {
-        .title-hero {
-            text-transform: uppercase;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-end;
-            padding-bottom: 20rem;
-            font-family: v.$lato;
-            font-weight: 900;
-            color: white;
-            display: flex;
-            height: 100%;
-            right: 0;
-
-            span {
-                background: rgba(169, 122, 9, .7);
-                padding: 0 30rem;
-                margin: 5rem 0;
-
-                &.break {
-                    display: block;
-                }
-            }
-
-            .day {
-                font-size: 48rem;
-                // color: #f0deda;
-            }
-            .mother {
-                font-size: 150rem;
-            }
-            .year {
-                font-size: 115rem;
-                // color: #f0deda;
-            }
-        }
-    }
 
     .img-hero {
         display: block;

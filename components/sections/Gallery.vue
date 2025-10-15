@@ -85,6 +85,7 @@ const onHide = () => (visibleRef.value = false);
 }
 
 .portfolio-images {
+  background-color: white;
   justify-content: space-between;
   padding: 30rem;
   flex-wrap: wrap;
@@ -95,6 +96,10 @@ const onHide = () => (visibleRef.value = false);
     aspect-ratio: var(--ratio, auto);
     object-fit: cover;
     height: 100%;
+    
+    @include m.max(sm) {
+        width: 100%;
+    }
   }
 
   .paisagem {
@@ -115,7 +120,7 @@ const onHide = () => (visibleRef.value = false);
     }
 
     &.w50 {
-      width: 50%;
+      width: 49%;
 
       @include m.max(sm) {
         width: 100%;
@@ -123,7 +128,7 @@ const onHide = () => (visibleRef.value = false);
     }
 
     &.w25 {
-      width: 25%;
+      width: 24.7%;
 
       @include m.max(sm) {
         width: 100%;

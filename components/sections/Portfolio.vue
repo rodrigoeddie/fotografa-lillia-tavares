@@ -179,8 +179,8 @@ const classes: ClassConfig[] = [
     class: 'card side-by-side',
     format: 'retrato',
     image: {
-      width: 414,
-      height: 790,
+      width: 567,
+      height: 834,
     }
   },
   {

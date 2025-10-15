@@ -29,9 +29,10 @@
     {
       "id": "02",
       "imageId": "daa37442-bd0f-46d4-2888-262b30ecce00",
-      "width": 468,
-      "height": 703,
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": ""
     },
     {
@@ -166,9 +167,10 @@
     {
       "id": "01",
       "imageId": "7992012f-9e52-4056-8c79-fa14e2933c00",
-      "width": 468,
-      "height": 703,
+      "width": 567,
+      "height": 850,
       "format": "retrato",
+      "customClass": "w33",
       "alt": ""
     },
     {

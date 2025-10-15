@@ -1,99 +1,99 @@
 {
-    "colorHighlight": "#b98b19",
-    "title": "Nosso cenário do natal 2024",
-    "date": "2024-12-20",
-    "description": "Preparado com muito carinho para acolher você e sua família neste Natal, cada cantinho foi pensado para trazer aconchego e alegria, longe dos clichês tradicionais.",
-    "category": {
-        "slug": "cenarios-tematicos",
-        "title": "Cenários Temáticos"
+  "colorHighlight": "#b98b19",
+  "title": "Nosso cenário do natal 2024",
+  "date": "2024-12-20",
+  "description": "Preparado com muito carinho para acolher você e sua família neste Natal, cada cantinho foi pensado para trazer aconchego e alegria, longe dos clichês tradicionais.",
+  "category": {
+    "slug": "cenarios-tematicos",
+    "title": "Cenários Temáticos"
+  },
+  "image": {
+    "imageId": "d6f77463-35af-4310-e91f-2b2da4a72f00",
+    "width": 935,
+    "height": 624,
+    "format": "paisagem",
+    "customClass": "w100",
+    "alt": ""
+  },
+  "works": "natal-2024",
+  "page": "",
+  "content": [
+    "<p class='description'>Este ano, nossa intenção era fazer algo que fugisse do clichê. Pensamos em aliar a estética boho já presente no estúdio e nos afastar um pouco do padrão verde e vermelho.</p>",
+    "<p class='description'>Nosso estúdio tem um cantinho cuja cor predominante é o dourado e tons terrosos. Achamos por bem investir nessas cores. Nesse caso, mantivemos o verde e dourado como as cores do nosso Natal 2024, com umas pitadinhas de prateado, aliando acessórios que já tínhamos no nosso ambiente.</p>",
+    "<p class='description'>Conseguimos um resultado incrível com essa estética. É muito prazeroso para nós marcar a vida de vocês com nossas ideias de decoração. Ficamos muito contentes em fazer parte de suas vidas em forma de memórias e, quando se trata de família, o trabalho ganha ainda mais afetividade. Muito obrigado a todos e um ótimo Natal 2024!</p>"
+  ],
+  "album": [
+    {
+      "imageId": "ccfd5937-1c12-49e8-29b5-495a57f2e100",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
     },
-    "image": {
-        "imageId": "d6f77463-35af-4310-e91f-2b2da4a72f00",
-        "width": 690,
-        "height": 460,
-        "format": "paisagem",
-        "customClass": "w100",
-        "alt": ""
+    {
+      "imageId": "2a2fd3a7-3738-4e74-fb36-597891dc1400",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
     },
-    "works": "natal-2024",
-    "page": "",
-    "content": [
-        "<p class='description'>Este ano, nossa intenção era fazer algo que fugisse do clichê. Pensamos em aliar a estética boho já presente no estúdio e nos afastar um pouco do padrão verde e vermelho.</p>",
-        "<p class='description'>Nosso estúdio tem um cantinho cuja cor predominante é o dourado e tons terrosos. Achamos por bem investir nessas cores. Nesse caso, mantivemos o verde e dourado como as cores do nosso Natal 2024, com umas pitadinhas de prateado, aliando acessórios que já tínhamos no nosso ambiente.</p>",
-        "<p class='description'>Conseguimos um resultado incrível com essa estética. É muito prazeroso para nós marcar a vida de vocês com nossas ideias de decoração. Ficamos muito contentes em fazer parte de suas vidas em forma de memórias e, quando se trata de família, o trabalho ganha ainda mais afetividade. Muito obrigado a todos e um ótimo Natal 2024!</p>"
-    ],
-    "album": [
-        {
-            "imageId": "ccfd5937-1c12-49e8-29b5-495a57f2e100",
-            "width": 468,
-            "height": 703,
-            "format": "retrato",
-            "customClass": "w33",
-            "alt": ""
-        },
-        {
-            "imageId": "2a2fd3a7-3738-4e74-fb36-597891dc1400",
-            "width": 468,
-            "height": 703,
-            "format": "retrato",
-            "customClass": "w33",
-            "alt": ""
-        },
-        {
-            "imageId": "773e07c8-28e1-4f08-ecac-5349b6561400",
-            "width": 468,
-            "height": 703,
-            "format": "retrato",
-            "customClass": "w33",
-            "alt": ""
-        },
-        {
-            "imageId": "dcebbd91-190e-40d1-6854-81795b3e2a00",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "0c157f6a-45ac-4bb2-e971-8b050016e300",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "6134aee5-471d-465e-071c-cb477c03d900",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "7468269a-7b97-4c75-867f-afd0171e9b00",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "76cc36dd-972b-4dd3-2b97-49af4a1d0a00",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        },
-        {
-            "imageId": "7fa7818b-eca5-4131-949e-842a5f0cc700",
-            "width": 850,
-            "height": 567,
-            "format": "paisagem",
-            "customClass": "w50",
-            "alt": ""
-        }
-    ]
+    {
+      "imageId": "773e07c8-28e1-4f08-ecac-5349b6561400",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "dcebbd91-190e-40d1-6854-81795b3e2a00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "0c157f6a-45ac-4bb2-e971-8b050016e300",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "6134aee5-471d-465e-071c-cb477c03d900",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "7468269a-7b97-4c75-867f-afd0171e9b00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "76cc36dd-972b-4dd3-2b97-49af4a1d0a00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "7fa7818b-eca5-4131-949e-842a5f0cc700",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    }
+  ]
 }

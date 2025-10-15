@@ -1,0 +1,72 @@
+{
+  "colorHighlight": "#193b57",
+  "showSchedule": true,
+  "title": "Nosso cenário do natal 2025",
+  "date": "2025-10-14",
+  "description": "💙 Um cenário cheio de amor, cores suaves e o clima mágico que só o Natal traz. Veja como ficou nosso cenário de Natal 2025 e sinta essa atmosfera especial.",
+  "category": {
+    "slug": "cenarios-tematicos",
+    "title": "Cenários Temáticos"
+  },
+  "image": {
+    "imageId": "4cd6c314-924c-4805-aeee-f9c52dc36a00",
+    "width": 935,
+    "height": 624,
+    "format": "paisagem",
+    "customClass": "w100",
+    "alt": ""
+  },
+  "works": "natal-2025",
+  "page": "",
+  "content": [
+    "<p class='description'>Assim como em <b>2024</b>, colocamos muito carinho em cada detalhe para criar um cenário especial — algo que fugisse do convencional, mas que mantivesse aquela sensação de <b>aconchego, amor e magia</b> que o Natal sempre traz.</p>",
+    "<p class='description'>No ano passado, o tema foi o <b>estilo Boho</b>, com <b>tons dourados e terrosos</b>, lembrando o clima acolhedor dos Natais da América do Norte — quase como aquelas paisagens com folhas secas e luzes suaves.</p>",
+    "<p class='description'>Dessa vez, para <b>2025</b>, escolhemos uma nova paleta: <b>azul, dourado e branco</b>. 💙✨</p>",
+    "<p class='description'>E, sinceramente, acredito que <b>nos superamos</b>!</p>",
+    "<p class='description'>As cores têm significados diferentes dependendo de onde estamos (vide o filme Divertidamente, rs), mas aqui no Brasil, o <b>azul transmite tranquilidade, confiança, serenidade e harmonia</b> — exatamente o que queremos que você sinta ao ver esse cenário.</p>",
+    "<p class='description'>Enquanto você confere as fotos aqui ao lado, espero que consiga sentir essa <b>atmosfera especial</b> que criamos com tanto cuidado. Cada detalhe foi pensado para que o seu ensaio em família seja <b>leve, cheio de afeto</b> e se transforme em <b>memórias lindas</b> deste Natal.</p>",
+    "<p class='description'>E é com esse cenário que damos início à nossa <b>campanha de Natal 2025!</b> 🌟</p>",
+    "<p class='description'>Todo ano, esse é um dos <b>momentos mais esperados</b> aqui no estúdio — ver as famílias voltando, as crianças crescendo e aquele <b>clima gostoso de final de ano</b> tomando conta de tudo.</p>",
+    "<p class='description'>Esse ano, queremos que cada sessão seja <b>ainda mais especial</b>. As <b>fotos de Natal</b> não são só registros — são <b>lembranças que ganham vida</b> quando a gente olha de novo, anos depois. Por isso, preparamos <b>pacotes acessíveis, horários flexíveis</b> e todo o carinho de sempre pra te receber.</p>",
+    "<p class='description'>💫 <b>Vem viver esse momento com a gente</b></p>",
+    "<p class='description'>Se você já participou dos <b>ensaios anteriores</b>, vai se encantar com o <b>novo cenário</b>.<br>E se for o seu <b>primeiro Natal</b> com a gente, pode ter certeza de que será <b>inesquecível</b>.</p>",
+    "<p class='description'>Logo abaixo, você confere o <b>banner oficial da campanha</b> com todas as informações de valores</b> e como <b>agendar seu ensaio</b>.</p>",
+    "<p class='description'>A gente mal pode esperar pra <b>registrar esse Natal</b> com você e sua família! 📅📸</p>"
+  ],
+  "contentImages": [
+    {
+      "imageId": "5bfab26e-048d-4c01-21dc-4587e180fe00",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "customClass": "",
+      "alt": ""
+    },
+    {
+      "imageId": "ba52b8f6-5ca5-44ad-4e18-aa185762da00",
+      "width": 468,
+      "height": 703,
+      "format": "retrato",
+      "customClass": "",
+      "alt": ""
+    },
+    {
+      "imageId": "744bd65c-5420-4360-53d5-7a5fe79d0400",
+      "width": 703,
+      "height": 703,
+      "format": "square",
+      "customClass": "sbs",
+      "showAtEnd": true,
+      "alt": ""
+    },
+    {
+      "imageId": "f39597b1-06df-4052-ce63-83c5e9865300",
+      "width": 1300,
+      "height": 686,
+      "format": "paisagem",
+      "customClass": "sbs",
+      "showAtEnd": true,
+      "alt": ""
+    }
+  ]
+}

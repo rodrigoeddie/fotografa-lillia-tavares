@@ -203,7 +203,7 @@ function toggleMenu() {
             }
 
             &.router-link-active {
-                pointer-events: none;
+                // pointer-events: none;
 
                 &::before {
                     background: black;
