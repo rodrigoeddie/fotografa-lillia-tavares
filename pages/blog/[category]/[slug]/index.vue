@@ -57,7 +57,7 @@ const processedContent = computed(() => {
   }
 
   const contentImages = post.value.contentImages || [];
-  
+
   // Se não houver imagens, retornar apenas o conteúdo com estrutura
   if (contentImages.length === 0) {
     return {
@@ -82,7 +82,7 @@ const processedContent = computed(() => {
     // Contar tags <p> no HTML usando regex (funciona em SSR)
     const paragraphMatches = block.match(/<p[^>]*>/g);
     const paragraphs = paragraphMatches ? paragraphMatches.length : 0;
-    
+
     // Adicionar imagem antes do primeiro parágrafo (imageIndex 0)
     if (idx === 0 && imageIndex < imagesForContent.length) {
       result.push({
@@ -126,12 +126,12 @@ const processedContent = computed(() => {
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': post.colorHighlight }">
     <SectionsHero :data="post" />
-    
+
     <div class="blog-content">
       <template v-for="(item, idx) in processedContent.content" :key="idx">
         <!-- Renderizar imagem -->
-        <div 
-          v-if="item.type === 'image'" 
+        <div
+          v-if="item.type === 'image'"
           class="content-image"
           :class="[item.position, item.data?.customClass]">
           <nuxt-img
@@ -154,26 +154,33 @@ const processedContent = computed(() => {
 
       <!-- Imagens do final agrupadas -->
       <div v-if="processedContent.endImages.length > 0" class="end-images-group">
-        <div 
-          v-for="(image, idx) in processedContent.endImages" 
+        <div
+          v-for="(image, idx) in processedContent.endImages"
           :key="`end-${idx}`"
           class="content-image centered"
           :class="image.customClass">
-          <nuxt-img
-            provider="cloudflare"
-            :src="`https://images.fotografalilliatavares.com.br/images/${image.imageId}/public`"
-            :width="image.width"
-            :height="image.height"
-            :alt="image.alt || post.title"
-            format="webp"
-            placeholder
-            loading="lazy"
-            class="img-content"
-          />
+          <picture>
+        <source
+          v-if="image.mobileImageId"
+          media="(max-width: 768px)"
+          :srcset="`https://images.fotografalilliatavares.com.br/images/${image.mobileImageId}/public`"
+        />
+        <nuxt-img
+          provider="cloudflare"
+          :src="`https://images.fotografalilliatavares.com.br/images/${image.imageId}/public`"
+          :width="image.width"
+          :height="image.height"
+          :alt="image.alt || post.title"
+          format="webp"
+          placeholder
+          loading="lazy"
+          class="img-content"
+        />
+          </picture>
         </div>
       </div>
     </div>
-  
+
     <SectionsGallery v-if="post.album" :album="post.album" />
     <SectionsPortfolio v-if="post.works" :category="post.works" class="blog-portfolio" />
     <SectionsScheduleCustom v-if="post.showSchedule === true" :formType="post.title" />
@@ -193,17 +200,27 @@ const processedContent = computed(() => {
 
     .content-image {
       margin: 23rem 0;
-      
+
       &.left {
         float: left;
         margin-right: 50rem;
         margin-bottom: 50rem;
+        width: 28%;
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
 
       &.right {
         float: right;
         margin-left: 50rem;
+        width: 28%;
         margin-bottom: 50rem;
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
 
       &.centered {
@@ -231,7 +248,7 @@ const processedContent = computed(() => {
 
       .content-image {
         margin: 0;
-        
+
         &.w33 {
           width: calc(33.333% - 13.333rem);
         }

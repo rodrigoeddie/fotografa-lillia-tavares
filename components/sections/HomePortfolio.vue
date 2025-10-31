@@ -97,9 +97,9 @@ const formatDate = (dateString: string) => {
                       <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        width="384"
-                        height="594"
-                        sizes="'100vw md:50vw lg:384px"
+                        width="551"
+                        height="646"
+                        sizes="'100vw md:50vw lg:551px"
                         class="bg-thumb"
                         :alt="slide.alt"
                         format="webp"
@@ -274,7 +274,7 @@ const formatDate = (dateString: string) => {
               width: 12rem;
               left: 2rem;
               top: 16rem;
-              
+
               @include m.max(sm) {
                 top: 9rem;
               }
@@ -285,7 +285,7 @@ const formatDate = (dateString: string) => {
             position: absolute;
             left: -1rem;
             top: 7rem;
-              
+
             @include m.max(sm) {
               top: -2rem;
             }
