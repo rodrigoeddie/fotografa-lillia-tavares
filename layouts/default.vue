@@ -8,6 +8,7 @@
 </script>
 <template>
   <div class="wrapper-main">
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4335671090015485&ev=PageView&noscript=1" /></noscript>
     <TemplatesHeader />
     <slot />
     <TemplatesFooter />
