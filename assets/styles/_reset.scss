@@ -11,6 +11,10 @@
     text-wrap: balance;
 }
 
+.icon, .icon * {
+    fill: currentColor !important;
+}
+
 body,
 html,
 div,

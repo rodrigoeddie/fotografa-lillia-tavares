@@ -135,8 +135,8 @@ onUnmounted(() => {
       class="fixed-whatsapp"
       @click="clickWhats"
       target="_blank">
-      <nuxt-icon
-        name="whatsapp"
+      <Icon
+        name="icons:whatsapp"
         class="icon"/>
       <span class="txt-social">Whatsapp</span>
     </NuxtLink>
@@ -165,7 +165,7 @@ onUnmounted(() => {
     color: #075e54;
   }
 
-  .nuxt-icon {
+  .icon {
     font-size: 25rem;
   }
 }

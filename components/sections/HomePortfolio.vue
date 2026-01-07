@@ -3,7 +3,7 @@ const $route       = useRoute();
 const configPublic = useRuntimeConfig().public;
 
 const filteredSlides = (item) => {
-  if (!item.album) {
+  if (!item || !Array.isArray(item.album)) {
     return {
       retrato: []
     };
@@ -50,11 +50,10 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
   .map(item => {
     return {
       ...item.body,
-      photos: filteredSlides(item.body),
+      photos: filteredSlides(item),
       path: item.path
     };
   }) : [];
-
 const formatDate = (dateString: string) => {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return new Date(dateString).toLocaleDateString('pt-BR', options);
@@ -118,21 +117,21 @@ const formatDate = (dateString: string) => {
                 </h2>
 
                 <ul class="info-list">
-                  <li class="category" v-if="item.category.slug">
+                  <li class="category" v-if="item.category && item.category.slug">
                     <NuxtLink
                       :to="workPage + '/' + item.category.slug">
                       <span>{{ item.category.title }}</span>
                     </NuxtLink>
                   </li>
                   <li class="place">
-                    <nuxt-icon
-                      name="location-pin-solid"
+                    <Icon
+                      name="icons:location-pin-solid"
                       class="icon icon-location-pin"/>
                     <span v-html="item.local"></span>
                   </li>
                   <li class="place" v-if="item.date">
-                    <nuxt-icon
-                      name="location-pin-solid"
+                    <Icon
+                      name="icons:location-pin-solid"
                       class="icon icon-location-pin"/>
                     <span v-html="formatDate(item.date)"></span>
                   </li>
@@ -281,7 +280,7 @@ const formatDate = (dateString: string) => {
             }
           }
 
-          li.place .nuxt-icon {
+          li.place .icon {
             position: absolute;
             left: -1rem;
             top: 7rem;

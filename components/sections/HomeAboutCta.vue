@@ -19,8 +19,8 @@ const about = props.data.meta.sobre_cta || {};
           <NuxtLink
             to="/preco-ensaio-fotografico"
             class="link link-agende">
-            <nuxt-icon
-              name="calendar-regular"
+            <Icon
+              name="icons:calendar-regular"
               class="icon icon-calendar"/>
             <span><u>Clique aqui</u> e <b>agende</b> seu ensaio fotográfico</span>
           </NuxtLink>
@@ -28,8 +28,8 @@ const about = props.data.meta.sobre_cta || {};
           <NuxtLink
             to="/estudio"
             class="link">
-            <nuxt-icon
-              name="location-pin-solid"
+            <Icon
+              name="icons:location-pin-solid"
               class="icon icon-location-pin"/>
             <span>Conheça meu <b>estúdio</b>, (disponível para locação).</span>
           </NuxtLink>
@@ -37,8 +37,8 @@ const about = props.data.meta.sobre_cta || {};
           <NuxtLink
             to="/ensaio-fotografico"
             class="link">
-            <nuxt-icon
-              name="image-regular"
+            <Icon
+              name="icons:image-regular"
               class="icon icon-image"/>
             <span>Acompanhe meus últimos <b>trabalhos</b> realizados</span>
           </NuxtLink>

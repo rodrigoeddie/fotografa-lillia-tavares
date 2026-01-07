@@ -329,7 +329,7 @@ nav[aria-label="breadcrumb"] {
       width: 100%;
       gap: 20rem;
 
-      .nuxt-icon {
+      .icon {
         margin-right: 10rem;
       }
 

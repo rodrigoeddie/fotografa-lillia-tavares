@@ -160,7 +160,7 @@ const enviar = async () => {
             </div>
 
             <button class="btn-send">
-              <nuxt-icon name="whatsapp" class="icon"/>
+              <Icon name="icons:whatsapp" class="icon"/>
               <span>Enviar usando o whatsapp</span>
             </button>
           </form>
@@ -281,7 +281,7 @@ const enviar = async () => {
           color: white;
         }
 
-        .nuxt-icon {
+        .icon {
           font-size: 24rem;
           line-height: 1em;
           margin-top: 0;

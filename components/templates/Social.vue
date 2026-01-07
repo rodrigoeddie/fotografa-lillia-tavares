@@ -6,8 +6,8 @@
           target="_blank"
           aria-label="Instagram: @fotografalilliatavares"
           class="link-social">
-          <nuxt-icon
-            name="instagram"
+          <Icon
+            name="icons:instagram"
             class="icon icon-instagram"/>
           <span class="txt-social">@fotografalilliatavares</span>
         </NuxtLink>
@@ -16,8 +16,8 @@
           to="mailto:fotografalilliatavares@gmail.com"
           class="link-social"
           aria-label="Email: fotografalilliatavares@gmail.com">
-          <nuxt-icon
-            name="email"
+          <Icon
+            name="icons:email"
             class="icon icon-email"/>
           <span class="txt-social">fotografalilliatavares@gmail.com</span>
         </NuxtLink>
@@ -27,8 +27,8 @@
           class="link-social icon-whatsapp"
           target="_blank"
           aria-label="Telefone: (11) 91115-9795">
-          <nuxt-icon
-            name="whatsapp"
+          <Icon
+            name="icons:whatsapp"
             class="icon"/>
           <span class="txt-social">(11) 91115-9795</span>
         </NuxtLink>

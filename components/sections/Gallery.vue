@@ -45,8 +45,8 @@ const onHide = () => (visibleRef.value = false);
           <div class="info" v-if="item.nome && item.instagram">
             <p class="description">
               <a :href="item.instagram" target="_blank" rel="noopener noreferrer">
-                <nuxt-icon
-                  name="instagram"
+                <Icon
+                  name="icons:instagram"
                   class="icon icon-instagram"/>
                 <span>{{ item.nome }}</span>
               </a>

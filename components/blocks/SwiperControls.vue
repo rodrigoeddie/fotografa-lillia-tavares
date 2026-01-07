@@ -45,8 +45,8 @@ const next = () => props.swiperContainerRef.next()
       aria-label="Foto Anterior"
       :disabled="isPrevDisabled"
       @click="prev()">
-      <nuxt-icon
-        name="arrow-right"
+      <Icon
+        name="icons:arrow-right"
         class="icon"/>
     </button>
 
@@ -57,8 +57,8 @@ const next = () => props.swiperContainerRef.next()
       aria-label="Próxima Foto"
       :disabled="isNextDisabled"
       @click="next()">
-      <nuxt-icon
-        name="arrow-right"
+      <Icon
+        name="icons:arrow-right"
         class="icon"/>
     </button>
   </div>

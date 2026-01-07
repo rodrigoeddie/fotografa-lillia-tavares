@@ -142,10 +142,22 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
-    'nuxt-icons',
     'nuxt-gtag',
     '@nuxt/ui',
+    '@nuxt/icon'
   ],
+
+  icon: {
+    mode: 'svg',
+    customCollections: [
+      {
+        prefix: 'icons',
+        dir: './assets/icons',
+        // if you want to include all the icons in nested directories:
+        // recursive: true,
+      },
+    ],
+  },
 
   gtag: {
     id: 'G-8L15WEPJQE'
