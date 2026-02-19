@@ -147,6 +147,11 @@ export default defineNuxtConfig({
     '@nuxt/icon'
   ],
 
+  sitemap: {
+    // Habilita zero runtime para reduzir bundle size
+    zeroRuntime: true
+  },
+
   icon: {
     mode: 'svg',
     customCollections: [
@@ -222,6 +227,19 @@ export default defineNuxtConfig({
       cssCodeSplit: true,
       cssMinify: 'lightningcss',
       sourcemap: false, // Desabilita sourcemaps em produção
+      target: 'esnext', // Alvo de build moderno
+      rollupOptions: {
+        output: {
+          // Remove chunking manual para evitar circularidade
+          manualChunks: undefined
+        }
+      }
+    },
+    optimizeDeps: {
+      exclude: ['shiki', 'vscode-oniguruma'], // Exclui módulos problemáticos
+    },
+    worker: {
+      format: 'es' // Formato ES para workers
     }
   },
 
@@ -254,15 +272,7 @@ export default defineNuxtConfig({
       type: 'd1',
       binding: 'DB'
     },
-    highlight: {
-      theme: {
-        default: 'github-light',
-        dark: 'github-dark',
-      },
-      preload: ['js', 'ts', 'vue', 'css', 'scss', 'html'],
-      // Usa engine JavaScript ao invés de WASM
-      langs: ['javascript', 'typescript', 'vue', 'css', 'scss', 'html']
-    }
+    highlight: false
   },
 
   nitro: {
@@ -306,25 +316,39 @@ export default defineNuxtConfig({
     preset: 'cloudflare-pages',
     minify: true,
     compressPublicAssets: true,
-    compatibilityDate: '2026-02-19', // Adicione esta linha
+    compatibilityDate: '2026-02-19',
+    
+    // Configurações específicas para Cloudflare Pages
+    cloudflarePagesIntegration: true,
+    
+    // Desabilita WASM para evitar problemas com Cloudflare
+    wasm: {
+      lazy: false,
+      esmImport: false
+    },
+    
+    // Remove chunking manual para evitar circularidade
     rollupConfig: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('vue') || id.includes('nuxt')) {
-              return 'framework'
-            }
-            return 'vendor'
-          }
-        }
+        manualChunks: undefined
       }
+    },
+    
+    // Externalize problematic modules
+    externals: {
+      inline: [
+        // Força inline de módulos que causam problemas
+        'shiki',
+        'oniguruma',
+      ]
     },
   },
 
-  compatibilityDate: '2026-02-19', // Adicione aqui também
+  compatibilityDate: '2026-02-19',
   
   experimental: {
     payloadExtraction: false,
-    renderJsonPayloads: true
+    renderJsonPayloads: false, // Desabilitado para evitar problemas no prerender
+    appManifest: false
   },
 })
