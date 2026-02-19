@@ -22,10 +22,6 @@ export default defineNuxtConfig({
     description: siteConfig.description,
   },
 
-  router: {
-    middleware: ['force-reload']
-  },
-
   app: {
     head: {
       htmlAttrs: {
@@ -226,21 +222,9 @@ export default defineNuxtConfig({
     build: {
       cssCodeSplit: true,
       cssMinify: 'lightningcss',
-      sourcemap: false, // Desabilita sourcemaps em produção
-      target: 'esnext', // Alvo de build moderno
-      rollupOptions: {
-        output: {
-          // Remove chunking manual para evitar circularidade
-          manualChunks: undefined
-        }
-      }
+      sourcemap: false,
+      target: 'esnext',
     },
-    optimizeDeps: {
-      exclude: ['shiki', 'vscode-oniguruma'], // Exclui módulos problemáticos
-    },
-    worker: {
-      format: 'es' // Formato ES para workers
-    }
   },
 
   postcss: {
@@ -270,77 +254,21 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: 'd1',
-      binding: 'DB'
+      bindingName: 'DB'
     },
     highlight: false
   },
 
   nitro: {
-    prerender: {
-      autoSubfolderIndex: false,
-      routes: [
-        // Página inicial
-        '/',
-
-         // Páginas estáticas
-        '/ensaio-fotografico',
-
-        '/estudio',
-        '/estudio/cenarios',
-        '/estudio/cenarios/dia-das-maes-2025',
-
-        '/preco-ensaio-fotografico',
-
-        // Página dinâmicas
-        '/ensaio-fotografico/corporativo',
-        '/ensaio-fotografico/corporativo/vanessa-lima',
-        '/ensaio-fotografico/corporativo/andresa-maia',
-        '/ensaio-fotografico/corporativo/nelma-caroline',
-        '/ensaio-fotografico/corporativo/camila-nogueira',
-        '/ensaio-fotografico/corporativo/karoline-siqueira',
-        '/ensaio-fotografico/corporativo/pollyanna-goncalves',
-        '/ensaio-fotografico/corporativo/gustavo-okazaki',
-        '/ensaio-fotografico/corporativo/bruna-freire',
-
-        '/ensaio-fotografico/sensual-intimista',
-        '/ensaio-fotografico/sensual-intimista/cris-borges',
-        '/ensaio-fotografico/sensual-intimista/vanessa-lima',
-        '/ensaio-fotografico/sensual-intimista/cris-pole-e-lira',
-
-        '/ensaio-fotografico/dia-das-maes-2025',
-        '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares',
-        '/ensaio-fotografico/dia-das-maes-2025/rosiney-de-melo',
-      ],
-    },
-
     preset: 'cloudflare-pages',
     minify: true,
     compressPublicAssets: true,
     compatibilityDate: '2026-02-19',
     
-    // Configurações específicas para Cloudflare Pages
-    cloudflarePagesIntegration: true,
-    
-    // Desabilita WASM para evitar problemas com Cloudflare
-    wasm: {
-      lazy: false,
-      esmImport: false
-    },
-    
-    // Remove chunking manual para evitar circularidade
     rollupConfig: {
       output: {
         manualChunks: undefined
       }
-    },
-    
-    // Externalize problematic modules
-    externals: {
-      inline: [
-        // Força inline de módulos que causam problemas
-        'shiki',
-        'oniguruma',
-      ]
     },
   },
 
@@ -348,7 +276,5 @@ export default defineNuxtConfig({
   
   experimental: {
     payloadExtraction: false,
-    renderJsonPayloads: false, // Desabilitado para evitar problemas no prerender
-    appManifest: false
   },
 })
