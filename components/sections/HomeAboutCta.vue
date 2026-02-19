@@ -22,7 +22,7 @@ const about = props.data.meta.sobre_cta || {};
             <Icon
               name="icons:calendar-regular"
               class="icon icon-calendar"/>
-            <span><u>Clique aqui</u> e <b>agende</b> seu ensaio fotográfico</span>
+            <span><b>agende</b> seu ensaio fotográfico</span>
           </NuxtLink>
 
           <NuxtLink
@@ -31,7 +31,7 @@ const about = props.data.meta.sobre_cta || {};
             <Icon
               name="icons:location-pin-solid"
               class="icon icon-location-pin"/>
-            <span>Conheça meu <b>estúdio</b>, (disponível para locação).</span>
+            <span>Conheça meu <b>estúdio</b> (disponível para locação).</span>
           </NuxtLink>
 
           <NuxtLink
@@ -40,7 +40,7 @@ const about = props.data.meta.sobre_cta || {};
             <Icon
               name="icons:image-regular"
               class="icon icon-image"/>
-            <span>Acompanhe meus últimos <b>trabalhos</b> realizados</span>
+            <span><b>Acompanhe</b> meus trabalhos</span>
           </NuxtLink>
         </div>
       </div>
@@ -117,11 +117,12 @@ const about = props.data.meta.sobre_cta || {};
 
     .about-ctas {
       padding: 20rem v.$space;
-      flex-direction: column;
       background: v.$red;
       display: flex;
+      justify-content: center;
 
       @include m.max(sm) {
+        flex-direction: column;
         padding: 6px;
       }
 
@@ -143,10 +144,13 @@ const about = props.data.meta.sobre_cta || {};
         }
 
         &:nth-child(2) {
-          border-bottom: #b35c4b 1px solid;
-
+          @include m.max(xs) {
+            border-bottom: #b35c4b 1px solid;
+          }
+          
           @include m.min(xs) {
-            border-top: #b35c4b 1px solid;
+            border-left: #b35c4b 1px solid;
+            border-right: #b35c4b 1px solid;
           }
         }
 
@@ -172,7 +176,10 @@ const about = props.data.meta.sobre_cta || {};
     }
 
     .col-text {
+      width: 79%;
+      
       @include m.max(xs) {
+        width: 100%;
         order: 2;
       }
       
@@ -186,7 +193,7 @@ const about = props.data.meta.sobre_cta || {};
 
     .about-img {
       flex-shrink: 0;
-      width: 50%;
+      width: 21%;
 
       @include m.max(xs) {
         height: 225px;

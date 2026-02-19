@@ -124,7 +124,7 @@ const ensaiosData = computed(() => {
   const items = ensaiosList.value
     .map((item: any) => {
       return {
-        ...(item.body as any),
+        ...item,
         photos: filteredSlides(item),
         path: item.path
       };

@@ -31,20 +31,28 @@
 <style scoped lang="scss">
 .wrap-img-hero {
   align-items: flex-end;
-  height: 346rem;
+  height: 250rem;
   display: flex;
+  position: relative;
 
   @include m.max(sm) {
     height: auto;
   }
 
   img {
-    height: auto;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    object-fit: contain;
+    width: 100%;
   }
 }
 
 .wrapper-main {
-  padding-top: 30px;
+  padding-top: 20px;
 
   @include m.max(xs) {
     padding-top: 10px;

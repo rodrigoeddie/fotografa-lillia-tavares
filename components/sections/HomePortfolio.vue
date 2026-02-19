@@ -49,7 +49,7 @@ const {
 const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
   .map(item => {
     return {
-      ...item.body,
+      ...item,
       photos: filteredSlides(item),
       path: item.path
     };
