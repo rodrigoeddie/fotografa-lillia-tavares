@@ -69,7 +69,7 @@ const filteredSlides = (item: any): SlideFormat => {
   };
 }
 
-const { data: navigation } = await useAsyncData('navigation', () => {
+const { data: navigation } = await useAsyncData('portfolio-navigation', () => {
   return queryCollectionNavigation('works');
 });
 

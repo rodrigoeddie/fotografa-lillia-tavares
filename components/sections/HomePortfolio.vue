@@ -19,7 +19,7 @@ const filteredSlides = (item) => {
   };
 }
 
-const { data: navigation } = await useAsyncData('navigation', () => {
+const { data: navigation } = await useAsyncData('home-portfolio-navigation', () => {
   return queryCollectionNavigation('works');
 });
 

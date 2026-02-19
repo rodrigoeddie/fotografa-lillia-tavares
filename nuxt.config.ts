@@ -172,6 +172,19 @@ export default defineNuxtConfig({
     densities: [1, 2],
   },
 
+  ogImage: {
+    compatibility: {
+      runtime: {
+        // Desabilita sharp para Cloudflare
+        sharp: false
+      }
+    },
+    // Força PNG como formato padrão
+    defaults: {
+      extension: 'png'
+    }
+  },
+
   css: [
     '~/assets/styles/main.scss'
   ],
@@ -188,7 +201,27 @@ export default defineNuxtConfig({
             @use "@/assets/styles/_mixins.scss" as m;
           `,
         }
+      },
+
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove()
+                }
+              }
+            }
+          }
+        ]
       }
+    },
+    build: {
+      cssCodeSplit: true,
+      cssMinify: 'lightningcss',
+      sourcemap: false, // Desabilita sourcemaps em produção
     }
   },
 
@@ -199,9 +232,36 @@ export default defineNuxtConfig({
     }
   },
 
+  tailwindcss: {
+    config: {
+      // ...existing config...
+    },
+    viewer: false,
+    exposeConfig: false,
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config',
+    injectPosition: 'first'
+  },
+
   runtimeConfig: {
     public: {
       cloudflareURI: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/',
+    }
+  },
+
+  content: {
+    database: {
+      type: 'd1',
+      binding: 'DB'
+    },
+    highlight: {
+      theme: {
+        default: 'github-light',
+        dark: 'github-dark',
+      },
+      preload: ['js', 'ts', 'vue', 'css', 'scss', 'html'],
+      // Usa engine JavaScript ao invés de WASM
+      langs: ['javascript', 'typescript', 'vue', 'css', 'scss', 'html']
     }
   },
 
@@ -242,7 +302,29 @@ export default defineNuxtConfig({
         '/ensaio-fotografico/dia-das-maes-2025/rosiney-de-melo',
       ],
     },
+
+    preset: 'cloudflare-pages',
+    minify: true,
+    compressPublicAssets: true,
+    compatibilityDate: '2026-02-19', // Adicione esta linha
+    rollupConfig: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('vue') || id.includes('nuxt')) {
+              return 'framework'
+            }
+            return 'vendor'
+          }
+        }
+      }
+    },
   },
 
-  compatibilityDate: '2025-04-01',
+  compatibilityDate: '2026-02-19', // Adicione aqui também
+  
+  experimental: {
+    payloadExtraction: false,
+    renderJsonPayloads: true
+  },
 })

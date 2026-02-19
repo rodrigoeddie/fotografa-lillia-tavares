@@ -23,7 +23,7 @@ onMounted(() => {
   }
 });
 
-const { data: navigation } = await useAsyncData('navigation', () => {
+const { data: navigation } = await useAsyncData('portfolio-hero-navigation', () => {
   return queryCollectionNavigation('works');
 });
 
@@ -54,7 +54,7 @@ const categories = await Promise.all(
           <h1 class="title">Trabalhos</h1>
           <div class="description">
             <p>
-              Com o espaço acolhedor do <NuxtLink to="/estudio">estúdio em Mogi das Cruzes</NuxtLink>, e a sensibilidade da <NuxtLink to="/sobre">fotógrafa Lillia Tavares</NuxtLink>, cada ensaio se torna uma experiência única, conheça meu trabalho.
+              Com o espaço acolhedor do <NuxtLink to="/estudio">estúdio em Mogi das Cruzes</NuxtLink>, e a sensibilidade da fotógrafa Lillia Tavares, cada ensaio se torna uma experiência única, conheça meu trabalho.
             </p>
           </div>
         </div>

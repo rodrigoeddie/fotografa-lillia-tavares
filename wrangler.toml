@@ -1,0 +1,7 @@
+name = "fotografa-lillia-tavares"
+compatibility_date = "2026-02-19"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nuxt-content"
+database_id = "cc569ea7-cf4e-4078-a34c-a59d47d42432"
