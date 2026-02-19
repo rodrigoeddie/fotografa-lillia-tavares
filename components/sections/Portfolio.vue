@@ -282,7 +282,7 @@ const formatDate = (dateString: string) => {
                 </h3>
 
                 <ul class="info-list">
-                  <li class="category" v-if="item.category?.slug">
+                  <li class="category" v-if="item.category && item.category.slug">
                     <NuxtLink
                       :to="workPage + '/' + item.category.slug">
                       <span>{{ item.category.title }}</span>

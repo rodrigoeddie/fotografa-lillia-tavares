@@ -172,7 +172,7 @@ onUnmounted(() => {
 
 .header {
   justify-content: center;
-  padding-bottom: 20rem;
+  // padding-bottom: 20rem;
   display: flex;
   width: 100%;
   z-index: 9;
