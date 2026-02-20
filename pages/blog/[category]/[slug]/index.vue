@@ -47,7 +47,24 @@ useSchemaOrg([
 
 useSeoMeta({
   title: title,
-  description: post.value.description
+  description: post.value.description,
+  ogTitle: post.value.title,
+  ogDescription: post.value.description,
+  ogImage: post.value.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined,
+  ogUrl: siteURI + path,
+  twitterCard: 'summary_large_image',
+  twitterTitle: post.value.title,
+  twitterDescription: post.value.description,
+  twitterImage: post.value.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined,
+});
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: siteURI + path
+    }
+  ]
 });
 
 // Processar conteúdo com imagens intercaladas

@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin/private areas
+Disallow: /api/
+Disallow: /login
+
+# Sitemap
+Sitemap: https://fotografalilliatavares.com.br/sitemap.xml

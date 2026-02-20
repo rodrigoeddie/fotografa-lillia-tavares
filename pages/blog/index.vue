@@ -13,6 +13,18 @@ useSchemaOrg([
 useSeoMeta({
   title: title,
   description: description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: 'https://fotografalilliatavares.com.br/blog',
+});
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://fotografalilliatavares.com.br/blog'
+    }
+  ]
 });
 const posts = (await queryCollection('blog')
   .where('id', 'NOT LIKE', `%/index.md%`)

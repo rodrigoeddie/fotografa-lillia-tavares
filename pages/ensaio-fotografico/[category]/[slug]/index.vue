@@ -65,7 +65,21 @@ useSchemaOrg([
 
 useSeoMeta({
   title: title,
-  description: work.value.description
+  description: work.value.description,
+  ogTitle: work.value.title,
+  ogDescription: work.value.description,
+  ogImage: album[0] ? `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${album[0].imageId}/public` : undefined,
+  ogUrl: siteURI + path,
+  twitterCard: 'summary_large_image',
+});
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: siteURI + path
+    }
+  ]
 });
 </script>
 

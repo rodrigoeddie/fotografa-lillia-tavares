@@ -135,7 +135,9 @@ onUnmounted(() => {
       to="https://wa.me/5511911159795"
       class="fixed-whatsapp"
       @click="clickWhats"
-      target="_blank">
+      target="_blank"
+      aria-label="Entrar em contato via WhatsApp"
+      rel="noopener noreferrer">
       <Icon
         name="icons:whatsapp"
         class="icon"/>

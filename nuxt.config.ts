@@ -45,10 +45,6 @@ export default defineNuxtConfig({
           name: 'twitter:image',
           content: 'https://www.fotografalilliatavares.com.br/share.webp?v3',
         },
-        {
-          itemprop: 'image',
-          content: 'https://www.fotografalilliatavares.com.br/share.webp?v3',
-        },
       ],
       script: [
         {
@@ -60,7 +56,11 @@ export default defineNuxtConfig({
               c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c);
             })(document);
             smartlook('init', '03d8d5209060cf01f72fb068bb5405e907929694', { region: 'eu' });
-
+          `,
+        },
+        {
+          type: 'text/javascript',
+          innerHTML: `
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -89,11 +89,15 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap'
+          href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap'
         },
         {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap'
+          rel: 'dns-prefetch',
+          href: 'https://images.fotografalilliatavares.com.br'
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://images.fotografalilliatavares.com.br'
         }
       ]
     },
@@ -161,6 +165,14 @@ export default defineNuxtConfig({
     quality: 90,
     format: ['webp'],
     densities: [1, 2],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
   },
 
   ogImage: {
@@ -246,7 +258,6 @@ export default defineNuxtConfig({
       type: 'd1',
       bindingName: 'DB'
     },
-    highlight: false
   },
 
   nitro: {
@@ -270,6 +281,40 @@ export default defineNuxtConfig({
         '/estudio',
         '/estudio/cenarios',
       ]
+    },
+
+    routeRules: {
+      '/': { 
+        prerender: true,
+        headers: {
+          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+        }
+      },
+      '/blog/**': { 
+        prerender: true,
+        headers: {
+          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+        }
+      },
+      '/ensaio-fotografico/**': { 
+        prerender: true,
+        headers: {
+          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+        }
+      },
+      '/api/**': { 
+        headers: {
+          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+        }
+      },
+      '/**': {
+        headers: {
+          'X-Frame-Options': 'SAMEORIGIN',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+        }
+      }
     }
   },
 

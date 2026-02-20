@@ -17,6 +17,18 @@ useSchemaOrg([
 useSeoMeta({
   title: home.value?.title,
   description: home.value?.description,
+  ogTitle: home.value?.title,
+  ogDescription: home.value?.description,
+  ogUrl: 'https://fotografalilliatavares.com.br',
+});
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://fotografalilliatavares.com.br'
+    }
+  ]
 });
 
 definePageMeta({
