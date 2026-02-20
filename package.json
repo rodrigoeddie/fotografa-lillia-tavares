@@ -36,6 +36,7 @@
     "@nuxt/ui": "^4.4.0",
     "@nuxtjs/partytown": "^2.0.0",
     "gsap": "^3.12.7",
+    "better-sqlite3": "^12.6.2",
     "mime-types": "^3.0.1",
     "nuxt-schema-org": "^5.0.4",
     "nuxt-swiper": "^2.0.0",
