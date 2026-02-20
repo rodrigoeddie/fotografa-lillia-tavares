@@ -16,7 +16,8 @@
             <NuxtLink
               to="/"
               @click="clickLogo"
-              class="logo">
+              class="logo"
+              aria-label="Voltar para a página inicial">
                 <nuxt-img
                   :src='configPublic.cloudflareURI + "054a1bce-78a3-4e53-7afa-a30d92e86500/logo"'
                   alt="Logo Lillia Tavares Fotografia"

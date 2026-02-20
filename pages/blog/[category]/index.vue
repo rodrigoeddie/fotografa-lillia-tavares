@@ -84,7 +84,7 @@ const formatDate = (date: Date) => {
   
     <div class="wrap-posts">
       <article v-for="post in postsData" :key="post.id" class="post-item">
-        <NuxtLink :to="post.path">
+        <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
           <nuxt-img
             v-if="post.image"
             provider="cloudflare"
@@ -109,11 +109,11 @@ const formatDate = (date: Date) => {
               name="icons:calendar-regular"
               class="icon icon-calendar"/>
             <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
-            <NuxtLink :to="'/blog/' + post.category" class="category-link">
+            <NuxtLink :to="'/blog/' + post.category.slug" class="category-link">
               <Icon
                 name="icons:category"
                 class="icon icon-category"/>
-              <span class="category">{{ post.categoryTitle }}</span>
+              <span class="category">{{ post.category.title }}</span>
             </NuxtLink>
           </div>
         </div>

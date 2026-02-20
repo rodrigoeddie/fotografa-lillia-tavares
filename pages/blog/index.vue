@@ -34,7 +34,7 @@ const formatDate = (date: Date) => {
 
     <div class="wrap-posts">
       <article v-for="post in posts" :key="post.id" class="post-item">
-        <NuxtLink :to="post.path">
+        <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
           <nuxt-img
             v-if="post.image"
             provider="cloudflare"

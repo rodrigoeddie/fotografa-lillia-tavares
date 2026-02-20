@@ -129,23 +129,13 @@ export default defineNuxtConfig({
     enabled: false
   },
 
-  modules: [
-    // '@nuxtjs/partytown',
-    'nuxt-easy-lightbox',
-    'nuxt-schema-org',
-    '@nuxtjs/device',
-    '@nuxt/content',
-    '@nuxtjs/seo',
-    '@nuxt/image',
-    'nuxt-swiper',
-    'nuxt-gtag',
-    '@nuxt/ui',
-    '@nuxt/icon'
-  ],
+  modules: [// '@nuxtjs/partytown',
+  'nuxt-easy-lightbox', 'nuxt-schema-org', '@nuxtjs/device', '@nuxt/content', '@nuxtjs/seo', '@nuxt/image', 'nuxt-swiper', 'nuxt-gtag', '@nuxt/ui', '@nuxt/icon', '@nuxt/scripts'],
 
   sitemap: {
-    // Habilita zero runtime para reduzir bundle size
-    zeroRuntime: true
+    sources: [
+      '/api/__sitemap__/urls'
+    ],
   },
 
   icon: {
@@ -270,6 +260,17 @@ export default defineNuxtConfig({
         manualChunks: undefined
       }
     },
+
+    prerender: {
+      crawlLinks: true,
+      routes: [
+        '/',
+        '/blog',
+        '/ensaio-fotografico',
+        '/estudio',
+        '/estudio/cenarios',
+      ]
+    }
   },
 
   compatibilityDate: '2026-02-19',

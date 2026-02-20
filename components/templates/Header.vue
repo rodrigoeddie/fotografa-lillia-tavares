@@ -111,7 +111,8 @@ onUnmounted(() => {
       <h1 class="logo">
         <NuxtLink
           to="/"
-          @click="clickLogo">
+          @click="clickLogo"
+          aria-label="Voltar para a página inicial">
           <nuxt-img
             provider="cloudflare"
             :src='"https://images.fotografalilliatavares.com.br/images/054a1bce-78a3-4e53-7afa-a30d92e86500/public"'

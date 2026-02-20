@@ -62,7 +62,7 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container no-padding">
-    <NuxtLink :to="workPage">
+    <NuxtLink :to="workPage" :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')">
       <h1 class="big-title red centered">
         <span class="box">
           <span v-if="!currentCategory">Explore meus</span>

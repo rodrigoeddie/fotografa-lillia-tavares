@@ -235,7 +235,8 @@ const formatDate = (dateString: string) => {
             <div class="slider">
               <ClientOnly>
                 <NuxtLink
-                  :to="item.path">
+                  :to="item.path"
+                  :aria-label="'Ver ensaio fotográfico: ' + item.title">
                   <swiper-container
                     class="swiper"
                     :slides-per-view="1"
