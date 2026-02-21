@@ -87,5 +87,42 @@ export default defineContentConfig({
         })).optional(),
       })
     }),
+    investimento: defineCollection({
+      source: 'investimento/**/*.json',
+      type: 'page',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        packages: z.array(z.object({
+          title: z.string(),
+          subtitle: z.string(),
+          price: z.number(),
+          features: z.array(z.string()),
+          isRecommended: z.boolean()
+        })).optional(),
+        includes: z.array(z.string()).optional(),
+        cta: z.object({
+          title: z.string(),
+          description: z.string(),
+          whatsappMessage: z.string()
+        }).optional()
+      })
+    }),
+    faq: defineCollection({
+      source: 'faq.json',
+      type: 'page',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        categories: z.array(z.object({
+          name: z.string(),
+          slug: z.string(),
+          questions: z.array(z.object({
+            question: z.string(),
+            answer: z.string()
+          }))
+        }))
+      })
+    }),
   }
 })

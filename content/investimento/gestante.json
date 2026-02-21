@@ -1,0 +1,79 @@
+{
+  "title": "Ensaio Gestante",
+  "description": "Eternize cada momento especial da gestação. Fotos delicadas e emocionantes que celebram a espera do seu bebê e a beleza da maternidade.",
+  "packages": [
+    {
+      "title": "Início",
+      "subtitle": "Primeiros registros",
+      "price": 400,
+      "features": [
+        "30 minutos de sessão",
+        "8 fotos editadas",
+        "1 look",
+        "Entrega em 7 dias",
+        "Formato digital"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Clássico",
+      "subtitle": "Essência da maternidade",
+      "price": 650,
+      "features": [
+        "45 minutos de sessão",
+        "15 fotos editadas",
+        "2 looks",
+        "Entrega em 5 dias",
+        "Formato digital",
+        "Acesso a adereços do estúdio"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Emoção",
+      "subtitle": "Momentos inesquecíveis",
+      "price": 950,
+      "features": [
+        "1 hora de sessão",
+        "25 fotos editadas",
+        "3 looks",
+        "Entrega em 3 dias",
+        "Formato digital em alta resolução",
+        "Acesso a adereços e vestidos do estúdio",
+        "Participação do parceiro/família",
+        "Fotos da barriga pintada"
+      ],
+      "isRecommended": true
+    },
+    {
+      "title": "Luxury",
+      "subtitle": "A experiência mais completa",
+      "price": 1800,
+      "features": [
+        "2 horas de sessão",
+        "50 fotos editadas",
+        "Looks ilimitados",
+        "Entrega em 2 dias",
+        "Todos os formatos + impressões",
+        "Acesso completo ao guarda-roupa",
+        "Maquiagem e penteado inclusos",
+        "Participação da família",
+        "Álbum premium 30x30cm",
+        "Sessão em locação"
+      ],
+      "isRecommended": false
+    }
+  ],
+  "includes": [
+    "Sessão de fotos no estúdio",
+    "Orientação de poses confortáveis",
+    "Ambiente climatizado e acolhedor",
+    "Tratamento artístico das imagens",
+    "Galeria online privada"
+  ],
+  "cta": {
+    "title": "Pronta para eternizar sua gestação?",
+    "description": "Agende seu ensaio e celebre esse momento único.",
+    "whatsappMessage": "Olá! Gostaria de agendar um ensaio gestante"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Ensaio Corporativo",
+  "description": "Fotos profissionais para impulsionar sua imagem corporativa. Perfeitas para LinkedIn, sites institucionais, materiais de marketing e comunicação empresarial.",
+  "packages": [
+    {
+      "title": "Essencial",
+      "subtitle": "Ideal para começar",
+      "price": 350,
+      "features": [
+        "30 minutos de sessão",
+        "5 fotos editadas",
+        "1 look",
+        "Entrega em 7 dias",
+        "Formato digital"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Básico",
+      "subtitle": "Para quem busca opções",
+      "price": 550,
+      "features": [
+        "45 minutos de sessão",
+        "10 fotos editadas",
+        "2 looks",
+        "Entrega em 5 dias",
+        "Formato digital",
+        "Galeria online privada"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Profissional",
+      "subtitle": "Perfeito para sua imagem",
+      "price": 850,
+      "features": [
+        "1 hora de sessão",
+        "20 fotos editadas",
+        "3 looks",
+        "Entrega em 3 dias",
+        "Formato digital em alta resolução",
+        "Galeria online privada",
+        "Suporte para redes sociais"
+      ],
+      "isRecommended": true
+    },
+    {
+      "title": "Premium",
+      "subtitle": "A experiência completa",
+      "price": 1500,
+      "features": [
+        "2 horas de sessão",
+        "40 fotos editadas",
+        "Looks ilimitados",
+        "Entrega em 2 dias",
+        "Todos os formatos",
+        "Galeria online personalizada",
+        "Suporte para redes sociais",
+        "Consultoria de imagem",
+        "Sessão em locação"
+      ],
+      "isRecommended": false
+    }
+  ],
+  "includes": [
+    "Sessão de fotos no estúdio",
+    "Orientação de postura e expressão",
+    "Tratamento profissional das imagens",
+    "Entrega digital em alta resolução",
+    "Suporte pós-entrega"
+  ],
+  "cta": {
+    "title": "Pronto para impulsionar sua imagem profissional?",
+    "description": "Entre em contato e agende seu ensaio corporativo.",
+    "whatsappMessage": "Olá! Gostaria de agendar um ensaio corporativo"
+  }
+}

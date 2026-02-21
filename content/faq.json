@@ -1,0 +1,94 @@
+{
+  "title": "Perguntas Frequentes",
+  "description": "Tire suas dúvidas sobre ensaios fotográficos, pacotes, agendamento e muito mais.",
+  "categories": [
+    {
+      "name": "Sobre os Ensaios",
+      "slug": "ensaios",
+      "questions": [
+        {
+          "question": "Quanto tempo dura uma sessão de fotos?",
+          "answer": "O tempo varia conforme o pacote escolhido. Geralmente, as sessões duram entre 30 minutos (pacotes básicos) e 3 horas (pacotes premium). O tempo é suficiente para você se sentir à vontade e conseguirmos capturar diversos ângulos e expressões."
+        },
+        {
+          "question": "Posso levar acompanhante?",
+          "answer": "Sim! Você pode trazer um acompanhante para te dar apoio e deixar o ambiente mais confortável. Em alguns pacotes, como ensaio de casal ou família, a participação de outras pessoas já está incluída."
+        },
+        {
+          "question": "O que devo vestir para o ensaio?",
+          "answer": "Recomendo roupas que você se sinta confortável e confiante. Para ensaios corporativos, trajes sociais ou social esporte. Para outros tipos, o estúdio disponibiliza guarda-roupa conforme o pacote. Sempre orientamos sobre as melhores escolhas antes da sessão."
+        },
+        {
+          "question": "Posso fazer o ensaio fora do estúdio?",
+          "answer": "Sim! Alguns pacotes premium incluem sessões em locação (externos). Entre em contato para conversarmos sobre as melhores opções de locais."
+        }
+      ]
+    },
+    {
+      "name": "Agendamento e Pagamento",
+      "slug": "agendamento",
+      "questions": [
+        {
+          "question": "Como faço para agendar meu ensaio?",
+          "answer": "É simples! Entre em contato pelo WhatsApp, escolha o pacote desejado e verificamos a disponibilidade de datas. Solicitamos um sinal de 30% para confirmar o agendamento."
+        },
+        {
+          "question": "Quais são as formas de pagamento?",
+          "answer": "Aceitamos PIX, transferência bancária, cartão de crédito (parcelamento disponível em alguns pacotes) e dinheiro. O pagamento pode ser dividido: sinal na reserva e restante no dia da sessão."
+        },
+        {
+          "question": "Posso remarcar minha sessão?",
+          "answer": "Sim, você pode remarcar com até 48 horas de antecedência sem custos adicionais. Remarcações com menos de 48h podem ter taxa de reagendamento."
+        },
+        {
+          "question": "Qual o prazo para receber as fotos?",
+          "answer": "O prazo varia conforme o pacote: de 2 a 7 dias úteis. Pacotes premium têm entrega mais rápida. Todas as fotos são entregues via galeria online privada."
+        }
+      ]
+    },
+    {
+      "name": "Sobre as Fotos",
+      "slug": "fotos",
+      "questions": [
+        {
+          "question": "Quantas fotos editadas vou receber?",
+          "answer": "A quantidade depende do pacote escolhido, variando de 5 a 70 fotos editadas profissionalmente. Todas as fotos incluídas no pacote passam por tratamento de cor, luz e retoque."
+        },
+        {
+          "question": "Posso escolher quais fotos serão editadas?",
+          "answer": "Em alguns pacotes você pode participar da seleção. Enviamos uma pré-seleção das melhores fotos e você pode opinar sobre as finais. A decisão final é feita em conjunto com a fotógrafa."
+        },
+        {
+          "question": "As fotos têm direitos autorais?",
+          "answer": "Sim, todas as fotos permanecem com direitos autorais do estúdio. Porém, você tem autorização para uso pessoal ilimitado, inclusive em redes sociais, sempre com os devidos créditos."
+        },
+        {
+          "question": "Posso comprar fotos adicionais?",
+          "answer": "Sim! Você pode adquirir fotos extras editadas, impressões, álbuns e outros produtos. Entre em contato para conhecer os valores adicionais."
+        }
+      ]
+    },
+    {
+      "name": "Estúdio e Estrutura",
+      "slug": "estudio",
+      "questions": [
+        {
+          "question": "Onde fica o estúdio?",
+          "answer": "O estúdio fica localizado em Mogi das Cruzes/SP. Endereço completo é enviado após confirmação do agendamento. Temos estacionamento conveniado próximo."
+        },
+        {
+          "question": "O estúdio tem trocador?",
+          "answer": "Sim! O estúdio conta com vestiário privativo para você trocar de roupa confortavelmente durante a sessão."
+        },
+        {
+          "question": "Posso usar o guarda-roupa do estúdio?",
+          "answer": "Sim! Dependendo do pacote escolhido, você tem acesso ao nosso guarda-roupa com diversas opções de roupas, vestidos e acessórios para diferentes tipos de ensaio."
+        },
+        {
+          "question": "O estúdio oferece maquiagem?",
+          "answer": "Maquiagem profissional está incluída em alguns pacotes premium. Para outros pacotes, pode ser adicionada à parte. Consulte as opções disponíveis."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "title": "Ensaio de Casal",
+  "description": "Registre o amor e a cumplicidade de vocês. Fotos autênticas e emocionantes que capturam a essência do relacionamento de vocês.",
+  "packages": [
+    {
+      "title": "Conexão",
+      "subtitle": "Primeiros registros juntos",
+      "price": 500,
+      "features": [
+        "45 minutos de sessão",
+        "10 fotos editadas",
+        "1 look por pessoa",
+        "Entrega em 7 dias",
+        "Formato digital"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Cumplicidade",
+      "subtitle": "Momentos a dois",
+      "price": 750,
+      "features": [
+        "1 hora de sessão",
+        "20 fotos editadas",
+        "2 looks por pessoa",
+        "Entrega em 5 dias",
+        "Formato digital",
+        "Opção de fotos indoor e outdoor",
+        "Galeria online privada"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Romance",
+      "subtitle": "Amor em imagens",
+      "price": 1200,
+      "features": [
+        "1h30 de sessão",
+        "35 fotos editadas",
+        "3 looks por pessoa",
+        "Entrega em 3 dias",
+        "Formato digital em alta resolução",
+        "Sessão em 2 locações diferentes",
+        "Cenários temáticos",
+        "Props e acessórios inclusos",
+        "Orientação completa de poses"
+      ],
+      "isRecommended": true
+    },
+    {
+      "title": "Love Story",
+      "subtitle": "História de amor completa",
+      "price": 2400,
+      "features": [
+        "3 horas de sessão",
+        "70 fotos editadas",
+        "Looks ilimitados",
+        "Entrega em 2 dias",
+        "Todos os formatos + impressões",
+        "Múltiplas locações",
+        "Vídeo curto do ensaio",
+        "Props premium",
+        "Álbum premium 40x40cm",
+        "Book de fotos impresso",
+        "Piquenique romântico incluído"
+      ],
+      "isRecommended": false
+    }
+  ],
+  "includes": [
+    "Sessão de fotos personalizada",
+    "Orientação de poses naturais",
+    "Ambiente descontraído e romântico",
+    "Tratamento artístico das imagens",
+    "Suporte completo do início ao fim"
+  ],
+  "cta": {
+    "title": "Prontos para eternizar o amor de vocês?",
+    "description": "Agende seu ensaio de casal e criem memórias inesquecíveis.",
+    "whatsappMessage": "Olá! Gostaria de agendar um ensaio de casal"
+  }
+}

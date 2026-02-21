@@ -1,0 +1,83 @@
+{
+  "title": "Ensaio Casual/Intimista",
+  "description": "Celebre sua sensualidade e autoestima. Ensaios delicados e elegantes que revelam sua beleza única em um ambiente seguro e acolhedor.",
+  "packages": [
+    {
+      "title": "Despertar",
+      "subtitle": "Primeiros passos",
+      "price": 450,
+      "features": [
+        "30 minutos de sessão",
+        "8 fotos editadas",
+        "1 look",
+        "Entrega em 7 dias",
+        "Formato digital",
+        "Ambiente reservado"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Confiança",
+      "subtitle": "Descubra-se",
+      "price": 700,
+      "features": [
+        "45 minutos de sessão",
+        "15 fotos editadas",
+        "2 looks",
+        "Entrega em 5 dias",
+        "Formato digital",
+        "Acesso ao guarda-roupa intimista",
+        "Sessão 100% feminina"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Empoderamento",
+      "subtitle": "Celebre você",
+      "price": 1100,
+      "features": [
+        "1 hora de sessão",
+        "25 fotos editadas",
+        "3 looks",
+        "Entrega em 3 dias",
+        "Formato digital em alta resolução",
+        "Guarda-roupa completo",
+        "Maquiagem e cabelo inclusos",
+        "Sessão 100% feminina",
+        "Orientação completa de poses"
+      ],
+      "isRecommended": true
+    },
+    {
+      "title": "Goddess",
+      "subtitle": "Experiência transformadora",
+      "price": 2200,
+      "features": [
+        "2 horas de sessão",
+        "50 fotos editadas",
+        "Looks ilimitados",
+        "Entrega em 2 dias",
+        "Todos os formatos + impressões",
+        "Guarda-roupa premium completo",
+        "Make e hair profissional",
+        "Sessão 100% feminina",
+        "Álbum de luxo personalizado",
+        "Tratamento especial com spa",
+        "Book impresso premium"
+      ],
+      "isRecommended": false
+    }
+  ],
+  "includes": [
+    "Ambiente privativo e seguro",
+    "Equipe 100% feminina",
+    "Tratamento artístico delicado",
+    "Fotos com privacidade garantida",
+    "Orientação e consultoria durante todo o ensaio"
+  ],
+  "cta": {
+    "title": "Pronta para celebrar sua beleza?",
+    "description": "Agende seu ensaio em um ambiente seguro e acolhedor.",
+    "whatsappMessage": "Olá! Gostaria de agendar um ensaio intimista"
+  }
+}

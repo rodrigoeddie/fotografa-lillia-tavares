@@ -1,0 +1,84 @@
+{
+  "title": "Ensaio de Aniversário",
+  "description": "Celebre cada ano com fotos incríveis. Transforme o aniversário em uma experiência inesquecível com registros profissionais e divertidos.",
+  "packages": [
+    {
+      "title": "Celebração",
+      "subtitle": "Momento especial",
+      "price": 380,
+      "features": [
+        "30 minutos de sessão",
+        "10 fotos editadas",
+        "1 look",
+        "Entrega em 7 dias",
+        "Formato digital",
+        "Cenário temático simples"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Festança",
+      "subtitle": "Diversão garantida",
+      "price": 600,
+      "features": [
+        "45 minutos de sessão",
+        "20 fotos editadas",
+        "2 looks",
+        "Entrega em 5 dias",
+        "Formato digital",
+        "Cenário temático personalizado",
+        "Props e balões inclusos"
+      ],
+      "isRecommended": false
+    },
+    {
+      "title": "Alegria",
+      "subtitle": "Festa completa",
+      "price": 1000,
+      "features": [
+        "1 hora de sessão",
+        "35 fotos editadas",
+        "3 looks",
+        "Entrega em 3 dias",
+        "Formato digital em alta resolução",
+        "Cenário temático elaborado",
+        "Props, balões e decoração",
+        "Fotos com família/amigos",
+        "Bolo cenográfico incluído"
+      ],
+      "isRecommended": true
+    },
+    {
+      "title": "Festa Premium",
+      "subtitle": "Aniversário dos sonhos",
+      "price": 1900,
+      "features": [
+        "2 horas de sessão",
+        "60 fotos editadas",
+        "Looks ilimitados",
+        "Entrega em 2 dias",
+        "Todos os formatos + impressões",
+        "Cenário personalizado completo",
+        "Decoração temática profissional",
+        "Maquiagem infantil/adulta",
+        "Fotos com convidados",
+        "Bolo e doces cenográficos",
+        "Álbum premium personalizado",
+        "Vídeo curto da festa"
+      ],
+      "isRecommended": false
+    }
+  ],
+  "includes": [
+    "Sessão de fotos temática",
+    "Cenários personalizados",
+    "Ambiente lúdico e divertido",
+    "Tratamento profissional das imagens",
+    "Galeria online para compartilhar"
+  ],
+  "cta": {
+    "title": "Pronto para tornar o aniversário inesquecível?",
+    "description": "Agende seu ensaio e celebre com estilo.",
+    "whatsappMessage": "Olá! Gostaria de agendar um ensaio de aniversário"
+  }
+}
