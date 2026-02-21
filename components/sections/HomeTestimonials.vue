@@ -17,6 +17,10 @@ const {
             class="swiper-testimonials"
             :effect="'flip'"
             :auto-height="true"
+            :allow-touch-move="true"
+            :prevent-clicks="false"
+            :prevent-clicks-propagation="false"
+            :touch-release-on-edges="true"
             :autoplay="{
                 delay: 4000,
                 disableOnInteraction: false
@@ -48,9 +52,8 @@ const {
 
     .wrap-testimonials {
         background: rgba(72, 83, 73, 0.2);
-        margin-bottom: 30rem;
-        margin-top: 30rem;
-        padding: 30rem;
+        margin-bottom: calc(v.$space * 2);
+        padding: 30rem 30rem 20rem 30rem;
         width: 100%;
 
         @include m.max(sm) {
@@ -79,6 +82,20 @@ const {
 
                     @include m.max(sm) {
                         min-height: 318rem;
+                    }
+                    
+                    a {
+                        pointer-events: auto;
+                        position: relative;
+                        z-index: 10;
+                    }
+                }
+                
+                :deep(.wrap-cta) {
+                    a {
+                        pointer-events: auto;
+                        position: relative;
+                        z-index: 10;
                     }
                 }
             }

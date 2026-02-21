@@ -39,7 +39,8 @@ const configPublic = useRuntimeConfig().public;
 </script>
 
 <template >
-  <SectionsHomeAboutCta :data="home" />
+  <SectionsHomeAboutCta />
   <SectionsHomePortfolio />
+  <SectionsHomeTestimonials />
   <SectionsStudio class="from-home-studio" />
 </template>

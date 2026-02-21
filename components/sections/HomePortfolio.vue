@@ -34,7 +34,7 @@ const {
 } = await useAsyncData(() => {
   const query = queryCollection('works')
 
-    query.limit(3);
+    query.limit(4);
     query.where('home', '=', true);
 
   if (category) {
@@ -73,7 +73,7 @@ const formatDate = (dateString: string) => {
       </h1>
     </NuxtLink>
 
-    <div class="wrap-portfolio">
+    <div class="wrap-portfolio" :class="'lenght-items-' + ensaiosData.length">
       <template v-for="(item, index) in ensaiosData">
         <div class="thumb thumb-vertical">
           <div class="inner-thumb">
@@ -147,8 +147,6 @@ const formatDate = (dateString: string) => {
           </div>
         </div>
       </template>
-
-      <SectionsHomeTestimonials />
     </div>
   </div>
 </template>
@@ -210,13 +208,13 @@ const formatDate = (dateString: string) => {
 
   .wrap-portfolio {
     justify-content: space-between;
-    margin-bottom: 50rem;
+    margin-bottom: calc(v.$space * 2);
     flex-wrap: wrap;
     display: flex;
-    gap: 15rem;
 
     @include m.max(sm) {
-      display: block;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -224,25 +222,28 @@ const formatDate = (dateString: string) => {
       bottom: 0;
       left: 0;
       right: 0;
-      margin-left: -31rem;
-      margin-right: -31rem;
-      margin-bottom: -31rem;
+      margin-left: calc(v.$space * -1);
+      margin-right: calc(v.$space * -1);
+      margin-bottom: calc(v.$space * -1);
+
+      &:hover {
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+      }
     }
 
     .thumb {
       border: 1px solid v.$green;
-      width: calc(33% - 7rem);
       background: white;
 
       @include m.max(sm) {
         margin-bottom: 20px;
-        margin-left: 3%;
-        width: 94%;
       }
 
       .wrap-info {
         color: v.$green;
-        padding: 30rem;
+        padding: v.$space;
 
         .wrap-text {
           padding-bottom: 45rem;
@@ -272,7 +273,7 @@ const formatDate = (dateString: string) => {
               height: 12rem;
               width: 12rem;
               left: 2rem;
-              top: 16rem;
+              top: 11rem;
 
               @include m.max(sm) {
                 top: 9rem;
@@ -292,7 +293,7 @@ const formatDate = (dateString: string) => {
 
           :deep(a) {
             display: block;
-            padding: 5px 0;
+            padding: 2px 0;
 
             @include m.max(sm) {
               padding: 0;
@@ -312,6 +313,50 @@ const formatDate = (dateString: string) => {
         font-size: 30rem;
         color: v.$green;
         display: flex;
+      }
+    }
+
+    &.lenght-items-5 {
+      .thumb {
+        width: calc(20% - 7rem);
+        
+        @include m.max(sm) {
+          width: 48%;
+        }
+      }
+    }
+
+    &.lenght-items-4 {
+      gap: 9rem;
+
+      .thumb {
+        width: calc(25% - 7rem);
+        
+        @include m.max(sm) {
+          width: 48%;
+        }
+      }
+    }
+
+    &.lenght-items-3 {
+      gap: 15rem;
+
+      .thumb {
+        width: calc(33% - 7rem);
+        
+        @include m.max(sm) {
+          width: 96%;
+        }
+      }
+    }
+
+    &.lenght-items-2 {
+      .thumb {
+        width: calc(50% - 7rem);
+        
+        @include m.max(sm) {
+          width: 96%;
+        }
       }
     }
 

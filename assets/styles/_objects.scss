@@ -37,7 +37,7 @@
   text-transform: uppercase;
   font-family: v.$lato;
   align-items: center;
-  padding-top: 70rem;
+  padding-top: calc(v.$space * 2);
   font-weight: 900;
   font-size: 72rem;
   color: #b35c4b;
@@ -220,6 +220,7 @@
     background: v.$red;
 
     &:hover {
+      background: v.$verylight-red !important;
       border-color: v.$red;
       color: v.$red;
     }

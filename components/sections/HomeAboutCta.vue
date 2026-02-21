@@ -1,9 +1,17 @@
 <script lang="ts" setup>
 const configPublic = useRuntimeConfig().public;
 
-const props = defineProps<{ data: any }>();
+const {
+  data: sobre
+} = await useAsyncData('home-sobre', () => {
+  return queryCollection('content').path('/home/sobre').first()
+});
 
-const about = props.data.meta.sobre_cta || {};
+// Converte o body do markdown em HTML
+const description = computed(() => {
+  const html = useMarkdownToHtml(sobre.value?.body);
+  return html;
+});
 </script>
 
 <template>
@@ -11,18 +19,18 @@ const about = props.data.meta.sobre_cta || {};
     <div class="wrap-about row">
       <div class="col col-text">
         <div class="about-text">
-          <h1 class="title">{{ about.title }}</h1>
-          <div class="description" v-html="about.description"></div>
+          <h1 class="title">{{ sobre?.title }}</h1>
+          <div class="description" v-html="description"></div>
         </div>
 
         <div class="about-ctas">
           <NuxtLink
-            to="/preco-ensaio-fotografico"
-            class="link link-agende">
+            to="/ensaio-fotografico"
+            class="link">
             <Icon
-              name="icons:calendar-regular"
-              class="icon icon-calendar"/>
-            <span><b>agende</b> seu ensaio fotográfico</span>
+              name="icons:image-regular"
+              class="icon icon-image"/>
+            <span><b>Acompanhe</b> meus trabalhos</span>
           </NuxtLink>
 
           <NuxtLink
@@ -35,12 +43,12 @@ const about = props.data.meta.sobre_cta || {};
           </NuxtLink>
 
           <NuxtLink
-            to="/ensaio-fotografico"
-            class="link">
+            to="/preco-ensaio-fotografico"
+            class="link link-agende">
             <Icon
-              name="icons:image-regular"
-              class="icon icon-image"/>
-            <span><b>Acompanhe</b> meus trabalhos</span>
+              name="icons:calendar-regular"
+              class="icon icon-calendar"/>
+            <span><b>agende</b> seu ensaio fotográfico</span>
           </NuxtLink>
         </div>
       </div>
@@ -67,7 +75,7 @@ const about = props.data.meta.sobre_cta || {};
     .about-text {
       .description {
         p {
-          padding-top: 15rem !important;
+          padding-top: 7rem !important;
 
           &:nth-child(2),
           &:nth-child(3) {
@@ -116,10 +124,10 @@ const about = props.data.meta.sobre_cta || {};
     }
 
     .about-ctas {
-      padding: 20rem v.$space;
+      // padding: 20rem v.$space;
       background: v.$red;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
 
       @include m.max(sm) {
         flex-direction: column;
@@ -128,7 +136,7 @@ const about = props.data.meta.sobre_cta || {};
 
       .link {
         transition: color 0.2s, background-color 0.2s;
-        padding: 10rem 15rem;
+        padding: 15rem;
         align-items: center;
         color: #fcbbae;
         font-size: 20rem;
@@ -148,10 +156,10 @@ const about = props.data.meta.sobre_cta || {};
             border-bottom: #b35c4b 1px solid;
           }
           
-          @include m.min(xs) {
-            border-left: #b35c4b 1px solid;
-            border-right: #b35c4b 1px solid;
-          }
+          // @include m.min(xs) {
+          //   border-left: #b35c4b 1px solid;
+          //   border-right: #b35c4b 1px solid;
+          // }
         }
 
         &.link-agende {
