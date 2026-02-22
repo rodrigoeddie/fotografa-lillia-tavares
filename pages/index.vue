@@ -42,5 +42,5 @@ const configPublic = useRuntimeConfig().public;
   <SectionsHomeAboutCta />
   <SectionsHomePortfolio />
   <SectionsHomeTestimonials />
-  <SectionsStudio class="from-home-studio" />
+  <SectionsStudioTiny :showMap="false" class="from-home-studio" />
 </template>

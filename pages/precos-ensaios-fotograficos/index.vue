@@ -1,3 +1,34 @@
+
+<script setup lang="ts">
+// Busca todas as categorias de investimento que estão ativas
+const { data: allInvestimentos } = await useAsyncData('investimento-categories', () => {
+  return queryCollection('investimento').all();
+});
+
+// Filtra apenas as categorias ativas e formata para o template
+const categories = computed(() => {
+  if (!allInvestimentos.value) return [];
+  
+  return allInvestimentos.value
+    .filter((item: any) => item.active === true)
+    .map((item: any) => ({
+      slug: item.stem, // stem é o nome do arquivo sem extensão
+      name: item.title,
+      icon: item.icon,
+      description: item.description
+    }));
+});
+
+useSeoMeta({
+  title: 'Preço dos ensaios fotográficos - Lillia Tavares',
+  description: 'Confira nossos pacotes de ensaios fotográficos: corporativo, gestante, casual-intimista, casal e aniversário. Encontre o pacote perfeito para você.',
+  ogTitle: 'Preço dos ensaios fotográficos - Lillia Tavares',
+  ogDescription: 'Confira nossos pacotes de ensaios fotográficos: corporativo, gestante, casual-intimista, casal e aniversário. Encontre o pacote perfeito para você.',
+  ogImage: 'https://images.fotografalilliatavares.com.br/og-image.jpg',
+  twitterCard: 'summary_large_image',
+});
+</script>
+
 <template>
   <div class="investment-page">
     <div class="container">
@@ -62,50 +93,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-useSeoMeta({
-  title: 'Investimento em Ensaios Fotográficos - Lillia Tavares',
-  description: 'Confira nossos pacotes de ensaios fotográficos: corporativo, gestante, casual-intimista, casal e aniversário. Encontre o pacote perfeito para você.',
-  ogTitle: 'Investimento em Ensaios Fotográficos - Lillia Tavares',
-  ogDescription: 'Confira nossos pacotes de ensaios fotográficos: corporativo, gestante, casual-intimista, casal e aniversário. Encontre o pacote perfeito para você.',
-  ogImage: 'https://images.fotografalilliatavares.com.br/og-image.jpg',
-  twitterCard: 'summary_large_image',
-});
-
-const categories = [
-  {
-    slug: 'corporativo',
-    name: 'Corporativo',
-    icon: '💼',
-    description: 'Fotos profissionais para LinkedIn, sites e materiais corporativos.'
-  },
-  {
-    slug: 'gestante',
-    name: 'Gestante',
-    icon: '🤰',
-    description: 'Eternize a beleza da maternidade com um ensaio especial.'
-  },
-  {
-    slug: 'casual-intimista',
-    name: 'Casual Intimista',
-    icon: '✨',
-    description: 'Ensaio sensual e elegante para valorizar sua autoestima.'
-  },
-  {
-    slug: 'casal',
-    name: 'Casal',
-    icon: '💑',
-    description: 'Celebre o amor com fotos autênticas e emocionantes.'
-  },
-  {
-    slug: 'aniversario',
-    name: 'Aniversário',
-    icon: '🎂',
-    description: 'Registre momentos especiais de celebração e alegria.'
-  }
-];
-</script>
 
 <style scoped lang="scss">
 .investment-page {

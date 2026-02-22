@@ -39,7 +39,7 @@
   align-items: center;
   padding-top: calc(v.$space * 2);
   font-weight: 900;
-  font-size: 72rem;
+  font-size: 66rem;
   color: #b35c4b;
   display: flex;
   flex-wrap: wrap;
@@ -55,7 +55,7 @@
   }
 
   .box {
-    padding: 15rem 30rem;
+    padding: 9rem 18rem;
     text-transform: none;
     align-items: center;
     font-weight: bold;
@@ -228,9 +228,9 @@
 }
 
 .container {
-  width: 1700rem;
+  width: 1750rem;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 98%;
 
   &.no-padding {
     padding: 0 !important;

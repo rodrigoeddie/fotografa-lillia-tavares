@@ -60,7 +60,7 @@ const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>
-  <SectionsStudio
+  <SectionsStudioAbout
     class="from-page-studio"
     :fromStudio="true" />
   <SectionsStudioBgs />

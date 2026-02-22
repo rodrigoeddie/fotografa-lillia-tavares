@@ -124,7 +124,7 @@
         align-items: center;
         text-align: center;
         flex-wrap: wrap;
-        height: 420rem;
+        height: 320rem;
         display: flex;
 
         @include m.max(md) {

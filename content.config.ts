@@ -91,6 +91,8 @@ export default defineContentConfig({
       source: 'investimento/**/*.json',
       type: 'page',
       schema: z.object({
+        active: z.boolean(),
+        icon: z.string(),
         title: z.string(),
         description: z.string(),
         packages: z.array(z.object({

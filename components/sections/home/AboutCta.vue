@@ -43,7 +43,7 @@ const description = computed(() => {
           </NuxtLink>
 
           <NuxtLink
-            to="/preco-ensaio-fotografico"
+            to="/agende-seu-ensaio"
             class="link link-agende">
             <Icon
               name="icons:calendar-regular"

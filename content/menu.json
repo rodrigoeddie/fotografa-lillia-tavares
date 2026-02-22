@@ -1,0 +1,34 @@
+[
+    {
+        "label": "Home",
+        "path": "/"
+    },
+    {
+        "label": "Sobre",
+        "path": "/sobre-fotografa-lillia-tavares"
+    },
+    {
+        "label": "Trabalhos",
+        "path": "/ensaio-fotografico"
+    },
+    {
+        "label": "Estúdio",
+        "path": "/estudio"
+    },
+    {
+        "label": "Preços",
+        "path": "/precos-ensaios-fotograficos"
+    },
+    {
+        "label": "Blog",
+        "path": "/blog"
+    },
+    {
+        "label": "FAQ",
+        "path": "/perguntas-frequentes"
+    },
+    {
+        "label": "Agende seu ensaio",
+        "path": "/agende-seu-ensaio"
+    }
+]

@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 const isMobile = ref(false);
 
+const { data: menu } = await useAsyncData('menu', async () => {
+    const result = await queryCollection('content').path('/menu').first();
+    return result?.body ?? result;
+});
+
 onMounted(() => {
   if (process.client) {
     const checkMobile = () => {
@@ -46,38 +51,12 @@ function toggleMenu() {
             'hidden': !props.fromFooter && isMobile && !isOpen
           }">
             <NuxtLink
-                to="/"
+                v-for="item in menu"
+                :key="item.path"
+                :to="item.path"
                 class="link"
                 @click="isOpen = false">
-                <span class="txt">Home</span>
-            </NuxtLink>
-
-            <NuxtLink
-                to="/ensaio-fotografico"
-                class="link"
-                @click="isOpen = false">
-                <span class="txt">Trabalhos</span>
-            </NuxtLink>
-
-            <NuxtLink
-                to="/estudio"
-                class="link"
-                @click="isOpen = false">
-                <span class="txt">Estúdio</span>
-            </NuxtLink>
-
-            <NuxtLink
-                to="/blog"
-                class="link"
-                @click="isOpen = false">
-                <span class="txt">Blog</span>
-            </NuxtLink>
-
-            <NuxtLink
-                to="/preco-ensaio-fotografico"
-                class="link"
-                @click="isOpen = false">
-                <span class="txt">Agende seu ensaio</span>
+                <span class="txt">{{ item.label }}</span>
             </NuxtLink>
         </nav>
 
@@ -117,7 +96,7 @@ function toggleMenu() {
     }
 
     .menu {
-        font-size: 25rem;
+        font-size: 22rem;
 
         @include m.min(xs) {
             height: 100%;
@@ -279,12 +258,8 @@ function toggleMenu() {
     }
 
     .menu {
-        font-size: 40rem;
+        font-size: 29rem;
         display: flex;
-
-        @include m.max(md) {
-            font-size: 29rem;
-        }
 
         @include m.max(sm) {
             flex-wrap: wrap;

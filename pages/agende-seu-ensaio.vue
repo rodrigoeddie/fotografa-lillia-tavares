@@ -6,7 +6,7 @@ useSchemaOrg([
   defineWebPage({
     '@type': 'ContactPage',
     name: title,
-    url: 'https://fotografalilliatavares.com.br/preco-ensaio-fotografico',
+    url: 'https://fotografalilliatavares.com.br/agende-seu-ensaio',
     sameAs: [
       'https://www.facebook.com/fotografalilliatavares',
       'https://www.instagram.com/fotografalilliatavares',
@@ -24,5 +24,5 @@ useSeoMeta({
 
 <template>
     <SectionsSchedule />
-    <SectionsStudiocontact />
+    <SectionsStudioTiny :showMap="true" />
 </template>

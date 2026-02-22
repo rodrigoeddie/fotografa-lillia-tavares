@@ -8,6 +8,7 @@
           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.106001989638!2d-46.1804627!3d-23.5135586!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cdd92db136d28b%3A0x7dbfca477fd7474f!2sEst%C3%BAdio%20fotogr%C3%A1fico%20Lillia%20Tavares%20em%20Mogi%20das%20Cruzes!5e0!3m2!1spt-BR!2sbr!4v1724005767992!5m2!1spt-BR!2sbr"
           width="100%"
           height="600"
+          class="iframe-map"
           style="border:0;"
           allowfullscreen
           loading="lazy"
@@ -17,6 +18,11 @@
 </template>
 
 <style lang="scss">
+    .iframe-map {
+        height: 100%;
+        aspect-ratio: 16/5;
+    }
+
     .wrap-map {
         width: 100%;
 
