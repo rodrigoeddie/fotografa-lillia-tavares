@@ -23,6 +23,6 @@ useSeoMeta({
 </script>
 
 <template>
-    <SectionsSchedule />
+    <SectionsScheduleForm />
     <SectionsStudioTiny :showMap="true" />
 </template>

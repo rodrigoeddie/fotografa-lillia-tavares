@@ -2,6 +2,10 @@
 @use "@/assets/styles/_mixins.scss" as m;
 @use "sass:color";
 
+[data-ani-type] {
+  opacity: 0;
+}
+
 .vel-img {
   max-height: 85vh !important;
   max-width: 85vw !important;

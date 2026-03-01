@@ -1,0 +1,48 @@
+{
+  "titulo": "dia das mães 2025",
+  "tituloPreText": "Conheça nosso cenário do",
+  "cenarios": [
+    {
+      "title": "O Cenário",
+      "descricao": "Para uma visão geral do cenário que preparamos para o <b>Dia das Mães 2025</b> fizemos um cantinho cheio de sofisticação com cores puxadas para o dourado e off-white.",
+      "imageBg": {
+        "id": 0,
+        "imageId": "58acda17-3c27-42e0-227d-e760faa76d00",
+        "alt": "Nosso cenário para o dia das mães: Um floral em um aramado dourado na esquerda, um sofá off-white redonto, pendentes de madeira, e uma cortina branca"
+      },
+      "example": {
+        "id": 1,
+        "imageId": "b25c4856-522b-4367-2aac-6f1c36111100",
+        "alt": "No fundo cenário do dia das mães: Sentadas no sofá da esquerda pra direita: Uma mulher (a mãe) com vestido longo azul, uma mulher mais velha com paletó branco, calça branca e camisa azul (a avó), e uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as três mulheres são negras de cabelos crespos",
+        "link": "/ensaio-fotografico/dia-das-maes-2025/lillia-tavares",
+        "title": "Dia das Mães - Lillia Tavares"
+      }
+    },
+    {
+      "title": "Decoração",
+      "descricao": "Um zoom nos detalhes da decoração que escolhemos para o cenário do Dia das Mães.",
+      "imageBg": {
+        "id": 2,
+        "imageId": "49636a87-a093-4577-4b61-4b1bed232500",
+        "alt": ""
+      }
+    },
+    {
+      "title": "Floral",
+      "descricao": "No <b>Dia das Mães</b> não podem faltar as flores, e demos nosso melhor para que as cores do arranjo converse perfeitamente com todos os elementos do cenário, esperamos que você tenha gostado.",
+      "imageBg": {
+        "id": 3,
+        "imageId": "6ea326b0-e9e1-4b05-29c1-46146f52a400",
+        "alt": ""
+      },
+      "example": {
+        "id": 4,
+        "imageId": "1754195e-e114-473f-941f-bfd589ab7a00",
+        "alt": "No fundo cenário do dia das mães: Uma mulher em pé com calça bege, e uma blusinha de manga longa branca, sentada de mãos dadas está uma mulher mais nova com uma blusinha branca e uma camisa listrada azul por cima, e calça azul, as duas mulheres são negras de cabelos crespos",
+        "link": "/ensaio-fotografico/dia-das-maes-2025/lillia-tavares",
+        "title": "Dia das Mães - Lillia Tavares",
+        "orientation": "retrato"
+      }
+    }
+  ]
+}

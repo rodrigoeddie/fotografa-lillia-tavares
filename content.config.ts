@@ -111,7 +111,7 @@ export default defineContentConfig({
       })
     }),
     faq: defineCollection({
-      source: 'faq.json',
+      source: 'pages/perguntas-frequentes.json',
       type: 'page',
       schema: z.object({
         title: z.string(),
@@ -123,6 +123,47 @@ export default defineContentConfig({
             question: z.string(),
             answer: z.string()
           }))
+        }))
+      })
+    }),
+    depoimentos: defineCollection({
+      source: 'depoimentos/index.json',
+      type: 'page',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        reviews: z.array(z.object({
+          id: z.number(),
+          name: z.string(),
+          photo: z.string().optional(),
+          rating: z.number(),
+          date: z.string(),
+          text: z.string()
+        }))
+      })
+    }),
+    cenariosPage: defineCollection({
+      source: 'pages/estudio/cenarios/**/*.json',
+      type: 'page',
+      schema: z.object({
+        titulo: z.string(),
+        tituloPreText: z.string(),
+        cenarios: z.array(z.object({
+          title: z.string(),
+          descricao: z.string(),
+          imageBg: z.object({
+            id: z.number(),
+            imageId: z.string(),
+            alt: z.string()
+          }),
+          example: z.object({
+            id: z.number(),
+            imageId: z.string(),
+            alt: z.string(),
+            link: z.string().optional(),
+            title: z.string().optional(),
+            orientation: z.string().optional()
+          }).optional()
         }))
       })
     }),

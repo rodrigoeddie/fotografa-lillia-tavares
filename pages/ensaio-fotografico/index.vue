@@ -30,7 +30,7 @@ useHead({
 
 <template>
   <SectionsPortfolioHero />
-  <SectionsPortfolio class="no-padding" />
+  <SectionsPortfolioList class="no-padding" />
 </template>
 
 <style scoped lang="scss">

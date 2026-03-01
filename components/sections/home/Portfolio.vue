@@ -23,8 +23,8 @@ const { data: navigation } = await useAsyncData('home-portfolio-navigation', () 
   return queryCollectionNavigation('works');
 });
 
-const categories = navigation.value[0].children;
-const workPage   = navigation.value[0].path;
+const categories = navigation.value?.[0]?.children ?? [];
+const workPage   = navigation.value?.[0]?.path ?? '/ensaio-fotografico';
 const category   = $route.params.category || '';
 
 const currentCategory = categories.find(cat => cat.path === `/ensaio-fotografico/${category}`);
@@ -62,7 +62,10 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container no-padding">
-    <NuxtLink :to="workPage" :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')">
+    <NuxtLink
+      :to="workPage"
+      :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
+      data-ani-type="fade">
       <h1 class="big-title red centered">
         <span class="box">
           <span v-if="!currentCategory">Explore meus</span>
@@ -75,73 +78,76 @@ const formatDate = (dateString: string) => {
 
     <div class="wrap-portfolio" :class="'lenght-items-' + ensaiosData.length">
       <template v-for="(item, index) in ensaiosData">
-        <div class="thumb thumb-vertical">
+        <div
+          class="thumb thumb-vertical"
+          data-ani-type="polaroid"
+          :data-ani-delay="index * 0.07">
           <div class="inner-thumb">
             <div class="slider">
               <ClientOnly>
-                <NuxtLink
-                  :to="item.path">
-                  <swiper-container
-                    class="swiper"
-                    :slides-per-view="1"
-                    :effect="'flip'"
-                    :pagination="{
-                      clickable: true,
-                    }"
-                    :navigation="true">
-                    <swiper-slide
-                      v-for="slide in item.photos['retrato']"
-                      :key="slide.id"
-                      :class="'wrap-img ' + slide.format">
-                      <nuxt-img
-                        provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        width="551"
-                        height="646"
-                        sizes="'100vw md:50vw lg:551px"
-                        class="bg-thumb"
-                        :alt="slide.alt"
-                        format="webp"
-                        placeholder
-                        loading="lazy"/>
-                    </swiper-slide>
-                  </swiper-container>
-                </NuxtLink>
+          <NuxtLink
+            :to="item.path">
+            <swiper-container
+              class="swiper"
+              :slides-per-view="1"
+              :effect="'flip'"
+              :pagination="{
+                clickable: true,
+              }"
+              :navigation="true">
+              <swiper-slide
+                v-for="slide in item.photos['retrato']"
+                :key="slide.id"
+                :class="'wrap-img ' + slide.format">
+                <nuxt-img
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+            width="551"
+            height="646"
+            sizes="'100vw md:50vw lg:551px"
+            class="bg-thumb"
+            :alt="slide.alt"
+            format="webp"
+            placeholder
+            loading="lazy"/>
+              </swiper-slide>
+            </swiper-container>
+          </NuxtLink>
               </ClientOnly>
             </div>
 
             <div class="wrap-info">
               <div class="wrap-text">
-                <h2 class="title">
-                  {{ item.title }}
-                </h2>
+          <h2 class="title">
+            {{ item.title }}
+          </h2>
 
-                <ul class="info-list">
-                  <li class="category" v-if="item.category && item.category.slug">
-                    <NuxtLink
-                      :to="workPage + '/' + item.category.slug">
-                      <span>{{ item.category.title }}</span>
-                    </NuxtLink>
-                  </li>
-                  <li class="place">
-                    <Icon
-                      name="icons:location-pin-solid"
-                      class="icon icon-location-pin"/>
-                    <span v-html="item.local"></span>
-                  </li>
-                  <li class="place" v-if="item.date">
-                    <Icon
-                      name="icons:location-pin-solid"
-                      class="icon icon-location-pin"/>
-                    <span v-html="formatDate(item.date)"></span>
-                  </li>
-                </ul>
+          <ul class="info-list">
+            <li class="category" v-if="item.category && item.category.slug">
+              <NuxtLink
+                :to="workPage + '/' + item.category.slug">
+                <span>{{ item.category.title }}</span>
+              </NuxtLink>
+            </li>
+            <li class="place">
+              <Icon
+                name="icons:location-pin-solid"
+                class="icon icon-location-pin"/>
+              <span v-html="item.local"></span>
+            </li>
+            <li class="place" v-if="item.date">
+              <Icon
+                name="icons:location-pin-solid"
+                class="icon icon-location-pin"/>
+              <span v-html="formatDate(item.date)"></span>
+            </li>
+          </ul>
 
-                <NuxtLink
-                  :to="item.path"
-                  class="btn btn-red">
-                    <span>Acesse esse ensaio</span>
-                </NuxtLink>
+          <NuxtLink
+            :to="item.path"
+            class="btn btn-red">
+              <span>Acesse esse ensaio</span>
+          </NuxtLink>
               </div>
             </div>
           </div>

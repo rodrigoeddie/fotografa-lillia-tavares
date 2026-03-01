@@ -85,9 +85,9 @@ useHead({
 
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
-    <SectionsHero :data="work" />
-    <SectionsGallery :album="album" />
-    <SectionsScheduleCustom :formType="work.category.title" />
+    <SectionsGeneralHero :data="work" />
+    <SectionsGeneralGallery :album="album" />
+    <SectionsScheduleTinyform :formType="work.category.title" />
   </div>
 </template>
 

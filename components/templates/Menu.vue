@@ -2,7 +2,7 @@
 const isMobile = ref(false);
 
 const { data: menu } = await useAsyncData('menu', async () => {
-    const result = await queryCollection('content').path('/menu').first();
+    const result = await queryCollection('content').path('/globals/menu').first();
     return result?.body ?? result;
 });
 

@@ -1,24 +1,4 @@
-
 <script setup lang="ts">
-// Busca todas as categorias de investimento que estão ativas
-const { data: allInvestimentos } = await useAsyncData('investimento-categories', () => {
-  return queryCollection('investimento').all();
-});
-
-// Filtra apenas as categorias ativas e formata para o template
-const categories = computed(() => {
-  if (!allInvestimentos.value) return [];
-  
-  return allInvestimentos.value
-    .filter((item: any) => item.active === true)
-    .map((item: any) => ({
-      slug: item.stem, // stem é o nome do arquivo sem extensão
-      name: item.title,
-      icon: item.icon,
-      description: item.description
-    }));
-});
-
 useSeoMeta({
   title: 'Preço dos ensaios fotográficos - Lillia Tavares',
   description: 'Confira nossos pacotes de ensaios fotográficos: corporativo, gestante, casual-intimista, casal e aniversário. Encontre o pacote perfeito para você.',
@@ -30,68 +10,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="investment-page">
-    <div class="container">
-      <header class="investment-header">
-        <h1 class="investment-header__title">Investimento em Ensaios Fotográficos</h1>
-        <p class="investment-header__description">
-          Escolha o tipo de ensaio que melhor se encaixa no seu momento especial. 
-          Cada categoria foi cuidadosamente elaborada para atender suas necessidades.
-        </p>
-      </header>
-
-      <div class="investment-categories">
-        <NuxtLink
-          v-for="category in categories"
-          :key="category.slug"
-          :to="`/investimento/${category.slug}`"
-          class="category-card"
-        >
-          <div class="category-card__icon">{{ category.icon }}</div>
-          <h2 class="category-card__title">{{ category.name }}</h2>
-          <p class="category-card__description">{{ category.description }}</p>
-          <span class="category-card__link">Ver Pacotes →</span>
-        </NuxtLink>
-      </div>
-
-      <section class="investment-info">
-        <h2 class="investment-info__title">Por que investir em fotografia profissional?</h2>
-        <div class="investment-info__grid">
-          <div class="info-item">
-            <h3 class="info-item__title">Memórias Eternas</h3>
-            <p class="info-item__text">
-              Momentos especiais merecem ser eternizados com qualidade e profissionalismo.
-            </p>
-          </div>
-          <div class="info-item">
-            <h3 class="info-item__title">Experiência Completa</h3>
-            <p class="info-item__text">
-              Do planejamento à entrega, cuidamos de cada detalhe para sua satisfação.
-            </p>
-          </div>
-          <div class="info-item">
-            <h3 class="info-item__title">Qualidade Garantida</h3>
-            <p class="info-item__text">
-              Equipamentos profissionais e anos de experiência para resultados impecáveis.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="investment-cta">
-        <h2>Ainda tem dúvidas?</h2>
-        <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
-        <a 
-          href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="investment-cta__button"
-        >
-          Falar com a Fotógrafa
-        </a>
-      </section>
-    </div>
-  </div>
+  <SectionsPrecosIndex />
 </template>
 
 <style scoped lang="scss">

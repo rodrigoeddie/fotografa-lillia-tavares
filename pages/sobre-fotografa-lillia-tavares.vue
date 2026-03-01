@@ -3,13 +3,6 @@ const { data: sobre } = await useAsyncData('sobre-page', () => {
   return queryCollection('content').path('/pages/sobre').first()
 });
 
-if (!sobre.value) {
-  throw createError({
-    statusCode: 404,
-    message: 'Página não encontrada'
-  });
-}
-
 const pageData = computed(() => sobre.value as any);
 
 useSeoMeta({
@@ -27,49 +20,10 @@ useHead({
 </script>
 
 <template>
-  <div v-if="pageData" class="sobre-page">
-    <div class="container">
-      <header class="sobre-header">
-        <h1 class="sobre-header__title">{{ pageData.title }}</h1>
-      </header>
-
-      <div class="sobre-content">
-        <div class="sobre-image">
-          <nuxt-img
-            provider="cloudflare"
-            :src="`https://images.fotografalilliatavares.com.br/images/${pageData.image?.id || '5aaf1433-aaa7-42ed-7198-15626f964000'}/public`"
-            :alt="pageData.image?.alt || 'Fotógrafa Lillia Tavares'"
-            :width="pageData.image?.width || 935"
-            :height="pageData.image?.height || 935"
-            sizes="100vw sm:50vw md:935px"
-            format="webp"
-            placeholder
-            class="img-sobre"
-          />
-        </div>
-
-        <div class="sobre-text">
-          <ContentRenderer :value="pageData" class="markdown-content" />
-        </div>
-      </div>
-
-      <section class="sobre-cta">
-        <h2>Vamos criar algo especial juntos?</h2>
-        <p>Entre em contato e agende seu ensaio fotográfico.</p>
-        <NuxtLink to="/precos-ensaios-fotograficos" class="sobre-cta__button">
-          Ver Pacotes
-        </NuxtLink>
-      </section>
-    </div>
-  </div>
+  <SectionsSobreContent />
 </template>
 
-<style scoped lang="scss">
-.sobre-page {
-  padding: 64rem 0;
-  min-height: 100vh;
-}
-
+<style lang="scss" scoped>
 .container {
   max-width: 1200rem;
   margin: 0 auto;

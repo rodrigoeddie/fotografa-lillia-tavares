@@ -11,7 +11,9 @@ const {
 </script>
 
 <template>
-    <div class="wrap-testimonials">
+    <div
+      class="wrap-testimonials"
+      data-ani-type="fade-up">
         <h2 class="title">Depoimentos</h2>
         <swiper-container
             class="swiper-testimonials"
@@ -34,10 +36,10 @@ const {
                     class="swiper-slide">
                         <BlocksTestimonial
                             v-if="work.testimonial"
-                                :path="work.path"
-                                :name="work.title"
-                                :fromList="true"
-                                :testimonial="work.testimonial" />
+                            :path="work.path"
+                            :name="work.title"
+                            :fromList="true"
+                            :testimonial="work.testimonial" />
                 </swiper-slide>
         </swiper-container>
     </div>

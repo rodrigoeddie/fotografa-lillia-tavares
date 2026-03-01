@@ -142,7 +142,7 @@ const processedContent = computed(() => {
 
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': post.colorHighlight }">
-    <SectionsHero :data="post" />
+    <SectionsGeneralHero :data="post" />
 
     <div class="blog-content">
       <template v-for="(item, idx) in processedContent.content" :key="idx">
@@ -198,9 +198,9 @@ const processedContent = computed(() => {
       </div>
     </div>
 
-    <SectionsGallery v-if="post.album" :album="post.album" />
-    <SectionsPortfolio v-if="post.works" :category="post.works" class="blog-portfolio" />
-    <SectionsScheduleCustom v-if="post.showSchedule === true" :formType="post.title" />
+    <SectionsGeneralGallery v-if="post.album" :album="post.album" />
+    <SectionsPortfolioList v-if="post.works" :category="post.works" class="blog-portfolio" />
+    <SectionsScheduleTinyform v-if="post.showSchedule === true" :formType="post.title" />
   </div>
 </template>
 

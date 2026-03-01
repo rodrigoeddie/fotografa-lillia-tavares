@@ -13,7 +13,9 @@
 </script>
 
 <template>
-  <div class="wrapper">
+  <div
+    class="wrapper"
+    data-ani-type="fade-up">
     <div class="wrap-inner row container">
       <div class="side side-text">
         <h1 class="big-title green">

@@ -1,64 +1,27 @@
-<script setup>
+<script setup lang="ts">
 const { data: faqData } = await useAsyncData('faq', () => {
   return queryCollection('faq').first();
 });
 
-if (!faqData.value) {
-  throw createError({
-    statusCode: 404,
-    message: 'Conteúdo não encontrado'
-  });
-}
-
 useHead({
-  title: faqData.value.title + ' - Lillia Tavares Fotografia',
-  meta: [
-    { name: 'description', content: faqData.value.description }
-  ]
+  title: (faqData.value?.title ?? '') + ' - Lillia Tavares Fotografia',
+  meta: [{ name: 'description', content: faqData.value?.description ?? '' }]
 });
 
 useSeoMeta({
-  title: faqData.value.title + ' - Lillia Tavares Fotografia',
-  description: faqData.value.description,
-  ogTitle: faqData.value.title + ' - Lillia Tavares Fotografia',
-  ogDescription: faqData.value.description,
+  title: (faqData.value?.title ?? '') + ' - Lillia Tavares Fotografia',
+  description: faqData.value?.description ?? '',
+  ogTitle: (faqData.value?.title ?? '') + ' - Lillia Tavares Fotografia',
+  ogDescription: faqData.value?.description ?? '',
   ogType: 'website'
 });
 </script>
 
 <template>
-  <div class="faq-page">
-    <div class="container">
-      <header class="faq-header">
-        <h1 class="faq-header__title">{{ faqData.title }}</h1>
-        <p class="faq-header__description">{{ faqData.description }}</p>
-      </header>
-
-      <SectionsFaqSection :categories="faqData.categories" />
-
-      <section class="faq-cta">
-        <h2>Não encontrou sua dúvida?</h2>
-        <p>Entre em contato conosco pelo WhatsApp. Teremos prazer em ajudar!</p>
-        <a 
-          href="https://wa.me/5511999999999?text=Olá! Tenho uma dúvida sobre os ensaios fotográficos"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="faq-cta__button"
-        >
-          Falar no WhatsApp
-        </a>
-      </section>
-    </div>
-  </div>
+  <SectionsFaqPage />
 </template>
 
-<style scoped lang="scss">
-.faq-page {
-  padding: 64rem 0;
-  min-height: 100vh;
-  background: #fafafa;
-}
-
+<style lang="scss" scoped>
 .container {
   max-width: 1200rem;
   margin: 0 auto;

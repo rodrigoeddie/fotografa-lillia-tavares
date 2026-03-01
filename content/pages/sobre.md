@@ -8,32 +8,21 @@ image:
   height: 935
 ---
 
-Lillia Tavares é uma fotógrafa profissional com [estúdio em Mogi das Cruzes](/estudio), formada pelo Senac, especializada em retratos e posicionamento de imagem corporativo.
+Sou fotógrafa e consultora de imagem, formada pela Etec de Artes e pelo Senac.
+Especialista em retratos femininos e reposicionamento de imagem, capturo imagens com intenção, presença e identidade.
 
-Com uma visão única, transformo cada sessão em uma experiência envolvente, criando um ambiente onde os modelos se sentem à vontade. Acredito que a fotografia vai além de capturar imagens – é sobre criar memórias e eternizar momentos especiais.
+Cresci cercada pela fotografia, em uma família que sempre fez questão de registrar e guardar cada momento vivido. Esse olhar atento para as memórias e para a beleza dos detalhes me acompanha desde sempre.
 
-Possuo a sensibilidade necessária para capturar imagens que revelam não apenas a aparência, mas também a personalidade de cada pessoa. Cada ensaio é único e personalizado, refletindo a essência e autenticidade de quem está diante das lentes.
+Atuo profissionalmente na fotografia desde 2019.
 
-## Minha Trajetória
+Em junho de 2024, inaugurei meu primeiro [estúdio na cidade de Mogi das Cruzes, SP](/estudio).
 
-Formada pelo Senac em fotografia profissional, venho aprimorando minhas técnicas e desenvolvendo um olhar sensível para os detalhes que fazem toda a diferença. Ao longo da minha carreira, já realizei centenas de ensaios fotográficos, cada um com sua história e particularidade.
+Transformo cada ensaio em uma experiência acolhedora, criando um ambiente onde meus clientes se sintam à vontade, confiantes e verdadeiramente representados.
 
-## Especialidades
-
-Meu trabalho é focado em diferentes tipos de ensaios:
-
-- **Fotografia Corporativa**: Fotos profissionais para LinkedIn, sites institucionais e materiais corporativos
-- **Ensaios Íntimos**: Sessões delicadas que valorizam a autoestima e sensualidade
+## Áreas de atuação
+- **Fotografia Corporativa**: Fotos profissionais para Instagram, LinkedIn, sites institucionais e materiais corporativos
+- **Ensaios Intimistas**: Sessões delicadas que valorizam a autoestima e sensualidade
 - **Gestantes**: Registros emocionantes da maternidade
 - **Casais**: Fotos autênticas que capturam o amor e cumplicidade
+- **Casamentos no Civil**: Fotos autênticas que capturam o amor e cumplicidade
 - **Celebrações**: Aniversários e momentos especiais
-
-## O Estúdio
-
-Meu [estúdio em Mogi das Cruzes](/estudio) está localizado no centro da cidade e conta com equipamentos profissionais, iluminação moderna e diferentes cenários para garantir resultados impecáveis. O espaço foi cuidadosamente pensado para proporcionar conforto e privacidade durante as sessões.
-
-## Filosofia de Trabalho
-
-Acredito que cada pessoa tem sua beleza única e merece ser fotografada de forma que se sinta confiante e especial. Meu objetivo é criar um ambiente acolhedor onde você possa ser você mesmo, resultando em fotos naturais e autênticas.
-
-Cada detalhe importa, desde o planejamento até a entrega final. Trabalho com dedicação para que sua experiência seja completa e memorável.

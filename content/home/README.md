@@ -6,11 +6,18 @@ Este projeto usa **Nuxt Content** com múltiplos arquivos markdown para facilita
 
 ```
 content/
-├── index.md          # Conteúdo principal da homepage (título, descrição)
+├── index.md                           # Conteúdo principal da homepage (título, descrição)
 ├── home/
-│   └── sobre.md      # Seção "Sobre" da homepage
-├── investimento/     # Preços dos pacotes
-└── faq.json          # Perguntas frequentes
+│   ├── about.md                       # Mini sobre (seção about da home) - legado
+│   └── sobre.md                       # Seção "Sobre" da homepage (usada por SectionsHomeAboutCta)
+├── pages/
+│   ├── sobre.md                       # Página /sobre-fotografa-lillia-tavares
+│   └── perguntas-frequentes.json      # Página /perguntas-frequentes
+├── globals/
+│   └── menu.json                      # Navegação global (usada por templates/Menu.vue)
+├── blog/                              # Posts e categorias do blog
+├── ensaio-fotografico/                # Portfólio de ensaios
+└── investimento/                      # Preços dos pacotes
 ```
 
 ## Como Usar

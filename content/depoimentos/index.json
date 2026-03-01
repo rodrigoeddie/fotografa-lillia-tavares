@@ -1,0 +1,534 @@
+{
+  "title": "O que dizem sobre mim",
+  "description": "Mais de 66 avaliações 5 estrelas no Google. Veja o que minhas clientes falam sobre a experiência de um ensaio fotográfico comigo.",
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Allison Jun T. Kawaoku",
+      "photo": "/assets/images/depoimentos/reviewer-1.jpg",
+      "rating": 5,
+      "date": "Ontem",
+      "text": "A experiencia con a Lillia foi excelente. Desde a qualidade do estúdio, até as fotos! Muito atenciosa no atendimento e aos detalhes."
+    },
+    {
+      "id": 2,
+      "name": "Ednea Ruiz",
+      "photo": "/assets/images/depoimentos/reviewer-2.jpg",
+      "rating": 5,
+      "date": "Há 3 dias",
+      "text": "Com certeza uma experiência muito profissional , um ambiente acolhedor e aconchegante, além do carinho da fotografa"
+    },
+    {
+      "id": 3,
+      "name": "Nicole Pacheco",
+      "photo": "/assets/images/depoimentos/reviewer-3.jpg",
+      "rating": 5,
+      "date": "Há 3 dias",
+      "text": "Gema rara em mogi das cruzes, tudo lindo de bom gosto! Tudo limpinho também. Amei conhecer o espaço voltarei com certeza"
+    },
+    {
+      "id": 4,
+      "name": "Roberta Figueiredo",
+      "photo": "/assets/images/depoimentos/reviewer-4.jpg",
+      "rating": 5,
+      "date": "Há 10 semanas",
+      "text": "Ótima profissional!!! Ambiente confortável e cada ano uma ideia nova!!"
+    },
+    {
+      "id": 5,
+      "name": "Renata Amaro",
+      "photo": "/assets/images/depoimentos/reviewer-5.jpg",
+      "rating": 5,
+      "date": "Há 10 semanas",
+      "text": "Excelente fotógrafa!!! Com muita empatia e paciência. O estúdio é uma graça, bem aconchegante. As fotos ficaram maravilhosas! Indico sempre!"
+    },
+    {
+      "id": 6,
+      "name": "Rose Oliveira",
+      "photo": "/assets/images/depoimentos/reviewer-6.jpg",
+      "rating": 5,
+      "date": "Há 10 semanas",
+      "text": "Ela arrasa!!! Foi um momento maravilhoso"
+    },
+    {
+      "id": 7,
+      "name": "Thaís Mazzini Roma",
+      "photo": "/assets/images/depoimentos/reviewer-7.jpg",
+      "rating": 5,
+      "date": "Há 10 semanas",
+      "text": "Muito feliz com nosso ensaio. A Lillía é um amor, e o espaço uma delícia! Sobre as fotos, estamos apaixonados! Trabalho impecável!!!"
+    },
+    {
+      "id": 8,
+      "name": "Wagner Davino",
+      "photo": "/assets/images/depoimentos/reviewer-8.jpg",
+      "rating": 5,
+      "date": "Há 10 semanas",
+      "text": "Excelente profissional……..maravilhoso eu indico com certeza"
+    },
+    {
+      "id": 9,
+      "name": "Renata Andrade",
+      "photo": "/assets/images/depoimentos/reviewer-9.jpg",
+      "rating": 5,
+      "date": "Há 10 semanas",
+      "text": "Maravilhosa ! Excelente profissional ! Me deixou mto a vontade ! Farei novamente ."
+    },
+    {
+      "id": 10,
+      "name": "Janaina Correia de Melo Oliveira",
+      "photo": "/assets/images/depoimentos/reviewer-10.jpg",
+      "rating": 5,
+      "date": "Há 16 semanas",
+      "text": "Gostei bastante tanto do lugar como da Lillia que me deixou muito a vontade."
+    },
+    {
+      "id": 11,
+      "name": "Suellen Camili",
+      "photo": "/assets/images/depoimentos/reviewer-11.jpg",
+      "rating": 5,
+      "date": "Há 20 semanas",
+      "text": "Excelente profissional! Ótimas fotos e muita simpatia."
+    },
+    {
+      "id": 12,
+      "name": "Stéfani Yuri Porto Ortiz",
+      "photo": "/assets/images/depoimentos/reviewer-12.jpg",
+      "rating": 5,
+      "date": "Há 20 semanas",
+      "text": "Maravilhosa! Eu ja fiz 2x fotos, fiz minha coloração pessoal, e eu amo! Me programando ja para as próximas!"
+    },
+    {
+      "id": 13,
+      "name": "Rubens Suzuki",
+      "photo": "/assets/images/depoimentos/reviewer-13.jpg",
+      "rating": 5,
+      "date": "Há 21 semanas",
+      "text": "Ótima profissional! Recomendo!"
+    },
+    {
+      "id": 14,
+      "name": "Italo e Lauane",
+      "photo": "/assets/images/depoimentos/reviewer-14.jpg",
+      "rating": 5,
+      "date": "Há 22 semanas",
+      "text": "Amei o resultado, as fotos ficaram ótimas."
+    },
+    {
+      "id": 15,
+      "name": "Tamara Vitorino",
+      "photo": "/assets/images/depoimentos/reviewer-15.jpg",
+      "rating": 5,
+      "date": "Há 24 semanas",
+      "text": "Minha experiência foi muito positiva, pois sou muito tímida, e então lá consegui me sentir à vontade o tempo todo. Uma"
+    },
+    {
+      "id": 16,
+      "name": "Marilia Souza",
+      "photo": "/assets/images/depoimentos/reviewer-16.jpg",
+      "rating": 5,
+      "date": "Há 24 semanas",
+      "text": "A experiência se fotos e analise de coloração pessoal com a Lillia é fantástica. Atenciosa, competente e consegue extrair o melhor! Amei e voltarei muitas outras vezes"
+    },
+    {
+      "id": 17,
+      "name": "Luan Pires",
+      "photo": "/assets/images/depoimentos/reviewer-17.jpg",
+      "rating": 5,
+      "date": "Há 29 semanas",
+      "text": "Um Studio fotográfico de respeito. Arrisco dizer que é o melhor da região... Equipe super profissional com atendimento de alto nível."
+    },
+    {
+      "id": 18,
+      "name": "Gabriele Soria - Calculista Trabalhista",
+      "photo": "/assets/images/depoimentos/reviewer-18.jpg",
+      "rating": 5,
+      "date": "Há 29 semanas",
+      "text": "Adorei fazer as fotos com a Lillia. O ambiente é muito lindo e ela é muito acolhedora. As fotos ficaram perfeitas!!!"
+    },
+    {
+      "id": 19,
+      "name": "Afonso Azevedo",
+      "photo": "/assets/images/depoimentos/reviewer-19.jpg",
+      "rating": 5,
+      "date": "Há 30 semanas",
+      "text": "Excelente trabalho da Líllia! Fui muito bem recebido no estúdio, o ambiente é leve e profissional. As fotos ficaram incríveis, com ótima qualidade e um olhar diferenciado"
+    },
+    {
+      "id": 20,
+      "name": "Magda Tavares",
+      "photo": "/assets/images/depoimentos/reviewer-20.jpg",
+      "rating": 5,
+      "date": "Há 39 semanas",
+      "text": "Estúdio maravilhoso, Lilia carinhosa, atenciosa, me deixou muito à vontade. Super recomendo. Nota 1000"
+    },
+    {
+      "id": 21,
+      "name": "Tatiane Cristina Leal",
+      "photo": "/assets/images/depoimentos/reviewer-21.jpg",
+      "rating": 5,
+      "date": "Há 41 semanas",
+      "text": "A Lillia foi simplesmente maravilhosa no meu ensaio profissional! Além de extremamente talentosa, ela foi muito"
+    },
+    {
+      "id": 22,
+      "name": "fabiane oliveira",
+      "photo": "/assets/images/depoimentos/reviewer-22.jpg",
+      "rating": 5,
+      "date": "Há 42 semanas",
+      "text": "Daria muito mais que 5 estrelas. Que experiência incrível e que"
+    },
+    {
+      "id": 23,
+      "name": "Juliana Kozma",
+      "photo": "/assets/images/depoimentos/reviewer-23.jpg",
+      "rating": 5,
+      "date": "Há 46 semanas",
+      "text": "Maravilhosa! A Lillia é excelente, me senti"
+    },
+    {
+      "id": 24,
+      "name": "Nelma Caroline",
+      "photo": "/assets/images/depoimentos/reviewer-24.jpg",
+      "rating": 5,
+      "date": "Há 47 semanas",
+      "text": "Lilllia você é incrível e seu trabalho é impecável! Tirei minhas primeiras fotos profissionais com você e não me"
+    },
+    {
+      "id": 25,
+      "name": "Jefferson Fernandes da Cunha",
+      "photo": "/assets/images/depoimentos/reviewer-25.jpg",
+      "rating": 5,
+      "date": "Há 48 semanas",
+      "text": "Fiz dois ensaios com eles, um foi de natal e o outro para minha empresa, local è muito bem pensado e fica bem no centro de mogi perto da estação e da prefeitura de mogi da cruzes, super recomendo."
+    },
+    {
+      "id": 26,
+      "name": "Bruna Freire",
+      "photo": "/assets/images/depoimentos/reviewer-26.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "O trabalho da Lillia é incrível! Atendimento impecável do começo ao fim! Eu nem havia terminado e já estava pensando em fazer outros ensaios."
+    },
+    {
+      "id": 27,
+      "name": "Bianca Salazar",
+      "photo": "/assets/images/depoimentos/reviewer-27.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "O estúdio é lindo e a Lillia é uma excelente profissional! Muito animada, paciente e prestativa. Gostei muito do trabalho e o dia de fotos foi uma delícia! Recomendo demais!"
+    },
+    {
+      "id": 28,
+      "name": "Evely Lopes Pereira",
+      "photo": "/assets/images/depoimentos/reviewer-28.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "A Lilia é uma fotógrafa excepcional! Nos deixa super a vontade e orienta para que as fotos fiquem perfeitas! Super recomendo!"
+    },
+    {
+      "id": 29,
+      "name": "Thamires Marcondes",
+      "photo": "/assets/images/depoimentos/reviewer-29.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "Adoramos o estúdio, muito bem equipado, climatizado, estruturado. Há um espaço grande para desenvolver fotos com"
+    },
+    {
+      "id": 30,
+      "name": "Elisabete Cordeiro",
+      "photo": "/assets/images/depoimentos/reviewer-30.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "Maravilhosa profissional! Studio lindo com uma proposta sofisticada."
+    },
+    {
+      "id": 31,
+      "name": "N santos",
+      "photo": "/assets/images/depoimentos/reviewer-31.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "Ótima profissional excelente"
+    },
+    {
+      "id": 32,
+      "name": "Camila Galdino",
+      "photo": "/assets/images/depoimentos/reviewer-32.jpg",
+      "rating": 5,
+      "date": "Há 49 semanas",
+      "text": "Não tem como ter uma família linda, e não ser registrada pelas mãos de profissional! Ela torna tudo tão leve, ela torna"
+    },
+    {
+      "id": 33,
+      "name": "Dani",
+      "photo": "/assets/images/depoimentos/reviewer-33.jpg",
+      "rating": 5,
+      "date": "Há 52 semanas",
+      "text": "A Lillia é uma profissional excelente! ! Fiquei muito satisfeita com o trabalho"
+    },
+    {
+      "id": 34,
+      "name": "Joelma Lins",
+      "photo": "/assets/images/depoimentos/reviewer-34.jpg",
+      "rating": 5,
+      "date": "26 de fev. de 2025",
+      "text": "Excepcional!!! A Lillia é uma excelente fotógrafa, nos"
+    },
+    {
+      "id": 35,
+      "name": "Thiago Silva",
+      "photo": "/assets/images/depoimentos/reviewer-35.jpg",
+      "rating": 5,
+      "date": "17 de jan. de 2025",
+      "text": "Ótimo espaço, estúdio bem equipado e bem localizado"
+    },
+    {
+      "id": 36,
+      "name": "Mariana Santos",
+      "photo": "/assets/images/depoimentos/reviewer-36.jpg",
+      "rating": 5,
+      "date": "1 de jan. de 2025",
+      "text": "Eu realizei um sonho em fazer meu ensaio fotográfico e fico muito feliz que escolhi a pessoa certa para esse momento tão"
+    },
+    {
+      "id": 37,
+      "name": "Carla Cah",
+      "photo": "/assets/images/depoimentos/reviewer-37.jpg",
+      "rating": 5,
+      "date": "20 de nov. de 2024",
+      "text": "Fizemos nosso ensaio de Natal 2024, desde o primeiro contato Lillia foi muito atenciosa, posteriormente conhecemos"
+    },
+    {
+      "id": 38,
+      "name": "Alisson Felix",
+      "photo": "/assets/images/depoimentos/reviewer-38.jpg",
+      "rating": 5,
+      "date": "25 de set. de 2024",
+      "text": "Desde o início, fui acolhido com atenção e carinho, recebendo orientações detalhadas para a realização do meu principal"
+    },
+    {
+      "id": 39,
+      "name": "Tayna Marcondes",
+      "photo": "/assets/images/depoimentos/reviewer-39.jpg",
+      "rating": 5,
+      "date": "24 de set. de 2024",
+      "text": "Ambiente maravilhoso, planejado, confortável, a fotografa é incrível e sabe te deixar a vontade."
+    },
+    {
+      "id": 40,
+      "name": "Suziene Amaral",
+      "photo": "/assets/images/depoimentos/reviewer-40.jpg",
+      "rating": 5,
+      "date": "23 de set. de 2024",
+      "text": "A Li é um amor de pessoa! O estúdio é incrível... as fotos ficam lindas! Super recomendo o trabalho dela."
+    },
+    {
+      "id": 41,
+      "name": "Henrique Sufi",
+      "photo": "/assets/images/depoimentos/reviewer-41.jpg",
+      "rating": 5,
+      "date": "16 de jun. de 2024",
+      "text": "Ótimo estúdio, bem climatizado, recepção impecável e cenário muito bonito para fotografar, muito bom!"
+    },
+    {
+      "id": 42,
+      "name": "Camila Nogueira",
+      "photo": "/assets/images/depoimentos/reviewer-42.jpg",
+      "rating": 5,
+      "date": "5 de jun. de 2024",
+      "text": "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"
+    },
+    {
+      "id": 43,
+      "name": "Nicole",
+      "photo": "/assets/images/depoimentos/reviewer-43.jpg",
+      "rating": 5,
+      "date": "4 de jun. de 2024",
+      "text": "Tudo perfeito, recomendo"
+    },
+    {
+      "id": 44,
+      "name": "Lucas Gonzaga",
+      "photo": "/assets/images/depoimentos/reviewer-44.jpg",
+      "rating": 5,
+      "date": "4 de jun. de 2024",
+      "text": "Um espaço incrível para produções com a Lilian e incrível também para fotógrafos que precisam de um estúdio completo ✨"
+    },
+    {
+      "id": 45,
+      "name": "karoline siqueira",
+      "photo": "/assets/images/depoimentos/reviewer-45.jpg",
+      "rating": 5,
+      "date": "4 de jun. de 2024",
+      "text": "Tive o prazer de fazer o meu ensaio corporativo com ela! Foi incrível, ela é excelente em tudo que faz!!!. O espaço"
+    },
+    {
+      "id": 46,
+      "name": "Rogerio Pires",
+      "photo": "/assets/images/depoimentos/reviewer-46.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Tudo que um espaço pensado para mulheres por uma mulher pode oferecer , no estilo Close and Personal ( Detalhe : Localizado no coração de Mogi das Cruzes , com ótimas opções para estacionamento e transporte)"
+    },
+    {
+      "id": 47,
+      "name": "Rayssa Oliveira",
+      "photo": "/assets/images/depoimentos/reviewer-47.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Studio de fotografia no centro cívico em Mogi das Cruzes de fácil acesso, próximo à estação de trem e terminal de"
+    },
+    {
+      "id": 48,
+      "name": "Janete Oliveira",
+      "photo": "/assets/images/depoimentos/reviewer-48.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Uma experiência maravilhosa, profissional sensacional!"
+    },
+    {
+      "id": 49,
+      "name": "Simone Ferreira",
+      "photo": "/assets/images/depoimentos/reviewer-49.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Fotógrafa excelente, super profissional, espaço aconchegante, maravilhoso e sem contar que é de fácil acesso, no centro de Mogi, próximo a estação de trem, e estacionamento público em frente."
+    },
+    {
+      "id": 50,
+      "name": "Renan Vaz",
+      "photo": "/assets/images/depoimentos/reviewer-50.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Lugar maravilhoso! Muito legal em sabem que em Mogi das Cruzes tem um estúdio com essa variedade de cenários e uma profissional atenciosa e dedicada para eternizar momentos de formas únicas. Parabéns!!!"
+    },
+    {
+      "id": 51,
+      "name": "Bruno Brito",
+      "photo": "/assets/images/depoimentos/reviewer-51.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Ambiente aconchegante, espaço grande, organizado, excelente estúdio, uma ótima fotógrafa!!"
+    },
+    {
+      "id": 52,
+      "name": "Daniele Sato",
+      "photo": "/assets/images/depoimentos/reviewer-52.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "O studio é lindo, a iluminação perfeita para ensaios corporativos e ensaio sensual. Já fiz fotos com a Lillia e garanto que é uma experiência única!"
+    },
+    {
+      "id": 53,
+      "name": "Dorileia Fatima",
+      "photo": "/assets/images/depoimentos/reviewer-53.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Espaço maravilhoso, fui bem recebida, a fotógrafa realizou um excelente trabalho, as fotos ficaram lindas."
+    },
+    {
+      "id": 54,
+      "name": "Roseli Monteiro",
+      "photo": "/assets/images/depoimentos/reviewer-54.jpg",
+      "rating": 5,
+      "date": "3 de jun. de 2024",
+      "text": "Tudo tão lindo lugar maravilhoso aconchegante e cheio de amor ❤️ a melhor fotógrafa 🥰🙏"
+    },
+    {
+      "id": 55,
+      "name": "Andreia Silva",
+      "photo": "/assets/images/depoimentos/reviewer-55.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Que maravilhosa gente,a melhor!!!"
+    },
+    {
+      "id": 56,
+      "name": "Sandra Tavares",
+      "photo": "/assets/images/depoimentos/reviewer-56.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "É a melhor fotógrafa da região. Super indico."
+    },
+    {
+      "id": 57,
+      "name": "Ketlyn Aparecida",
+      "photo": "/assets/images/depoimentos/reviewer-57.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Trabalho impecável e estúdio excelente. Indico e recomendo. Nota 1000!!!! ❤️"
+    },
+    {
+      "id": 58,
+      "name": "Vera Lúcia",
+      "photo": "/assets/images/depoimentos/reviewer-58.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Stúdio lindo no centro de Mogi. Local aconchegante. Excelente fotógrafa! Adorei as fotos! Recomendo."
+    },
+    {
+      "id": 59,
+      "name": "Gislaine Xavier",
+      "photo": "/assets/images/depoimentos/reviewer-59.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Maravilhosa! Sem palavras para descrever, profissional excepcional.♡"
+    },
+    {
+      "id": 60,
+      "name": "Daiane Alves",
+      "photo": "/assets/images/depoimentos/reviewer-60.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Trabalho impecável, excelente profissional, com um estúdio incrível para registrar seus momentos. Super indico!!"
+    },
+    {
+      "id": 61,
+      "name": "Dulcinéia de Souza",
+      "photo": "/assets/images/depoimentos/reviewer-61.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Ótima fotógrafa. Excelente qualidade na edição. Fez fotos no SP fashion week esse ano."
+    },
+    {
+      "id": 62,
+      "name": "Victor Ferreira",
+      "photo": "/assets/images/depoimentos/reviewer-62.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Excelente profissional, simplesmente a melhor fotógrafa do estado de São Paulo."
+    },
+    {
+      "id": 63,
+      "name": "Allan Oliveira",
+      "photo": "/assets/images/depoimentos/reviewer-63.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Lugar excelente, aconchegante e muito agradável"
+    },
+    {
+      "id": 64,
+      "name": "Junior Camini",
+      "photo": "/assets/images/depoimentos/reviewer-64.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Excelente Profissional!!!!!!"
+    },
+    {
+      "id": 65,
+      "name": "Guilherme Loos",
+      "photo": "/assets/images/depoimentos/reviewer-65.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Studio de fotografia de muito bom gosto, espaço muito agradável, confortável e bem localizado."
+    },
+    {
+      "id": 66,
+      "name": "Vanessa de Melo Lima",
+      "photo": "/assets/images/depoimentos/reviewer-66.jpg",
+      "rating": 5,
+      "date": "2 de jun. de 2024",
+      "text": "Studio de fotografia lindo no centro cívico, em Mogi das Cruzes. Cenários diversos, atende homens, mulheres, família. Super indico!"
+    }
+  ]
+}
