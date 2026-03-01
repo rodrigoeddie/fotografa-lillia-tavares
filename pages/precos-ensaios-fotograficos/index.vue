@@ -10,7 +10,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <SectionsPrecosIndex />
+  <SectionsPrecosList />
 </template>
 
 <style scoped lang="scss">

@@ -42,22 +42,42 @@
 
   // === PASSO 2: Expandir todos os textos truncados ===
   async function expandAllReviews() {
-    const expandButtons = document.querySelectorAll(
-      'a[jsname="ix0Hvc"], a.zjlSIe, a[aria-label="Exibir avaliação completa"]'
-    );
-    console.log(`🔎 Encontrados ${expandButtons.length} botões "Exibir avaliação completa". Expandindo...`);
+    // Abordagem 1 (estrutural — robusta independente de jsname):
+    // O container com jscontroller="vdnftc" sempre tem como segundo filho
+    // o div com o texto completo oculto. Força display diretamente.
+    let forcedCount = 0;
+    document.querySelectorAll('[jscontroller="vdnftc"]').forEach(container => {
+      Array.from(container.children).forEach(child => {
+        if (child.tagName === 'DIV' && child.style.display === 'none') {
+          child.style.display = 'block';
+          forcedCount++;
+        }
+      });
+    });
+    console.log(`🔎 ${forcedCount} divs de texto completo forçados via estrutura DOM.`);
 
-    for (const btn of expandButtons) {
-      try {
-        btn.click();
-        await new Promise(r => setTimeout(r, 300));
-      } catch (e) {
-        // ignora se algum falhar
+    // Abordagem 2 (por jsname="PBWx0c" — cobre casos onde display não está inline):
+    document.querySelectorAll('[jsname="PBWx0c"]').forEach(div => {
+      div.style.display = 'block';
+    });
+
+    // Abordagem 3 (fallback via aria-controls):
+    // Usa o atributo aria-controls do botão para localizar o container pelo id
+    // e forçar qualquer filho oculto, sem depender de jsname.
+    const expandButtons = document.querySelectorAll('a[aria-controls]');
+    expandButtons.forEach(btn => {
+      const containerId = btn.getAttribute('aria-controls');
+      const container = containerId ? document.getElementById(containerId) : null;
+      if (container) {
+        Array.from(container.children).forEach(child => {
+          if (child.tagName === 'DIV') child.style.display = 'block';
+        });
       }
-    }
+    });
+    console.log(`🖱  ${expandButtons.length} botões processados via aria-controls.`);
 
-    // Esperar o DOM atualizar
-    await new Promise(r => setTimeout(r, 1000));
+    // Aguarda o DOM estabilizar
+    await new Promise(r => setTimeout(r, 600));
     console.log(`✅ Todos os textos expandidos.`);
   }
 
@@ -71,24 +91,43 @@
       const dateEl = el.querySelector('span.KEfuhb');
       const starsEl = el.querySelector('span.DYizzd');
 
-      // Pega o container do texto (jsname="lvvS4b" contém o texto completo após expandir)
-      const expandedEl = el.querySelector('[jsname="lvvS4b"]');
-      const fallbackEl = el.querySelector('div.gyKkFe.Fv38Af');
-      const textContainer = expandedEl || fallbackEl;
+      // Ordem de prioridade para o texto:
+      // 1. Filho oculto do [jscontroller="vdnftc"] — estrutural, independe de jsname
+      // 2. [jsname="PBWx0c"] — container do texto completo pelo jsname conhecido
+      // 3. [jsname="lvvS4b"] — container truncado (tem link "Exibir..." que será ignorado)
+      // 4. div.gyKkFe.Fv38Af — wrapper externo como último recurso
+      const jsCtrlContainer = el.querySelector('[jscontroller="vdnftc"]');
+      const structuralEl = jsCtrlContainer
+        ? Array.from(jsCtrlContainer.children).find(
+            child => child.tagName === 'DIV' && child !== jsCtrlContainer.firstElementChild
+          )
+        : null;
+      const fullEl      = structuralEl || el.querySelector('[jsname="PBWx0c"]');
+      const truncatedEl = el.querySelector('[jsname="lvvS4b"]');
+      const fallbackEl  = el.querySelector('div.gyKkFe.Fv38Af');
+      const textContainer = fullEl || truncatedEl || fallbackEl;
 
       let text = '';
       if (textContainer) {
-        // Pega só os nós de texto, ignorando o link "Exibir avaliação completa"
-        const walker = document.createTreeWalker(textContainer, NodeFilter.SHOW_TEXT, null, false);
+        // TreeWalker coleta apenas nós de texto, ignorando links e elementos ocultos
+        const walker = document.createTreeWalker(textContainer, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            // Ignora filhos do link "Exibir avaliação completa"
+            if (node.parentElement?.closest('a[jsname="ix0Hvc"], a.zjlSIe')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
         const parts = [];
         let node;
         while ((node = walker.nextNode())) {
           const t = node.textContent.trim();
-          if (t && t !== 'Exibir avaliação completa') parts.push(t);
+          if (t) parts.push(t);
         }
         text = parts.join(' ')
           .replace(/\s{2,}/g, ' ')
-          .replace(/\.\.\.\s*$/, '')
+          .replace(/\.\.\.\s*$/, '')  // remove "..." de textos truncados
           .trim();
       }
 

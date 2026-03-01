@@ -110,7 +110,7 @@ const description = computed(() => {
     }
 
     .about-text {
-      padding: 45rem;
+      padding: v.$bigSpace;
 
       @include m.max(sm) {
         padding: 30rem;

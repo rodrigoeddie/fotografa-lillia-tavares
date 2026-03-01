@@ -15,5 +15,5 @@ useSeoMeta({
 
 <template>
   <SectionsDepoimentosList />
-  <SectionsScheduleTinyform :formType="'Teste'" />
+  <SectionsScheduleTinyform :formType="'noType'" />
 </template>

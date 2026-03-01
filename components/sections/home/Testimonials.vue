@@ -14,7 +14,13 @@ const {
     <div
       class="wrap-testimonials"
       data-ani-type="fade-up">
-        <h2 class="title">Depoimentos</h2>
+        <h2 class="title">
+            <NuxtLink
+                to="/depoimentos"
+                class="link">
+                Depoimentos
+            </NuxtLink>
+        </h2>
         <swiper-container
             class="swiper-testimonials"
             :effect="'flip'"

@@ -81,7 +81,8 @@ const formatDate = (dateString: string) => {
         <div
           class="thumb thumb-vertical"
           data-ani-type="polaroid"
-          :data-ani-delay="index * 0.07">
+          data-ani-batch="wrap-portfolio"
+          data-ani-stagger="0.07">
           <div class="inner-thumb">
             <div class="slider">
               <ClientOnly>

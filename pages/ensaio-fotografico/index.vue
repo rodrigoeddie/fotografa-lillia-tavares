@@ -29,7 +29,6 @@ useHead({
 </script>
 
 <template>
-  <SectionsPortfolioHero />
   <SectionsPortfolioList class="no-padding" />
 </template>
 

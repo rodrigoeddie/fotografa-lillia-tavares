@@ -228,6 +228,8 @@ const formatDate = (dateString: string) => {
       <span class="big" v-else>Últimos trabalhos</span>
     </h1>
 
+    <SectionsPortfolioCategories />
+
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData" :key="item.path">
         <div :class="'thumb thumb-' + classes[index % classes.length]?.class">
@@ -540,7 +542,7 @@ const formatDate = (dateString: string) => {
         }
 
         &.card-50 {
-          width: calc(50% - 15rem);
+          width: calc(50% - 8rem);
 
           @include m.max(sm) {
             width: 100%;

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-const { data: allInvestimentos } = await useAsyncData('investimento-categories', () => {
-  return queryCollection('investimento').all();
-});
+const { data: allInvestimentos } = await useAsyncData('investimento-categories', () =>
+  queryCollection('investimento').all()
+)
 
 const categories = computed(() => {
-  if (!allInvestimentos.value) return [];
+  if (!allInvestimentos.value?.length) return []
 
   return allInvestimentos.value
-    .filter((item: any) => item.active === true)
-    .map((item: any) => ({
-      slug: item.stem,
+    .filter((item) => !!item.active && !item.path?.endsWith('/index'))
+    .map((item) => ({
+      slug: item.path?.split('/').pop() ?? '',
       name: item.title,
       icon: item.icon,
-      description: item.description
-    }));
-});
+      description: item.description,
+    }))
+})
 </script>
 
 <template>

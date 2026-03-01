@@ -34,9 +34,13 @@ function formatDate(dateStr: string) {
 
       <div class="reviews-grid">
         <article
-          v-for="review in data?.reviews"
+          v-for="(review, index) in data?.reviews"
           :key="review.id"
           class="review-card"
+          data-ani-type="polaroid"
+          data-ani-batch="reviews-grid"
+          data-ani-stagger="0.07"
+          data-ani-batch-max="3"
         >
           <div class="review-card__header">
             <div class="review-card__avatar">

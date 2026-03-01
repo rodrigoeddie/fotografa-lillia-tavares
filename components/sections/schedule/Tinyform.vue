@@ -79,7 +79,9 @@ const enviar = async () => {
 
   if (Object.keys(errors.value).length === 0) {
     const whatsappNumber = '5511911159795';
-    const message        = `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${ formData.value.date.day }/${ formData.value.date.month }/${ formData.value.date.year } com o tipo de ensaio ${ formData.value.sessionType }. (mensagem do site)`;
+    const message = formData.value.sessionType === 'noType'
+      ? `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${formData.value.date.day}/${formData.value.date.month}/${formData.value.date.year}. (mensagem do site)`
+      : `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${formData.value.date.day}/${formData.value.date.month}/${formData.value.date.year} com o tipo de ensaio ${formData.value.sessionType}. (mensagem do site)`;
     const whatsappUrl    = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, '_blank');
@@ -93,7 +95,7 @@ const enviar = async () => {
 </script>
 
 <template>
-  <div class="container wrap-schedule">
+  <div class="wrap-schedule">
     <form
     class="form"
     @submit.prevent="enviar">

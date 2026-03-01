@@ -190,20 +190,103 @@ const ANIMATIONS: Record<string, AnimationConfig> = {
 
 export function useScrollAnimations() {
   /**
+   * Processa elementos agrupados via `data-ani-batch`.
+   *
+   * Todos os elementos com o mesmo valor de `data-ani-batch` são gerenciados
+   * por uma única instância de ScrollTrigger.batch(), muito mais eficiente
+   * para grids e listas longas.
+   *
+   * Atributos suportados no elemento:
+   * - `data-ani-type`         → tipo de animação (igual ao individual)
+   * - `data-ani-batch`        → chave do grupo (ex: "reviews-grid")
+   * - `data-ani-stagger`      → intervalo entre cada elemento do batch (padrão: 0.08)
+   * - `data-ani-duration`     → duração (padrão do tipo ou 0.8)
+   * - `data-ani-ease`         → easing (padrão do tipo ou power2.out)
+   * - `data-ani-batch-max`    → máx. elementos por disparo do batch (padrão: 4)
+   *
+   * ## Exemplo
+   * ```html
+   * <article data-ani-type="fade-up" data-ani-batch="reviews">...</article>
+   * <article data-ani-type="fade-up" data-ani-batch="reviews">...</article>
+   * ```
+   */
+  function initBatches(container: Document | HTMLElement) {
+    const batchEls = Array.from(
+      container.querySelectorAll<HTMLElement>('[data-ani-batch]:not([data-ani-initialized])')
+    )
+    if (batchEls.length === 0) return
+
+    // Agrupa por valor de data-ani-batch
+    const groups = new Map<string, HTMLElement[]>()
+    batchEls.forEach((el) => {
+      const key = el.dataset.aniBatch!
+      if (!groups.has(key)) groups.set(key, [])
+      groups.get(key)!.push(el)
+    })
+
+    groups.forEach((els) => {
+      // Usa o primeiro elemento para ler as configurações do grupo
+      const first = els[0]
+      if (!first) return
+
+      const type = first.dataset.aniType || 'fade'
+      const config = ANIMATIONS[type]
+      if (!config) {
+        console.warn(`[useScrollAnimations] Tipo desconhecido: "${type}"`)
+        return
+      }
+
+      const stagger  = parseFloat(first.dataset.aniStagger  || '0.08')
+      const duration = parseFloat(first.dataset.aniDuration ?? String(config.duration ?? 0.8))
+      const ease     = first.dataset.aniEase || config.ease || 'power2.out'
+      const batchMax = parseInt(first.dataset.aniBatchMax   || '4')
+
+      const fromVars = { ...config.from, opacity: 0 }
+      const toVars   = { ...config.to,   opacity: 1 }
+
+      // Estado inicial em todos os elementos do grupo de uma vez
+      gsap.set(els, fromVars)
+      els.forEach((el) => { el.dataset.aniInitialized = 'true' })
+
+      // Uma única instância de ScrollTrigger para todo o grupo
+      ScrollTrigger.batch(els, {
+        start: 'top 88%',
+        batchMax,
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            ...toVars,
+            duration,
+            ease,
+            stagger,
+            onComplete() {
+              // Adiciona .animated ao último do batch
+              ;(batch as HTMLElement[]).forEach((el) => el.classList.add('animated'))
+            },
+          })
+        },
+      })
+    })
+  }
+
+  /**
    * Busca todos os elementos com [data-ani-type] dentro de `root`
    * (ou document) e registra as animações com ScrollTrigger.
    *
+   * Elementos com `data-ani-batch` são processados pelo initBatches().
    * Chamar múltiplas vezes é seguro — elementos já animados são ignorados.
    */
   function init(root?: HTMLElement | null) {
     if (import.meta.server) return
 
     const container = root || document
-    const elements = container.querySelectorAll<HTMLElement>('[data-ani-type]')
+
+    // Processa grupos (batch) antes dos individuais
+    initBatches(container)
+
+    // Elementos individuais (sem data-ani-batch)
+    const elements = container.querySelectorAll<HTMLElement>('[data-ani-type]:not([data-ani-batch]):not([data-ani-initialized])')
 
     elements.forEach((el) => {
-      // Evitar duplicata
-      if (el.dataset.aniInitialized) return
       el.dataset.aniInitialized = 'true'
 
       const type = el.dataset.aniType || 'fade'
@@ -225,7 +308,6 @@ export function useScrollAnimations() {
       const fromVars = { ...config.from, opacity: 0 }
       const toVars = { ...config.to, opacity: 1 }
 
-      // Seta estado inicial
       gsap.set(targets, fromVars)
 
       gsap.to(targets, {

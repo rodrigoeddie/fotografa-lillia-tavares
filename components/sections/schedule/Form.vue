@@ -314,7 +314,7 @@ const enviar = async () => {
     }
 
     .about-text {
-      padding: 35rem;
+      padding: v.$bigSpace;
 
       .description {
         padding-top: 0;

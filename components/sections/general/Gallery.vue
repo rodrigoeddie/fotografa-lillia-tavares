@@ -87,10 +87,8 @@ const onHide = () => (visibleRef.value = false);
 .portfolio-images {
   background-color: white;
   justify-content: space-between;
-  padding: 30rem;
   flex-wrap: wrap;
   display: flex;
-  gap: 5rem;
 
   img {
     aspect-ratio: var(--ratio, auto);
@@ -104,7 +102,7 @@ const onHide = () => (visibleRef.value = false);
 
   .paisagem {
     &.w50 {
-      width: calc(100% / 2 - 3rem);
+      width: calc(100% / 2);
 
       @include m.max(sm) {
         width: 100%;
@@ -113,14 +111,14 @@ const onHide = () => (visibleRef.value = false);
   }
 
   .retrato {
-    width: calc(100% / 3 - 5rem);
+    width: calc(100% / 3);
 
     &.square {
       aspect-ratio: 1;
     }
 
     &.w50 {
-      width: 49%;
+      width: 50%;
 
       @include m.max(sm) {
         width: 100%;
@@ -128,7 +126,7 @@ const onHide = () => (visibleRef.value = false);
     }
 
     &.w25 {
-      width: 24.7%;
+      width: 25%;
 
       @include m.max(sm) {
         width: 100%;
