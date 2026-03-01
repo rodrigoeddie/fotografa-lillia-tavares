@@ -1,9 +1,10 @@
-<script setup>
-const path = useRoute().path;
+<script setup lang="ts">
+const route = useRoute();
+const slug = route.params.slug as string;
 
-// Carrega usando queryCollection que funciona com content.config.ts
-const { data: pageData } = await useAsyncData(path, () => {
-  return queryCollection('investimento').path(path).first();
+// O conteúdo fica em /investimento/{slug} mas a URL é /precos-ensaios-fotograficos/{slug}
+const { data: pageData } = await useAsyncData(`investimento-${slug}`, () => {
+  return queryCollection('investimento').path(`/investimento/${slug}`).first();
 });
 
 // Se não encontrar, redireciona para 404

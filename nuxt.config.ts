@@ -249,6 +249,9 @@ export default defineNuxtConfig({
         '/ensaio-fotografico',
         '/estudio',
         '/estudio/cenarios',
+      ],
+      ignore: [
+        /^\/precos-ensaios-fotograficos\/.+/
       ]
     },
 
