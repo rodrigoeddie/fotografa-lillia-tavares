@@ -480,8 +480,8 @@ const formatDate = (dateString: string) => {
       border: 1px solid v.$green;
 
       .wrap-info {
+        padding: v.$space;
         color: v.$green;
-        padding: 30rem;
 
         .title {
           font-size: 23rem;

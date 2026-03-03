@@ -14,9 +14,16 @@ const formatDate = (date: Date) => {
 </script>
 
 <template>
-  <div class="container post-list">
-    <h1 class="title">BLOG</h1>
+  <h1 class="big-title red centered">
+    <span class="box">
+      Dicas e Inspirações
+    </span>
+    <span class="big">
+      Fotográficas
+    </span>
+  </h1>
 
+  <div class="container">
     <div class="wrap-posts">
       <article v-for="post in posts" :key="post.id" class="post-item">
         <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
@@ -60,6 +67,8 @@ const formatDate = (date: Date) => {
 <style scoped lang="scss">
 .wrap-posts {
   justify-content: space-between;
+  padding-bottom: v.$bigSpace;
+  gap: v.$space;
   flex-wrap: wrap;
   display: flex;
 
@@ -68,25 +77,20 @@ const formatDate = (date: Date) => {
   }
 }
 
-.post-list {
-  margin: 0 auto 30rem;
-  background: white;
-  padding: 20px;
-}
-
 .post-item {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20rem;
+  width: calc(33% - v.$space/2);
+  border: 1px solid v.$green;
   flex-direction: column;
-  padding-top: 10px;
-  margin-top: 20px;
+  background: white;
   display: flex;
-  gap: 30rem 0;
-  width: 49.5%;
 
   @include m.max(sm) {
     gap: 15rem 0;
     width: 100%;
+  }
+
+  .text {
+    padding: v.$space;
   }
 
   .subtitle {
@@ -122,7 +126,6 @@ const formatDate = (date: Date) => {
   }
 
   .post-meta {
-    margin-bottom: 15px;
     align-items: center;
     font-size: 18px;
     color: #666;

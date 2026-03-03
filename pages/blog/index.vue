@@ -41,47 +41,7 @@ const formatDate = (date: Date) => {
 </script>
 
 <template>
-  <div class="container post-list">
-    <h1 class="title">BLOG</h1>
-
-    <div class="wrap-posts">
-      <article v-for="post in posts" :key="post.id" class="post-item">
-        <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
-          <nuxt-img
-            v-if="post.image"
-            provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
-            :width="822"
-            :height="548"
-            :sizes="'100vw md:50vw lg:822px'"
-            class="img-thumb"
-            :alt="'Imagem do post ' + post.title"
-            placeholder
-            loading="lazy"/>
-        </NuxtLink>
-        <div class="text">
-          <h2 class="subtitle">
-            <NuxtLink :to="post.path">{{ post.title }}</NuxtLink>
-          </h2>
-          <div class="description" v-if="post.description">
-            {{ post.description }}
-          </div>
-          <div class="post-meta">
-            <Icon
-              name="icons:calendar-regular"
-              class="icon icon-calendar"/>
-            <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
-            <NuxtLink :to="'/blog/' + post.category.slug" class="category-link">
-              <Icon
-                name="icons:category"
-                class="icon icon-category"/>
-              <span class="category">{{ post.category.title }}</span>
-            </NuxtLink>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
+  <SectionsBlogList/>
 </template>
 
 <style scoped lang="scss">

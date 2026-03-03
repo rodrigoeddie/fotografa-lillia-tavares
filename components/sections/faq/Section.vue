@@ -18,7 +18,7 @@ const props = defineProps({
       :key="category.slug"
       class="faq-category"
     >
-      <h2 class="faq-category__title">{{ category.name }}</h2>
+      <h2 class="title">{{ category.name }}</h2>
       
       <div class="faq-category__items">
         <BlocksFaqItem
@@ -36,8 +36,13 @@ const props = defineProps({
 <style scoped lang="scss">
 .faq-section {
   max-width: 1200rem;
-  padding: 15rem v.$bigSpace;
+  padding: 15rem v.$space;
   margin: 0 auto;
+}
+
+.title {
+  padding-bottom: 15rem;
+  color: v.$red;
 }
 
 .faq-category {
@@ -46,12 +51,5 @@ const props = defineProps({
   &:last-child {
     margin-bottom: 0;
   }
-}
-
-.faq-category__title {
-  font-size: 28rem;
-  font-weight: 700;
-  color: v.$green;
-  padding-bottom: v.$space;
 }
 </style>

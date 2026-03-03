@@ -17,7 +17,14 @@ const pageData = computed(() => sobre.value as any);
   <div v-if="pageData" class="sobre-page">
     <div class="container">
       <header class="sobre-header">
-        <h1 class="sobre-header__title">{{ pageData.title }}</h1>
+        <h1 class="big-title red centered">
+          <span class="box">
+            Sobre a Fotógrafa
+          </span>
+          <span class="big">
+            Lillia Tavares
+          </span>
+        </h1>
       </header>
 
       <div class="sobre-content">
@@ -52,42 +59,17 @@ const pageData = computed(() => sobre.value as any);
 </template>
 
 <style scoped lang="scss">
-.sobre-page {
-  padding: 64rem 0;
-  min-height: 100vh;
-}
-
-.container {
-  max-width: 1200rem;
-  margin: 0 auto;
-  padding: 0 24rem;
-}
-
-.sobre-header {
-  text-align: center;
-  margin-bottom: 48rem;
-
-  &__title {
-    font-size: 40rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 16rem;
-
-    @include m.max(sm) {
-      font-size: 28rem;
-    }
-  }
-}
-
 .sobre-content {
-  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48rem;
-  margin-bottom: 64rem;
+  margin-bottom: v.$bigSpace;
+  border: 1px solid v.$green;
+  background: white;
+  gap: v.$bigSpace;
+  display: grid;
 
   @include m.max(md) {
     grid-template-columns: 1fr;
-    gap: 32rem;
+    gap: v.$bigSpace;
   }
 }
 
