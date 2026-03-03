@@ -21,7 +21,14 @@ const categories = computed(() => {
   <div class="investment-page">
     <div class="container">
       <header class="investment-header">
-        <h1 class="investment-header__title">Investimento em Ensaios Fotográficos</h1>
+        <h1 class="big-title red centered">
+          <span class="box">
+            Pacotes dos 
+          </span>
+          <span class="big">
+            Ensaios Fotográficos
+          </span>
+        </h1>
         <p class="investment-header__description">
           Escolha o tipo de ensaio que melhor se encaixa no seu momento especial.
           Cada categoria foi cuidadosamente elaborada para atender suas necessidades.
@@ -70,7 +77,7 @@ const categories = computed(() => {
         <h2>Ainda tem dúvidas?</h2>
         <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
         <a
-          href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos"
+          href="https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos"
           target="_blank"
           rel="noopener noreferrer"
           class="investment-cta__button"
@@ -83,32 +90,15 @@ const categories = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.investment-page {
-  padding: 64rem 0;
-  min-height: 100vh;
-}
-
-.container {
-  max-width: 1200rem;
-  margin: 0 auto;
-  padding: 0 24rem;
-}
-
 .investment-header {
   text-align: center;
-  margin-bottom: 64rem;
-  max-width: 800rem;
+  margin-bottom: v.$space;
+  max-width: 1200rem;
   margin-left: auto;
   margin-right: auto;
 
-  &__title {
-    font-size: 40rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 16rem;
-  }
-
   &__description {
+    padding-top: 15rem;
     font-size: 18rem;
     color: #666;
     line-height: 1.6;
@@ -117,16 +107,20 @@ const categories = computed(() => {
 
 .investment-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280rem, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 32rem;
   margin-bottom: 64rem;
+
+  @include m.max(md) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .category-card {
+  border: 1px solid v.$green;
   background: #fff;
-  border: 2rem solid #e5e5e5;
-  border-radius: 8rem;
-  padding: 32rem;
+  // border-radius: 8rem;
+  padding: v.$space;
   text-decoration: none;
   transition: all 0.3s ease;
   display: flex;
@@ -232,52 +226,6 @@ const categories = computed(() => {
       background: #000;
       transform: translateY(-2rem);
       box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.2);
-    }
-  }
-}
-
-@media (max-width: 768rem) {
-  .investment-page {
-    padding: 32rem 0;
-  }
-
-  .investment-header {
-    margin-bottom: 32rem;
-
-    &__title {
-      font-size: 28rem;
-    }
-
-    &__description {
-      font-size: 16rem;
-    }
-  }
-
-  .investment-categories {
-    grid-template-columns: 1fr;
-    gap: 24rem;
-  }
-
-  .investment-info {
-    padding: 32rem 24rem;
-
-    &__title {
-      font-size: 24rem;
-    }
-
-    &__grid {
-      grid-template-columns: 1fr;
-      gap: 24rem;
-    }
-  }
-
-  .investment-cta {
-    h2 {
-      font-size: 24rem;
-    }
-
-    p {
-      font-size: 16rem;
     }
   }
 }

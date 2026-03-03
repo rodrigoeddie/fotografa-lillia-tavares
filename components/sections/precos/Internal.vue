@@ -2,7 +2,7 @@
   <div v-if="data && data.packages" class="pricing-page">
     <div class="container">
       <header class="pricing-header">
-        <NuxtLink to="/investimento" class="pricing-header__back">← Voltar</NuxtLink>
+        <NuxtLink to="/precos-ensaios-fotograficos" class="pricing-header__back">← Voltar</NuxtLink>
         <h1 class="pricing-header__title">{{ data.title }}</h1>
         <p class="pricing-header__description">{{ data.description }}</p>
       </header>
@@ -11,20 +11,15 @@
         <ClientOnly>
           <swiper-container
             class="pricing-swiper"
-            :slides-per-view="1"
-            :space-between="24"
+            :slides-per-view="2"
+            :space-between="8"
+            :slides-per-group="2"
             :breakpoints="{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 24
+              900: {
+                slidesPerView: 3,
               },
               1024: {
-                slidesPerView: 3,
-                spaceBetween: 32
-              },
-              1280: {
                 slidesPerView: 4,
-                spaceBetween: 32
               }
             }"
             :pagination="{
@@ -57,7 +52,7 @@
         <h2>{{ data.cta.title }}</h2>
         <p>{{ data.cta.description }}</p>
         <a 
-          :href="`https://wa.me/5511999999999?text=${encodeURIComponent(data.cta.whatsappMessage)}`"
+          :href="`https://wa.me/5511911159795?text=${encodeURIComponent(data.cta.whatsappMessage)}`"
           target="_blank"
           rel="noopener noreferrer"
           class="pricing-cta__button"
@@ -84,22 +79,9 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-.pricing-page {
-  padding: 64rem 0;
-  min-height: 100vh;
-  background: #fafafa;
-}
-
-.container {
-  max-width: 1400rem;
-  margin: 0 auto;
-  padding: 0 24rem;
-}
-
 .pricing-header {
   text-align: center;
-  margin-bottom: 48rem;
-  max-width: 800rem;
+  max-width: 1200rem;
   margin-left: auto;
   margin-right: auto;
   
@@ -116,13 +98,6 @@ const props = defineProps({
     }
   }
   
-  &__title {
-    font-size: 40rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 16rem;
-  }
-  
   &__description {
     font-size: 18rem;
     color: #666;
@@ -136,10 +111,9 @@ const props = defineProps({
   
   .pricing-swiper {
     width: 100%;
-    padding: 16rem 0 48rem 0;
-    overflow: visible;
     
     swiper-slide {
+      margin-bottom: 25rem;
       height: auto;
       display: flex;
     }
@@ -170,9 +144,9 @@ const props = defineProps({
 .pricing-details {
   background: #fff;
   border-radius: 8rem;
+  box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
   padding: 32rem;
-  margin-bottom: 48rem;
-  border: 2rem solid #e5e5e5;
+  border: 1px solid v.$green;
   
   &__title {
     font-size: 24rem;
@@ -239,33 +213,4 @@ const props = defineProps({
     }
   }
 }
-
-@media (max-width: 768rem) {
-  .pricing-page {
-    padding: 32rem 0;
-  }
-  
-  .pricing-header {
-    margin-bottom: 32rem;
-    
-    &__title {
-      font-size: 28rem;
-    }
-    
-    &__description {
-      font-size: 16rem;
-    }
-  }
-  
-  .pricing-cta {
-    h2 {
-      font-size: 24rem;
-    }
-    
-    p {
-      font-size: 16rem;
-    }
-  }
-}
-
 </style>

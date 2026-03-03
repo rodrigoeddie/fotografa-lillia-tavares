@@ -59,7 +59,7 @@ const formattedPrice = computed(() => {
     
     <div class="pricing-card__cta">
       <a 
-        href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre o pacote {{ title }}"
+        href="https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre o pacote {{ title }}"
         target="_blank"
         rel="noopener noreferrer"
         class="pricing-card__button"
@@ -73,15 +73,17 @@ const formattedPrice = computed(() => {
 
 <style scoped lang="scss">
 .pricing-card {
-  position: relative;
-  display: flex;
+  box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
+  border: 1px solid v.$green;
+  transition: all 0.3s ease;
   flex-direction: column;
   background: #fff;
-  border: 2px solid #e5e5e5;
   border-radius: 8px;
-  padding: 32rem;
-  transition: all 0.3s ease;
+  padding: v.$space;
+  margin-top: 15rem;
+  display: flex;
   height: 100%;
+  width: 100%;
   
   &:hover {
     border-color: #ccc;
@@ -89,7 +91,6 @@ const formattedPrice = computed(() => {
   }
   
   &--recommended {
-    border-color: #333;
     border-width: 3px;
     z-index: 1;
     box-shadow: 0 4rem 16rem rgba(0, 0, 0, 0.12);
@@ -215,25 +216,6 @@ const formattedPrice = computed(() => {
       background: #000;
       border-color: #000;
     }
-  }
-}
-
-@media (max-width: 768rem) {
-  .pricing-card {
-    padding: 24rem;
-    
-    &--recommended {
-      transform: scale(1);
-      margin: 16rem 0;
-    }
-  }
-  
-  .pricing-card__title {
-    font-size: 20rem;
-  }
-  
-  .pricing-card__amount {
-    font-size: 32rem;
   }
 }
 </style>

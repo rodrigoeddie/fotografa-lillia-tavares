@@ -26,6 +26,6 @@ useHead({
 
 <template>
   <div v-if="pageData">
-    <SectionsPricingPageContent :data="pageData" />
+    <SectionsPrecosInternal :data="pageData" />
   </div>
 </template>
