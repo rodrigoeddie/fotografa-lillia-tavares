@@ -35,7 +35,8 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .faq-section {
-  max-width: 900rem;
+  max-width: 1200rem;
+  padding: 15rem v.$bigSpace;
   margin: 0 auto;
 }
 
@@ -50,20 +51,7 @@ const props = defineProps({
 .faq-category__title {
   font-size: 28rem;
   font-weight: 700;
-  color: #333;
-  margin-bottom: 24rem;
-  padding-bottom: 12rem;
-  border-bottom: 2rem solid #e5e5e5;
-}
-
-@media (max-width: 768rem) {
-  .faq-category__title {
-    font-size: 24rem;
-    margin-bottom: 20rem;
-  }
-  
-  .faq-category {
-    margin-bottom: 40rem;
-  }
+  color: v.$green;
+  padding-bottom: v.$space;
 }
 </style>

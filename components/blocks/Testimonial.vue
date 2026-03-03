@@ -55,8 +55,8 @@ const props = defineProps({
 <style lang="scss">
     .wrap-testimonial {
         justify-content: center;
-        padding: 30rem;
         flex-wrap: wrap;
+        padding: 30rem;
         display: flex;
 
         .image-testimonial {

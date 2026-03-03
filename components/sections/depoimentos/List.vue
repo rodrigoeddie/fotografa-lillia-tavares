@@ -23,8 +23,15 @@ function formatDate(dateStr: string) {
 <template>
   <section class="depoimentos-page">
     <div class="container">
-      <header class="depoimentos-header">
-        <h1 class="depoimentos-header__title">{{ data?.title }}</h1>
+      <header class="depoimentos-header" data-ani-type="fade">
+        <h1 class="big-title red centered">
+          <span class="box">
+            O que dizem
+          </span>
+          <span class="big">
+            sobre mim
+          </span>
+        </h1>
         <p class="depoimentos-header__description">{{ data?.description }}</p>
         <div class="depoimentos-header__badge">
           <span class="stars">★★★★★</span>
@@ -77,27 +84,16 @@ function formatDate(dateStr: string) {
 </template>
 
 <style scoped lang="scss">
-.depoimentos-page {
-  padding: 64rem 0 80rem;
-}
-
 .depoimentos-header {
   text-align: center;
-  margin-bottom: 64rem;
-
-  &__title {
-    font-size: 42rem;
-    font-weight: 700;
-    margin-bottom: 16rem;
-    color: v.$dark-red;
-  }
+  margin-bottom: v.$space;
 
   &__description {
     font-size: 18rem;
     color: #555;
     line-height: 1.6;
     max-width: 640rem;
-    margin: 0 auto 24rem;
+    margin: 10px auto 24rem;
   }
 
   &__badge {
@@ -124,10 +120,11 @@ function formatDate(dateStr: string) {
 }
 
 .reviews-grid {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(418rem, 1fr));
-  gap: 24rem;
   margin-bottom: 64rem;
+  padding: 15rem;
+  display: grid;
+  gap: 24rem;
 }
 
 .review-card {

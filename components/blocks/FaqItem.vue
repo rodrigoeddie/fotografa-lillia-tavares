@@ -48,12 +48,13 @@ const toggle = () => {
 
 <style scoped lang="scss">
 .faq-item {
-  background: #fff;
+  box-shadow: 0 0 10rem rgba(55, 71, 34, 0.1);
   border: 1rem solid #e5e5e5;
-  border-radius: 8rem;
-  margin-bottom: 16rem;
-  overflow: hidden;
   transition: all 0.3s ease;
+  margin-bottom: 16rem;
+  border-radius: 8rem;
+  background: #fff;
+  overflow: hidden;
   
   &:hover {
     border-color: #ccc;
@@ -65,16 +66,16 @@ const toggle = () => {
 }
 
 .faq-item__question {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20rem 24rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: left;
   transition: background-color 0.3s ease;
+  justify-content: space-between;
+  background: transparent;
+  padding: 20rem 24rem;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  border: none;
+  width: 100%;
   
   &:hover {
     background: #f9f9f9;
@@ -82,19 +83,19 @@ const toggle = () => {
 }
 
 .faq-item__question-text {
-  font-size: 18rem;
+  font-size: 21rem;
   font-weight: 600;
-  color: #333;
   padding-right: 16rem;
   line-height: 1.4;
+  color: v.$green;
 }
 
 .faq-item__icon {
-  flex-shrink: 0;
-  color: #666;
   transition: transform 0.3s ease;
-  display: flex;
   align-items: center;
+  color: v.$green;
+  flex-shrink: 0;
+  display: flex;
   
   &--open {
     transform: rotate(180deg);
@@ -111,9 +112,9 @@ const toggle = () => {
 }
 
 .faq-item__answer-inner {
-  padding: 0 24rem 24rem 24rem;
-  color: #666;
-  font-size: 16rem;
+  padding: 10rem 24rem 24rem 24rem;
+  color: v.$green;
+  font-size: 20rem;
   line-height: 1.6;
 }
 
@@ -133,19 +134,5 @@ const toggle = () => {
 .faq-content-leave-from {
   opacity: 1;
   max-height: 500rem;
-}
-
-@media (max-width: 768rem) {
-  .faq-item__question-text {
-    font-size: 16rem;
-  }
-  
-  .faq-item__answer-inner {
-    font-size: 14rem;
-  }
-  
-  .faq-item__question {
-    padding: 16rem 20rem;
-  }
 }
 </style>
