@@ -45,15 +45,14 @@
   font-weight: 900;
   font-size: 66rem;
   color: #b35c4b;
-  display: flex;
   flex-wrap: wrap;
+  display: flex;
+  bottom: -6rem;
   gap: 20rem;
 
-  bottom: -6rem;
-
-  // @include m.max(md) {
-  //   font-size: 50rem;
-  // }
+  @include m.max(md) {
+  bottom: 2rem;
+  }
 
   @include m.max(md) {
     justify-content: center;

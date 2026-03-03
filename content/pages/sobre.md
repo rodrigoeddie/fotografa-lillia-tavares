@@ -8,21 +8,24 @@ image:
   height: 935
 ---
 
-Sou fotógrafa e consultora de imagem, formada pela Etec de Artes e pelo Senac.
-Especialista em retratos femininos e reposicionamento de imagem, capturo imagens com intenção, presença e identidade.
+Sou fotógrafa e consultora de imagem, formada pela Etec de Artes e pelo Senac. Especialista em retratos femininos e reposicionamento de imagem, capturo fotografias com intenção, presença e identidade. Meu trabalho vai além da estética: ele comunica essência, posicionamento e verdade.
 
-Cresci cercada pela fotografia, em uma família que sempre fez questão de registrar e guardar cada momento vivido. Esse olhar atento para as memórias e para a beleza dos detalhes me acompanha desde sempre.
+Cresci cercada pela fotografia, em uma família que sempre fez questão de registrar e guardar cada momento vivido. Aprendi desde cedo que imagens não são apenas registros — são memórias que atravessam o tempo. Esse olhar atento para os detalhes, para a luz e para as emoções me acompanha em cada ensaio.
 
-Atuo profissionalmente na fotografia desde 2019.
+Atuo profissionalmente desde 2019, transformando a fotografia em uma ferramenta de fortalecimento da autoestima e construção de imagem. Em junho de 2024, inaugurei meu primeiro [estúdio na cidade de Mogi das Cruzes, SP](/estudio), criando um espaço pensado para acolher, direcionar e revelar o melhor de cada pessoa que passa por aqui.
 
-Em junho de 2024, inaugurei meu primeiro [estúdio na cidade de Mogi das Cruzes, SP](/estudio).
+Cada ensaio é uma experiência guiada. Eu direciono poses, expressões e postura de forma natural, respeitando a individualidade de cada cliente. Meu objetivo é que você se sinta confiante, confortável e verdadeiramente representada nas suas fotos.
 
-Transformo cada ensaio em uma experiência acolhedora, criando um ambiente onde meus clientes se sintam à vontade, confiantes e verdadeiramente representados.
+## Sobre o Estúdio
+Localizado no coração de Mogi das Cruzes, SP, o estúdio foi planejado para ser mais do que um espaço de fotografia — ele é parte da experiência. Com fácil acesso, ótimas opções de estacionamento e transporte, oferecemos conforto desde a chegada.
 
-## Áreas de atuação
-- **Fotografia Corporativa**: Fotos profissionais para Instagram, LinkedIn, sites institucionais e materiais corporativos
-- **Ensaios Intimistas**: Sessões delicadas que valorizam a autoestima e sensualidade
-- **Gestantes**: Registros emocionantes da maternidade
-- **Casais**: Fotos autênticas que capturam o amor e cumplicidade
-- **Casamentos no Civil**: Fotos autênticas que capturam o amor e cumplicidade
-- **Celebrações**: Aniversários e momentos especiais
+O ambiente conta com sete cenários modernos e sofisticados, cuidadosamente pensados para atender diferentes estilos e propostas: do corporativo elegante ao intimista delicado. Cada detalhe foi desenvolvido para valorizar luz, composição e identidade.
+
+## Depoimentos
+A experiência no estúdio é frequentemente descrita como acolhedora, profissional e transformadora.
+
+Clientes relatam se sentirem confiantes mesmo sendo tímidas, destacam o cuidado, a empatia e a direção durante o ensaio, além do ambiente criativo e bem planejado.
+
+É comum ouvirmos que o estúdio é “uma joia em Mogi das Cruzes”, elogiado pela organização, estética refinada e atenção aos detalhes. Muitos retornam para novos ensaios e indicam o trabalho com entusiasmo.
+
+Mais do que fotos bonitas, entregamos uma experiência completa — do primeiro contato à entrega final.

@@ -64,102 +64,28 @@ const pageData = computed(() => sobre.value as any);
   margin-bottom: v.$bigSpace;
   border: 1px solid v.$green;
   background: white;
-  gap: v.$bigSpace;
   display: grid;
 
   @include m.max(md) {
     grid-template-columns: 1fr;
-    gap: v.$bigSpace;
   }
 }
 
 .sobre-image {
+  @include m.max(md) {
+    height: 80dvw;
+  }
+
   .img-sobre {
+    position: absolute;
+    object-fit: cover;
     width: 100%;
-    height: auto;
-    border-radius: 8rem;
-    box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.1);
+    height: 100%;
   }
 }
 
 .sobre-text {
-  :deep(.markdown-content) {
-    h2 {
-      font-size: 28rem;
-      font-weight: 600;
-      color: #333;
-      margin-top: 32rem;
-      margin-bottom: 16rem;
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      @include m.max(sm) {
-        font-size: 24rem;
-      }
-    }
-
-    h3 {
-      font-size: 22rem;
-      font-weight: 600;
-      color: #333;
-      margin-top: 24rem;
-      margin-bottom: 12rem;
-
-      @include m.max(sm) {
-        font-size: 20rem;
-      }
-    }
-
-    p {
-      font-size: 16rem;
-      line-height: 1.8;
-      color: #666;
-      margin-bottom: 16rem;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 24rem;
-
-      li {
-        font-size: 16rem;
-        line-height: 1.8;
-        color: #666;
-        margin-bottom: 12rem;
-        padding-left: 24rem;
-        position: relative;
-
-        &:before {
-          content: "•";
-          color: v.$red;
-          font-weight: bold;
-          font-size: 20rem;
-          position: absolute;
-          left: 0;
-        }
-
-        strong {
-          color: #333;
-          font-weight: 600;
-        }
-      }
-    }
-
-    a {
-      color: v.$red;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-
-      &:hover {
-        color: v.$dark-red;
-        text-decoration: underline;
-      }
-    }
-  }
+  padding: v.$bigSpace;
 }
 
 .sobre-cta {
