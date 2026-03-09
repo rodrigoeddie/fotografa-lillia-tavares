@@ -223,6 +223,7 @@ export default defineNuxtConfig({
   },
 
   content: {
+    highlight: false,
     database: {
       type: 'd1',
       bindingName: 'DB'
@@ -290,7 +291,7 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2026-02-19',
+  compatibilityDate: '2026-03-09',
   
   experimental: {
     payloadExtraction: false,
