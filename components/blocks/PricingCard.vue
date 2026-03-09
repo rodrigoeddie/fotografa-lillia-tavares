@@ -84,6 +84,11 @@ const formattedPrice = computed(() => {
   display: flex;
   height: 100%;
   width: 100%;
+
+  @include m.max(md) {
+    margin-left: auto;
+    margin-right: auto;
+  }
   
   &:hover {
     border-color: #ccc;
@@ -93,7 +98,7 @@ const formattedPrice = computed(() => {
   &--recommended {
     border-width: 3px;
     z-index: 1;
-    box-shadow: 0 4rem 16rem rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4rem 16rem rgba(52, 75, 66, 0.12);
     
     &:hover {
       border-color: #000;
@@ -125,6 +130,7 @@ const formattedPrice = computed(() => {
   font-size: 24rem;
   font-weight: 600;
   color: #333;
+  padding-top: 15rem;
   margin-bottom: 8rem;
 }
 
@@ -136,8 +142,8 @@ const formattedPrice = computed(() => {
 
 .pricing-card__price {
   text-align: center;
-  margin-bottom: 32rem;
-  padding-bottom: 32rem;
+  margin-bottom: v.$space;
+  padding-bottom: v.$space;
   border-bottom: 1rem solid #e5e5e5;
 }
 
@@ -156,9 +162,9 @@ const formattedPrice = computed(() => {
 }
 
 .pricing-card__features {
+  margin-bottom: 5rem;
   list-style: none;
   padding: 0;
-  margin: 0 0 32rem 0;
   flex: 1;
 }
 
@@ -166,8 +172,8 @@ const formattedPrice = computed(() => {
   display: flex;
   align-items: flex-start;
   gap: 12rem;
-  padding: 12rem 0;
-  font-size: 15rem;
+  padding: 8rem 0;
+  font-size: 18rem;
   color: #555;
   line-height: 1.5;
 }
@@ -194,11 +200,12 @@ const formattedPrice = computed(() => {
   display: block;
   width: 100%;
   padding: 16rem;
+  font-size: 19rem;
   text-align: center;
   text-decoration: none;
   background: #fff;
   color: #333;
-  border: 2rem solid #333;
+  border: 1px solid v.$green;
   border-radius: 4rem;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -209,7 +216,7 @@ const formattedPrice = computed(() => {
   }
   
   &--primary {
-    background: #333;
+    background: v.$green;
     color: #fff;
     
     &:hover {

@@ -1,31 +1,57 @@
+<script setup>
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true
+  }
+});
+
+const titleParts = computed(() => {
+  if (!props.data?.title) return { box: '', big: '' };
+  const words = props.data.title.split(' ');
+  const big = words.pop();
+  const box = words.join(' ');
+  return { box, big };
+});
+</script>
+
 <template>
   <div v-if="data && data.packages" class="pricing-page">
     <div class="container">
       <header class="pricing-header">
-        <NuxtLink to="/precos-ensaios-fotograficos" class="pricing-header__back">← Voltar</NuxtLink>
-        <h1 class="pricing-header__title">{{ data.title }}</h1>
-        <p class="pricing-header__description">{{ data.description }}</p>
+        <h1 class="big-title red centered">
+          <span class="box">Pacote do {{ titleParts.box }}</span>
+          <span class="big">{{ titleParts.big }}</span>
+        </h1>
+
+        <p class="description">{{ data.description }}</p>
       </header>
 
       <div class="pricing-grid">
         <ClientOnly>
           <swiper-container
             class="pricing-swiper"
-            :slides-per-view="2"
+            :slides-per-view="1.40"
             :space-between="8"
-            :slides-per-group="2"
             :breakpoints="{
-              900: {
-                slidesPerView: 3,
+              500: {
+                slidesPerView: 2.40,
+                spaceBetween: 16,
+                // slidesPerGroup: 2,
+              },
+              750: {
+                slidesPerView: 3.40,
+                spaceBetween: 16,
               },
               1024: {
                 slidesPerView: 4,
+                spaceBetween: 16,
               }
             }"
             :pagination="{
               clickable: true,
             }"
-            :navigation="true">
+            :navigation="false">
             <swiper-slide
               v-for="(pkg, index) in data.packages"
               :key="index">
@@ -69,74 +95,25 @@
   </div>
 </template>
 
-<script setup>
-const props = defineProps({
-  data: {
-    type: Object,
-    required: true
-  }
-});
-</script>
-
 <style scoped lang="scss">
+:deep(swiper-container) {
+  --swiper-pagination-bottom: 0rem;
+}
+
 .pricing-header {
   text-align: center;
-  max-width: 1200rem;
-  margin-left: auto;
-  margin-right: auto;
-  
-  &__back {
-    display: inline-block;
-    color: #666;
-    text-decoration: none;
-    margin-bottom: 24rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    
-    &:hover {
-      color: #333;
-    }
-  }
-  
-  &__description {
-    font-size: 18rem;
-    color: #666;
-    line-height: 1.6;
-  }
 }
 
 .pricing-grid {
-  margin-bottom: 64rem;
+  padding-top: v.$bigSpace;
+  margin-bottom: v.$bigSpace;
   position: relative;
   
   .pricing-swiper {
-    width: 100%;
-    
     swiper-slide {
-      margin-bottom: 25rem;
-      height: auto;
+      margin-bottom: 60rem;
       display: flex;
-    }
-  }
-
-  // Estilos para os botões de navegação
-  :deep(.swiper-button-next),
-  :deep(.swiper-button-prev) {
-    color: #333;
-    width: 40rem;
-    height: 40rem;
-    
-    &::after {
-      font-size: 20rem;
-    }
-  }
-  
-  :deep(.swiper-pagination-bullet) {
-    background: #333;
-    opacity: 0.3;
-    
-    &.swiper-pagination-bullet-active {
-      opacity: 1;
+      height: auto;
     }
   }
 }

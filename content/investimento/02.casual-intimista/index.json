@@ -6,7 +6,6 @@
   "packages": [
     {
       "title": "Despertar",
-      "subtitle": "Primeiros passos",
       "price": 450,
       "features": [
         "30 minutos de sessão",
@@ -20,7 +19,6 @@
     },
     {
       "title": "Confiança",
-      "subtitle": "Descubra-se",
       "price": 700,
       "features": [
         "45 minutos de sessão",
@@ -35,7 +33,6 @@
     },
     {
       "title": "Empoderamento",
-      "subtitle": "Celebre você",
       "price": 1100,
       "features": [
         "1 hora de sessão",
@@ -52,7 +49,6 @@
     },
     {
       "title": "Goddess",
-      "subtitle": "Experiência transformadora",
       "price": 2200,
       "features": [
         "2 horas de sessão",
