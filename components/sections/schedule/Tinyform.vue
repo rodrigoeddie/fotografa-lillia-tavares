@@ -100,7 +100,7 @@ const enviar = async () => {
     class="form"
     @submit.prevent="enviar">
       <div class="field-text">
-        <h1 class="big-title red">
+        <h1 class="big-title green">
           <span class="box"><span>Gostou?</span></span>
           <span class="big">Agende o seu:</span>
         </h1>
@@ -219,7 +219,7 @@ const enviar = async () => {
     border-radius: 3.40282e+38px;
   }
   [aria-selected] {
-      background-color: v.$dark-red;
+      background-color: v.$dark-green;
       color: white;
   }
   .text-\(--ui-primary\),

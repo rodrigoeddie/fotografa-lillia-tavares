@@ -269,7 +269,7 @@ function toggleMenu() {
 
         .link {
             padding-right: 20rem;
-            color: white;
+            color: v.$green;
             display: flex;
 
             @include m.max(sm) {
@@ -280,7 +280,7 @@ function toggleMenu() {
 
             &.router-link-active {
                 &::before {
-                    background: white;
+                    background: v.$green;
                 }
             }
 

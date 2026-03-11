@@ -244,6 +244,11 @@ nav[aria-label="breadcrumb"] {
   .title {
     font-family: v.$openExtra;
     padding-bottom: 1px;
+    color: var(--color-highlight, v.$dark-green);
+  }
+
+  .description {
+    color: var(--color-highlight, v.$dark-green);
   }
 
   .text {

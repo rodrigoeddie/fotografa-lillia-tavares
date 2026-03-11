@@ -17,7 +17,7 @@ const pageData = computed(() => sobre.value as any);
   <div v-if="pageData" class="sobre-page">
     <div class="container">
       <header class="sobre-header">
-        <h1 class="big-title red centered">
+        <h1 class="big-title green centered">
           <span class="box">
             Sobre a Fotógrafa
           </span>

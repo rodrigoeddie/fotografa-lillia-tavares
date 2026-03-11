@@ -42,7 +42,7 @@ const props = defineProps({
 
 .title {
   padding-bottom: 15rem;
-  color: v.$red;
+  color: v.$green;
 }
 
 .faq-category {

@@ -15,7 +15,7 @@ if (!faqData.value) {
   <div class="faq-page">
     <div class="container">
       <header class="faq-header">
-        <h1 class="big-title red centered">
+        <h1 class="big-title green centered">
           <span class="box">
             Perguntas
           </span>

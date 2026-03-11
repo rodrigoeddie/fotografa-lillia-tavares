@@ -128,8 +128,8 @@ const categories = await Promise.all(
   background: white;
   padding: 10rem 20rem;
   border-radius: 5rem;
-  border: 1px solid v.$red;
-  color: v.$red;
+  border: 1px solid v.$green;
+  color: v.$green;
   transition: background-color 0.2s, color 0.2s;
 
   @include m.max(sm) {
@@ -141,7 +141,7 @@ const categories = await Promise.all(
   }
 
   &.router-link-active {
-    background-color: v.$red;
+    background-color: v.$green;
     color: white;
   }
 
