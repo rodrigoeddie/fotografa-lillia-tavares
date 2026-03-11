@@ -35,7 +35,7 @@
 <template>
   <div class="wrapper">
     <div class="wrap-title">
-        <h1 class="big-title red centered">
+        <h1 class="big-title green centered">
             <span class="box">
                 <span>Fundo Infinito</span>
             </span>

@@ -7,7 +7,7 @@
       to="/estudio/cenarios"
       class="wrapper">
         <div class="wrap-title">
-            <h1 class="big-title red centered">
+            <h1 class="big-title green centered">
                 <span class="box">
                     <span>Conheça os</span>
                 </span>
@@ -32,19 +32,19 @@
 }
 
 .wrapper {
-    background-color: #360e06;
+    background: rgba(72, 83, 73, 0.2);
     padding-bottom: 60rem;
     padding-top: 60rem;
     display: block;
 }
 
 .wrap-title {
-    background-color: #360e06;
+    background: white;
     justify-content: center;
     display: inline-flex;
     align-items: center;
     padding-bottom: 5rem;
-    padding-top: 5rem;
+    padding-top: 10rem;
     z-index: 2;
 
     @include m.max(sm) {

@@ -169,7 +169,7 @@
             </nav>
 
             <div class="wrap-title">
-                <h2 class="big-title red centered">
+                <h2 class="big-title green centered">
                     <span class="box">
                         <span>Conheça os</span>
                     </span>
@@ -232,8 +232,9 @@
 
 <style scoped lang="scss">
 nav[aria-label=breadcrumb] {
-    top: 115% !important;
+    top: 100% !important;
     position: absolute;
+    color: v.$dark-green;
     left: 35rem;
 
     @include m.max(xs) {
@@ -346,7 +347,7 @@ nav[aria-label=breadcrumb] {
             background: white;
             margin-top: 10rem;
             display: block;
-            color: v.$red;
+            color: v.$green;
             width: 100%;
             top: 102%;
             right: 0;
@@ -408,6 +409,7 @@ nav[aria-label=breadcrumb] {
     }
 
     h3 {
+        color: v.$green;
         text-transform: uppercase;
         font-family: v.$lato;
         font-size: 30rem;

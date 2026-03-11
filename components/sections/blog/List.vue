@@ -14,7 +14,9 @@ const formatDate = (date: Date) => {
 </script>
 
 <template>
-  <h1 class="big-title red centered">
+  <h1
+    class="big-title green centered"
+    data-ani-type="fade">
     <span class="box">
       Dicas e Inspirações
     </span>
@@ -25,7 +27,13 @@ const formatDate = (date: Date) => {
 
   <div class="container">
     <div class="wrap-posts">
-      <article v-for="post in posts" :key="post.id" class="post-item">
+      <article
+        v-for="post in posts"
+        :key="post.id"
+        class="post-item"
+        data-ani-type="polaroid"
+        data-ani-batch="wrap-posts"
+        data-ani-stagger="0.07">
         <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
           <nuxt-img
             v-if="post.image"
@@ -47,11 +55,16 @@ const formatDate = (date: Date) => {
             {{ post.description }}
           </div>
           <div class="post-meta">
-            <Icon
-              name="icons:calendar-regular"
-              class="icon icon-calendar"/>
-            <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
-            <NuxtLink :to="'/blog/' + post.category.slug" class="category-link">
+            <span
+              class="category-link">
+              <Icon
+                name="icons:calendar-regular"
+                class="icon icon-calendar"/>
+              <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
+            </span>
+            <NuxtLink
+              :to="'/blog/' + post.category.slug"
+              class="category-link">
               <Icon
                 name="icons:category"
                 class="icon icon-category"/>
@@ -68,32 +81,45 @@ const formatDate = (date: Date) => {
 .wrap-posts {
   justify-content: space-between;
   padding-bottom: v.$bigSpace;
-  gap: v.$space;
   flex-wrap: wrap;
   display: flex;
+  gap: 15rem 0;
 
-  @include m.max(sm) {
+  @include m.max(xs) {
     flex-direction: column;
   }
 }
 
 .post-item {
-  width: calc(33% - v.$space/2);
+  width: calc(25% - v.$space/2);
   border: 1px solid v.$green;
   flex-direction: column;
   background: white;
   display: flex;
 
-  @include m.max(sm) {
-    gap: 15rem 0;
+  @include m.max(lg) {
+    width: calc(33% - v.$space/2);
+  }
+
+  @include m.max(md) {
+    width: calc(50% - v.$space/2);
+  }
+
+  @include m.max(xs) {
     width: 100%;
   }
 
   .text {
     padding: v.$space;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .subtitle {
+    color: v.$green;
+
     @include m.max(sm) {
       min-height: auto;
     }
@@ -126,11 +152,11 @@ const formatDate = (date: Date) => {
   }
 
   .post-meta {
+    justify-content: space-between;
     align-items: center;
     font-size: 18px;
     color: #666;
     display: flex;
-    gap: 10px;
 
     @include m.max(sm) {
       margin-bottom: 0;
@@ -144,10 +170,9 @@ const formatDate = (date: Date) => {
     }
 
     .category-link {
-      padding-left: 20rem;
       align-items: center;
       display: flex;
-      gap: 10px;
+      gap: 5px;
 
       .icon {
         font-size: 22px;

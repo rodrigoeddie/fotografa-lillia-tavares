@@ -48,7 +48,7 @@
             padding: 3rem 7rem;
 
             // @media (prefers-color-scheme: dark) {
-            //     background: v.$dark-red;
+            //     background: v.$dark-green;
             // }
 
             span {
@@ -56,7 +56,7 @@
             }
 
             &:hover {
-                background-color: v.$red;
+                background-color: v.$green;
                 color: white;
             }
         }

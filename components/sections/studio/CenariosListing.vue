@@ -173,7 +173,7 @@ const imgSrc = (imageId: string) => configPublic.cloudflareURI + imageId + '/pub
       background: white;
       margin-top: 10rem;
       display: block;
-      color: v.$red;
+      color: v.$green;
       width: 100%;
       top: 102%;
       right: 0;
