@@ -12,8 +12,20 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  numParcelas: {
+    type: Number,
+    required: true
+  },
+  priceParcelas: {
+    type: Number,
+    required: true
+  },
   features: {
     type: Array,
+    required: true
+  },
+  type: {
+    type: String,
     required: true
   },
   isRecommended: {
@@ -24,6 +36,13 @@ const props = defineProps({
 
 const formattedPrice = computed(() => {
   return props.price.toLocaleString('pt-BR', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+});
+
+const formattedXPrice = computed(() => {
+  return props.priceParcelas.toLocaleString('pt-BR', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   });
@@ -41,9 +60,15 @@ const formattedPrice = computed(() => {
       <p v-if="subtitle" class="pricing-card__subtitle">{{ subtitle }}</p>
     </div>
     
-    <div class="pricing-card__price">
+    <div class="pricing-card__price wrap-pix">
       <span class="pricing-card__currency">R$</span>
       <span class="pricing-card__amount">{{ formattedPrice }}</span>
+      <span class="pricing-card__pix">no PIX</span>
+    </div>
+    <div class="pricing-card__price wrap-credit">
+      <span class="or">ou</span>
+      <span class="pricing-card__amountCredit">{{ numParcelas }}x <span>de</span> <span class="pricing-card__currency">R$</span>{{ formattedXPrice }}</span>
+      <span class="pricing-card__creditLabel">no Cartão de crédito</span>
     </div>
     
     <ul class="pricing-card__features">
@@ -59,7 +84,7 @@ const formattedPrice = computed(() => {
     
     <div class="pricing-card__cta">
       <a 
-        href="https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre o pacote {{ title }}"
+        :href="`https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre o pacote ${type} - ${title}.`"
         target="_blank"
         rel="noopener noreferrer"
         class="pricing-card__button"
@@ -145,6 +170,22 @@ const formattedPrice = computed(() => {
   margin-bottom: v.$space;
   padding-bottom: v.$space;
   border-bottom: 1rem solid #e5e5e5;
+
+  // &.wrap-pix {
+  //   margin-bottom: 0;
+  // }
+}
+
+.or {
+  transform: translateX(-50%);
+  padding: 4rem 12rem;
+  position: absolute;
+  background: #fff;
+  font-size: 14rem;
+  font-weight: 600;
+  color: #333;
+  top: -33rem;
+  left: 50%;
 }
 
 .pricing-card__currency {
@@ -154,11 +195,34 @@ const formattedPrice = computed(() => {
   vertical-align: top;
 }
 
+.pricing-card__amountCredit,
 .pricing-card__amount {
   font-size: 40rem;
   font-weight: 700;
   color: #333;
   line-height: 1;
+
+  span {
+    font-weight: normal;
+    font-size: 20rem;
+  }
+}
+
+.pricing-card__amountCredit {
+  font-size: 25rem;
+}
+
+.pricing-card__creditLabel,
+.pricing-card__pix {
+  font-size: 25rem;
+  font-weight: normal;
+  padding-left: 5rem;
+  color: #333;
+  line-height: 1;
+}
+
+.pricing-card__creditLabel {
+  font-size: 20rem;
 }
 
 .pricing-card__features {

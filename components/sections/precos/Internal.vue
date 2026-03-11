@@ -60,6 +60,9 @@ const titleParts = computed(() => {
                 :subtitle="pkg.subtitle"
                 :price="pkg.price"
                 :features="pkg.features"
+                :numParcelas="pkg.numParcelas"
+                :priceParcelas="pkg.priceParcelas"
+                :type="data.title"
                 :is-recommended="pkg.isRecommended"
               />
             </swiper-slide>
@@ -134,7 +137,7 @@ const titleParts = computed(() => {
   }
   
   &__list {
-    max-width: 600rem;
+    max-width: 750rem;
     margin: 0 auto;
     list-style: none;
     padding: 0;

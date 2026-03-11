@@ -19,20 +19,16 @@
               class="logo"
               aria-label="Voltar para a página inicial">
                 <nuxt-img
-                  :src='configPublic.cloudflareURI + "054a1bce-78a3-4e53-7afa-a30d92e86500/logo"'
-                  alt="Logo Lillia Tavares Fotografia"
-                  width="284"
-                  height="121"
-                  class="logo-black"
-                  loading="lazy"/>
-
-                <nuxt-img
-                  :src='configPublic.cloudflareURI + "8a01bb94-bd4f-4e5b-aecf-b260b8726e00/logo"'
-                  alt="Logo Lillia Tavares Fotografia"
-                  width="284"
-                  height="121"
-                  class="logo-white"
-                  loading="lazy"/>
+                    provider="cloudflare"
+                    :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+                    alt="Logotipo Lillia Tavares Fotografia"
+                    width="390"
+                    height="107"
+                    class="logo-black"
+                    format="webp"
+                    fetchpriority="high"
+                    preload
+                    placeholder />  
                 <span>Fotógrafa Lillia Tavares</span>
             </NuxtLink>
 
@@ -90,20 +86,6 @@
 
             img {
                 height: auto;
-            }
-
-            .logo-black {
-                // @media (prefers-color-scheme: dark) {
-                //     display: none;
-                // }
-            }
-
-            .logo-white {
-                display: none;
-
-                // @media (prefers-color-scheme: dark) {
-                //     display: block;
-                // }
             }
 
             @include m.max(md) {

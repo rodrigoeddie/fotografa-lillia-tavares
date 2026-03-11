@@ -115,10 +115,10 @@ onUnmounted(() => {
           aria-label="Voltar para a página inicial">
           <nuxt-img
             provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/054a1bce-78a3-4e53-7afa-a30d92e86500/public"'
-            alt="Logo Lillia Tavares Fotografia"
-            width="385"
-            height="164"
+            :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+            alt="Logotipo Lillia Tavares Fotografia"
+            width="390"
+            height="107"
             class="logo-black"
             format="webp"
             fetchpriority="high"
@@ -204,10 +204,11 @@ onUnmounted(() => {
   .logo {
     transition: width .3s;
     margin-top: -35rem;
-    width: 270rem;
+    width: 390rem;
 
     @include m.max(md) {
-      width: 140px;
+      width: 215px;
+      margin-top: -20rem;
     }
 
     img {
