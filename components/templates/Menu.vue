@@ -138,7 +138,7 @@ function toggleMenu() {
 
         .link {
             transition: left .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            color: black;
+            color: v.$green;
 
             @include m.min(xs) {
                 display: inline-flex;
@@ -185,7 +185,7 @@ function toggleMenu() {
                 // pointer-events: none;
 
                 &::before {
-                    background: black;
+                    background: v.$green;
                 }
             }
 

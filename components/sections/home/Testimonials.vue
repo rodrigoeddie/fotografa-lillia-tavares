@@ -53,7 +53,7 @@ const {
 
 <style scoped lang="scss">
     .title {
-        color: v.$dark-red;
+        color: v.$green;
         display: block;
         text-align: center;
     }

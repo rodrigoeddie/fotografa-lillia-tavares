@@ -47,7 +47,7 @@ const props = defineProps({
         </div>
 
         <div v-if="fromList" class="wrap-cta">
-            <NuxtLink :to="path" class="name btn btn-red">Acesse o ensaio</NuxtLink>
+            <NuxtLink :to="path" class="name btn btn-green">Acesse o ensaio</NuxtLink>
         </div>
     </div>
 </template>

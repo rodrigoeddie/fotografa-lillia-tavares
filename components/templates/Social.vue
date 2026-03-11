@@ -61,7 +61,7 @@
         transition: background .2s, color .2s;
         align-items: center;
         font-family: v.$open;
-        color: v.$dark-red;
+        color: v.$green;
         font-weight: 600;
         font-size: 21rem;
         padding: 0 20rem;
@@ -96,13 +96,13 @@
         svg {
             height: 30rem;
             width: 30rem;
-            fill: v.$red;
+            fill: v.$green;
         }
     }
 }
 
 .icon-whatsapp * {
-    stroke: v.$dark-red !important;
+    stroke: v.$dark-green !important;
 
     // @media (prefers-color-scheme: dark) {
     //     stroke: white !important;

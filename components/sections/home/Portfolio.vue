@@ -66,7 +66,7 @@ const formatDate = (dateString: string) => {
       :to="workPage"
       :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
       data-ani-type="fade">
-      <h1 class="big-title red centered">
+      <h1 class="big-title green centered">
         <span class="box">
           <span v-if="!currentCategory">Explore meus</span>
           <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
@@ -146,7 +146,7 @@ const formatDate = (dateString: string) => {
 
           <NuxtLink
             :to="item.path"
-            class="btn btn-red">
+            class="btn btn-green">
               <span>Acesse esse ensaio</span>
           </NuxtLink>
               </div>
@@ -334,10 +334,8 @@ const formatDate = (dateString: string) => {
     }
 
     &.lenght-items-4 {
-      gap: 9rem;
-
       .thumb {
-        width: calc(25% - 7rem);
+        width: calc(25% - 14rem);
         
         @include m.max(sm) {
           width: 48%;

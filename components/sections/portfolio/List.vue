@@ -217,7 +217,7 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container" v-if="ensaiosData.length > 0">
-    <h1 class="big-title red centered">
+    <h1 class="big-title green centered">
       <span class="box">
       <span v-if="props.category">Trabalhos</span>
       <span v-else-if="currentCategory">Ensaios fotográficos da categoria</span>
@@ -319,7 +319,7 @@ const formatDate = (dateString: string) => {
 
         <template v-if="index == 2 && props.fromHome">
           <NuxtLink
-            class="link-see-more big-title red big-title-home"
+            class="link-see-more big-title green big-title-home"
             :to="workPage">
                 <span class="big">veja todos os Trabalhos</span>
                 <span class="box">
@@ -349,7 +349,7 @@ const formatDate = (dateString: string) => {
 
       <template v-if="props.category">
         <NuxtLink
-          class="link-see-more big-title red big-title-home"
+          class="link-see-more big-title green big-title-home"
           :to="'/ensaio-fotografico/' + props.category">
               <span class="big">veja todos os Trabalhos</span>
               <span class="box">
@@ -476,8 +476,9 @@ const formatDate = (dateString: string) => {
     }
 
     .thumb {
-      background: white;
+      box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
       border: 1px solid v.$green;
+      background: white;
 
       .wrap-info {
         padding: v.$space;

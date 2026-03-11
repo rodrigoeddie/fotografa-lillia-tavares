@@ -38,20 +38,20 @@
 }
 
 .big-title {
+  padding-top: calc(v.$space * 2);
   text-transform: uppercase;
   font-family: v.$lato;
   align-items: center;
-  padding-top: calc(v.$space * 2);
   font-weight: 900;
   font-size: 66rem;
-  color: #b35c4b;
+  color: v.$green;
   flex-wrap: wrap;
   display: flex;
-  bottom: -6rem;
+  bottom: 2rem;
   gap: 20rem;
 
   @include m.max(md) {
-  bottom: 2rem;
+    bottom: 2rem;
   }
 
   @include m.max(md) {
@@ -60,8 +60,8 @@
   }
 
   .box {
-    padding: 9rem 18rem;
     text-transform: none;
+    padding: 9rem 18rem;
     align-items: center;
     font-weight: bold;
     font-size: 27rem;
@@ -267,11 +267,11 @@
   height: 50rem;
   display: flex;
   width: 50rem;
-  color: v.$red;
+  color: v.$green;
   z-index: 3;
 
   svg {
-    fill: v.$dark-red
+    fill: v.$dark-green
   }
 }
 

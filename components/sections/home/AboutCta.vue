@@ -103,6 +103,7 @@ const description = computed(() => {
   @use 'sass:color';
 
   .wrap-about {
+    box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
     background: white;
 
     @include m.max(xs) {
@@ -111,6 +112,7 @@ const description = computed(() => {
 
     .about-text {
       padding: v.$bigSpace;
+      color: v.$green;
 
       @include m.max(sm) {
         padding: 30rem;
@@ -126,10 +128,9 @@ const description = computed(() => {
     }
 
     .about-ctas {
-      // padding: 20rem v.$space;
-      background: v.$red;
-      display: flex;
       justify-content: space-around;
+      background: #f7f4e8;
+      display: flex;
 
       @include m.max(sm) {
         flex-direction: column;
@@ -140,7 +141,7 @@ const description = computed(() => {
         transition: color 0.2s, background-color 0.2s;
         padding: 15rem;
         align-items: center;
-        color: #fcbbae;
+        color: v.$green;
         font-size: 20rem;
         display: flex;
         gap: 15rem;
@@ -157,11 +158,6 @@ const description = computed(() => {
           @include m.max(xs) {
             border-bottom: #b35c4b 1px solid;
           }
-          
-          // @include m.min(xs) {
-          //   border-left: #b35c4b 1px solid;
-          //   border-right: #b35c4b 1px solid;
-          // }
         }
 
         &.link-agende {
@@ -171,7 +167,7 @@ const description = computed(() => {
         }
 
         &:hover {
-          background-color: v.$dark-red;
+          background-color: v.$green;
           color: white;
         }
       }

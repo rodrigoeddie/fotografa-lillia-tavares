@@ -102,7 +102,7 @@
 
     footer {
         justify-content: center;
-        background: #832b18;
+        background: v.$green;
         align-items: center;
         text-align: center;
         flex-wrap: wrap;
@@ -121,7 +121,7 @@
         text-align: center;
         font-size: 16px;
         padding: 20px;
-        color: v.$red;
+        color: v.$dark-green;
         width: 100%;
 
         // @media (prefers-color-scheme: dark) {

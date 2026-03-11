@@ -31,7 +31,7 @@
 
         <NuxtLink
           :to="currentPath === '/estudio' ? '/agende-seu-ensaio' : '/estudio'"
-          class="btn btn-red">
+          class="btn btn-green">
             <span>Sobre o estúdio</span>
         </NuxtLink>
       </div>
