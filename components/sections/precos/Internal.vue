@@ -19,7 +19,7 @@ const titleParts = computed(() => {
   <div v-if="data && data.packages" class="pricing-page">
     <div class="container">
       <header class="pricing-header">
-        <h1 class="big-title red centered">
+        <h1 class="big-title green centered">
           <span class="box">Pacote do {{ titleParts.box }}</span>
           <span class="big">{{ titleParts.big }}</span>
         </h1>

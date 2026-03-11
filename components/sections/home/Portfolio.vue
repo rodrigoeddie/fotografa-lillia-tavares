@@ -163,8 +163,8 @@ const formatDate = (dateString: string) => {
       --swiper-navigation-size: 30rem !important;
   }
 
-  .btn.btn-red {
-    font-size: 12px;
+  .btn.btn-green {
+    font-size: 11px;
   }
 
   .highlight-new {
@@ -254,7 +254,7 @@ const formatDate = (dateString: string) => {
         padding: v.$space;
 
         .wrap-text {
-          padding-bottom: 45rem;
+          padding-bottom: 30rem;
         }
 
         .title {

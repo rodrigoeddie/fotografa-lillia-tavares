@@ -79,12 +79,12 @@ const description = computed(() => {
         p {
           padding-top: 7rem !important;
 
-          &:nth-child(2),
-          &:nth-child(3) {
-            @include m.max(xs) {
-              display: none;
-            }
-          }
+          // &:nth-child(2),
+          // &:nth-child(3) {
+          //   @include m.max(xs) {
+          //     display: none;
+          //   }
+          // }
 
           strong,
           b {
@@ -147,7 +147,7 @@ const description = computed(() => {
         gap: 15rem;
         
         @include m.max(xs) {
-          padding: 10rem 0;
+          padding: 10rem 15rem;
           font-size: 14px;
           margin: 0 auto;
           width: 100%;
@@ -156,7 +156,7 @@ const description = computed(() => {
 
         &:nth-child(2) {
           @include m.max(xs) {
-            border-bottom: #b35c4b 1px solid;
+            border-bottom: transparent;
           }
         }
 

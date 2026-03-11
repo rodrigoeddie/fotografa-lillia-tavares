@@ -21,7 +21,7 @@ const categories = computed(() => {
   <div class="investment-page">
     <div class="container">
       <header class="investment-header">
-        <h1 class="big-title red centered">
+        <h1 class="big-title green centered">
           <span class="box">
             Pacotes dos 
           </span>
