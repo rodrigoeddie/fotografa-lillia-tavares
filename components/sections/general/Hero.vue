@@ -42,7 +42,9 @@ const formatDate = (dateString: string) => {
 </script>
 
 <template>
-  <div class="wrap-hero">
+  <div
+    class="wrap-hero"
+    data-ani-type="fade-up">
     <div class="text">
       <nav aria-label="breadcrumb">
         <ul class="breadcrumb">

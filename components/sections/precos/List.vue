@@ -20,7 +20,9 @@ const categories = computed(() => {
 <template>
   <div class="investment-page">
     <div class="container">
-      <header class="investment-header">
+      <header
+        class="investment-header"
+        data-ani-type="fade-up">
         <h1 class="big-title green centered">
           <span class="box">
             Pacotes dos 
@@ -41,15 +43,20 @@ const categories = computed(() => {
           :key="category.slug"
           :to="`/precos-ensaios-fotograficos/${category.slug}`"
           class="category-card"
-        >
-          <div class="category-card__icon">{{ category.icon }}</div>
+          data-ani-type="polaroid"
+          data-ani-batch="investment-categories"
+          data-ani-stagger="0.07">
+          <div class="category-card__icon" v-html="category.icon"></div>
           <h2 class="category-card__title">{{ category.name }}</h2>
           <p class="category-card__description">{{ category.description }}</p>
-          <span class="category-card__link">Ver Pacotes →</span>
+          <span class="btn btn-green">Ver Pacotes</span>
         </NuxtLink>
       </div>
 
-      <section class="investment-info">
+      <section
+        class="investment-info"
+        data-ani-type="fade-up"
+        data-ani-delay="0.2">
         <h2 class="investment-info__title">Por que investir em fotografia profissional?</h2>
         <div class="investment-info__grid">
           <div class="info-item">
@@ -73,7 +80,10 @@ const categories = computed(() => {
         </div>
       </section>
 
-      <section class="investment-cta">
+      <section
+        class="investment-cta"
+        data-ani-type="fade-up"
+        data-ani-delay="0.4">
         <h2>Ainda tem dúvidas?</h2>
         <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
         <a
@@ -90,17 +100,31 @@ const categories = computed(() => {
 </template>
 
 <style scoped lang="scss">
+.category-card__icon {
+  margin-bottom: 16rem;
+  width: 48rem;
+  height: 48rem;
+  color: v.$green;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: v.$green;
+  }
+}
+
 .investment-header {
   text-align: center;
   margin-bottom: v.$space;
   max-width: 1200rem;
   margin-left: auto;
   margin-right: auto;
+  color: v.$green;
 
   &__description {
     padding-top: 15rem;
     font-size: 18rem;
-    color: #666;
+    color: v.$green;
     line-height: 1.6;
   }
 }
@@ -142,19 +166,19 @@ const categories = computed(() => {
   &__title {
     font-size: 24rem;
     font-weight: 600;
-    color: #333;
+    color: v.$green;
     margin-bottom: 12rem;
   }
 
   &__description {
-    color: #666;
+    color: v.$green;
     line-height: 1.5;
     margin-bottom: 24rem;
     flex: 1;
   }
 
   &__link {
-    color: #333;
+    color: v.$green;
     font-weight: 600;
     text-decoration: underline;
   }
@@ -170,7 +194,7 @@ const categories = computed(() => {
     text-align: center;
     font-size: 32rem;
     font-weight: 600;
-    color: #333;
+    color: v.$green;
     margin-bottom: 32rem;
   }
 
@@ -185,12 +209,12 @@ const categories = computed(() => {
   &__title {
     font-size: 20rem;
     font-weight: 600;
-    color: #333;
+    color: v.$green;
     margin-bottom: 12rem;
   }
 
   &__text {
-    color: #666;
+    color: v.$green;
     line-height: 1.6;
   }
 }
@@ -202,20 +226,20 @@ const categories = computed(() => {
   h2 {
     font-size: 32rem;
     font-weight: 600;
-    color: #333;
+    color: v.$green;
     margin-bottom: 16rem;
   }
 
   p {
     font-size: 18rem;
-    color: #666;
+    color: v.$green;
     margin-bottom: 32rem;
   }
 
   &__button {
     display: inline-block;
     padding: 16rem 40rem;
-    background: #333;
+    background: v.$green;
     color: #fff;
     text-decoration: none;
     border-radius: 4rem;

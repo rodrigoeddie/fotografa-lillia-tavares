@@ -217,22 +217,30 @@ const formatDate = (dateString: string) => {
 
 <template>
   <div class="container" v-if="ensaiosData.length > 0">
-    <h1 class="big-title green centered">
+    <h1
+      class="big-title green centered"
+      data-ani-type="fade">
       <span class="box">
-      <span v-if="props.category">Trabalhos</span>
-      <span v-else-if="currentCategory">Ensaios fotográficos da categoria</span>
-      <span v-else>Explore meus</span>
+        <span v-if="props.category">Trabalhos</span>
+        <span v-else-if="currentCategory">Ensaios fotográficos da categoria</span>
+        <span v-else>Explore meus</span>
       </span>
       <span class="big" v-if="props.category">com esse tema</span>
       <span class="big" v-else-if="currentCategory">{{ currentCategory.title }}</span>
       <span class="big" v-else>Últimos trabalhos</span>
     </h1>
 
-    <SectionsPortfolioCategories />
+    <SectionsPortfolioCategories data-ani-type="fade" />
 
     <div class="wrap-portfolio">
-      <template v-for="(item, index) in ensaiosData" :key="item.path">
-        <div :class="'thumb thumb-' + classes[index % classes.length]?.class">
+      <template
+        v-for="(item, index) in ensaiosData"
+        :key="item.path">
+        <div
+          :class="'thumb thumb-' + classes[index % classes.length]?.class"
+          data-ani-type="polaroid"
+          data-ani-batch="wrap-portfolio"
+          data-ani-stagger="0.07">
           <div :class="{'inner-thumb': true, 'wrap-wide': classes[index % classes.length]?.class === 'wide side-by-side reverse'}">
             <div class="slider">
               <ClientOnly>
@@ -320,7 +328,10 @@ const formatDate = (dateString: string) => {
         <template v-if="index == 2 && props.fromHome">
           <NuxtLink
             class="link-see-more big-title green big-title-home"
-            :to="workPage">
+            :to="workPage"
+            data-ani-type="polaroid"
+            data-ani-batch="wrap-portfolio"
+            data-ani-stagger="0.07">
                 <span class="big">veja todos os Trabalhos</span>
                 <span class="box">
                   <span>Clique aqui</span>
@@ -331,7 +342,10 @@ const formatDate = (dateString: string) => {
         <template v-if="(index - 1) % 5 === 0">
           <NuxtLink
             class="btn-agende btn-agende-01"
-            :to="'/agende-seu-ensaio'">
+            :to="'/agende-seu-ensaio'"
+            data-ani-type="polaroid"
+            data-ani-batch="wrap-portfolio"
+            data-ani-stagger="0.07">
             <span>Gostou? Agende o seu</span>
           </NuxtLink>
         </template>
@@ -340,7 +354,10 @@ const formatDate = (dateString: string) => {
           <template v-if="(index - 1) % 5 === 0 || (index === 1)">
             <NuxtLink
               class="btn-agende btn-agende-02"
-              :to="'/agende-seu-ensaio'">
+              :to="'/agende-seu-ensaio'"
+              data-ani-type="polaroid"
+              data-ani-batch="wrap-portfolio"
+              data-ani-stagger="0.07">
               <span>Gostou? Agende o seu</span>
             </NuxtLink>
           </template>
@@ -350,7 +367,10 @@ const formatDate = (dateString: string) => {
       <template v-if="props.category">
         <NuxtLink
           class="link-see-more big-title green big-title-home"
-          :to="'/ensaio-fotografico/' + props.category">
+          :to="'/ensaio-fotografico/' + props.category"
+          data-ani-type="polaroid"
+          data-ani-batch="wrap-portfolio"
+          data-ani-stagger="0.07">
               <span class="big">veja todos os Trabalhos</span>
               <span class="box">
                 <span>Clique aqui</span>

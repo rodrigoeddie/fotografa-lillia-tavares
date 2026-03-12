@@ -30,7 +30,13 @@ const onHide = () => (visibleRef.value = false);
 <template>
     <div class="portfolio-images">
       <template v-for="item in album">
-        <div class="item" :class="[item.format, item.customClass]" :style="'--ratio:' + (item.ratio || 'auto')">
+        <div
+          class="item"
+          :class="[item.format, item.customClass]"
+          :style="'--ratio:' + (item.ratio || 'auto')"
+          data-ani-type="polaroid"
+          data-ani-batch="portfolio-images"
+          data-ani-stagger="0.07">
           <nuxt-img
               provider="cloudflare"
               :src='"https://images.fotografalilliatavares.com.br/images/" + item.imageId + "/public"'
@@ -85,7 +91,7 @@ const onHide = () => (visibleRef.value = false);
 }
 
 .portfolio-images {
-  background-color: white;
+  // background-color: white;
   justify-content: space-between;
   flex-wrap: wrap;
   display: flex;
