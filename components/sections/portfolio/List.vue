@@ -171,8 +171,8 @@ const classes: ClassConfig[] = [
     class: 'card card-column',
     format: 'paisagem',
     image: {
-      width: 690,
-      height: 460,
+      width: 823,
+      height: 548,
     }
   },
   {
@@ -262,9 +262,9 @@ const formatDate = (dateString: string) => {
                       <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        :width="classes[index % classes.length]?.image.width || 690"
-                        :height="classes[index % classes.length]?.image.height || 460"
-                        :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 690) + 'px'"
+                        :width="classes[index % classes.length]?.image.width || 823"
+                        :height="classes[index % classes.length]?.image.height || 548"
+                        :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 823) + 'px'"
                         class="img-thumb"
                         :alt="slide.alt"
                         placeholder
@@ -273,9 +273,9 @@ const formatDate = (dateString: string) => {
                         provider="cloudflare"
                         v-if="slide.format=='retrato'"
                         :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-                        :width="classes[index % classes.length]?.image.width || 690"
-                        :height="classes[index % classes.length]?.image.height || 460"
-                        :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 690) + 'px'"
+                        :width="classes[index % classes.length]?.image.width || 823"
+                        :height="classes[index % classes.length]?.image.height || 548"
+                        :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 823) + 'px'"
                         class="bg-thumb"
                         :alt="slide.alt"
                         placeholder

@@ -1,0 +1,83 @@
+{
+  "artigo": "a",
+  "home": true,
+  "homeOrder": 2,
+  "colorHighlight": "#2e2c31",
+  "title": "Geovana Pontes",
+  "description": "<p></p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "b2555a44-a101-433e-f29a-bb32cf455e00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "canBeThumb": true,
+      "highlight": true,
+      "alt": ""
+    },
+    {
+      "imageId": "1ebe344a-494d-49b0-39dc-b5f6ba224d00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "canBeThumb": true,
+      "highlight": true,
+      "alt": ""
+    },
+    {
+      "imageId": "9c26e6b0-3e48-40e2-8528-6358a1973b00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "936a3f3d-3ac1-451a-ca48-f1a49bb3a200",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "b4ea40d1-c801-4098-648a-4d6464252a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "dd8b0269-d025-426c-6ecb-bfd9613a9500",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "797e05be-1134-4c49-826e-844a5d4a8900",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "e848ddb7-171c-44ab-0009-7faeaafb5c00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    }
+  ]
+}

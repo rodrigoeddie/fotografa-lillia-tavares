@@ -1,0 +1,64 @@
+{
+  "artigo": "a",
+  "home": true,
+  "homeOrder": 1,
+  "colorHighlight": "#55625b",
+  "title": "Juliana Kozma",
+  "description": "<p></p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "90b961fa-d1d8-4d4d-c064-301234e16b00",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "canBeThumb": true,
+      "highlight": true,
+      "alt": ""
+    },
+    {
+      "imageId": "c6014fb8-3d9e-4b63-a263-44002a865d00",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "imageId": "a28fa9d2-674d-479a-38ee-7367beee1a00",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "imageId": "6e2f0b50-9eeb-4d69-46f1-ea46bf0b9400",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "imageId": "06b81ebb-4c35-4b91-c558-4b20260cbe00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "imageId": "9f9582e1-9b86-4c66-e23c-11dec6510300",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": ""
+    }
+  ]
+}
