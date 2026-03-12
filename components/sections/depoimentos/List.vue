@@ -52,8 +52,8 @@ function formatDate(dateStr: string) {
           <div class="review-card__header">
             <div class="review-card__avatar">
               <img
-                v-if="review.photo"
-                :src="review.photo"
+                v-if="review.id"
+                :src="'assets/images/depoimentos/reviewer-' + review.id + '.jpg'"
                 :alt="review.name"
                 class="review-card__photo"
                 loading="lazy"
@@ -76,7 +76,7 @@ function formatDate(dateStr: string) {
 
           <div class="review-card__stars">★★★★★</div>
 
-          <blockquote class="review-card__text">{{ review.text }}</blockquote>
+          <blockquote class="review-card__text" v-html="review.text"></blockquote>
         </article>
       </div>
     </div>

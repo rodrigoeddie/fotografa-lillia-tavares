@@ -1,0 +1,84 @@
+
+{
+  "artigo": "a",
+  "home": true,
+  "homeOrder": 1,
+  "colorHighlight": "#948f93",
+  "title": "Marcella Castelucci",
+  "description": "<p>Posicionamento de imagem realizado pela fot&oacute;grafa Lillia Tavares para a <a href=\"https://beacons.ai/marcellacastelucci\" title=\"Dra Marcella Castelucci\" target=\"_blank\" rel=\"noopener\">Advogada Familiarista - Dra Marcella Castelucci</a><br>Apaixonada por famílias felizes e acordos justos.<br>Especialista em divórcio e inventários.</p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "91111e4b-8e4a-4427-1526-0dc442a23600",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "highlight": true,
+      "canBeThumb": true,
+      "alt": "Mulher de cabelos longos e vestido preto, no fundo de cor cinza"
+    },
+    {
+      "imageId": "f63da8dd-5300-4886-69e9-444d23370900",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "highlight": true,
+      "canBeThumb": true,
+      "alt": "Mulher de cabelos longos e calça preta, sentada em uma poltrona de couro marrom"
+    },
+    {
+      "imageId": "aec4c4fc-b96e-40c6-20f0-e4ad1e906900",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "Mulher de cabelos longos e calça preta, sentada em uma poltrona de couro marrom"
+    },
+    {
+      "imageId": "62a96ac7-6563-4842-1f0f-642a6d2a2900",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "Mulher de cabelos longos e calça preta, sentada em uma banqueta"
+    },
+    {
+      "imageId": "b553955b-9d40-48e6-1912-5498f48c1e00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "Mulher de cabelos longos e vestido preto, no fundo de cor cinza, ela está sentada em uma poltrona bege"
+    },
+    {
+      "imageId": "afbe8c05-b333-45a7-a7e8-747b45d8a600",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "Mulher de cabelos longos e body preto"
+    },
+    {
+      "imageId": "0399a729-8574-45bf-5475-365cb0c6a500",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "Mulher de cabelos longos e body preto, ela está sentada em um sofá redondo bege"
+    },
+    {
+      "imageId": "149edebc-f5bc-45f4-dd5e-d1c7fa461f00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "Mulher de cabelos longos e body preto"
+    }
+  ]
+}

@@ -8,6 +8,7 @@
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocJTjCFoYjWMMfm9Wi_6ULNlEQKyMXXh-gpXabc770RROHDlKqE=s72-c-rp-mo-br100",
       "rating": 5,
       "date": "Ontem",
+      "link": "https://maps.app.goo.gl/DBqWB9aLSTaps3767",
       "text": "A experiencia con a Lillia foi excelente. Desde a qualidade do estúdio, até as fotos! Muito atenciosa no atendimento e aos detalhes."
     },
     {
@@ -15,6 +16,7 @@
       "name": "Ednea Ruiz",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocLOce1gPtCAuCsS24vVlzcsCll5ZFecYfkHwZ2Jtj-7sfH_-8SQ=s72-c-rp-mo-br100",
       "rating": 5,
+      "link": "https://maps.app.goo.gl/gWmRV1MZmC5VoAdd7",
       "date": "Há 3 dias",
       "text": "Com certeza uma experiência muito profissional , um ambiente acolhedor e aconchegante, além do carinho da fotografa deixando nos a vontade e satisfeita com o resultado . Ah foi a primeira vez nossa com fotos em família no studio. Amei 😍"
     },
@@ -23,6 +25,7 @@
       "name": "Nicole Pacheco",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXC0SSshe7wCa7ZbJmtbMuzm2F1P6T9yOZqLaHzcR1H-1KSAv11Xw=s72-c-rp-mo-br100",
       "rating": 5,
+      "link": "https://maps.app.goo.gl/PVzYyJbieDUVq8wG8",
       "date": "Há 3 dias",
       "text": "Gema rara em mogi das cruzes, tudo lindo de bom gosto! Tudo limpinho também. Amei conhecer o espaço voltarei com certeza"
     },
@@ -31,6 +34,7 @@
       "name": "Roberta Figueiredo",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUE0WRl-WTglr60v6naIkBKnw54Fcc8KcVkxBhDVnTvgEnyVsfT=s72-c-rp-mo-br100",
       "rating": 5,
+      "link": "https://maps.app.goo.gl/AZqBV7Jgk5s9S9iK8",
       "date": "Há 10 semanas",
       "text": "Ótima profissional!!! Ambiente confortável e cada ano uma ideia nova!!"
     },
@@ -59,6 +63,14 @@
       "text": "Muito feliz com nosso ensaio. A Lillía é um amor, e o espaço uma delícia! Sobre as fotos, estamos apaixonados! Trabalho impecável!!!"
     },
     {
+      "id": 68,
+      "name": "Aline Marques Santana Santana",
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUrW7FvfJ_kp2F6qskJC0TRHdw1YLO0DMN-wWw7LxHFqkElBEU=s72-c-rp-mo-br100",
+      "rating": 5,
+      "date": "2 meses atrás",
+      "text": "Estive em novembro em sessão de fotos  de  Natal com minha família. O espaço é incrível e acolhedor.  A Lillia trabalha com leveza e carisma e  as fotos ficaram lindas!<br>Um excelente lugar para registrar boas memórias 💖"
+    },
+    {
       "id": 8,
       "name": "Wagner Davino",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWJ8oMasKB-weJp-7fqUCouHZDL2i4k6PbaMHOP8WDNFcUFqaNa=s72-c-rp-mo-br100",
@@ -83,6 +95,22 @@
       "text": "Gostei bastante tanto do lugar como da Lillia que me deixou muito a vontade."
     },
     {
+      "id": 66,
+      "name": "Larissa Costa Mendes",
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXQdQTB80rZUrvq0boDRBGX82Wa3QgZqmVPI-jtZ6nbKIpD44iq0g=w36-h36-p-rp-mo-br100",
+      "rating": 5,
+      "date": "4 meses atrás",
+      "text": "Fui no estúdio para ensaio corporativo de uma cliente e tanto eu, como ela, amamos o local, os cenários e principalmente o atendimento da Lillia. Ela foi muito atenciosa e acolhedora, nos ajudou, orientou e deixou minha cliente - que chegou bem insegura - super confortável com as fotos.<br>A entrega também foi tudo dentro do prazo e c.otima qualidade."
+    },
+    {
+      "id": 67,
+      "name": "Patricia Daniel",
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLw4GEUe7GBvFjP05ZQjFwBO3s50AV57IBDzK0_Q8YTLEG5KA=w36-h36-p-rp-mo-br100",
+      "rating": 5,
+      "date": "4 meses atrás",
+      "text": "Indico de olhos fechados, fiquei muito feliz com o resultado final. Cheguei no Estúdio muito apreensiva, tenho muita vergonha de tirar fotos, mas a Lillia me deixou super a vontade, foi muito paciente e conseguiu que as fotos ficassem maravilhosas. Fico muito grata por toda a atenção e gentileza."
+    },
+    {
       "id": 11,
       "name": "Suellen Camili",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjX19Pqh8n--v2RJo5a85DglMdC-Zu6pWrtLLkDxHMMEBbssVgzk=s72-c-rp-mo-br100",
@@ -99,7 +127,7 @@
       "text": "Maravilhosa! Eu ja fiz 2x fotos, fiz minha coloração pessoal, e eu amo! Me programando ja para as próximas!"
     },
     {
-      "id": 13,
+      "id": 14,
       "name": "Italo e Lauane",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjU9BD7c4O3y5JxjWF-XQEmFmn9oO4hwPr8GdjFuu_5sWRphFddAbA=s72-c-rp-mo-br100",
       "rating": 5,
@@ -107,7 +135,7 @@
       "text": "Amei o resultado, as fotos ficaram ótimas."
     },
     {
-      "id": 14,
+      "id": 15,
       "name": "Tamara Vitorino",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocIJmE3d-Gl8YTF_O8zmG8XQARazNuW_TkVQKN80gNNs0bPjeQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -115,7 +143,7 @@
       "text": "Minha experiência foi muito positiva, pois sou muito tímida, e então lá consegui me sentir à vontade o tempo todo. Uma experiência deliciosa do começo ao fim. Profissionalismo, carinho e entrega. Sem contar o espaço muito criativo e aconchegante, podendo escolher de acordo com o seu nicho. ❤️"
     },
     {
-      "id": 15,
+      "id": 69,
       "name": "Marilia Souza",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVZIC9lxOYRlb_QUMK325kWSI3yhyYz6-YTdENe9YSyiv2GCamo=s72-c-rp-mo-br100",
       "rating": 5,
@@ -131,7 +159,7 @@
       "text": "Um Studio fotográfico de respeito. Arrisco dizer que é o melhor da região... Equipe super profissional com atendimento de alto nível."
     },
     {
-      "id": 17,
+      "id": 18,
       "name": "Gabriele Soria - Calculista Trabalhista",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVRg8ehDtKf0mqVUfvcBZX_IuXEPsFzgA4V7U6lRM5cvULn8NBH=s72-c-rp-mo-br100",
       "rating": 5,
@@ -139,7 +167,7 @@
       "text": "Adorei fazer as fotos com a Lillia. O ambiente é muito lindo e ela é muito acolhedora. As fotos ficaram perfeitas!!!"
     },
     {
-      "id": 18,
+      "id": 19,
       "name": "Afonso Azevedo",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVi-lOvisS3PPDfH2X47Wnu0XA5JfnZOs4wp3pmRMT7gHOpxEeYGQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -147,7 +175,7 @@
       "text": "Excelente trabalho da Líllia! Fui muito bem recebido no estúdio, o ambiente é leve e profissional. As fotos ficaram incríveis, com ótima qualidade e um olhar diferenciado"
     },
     {
-      "id": 19,
+      "id": 20,
       "name": "Magda Tavares",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocIcdOG5dkrJTYy2G0mAU04DWiqLM947bpTCeMLUNsqqYpgoyQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -155,7 +183,7 @@
       "text": "Estúdio maravilhoso, Lilia carinhosa, atenciosa, me deixou muito à vontade. Super recomendo. Nota 1000"
     },
     {
-      "id": 20,
+      "id": 21,
       "name": "Tatiane Cristina Leal",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocI5YQYDklEK0yVFaF0z-UQPOvB2ArLhD3pGMUsJEsamCjhESA=s72-c-rp-mo-br100",
       "rating": 5,
@@ -163,7 +191,7 @@
       "text": "A Lillia foi simplesmente maravilhosa no meu ensaio profissional! Além de extremamente talentosa, ela foi muito simpática e me deixou super à vontade durante toda a sessão, o que foi essencial para um resultado natural e elegante. O estúdio dela é encantador, com ambientes lindos e bem cuidados, perfeitos para composições variadas. As fotos ficaram impecáveis, exatamente o que eu precisava para meu projeto! Recomendo muito o trabalho dela para quem busca qualidade, atenção aos detalhes e um atendimento acolhedor."
     },
     {
-      "id": 21,
+      "id": 22,
       "name": "fabiane oliveira",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVT-waQyBKXpwRPrQF8G7JRc6adXBN40kvzvoRfpLhTwfbrUaiXDQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -171,7 +199,7 @@
       "text": "Daria muito mais que 5 estrelas. Que experiência incrível e que profissional. Eu amei meu ensaio, a recepção, o espaço do Studio, que ambiente lindo e acolhedor. Indico, recomendo e farei outros ensaios com certeza."
     },
     {
-      "id": 22,
+      "id": 23,
       "name": "Juliana Kozma",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWtLtU-NVL2WMvdvZk4Onmzwfqn7LjA_D3WsepvL5ciIToaG7gy=s72-c-rp-mo-br100",
       "rating": 5,
@@ -179,7 +207,7 @@
       "text": "Maravilhosa! A Lillia é excelente, me senti confortável e linda! É uma dose de autoestima que eu não imaginava que teria em uma sessão de fotos. Os cenários são muito bonitos e as fotos ficaram fantásticas. Simplesmente amei e recomendo muito."
     },
     {
-      "id": 23,
+      "id": 24,
       "name": "Nelma Caroline",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUzryPqvUvcTWAmKb0Jgj48sugm5H2X1oaV8eMgzJt09ff-yXxFOQ=s72-c-rp-mo-ba2-br100",
       "rating": 5,
@@ -187,7 +215,7 @@
       "text": "Lilllia você é incrível e seu trabalho é impecável! Tirei minhas primeiras fotos profissionais com você e não me arrependo nem um pouco, o carinho, o acolhimento e as conversas deixaram a experiência ainda mais incrível. Obrigada e obrigada! 🥰"
     },
     {
-      "id": 24,
+      "id": 25,
       "name": "Jefferson Fernandes da Cunha",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW6ay6I2ZJpIQCCCSu5FLJ1Oxo-dF-A5lDWrj2wJJ2IOOAGf0Hz=s72-c-rp-mo-ba4-br100",
       "rating": 5,
@@ -195,7 +223,7 @@
       "text": "Fiz dois ensaios com eles, um foi de natal e o outro para minha empresa, local è muito bem pensado e fica bem no centro de mogi perto da estação e da prefeitura de mogi da cruzes, super recomendo."
     },
     {
-      "id": 25,
+      "id": 26,
       "name": "Bruna Freire",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVla_YxsU38zH3cCV8ax6AI3xW43wSQuEuPiK7VEOnO_hk9lsgC4w=s72-c-rp-mo-ba4-br100",
       "rating": 5,
@@ -203,7 +231,7 @@
       "text": "O trabalho da Lillia é incrível! Atendimento impecável do começo ao fim! Eu nem havia terminado e já estava pensando em fazer outros ensaios."
     },
     {
-      "id": 26,
+      "id": 27,
       "name": "Bianca Salazar",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocKMqpuGve-NsZ_FH4IkWgIsAvBG1bkDowMSxlLTPNpjrkq-XA=s72-c-rp-mo-br100",
       "rating": 5,
@@ -211,7 +239,7 @@
       "text": "O estúdio é lindo e a Lillia é uma excelente profissional! Muito animada, paciente e prestativa. Gostei muito do trabalho e o dia de fotos foi uma delícia! Recomendo demais!"
     },
     {
-      "id": 27,
+      "id": 28,
       "name": "Evely Lopes Pereira",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocJywtIr07jSVWT9kyMowhNIevBWLfYdNs2MwtV9XVLb-Hfn=s72-c-rp-mo-br100",
       "rating": 5,
@@ -219,7 +247,7 @@
       "text": "A Lilia é uma fotógrafa excepcional! Nos deixa super a vontade e orienta para que as fotos fiquem perfeitas! Super recomendo!"
     },
     {
-      "id": 28,
+      "id": 29,
       "name": "Thamires Marcondes",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVizVNyCLRmyzlJpAGzSzI3WpGKZhXllzQJrf9c8naqI7rFrmHRdQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -227,7 +255,7 @@
       "text": "Adoramos o estúdio, muito bem equipado, climatizado, estruturado. Há um espaço grande para desenvolver fotos com tranquilidade. Fomos super bem atendidos pela Lillia desde primeiro contato, agendamento, e no dia. Foi ótima a experiência! E desde então indicamos e quando precisarmos voltaremos!!"
     },
     {
-      "id": 29,
+      "id": 30,
       "name": "Elisabete Cordeiro",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocI3_3K1Egre8el7JowuY2ej9y7zFAUKE8FrgGPxx9K4Ogzfrg=s72-c-rp-mo-br100",
       "rating": 5,
@@ -235,7 +263,7 @@
       "text": "Maravilhosa profissional! Studio lindo com uma proposta sofisticada."
     },
     {
-      "id": 30,
+      "id": 31,
       "name": "N santos",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWkqpDltVAmbVneTgfredZReEQPTH9dgliL6x9JmjvcSIVU1hbD-w=s72-c-rp-mo-br100",
       "rating": 5,
@@ -243,7 +271,7 @@
       "text": "Ótima profissional excelente"
     },
     {
-      "id": 31,
+      "id": 32,
       "name": "Camila Galdino",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVicVJiU4xggSh1I_m8ANexejF94DGiurI6fw_jwtgQAncbUO4g=s72-c-rp-mo-br100",
       "rating": 5,
@@ -251,7 +279,7 @@
       "text": "Não tem como ter uma família linda, e não ser registrada pelas mãos de profissional! Ela torna tudo tão leve, ela torna o ensaio o momento mágico, e os resultados são de tirar o fôlego! Eu sempre que puder irei dizer que um sonho realizado foi o ensaio que fizemos com ela. Impecável! Tão breve espero poder registrar mais momentos mágicos com ela! Podem ter certeza não há melhor que ela. Confio de olhos fechados."
     },
     {
-      "id": 32,
+      "id": 33,
       "name": "Dani",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWOtVJVwMbHUSuhSFYEsCjAPYw4UG0RVaRvg_7Mv2KnFqqGtBkT=s72-c-rp-mo-br100",
       "rating": 5,
@@ -259,7 +287,7 @@
       "text": "A Lillia é uma profissional excelente! ! Fiquei muito satisfeita com o trabalho dela. Inicialmente, procurei por algo mais voltado para perfil corporativo, mas ela se destacou não apenas pela qualidade do trabalho, mas também pela simpatia, o que ajudou muito a me sentir confortável, mesmo sendo bem tímida. Sem dúvida, voltarei no futuro para outros tipos de fotos e indicarei seu trabalho. O espaço também é super aconchegante e bem decorado. E Sabemos o quanto bons profissionais são raros nesse mercado, então recomendo fortemente o trabalho da Lillia. Obrigada, Lillia!"
     },
     {
-      "id": 33,
+      "id": 34,
       "name": "Joelma Lins",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUQgZpcgX1RhLsk2wxtwikJSXQbRTcfz7NLGolfT_q4o71POzjiRg=s72-c-rp-mo-ba4-br100",
       "rating": 5,
@@ -267,7 +295,7 @@
       "text": "Excepcional!!! A Lillia é uma excelente fotógrafa, nos acolhe com um bate-papo, e parece que estamos em casa. O estúdio é lindo, aconchegante, com várias coisinhas pra comer, café de vários tipos e uma estante repleta de livros. Amei!"
     },
     {
-      "id": 34,
+      "id": 35,
       "name": "Thiago Silva",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWVgWI13nWuPHOs5Mt2wn4nYQ1ca3R4H3kB1-ZV26xfTP7AHzUHpg=s72-c-rp-mo-br100",
       "rating": 5,
@@ -275,7 +303,7 @@
       "text": "Ótimo espaço, estúdio bem equipado e bem localizado"
     },
     {
-      "id": 35,
+      "id": 36,
       "name": "Mariana Santos",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWBWoMygJDnvQWBCQe3NfLgU9lhOgAjfNfFkNecDzFOp9dmklzq=s72-c-rp-mo-br100",
       "rating": 5,
@@ -283,7 +311,7 @@
       "text": "Eu realizei um sonho em fazer meu ensaio fotográfico e fico muito feliz que escolhi a pessoa certa para esse momento tão importante, a Lillia é uma fotógrafa maravilhosa, ela fez um trabalho impecável em todos os aspectos, a qualidade das fotos é de um nível altíssimo, por isso super recomendo em fazer um ensaio com ela, com certeza não vão se arrepender do trabalho executado, ela é sensacional 👏🏻❤️🥰"
     },
     {
-      "id": 36,
+      "id": 37,
       "name": "Carla Cah",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWOyLmnyMMVCKapd-5Gu9xKMdm5UuhGHeSCEMEnmEc1Ehmg6UM=s72-c-rp-mo-br100",
       "rating": 5,
@@ -291,7 +319,7 @@
       "text": "Fizemos nosso ensaio de Natal 2024, desde o primeiro contato Lillia foi muito atenciosa, posteriormente conhecemos pessoalmente o estúdio, bem localizado, super equipado e aconchegante. Foi precisa e cirúrgica nas fotos, captando os melhores clicks. Super recomendado. Retornaremos sem dúvidas."
     },
     {
-      "id": 37,
+      "id": 38,
       "name": "Alisson Felix",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXRyI2UiJks9zOahsaVSowqrDbOiuDmjI1G_rLR8pspusYGGQBuFg=s72-c-rp-mo-br100",
       "rating": 5,
@@ -299,7 +327,7 @@
       "text": "Desde o início, fui acolhido com atenção e carinho, recebendo orientações detalhadas para a realização do meu principal objetivo: o ensaio corporativo. O ambiente, além de aconchegante, permitiu que a cada imagem capturada transmitisse uma emoção natural e espontânea. . Lillia, gratidão por toda atenção, carinho, e experiência que além de única foi marcante. Espero ter outras oportunidades para repetir essa vivência."
     },
     {
-      "id": 38,
+      "id": 39,
       "name": "Tayna Marcondes",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXpNybqvPkGqtDcKrk_QGQwT3We9a2wpjjoyv2Rvv1Klya99RWiNQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -307,7 +335,7 @@
       "text": "Ambiente maravilhoso, planejado, confortável, a fotografa é incrível e sabe te deixar a vontade."
     },
     {
-      "id": 39,
+      "id": 40,
       "name": "Suziene Amaral",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW7GEW6A9axt1LYOsHcHEius4t3pnx4uN-jkUJ43i4jacDmSLaqXg=s72-c-rp-mo-ba3-br100",
       "rating": 5,
@@ -315,7 +343,7 @@
       "text": "A Li é um amor de pessoa! O estúdio é incrível... as fotos ficam lindas! Super recomendo o trabalho dela."
     },
     {
-      "id": 40,
+      "id": 41,
       "name": "Henrique Sufi",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVleXvHpfqTYAJRWni-15wGYCGVXMRZOv_lb6k3SlIWSVV467IB=s72-c-rp-mo-br100",
       "rating": 5,
@@ -323,7 +351,7 @@
       "text": "Ótimo estúdio, bem climatizado, recepção impecável e cenário muito bonito para fotografar, muito bom!"
     },
     {
-      "id": 41,
+      "id": 42,
       "name": "Camila Nogueira",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWkhi-B-gA5HBabTTp15ZUHy2eVIf_-bS5sYE_Oy9TcM9rasIOmhg=s72-c-rp-mo-br100",
       "rating": 5,
@@ -331,7 +359,7 @@
       "text": "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"
     },
     {
-      "id": 42,
+      "id": 43,
       "name": "Nicole",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVDWaoE3BqxJTzqgcxPsUZbl23IqpitLIwILKplzLLk3Dh7qrYo=s72-c-rp-mo-br100",
       "rating": 5,
@@ -339,7 +367,7 @@
       "text": "Tudo perfeito, recomendo"
     },
     {
-      "id": 43,
+      "id": 44,
       "name": "Lucas Gonzaga",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjX4Ad3Hq0f7PY65bzGJpjqaRmY2_t_uyZVjwbQDrCKLZ4h-3HFW=s72-c-rp-mo-br100",
       "rating": 5,
@@ -347,7 +375,7 @@
       "text": "Um espaço incrível para produções com a Lilian e incrível também para fotógrafos que precisam de um estúdio completo ✨"
     },
     {
-      "id": 44,
+      "id": 45,
       "name": "karoline siqueira",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocKQTnPCfS_sG4n5WVgCcf3y5peFN0j_jhcZZe_UYiL9KKuIwA=s72-c-rp-mo-br100",
       "rating": 5,
@@ -355,7 +383,7 @@
       "text": "Tive o prazer de fazer o meu ensaio corporativo com ela! Foi incrível, ela é excelente em tudo que faz!!!. O espaço oferece um ambiente tranquilo e acolhedor. A beleza do lugar é surreal, muito bem estruturado e pensado para proporcionar comodidade, profissionalismo e fotos memoráveis. Recomendo muitooooooo. Melhor estúdio fotográfico de Mogi."
     },
     {
-      "id": 45,
+      "id": 46,
       "name": "Rogerio Pires",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVAoDbIFJbJdOmeLBnO9qDmIhvNF5YS8jtd69ek7X6dEEeMuaaZ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -363,7 +391,7 @@
       "text": "Tudo que um espaço pensado para mulheres por uma mulher pode oferecer , no estilo Close and Personal ( Detalhe : Localizado no coração de Mogi das Cruzes , com ótimas opções para estacionamento e transporte)"
     },
     {
-      "id": 46,
+      "id": 47,
       "name": "Rayssa Oliveira",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXFaMdsictvoU1-FVEkjU2KZuQyC4tBYnNtgM52H4-5siXuNR0M=s72-c-rp-mo-br100",
       "rating": 5,
@@ -371,7 +399,7 @@
       "text": "Studio de fotografia no centro cívico em Mogi das Cruzes de fácil acesso, próximo à estação de trem e terminal de ônibus, com estacionamento público em frente. Lugar super aconchegante e com diversos cenários!! Amei a minha experiência no local, excelente profissional!! ❤️"
     },
     {
-      "id": 47,
+      "id": 48,
       "name": "Janete Oliveira",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjV7SMgO62ZzE5SfCK3_ntZQJ_elN_0VZWKyzLVxOK-LP7Ea9E0N=s72-c-rp-mo-ba2-br100",
       "rating": 5,
@@ -379,7 +407,7 @@
       "text": "Uma experiência maravilhosa, profissional sensacional!"
     },
     {
-      "id": 48,
+      "id": 49,
       "name": "Simone Ferreira",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocJs47TQzaaxJTFnLkf-PVAt01Q7fjAjyYXz4iS9FX9u01v01w=s72-c-rp-mo-br100",
       "rating": 5,
@@ -387,7 +415,7 @@
       "text": "Fotógrafa excelente, super profissional, espaço aconchegante, maravilhoso e sem contar que é de fácil acesso, no centro de Mogi, próximo a estação de trem, e estacionamento público em frente."
     },
     {
-      "id": 49,
+      "id": 50,
       "name": "Renan Vaz",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWt9_eK4oVBkVSfLwjZrib5OOi7Tdzcjh0774G6ejpb6CV9b7Ia=s72-c-rp-mo-br100",
       "rating": 5,
@@ -395,7 +423,7 @@
       "text": "Lugar maravilhoso! Muito legal em sabem que em Mogi das Cruzes tem um estúdio com essa variedade de cenários e uma profissional atenciosa e dedicada para eternizar momentos de formas únicas. Parabéns!!!"
     },
     {
-      "id": 50,
+      "id": 51,
       "name": "Bruno Brito",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjV-zQIqgEeN67n21U1fi6vk_Cg9GT53RNhxJ6iqM-S_Q_-JT9kM5A=s72-c-rp-mo-br100",
       "rating": 5,
@@ -403,7 +431,7 @@
       "text": "Ambiente aconchegante, espaço grande, organizado, excelente estúdio, uma ótima fotógrafa!!"
     },
     {
-      "id": 51,
+      "id": 52,
       "name": "Daniele Sato",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocIWwdAGTQnjE0kl9CnnbdFYqlqw_UIFXUmPNKQxDciqZpKTaA=s72-c-rp-mo-br100",
       "rating": 5,
@@ -412,7 +440,7 @@
       "text": "O studio é lindo, a iluminação perfeita para ensaios corporativos e ensaio sensual. Já fiz fotos com a Lillia e garanto que é uma experiência única!"
     },
     {
-      "id": 52,
+      "id": 53,
       "name": "Dorileia Fatima",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocK0Yftd53CJEJ7M-wYnFfS7PSBRdoA5XIHYcc2RfrLi6PrRwA=s72-c-rp-mo-br100",
       "rating": 5,
@@ -420,7 +448,7 @@
       "text": "Espaço maravilhoso, fui bem recebida, a fotógrafa realizou um excelente trabalho, as fotos ficaram lindas."
     },
     {
-      "id": 53,
+      "id": 54,
       "name": "Roseli Monteiro",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocIy03jzunqe_aMHprzVPD4Ucmn7kqfrQsWgzo1T-6OGnAimAw=s72-c-rp-mo-br100",
       "rating": 5,
@@ -428,7 +456,7 @@
       "text": "Tudo tão lindo lugar maravilhoso aconchegante e cheio de amor ❤️ a melhor fotógrafa 🥰🙏"
     },
     {
-      "id": 54,
+      "id": 55,
       "name": "Andreia Silva",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocL4CRLPw2pz7s2S90_IhNZyEyXOtSQkEzC85AOK5P35XEqrOQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -436,7 +464,7 @@
       "text": "Que maravilhosa gente,a melhor!!!"
     },
     {
-      "id": 55,
+      "id": 56,
       "name": "Sandra Tavares",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocLxjQMx_lHTcFDeUeQjgiHSiRM8eZXUVVKQpTAF6UvqDwBytQdP=s72-c-rp-mo-br100",
       "rating": 5,
@@ -444,7 +472,7 @@
       "text": "É a melhor fotógrafa da região. Super indico."
     },
     {
-      "id": 56,
+      "id": 57,
       "name": "Ketlyn Aparecida",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocIxSiGd6-U6nyo_1Dgt_wosvB4jMw2RvOy_8Qy5QZ5vZGESSQ=s72-c-rp-mo-br100",
       "rating": 5,
@@ -452,7 +480,7 @@
       "text": "Trabalho impecável e estúdio excelente. Indico e recomendo. Nota 1000!!!! ❤️"
     },
     {
-      "id": 57,
+      "id": 58,
       "name": "Vera Lúcia",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocLPTZBYyr8uAklNv0yMPR_WT1xv6v1wLgno7TQmZ5utO96zOw=s72-c-rp-mo-br100",
       "rating": 5,
@@ -460,7 +488,7 @@
       "text": "Stúdio lindo no centro de Mogi. Local aconchegante. Excelente fotógrafa! Adorei as fotos! Recomendo."
     },
     {
-      "id": 58,
+      "id": 59,
       "name": "Gislaine Xavier",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUa2CvMDjmp_X8VWFxy6NB269gE72myNDvQadRp26d4ZDTGkbia=s72-c-rp-mo-br100",
       "rating": 5,
@@ -468,7 +496,7 @@
       "text": "Maravilhosa! Sem palavras para descrever, profissional excepcional.♡"
     },
     {
-      "id": 59,
+      "id": 60,
       "name": "Daiane Alves",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWVawX3pLJCVGz3d8wRFfZO04z9pplByPqfvmCcS9byB-x4UwbEhg=s72-c-rp-mo-br100",
       "rating": 5,
@@ -476,7 +504,7 @@
       "text": "Trabalho impecável, excelente profissional, com um estúdio incrível para registrar seus momentos. Super indico!!"
     },
     {
-      "id": 60,
+      "id": 61,
       "name": "Dulcinéia de Souza",
       "photo": "https://lh3.googleusercontent.com/a/ACg8ocKqU3ba1QxzsHgks4GGEtLmmZz_CVMq1FWJTP51PiDE1mC7nw=s72-c-rp-mo-br100",
       "rating": 5,
@@ -484,7 +512,7 @@
       "text": "Ótima fotógrafa. Excelente qualidade na edição. Fez fotos no SP fashion week esse ano."
     },
     {
-      "id": 61,
+      "id": 62,
       "name": "Victor Ferreira",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUNiuubeegkfYZLZhpjz7bLlHxNJBKb7S-0QvOfdZzZmyu-Vus=s72-c-rp-mo-br100",
       "rating": 5,
@@ -492,7 +520,7 @@
       "text": "Excelente profissional, simplesmente a melhor fotógrafa do estado de São Paulo."
     },
     {
-      "id": 62,
+      "id": 63,
       "name": "Allan Oliveira",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW0cWy-PZiSxGAxrcfwG33nYTVEdv4VaQpBAtSdegCSFOVnxCPtFg=s72-c-rp-mo-br100",
       "rating": 5,
@@ -500,7 +528,7 @@
       "text": "Lugar excelente, aconchegante e muito agradável"
     },
     {
-      "id": 63,
+      "id": 64,
       "name": "Junior Camini",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjU-0e_hwLhH98OnOO1CoZx9pYMnroIesx7GmnfH8OnqfViuMGhM=s72-c-rp-mo-br100",
       "rating": 5,
@@ -508,7 +536,7 @@
       "text": "Excelente Profissional!!!!!!"
     },
     {
-      "id": 64,
+      "id": 65,
       "name": "Guilherme Loos",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW3O7K0ntaHOBGdPNGGQZQd0wWSsGfnhnINZym_oW53VwpKJ3vcTw=s72-c-rp-mo-ba3-br100",
       "rating": 5,
@@ -516,7 +544,7 @@
       "text": "Studio de fotografia de muito bom gosto, espaço muito agradável, confortável e bem localizado. Fotógrafa muito qualificada e atenciosa."
     },
     {
-      "id": 65,
+      "id": 66,
       "name": "Vanessa de Melo Lima",
       "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVGi9MLjN8bc6OFwGEUvDLkZh3bukKhXQD-GlozElWYsfZWn0UoMQ=s72-c-rp-mo-br100",
       "rating": 5,

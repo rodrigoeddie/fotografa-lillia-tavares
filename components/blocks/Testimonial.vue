@@ -7,11 +7,11 @@ const props = defineProps({
     required: true,
     default: {}
   },
-//   path: {
-//     type: String,
-//     required: false,
-//     default: {}
-//   },
+  path: {
+    type: String,
+    required: false,
+    default: ''
+  },
   name: {
     type: String,
     required: true,
@@ -39,16 +39,14 @@ const props = defineProps({
         <div class="text-testimonial">
             <span class="stars" v-if="testimonial.rating"><template v-for="n in testimonial.rating" :key="n">★</template> - <span class="review-card__date">{{ testimonial.date }}</span></span>
 
-            <p class="description">
-                {{ testimonial.text }}
-            </p>
+            <p class="description" v-html="testimonial.text"></p>
 
             <span class="from">
                 Via: <NuxtLink :to="testimonial.link" target="_blank" rel="noopener noreferrer">{{ testimonial.source }}</NuxtLink>
             </span>
         </div>
 
-        <div v-if="fromList" class="wrap-cta">
+        <div v-if="fromList && path" class="wrap-cta">
             <NuxtLink :to="path" class="name btn btn-green">Acesse o ensaio</NuxtLink>
         </div>
     </div>

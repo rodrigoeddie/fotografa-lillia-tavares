@@ -1,0 +1,69 @@
+
+{
+  "artigo": "a",
+  "home": true,
+  "homeOrder": 1,
+  "colorHighlight": "#0e2b42",
+  "title": "Sheila Lima",
+  "description": "<p></p>",
+  "testimonial": {
+    "text": "O lugar é lindo, perfeito para ensaios fotográficos! As fotos ficaram maravilhosas — daquelas que a gente olha e se apaixona.<br> A Lillía é super simpática, envolvente e nos deixa completamente à vontade. Parecia que eu estava com uma amiga de longa data, mesmo sem nunca tê-la visto antes.<br> Foi uma experiência leve, divertida e inesquecível. Recomendo de olhos fechados!",
+    "avatar": "ee985c1d-540d-4716-31db-2bb315650e00",
+    "link": "https://maps.app.goo.gl/mCvGFs6XZefjs1SX8",
+    "rating": 5,
+    "date": "Há 8 meses atrás",
+    "source": "Google Maps"
+  },
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "9788f059-c550-44a8-10ec-28258b14f900",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "canBeThumb": true,
+      "highlight": true,
+      "alt": "mulher de cabelos presos com terno e calças brancas sentada no escritório atras da mesa branca, e em uma poltrona de couro branco"
+    },
+    {
+      "imageId": "741d00fc-42e3-4dfe-f655-ed45efd86b00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": "mulher de cabelos presos com terno e calças brancas com o fundo azul"
+    },
+    {
+      "imageId": "e4b3b4ff-76c3-4fd8-77ce-040f2e392900",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": "mulher de cabelos presos com terno e calças brancas com o fundo azul"
+    },
+    {
+      "imageId": "dcc9af88-7e48-4f8f-20ce-0cdb5791ee00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": "mulher de cabelos presos com terno e calças brancas com o fundo azul, sentada em uma poltrona de couro marrom"
+    },
+    {
+      "imageId": "daa90459-6a52-4080-6362-2c644362b500",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "canBeThumb": true,
+      "alt": "mulher de cabelos presos com terno e calças brancas com o fundo azul"
+    }
+  ]
+}
