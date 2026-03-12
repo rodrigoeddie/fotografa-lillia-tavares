@@ -7,11 +7,11 @@ const props = defineProps({
     required: true,
     default: {}
   },
-  path: {
-    type: String,
-    required: false,
-    default: {}
-  },
+//   path: {
+//     type: String,
+//     required: false,
+//     default: {}
+//   },
   name: {
     type: String,
     required: true,
@@ -28,8 +28,8 @@ const props = defineProps({
 <template>
     <div class="wrap-testimonial">
         <nuxt-img
-            provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + testimonial.avatar + "/public"'
+            :provider="testimonial.avatar ? 'cloudflare' : undefined"
+            :src="testimonial.customAvatar || 'https://images.fotografalilliatavares.com.br/images/' + testimonial.avatar + '/public'"
             :width="'100'"
             :height="'100'"
             :alt="'' + name"
@@ -37,6 +37,8 @@ const props = defineProps({
             placeholder
             loading="lazy"/>
         <div class="text-testimonial">
+            <span class="stars" v-if="testimonial.rating"><template v-for="n in testimonial.rating" :key="n">★</template> - <span class="review-card__date">{{ testimonial.date }}</span></span>
+
             <p class="description">
                 {{ testimonial.text }}
             </p>
@@ -53,6 +55,18 @@ const props = defineProps({
 </template>
 
 <style lang="scss">
+    .stars {
+        padding-bottom: 10rem;
+        letter-spacing: 2px;
+        color: #f9a825;
+        font-size: 20rem;
+        display: block;
+        
+        .review-card__date {
+            font-size: 15rem;
+        }
+    }
+
     .wrap-testimonial {
         justify-content: center;
         flex-wrap: wrap;

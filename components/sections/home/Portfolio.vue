@@ -163,10 +163,6 @@ const formatDate = (dateString: string) => {
       --swiper-navigation-size: 30rem !important;
   }
 
-  .btn.btn-green {
-    font-size: 11px;
-  }
-
   .highlight-new {
     background: rgba(169, 122, 9, 0.7);
     border-bottom: 10rem solid #4d3703b3;
@@ -225,13 +221,15 @@ const formatDate = (dateString: string) => {
     }
 
     .btn {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin-left: calc(v.$space * -1);
-      margin-right: calc(v.$space * -1);
       margin-bottom: calc(v.$space * -1);
+      margin-right: calc(v.$space * -1);
+      margin-left: calc(v.$space * -1);
+      text-transform: none;
+      position: absolute;
+      font-size: 11px;
+      bottom: 0;
+      right: 0;
+      left: 0;
 
       &:hover {
         border-left-color: transparent;
@@ -254,11 +252,15 @@ const formatDate = (dateString: string) => {
         padding: v.$space;
 
         .wrap-text {
-          padding-bottom: 30rem;
+          padding-bottom: 45rem;
+
+          @include m.max(sm) {
+              padding-bottom: 30rem;
+          }
         }
 
         .title {
-          font-size: 23rem;
+          font-size: 20rem;
         }
 
         .info-list {

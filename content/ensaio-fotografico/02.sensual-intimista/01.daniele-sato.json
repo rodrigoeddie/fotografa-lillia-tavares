@@ -1,0 +1,86 @@
+{
+  "artigo": "a",
+  "colorHighlight": "#a75732",
+  "title": "Daniele Sato",
+  "description": "<p>Ensaio Sensual/intimista realizado pela fot&oacute;grafa Lillia Tavares para a Daniele Sato. Esse ensaio feminino foi produzido na Casa Tereza de Pilar.</p>",
+  "local": "<a href='https://www.instagram.com/casadeterezapilar/'>Casa Tereza de Pilar</a>",
+  "testimonial": {
+    "text": "O studio é lindo, a iluminação perfeita para ensaios corporativos e ensaio sensual. Já fiz fotos com a Lillia e garanto que é uma experiência única!",
+    "avatar": "3855988c-19bf-44e6-8696-5987e9842a00",
+    "link": "https://maps.app.goo.gl/dBABQt9kAGxAFgCf6",
+    "rating": 5,
+    "date": "3 de jun. de 2024",
+    "source": "Google Maps"
+  },
+  "category": {
+    "slug": "sensual-intimista",
+    "title": "Sensual / Intimista"
+  },
+  "album": [
+    {
+        "imageId": "d2452747-f887-404a-283b-d9d6736b6e00",
+        "width": 935,
+        "height": 624,
+        "format": "paisagem",
+        "alt": "Uma mulher de etinia asiática de cabelos longos sentada no tapete, pernas cruzadas, uma perna esticada, e outra recolhida, uma mão no joelho,o outro braço estendido no banco do piano, o piano ao fundo.",
+        "canBeThumb": true,
+        "highlight": true
+    },
+    {
+        "imageId": "a8210c60-7a54-4c43-6589-b158ad2e4c00",
+        "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+        "alt": "Uma mulher de etinia asiática de cabelos longos olhando para tras em pé, e uma perna cruzada, ao fundo um sofá bege."
+    },
+    {
+        "imageId": "cde73ff1-f396-4878-47b3-dc50b7645600",
+        "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+        "alt": "Uma mulher de etinia asiática de cabelos longos sentada em um banco em frente a um piano, ela está usando um vestido longo.",
+        "canBeThumb": true
+    },
+    {
+        "imageId": "1545aade-f1b6-4a41-0f25-aaf440f19a00",
+        "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+        "alt": "Uma mulher de etinia asiática de cabelos longos sentada de pernas cruzadas em frente a um bar, ela está usando vestido preto, o bar tem acabamento em madeira."
+    },
+    {
+        "imageId": "2642fc82-9b4f-4183-c90c-7ab8ef303500",
+        "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+        "alt": "Uma mulher de etinia asiática de cabelos longos sentada de pernas cruzadas em frente a uma penteadeira de madeira, ela está usando um baby doll vermelho."
+    },
+    {
+        "imageId": "b545e5fa-8e46-4670-dbae-8aba28658e00",
+        "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+        "alt": "Uma mulher de etinia asiática de cabelos longos debruçada em um sofá bege, ao fundo uma parede de tijolinhos aparentes, ela está usando uma blusinha preta, uma saia branca, e uma bota de couro."
+    },
+    {
+        "imageId": "cac1434f-bf91-4d56-ff21-137010e2f000",
+        "width": 850,
+        "height": 567,
+        "format": "paisagem",
+        "customClass": "w50",
+        "alt": "Uma mulher de etinia asiática de cabelos longos de baby doll vermelho, sentada dentro da banheira, olhando para a janela."
+    },
+    {
+        "imageId": "f147b937-a938-4e5d-2656-06fa72d70300",
+        "width": 850,
+        "height": 567,
+        "format": "paisagem",
+        "customClass": "w50",
+        "alt": "Uma mulher de etinia asiática de cabelos longos de baby doll vermelho deitada na cama, braços abertos e pernas esticadas em direção ao teto"
+    }
+  ]
+}
