@@ -32,7 +32,7 @@ const description = computed(() => {
             <Icon
               name="icons:image-regular"
               class="icon icon-image"/>
-            <span><b>Acompanhe</b> meus trabalhos</span>
+            <span><span class="show-desktop"><b>Acompanhe</b> meus </span><span class="show-mobile">trabalhos</span></span>
           </NuxtLink>
 
           <NuxtLink
@@ -41,7 +41,7 @@ const description = computed(() => {
             <Icon
               name="icons:location-pin-solid"
               class="icon icon-location-pin"/>
-            <span>Conheça meu <b>estúdio</b> (disponível para locação).</span>
+            <span><span class="show-desktop">Conheça meu </span><span class="show-mobile"><b>estúdio</b></span><span class="show-desktop"> (disponível para locação).</span></span>
           </NuxtLink>
 
           <NuxtLink
@@ -50,7 +50,7 @@ const description = computed(() => {
             <Icon
               name="icons:calendar-regular"
               class="icon icon-calendar"/>
-            <span><b>agende</b> seu ensaio fotográfico</span>
+            <span><span class="show-mobile"><b>agende</b></span><span class="show-desktop"> seu ensaio fotográfico</span></span>
           </NuxtLink>
         </div>
       </div>
@@ -79,13 +79,6 @@ const description = computed(() => {
         p {
           padding-top: 7rem !important;
 
-          // &:nth-child(2),
-          // &:nth-child(3) {
-          //   @include m.max(xs) {
-          //     display: none;
-          //   }
-          // }
-
           strong,
           b {
             background: #892c1a;
@@ -102,24 +95,39 @@ const description = computed(() => {
 <style scoped lang="scss">
   @use 'sass:color';
 
+  .show-mobile {
+    @include m.max(xs) {
+      text-transform: capitalize;
+      font-weight: bold;
+      display: inline-block;
+    }
+  }
+  .show-desktop {
+    @include m.max(xs) {
+      display: none;
+    }
+  }
+
   .wrap-about {
     box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
     background: white;
+    margin-top: 20rem;
+    max-width: 860rem;
 
     @include m.max(xs) {
-      flex-wrap: wrap;
+      height: 400rem;
     }
 
     .about-text {
-      padding: v.$bigSpace;
+      padding: v.$space;
       color: v.$green;
 
-      @include m.max(sm) {
-        padding: 30rem;
-      }
-
       @include m.max(xs) {
-        padding: 0 15px 15px;
+        padding: 0 0 0 15px;
+        position: absolute;
+        width: 63%;
+        left: 0;
+        top: 0;
       }
 
       .description {
@@ -129,20 +137,22 @@ const description = computed(() => {
 
     .about-ctas {
       justify-content: space-around;
+      flex-direction: column;
       background: #f7f4e8;
       display: flex;
+      padding: 5rem 0;
 
-      @include m.max(sm) {
-        flex-direction: column;
+      @include m.max(xs) {
+        flex-direction: row;
         padding: 6px;
       }
 
       .link {
         transition: color 0.2s, background-color 0.2s;
-        padding: 15rem;
+        padding: 10rem v.$space;
         align-items: center;
         color: v.$green;
-        font-size: 20rem;
+        font-size: 19rem;
         display: flex;
         gap: 15rem;
         
@@ -160,12 +170,6 @@ const description = computed(() => {
           }
         }
 
-        &.link-agende {
-          @include m.max(xs) {
-            display: none;
-          }
-        }
-
         &:hover {
           background-color: v.$green;
           color: white;
@@ -173,7 +177,7 @@ const description = computed(() => {
       }
 
       .icon {
-        font-size: 40rem;
+        font-size: 25rem;
 
         @include m.max(xs) {
           font-size: 15px;
@@ -185,30 +189,45 @@ const description = computed(() => {
       width: 79%;
       
       @include m.max(xs) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        z-index: 2;
         width: 100%;
-        order: 2;
       }
       
+      // .description {
+      //   @include m.max(xs) {
+      //     line-height: 1em;
+      //   }
+      // }
+
       .title {
         @include m.max(xs) {
-          margin-top: -18px;
           text-shadow: 0px 0px 3px white, 0px 2px 3px white, 2px 0px 3px white;
+          margin-top: 10px;
         }
       }
     }
 
     .about-img {
       flex-shrink: 0;
-      width: 21%;
+      width: 320rem;
 
       @include m.max(xs) {
-        height: 225px;
-        width: 100%;
+        position: absolute;
+        height: 87%;
+        width: 35%;
+        right: 0;
         order: 1;
       }
 
       .cover {
-        object-position: center 20%;
+        object-position: center;
+
+        @include m.max(xs) {
+          object-position: 35% 20%;
+        }
       }
 
       .cover {
