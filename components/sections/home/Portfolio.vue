@@ -54,10 +54,7 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
       path: item.path
     };
   }) : [];
-const formatDate = (dateString: string) => {
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  return new Date(dateString).toLocaleDateString('pt-BR', options);
-};
+
 </script>
 
 <template>
@@ -76,122 +73,20 @@ const formatDate = (dateString: string) => {
       </h1>
     </NuxtLink>
 
-    <div class="wrap-portfolio" :class="'lenght-items-' + ensaiosData.length">
+    <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
-        <div
-          class="thumb thumb-vertical"
+        <BlocksCardSimplePortfolio
+          :item="item"
+          :class="'lenght-items-' + ensaiosData.length"
           data-ani-type="polaroid"
           data-ani-batch="wrap-portfolio"
-          data-ani-stagger="0.07">
-          <div class="inner-thumb">
-            <div class="slider">
-              <ClientOnly>
-          <NuxtLink
-            :to="item.path">
-            <swiper-container
-              class="swiper"
-              :slides-per-view="1"
-              :effect="'flip'"
-              :pagination="{
-                clickable: true,
-              }"
-              :navigation="true">
-              <swiper-slide
-                v-for="slide in item.photos['retrato']"
-                :key="slide.id"
-                :class="'wrap-img ' + slide.format">
-                <nuxt-img
-            provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-            width="551"
-            height="646"
-            sizes="'100vw md:50vw lg:551px"
-            class="bg-thumb"
-            :alt="slide.alt"
-            format="webp"
-            placeholder
-            loading="lazy"/>
-              </swiper-slide>
-            </swiper-container>
-          </NuxtLink>
-              </ClientOnly>
-            </div>
-
-            <div class="wrap-info">
-              <div class="wrap-text">
-          <h2 class="title">
-            {{ item.title }}
-          </h2>
-
-          <ul class="info-list">
-            <li class="category" v-if="item.category && item.category.slug">
-              <NuxtLink
-                :to="workPage + '/' + item.category.slug">
-                <span>{{ item.category.title }}</span>
-              </NuxtLink>
-            </li>
-            <li class="place">
-              <Icon
-                name="icons:location-pin-solid"
-                class="icon icon-location-pin"/>
-              <span v-html="item.local"></span>
-            </li>
-            <li class="place" v-if="item.date">
-              <Icon
-                name="icons:location-pin-solid"
-                class="icon icon-location-pin"/>
-              <span v-html="formatDate(item.date)"></span>
-            </li>
-          </ul>
-
-          <NuxtLink
-            :to="item.path"
-            class="btn btn-green">
-              <span>Acesse esse ensaio</span>
-          </NuxtLink>
-              </div>
-            </div>
-          </div>
-        </div>
+          data-ani-stagger="0.07" />
       </template>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-  :deep(.swiper) {
-      --swiper-navigation-size: 30rem !important;
-  }
-
-  .highlight-new {
-    background: rgba(169, 122, 9, 0.7);
-    border-bottom: 10rem solid #4d3703b3;
-    transition: background .2s;
-    margin-bottom: 15px;
-    line-height: 110rem;
-    text-align: center;
-    font-weight: 700;
-    font-size: 60rem;
-    display: block;
-    color: white;
-    width: 100%;
-
-    @include m.max(sm) {
-      font-size: 50rem;
-    }
-
-    &:hover {
-      background: #815d06b3;
-    }
-  }
-
-  .slider {
-    aspect-ratio: 384/450;
-    background: #f6f6f6;
-    flex-shrink: 0;
-    width: 100%;
-  }
-
   .big-title-home {
     justify-content: center;
     margin-bottom: -8rem;
@@ -216,176 +111,7 @@ const formatDate = (dateString: string) => {
     display: flex;
 
     @include m.max(sm) {
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      margin-bottom: calc(v.$space * -1);
-      margin-right: calc(v.$space * -1);
-      margin-left: calc(v.$space * -1);
-      text-transform: none;
-      position: absolute;
-      font-size: 11px;
-      bottom: 0;
-      right: 0;
-      left: 0;
-
-      &:hover {
-        border-left-color: transparent;
-        border-bottom-color: transparent;
-        border-right-color: transparent;
-      }
-    }
-
-    .thumb {
-      box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
-      border: 1px solid v.$green;
-      background: white;
-
-      @include m.max(sm) {
-        margin-bottom: 20px;
-      }
-
-      .wrap-info {
-        color: v.$green;
-        padding: v.$space;
-
-        .wrap-text {
-          padding-bottom: 45rem;
-
-          @include m.max(sm) {
-              padding-bottom: 30rem;
-          }
-        }
-
-        .title {
-          font-size: 20rem;
-        }
-
-        .info-list {
-          line-height: 28rem;
-          padding-top: 10rem;
-          font-size: 19rem;
-
-          li {
-            padding-left: 25rem;
-          }
-
-          li.category {
-            &:before {
-              content: '';
-
-              background-color: v.$green;
-              display: inline-block;
-              position: absolute;
-              border-radius: 50%;
-              height: 12rem;
-              width: 12rem;
-              left: 2rem;
-              top: 11rem;
-
-              @include m.max(sm) {
-                top: 9rem;
-              }
-            }
-          }
-
-          li.place .icon {
-            position: absolute;
-            left: -1rem;
-            top: 7rem;
-
-            @include m.max(sm) {
-              top: -2rem;
-            }
-          }
-
-          :deep(a) {
-            display: block;
-            padding: 2px 0;
-
-            @include m.max(sm) {
-              padding: 0;
-            }
-          }
-        }
-
-        .ensaio-description {
-          padding-bottom: 40rem;
-        }
-      }
-
-      .link {
-        text-decoration: underline;
-        align-items: flex-end;
-        padding-top: 30rem;
-        font-size: 30rem;
-        color: v.$green;
-        display: flex;
-      }
-    }
-
-    &.lenght-items-5 {
-      .thumb {
-        width: calc(20% - 7rem);
-        
-        @include m.max(sm) {
-          width: 48%;
-        }
-      }
-    }
-
-    &.lenght-items-4 {
-      .thumb {
-        width: calc(25% - 14rem);
-        
-        @include m.max(sm) {
-          width: 48%;
-        }
-      }
-    }
-
-    &.lenght-items-3 {
-      gap: 15rem;
-
-      .thumb {
-        width: calc(33% - 7rem);
-        
-        @include m.max(sm) {
-          width: 96%;
-        }
-      }
-    }
-
-    &.lenght-items-2 {
-      .thumb {
-        width: calc(50% - 7rem);
-        
-        @include m.max(sm) {
-          width: 96%;
-        }
-      }
-    }
-
-    .swiper {
-      height: 100%;
-      width: 100%;
-
-      // @include m.max(md) {
-      //   height: 60vw;
-      // }
-
-      .wrap-img {
-        height: 100%;
-
-        img {
-          position: absolute;
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
-        }
-      }
+      gap: 10rem 0;
     }
   }
 </style>

@@ -12,10 +12,6 @@ export default defineNuxtConfig({
   siteConfig: siteConfig,
   debug: false,
 
-  future: {
-    compatibilityVersion: 4,
-  },
-
   site: {
     url: siteConfig.url,
     name: siteConfig.title,
@@ -102,8 +98,20 @@ export default defineNuxtConfig({
     enabled: false
   },
 
-  modules: [// '@nuxtjs/partytown',
-  'nuxt-easy-lightbox', 'nuxt-schema-org', '@nuxtjs/device', '@nuxt/content', '@nuxtjs/seo', '@nuxt/image', 'nuxt-swiper', 'nuxt-gtag', '@nuxt/ui', '@nuxt/icon', '@nuxt/scripts'],
+  modules: [
+    '@nuxtjs/partytown',
+    'nuxt-easy-lightbox',
+    'nuxt-schema-org',
+    '@nuxtjs/device',
+    '@nuxt/content',
+    '@nuxtjs/seo',
+    '@nuxt/image',
+    'nuxt-swiper',
+    'nuxt-gtag',
+    '@nuxt/ui',
+    '@nuxt/icon',
+    '@nuxt/scripts'
+  ],
 
   sitemap: {
     sources: [

@@ -29,7 +29,7 @@ useSeoMeta({
 
 <template>
   <SectionsPortfolioHero />
-  <SectionsPortfolioList class="no-padding" />
+  <SectionsPortfolioCategoryList class="no-padding" />
 </template>
 
 <style scoped lang="scss">

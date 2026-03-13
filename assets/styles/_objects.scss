@@ -187,7 +187,7 @@
   }
 
   @include m.max(sm) {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   &:hover {
@@ -400,4 +400,9 @@ nav[aria-label=breadcrumb] {
           content: "→";
       }
   }
+}
+
+.ac {
+  justify-content: center;
+  display: flex;
 }
