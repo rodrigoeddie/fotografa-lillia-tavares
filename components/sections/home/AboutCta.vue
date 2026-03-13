@@ -108,6 +108,22 @@ const description = computed(() => {
     }
   }
 
+  .title {
+    margin-top: 10px;
+    
+    @include m.max(xs) {
+      font-size: 13px;
+    }
+  }
+
+  .description {
+    padding-top: 5px;
+    
+    @include m.max(xs) {
+      font-size: 13px;
+    }
+  }
+
   .wrap-about {
     box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
     background: white;
@@ -115,7 +131,7 @@ const description = computed(() => {
     max-width: 860rem;
 
     @include m.max(xs) {
-      height: 400rem;
+      height: 345rem;
     }
 
     .about-text {
@@ -125,13 +141,9 @@ const description = computed(() => {
       @include m.max(xs) {
         padding: 0 0 0 15px;
         position: absolute;
-        width: 63%;
+        width: 65%;
         left: 0;
         top: 0;
-      }
-
-      .description {
-        padding-top: 0;
       }
     }
 
@@ -194,19 +206,6 @@ const description = computed(() => {
         justify-content: flex-end;
         z-index: 2;
         width: 100%;
-      }
-      
-      // .description {
-      //   @include m.max(xs) {
-      //     line-height: 1em;
-      //   }
-      // }
-
-      .title {
-        @include m.max(xs) {
-          text-shadow: 0px 0px 3px white, 0px 2px 3px white, 2px 0px 3px white;
-          margin-top: 10px;
-        }
       }
     }
 

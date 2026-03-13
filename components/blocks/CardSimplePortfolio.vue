@@ -91,13 +91,21 @@ const props = defineProps({
     box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
     border: 1px solid v.$green;
     background: white;
+
+    .inner-thumb {
+        flex-direction: column;
+        display: flex;
+        height: 100%;
+    }
     
     .wrap-info {
         color: v.$green;
         padding: v.$space;
+        height: 100%;
         
         .wrap-text {
             padding-bottom: 45rem;
+            position: static;
             
             @include m.max(sm) {
                 padding-bottom: 30rem;
@@ -203,9 +211,6 @@ const props = defineProps({
     }
 
     .btn {
-        margin-bottom: calc(v.$space * -1);
-        margin-right: calc(v.$space * -1);
-        margin-left: calc(v.$space * -1);
         background-color: v.$green;
         text-transform: none;
         position: absolute;
