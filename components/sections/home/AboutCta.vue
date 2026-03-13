@@ -15,10 +15,7 @@ const description = computed(() => {
 </script>
 
 <template>
-  <div
-    class="container"
-    data-ani-type="fade">
-    <div class="wrap-about row">
+    <div class="wrap-about row" data-ani-type="fade">
       <div class="col col-text">
         <div class="about-text">
           <h1 class="title">{{ sobre?.title }}</h1>
@@ -69,7 +66,6 @@ const description = computed(() => {
           class="img cover"/>
       </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss">
@@ -109,9 +105,10 @@ const description = computed(() => {
   }
 
   .title {
-    margin-top: 10px;
+    margin-top: 0;
     
     @include m.max(xs) {
+      margin-top: 10px;
       font-size: 13px;
     }
   }
@@ -127,11 +124,12 @@ const description = computed(() => {
   .wrap-about {
     box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
     background: white;
-    margin-top: 20rem;
     max-width: 860rem;
+    width: 50%;
 
     @include m.max(xs) {
       height: 345rem;
+      width: 100%;
     }
 
     .about-text {

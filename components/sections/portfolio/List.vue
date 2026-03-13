@@ -231,10 +231,13 @@ const ensaiosByCategory = computed(() => {
   }
 
   .wrap-portfolio {
-    justify-content: space-between;
     flex-wrap: wrap;
     display: flex;
-    gap: 10rem 0;
+    gap: 18rem;
+
+    @include m.max(xs) {
+      gap: 10rem;
+    }
   }
 
   .title {

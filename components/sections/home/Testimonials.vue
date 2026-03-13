@@ -23,18 +23,28 @@ const {
         </h2>
         <swiper-container
             class="swiper-testimonials"
-            :effect="'flip'"
             :auto-height="true"
             :allow-touch-move="true"
             :prevent-clicks="false"
             :prevent-clicks-propagation="false"
             :touch-release-on-edges="true"
-            :autoplay="{
-                delay: 4000,
-                disableOnInteraction: false
-            }"
             :pagination="{
                 clickable: true,
+            }"
+            :slides-per-group="1"
+            :slides-per-view="1.20"
+            :space-between="8"
+            :breakpoints="{
+                500: {
+                    slidesPerGroup: 2,
+                    slidesPerView: 2.20,
+                    spaceBetween: 16,
+                },
+                750: {
+                  slidesPerGroup: 3,
+                  slidesPerView: 3.20,
+                  spaceBetween: 16,
+              },
             }">
                 <swiper-slide
                     v-for="work in works"
@@ -56,35 +66,23 @@ const {
         color: v.$green;
         display: block;
         text-align: center;
+        padding-bottom: 15rem;
     }
 
     .wrap-testimonials {
         background: rgba(72, 83, 73, 0.2);
         margin-bottom: calc(v.$space * 2);
-        padding: 30rem 30rem 20rem 30rem;
         width: 100%;
-
-        @include m.max(sm) {
-            padding: 20px 3% 3% 3%;
-        }
+        padding: 30rem 0 30rem 30rem;
 
         .swiper-slide {
-            padding: 0 80rem;
-
-            @include m.max(sm) {
-                padding: 0;
-            }
-
             .wrap-testimonial {
-                @include m.max(sm) {
-                    padding: 20px 0;
-                }
-                
+                padding: 0;
+                margin-bottom: 30rem;
+
                 :deep(.text-testimonial) {
                     justify-content: center;
                     flex-direction: column;
-                    padding-right: 30rem;
-                    padding-left: 30rem;
                     min-height: 180rem;
                     display: flex;
 
