@@ -204,6 +204,14 @@ export default defineNuxtConfig({
       sourcemap: false,
       target: 'esnext',
     },
+    optimizeDeps: {
+      include: [
+        'gsap',
+        'gsap/ScrollTrigger',
+        '@unhead/schema-org/vue',
+        '@internationalized/date',
+      ]
+    },
   },
 
   postcss: {
