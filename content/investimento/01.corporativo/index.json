@@ -16,9 +16,7 @@
         "Entrega em 7 dias úteis",
         "1 Cenário",
         "1 look",
-        "Fotos extras por R$30 cada",
-        "Fotos digitais em alta resolução",
-        "Fotos enviadas por email"
+        "Fotos extras por R$30 cada"
       ],
       "isRecommended": false
     },
@@ -34,9 +32,7 @@
         "Entrega em 5 dias úteis",
         "1 Cenário",
         "2 trocas de roupa",
-        "Fotos extras por R$28 cada",
-        "Fotos digitais em alta resolução",
-        "Fotos enviadas por email"
+        "Fotos extras por R$28 cada"
       ],
       "isRecommended": false
     },
@@ -52,9 +48,7 @@
         "Entrega em 3 dias úteis",
         "Até 3 cenários",
         "3 trocas de roupa",
-        "Fotos extras por R$20 cada",
-        "Fotos digitais em alta resolução",
-        "Fotos enviadas por email"
+        "Fotos extras por R$20 cada"
       ],
       "isRecommended": true
     },
@@ -70,17 +64,17 @@
         "Entrega em 3 dias úteis",
         "Até 4 cenários",
         "4 trocas de roupa",
-        "Fotos extras por R$19 cada",
-        "Fotos digitais em alta resolução",
-        "Fotos enviadas por email"
+        "Fotos extras por R$19 cada"
       ],
       "isRecommended": false
     }
   ],
   "includes": [
+    "Fotos digitais em alta resolução",
+    "Fotos enviadas por email",
+    "Para garantia da vaga é necessário um sinal de R$100.",
     "Os pacotes contemplam ensaios individuais, para equipe é cobrado R$70 adicionais por pessoa.",
     "Limite de 3 pessoas por ensaio.",
-    "Para garantia da vaga é necessário um sinal de R$100.",
     "No pacote está incluso apenas a cobertura fotográfica , looks e make são por conta da cliente.",
     "Oferecemos o serviço de make por R$120, sendo necessário confirmar junto ao agendamento.",
     "* Para necessidades diferentes dos pacotes, por favor, entre em contato.",

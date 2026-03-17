@@ -24,7 +24,7 @@ function formatDate(dateStr: string) {
   <section class="depoimentos-page">
     <div class="container">
       <header class="depoimentos-header" data-ani-type="fade">
-        <h1 class="big-title red centered">
+        <h1 class="big-title green centered">
           <span class="box">
             O que dizem
           </span>

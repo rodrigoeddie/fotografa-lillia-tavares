@@ -47,6 +47,12 @@ const formattedXPrice = computed(() => {
     maximumFractionDigits: 0
   });
 });
+
+function splitFeature(feature) {
+  const match = String(feature).match(/^(\d+)\s*(.*)$/);
+  if (match) return { number: match[1], text: match[2] };
+  return { number: null, text: feature };
+}
 </script>
 
 <template>
@@ -78,7 +84,8 @@ const formattedXPrice = computed(() => {
         class="pricing-card__feature"
       >
         <span class="pricing-card__feature-icon">✓</span>
-        <span>{{ feature }}</span>
+        <span v-if="splitFeature(feature).number" class="pricing-card__feature-number">{{ splitFeature(feature).number }}</span>
+        <span>{{ splitFeature(feature).text }}</span>
       </li>
     </ul>
     
@@ -98,14 +105,15 @@ const formattedXPrice = computed(() => {
 
 <style scoped lang="scss">
 .pricing-card {
-  box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
-  border: 1px solid v.$green;
+  box-shadow: 0 0 10rem rgba(44, 42, 21, 0.35);
+  border: 1px solid #ccc;
   transition: all 0.3s ease;
   flex-direction: column;
-  background: #fff;
+  background: linear-gradient(#2c2a15 25%, white 68%);
   border-radius: 8px;
-  padding: v.$space;
+  padding: v.$space 0 0 0;
   margin-top: 15rem;
+  color: white;
   display: flex;
   height: 100%;
   width: 100%;
@@ -115,30 +123,32 @@ const formattedXPrice = computed(() => {
     margin-right: auto;
   }
   
-  &:hover {
-    border-color: #ccc;
-    box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.1);
-  }
+  // &:hover {
+  //   border-color: #ccc;
+  //   box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.1);
+  // }
   
   &--recommended {
+    border-color: #731;
     border-width: 3px;
     z-index: 1;
     box-shadow: 0 4rem 16rem rgba(52, 75, 66, 0.12);
     
-    &:hover {
-      border-color: #000;
-      box-shadow: 0 8rem 24rem rgba(0, 0, 0, 0.15);
-    }
+    // &:hover {
+    //   border-color: v.$red;
+    //   box-shadow: 0 8rem 24rem rgba(0, 0, 0, 0.15);
+    // }
   }
 }
 
 .pricing-card__badge {
+  box-shadow: 0 0 10rem rgba(44, 42, 21, 0.35);
   position: absolute;
-  top: -12rem;
+  top: -18rem;
   left: 50%;
   transform: translateX(-50%);
-  background: #333;
-  color: #fff;
+  background: #731;
+  color: white;
   padding: 8rem 24rem;
   border-radius: 20rem;
   font-size: 14rem;
@@ -152,16 +162,14 @@ const formattedXPrice = computed(() => {
 }
 
 .pricing-card__title {
-  font-size: 24rem;
+  font-size: 26rem;
   font-weight: 600;
-  color: #333;
   padding-top: 15rem;
   margin-bottom: 8rem;
 }
 
 .pricing-card__subtitle {
   font-size: 14rem;
-  color: #666;
   margin: 0;
 }
 
@@ -171,9 +179,10 @@ const formattedXPrice = computed(() => {
   padding-bottom: v.$space;
   border-bottom: 1rem solid #e5e5e5;
 
-  // &.wrap-pix {
-  //   margin-bottom: 0;
-  // }
+  &.wrap-credit {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
 }
 
 .or {
@@ -191,7 +200,6 @@ const formattedXPrice = computed(() => {
 .pricing-card__currency {
   font-size: 20rem;
   font-weight: 500;
-  color: #666;
   vertical-align: top;
 }
 
@@ -199,7 +207,6 @@ const formattedXPrice = computed(() => {
 .pricing-card__amount {
   font-size: 40rem;
   font-weight: 700;
-  color: #333;
   line-height: 1;
 
   span {
@@ -217,7 +224,6 @@ const formattedXPrice = computed(() => {
   font-size: 25rem;
   font-weight: normal;
   padding-left: 5rem;
-  color: #333;
   line-height: 1;
 }
 
@@ -226,20 +232,33 @@ const formattedXPrice = computed(() => {
 }
 
 .pricing-card__features {
-  margin-bottom: 5rem;
   list-style: none;
-  padding: 0;
+  background: #eaeaea;
+  box-shadow: 0 -15rem 15rem -10rem rgba(44, 42, 21, 0.5) inset;
+  color: v.$dark-green;
+  padding: 15rem 15rem 0 15rem;
   flex: 1;
 }
 
 .pricing-card__feature {
   display: flex;
   align-items: flex-start;
-  gap: 12rem;
+  // gap: 12rem;
   padding: 8rem 0;
   font-size: 18rem;
-  color: #555;
   line-height: 1.5;
+
+  .pricing-card__feature-number {
+    margin-right: 1.3%;
+  }
+  
+  &:first-child {
+    font-size: 22rem;
+    
+    .pricing-card__feature-number {
+      font-weight: bold;
+    }
+  }
 }
 
 .pricing-card__feature-icon {
@@ -249,6 +268,7 @@ const formattedXPrice = computed(() => {
   width: 20rem;
   height: 20rem;
   background: #f0f0f0;
+  margin-right: 12rem;
   border-radius: 50%;
   font-size: 12rem;
   color: #333;
@@ -263,30 +283,26 @@ const formattedXPrice = computed(() => {
 .pricing-card__button {
   display: block;
   width: 100%;
-  padding: 16rem;
-  font-size: 19rem;
+  padding: 25rem 16rem;
+  font-size: 26rem;
   text-align: center;
   text-decoration: none;
+  overflow: hidden;
   background: #fff;
-  color: #333;
-  border: 1px solid v.$green;
-  border-radius: 4rem;
+  border-bottom-left-radius: 8rem;
+  border-bottom-right-radius: 8rem;
+  color: v.$green;
   font-weight: 600;
   transition: all 0.3s ease;
   
   &:hover {
-    background: #333;
-    color: #fff;
+    background: black;
+    color: white;
   }
   
   &--primary {
-    background: v.$green;
-    color: #fff;
-    
-    &:hover {
-      background: #000;
-      border-color: #000;
-    }
+    background: #731;
+    color: white;
   }
 }
 </style>

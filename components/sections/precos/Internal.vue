@@ -137,16 +137,17 @@ const titleParts = computed(() => {
   }
   
   &__list {
-    max-width: 750rem;
-    margin: 0 auto;
     list-style: none;
     padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     
     li {
       padding: 12rem 0;
       color: #666;
       position: relative;
       padding-left: 32rem;
+      font-size: 18rem;
       
       &:before {
         content: '✓';
