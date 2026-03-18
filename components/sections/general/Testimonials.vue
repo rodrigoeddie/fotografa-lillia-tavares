@@ -23,8 +23,7 @@ const {
 
 <template>
     <div
-      class="wrap-testimonials"
-      data-ani-type="fade-up">
+      class="wrap-testimonials">
         <h2 class="title">
             <NuxtLink
                 to="/depoimentos"

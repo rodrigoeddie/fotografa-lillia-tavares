@@ -22,9 +22,7 @@ useHead({
 </script>
 
 <template>
-    <TemplatesHeader class="from-home" />
     <slot />
-    <TemplatesFooter />
 </template>
 
 <style lang="scss">

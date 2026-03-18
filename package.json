@@ -50,6 +50,6 @@
     "schema-org": "^0.2.1",
     "sharp": "^0.33.5",
     "unenv": "2.0.0-rc.24",
-    "wrangler": "^4.73.0"
+    "wrangler": "^4.75.0"
   }
 }
