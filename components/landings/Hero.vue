@@ -67,8 +67,14 @@ const props = defineProps({
             align-items: center;
         }
 
-        .image img {
-            height: auto;
+        .image {
+            @include m.max(sm) {
+                width: 70%;
+            }
+                
+            img {
+                height: auto;
+            }
         }
 
         .text {
@@ -124,6 +130,7 @@ const props = defineProps({
                 @include m.max(sm) {
                     margin-top: 30rem;
                     font-size: 22rem;
+                    padding: 21rem;
                 }
 
                 .icon {
