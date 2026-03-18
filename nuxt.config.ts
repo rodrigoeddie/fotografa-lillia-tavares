@@ -100,7 +100,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    // '@nuxtjs/partytown',
+    '@nuxtjs/partytown',
     'nuxt-easy-lightbox',
     'nuxt-schema-org',
     '@nuxtjs/device',

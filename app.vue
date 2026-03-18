@@ -28,7 +28,14 @@ watch(() => route.fullPath, () => {
   })
 }, { flush: 'post' })
 
-onMounted(() => nextTick(() => init()))
+onMounted(() => {
+  const doInit = () => nextTick(() => init())
+  if (document.readyState === 'complete') {
+    doInit()
+  } else {
+    window.addEventListener('load', doInit, { once: true })
+  }
+})
 onBeforeUnmount(() => cleanup())
 </script>
 

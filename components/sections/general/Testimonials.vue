@@ -101,7 +101,7 @@ const {
     }
 
     .wrap-testimonials {
-        background: rgba(72, 83, 73, 0.2);
+        background: rgba(72, 83, 73, 0.14);
         margin-bottom: calc(v.$space * 2);
         width: 100%;
         padding: 30rem 0 30rem 30rem;
