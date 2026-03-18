@@ -44,7 +44,7 @@ const configPublic = useRuntimeConfig().public;
     <SectionsHomeCTAServices />
   </div>
   <SectionsHomePortfolio />
-  <SectionsHomeTestimonials />
+  <SectionsGeneralTestimonials />
   <SectionsStudioTiny :showMap="false" class="from-home-studio" />
 </template>
 

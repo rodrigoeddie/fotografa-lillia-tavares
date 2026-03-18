@@ -1,10 +1,21 @@
 
 <script setup lang="ts">
+const props = defineProps({
+  lp: {
+    type: String,
+    default: false
+  }
+});
+
 const {
     data: works
 } = await useAsyncData(() => {
     const query = queryCollection('works');
     query.where('testimonial', '!=', null);
+
+    if (props.lp) {
+        query.where('path', 'LIKE', `%${props.lp}%`);
+    }
 
     return query.all();
 });
@@ -104,6 +115,21 @@ const {
                         z-index: 10;
                     }
                 }
+            }
+        }
+    }
+
+    .from-lp-corporativo {
+        background: transparent;
+
+        .title {
+            color: v.$lp-corporativo;
+        }
+
+        :deep(.wrap-testimonial) {
+            .btn {
+                background: v.$lp-corporativo;
+                color: white;
             }
         }
     }

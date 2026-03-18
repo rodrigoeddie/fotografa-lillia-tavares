@@ -58,15 +58,4 @@ body {
     background-size: 1100rem;
     font-family: v.$open;
     font-size: 16rem;
-
-    // @media (prefers-color-scheme: dark) {
-    //     // $bg-image: url('/assets/images/bg-dark.webp');
-    //     // $backgrounds: ();
-    //     // @for $i from 0 through $lines {
-    //     //     $backgrounds: list.append($backgrounds, $bg-image ($i * $offset-x) ($i * $offset-y) repeat-x, $separator: comma);
-    //     // }
-
-    //     // background: $backgrounds #918d6a;
-    //     color: white;
-    // }
 }
