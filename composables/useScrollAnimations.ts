@@ -319,11 +319,17 @@ export function useScrollAnimations() {
           trigger: el,
           start: 'top 85%',
           once: true,
+          invalidateOnRefresh: true,
         },
         onComplete: () => {
           el.classList.add('animated')
         },
       })
+    })
+
+    // Aguarda o browser pintar e estabilizar o layout antes de calcular posições
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => ScrollTrigger.refresh())
     })
   }
 
@@ -336,11 +342,16 @@ export function useScrollAnimations() {
   }
 
   /**
-   * Remove todas as animações gerenciadas pelo ScrollTrigger.
+   * Remove todas as animações gerenciadas pelo ScrollTrigger
+   * e reseta o estado dos elementos para permitir re-inicialização.
    */
   function cleanup() {
     if (import.meta.server) return
     ScrollTrigger.getAll().forEach((st) => st.kill())
+    document.querySelectorAll<HTMLElement>('[data-ani-initialized]').forEach((el) => {
+      delete el.dataset.aniInitialized
+      gsap.set(el, { clearProps: 'all' })
+    })
   }
 
   return { init, refresh, cleanup }
