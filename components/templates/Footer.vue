@@ -12,7 +12,7 @@
     const props = defineProps({
         lp: {
             type: String,
-            default: false
+            default: ''
         }
     });
 </script>
