@@ -289,8 +289,8 @@ function splitFeature(feature) {
   text-decoration: none;
   overflow: hidden;
   background: #fff;
-  border-bottom-left-radius: 8rem;
-  border-bottom-right-radius: 8rem;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
   color: v.$green;
   font-weight: 600;
   transition: all 0.3s ease;

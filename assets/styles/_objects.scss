@@ -167,14 +167,15 @@
 }
 
 .btn {
-  transition: color .2s, background .2s, border .2s;
+  transition: color .2s, background .2s, border .2s, box-shadow .2s;
   border: 1px solid transparent;
+  box-shadow: 2rem 2rem 0 rgba(0, 0, 0, 0.35);
   text-transform: uppercase;
   justify-content: center;
   display: inline-flex;
   padding: 14rem 24rem;
   letter-spacing: 2px;
-  background: black;
+  background: v.$green;
   align-items: center;
   font-weight: 900;
   font-size: 20rem;
@@ -191,7 +192,15 @@
   }
 
   &:hover {
+    box-shadow: 4rem 4rem 4rem rgba(0, 0, 0, 0.2);
     background: white !important;
+    border-color: v.$green;
+  }
+
+  &.btn-white {
+    background: #eaeaea;
+    border-color: v.$green;
+    color: v.$green;
   }
 
   &.btn-green {

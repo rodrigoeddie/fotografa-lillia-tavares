@@ -30,24 +30,13 @@ const titleParts = computed(() => {
       <SectionsGeneralPricingGrid :data="data" />
 
       <section v-if="data.includes" class="pricing-details">
-        <h2 class="pricing-details__title">O que está incluso em todos os pacotes</h2>
+        <h2 class="title">O que está incluso em todos os pacotes</h2>
         <ul class="pricing-details__list">
           <li v-for="(item, index) in data.includes" :key="index">{{ item }}</li>
         </ul>
       </section>
 
-      <section v-if="data.cta" class="pricing-cta">
-        <h2>{{ data.cta.title }}</h2>
-        <p>{{ data.cta.description }}</p>
-        <a 
-          :href="`https://wa.me/5511911159795?text=${encodeURIComponent(data.cta.whatsappMessage)}`"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="pricing-cta__button"
-        >
-          Solicitar Orçamento
-        </a>
-      </section>
+      <SectionsGeneralCtaContact :data="data.cta" />
     </div>
   </div>
   <div v-else class="pricing-page">
@@ -58,36 +47,31 @@ const titleParts = computed(() => {
 </template>
 
 <style scoped lang="scss">
-
-
 .pricing-header {
   text-align: center;
 }
 
 .pricing-details {
-  background: #fff;
-  border-radius: 8rem;
   box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
-  padding: 32rem;
   border: 1px solid v.$green;
+  padding: 32rem;
+  border-radius: 8rem;
+  background: #fff;
+  color: v.$green;
   
-  &__title {
-    font-size: 24rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 24rem;
+  .title {
+    padding-bottom: 20rem;
     text-align: center;
   }
   
   &__list {
-    list-style: none;
-    padding: 0;
-    display: grid;
     grid-template-columns: 1fr 1fr;
+    list-style: none;
+    display: grid;
+    padding: 0;
     
     li {
       padding: 12rem 0;
-      color: #666;
       position: relative;
       padding-left: 32rem;
       font-size: 18rem;
@@ -96,44 +80,8 @@ const titleParts = computed(() => {
         content: '✓';
         position: absolute;
         left: 0;
-        color: #333;
         font-weight: 600;
       }
-    }
-  }
-}
-
-.pricing-cta {
-  text-align: center;
-  padding: 48rem 0;
-  
-  h2 {
-    font-size: 32rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 16rem;
-  }
-  
-  p {
-    font-size: 18rem;
-    color: #666;
-    margin-bottom: 32rem;
-  }
-  
-  &__button {
-    display: inline-block;
-    padding: 16rem 40rem;
-    background: #333;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    
-    &:hover {
-      background: #000;
-      transform: translateY(-2rem);
-      box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.2);
     }
   }
 }

@@ -56,6 +56,7 @@
     <TemplatesHeader />
     <slot />
     <TemplatesFooter />
+    <TemplatesCookieConsent />
   </div>
 </template>
 

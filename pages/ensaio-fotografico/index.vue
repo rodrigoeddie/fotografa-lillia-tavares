@@ -76,7 +76,6 @@ useHead({
 }
 
 .container {
-
   @include m.min(md) {
     padding: 0 50rem;
   }

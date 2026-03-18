@@ -55,6 +55,7 @@
     <TemplatesHeader class="from-home" />
     <slot />
     <TemplatesFooter />
+    <TemplatesCookieConsent />
   </div>
 </template>
 

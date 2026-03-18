@@ -18,16 +18,19 @@
 </template>
 
 <style lang="scss">
-    .iframe-map {
-        height: 100%;
-        aspect-ratio: 16/5;
-    }
-
     .wrap-map {
+        padding-top: 30rem;
+        padding-bottom: 30rem;
+        overflow: hidden;
         width: 100%;
 
         @include m.max(md) {
             height: 100vw;
+        }
+
+        .iframe-map {
+            aspect-ratio: 16/5;
+            height: 100%;
         }
     }
 

@@ -32,6 +32,13 @@ useHead({
 definePageMeta({
   layout: 'lpcorporativo'
 });
+
+const cta = {
+  title: 'Pronto para ter fotos profissionais incríveis para o seu LinkedIn e redes sociais?',
+  description: 'Agende seu ensaio fotográfico corporativo em Mogi das Cruzes hoje mesmo e destaque-se com fotos de alta qualidade.',
+  buttonText: 'Agendar Ensaio pelo WhatsApp',
+  whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)'
+};
 </script>
 
 <template >
@@ -40,6 +47,7 @@ definePageMeta({
     <LandingsPortfolio class="lp-corporativo" :lp="slug" />
     <LandingsPrices class="lp-corporativo" :lp="slug" />
     <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
+    <SectionsGeneralCtaContact class="lp-corporativo" :data="cta" />
   </div>
 </template>
 

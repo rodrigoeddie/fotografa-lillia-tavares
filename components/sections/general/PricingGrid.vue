@@ -7,7 +7,6 @@ const props = defineProps({
   },
   lp: {
     type: String,
-    required: true,
     default: ''
   }
 });

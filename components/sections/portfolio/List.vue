@@ -189,7 +189,7 @@ const ensaiosByCategory = computed(() => {
                       data-ani-stagger="0.07" />
                 </div>
                 <div class="ac">
-                    <NuxtLink :to="group.path" class="btn btn-green">
+                    <NuxtLink :to="group.path" class="btn btn-white" data-ani-type="fade" data-ani-delay="0.5">
                         <span>Ver todos</span>
                     </NuxtLink>
                 </div>
@@ -246,6 +246,7 @@ const ensaiosByCategory = computed(() => {
 
   .portfolio-category-group {
     margin-bottom: 0;
+    margin-top: 30rem;
 
     .title {
         text-align: center;

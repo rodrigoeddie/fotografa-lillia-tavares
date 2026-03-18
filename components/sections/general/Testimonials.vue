@@ -3,7 +3,7 @@
 const props = defineProps({
   lp: {
     type: String,
-    default: false
+    default: ''
   }
 });
 
@@ -13,7 +13,7 @@ const {
     const query = queryCollection('works');
     query.where('testimonial', '!=', null);
 
-    if (props.lp) {
+    if (props.lp != '') {
         query.where('path', 'LIKE', `%${props.lp}%`);
     }
 
