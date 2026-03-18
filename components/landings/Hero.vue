@@ -12,7 +12,7 @@ const props = defineProps({
     <div class="hero" v-if="props.lp == 'corporativo'">
         <div class="container">
             <div class="wrap">
-                <div class="image" data-ani-type="fade-right">
+                <div class="image">
                     <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/d3d60550-3e27-4c92-77a4-c6b28c596000/public"'
@@ -21,8 +21,8 @@ const props = defineProps({
                         :alt="'Mulher de terno azul e cabelo cacheado sorrindo, olhando para o lado, com fundo azul'"
                         placeholder />
                 </div>
-                <div class="text" data-ani-type="fade-left">
-                    <nuxtLink to="/">
+                <div class="text">
+                    <nuxtLink to="/" aria-label="Voltar para a página inicial">
                         <nuxt-img
                             provider="cloudflare"
                             :src='"https://images.fotografalilliatavares.com.br/images/de7d6be6-8fed-43b0-e2ca-7b5643bd9d00/public"'

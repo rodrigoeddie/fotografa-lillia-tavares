@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
 useHead({
   bodyAttrs: {
     class: 'lp-corporativo'
@@ -21,17 +19,12 @@ useHead({
     }
   ]
 });
-
-onMounted(() => {
-  // Sem o Header (que força recalculo de layout via paddingTop),
-  // o ScrollTrigger pode ter posições desatualizadas em produção.
-  // Refresh após imagens/fontes terem chance de carregar.
-  setTimeout(() => ScrollTrigger.refresh(), 500)
-})
 </script>
 
 <template>
-  <slot />
+    <TemplatesHeader class="from-home" />
+    <slot />
+    <TemplatesFooter />
 </template>
 
 <style lang="scss">
