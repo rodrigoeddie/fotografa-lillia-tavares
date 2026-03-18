@@ -8,6 +8,13 @@
             screen_name: 'Footer'
         })
     }
+
+    const props = defineProps({
+        lp: {
+            type: String,
+            default: false
+        }
+    });
 </script>
 
 <template>
@@ -20,7 +27,7 @@
               aria-label="Voltar para a página inicial">
                 <nuxt-img
                     provider="cloudflare"
-                    :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+                    :src='props.lp=="corporativo" ? "https://images.fotografalilliatavares.com.br/images/de7d6be6-8fed-43b0-e2ca-7b5643bd9d00/public" : "https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
                     alt="Logotipo Lillia Tavares Fotografia"
                     width="390"
                     height="107"
@@ -120,18 +127,46 @@
     address {
         font-style: normal;
         text-align: center;
+        color: v.$green;
         font-size: 16px;
         padding: 20px;
-        color: v.$dark-green;
         width: 100%;
-
-        // @media (prefers-color-scheme: dark) {
-        //     background: v.$dark-green;
-        //     color: white;
-        // }
 
         @include m.max(sm) {
             font-size: 12px;
+        }
+    }
+
+    .lp-corporativo {
+        footer {
+            background: rgba(16, 28, 44, 0.1);
+        }
+
+        header {
+            background-color: v.$lp-corporativo;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        :deep(.social) {
+            .link-social {
+                color: white;
+            }
+
+            .icon-whatsapp * {
+                stroke: white;
+            }
+    
+            .icon {
+                fill: white;
+            }
+        }
+
+        :deep(.menu) .link,
+        address {
+            color: v.$lp-corporativo !important;
         }
     }
 </style>

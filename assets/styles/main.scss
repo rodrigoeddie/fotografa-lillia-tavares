@@ -49,12 +49,7 @@ $offset-y: 125rem;
 $lines: 100;
 
 body {
-    $backgrounds: ();
-    @for $i from 0 through $lines {
-        $backgrounds: list.append($backgrounds, $bg-image ($i * $offset-x) ($i * $offset-y) repeat-x, $separator: comma);
-    }
-
-    background: $backgrounds v.$light-green;
+    background: v.$light-green;
     background-size: 1100rem;
     font-family: v.$open;
     font-size: 16rem;

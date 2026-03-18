@@ -19,7 +19,8 @@ const props = defineProps({
                         :width="'263'"
                         :height="'460'"
                         :alt="'Mulher de terno azul e cabelo cacheado sorrindo, olhando para o lado, com fundo azul'"
-                        placeholder />
+                        placeholder
+                        fetchpriority="high" />
                 </div>
                 <div class="text">
                     <nuxtLink to="/" aria-label="Voltar para a página inicial">
@@ -29,7 +30,8 @@ const props = defineProps({
                             :width="'320'"
                             :height="'87'"
                             :alt="'Logotipo Fotografa Lillia Tavares'"
-                            placeholder />
+                            placeholder
+                            fetchpriority="high" />
                     </nuxtLink>
 
                     <h1 class="title-hero">Ensaio Fotográfico Profissional<br>em Mogi das Cruzes</h1>

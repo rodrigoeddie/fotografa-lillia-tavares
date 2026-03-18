@@ -150,7 +150,7 @@ const formatDate = (dateString: string) => {
         :height="highlight[0].height"
         :alt="highlight[0].alt"
         placeholder
-        fetchpriority="high"/>
+        fetchpriority="high" />
       
       <nuxt-img
         v-if="highlight[1]"
@@ -160,7 +160,7 @@ const formatDate = (dateString: string) => {
         :height="highlight[1].height"
         :alt="highlight[1].alt"
         placeholder
-        fetchpriority="high"/>
+        fetchpriority="high" />
     </div>
   </div>
 </template>

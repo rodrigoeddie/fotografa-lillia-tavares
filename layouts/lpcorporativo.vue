@@ -23,6 +23,7 @@ useHead({
 
 <template>
     <slot />
+    <TemplatesFooter class="lp-corporativo" :lp="'corporativo'" />
 </template>
 
 <style lang="scss">

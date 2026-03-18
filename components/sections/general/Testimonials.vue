@@ -24,13 +24,21 @@ const {
 <template>
     <div
       class="wrap-testimonials">
-        <h2 class="title">
+        <h2 :class="props.lp == 'corporativo' ? 'title-lp' : 'title'">
             <NuxtLink
                 to="/depoimentos"
                 class="link">
                 Depoimentos
             </NuxtLink>
         </h2>
+
+        <p class="description-lp" v-if="props.lp == 'corporativo'">
+            O que clientes dizem sobre os ensaios fotográficos profissionais feitos no estúdio
+        </p>
+        <p class="description" v-else>
+            O que clientes dizem sobre os ensaios fotográficos feitos no estúdio
+        </p>
+
         <ClientOnly>
         <swiper-container
             class="swiper-testimonials"
@@ -78,7 +86,18 @@ const {
         color: v.$green;
         display: block;
         text-align: center;
-        padding-bottom: 15rem;
+        padding-bottom: 0;
+    }
+
+    .title-lp {
+        margin-bottom: 0;
+        padding-top: 0;
+    }
+
+    .description-lp,
+    .description {
+        text-align: center;
+        padding-bottom: 30rem;
     }
 
     .wrap-testimonials {
@@ -120,7 +139,7 @@ const {
         }
     }
 
-    .from-lp-corporativo {
+    .lp-corporativo {
         background: transparent;
 
         .title {
@@ -131,6 +150,20 @@ const {
             .btn {
                 background: v.$lp-corporativo;
                 color: white;
+
+                &:hover {
+                    background: #eaeaea;
+                    color: v.$lp-corporativo;
+                }
+            }
+
+            .description {
+                color: v.$lp-corporativo;
+            }
+
+            .text-testimonial {
+                box-shadow: 0 0 10rem rgba(0, 0, 0, 0.25);
+                background: #f7f7f7;
             }
         }
     }

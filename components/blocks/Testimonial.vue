@@ -107,7 +107,10 @@ const props = defineProps({
             width: 100%;
 
             .btn {
-                margin-top: -15rem;
+                margin-top: -10rem;
+                border-radius: 5rem;
+                text-transform: none;
+                padding: 6rem 12rem;
             }
         }
     }

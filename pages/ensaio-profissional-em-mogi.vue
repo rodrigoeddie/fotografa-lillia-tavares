@@ -5,11 +5,6 @@ const link = 'https://fotografalilliatavares.com.br/ensaio-profissional-em-mogi'
 
 const slug = 'corporativo';
 
-// O conteúdo fica em /investimento/{slug} mas a URL é /precos-ensaios-fotograficos/{slug}
-const { data: pageData } = await useAsyncData(`investimento-${slug}`, () => {
-  return queryCollection('investimento').path(`/investimento/${slug}`).first();
-});
-
 useSchemaOrg([
   defineWebPage({
     name: title,
@@ -43,22 +38,13 @@ definePageMeta({
   <div class="wrapper-corporativo">
     <LandingsHero class="lp-corporativo" :lp="slug" />
     <LandingsPortfolio class="lp-corporativo" :lp="slug" />
-    <section class="container">
-      <h1 class="title-lp title-precos">
-        Confira nossos preços para ensaio fotográfico profissional em Mogi das Cruzes
-      </h1>
-      <SectionsGeneralPricingGrid :data="pageData" :lp="slug" class="from-lp-corporativo" />
-    </section>
-    <SectionsGeneralTestimonials class="from-lp-corporativo" :lp="slug" />
+    <LandingsPrices class="lp-corporativo" :lp="slug" />
+    <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .wrapper-corporativo {
   padding-bottom: 100rem;
-}
-
-.title-precos {
-  margin-bottom: -20rem;
 }
 </style>

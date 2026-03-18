@@ -48,14 +48,15 @@ const images = computed(() => {
                 class="thumb"
                 :alt="img.alt || img._workTitle"
                 format="webp"
-                placeholder/>
+                placeholder
+                fetchpriority="high" />
         </div>
             
         <div class="ac">
             <nuxt-link
                 to="/ensaio-fotografico/corporativo"
                 class="btn-hero"
-                external
+                target="_blank"
                 aria-label="Ver portfólio completo de fotos corporativas feitas no estúdio">
                 <span>Ver Portifólio Completo</span>
             </nuxt-link>
