@@ -13,7 +13,7 @@ const { data: pageData } = await useAsyncData(`investimento-${props.lp}`, () => 
 </script>
 
 <template >
-    <section class="container">
+    <section class="container" data-ani-type="fade-up">
       <h1 class="title-lp title-precos">
         Confira nossos preços
       </h1>

@@ -23,8 +23,7 @@ const {
 </script>
 
 <template>
-    <div
-      class="wrap-testimonials">
+    <div class="wrap-testimonials" data-ani-type="fade-up">
         <h2 :class="props.lp == 'corporativo' ? 'title-lp' : 'title'">
             <NuxtLink
                 to="/depoimentos"

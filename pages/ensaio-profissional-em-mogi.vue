@@ -68,6 +68,25 @@ const forWho = [
     ]
   }
 ];
+
+const howWorks = [
+  {
+    title: 'Agende seu Horário',
+    icon: 'chedule',
+  },
+  {
+    title: 'Faça seu Ensaio',
+    icon: 'camera',
+  },
+  {
+    title: 'Escolha suas Fotos',
+    icon: 'choose',
+  },
+  {
+    title: 'Receba suas Fotos',
+    icon: 'envelope',
+  },
+];
 </script>
 
 <template >
@@ -75,8 +94,10 @@ const forWho = [
     <LandingsHero class="lp-corporativo" :lp="slug" />
     <LandingsPortfolio class="lp-corporativo" :lp="slug" />
     <LandingsForWho class="lp-corporativo" :lp="slug" :data="forWho" />
+    <LandingsHowWorks class="lp-corporativo" :lp="slug" :data="howWorks" />
     <LandingsPrices class="lp-corporativo" :lp="slug" />
     <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
+    <LandingsMap class="lp-corporativo" :lp="slug" />
     <SectionsGeneralCtaContact class="lp-corporativo" :data="cta" />
   </div>
 </template>

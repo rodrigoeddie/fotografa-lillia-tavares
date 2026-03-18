@@ -34,7 +34,7 @@ const images = computed(() => {
 </script>
 
 <template>
-    <div class="portfolio section-lp">
+    <div class="portfolio section-lp" data-ani-type="fade-up" data-ani-delay="0.6s">
         <h1 class="title-lp">Fotos corporativas feitas no estúdio</h1>
 
         <div class="wrap">

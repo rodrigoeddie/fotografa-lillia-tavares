@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <section class="container section-lp">
+    <section class="container section-lp" data-ani-type="fade-up">
         <div class="ac">
             <h1 class="title">Para quem é esse ensaio</h1>
         </div>
@@ -29,7 +29,7 @@ const props = defineProps({
 .section-lp {
     padding-top: 45rem;
 
-    @include m.max(xs) {
+    @include m.max(sm) {
         padding-bottom: 0;
     }
 }
@@ -41,7 +41,7 @@ const props = defineProps({
     display: flex;
     gap: 20rem;
     
-    @include m.max(xs) {
+    @include m.max(sm) {
         padding-top: 15rem;
         gap: 13rem;
     }
@@ -51,13 +51,13 @@ const props = defineProps({
         font-weight: bold;
         font-size: 22rem;
 
-        @include m.max(xs) {
+        @include m.max(sm) {
             font-size: 18rem;
         }
     }
 
     .for-who__group {
-        @include m.max(xs) {
+        @include m.max(sm) {
             width: calc(33% - 13rem);
         }
     }
@@ -67,8 +67,9 @@ const props = defineProps({
         background: #eaeaea;
         padding: 20rem 40rem;
         width: 380rem;
+        height: 83%;
         
-        @include m.max(xs) {
+        @include m.max(sm) {
             // background: transparent;
             width: 100%;
             padding: 10rem;
@@ -80,7 +81,7 @@ const props = defineProps({
             line-height: 1.5em;
             list-style: disc;
         
-            @include m.max(xs) {
+            @include m.max(sm) {
                 font-size: 16rem;
                 list-style: none;
 

@@ -12,7 +12,7 @@ const props = defineProps({
     <div class="hero" v-if="props.lp == 'corporativo'">
         <div class="container">
             <div class="wrap">
-                <div class="image">
+                <div class="image" data-ani-type="fade-left" data-ani-delay="0.3s">
                     <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/d3d60550-3e27-4c92-77a4-c6b28c596000/public"'
@@ -22,7 +22,7 @@ const props = defineProps({
                         placeholder
                         fetchpriority="high" />
                 </div>
-                <div class="text">
+                <div class="text" data-ani-type="fade-right" data-ani-delay="0.3s">
                     <nuxtLink to="/" aria-label="Voltar para a página inicial">
                         <nuxt-img
                             provider="cloudflare"

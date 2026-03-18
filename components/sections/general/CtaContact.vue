@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <section v-if="props.data" class="pricing-cta">
+    <section v-if="props.data" class="pricing-cta" data-ani-type="fade-up">
         <h2 class="title">{{ props.data.title }}</h2>
         <p class="description">{{ props.data.description }}</p>
         <a 
