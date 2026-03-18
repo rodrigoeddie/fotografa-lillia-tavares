@@ -39,12 +39,42 @@ const cta = {
   buttonText: 'Agendar Ensaio pelo WhatsApp',
   whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)'
 };
+
+const forWho = [
+  {
+    title: 'Redes Sociais',
+    list: [
+      'LinkedIn',
+      'Instagram',
+      'Facebook',
+      'Site institucional'
+    ]
+  },
+  {
+    title: 'Empresários',
+    list: [
+      'Advogados',
+      'Médicos',
+      'Psicólogos',
+      'Influenciadores...',
+    ]
+  },
+  {
+    title: 'Outros',
+    list: [
+      'Inscrições para comissários',
+      'Executivos',
+      'Currículos...',
+    ]
+  }
+];
 </script>
 
 <template >
   <div class="wrapper-corporativo">
     <LandingsHero class="lp-corporativo" :lp="slug" />
     <LandingsPortfolio class="lp-corporativo" :lp="slug" />
+    <LandingsForWho class="lp-corporativo" :lp="slug" :data="forWho" />
     <LandingsPrices class="lp-corporativo" :lp="slug" />
     <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
     <SectionsGeneralCtaContact class="lp-corporativo" :data="cta" />

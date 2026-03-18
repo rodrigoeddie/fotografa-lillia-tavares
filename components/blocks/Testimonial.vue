@@ -88,9 +88,17 @@ const props = defineProps({
             border-radius: 10rem;
             padding: 20rem;
             width: 87%;
+  
+            @include m.max(xs) {
+                width: 95%;
+            }
 
             .description {
                 padding-top: 0;
+  
+                @include m.max(xs) {
+                    font-size: 16rem;
+                }
             }
 
             .from {

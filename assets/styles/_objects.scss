@@ -440,3 +440,11 @@ nav[aria-label=breadcrumb] {
   display: block;
   text-align: center;
 }
+
+.section-lp {
+    padding-bottom: 45rem;
+
+    @include m.max(xs) {
+        padding-bottom: 15rem;
+    }
+}

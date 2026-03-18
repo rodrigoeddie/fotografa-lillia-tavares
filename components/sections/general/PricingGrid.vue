@@ -67,6 +67,10 @@ const props = defineProps({
   padding-top: v.$bigSpace;
   margin-bottom: v.$bigSpace;
   position: relative;
+
+  @include m.max(xs) {
+    padding-top: 15rem;
+  }
   
   .pricing-swiper {
     swiper-slide {

@@ -14,6 +14,7 @@ const {
     query.where('testimonial', '!=', null);
 
     if (props.lp != '') {
+        console.log('filtro');
         query.where('path', 'LIKE', `%${props.lp}%`);
     }
 

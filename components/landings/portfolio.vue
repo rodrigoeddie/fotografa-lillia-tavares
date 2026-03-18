@@ -65,14 +65,6 @@ const images = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-    .section-lp {
-        padding-bottom: 45rem;
-
-        @include m.max(xs) {
-            padding-bottom: 15rem;
-        }
-    }
-
     .wrap {
         display: flex;
         gap: 5rem;

@@ -27,6 +27,10 @@ const props = defineProps({
   text-align: center;
   padding: calc(v.$bigSpace * 2) 0;
   color: v.$green;
+  
+  @include m.max(xs) {
+    padding: v.$bigSpace;
+  }
 
   .description {
     margin-bottom: 20px;
