@@ -259,7 +259,6 @@ export function useScrollAnimations() {
             ease,
             stagger,
             onComplete() {
-              // Adiciona .animated ao último do batch
               ;(batch as HTMLElement[]).forEach((el) => el.classList.add('animated'))
             },
           })
