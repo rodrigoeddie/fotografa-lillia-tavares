@@ -305,4 +305,29 @@ function splitFeature(feature) {
     color: white;
   }
 }
+
+.corporativo {
+    background: linear-gradient(v.$lp-corporativo 25%, #f0f0f0 68%);
+    border-color: v.$lp-corporativo;
+    
+    .pricing-card__features {
+      background: #f0f0f0;
+      color: v.$lp-corporativo;
+      box-shadow: 0 -15rem 15rem -10rem rgba(44, 42, 21, 0.5) inset;
+    }
+    
+    .pricing-card__button {
+      color: v.$lp-corporativo;
+
+      &--primary {
+        background: v.$lp-corporativo;
+        color: white;
+      }
+      
+      &:hover {
+        background: black;
+        color: white;
+      }
+    }
+}
 </style>

@@ -28,7 +28,6 @@ useSeoMeta({
 </script>
 
 <template>
-  <SectionsPortfolioHero />
   <SectionsPortfolioCategoryList class="no-padding" />
 </template>
 

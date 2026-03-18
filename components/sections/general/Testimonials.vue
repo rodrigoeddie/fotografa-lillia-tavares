@@ -31,6 +31,7 @@ const {
                 Depoimentos
             </NuxtLink>
         </h2>
+        <ClientOnly>
         <swiper-container
             class="swiper-testimonials"
             :auto-height="true"
@@ -68,6 +69,7 @@ const {
                             :testimonial="work.testimonial" />
                 </swiper-slide>
         </swiper-container>
+        </ClientOnly>
     </div>
 </template>
 

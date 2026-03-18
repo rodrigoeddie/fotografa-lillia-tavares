@@ -11,6 +11,7 @@ const siteConfig = {
 export default defineNuxtConfig({
   siteConfig: siteConfig,
   debug: false,
+  sourcemap: false,
 
   site: {
     url: siteConfig.url,

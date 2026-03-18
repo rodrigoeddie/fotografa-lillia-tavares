@@ -1,6 +1,6 @@
 name = "fotografa-lillia-tavares"
 compatibility_date = "2026-03-17"
-compatibility_flags = ["nodejs_compat_v2"]
+compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
 
 [[d1_databases]]
