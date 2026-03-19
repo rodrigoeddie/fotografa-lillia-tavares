@@ -275,6 +275,44 @@ const processedContent = computed(() => {
         }
       }
     }
+
+    :deep(div) {
+      quote {
+        padding: 15rem;
+        display: inline-block;
+        background: #e9e8e1;
+        color: v.$green;
+        font-size: 19rem;
+        font-style: italic;
+        margin-top: 10rem;
+      }
+      
+      h2 {
+        color: v.$green;
+        font-size: 28rem;
+        margin: 40rem 0 20rem;
+        font-weight: bold;
+      }
+      
+      ul {
+        padding-left: 40rem;
+        margin: 20rem 0;
+        
+        li {
+          margin-bottom: 10rem;
+          list-style: disc;
+          font-size: 19rem;
+          color: v.$green;
+        }
+      }
+
+      .link-interno {
+        text-decoration: underline;
+        display: inline-block;
+        font-size: 19rem;
+        padding: 15rem 0;
+      }
+    }
   }
 
   :deep(.subtitle) {
