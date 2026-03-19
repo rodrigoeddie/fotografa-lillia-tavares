@@ -31,6 +31,7 @@ const props = defineProps({
 
                 <div class="wrap">
                     <h2 class="subtitle">{{ item.title }}</h2>
+                    <p class="description-item">{{ item.description }}</p>
                 </div>
             </div>
         </div>
@@ -103,6 +104,7 @@ const props = defineProps({
         background: #eaeaea;
         border-radius: 14rem;
         display: flex;
+        border: 1px solid white;
 
         @include m.max(sm) {
             width: calc(50% - 20rem);
@@ -113,7 +115,9 @@ const props = defineProps({
             border-top-left-radius: 14rem;
             justify-content: center;
             background: #283C57;
+            color: white;
             align-items: center;
+            border-right: 1px solid white;
             aspect-ratio: 1;
             display: flex;
             width: 35%;
@@ -127,9 +131,11 @@ const props = defineProps({
 
         .wrap {
             color: #283C57;
-            padding: 20rem 40rem;
+            padding: 20rem;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
+            justify-content: center;
 
             @include m.max(sm) {
                 padding: 20rem;
@@ -142,6 +148,11 @@ const props = defineProps({
                 @include m.max(sm) {
                     font-size: 20rem;
                 }
+            }
+
+            .description-item {
+                font-size: 17rem;
+                padding-top: 5rem;
             }
         }
     }

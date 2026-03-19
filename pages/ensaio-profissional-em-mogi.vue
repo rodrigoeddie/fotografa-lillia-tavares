@@ -34,10 +34,17 @@ definePageMeta({
 });
 
 const cta = {
-  title: 'Pronto para ter fotos profissionais incríveis para o seu LinkedIn e redes sociais?',
-  description: 'Agende seu ensaio fotográfico corporativo em Mogi das Cruzes hoje mesmo e destaque-se com fotos de alta qualidade.',
-  buttonText: 'Agendar Ensaio pelo WhatsApp',
-  whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)'
+  title: 'Pronto para ter fotos profissionais?',
+  description: 'Agende seu ensaio corporativo em Mogi das Cruzes e destaque-se com qualidade.',
+  buttonText: 'Agendar meu ensaio agora',
+  whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)',
+  image: 'efcab108-fb74-4ac1-431e-5f18938ada00',
+  features: [
+    '✔ Direção completa durante o ensaio',
+    '✔ Ideal para LinkedIn e redes sociais',
+    '✔ Entrega rápida',
+    '✔ Estúdio em Mogi das Cruzes'
+  ]
 };
 
 const forWho = [
@@ -71,19 +78,23 @@ const forWho = [
 
 const howWorks = [
   {
-    title: 'Agende seu Horário',
+    title: 'Agendamento',
+    description: 'Agende seu horário em poucos minutos',
     icon: 'chedule',
   },
   {
-    title: 'Faça seu Ensaio',
+    title: 'Ensaio',
+    description: 'Receba direção completa durante o ensaio',
     icon: 'camera',
   },
   {
-    title: 'Escolha suas Fotos',
+    title: 'Seleção',
+    description: 'Escolha suas melhores fotos',
     icon: 'choose',
   },
   {
-    title: 'Receba suas Fotos',
+    title: 'Entrega',
+    description: 'Receba imagens profissionais prontas para uso',
     icon: 'envelope',
   },
 ];
@@ -97,8 +108,8 @@ const howWorks = [
     <LandingsHowWorks class="lp-corporativo" :lp="slug" :data="howWorks" />
     <LandingsPrices class="lp-corporativo" :lp="slug" />
     <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
-    <LandingsMap class="lp-corporativo" :lp="slug" />
     <SectionsGeneralCtaContact class="lp-corporativo" :data="cta" />
+    <LandingsMap class="lp-corporativo" :lp="slug" />
   </div>
 </template>
 

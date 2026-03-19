@@ -10,9 +10,10 @@ const props = defineProps({
 
 <template>
     <section class="container section-lp" data-ani-type="fade-up">
-        <div class="ac">
-            <h1 class="title">Para quem é esse ensaio</h1>
-        </div>
+        <h1 class="title-lp">Para quem é esse ensaio</h1>
+        <p class="description-lp">
+            Não precisa saber posar, nós te direcionamos durante todo o ensaio
+        </p>
 
         <div class="for-who__list">
             <div v-for="item in props.data" :key="item.title" class="for-who__group">
@@ -32,6 +33,15 @@ const props = defineProps({
     @include m.max(sm) {
         padding-bottom: 0;
     }
+}
+
+.title-lp {
+    margin-bottom: 0;
+    padding-top: 0;
+}
+
+.description-lp {
+    padding-bottom: 20rem;
 }
 
 .for-who__list {
@@ -98,7 +108,13 @@ const props = defineProps({
 }
 
 .lp-corporativo {
+    color: v.$lp-corporativo;
+
     .for-who__list {
+        color: v.$lp-corporativo;
+    }
+
+    .description {
         color: v.$lp-corporativo;
     }
 }

@@ -30,12 +30,13 @@ const props = defineProps({
                             :width="'320'"
                             :height="'87'"
                             :alt="'Logotipo Fotografa Lillia Tavares'"
+                            class="logo"
                             placeholder
                             fetchpriority="high" />
                     </nuxtLink>
 
                     <h1 class="title-hero">Ensaio Fotográfico Profissional<br>em Mogi das Cruzes</h1>
-                    <p class="subtitle-hero">Fotos profissionais para LinkedIn, currículos e redes sociais</p>
+                    <p class="subtitle-hero">Fotos profissionais para LinkedIn e redes sociais que transmitem confiança</p>
                     
                     <ul>
                         <li>Direção de poses</li>
@@ -45,7 +46,7 @@ const props = defineProps({
             
                     <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)">
                         <Icon name="icons:whatsapp" class="icon"/>
-                        <span>Agendar Ensaio pelo WhatsApp</span>
+                        <span>Agendar Ensaio</span>
                     </a>
                 </div>
             </div>
@@ -54,6 +55,10 @@ const props = defineProps({
 </template>
 
 <style scoped lang="scss">
+    .hero {
+        overflow: hidden;
+    }
+
     .lp-corporativo {
         background: v.$lp-corporativo;
     }
@@ -64,18 +69,28 @@ const props = defineProps({
         padding-top: 20rem;
         display: flex;
 
-        @include m.max(sm) {
-            flex-direction: column-reverse;
-            align-items: center;
+        .logo {
+            @include m.max(sm) {
+                width: 300rem;
+                height: auto;
+            }
         }
 
         .image {
             @include m.max(sm) {
-                width: 70%;
+                text-align: center;
+                flex-shrink: 0;
+                width: 42%;
+                margin-left: -9%;
             }
                 
             img {
                 height: auto;
+
+                @include m.max(sm) {
+                    max-width: 291rem;
+                    width: 122%;
+                }
             }
         }
 
@@ -85,9 +100,13 @@ const props = defineProps({
             padding-top: 30rem;
             
             @include m.max(sm) {
+                padding-left: 0;
                 padding-right: 30rem;
-                padding-bottom: 20rem;
+                padding-bottom: 30rem;
                 padding-top: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
             }
 
             .title-hero {
@@ -96,6 +115,11 @@ const props = defineProps({
                 color: #EAEAEA;
                 padding-top: 30rem;
                 font-weight: 700;
+  
+                @include m.max(sm) {
+                    font-size: 25rem;
+                    text-align: right;
+                }
             }
 
             .subtitle-hero {
@@ -103,6 +127,11 @@ const props = defineProps({
                 font-size: 22rem;
                 margin-top: 20rem;
                 margin-bottom: 30rem;
+  
+                @include m.max(sm) {
+                    font-size: 20rem;
+                    text-align: right;
+                }
             }
             
             ul {
@@ -132,7 +161,7 @@ const props = defineProps({
                 @include m.max(sm) {
                     margin-top: 30rem;
                     font-size: 22rem;
-                    padding: 21rem;
+                    padding: 10rem 21rem;
                 }
 
                 .icon {

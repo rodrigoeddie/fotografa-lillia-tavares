@@ -13,15 +13,17 @@ const props = defineProps({
     <section>
         <div class="container wrapper-map">
             <div class="image">
-                <nuxt-img
-                  provider="cloudflare"
-                  :src='"https://images.fotografalilliatavares.com.br/images/11cdaead-933f-4b58-cb28-68e29ed44900/public"'
-                  width="380"
-                  height="342"
-                  class="map"
-                  :alt="'mapa de localização do estúdio em Mogi das Cruzes'"
-                  format="webp"
-                  placeholder />
+                <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank">
+                    <nuxt-img
+                        provider="cloudflare"
+                        :src='"https://images.fotografalilliatavares.com.br/images/11cdaead-933f-4b58-cb28-68e29ed44900/public"'
+                        width="380"
+                        height="342"
+                        class="map"
+                        :alt="'mapa de localização do estúdio em Mogi das Cruzes'"
+                        format="webp"
+                        placeholder />
+                </a>
             </div>
             <div class="text">
                 <h1 class="title-lp">
@@ -30,7 +32,7 @@ const props = defineProps({
                 <p class="description">Estamos localizados em frente ao estacionamento da Prefeitura de Mogi das Cruzes, com fácil acesso para toda a região do Alto Tietê. Estamos próximos às principais vias de acesso, pontos de ônibus e à estação de trem Estudantes.</p>
                 <h2>Endereço</h2>
                 <p class="description">
-                    Av. Ver. Narciso Yague Guimarães, 124 - Sala 21 - Vila Partenio, Mogi das Cruzes - SP, 08780-200
+                    <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank">Av. Ver. Narciso Yague Guimarães, 124 - Sala 21 - Vila Partenio, Mogi das Cruzes - SP, 08780-200</a>
                 </p>
                 <h3>Atendemos clientes de:</h3>
                 <ul>
@@ -90,7 +92,6 @@ const props = defineProps({
 
     .description {
         padding-top: 10rem;
-        color: v.$lp-corporativo;
     }
 
     ul {
@@ -115,6 +116,14 @@ const props = defineProps({
         padding-top: 20rem;
         font-size: 20rem;
         font-weight: bold;
+    }
+}
+
+.lp-corporativo {
+    color: v.$lp-corporativo;
+
+    .description {
+        color: v.$lp-corporativo;
     }
 }
 </style>

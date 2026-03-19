@@ -36,6 +36,9 @@ const images = computed(() => {
 <template>
     <div class="portfolio section-lp" data-ani-type="fade-up" data-ani-delay="0.6s">
         <h1 class="title-lp">Fotos corporativas feitas no estúdio</h1>
+        <p class="description-lp">
+            Mais de 288 clientes atendidos em Mogi das Cruzes
+        </p>
 
         <div class="wrap">
             <nuxt-img
@@ -85,6 +88,14 @@ const images = computed(() => {
         }
     }
 
+    .title-lp {
+        margin-bottom: 0;
+    }
+
+    .description-lp {
+        padding-bottom: 20px;
+    }
+
     .btn-hero {
         transition: box-shadow .3s ease, background .3s ease;
         box-shadow: 5rem 5rem 0 v.$lp-corporativo;
@@ -111,6 +122,14 @@ const images = computed(() => {
         &:hover {
             box-shadow: 10rem 10rem 0 v.$lp-corporativo;
             background: #eaeaea;
+        }
+    }
+
+    .lp-corporativo {
+        color: v.$lp-corporativo;
+
+        .description-lp {
+            color: v.$lp-corporativo;
         }
     }
 </style>

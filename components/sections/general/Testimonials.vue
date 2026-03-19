@@ -33,7 +33,7 @@ const {
         </h2>
 
         <p class="description-lp" v-if="props.lp == 'corporativo'">
-            O que clientes dizem sobre os ensaios fotográficos profissionais feitos no estúdio
+            Avaliação 5 estrelas por clientes sobre os ensaios fotográficos profissionais feitos no estúdio
         </p>
         <p class="description" v-else>
             O que clientes dizem sobre os ensaios fotográficos feitos no estúdio
