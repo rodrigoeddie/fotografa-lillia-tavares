@@ -54,7 +54,6 @@ const props = defineProps({
   padding: calc(v.$bigSpace * 2) 0;
   margin-bottom: 80rem;
   color: v.$green;
-  overflow: hidden;
   
   @include m.max(xs) {
     padding: v.$bigSpace 20rem;
