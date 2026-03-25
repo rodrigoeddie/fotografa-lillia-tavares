@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-const title = 'Ensaio Profissional em Mogi das Cruzes | Fotos para LinkedIn e Empresas';
-const description = 'Ensaio fotográfico profissional em Mogi das Cruzes para LinkedIn, currículo e redes sociais. Estúdio completo, direção de poses e entrega rápida. Agende seu horário.';
-const link = 'https://fotografalilliatavares.com.br/ensaio-profissional-em-mogi';
+import { button } from '#build/ui';
 
-const slug = 'corporativo';
+const title = 'Presente de Dia das Mães em Mogi das Cruzes: Ensaio Fotográfico Especial';
+const description = 'Se você está procurando um presente de dia das mães em Mogi das Cruzes, uma das opções mais especiais é um ensaio fotográfico profissional. Diferente de presentes comuns, como flores ou roupas, as fotos se tornam lembranças para toda a vida.';
+const link = 'https://fotografalilliatavares.com.br/ensaio-dia-das-maes-mogi-das-cruzes';
+
+const slug = 'dia-das-maes';
 
 useSchemaOrg([
   defineWebPage({
@@ -109,20 +111,20 @@ const portfolioSection = {
 </script>
 
 <template >
-  <div class="wrapper-corporativo">
-    <LandingsHero class="lp-corporativo" :lp="slug" />
-    <LandingsPortfolio class="lp-corporativo" :lp="slug" :data="portfolioSection" />
-    <LandingsForWho class="lp-corporativo" :lp="slug" :data="forWho" />
-    <LandingsHowWorks class="lp-corporativo" :lp="slug" :data="howWorks" />
-    <LandingsPrices class="lp-corporativo" :lp="slug" />
-    <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
-    <SectionsGeneralCtaContact class="lp-corporativo" :data="cta" />
-    <LandingsMap class="lp-corporativo" :lp="slug" />
+  <div class="wrapper-dia-das-maes">
+    <LandingsHero class="lp-dia-das-maes" :lp="slug" />
+    <LandingsPortfolio class="lp-dia-das-maes" :lp="slug" :data="portfolioSection" />
+    <LandingsForWho class="lp-dia-das-maes" :lp="slug" :data="forWho" />
+    <LandingsHowWorks class="lp-dia-das-maes" :lp="slug" :data="howWorks" />
+    <LandingsPrices class="lp-dia-das-maes" :lp="slug" />
+    <SectionsGeneralTestimonials class="lp-dia-das-maes" :lp="slug" />
+    <SectionsGeneralCtaContact class="lp-dia-das-maes" :data="cta" />
+    <LandingsMap class="lp-dia-das-maes" :lp="slug" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.wrapper-corporativo {
+.wrapper-dia-das-maes {
   padding-bottom: 100rem;
 }
 </style>

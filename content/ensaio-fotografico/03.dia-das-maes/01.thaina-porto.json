@@ -3,12 +3,20 @@
   "home": false,
   "homeOrder": 2,
   "colorHighlight": "#ae7267",
-  "title": "Rosiney de Melo",
+  "title": "Thainá Porto - Dia das Mães 2026",
   "description": "<p>Um ensaio com 3 lindas gerações, a vovó Rose, a mamãe Vanessa e a netinha Giugiu, elas me deram a alegria de fotografá-las ❤️</p>",
   "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/cenarios/dia-das-maes-2025'>Estúdio Lillia Tavares</a>",
+  "testimonial": {
+    "text": "Minha experiência é SEMPRE maravilhosa!! O estúdio é lindo e muito aconchegante, dá vontade de ficar o dia todinho lá. A lillía é muito simpática, deixa a gente sempre muito a vontade e o trabalho dela é impecável. Recomendo demaaaaisss!!!!",
+    "avatar": "010e2691-7333-4d8a-0781-ec4208dfe400",
+    "link": "https://maps.app.goo.gl/XYfAgs7nPh3te4RU7",
+    "rating": 5,
+    "date": "Ontem",
+    "source": "Google Maps"
+  },
   "category": {
-    "slug": "dia-das-maes-2025",
-    "title": "Dia das Mães 2025"
+    "slug": "dia-das-maes",
+    "title": "Dia das Mães 2026"
   },
   "video": "<iframe src='https://customer-wozwag8lva9thgts.cloudflarestream.com/4ec31f4e8da55ec45f6f55ec047b79ad/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-wozwag8lva9thgts.cloudflarestream.com%2F4ec31f4e8da55ec45f6f55ec047b79ad%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600' loading='lazy' allow='accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;' allowfullscreen='true' ></iframe>",
   "album": [

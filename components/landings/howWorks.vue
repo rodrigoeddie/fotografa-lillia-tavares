@@ -10,38 +10,37 @@ const props = defineProps({
 
 <template>
     <section class="section-lp" data-ani-type="fade-up">
-    <div class="container">
-        <div class="ac">
-            <h1 class="title-lp">Como funciona o ensaio</h1>
-        </div>
+        <div class="container">
+            <div class="ac">
+                <h1 class="title-lp">Como funciona o ensaio</h1>
+            </div>
 
-        <div class="list">
-            <div v-for="item in props.data" :key="item.title" class="item">
-                <div class="loop-index">
-                    <span>
-                        {{ props.data.indexOf(item) + 1 }}
-                    </span>
-                </div>
+            <div class="list">
+                <div v-for="item in props.data" :key="item.title" class="item">
+                    <div class="loop-index">
+                        <span>
+                            {{ props.data.indexOf(item) + 1 }}
+                        </span>
+                    </div>
 
-                <div class="wrap-icon">
-                    <Icon
-                        :name="`icons:${item.icon}`"
-                        class="icon"/>
-                </div>
+                    <div class="wrap-icon">
+                        <Icon
+                            :name="`icons:${item.icon}`"
+                            class="icon"/>
+                    </div>
 
-                <div class="wrap">
-                    <h2 class="subtitle">{{ item.title }}</h2>
-                    <p class="description-item">{{ item.description }}</p>
+                    <div class="wrap">
+                        <h2 class="subtitle">{{ item.title }}</h2>
+                        <p class="description-item">{{ item.description }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
 </template>
 
 <style scoped lang="scss">
-.lp-corporativo {
-    background: v.$lp-corporativo;
+.section-lp {
     padding-top: 45rem;
     margin-top: 45rem;
     color: white;
@@ -66,7 +65,6 @@ const props = defineProps({
     }
 
     .loop-index {
-        border: 4rem solid v.$lp-corporativo;
         justify-content: center;
         position: absolute;
         background: white;
@@ -88,7 +86,6 @@ const props = defineProps({
         }
         
         span {
-            color: v.$lp-corporativo;
             font-size: 33rem;
             line-height: 1em;
             font-weight: bold;
@@ -114,7 +111,6 @@ const props = defineProps({
             border-bottom-left-radius: 14rem;
             border-top-left-radius: 14rem;
             justify-content: center;
-            background: #283C57;
             color: white;
             align-items: center;
             border-right: 1px solid white;
@@ -130,7 +126,6 @@ const props = defineProps({
         }
 
         .wrap {
-            color: #283C57;
             padding: 20rem;
             display: flex;
             align-items: flex-start;
@@ -153,6 +148,54 @@ const props = defineProps({
             .description-item {
                 font-size: 17rem;
                 padding-top: 5rem;
+            }
+        }
+    }
+}
+
+.lp-corporativo {
+    background: v.$lp-corporativo;
+
+    .list {
+        .loop-index {
+            border: 4rem solid v.$lp-corporativo;
+            
+            span {
+                color: v.$lp-corporativo;
+            }
+        }
+
+        .item {
+            .wrap-icon {
+                background: v.$lp-corporativo-light;
+            }
+
+            .wrap {
+                color: v.$lp-corporativo-light;
+            }
+        }
+    }
+}
+
+.lp-dia-das-maes {
+    background: v.$lp-dia-das-maes-light;
+
+    .list {
+        .loop-index {
+            border: 4rem solid v.$lp-dia-das-maes-light;
+            
+            span {
+                color: v.$lp-dia-das-maes-light;
+            }
+        }
+
+        .item {
+            .wrap-icon {
+                background: v.$lp-dia-das-maes;
+            }
+
+            .wrap {
+                color: v.$lp-dia-das-maes;
             }
         }
     }

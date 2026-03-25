@@ -1,9 +1,15 @@
 
 <script setup lang="ts">
+import { data } from 'autoprefixer';
+
 const props = defineProps({
   lp: {
     type: String,
     default: false
+  },
+  data: {
+    type: Object,
+    default: () => ({})
   }
 });
 
@@ -35,9 +41,9 @@ const images = computed(() => {
 
 <template>
     <div class="portfolio section-lp" data-ani-type="fade-up" data-ani-delay="0.6s">
-        <h1 class="title-lp">Fotos corporativas feitas no estúdio</h1>
+        <h1 class="title-lp">{{ props.data.title }}</h1>
         <p class="description-lp">
-            Mais de 288 clientes atendidos em Mogi das Cruzes
+            {{ props.data.description }}
         </p>
 
         <div class="wrap">
@@ -57,11 +63,11 @@ const images = computed(() => {
             
         <div class="ac">
             <nuxt-link
-                to="/ensaio-fotografico/corporativo"
+                :to="props.data.buttonLink"
                 class="btn-hero"
                 target="_blank"
-                aria-label="Ver portfólio completo de fotos corporativas feitas no estúdio">
-                <span>Ver Portifólio Completo</span>
+                :aria-label="props.data.buttonLabel || props.data.buttonText">
+                <span>{{ props.data.buttonText }}</span>
             </nuxt-link>
         </div>
     </div>
@@ -98,15 +104,12 @@ const images = computed(() => {
 
     .btn-hero {
         transition: box-shadow .3s ease, background .3s ease;
-        box-shadow: 5rem 5rem 0 v.$lp-corporativo;
         border-radius: 8rem;
         font-size: 25rem;
-        border: 3rem solid v.$lp-corporativo;
         padding: 20rem 30rem;
         align-items: center;
         font-weight: bold;
         display: inline-flex;
-        color: v.$lp-corporativo;
         margin: 40rem auto 0;
         gap: 15rem;
         
@@ -120,7 +123,6 @@ const images = computed(() => {
         }
         
         &:hover {
-            box-shadow: 10rem 10rem 0 v.$lp-corporativo;
             background: #eaeaea;
         }
     }
@@ -130,6 +132,34 @@ const images = computed(() => {
 
         .description-lp {
             color: v.$lp-corporativo;
+        }
+
+        .btn-hero {
+            box-shadow: 5rem 5rem 0 v.$lp-corporativo;
+            border: 3rem solid v.$lp-corporativo;
+            color: v.$lp-corporativo;
+            
+            &:hover {
+                box-shadow: 10rem 10rem 0 v.$lp-corporativo;
+            }
+        }
+    }
+
+    .lp-dia-das-maes {
+        color: v.$lp-dia-das-maes;
+
+        .description-lp {
+            color: v.$lp-dia-das-maes;
+        }
+
+        .btn-hero {
+            box-shadow: 5rem 5rem 0 v.$lp-dia-das-maes;
+            border: 3rem solid v.$lp-dia-das-maes;
+            color: v.$lp-dia-das-maes;
+            
+            &:hover {
+                box-shadow: 10rem 10rem 0 v.$lp-dia-das-maes;
+            }
         }
     }
 </style>

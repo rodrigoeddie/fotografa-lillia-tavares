@@ -52,15 +52,56 @@ const props = defineProps({
             </div>
         </div>
     </div>
+
+    <div class="hero" v-else-if="props.lp == 'dia-das-maes'">
+            <div class="wrap">
+                <div class="image" data-ani-type="fade-left" data-ani-delay="0.3s">
+                    <nuxt-img
+                        provider="cloudflare"
+                        :src='"https://images.fotografalilliatavares.com.br/images/bdffeee4-f95f-43d4-8421-a80f9e0ea100/public"'
+                        :width="'2000'"
+                        :height="'889'"
+                        :alt="'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom'"
+                        placeholder
+                        fetchpriority="high" />
+                </div>
+
+                <div class="container">
+                    <div class="text" data-ani-type="fade-right" data-ani-delay="0.3s">
+                        <nuxtLink to="/" aria-label="Voltar para a página inicial">
+                            <nuxt-img
+                                provider="cloudflare"
+                                :src='"https://images.fotografalilliatavares.com.br/images/cd9740ae-da3d-40ed-8fc8-d8df1e98b400/public"'
+                                :width="'320'"
+                                :height="'87'"
+                                :alt="'Logotipo Fotografa Lillia Tavares'"
+                                class="logo"
+                                placeholder
+                                fetchpriority="high" />
+                        </nuxtLink>
+
+                        <h1 class="title-hero">O presente que ela vai <br>guardar para sempre</h1>
+                        <p class="subtitle-hero">Um ensaio fotográfico profissional <br>em Mogi das Cruzes.<br>Porque a sua mãe merece se ver<br>da forma como você a enxerga.</p>
+                        
+                        <ul>
+                            <li>Direção de poses</li>
+                            <li>Estúdio profissional</li>
+                            <li>Entrega rápida</li>
+                        </ul>
+                
+                        <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)">
+                            <Icon name="icons:whatsapp" class="icon"/>
+                            <span>Quero presentear com um ensaio →</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </template>
 
 <style scoped lang="scss">
     .hero {
         overflow: hidden;
-    }
-
-    .lp-corporativo {
-        background: v.$lp-corporativo;
     }
 
     .wrap {
@@ -123,7 +164,6 @@ const props = defineProps({
             }
 
             .subtitle-hero {
-                color: #CDE2FE;
                 font-size: 22rem;
                 margin-top: 20rem;
                 margin-bottom: 30rem;
@@ -136,7 +176,6 @@ const props = defineProps({
             
             ul {
                 padding-left: 20rem;
-                color: #CDE2FE;
                 font-size: 19rem;
 
                 li {
@@ -172,6 +211,54 @@ const props = defineProps({
                     box-shadow: 10rem 10rem 0 white;
                     background: black;
                 }
+            }
+        }
+    }
+
+    .lp-corporativo {
+        background: v.$lp-corporativo;
+
+        .wrap {
+            .text {
+                ul,
+                .subtitle-hero {
+                    color: v.$lp-corporativo-ultralight;
+                }
+            }
+        }
+    }
+
+    .lp-dia-das-maes {
+        background: v.$lp-dia-das-maes;
+
+        .wrap {
+            .container {
+                justify-content: flex-end;
+                display: flex;
+            }
+
+            .text {
+                padding-right: 40rem;
+
+                ul,
+                .subtitle-hero {
+                    color: v.$lp-dia-das-maes-dark;
+                }
+            }
+        }
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            
+            img {
+                object-position: 100%;
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
             }
         }
     }

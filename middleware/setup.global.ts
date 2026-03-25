@@ -15,9 +15,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/blog/fotografia-corporativa/vantagens-fotos-corporativas', { redirectCode: 301 })
     } else if (to.path === '/preco-ensaio-fotografico') {
         return navigateTo('/precos-ensaios-fotograficos', { redirectCode: 301 })
+    } else if (to.path === '/ensaio-fotografico/dia-das-maes-2025') {
+        return navigateTo('/ensaio-fotografico/dia-das-maes', { redirectCode: 301 })
+    } else if (to.path === '/ensaio-fotografico/dia-das-maes-2025/rosiney-de-melo') {
+        return navigateTo('/ensaio-fotografico/dia-das-maes/rosiney-de-melo', { redirectCode: 301 })
+    } else if (to.path === '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares') {
+        return navigateTo('/ensaio-fotografico/dia-das-maes/lillia-tavares', { redirectCode: 301 })
     }
-
-    // if (process.client && to.path !== from.path) {
-    //     window.location.href = to.fullPath;
-    // }
   })
