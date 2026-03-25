@@ -330,4 +330,34 @@ function splitFeature(feature) {
       }
     }
 }
+
+.dia-das-maes {
+    background: linear-gradient(v.$lp-dia-das-maes 25%, #f0f0f0 68%);
+    border-color: v.$lp-dia-das-maes;
+    
+    .pricing-card__features {
+      background: v.$lp-dia-das-maes-ultralight;
+      color: v.$lp-dia-das-maes;
+      box-shadow: 0 -15rem 15rem -10rem rgba(44, 42, 21, 0.5) inset;
+    }
+
+    .pricing-card__feature-icon {
+      background: white;
+      color: v.$lp-dia-das-maes-dark;
+    }
+    
+    .pricing-card__button {
+      color: v.$lp-dia-das-maes;
+
+      &--primary {
+        background: v.$lp-dia-das-maes-dark;
+        color: white;
+      }
+      
+      &:hover {
+        background: black;
+        color: white;
+      }
+    }
+}
 </style>

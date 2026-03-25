@@ -14,41 +14,29 @@ const props = defineProps({
           class="image-cta"
           provider="cloudflare"
           :src="`https://images.fotografalilliatavares.com.br/images/${props.data.image}/public`"
-          :width="'395'"
-          :height="'770'"
+          :width="props.data.imageWidth ? props.data.imageWidth : '395'"
+          :height="props.data.imageHeight ? props.data.imageHeight : '770'"
           :alt="'Mulher branca de cabelos longos sentadas em uma poltrona de couro marrom, usando um body preto'"
           placeholder />
-        <h2 class="title">{{ props.data.title }}</h2>
-        <p class="description">{{ props.data.description }}</p>
-        <ul>
-          <li v-for="feature in props.data.features" :key="feature">{{ feature }}</li>
-        </ul>
-        <a 
-          :href="`https://wa.me/5511911159795?text=${encodeURIComponent(props.data.whatsappMessage)}`"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-cta"
-        >
-          {{ props.data.buttonText ? props.data.buttonText : 'Agendar Ensaio pelo WhatsApp' }}
-        </a>
+        <div class="text">
+          <h2 class="title">{{ props.data.title }}</h2>
+          <p class="description">{{ props.data.description }}</p>
+          <ul>
+            <li v-for="feature in props.data.features" :key="feature">{{ feature }}</li>
+          </ul>
+          <a 
+            :href="`https://wa.me/5511911159795?text=${encodeURIComponent(props.data.whatsappMessage)}`"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-cta"
+          >
+            {{ props.data.buttonText ? props.data.buttonText : 'Agendar Ensaio pelo WhatsApp' }}
+          </a>
+        </div>
     </section>
 </template>
 
 <style scoped lang="scss">
-.image-cta {
-  filter: drop-shadow(0 0 31px rgba(73,97,130, 0.7));
-  position: absolute;
-  bottom: 0;
-  left: 25rem;
-  height: auto;
-  width: 311rem;
-  
-  @include m.max(xs) {
-    width: 280rem;
-    left: -74rem;
-  }
-}
-
 .pricing-cta {
   text-align: center;
   padding: calc(v.$bigSpace * 2) 0;
@@ -133,7 +121,21 @@ const props = defineProps({
 
 .lp-corporativo {
   background: v.$lp-corporativo;
-  
+
+  .image-cta {
+    filter: drop-shadow(0 0 31px rgba(73,97,130, 0.7));
+    position: absolute;
+    bottom: 0;
+    left: 25rem;
+    height: auto;
+    width: 311rem;
+    
+    @include m.max(xs) {
+      width: 280rem;
+      left: -74rem;
+    }
+  }
+
   .title,
   .description,
   & {
@@ -142,6 +144,42 @@ const props = defineProps({
 
   ul li {
     background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.lp-dia-das-maes {
+  background: v.$lp-dia-das-maes;
+  display: flex;
+  justify-content: flex-end;
+
+  .text {
+    text-align: left;
+    padding-right: 40rem;
+    max-width: 1040rem;
+
+    ul {
+      justify-content: flex-start;
+      max-width: none;
+    }
+  }
+  
+  .image-cta {
+    position: absolute;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
+
+  .title,
+  .description,
+  & {
+    color: white;
+  }
+
+  ul li {
+    background-color: rgba(157, 126, 105, 0.8);
   }
 }
 </style>

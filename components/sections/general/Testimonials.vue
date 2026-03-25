@@ -19,6 +19,8 @@ const {
 
     return query.all();
 });
+
+const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
 </script>
 
 <template>
@@ -39,7 +41,21 @@ const {
         </p>
 
         <ClientOnly>
+        <div v-if="isFewItems" class="flex-testimonials">
+            <div
+                v-for="work in works"
+                :key="work.id"
+                class="swiper-slide">
+                    <BlocksTestimonial
+                        v-if="work.testimonial"
+                        :path="work.path"
+                        :name="work.title"
+                        :fromList="true"
+                        :testimonial="work.testimonial" />
+            </div>
+        </div>
         <swiper-container
+            v-else
             class="swiper-testimonials"
             :auto-height="true"
             :allow-touch-move="true"
@@ -97,6 +113,18 @@ const {
     .description {
         text-align: center;
         padding-bottom: 30rem;
+    }
+
+    .flex-testimonials {
+        display: flex;
+        justify-content: center;
+        gap: 16rem;
+        padding-right: 30rem;
+        flex-wrap: wrap;
+
+        .swiper-slide {
+            flex: 0 1 47%;
+        }
     }
 
     .wrap-testimonials {
@@ -163,6 +191,35 @@ const {
             .text-testimonial {
                 box-shadow: 0 0 10rem rgba(0, 0, 0, 0.25);
                 background: #f7f7f7;
+            }
+        }
+    }
+
+    .lp-dia-das-maes {
+        background: transparent;
+
+        .title {
+            color: v.$lp-dia-das-maes;
+        }
+
+        :deep(.wrap-testimonial) {
+            .btn {
+                background: v.$lp-dia-das-maes-dark;
+                color: white;
+
+                &:hover {
+                    background: #eaeaea;
+                    color: v.$lp-dia-das-maes;
+                }
+            }
+
+            .description {
+                color: v.$lp-dia-das-maes-dark;
+            }
+
+            .text-testimonial {
+                box-shadow: 0 0 10rem rgba(0, 0, 0, 0.25);
+                background-color: v.$lp-dia-das-maes-ultralight;
             }
         }
     }

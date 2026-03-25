@@ -152,6 +152,10 @@ const images = computed(() => {
             color: v.$lp-dia-das-maes;
         }
 
+        .wrap {
+            justify-content: center;
+        }
+
         .btn-hero {
             box-shadow: 5rem 5rem 0 v.$lp-dia-das-maes;
             border: 3rem solid v.$lp-dia-das-maes;

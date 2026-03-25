@@ -30,7 +30,8 @@ useHead({
 });
 
 definePageMeta({
-  layout: 'lpcorporativo'
+  layout: 'lp',
+  lpType: 'corporativo'
 });
 
 const cta = {

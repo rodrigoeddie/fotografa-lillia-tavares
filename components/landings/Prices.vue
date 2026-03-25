@@ -29,4 +29,24 @@ const { data: pageData } = await useAsyncData(`investimento-${props.lp}`, () => 
 .title-precos {
   margin-bottom: 0rem;
 }
+
+.lp-corporativo {
+  .title-precos {
+    color: v.$lp-corporativo;
+  }
+
+  .description-lp {
+    color: v.$lp-corporativo;
+  }
+}
+
+.lp-dia-das-maes {
+  .title-precos {
+    color: v.$lp-dia-das-maes;
+  }
+
+  .description-lp {
+    color: v.$lp-dia-das-maes;
+  }
+}
 </style>

@@ -178,7 +178,15 @@ const props = defineProps({
 }
 
 .lp-dia-das-maes {
-    background: v.$lp-dia-das-maes-light;
+    background: white;
+    padding-bottom: 0;
+    padding-top: 0;
+
+    .container {
+        background: v.$lp-dia-das-maes-light;
+        padding-bottom: 45rem;
+        padding-top: 45rem;
+    }
 
     .list {
         .loop-index {

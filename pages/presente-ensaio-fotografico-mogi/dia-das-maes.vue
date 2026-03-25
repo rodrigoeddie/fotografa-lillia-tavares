@@ -32,7 +32,8 @@ useHead({
 });
 
 definePageMeta({
-  layout: 'lpcorporativo'
+  layout: 'lp',
+  lpType: 'dia-das-maes'
 });
 
 const cta = {
@@ -40,7 +41,9 @@ const cta = {
   description: 'Agende seu ensaio corporativo em Mogi das Cruzes e destaque-se com qualidade.',
   buttonText: 'Agendar meu ensaio agora',
   whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)',
-  image: 'efcab108-fb74-4ac1-431e-5f18938ada00',
+  image: 'bdffeee4-f95f-43d4-8421-a80f9e0ea100',
+  imageWidth: '2000',
+  imageHeight: '889',
   features: [
     '✔ Direção completa durante o ensaio',
     '✔ Ideal para LinkedIn e redes sociais',
@@ -113,12 +116,12 @@ const portfolioSection = {
 <template >
   <div class="wrapper-dia-das-maes">
     <LandingsHero class="lp-dia-das-maes" :lp="slug" />
-    <LandingsPortfolio class="lp-dia-das-maes" :lp="slug" :data="portfolioSection" />
+    <LandingsPortfolio class="lp-dia-das-maes container" :lp="slug" :data="portfolioSection" />
     <LandingsForWho class="lp-dia-das-maes" :lp="slug" :data="forWho" />
     <LandingsHowWorks class="lp-dia-das-maes" :lp="slug" :data="howWorks" />
     <LandingsPrices class="lp-dia-das-maes" :lp="slug" />
-    <SectionsGeneralTestimonials class="lp-dia-das-maes" :lp="slug" />
-    <SectionsGeneralCtaContact class="lp-dia-das-maes" :data="cta" />
+    <SectionsGeneralTestimonials class="lp-dia-das-maes container" :lp="slug" />
+    <SectionsGeneralCtaContact class="lp-dia-das-maes container" :data="cta" />
     <LandingsMap class="lp-dia-das-maes" :lp="slug" />
   </div>
 </template>

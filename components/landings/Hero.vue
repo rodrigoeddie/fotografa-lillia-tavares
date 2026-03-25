@@ -53,12 +53,12 @@ const props = defineProps({
         </div>
     </div>
 
-    <div class="hero" v-else-if="props.lp == 'dia-das-maes'">
+    <div class="hero container" v-else-if="props.lp == 'dia-das-maes'">
             <div class="wrap">
                 <div class="image" data-ani-type="fade-left" data-ani-delay="0.3s">
                     <nuxt-img
                         provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/bdffeee4-f95f-43d4-8421-a80f9e0ea100/public"'
+                        :src='"https://images.fotografalilliatavares.com.br/images/4b44edc8-39bf-46ba-9a6e-1257badcd700/public"'
                         :width="'2000'"
                         :height="'889'"
                         :alt="'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom'"
@@ -66,12 +66,11 @@ const props = defineProps({
                         fetchpriority="high" />
                 </div>
 
-                <div class="container">
                     <div class="text" data-ani-type="fade-right" data-ani-delay="0.3s">
                         <nuxtLink to="/" aria-label="Voltar para a página inicial">
                             <nuxt-img
                                 provider="cloudflare"
-                                :src='"https://images.fotografalilliatavares.com.br/images/cd9740ae-da3d-40ed-8fc8-d8df1e98b400/public"'
+                                :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
                                 :width="'320'"
                                 :height="'87'"
                                 :alt="'Logotipo Fotografa Lillia Tavares'"
@@ -94,7 +93,6 @@ const props = defineProps({
                             <span>Quero presentear com um ensaio →</span>
                         </a>
                     </div>
-                </div>
             </div>
         </div>
 </template>
@@ -232,17 +230,28 @@ const props = defineProps({
         background: v.$lp-dia-das-maes;
 
         .wrap {
-            .container {
-                justify-content: flex-end;
-                display: flex;
+            justify-content: flex-start;
+
+            &:before {
+                content: '';
+
+                background: linear-gradient(90deg, rgba(157, 126, 105, 1), transparent);
+                pointer-events: none;
+                position: absolute;
+                z-index: 1;
+                bottom: 0;
+                right: 50%;
+                left: 0;
+                top: 0;
             }
 
             .text {
                 padding-right: 40rem;
+                z-index: 2;
 
                 ul,
                 .subtitle-hero {
-                    color: v.$lp-dia-das-maes-dark;
+                    color: white;
                 }
             }
         }

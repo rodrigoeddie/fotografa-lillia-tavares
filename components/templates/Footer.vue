@@ -169,4 +169,37 @@
             color: v.$lp-corporativo !important;
         }
     }
+
+    .lp-dia-das-maes {
+        footer {
+            background: rgba(157, 126, 105, 0.1);
+        }
+
+        header {
+            background-color: v.$lp-dia-das-maes;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        :deep(.social) {
+            .link-social {
+                color: white;
+            }
+
+            .icon-whatsapp * {
+                stroke: white;
+            }
+    
+            .icon {
+                fill: white;
+            }
+        }
+
+        :deep(.menu) .link,
+        address {
+            color: v.$lp-dia-das-maes !important;
+        }
+    }
 </style>
