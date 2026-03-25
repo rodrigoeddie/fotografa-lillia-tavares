@@ -43,7 +43,8 @@ const cta = {
   whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)',
   image: 'bdffeee4-f95f-43d4-8421-a80f9e0ea100',
   imageWidth: '2000',
-  imageHeight: '889',
+  // imageHeight: '889',
+  imageAlt: 'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom',
   features: [
     '✔ Direção completa durante o ensaio',
     '✔ Ideal para LinkedIn e redes sociais',

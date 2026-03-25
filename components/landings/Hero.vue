@@ -60,7 +60,6 @@ const props = defineProps({
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/4b44edc8-39bf-46ba-9a6e-1257badcd700/public"'
                         :width="'2000'"
-                        :height="'889'"
                         :alt="'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom'"
                         placeholder
                         fetchpriority="high" />

@@ -15,8 +15,7 @@ const props = defineProps({
           provider="cloudflare"
           :src="`https://images.fotografalilliatavares.com.br/images/${props.data.image}/public`"
           :width="props.data.imageWidth ? props.data.imageWidth : '395'"
-          :height="props.data.imageHeight ? props.data.imageHeight : '770'"
-          :alt="'Mulher branca de cabelos longos sentadas em uma poltrona de couro marrom, usando um body preto'"
+          :alt="props.data.imageAlt ? props.data.imageAlt : 'Imagem de chamada para ação'"
           placeholder />
         <div class="text">
           <h2 class="title">{{ props.data.title }}</h2>
@@ -155,7 +154,7 @@ const props = defineProps({
   .text {
     text-align: left;
     padding-right: 40rem;
-    max-width: 1040rem;
+    max-width: 875rem;
 
     ul {
       justify-content: flex-start;

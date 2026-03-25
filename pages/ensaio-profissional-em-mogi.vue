@@ -40,6 +40,7 @@ const cta = {
   buttonText: 'Agendar meu ensaio agora',
   whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)',
   image: 'efcab108-fb74-4ac1-431e-5f18938ada00',
+  imageAlt: 'Mulher branca de cabelos longos sentadas em uma poltrona de couro marrom, usando um body preto',
   features: [
     '✔ Direção completa durante o ensaio',
     '✔ Ideal para LinkedIn e redes sociais',
