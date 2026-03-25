@@ -102,11 +102,11 @@ const howWorks = [
 ];
 
 const portfolioSection = {
-    title: 'Fotos corporativas feitas no estúdio',
+    title: 'Fotos de dia das mães feitas no estúdio',
     description: 'Mais de 288 clientes atendidos em Mogi das Cruzes',
     buttonText: 'Ver Portifólio Completo',
-    buttonLink: '/ensaio-fotografico/corporativo',
-    buttonLabel: 'Ver portfólio completo de fotos corporativas feitas no estúdio'
+    buttonLink: '/ensaio-fotografico/dia-das-maes',
+    buttonLabel: 'Ver portfólio completo de fotos de dia das mães feitas no estúdio'
 }
 </script>
 
