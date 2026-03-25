@@ -9,12 +9,11 @@ const props = defineProps({
 
 const {
     data: works
-} = await useAsyncData(() => {
+} = await useAsyncData(`testimonials-${props.lp}`, () => {
     const query = queryCollection('works');
-    query.where('testimonial', '!=', null);
+    query.where('testimonial', '<>', null);
 
-    if (props.lp != '') {
-        console.log('filtro');
+    if (props.lp) {
         query.where('path', 'LIKE', `%${props.lp}%`);
     }
 
