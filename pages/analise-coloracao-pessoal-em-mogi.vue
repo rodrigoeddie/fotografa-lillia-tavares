@@ -57,22 +57,22 @@ const benefits = [
 
 const steps = [
   {
-    icon: '1',
+    icon: 'chedule',
     title: 'Agendamento',
     description: 'Entre em contato pelo WhatsApp e agende sua análise de coloração pessoal no estúdio em Mogi das Cruzes.'
   },
   {
-    icon: '2',
+    icon: 'analise-presencial',
     title: 'Análise presencial',
     description: 'No estúdio, fazemos a análise com tecidos coloridos para identificar qual cartela de cores harmoniza com você.'
   },
   {
-    icon: '3',
+    icon: 'cartela-cores',
     title: 'Cartela de cores',
     description: 'Você recebe sua cartela de cores personalizada com as tonalidades que mais valorizam sua beleza natural.'
   },
   {
-    icon: '4',
+    icon: 'orientacoes',
     title: 'Orientações',
     description: 'Receba dicas práticas sobre como aplicar as cores no guarda-roupa, maquiagem e acessórios do dia a dia.'
   }
@@ -197,7 +197,7 @@ const testimonials = [
 .coloracao-hero {
   background: v.$green;
   color: white;
-  padding: 40rem;
+  padding: 0 0 0 40rem;
 
   @include m.max(sm) {
     padding: 30rem 0;
@@ -272,7 +272,6 @@ const testimonials = [
   &__image {
     flex-shrink: 0;
     width: 350rem;
-    border-radius: 8rem;
     overflow: hidden;
 
     @include m.max(sm) {

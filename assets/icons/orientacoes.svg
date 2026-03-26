@@ -1,0 +1,13 @@
+<svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Document outline -->
+  <path d="M14 6h24l10 10v40H14V6z" stroke="white" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+  <!-- Folded corner -->
+  <path d="M38 6v10h10" stroke="white" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+  <!-- Text lines (list items with bullets) -->
+  <circle cx="21" cy="26" r="2" fill="white"/>
+  <line x1="27" y1="26" x2="42" y2="26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="21" cy="34" r="2" fill="white"/>
+  <line x1="27" y1="34" x2="42" y2="34" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="21" cy="42" r="2" fill="white"/>
+  <line x1="27" y1="42" x2="38" y2="42" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>

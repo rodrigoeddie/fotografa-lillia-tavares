@@ -57,7 +57,7 @@ const props = defineProps({
 
         .item {
             .wrap-icon {
-                background: v.$light-green;
+                background-color: #a79f7b;
             }
 
             .wrap {
