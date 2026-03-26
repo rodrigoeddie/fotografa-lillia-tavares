@@ -16,7 +16,7 @@ date: 2026-03-26
 
 ## Por que ensaio fotográfico é um presente especial?
 
-Presentes comuns são esquecidos com o tempo. Mas um ensaio fotográfico profissional cria memórias que duram para sempre — fotos que capturam a essência de quem você ama, eternizando um momento único com qualidade e sensibilidade.
+Presentes comuns são esquecidos com o tempo. Mas um ensaio fotográfico profissional cria memórias que duram para sempre, fotos que capturam a essência de quem você ama, eternizando um momento único com qualidade e sensibilidade.
 
 ---
 

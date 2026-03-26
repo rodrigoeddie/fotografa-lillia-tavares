@@ -189,6 +189,17 @@ const props = defineProps({
 .lp-presentes {
   background: v.$lp-presentes;
 
+  @include m.max(xs) {
+    text-align: center;
+    padding-left: 20rem;
+  }
+
+  .pricing-cta ul {
+    @include m.max(xs) {
+      justify-content: center;
+    }
+  }
+
   .title,
   .description,
   & {
@@ -196,7 +207,7 @@ const props = defineProps({
   }
 
   ul li {
-    background-color: rgba(139, 94, 107, 0.8);
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   .btn-cta {

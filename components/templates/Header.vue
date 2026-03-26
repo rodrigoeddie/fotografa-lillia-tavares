@@ -37,6 +37,17 @@ const clickWhats = () => {
   })
 }
 
+const props = defineProps({
+    lp: {
+        type: String,
+        default: ''
+    },
+    logo: {
+        type: String,
+        default: '19bd6c18-a153-4e79-c6bd-4293145da400'
+    }
+});
+
 const isScrolled = ref(false); // Estado para controlar se o header está "scrolled"
 const headerRef = ref<HTMLElement | null>(null); // Referência ao elemento do header
 let lastScrollTop = 0;
@@ -233,6 +244,23 @@ onUnmounted(() => {
     .logo {
       width: 286rem;
       margin-top: 0;
+    }
+  }
+}
+
+.lp-presentes {
+  :deep(.menu) {
+    .link {
+      color: v.$lp-presentes;
+
+      &:after {
+        color: v.$lp-presentes-ultralight;
+      }
+
+      &:hover:before,
+      &:before {
+        background: v.$lp-presentes-ultralight;
+      }
     }
   }
 }

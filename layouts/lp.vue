@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const route = useRoute();
 const lpType = computed(() => route.meta.lpType as string || 'corporativo');
+const showHeader = computed(() => route.meta.showHeader as boolean || false);
 
 const logo = computed(() => {
     if (lpType.value === 'corporativo') {
@@ -87,8 +88,12 @@ useScript({
 </script>
 
 <template>
+  <div :class="showHeader ? `wrapper-main` : ''">
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4335671090015485&ev=PageView&noscript=1" /></noscript>
+    <TemplatesHeader v-if="showHeader" :class="`lp-${lpType}`" :lp="lpType" :logo="logo" />
     <slot />
     <TemplatesFooter :class="`lp-${lpType}`" :lp="lpType" :logo="logo" />
+  </div>
 </template>
 
 <style lang="scss">
@@ -112,4 +117,13 @@ body.lp-presentes {
     font-family: 'Montserrat', sans-serif;
     background: white;
 }
+
+.wrapper-main {
+  padding-top: 20px;
+
+  @include m.max(sm) {
+    padding-top: 55px !important;
+  }
+}
 </style>
+

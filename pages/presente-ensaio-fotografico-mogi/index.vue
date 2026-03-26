@@ -35,6 +35,7 @@ useHead({
 });
 
 definePageMeta({
+  showHeader: true,
   layout: 'lp',
   lpType: 'presentes'
 });
@@ -117,7 +118,7 @@ const cta = {
   description: 'Entre em contato e monte o presente perfeito. Ajudamos você a escolher o melhor pacote para a ocasião.',
   buttonText: 'Montar presente pelo WhatsApp',
   whatsappMessage: 'Olá, gostaria de montar um presente com ensaio fotográfico (mensagem do site)',
-  image: 'bdffeee4-f95f-43d4-8421-a80f9e0ea100',
+//   image: 'bdffeee4-f95f-43d4-8421-a80f9e0ea100',
   imageAlt: 'Menino de costas para sua mãe, ambos sorrindo, com fundo bege',
   features: [
     '✔ Vale-ensaio personalizado',
@@ -142,7 +143,7 @@ const map = {
 <template>
   <div class="wrapper-presentes">
     <!-- Hero Section -->
-    <section class="hero-presentes lp-presentes" data-ani-type="fade-up">
+    <section class="hero-presentes lp-presentes container" data-ani-type="fade-up">
       <div class="container">
         <div class="hero-presentes__content">
           <h1 class="hero-presentes__title" v-html="heroData.title"></h1>
@@ -166,8 +167,8 @@ const map = {
 
     <!-- Produtos Entregáveis -->
     <section class="deliverables lp-presentes container" data-ani-type="fade-up">
-      <h2 class="section-title">{{ deliverables.title }}</h2>
-      <p class="section-description">{{ deliverables.description }}</p>
+      <h2 class="title-lp">{{ deliverables.title }}</h2>
+      <p class="description-lp">{{ deliverables.description }}</p>
       <div class="deliverables__grid">
         <div
           v-for="(item, index) in deliverables.items"
@@ -177,8 +178,8 @@ const map = {
           :data-ani-delay="`${0.1 * (index + 1)}s`"
         >
           <span class="deliverables__icon">{{ item.icon }}</span>
-          <h3 class="deliverables__card-title">{{ item.title }}</h3>
-          <p class="deliverables__card-description">{{ item.description }}</p>
+          <h3 class="card-title">{{ item.title }}</h3>
+          <p class="card-description">{{ item.description }}</p>
         </div>
       </div>
     </section>
@@ -213,7 +214,7 @@ const map = {
   }
 
   &__content {
-    max-width: 800rem;
+    max-width: 1100rem;
     margin: 0 auto;
   }
 
@@ -241,22 +242,28 @@ const map = {
   }
 
   &__features {
+      justify-content: center;
+      margin-bottom: 40rem;
+      font-size: 18rem;
     list-style: none;
     display: flex;
-    justify-content: center;
     gap: 30rem;
-    margin-bottom: 40rem;
-    font-size: 18rem;
-
-    li::before {
-      content: '✓ ';
-      font-weight: bold;
-    }
 
     @include m.max(sm) {
-      flex-direction: column;
-      gap: 10rem;
-      font-size: 16rem;
+        font-size: 16rem;
+        flex-wrap: wrap;
+        gap: 10rem;
+    }
+
+    li {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 10rem;
+        border-radius: 8rem;
+
+        &::before {
+          content: '✓ ';
+          font-weight: bold;
+        }
     }
   }
 
@@ -291,20 +298,16 @@ const map = {
 }
 
 .deliverables {
-  margin-bottom: 70rem;
-  padding-top: 40rem;
+  margin-bottom: 30rem;
 
-  .section-title {
+  .title-lp {
     text-align: center;
     margin-bottom: 15rem;
   }
 
-  .section-description {
+  .description-lp {
     text-align: center;
-    max-width: 700rem;
     margin: 0 auto 50rem;
-    font-size: 20rem;
-    line-height: 1.5;
   }
 
   &__grid {
@@ -316,19 +319,20 @@ const map = {
 
     @include m.max(sm) {
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include m.max(xs) {
-      grid-template-columns: 1fr;
+      gap: 15rem;
     }
   }
 
   &__card {
     background: white;
     border-radius: 8rem;
-    padding: 30rem 20rem;
+    padding: 20rem 10rem;
     text-align: center;
     border: 2rem solid v.$lp-presentes-light;
+
+    .card-description {
+        margin-bottom: 0;
+    }
   }
 
   &__icon {
@@ -336,18 +340,16 @@ const map = {
     display: block;
     margin-bottom: 15rem;
   }
+}
 
-  &__card-title {
-    font-size: 20rem;
-    font-weight: 700;
-    margin-bottom: 10rem;
-    color: v.$lp-presentes-dark;
-  }
-
-  &__card-description {
-    font-size: 16rem;
-    line-height: 1.5;
-    color: #555;
-  }
+.lp-presentes {
+    &.deliverables {
+        .title-lp,
+        .description-lp,
+        .card-title,
+        .card-description {
+            color: v.$lp-presentes;
+        }
+    }
 }
 </style>

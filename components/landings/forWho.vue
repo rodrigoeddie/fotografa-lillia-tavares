@@ -73,14 +73,13 @@ const props = defineProps({
     .for-who__items {
         border-radius: 8rem;
         background: #eaeaea;
-        padding: 20rem 40rem;
+        padding: 20rem 40rem 0;
         width: 380rem;
-        height: 83%;
+        height: 100%;
         
         @include m.max(sm) {
-            // background: transparent;
-            width: 100%;
             padding: 10rem;
+            width: 100%;
         }
         
         .for-who__item {
@@ -124,6 +123,7 @@ const props = defineProps({
         color: v.$lp-corporativo;
     }
 }
+
 .lp-dia-das-maes {
     color: v.$lp-dia-das-maes;
     padding-top: 0;
@@ -149,6 +149,27 @@ const props = defineProps({
 
 .lp-presentes {
     color: v.$lp-presentes;
+
+    .for-who__list .for-who__group {
+        height: 100%;
+        
+        @include m.max(sm) {
+            width: calc(50% - 13rem);
+            
+            &:last-child {
+                width: 60%;
+            }
+        }
+    }
+    
+    .for-who__items {
+        padding-bottom: 5px;
+        width: 445rem;
+        
+        @include m.max(sm) {
+            width: 100%;
+        }
+    }
 
     .for-who__list {
         color: v.$lp-presentes;

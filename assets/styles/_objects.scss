@@ -23,6 +23,17 @@
   font-weight: 900;
 }
 
+.card-title {
+  margin-bottom: 12rem;
+  font-size: 22rem;
+  font-weight: 900;
+}
+.card-description {
+  margin-bottom: 20rem;
+  font-size: 19rem;
+  flex: 1;
+}
+
 @mixin faux-bold($color: black) {
   $darker-color: color.adjust($color, $lightness: 30%);
 
