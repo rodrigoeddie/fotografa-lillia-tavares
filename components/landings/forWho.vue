@@ -90,7 +90,7 @@ const props = defineProps({
             list-style: disc;
 
             :deep(small) {
-                font-size: 21rem;
+                font-size: 20rem;
             }
         
             @include m.max(sm) {
@@ -122,6 +122,7 @@ const props = defineProps({
 }
 .lp-dia-das-maes {
     color: v.$lp-dia-das-maes;
+    padding-top: 0;
 
     .for-who__list {
         color: v.$lp-dia-das-maes;

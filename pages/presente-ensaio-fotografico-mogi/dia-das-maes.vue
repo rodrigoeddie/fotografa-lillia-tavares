@@ -77,7 +77,7 @@ const forWho = {
       title: 'Experiências personalizadas',
       list: [
         'Álbum personalizado',
-        '<small>Análise de coloração pessoal</small>',
+        '<small><b>Análise de coloração pessoal</b></small>',
         'Consultoria de imagem',
       ]
     }
@@ -114,6 +114,17 @@ const portfolioSection = {
     buttonLink: '/ensaio-fotografico/dia-das-maes',
     buttonLabel: 'Ver portfólio completo de fotos de dia das mães feitas no estúdio'
 }
+
+const map = {
+  title: 'Estúdio Fotográfico em Mogi das Cruzes',
+  description: `
+    <p>Nosso estúdio fotográfico em Mogi das Cruzes está localizado em uma região central e de fácil acesso, ideal para quem busca praticidade na hora de realizar seu ensaio de Dia das Mães.</p>
+    <p>Estamos em frente ao estacionamento da Prefeitura de Mogi das Cruzes, próximos às principais vias da cidade, pontos de ônibus e à estação de trem Estudantes, facilitando a chegada de clientes de toda a região.</p>
+  `,
+  finalDescription: `
+    <p>Se você está procurando um ensaio fotográfico em Mogi das Cruzes para o Dia das Mães, nosso estúdio oferece um ambiente preparado para criar lembranças únicas e especiais.</p>
+  `,
+}
 </script>
 
 <template >
@@ -125,7 +136,8 @@ const portfolioSection = {
     <SectionsGeneralTestimonials class="lp-dia-das-maes container" :lp="slug" />
     <SectionsGeneralCtaContact class="lp-dia-das-maes container" :data="cta" />
     <LandingsForWho class="lp-dia-das-maes" :lp="slug" :data="forWho" />
-    <LandingsMap class="lp-dia-das-maes" :lp="slug" />
+    <LandingsColoracao class="lp-dia-das-maes" :lp="slug" />
+    <LandingsMap class="lp-dia-das-maes" :lp="slug" :data="map" />
   </div>
 </template>
 

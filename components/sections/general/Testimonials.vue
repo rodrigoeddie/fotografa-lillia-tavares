@@ -36,6 +36,9 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
         <p class="description-lp" v-if="props.lp == 'corporativo'">
             Avaliação 5 estrelas por clientes sobre os ensaios fotográficos profissionais feitos no estúdio
         </p>
+        <p class="description-lp" v-else-if="props.lp == 'dia-das-maes'">
+            Avaliação 5 estrelas de famílias que transformaram o Dia das Mães em lembranças para toda a vida
+        </p>
         <p class="description" v-else>
             O que clientes dizem sobre os ensaios fotográficos feitos no estúdio
         </p>
@@ -51,6 +54,7 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
                         :path="work.path"
                         :name="work.title"
                         :fromList="true"
+                        :externalLink="props.lp !== '' ? true : false"
                         :testimonial="work.testimonial" />
             </div>
         </div>
@@ -89,6 +93,7 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
                             :path="work.path"
                             :name="work.title"
                             :fromList="true"
+                            :externalLink="props.lp !== '' ? true : false"
                             :testimonial="work.testimonial" />
                 </swiper-slide>
         </swiper-container>
@@ -169,6 +174,7 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
     .lp-corporativo {
         background: transparent;
 
+        .description-lp,
         .title {
             color: v.$lp-corporativo;
         }
@@ -198,6 +204,7 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
     .lp-dia-das-maes {
         background: transparent;
 
+        .description-lp,
         .title {
             color: v.$lp-dia-das-maes;
         }

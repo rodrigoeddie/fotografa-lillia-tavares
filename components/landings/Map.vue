@@ -1,10 +1,21 @@
 
 <script setup>
+import { data } from 'autoprefixer';
+
 const props = defineProps({
   lp: {
     type: String,
     required: true,
     default: ''
+  },
+  data: {
+    type: Object,
+    required: false,
+    default: {
+        title: 'Estúdio Fotográfico em Mogi das Cruzes',
+        description: '<p>Estamos localizados em frente ao estacionamento da Prefeitura de Mogi das Cruzes, com fácil acesso para toda a região do Alto Tietê. Estamos próximos às principais vias de acesso, pontos de ônibus e à estação de trem Estudantes.</p>',
+        finalDescription: ``,
+    }
   }
 });
 </script>
@@ -25,16 +36,22 @@ const props = defineProps({
                         placeholder />
                 </a>
             </div>
+
             <div class="text">
                 <h1 class="title-lp">
-                    Estúdio Fotográfico em Mogi das Cruzes
+                    {{ props.data.title }}
                 </h1>
-                <p class="description">Estamos localizados em frente ao estacionamento da Prefeitura de Mogi das Cruzes, com fácil acesso para toda a região do Alto Tietê. Estamos próximos às principais vias de acesso, pontos de ônibus e à estação de trem Estudantes.</p>
+                <div class="description" v-html="props.data.description"></div>
                 <h2>Endereço</h2>
                 <p class="description">
-                    <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank">Av. Ver. Narciso Yague Guimarães, 124 - Sala 21 - Vila Partenio, Mogi das Cruzes - SP, 08780-200</a>
+                    <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank">
+                        Av. Ver. Narciso Yague Guimarães, 124 - Sala 21<br>
+                        Vila Partenio - Mogi das Cruzes - SP<br>
+                        CEP: 08780-200
+                    </a>
                 </p>
-                <h3>Atendemos clientes de:</h3>
+                <h3>Atendemos toda a região do Alto Tietê:</h3>
+                <p>Recebemos clientes para ensaio fotográfico em Mogi das Cruzes e cidades próximas, como:</p>
                 <ul>
                     <li>Mogi das Cruzes</li>
                     <li>Suzano</li>
@@ -44,9 +61,12 @@ const props = defineProps({
                     <li>Biritiba Mirim</li>
                     <li>Ferraz de Vasconcelos</li>
                     <li>Itaquaquecetuba</li>
-                    <li>Toda região do Alto Tietê</li>
                 </ul>
             </div>
+            <div
+              class="description description-final"
+              v-if="props.data.finalDescription"
+              v-html="props.data.finalDescription"></div>
         </div>
     </section>
 </template>
@@ -54,6 +74,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .wrapper-map {
     padding-bottom: 30rem;
+    flex-wrap: wrap;
     display: flex;
     gap: 40rem;
     
@@ -80,6 +101,10 @@ const props = defineProps({
         }
     }
 
+    .text {
+        width: calc(100% - 421px);
+    }
+
     .title-lp {
         text-align: left;
         padding-top: 0;
@@ -92,6 +117,11 @@ const props = defineProps({
 
     .description {
         padding-top: 10rem;
+    }
+
+    .description-final {
+        text-align: center;
+        width: 100%;
     }
 
     ul {
@@ -128,10 +158,10 @@ const props = defineProps({
 }
 
 .lp-dia-das-maes {
-    color: v.$lp-dia-das-maes-dark;
+    color: v.$lp-dia-das-maes;
 
     .description {
-        color: v.$lp-dia-das-maes-dark;
+        color: v.$lp-dia-das-maes;
     }
 }
 </style>

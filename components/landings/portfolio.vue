@@ -65,13 +65,17 @@ const images = computed(() => {
                 fetchpriority="high" />
         </div>
             
-        <div class="ac">
+        <div class="ac" v-if="props.data.buttonLink && props.data.buttonText">
             <nuxt-link
                 :to="props.data.buttonLink"
                 class="btn-hero"
                 target="_blank"
                 :aria-label="props.data.buttonLabel || props.data.buttonText">
                 <span>{{ props.data.buttonText }}</span>
+
+                <Icon
+                    name="icons:external"
+                    class="icon icon-external"/>
             </nuxt-link>
         </div>
     </div>
@@ -109,13 +113,13 @@ const images = computed(() => {
     .btn-hero {
         transition: box-shadow .3s ease, background .3s ease;
         border-radius: 8rem;
-        font-size: 25rem;
-        padding: 20rem 30rem;
         align-items: center;
         font-weight: bold;
         display: inline-flex;
         margin: 40rem auto 0;
         gap: 15rem;
+        padding: 5rem 15rem;
+        font-size: 19rem;
         
         @include m.max(sm) {
             margin-top: 30rem;
@@ -124,6 +128,10 @@ const images = computed(() => {
 
         .icon {
             font-size: 40rem;
+        }
+
+        svg {
+            width: 24rem;
         }
         
         &:hover {
@@ -139,12 +147,12 @@ const images = computed(() => {
         }
 
         .btn-hero {
-            box-shadow: 5rem 5rem 0 v.$lp-corporativo;
+            box-shadow: 3rem 3rem 0 v.$lp-corporativo;
             border: 3rem solid v.$lp-corporativo;
             color: v.$lp-corporativo;
             
             &:hover {
-                box-shadow: 10rem 10rem 0 v.$lp-corporativo;
+                box-shadow: 5rem 5rem 0 v.$lp-corporativo;
             }
         }
     }
@@ -161,14 +169,14 @@ const images = computed(() => {
         }
 
         .btn-hero {
-            box-shadow: 5rem 5rem 0 v.$lp-dia-das-maes;
-            border: 3rem solid v.$lp-dia-das-maes;
+            box-shadow: 3rem 3rem 0 v.$lp-dia-das-maes;
+            border: 1px solid v.$lp-dia-das-maes;
             color: v.$lp-dia-das-maes;
             
             &:hover {
                 border-color: v.$lp-dia-das-maes-dark;
                 color: v.$lp-dia-das-maes-dark;
-                box-shadow: 10rem 10rem 0 v.$lp-dia-das-maes-dark;
+                box-shadow: 5rem 5rem 0 v.$lp-dia-das-maes-dark;
                 background: white;
             }
         }

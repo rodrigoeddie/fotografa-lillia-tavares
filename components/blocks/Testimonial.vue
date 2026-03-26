@@ -21,6 +21,11 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  externalLink: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 </script>
@@ -47,7 +52,18 @@ const props = defineProps({
         </div>
 
         <div v-if="fromList && path" class="wrap-cta">
-            <NuxtLink :to="path" class="name btn btn-green">Acesse o ensaio</NuxtLink>
+            <NuxtLink
+              :to="path"
+              class="name btn btn-green"
+              :target="props.externalLink ? '_blank' : '_self'"
+              :rel="props.externalLink ? 'noopener noreferrer' : ''">
+                <span>Acesse o ensaio</span>
+
+                <Icon
+                    v-if="props.externalLink"
+                    name="icons:external"
+                    class="icon icon-external"/>
+            </NuxtLink>
         </div>
     </div>
 </template>
@@ -119,6 +135,7 @@ const props = defineProps({
                 border-radius: 5rem;
                 text-transform: none;
                 padding: 6rem 12rem;
+                gap: 5rem;
             }
         }
     }
