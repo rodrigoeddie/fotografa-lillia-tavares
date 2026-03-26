@@ -2,6 +2,16 @@
 const route = useRoute();
 const lpType = computed(() => route.meta.lpType as string || 'corporativo');
 
+const logo = computed(() => {
+    if (lpType.value === 'corporativo') {
+        return "de7d6be6-8fed-43b0-e2ca-7b5643bd9d00";
+    } else if (lpType.value === 'dia-das-maes') {
+        return "4cb733c9-64af-48fd-2578-c43f3a26d800";
+    }
+
+    return '19bd6c18-a153-4e79-c6bd-4293145da400';
+});
+
 useHead({
   bodyAttrs: {
     class: computed(() => `lp-${lpType.value}`)
@@ -76,7 +86,7 @@ useScript({
 
 <template>
     <slot />
-    <TemplatesFooter :class="`lp-${lpType}`" :lp="lpType" />
+    <TemplatesFooter :class="`lp-${lpType}`" :lp="lpType" :logo="logo" />
 </template>
 
 <style lang="scss">

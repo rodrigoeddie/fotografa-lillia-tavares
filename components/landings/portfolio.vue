@@ -15,7 +15,7 @@ const props = defineProps({
 
 const {
     data: works
-} = await useAsyncData(() => {
+} = await useAsyncData('work-'+ props.lp, () => {
     const query = queryCollection('works');
 
     if (props.lp) {
@@ -30,13 +30,17 @@ const images = computed(() => {
 
     const picked = works.value.map((work: any) => {
         const retratos = (work.album ?? []).filter((img: any) => img.format === 'retrato')
-        const highlighted = retratos.find((img: any) => img.highlight)
-        const chosen = highlighted ?? retratos[0]
+        const chosen =
+            retratos.find((img: any) => img.canbethumb && img.highlight) ??
+            retratos.find((img: any) => img.highlight) ??
+            retratos.find((img: any) => img.canbethumb) ??
+            retratos[0]
         return chosen ? { ...chosen, _workTitle: work.title } : null
     }).filter(Boolean)
 
     return picked.slice(0, 4)
 })
+
 </script>
 
 <template>
@@ -162,7 +166,10 @@ const images = computed(() => {
             color: v.$lp-dia-das-maes;
             
             &:hover {
-                box-shadow: 10rem 10rem 0 v.$lp-dia-das-maes;
+                border-color: v.$lp-dia-das-maes-dark;
+                color: v.$lp-dia-das-maes-dark;
+                box-shadow: 10rem 10rem 0 v.$lp-dia-das-maes-dark;
+                background: white;
             }
         }
     }

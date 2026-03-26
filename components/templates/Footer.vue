@@ -13,6 +13,10 @@
         lp: {
             type: String,
             default: ''
+        },
+        logo: {
+            type: String,
+            default: '19bd6c18-a153-4e79-c6bd-4293145da400'
         }
     });
 </script>
@@ -27,7 +31,7 @@
               aria-label="Voltar para a página inicial">
                 <nuxt-img
                     provider="cloudflare"
-                    :src='props.lp=="corporativo" ? "https://images.fotografalilliatavares.com.br/images/de7d6be6-8fed-43b0-e2ca-7b5643bd9d00/public" : "https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+                    :src='"https://images.fotografalilliatavares.com.br/images/" + props.logo + "/public"'
                     alt="Logotipo Lillia Tavares Fotografia"
                     width="390"
                     height="107"
@@ -156,7 +160,7 @@
             }
 
             .icon-whatsapp * {
-                stroke: white;
+                stroke: white !important;
             }
     
             .icon {
@@ -189,7 +193,7 @@
             }
 
             .icon-whatsapp * {
-                stroke: white;
+                stroke: white !important;
             }
     
             .icon {

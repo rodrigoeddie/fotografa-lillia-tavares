@@ -53,54 +53,56 @@ const cta = {
   ]
 };
 
-const forWho = [
-  {
-    title: 'Redes Sociais',
-    list: [
-      'LinkedIn',
-      'Instagram',
-      'Facebook',
-      'Site institucional'
-    ]
-  },
-  {
-    title: 'Empresários',
-    list: [
-      'Advogados',
-      'Médicos',
-      'Psicólogos',
-      'Influenciadores...',
-    ]
-  },
-  {
-    title: 'Outros',
-    list: [
-      'Inscrições para comissários',
-      'Executivos',
-      'Currículos...',
-    ]
-  }
-];
+const forWho = {
+  title: 'Ideias de presente para o Dia das Mães em Mogi das Cruzes',
+  description: 'Se você ainda está em dúvida sobre o que escolher, existem várias opções de presente. Mas algumas criam apenas momentos passageiros, enquanto outras se transformam em lembranças para toda a vida.',
+  lists: [
+    {
+      title: 'Experiência para mães',
+      list: [
+        '<b>Ensaio fotográfico</b>',
+        'Spa / Dia de beleza',
+        'Jantar especial',
+      ]
+    },
+    {
+      title: 'Presentes clássicos',
+      list: [
+        'Flores',
+        'Perfume',
+        'Roupas ou acessórios',
+      ]
+    },
+    {
+      title: 'Experiências personalizadas',
+      list: [
+        'Álbum personalizado',
+        '<small>Análise de coloração pessoal</small>',
+        'Consultoria de imagem',
+      ]
+    }
+  ]
+};
 
 const howWorks = [
   {
-    title: 'Agendamento',
-    description: 'Agende seu horário em poucos minutos',
+    title: 'Agendamento rápido',
+    description: 'Escolha o melhor dia e horário de forma simples e rápida pelo WhatsApp',
     icon: 'chedule',
   },
   {
-    title: 'Ensaio',
-    description: 'Receba direção completa durante o ensaio',
+    title: 'Experiência no estúdio',
+    description: 'Sua família será guiada em cada momento para se sentir confortável e sair linda nas fotos',
     icon: 'camera',
   },
   {
-    title: 'Seleção',
-    description: 'Escolha suas melhores fotos',
+    title: 'Escolha das fotos',
+    description: 'Selecione suas imagens favoritas com calma e sem pressão',
     icon: 'choose',
   },
   {
-    title: 'Entrega',
-    description: 'Receba imagens profissionais prontas para uso',
+    title: 'Entrega especial',
+    description: 'Receba fotos profissionais prontas para guardar como lembrança para toda a vida',
     icon: 'envelope',
   },
 ];
@@ -118,11 +120,11 @@ const portfolioSection = {
   <div class="wrapper-dia-das-maes">
     <LandingsHero class="lp-dia-das-maes" :lp="slug" />
     <LandingsPortfolio class="lp-dia-das-maes container" :lp="slug" :data="portfolioSection" />
-    <LandingsForWho class="lp-dia-das-maes" :lp="slug" :data="forWho" />
     <LandingsHowWorks class="lp-dia-das-maes" :lp="slug" :data="howWorks" />
     <LandingsPrices class="lp-dia-das-maes" :lp="slug" />
     <SectionsGeneralTestimonials class="lp-dia-das-maes container" :lp="slug" />
     <SectionsGeneralCtaContact class="lp-dia-das-maes container" :data="cta" />
+    <LandingsForWho class="lp-dia-das-maes" :lp="slug" :data="forWho" />
     <LandingsMap class="lp-dia-das-maes" :lp="slug" />
   </div>
 </template>

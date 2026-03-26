@@ -49,34 +49,38 @@ const cta = {
   ]
 };
 
-const forWho = [
-  {
-    title: 'Redes Sociais',
-    list: [
-      'LinkedIn',
-      'Instagram',
-      'Facebook',
-      'Site institucional'
-    ]
-  },
-  {
-    title: 'Empresários',
-    list: [
-      'Advogados',
-      'Médicos',
-      'Psicólogos',
-      'Influenciadores...',
-    ]
-  },
-  {
-    title: 'Outros',
-    list: [
-      'Inscrições para comissários',
-      'Executivos',
-      'Currículos...',
-    ]
-  }
-];
+const forWho = {
+  title: 'Para quem é esse ensaio',
+  description: 'Não precisa saber posar, nós te direcionamos durante todo o ensaio',
+  lists: [
+    {
+      title: 'Redes Sociais',
+      list: [
+        'LinkedIn',
+        'Instagram',
+        'Facebook',
+        'Site institucional'
+      ]
+    },
+    {
+      title: 'Empresários',
+      list: [
+        'Advogados',
+        'Médicos',
+        'Psicólogos',
+        'Influenciadores...',
+      ]
+    },
+    {
+      title: 'Outros',
+      list: [
+        'Inscrições para comissários',
+        'Executivos',
+        'Currículos...',
+      ]
+    }
+  ]
+};
 
 const howWorks = [
   {

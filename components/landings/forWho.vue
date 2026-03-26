@@ -10,16 +10,14 @@ const props = defineProps({
 
 <template>
     <section class="container section-lp" data-ani-type="fade-up">
-        <h1 class="title-lp">Para quem é esse ensaio</h1>
-        <p class="description-lp">
-            Não precisa saber posar, nós te direcionamos durante todo o ensaio
-        </p>
+        <h1 class="title-lp" v-html="props.data.title"></h1>
+        <p class="description-lp" v-html="props.data.description"></p>
 
         <div class="for-who__list">
-            <div v-for="item in props.data" :key="item.title" class="for-who__group">
-                <h2 class="for-who__group-title">{{ item.title }}</h2>
+            <div v-for="item in props.data.lists" :key="item.title" class="for-who__group">
+                <h2 class="for-who__group-title" v-html="item.title"></h2>
                 <ul class="for-who__items">
-                    <li v-for="entry in item.list" :key="entry" class="for-who__item">{{ entry }}</li>
+                    <li v-for="entry in item.list" :key="entry" class="for-who__item" v-html="entry"></li>
                 </ul>
             </div>
         </div>
@@ -90,6 +88,10 @@ const props = defineProps({
             font-weight: 300;
             line-height: 1.5em;
             list-style: disc;
+
+            :deep(small) {
+                font-size: 21rem;
+            }
         
             @include m.max(sm) {
                 font-size: 16rem;

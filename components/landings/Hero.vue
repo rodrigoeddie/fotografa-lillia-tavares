@@ -69,7 +69,7 @@ const props = defineProps({
                         <nuxtLink to="/" aria-label="Voltar para a página inicial">
                             <nuxt-img
                                 provider="cloudflare"
-                                :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+                                :src='"https://images.fotografalilliatavares.com.br/images/4cb733c9-64af-48fd-2578-c43f3a26d800/public"'
                                 :width="'320'"
                                 :height="'87'"
                                 :alt="'Logotipo Fotografa Lillia Tavares'"
@@ -87,7 +87,7 @@ const props = defineProps({
                             <li>Entrega rápida</li>
                         </ul>
                 
-                        <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)">
+                        <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio de dia das mães (mensagem do site)">
                             <Icon name="icons:whatsapp" class="icon"/>
                             <span>Quero presentear com um ensaio →</span>
                         </a>
@@ -251,6 +251,17 @@ const props = defineProps({
                 ul,
                 .subtitle-hero {
                     color: white;
+                }
+
+                .btn-hero {
+                    background: rgba(v.$lp-dia-das-maes, 0.65);
+
+                    &:hover {
+                        border-color: v.$lp-dia-das-maes-dark;
+                        color: v.$lp-dia-das-maes-dark;
+                        box-shadow: 10rem 10rem 0 v.$lp-dia-das-maes-dark;
+                        background: white;
+                    }
                 }
             }
         }

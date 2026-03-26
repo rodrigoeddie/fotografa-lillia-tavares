@@ -3,7 +3,7 @@
   "home": false,
   "homeOrder": 2,
   "colorHighlight": "#ae7267",
-  "title": "Thainá Porto - Dia das Mães 2026",
+  "title": "Thainá Porto",
   "description": "<p>Um ensaio com 3 lindas gerações, a vovó Rose, a mamãe Vanessa e a netinha Giugiu, elas me deram a alegria de fotografá-las ❤️</p>",
   "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/cenarios/dia-das-maes-2025'>Estúdio Lillia Tavares</a>",
   "testimonial": {
@@ -18,7 +18,6 @@
     "slug": "dia-das-maes",
     "title": "Dia das Mães 2026"
   },
-  "video": "<iframe src='https://customer-wozwag8lva9thgts.cloudflarestream.com/4ec31f4e8da55ec45f6f55ec047b79ad/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-wozwag8lva9thgts.cloudflarestream.com%2F4ec31f4e8da55ec45f6f55ec047b79ad%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600' loading='lazy' allow='accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;' allowfullscreen='true' ></iframe>",
   "album": [
     {
       "imageId": "70f766e4-741e-4046-4b2a-f79b99a3f100",
@@ -27,17 +26,18 @@
       "order": 2,
       "format": "retrato",
       "canBeThumb": true,
-      "alt": "Mãe e filho se olhando"
+      "alt": "Mãe e filho se olhando",
+      "customClass": "w33"
     },
     {
       "imageId": "5946a0b1-48c7-44c1-163a-cc23a3906300",
-      "width": 850,
-      "height": 567,
+      "width": 567,
+      "height": 850,
       "canBeThumb": true,
-      "format": "paisagem",
       "highlight": true,
+      "format": "retrato",
       "alt": "Mãe e filho sentados no chão, olhando para a câmera, há um violão atras deles",
-      "customClass": "w50"
+      "customClass": "w33"
     },
     {
       "imageId": "c46a3468-a2dd-4446-5caa-ac555c7dd400",
@@ -60,9 +60,10 @@
       "width": 850,
       "height": 567,
       "format": "paisagem",
+      "highlight": true,
+      "canBeThumb": true,
       "alt": "",
-      "customClass": "w50",
-      "canBeThumb": true
+      "customClass": "w50"
     },
     {
       "imageId": "d8e67391-5a03-4f9d-61bb-8fc9f8a8a600",
@@ -94,7 +95,6 @@
       "height": 1500,
       "format": "retrato",
       "alt": "",
-      "canBeThumb": true,
       "customClass": "w50"
     }
   ]

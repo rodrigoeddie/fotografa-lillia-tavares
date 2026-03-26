@@ -52,17 +52,6 @@ const props = defineProps({
     margin-bottom: 20px;
   }
 
-  .btn {
-    box-shadow: 5rem 5rem 0 rgba(255, 255, 255, 0.35);
-    background-color: white;
-    border-radius: 8rem;
-    
-    &:hover {
-      border-color: white;
-      box-shadow: 8rem 8rem 0 rgba(255, 255, 255, 0.6);
-    }
-  }
-
   ul {
     justify-content: center;
     padding-bottom: 40rem;
@@ -179,6 +168,17 @@ const props = defineProps({
 
   ul li {
     background-color: rgba(157, 126, 105, 0.8);
+  }
+
+  .btn-cta {
+    background: rgba(v.$lp-dia-das-maes, 0.65);
+
+    &:hover {
+      border-color: v.$lp-dia-das-maes-dark;
+      color: v.$lp-dia-das-maes-dark;
+      box-shadow: 10rem 10rem 0 v.$lp-dia-das-maes-dark;
+      background: white;
+    }
   }
 }
 </style>
