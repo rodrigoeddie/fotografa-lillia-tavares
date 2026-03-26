@@ -142,8 +142,8 @@ const testimonials = [
           :data-ani-delay="`${0.1 * (index + 1)}s`"
         >
           <span class="coloracao-benefits__icon">{{ benefit.icon }}</span>
-          <h3>{{ benefit.title }}</h3>
-          <p>{{ benefit.description }}</p>
+          <h3 class="card-title">{{ benefit.title }}</h3>
+          <p class="card-description">{{ benefit.description }}</p>
         </div>
       </div>
     </section>
@@ -152,19 +152,7 @@ const testimonials = [
     <LandingsHowWorks class="coloracao-steps container" :data="{ title: 'Como funciona a análise de coloração pessoal?', list: steps }" />
 
     <!-- Depoimentos -->
-    <section class="coloracao-testimonials container" data-ani-type="fade-up">
-      <h2>O que as clientes dizem</h2>
-      <div class="coloracao-testimonials__grid">
-        <blockquote
-          v-for="(testimonial, index) in testimonials"
-          :key="index"
-          class="coloracao-testimonials__quote"
-        >
-          <p>"{{ testimonial.text }}"</p>
-          <cite>— Via {{ testimonial.source }}</cite>
-        </blockquote>
-      </div>
-    </section>
+    <SectionsGeneralTestimonials />
 
     <!-- Cross-sell com ensaio -->
     <section class="coloracao-crosssell container" data-ani-type="fade-up">
@@ -187,7 +175,7 @@ const testimonials = [
     <!-- CTA Final -->
     <section class="coloracao-cta container" data-ani-type="fade-up">
       <div class="container">
-        <h2>Pronta para descobrir suas cores?</h2>
+        <h2 class="title">Pronta para descobrir suas cores?</h2>
         <p>Agende sua análise de coloração pessoal em Mogi das Cruzes e transforme sua relação com as cores.</p>
         <a
           class="coloracao-cta__btn"
@@ -316,13 +304,10 @@ const testimonials = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25rem;
-
+    
     @include m.max(sm) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include m.max(xs) {
-      grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15rem;
     }
   }
 
@@ -333,16 +318,8 @@ const testimonials = [
     text-align: center;
     border: 2rem solid v.$light-green;
 
-    h3 {
-      font-size: 19rem;
-      margin-bottom: 8rem;
-      color: v.$dark-green;
-    }
-
-    p {
-      font-size: 16rem;
-      line-height: 1.5;
-      color: #555;
+    @include m.max(sm) {
+      padding: 25rem 15rem;
     }
   }
 

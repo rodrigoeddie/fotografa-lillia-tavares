@@ -119,7 +119,7 @@ const props = defineProps({
 
     .item {
         width: calc(25% - 20rem);
-        background: #eaeaea;
+        background: white;
         border-radius: 14rem;
         display: flex;
         border: 1px solid white;
@@ -231,6 +231,16 @@ const props = defineProps({
             .wrap {
                 color: v.$lp-dia-das-maes;
             }
+        }
+    }
+}
+
+.coloracao-steps {
+    .list .item {
+        height: 190rem;
+
+        @include m.max(sm) {
+            height: 250rem;
         }
     }
 }
