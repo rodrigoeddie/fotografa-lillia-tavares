@@ -49,4 +49,14 @@ const { data: pageData } = await useAsyncData(`investimento-${props.lp}`, () => 
     color: v.$lp-dia-das-maes;
   }
 }
+
+.lp-presentes {
+  .title-precos {
+    color: v.$lp-presentes;
+  }
+
+  .description-lp {
+    color: v.$lp-presentes;
+  }
+}
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-const title = 'Sobre o Estúdio';
-const description = 'O estúdio está localizado em Mogi das cruzes, no coração da cidade, com ótimas opções para estacionamento e transportes.';
+const title = 'Estúdio Fotográfico em Mogi das Cruzes | Lillia Tavares';
+const description = 'Conheça o estúdio fotográfico de Lillia Tavares em Mogi das Cruzes. Localizado no centro da cidade, com cenários exclusivos, iluminação profissional e fácil acesso para toda a região do Alto Tietê.';
 
 useSchemaOrg([
   defineWebPage({
@@ -51,9 +51,29 @@ useSchemaOrg([
   })
 ]);
 
+const estudioLink = 'https://fotografalilliatavares.com.br/estudio';
+const estudioImage = 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public';
+
 useSeoMeta({
-  title: title,
-  description: description
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: estudioLink,
+  ogImage: estudioImage,
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: estudioImage,
+});
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: estudioLink
+    }
+  ]
 });
 
 const configPublic = useRuntimeConfig().public;

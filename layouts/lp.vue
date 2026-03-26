@@ -7,6 +7,8 @@ const logo = computed(() => {
         return "de7d6be6-8fed-43b0-e2ca-7b5643bd9d00";
     } else if (lpType.value === 'dia-das-maes') {
         return "4cb733c9-64af-48fd-2578-c43f3a26d800";
+    } else if (lpType.value === 'presentes') {
+        return "4cb733c9-64af-48fd-2578-c43f3a26d800";
     }
 
     return '19bd6c18-a153-4e79-c6bd-4293145da400';
@@ -100,6 +102,13 @@ body.lp-corporativo {
 body.lp-dia-das-maes {
     --swiper-pagination-color: black;
     --swiper-pagination-bullet-inactive-color: #aba093;
+    font-family: 'Montserrat', sans-serif;
+    background: white;
+}
+
+body.lp-presentes {
+    --swiper-pagination-color: black;
+    --swiper-pagination-bullet-inactive-color: #b8909a;
     font-family: 'Montserrat', sans-serif;
     background: white;
 }

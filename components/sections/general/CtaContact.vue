@@ -185,4 +185,29 @@ const props = defineProps({
     }
   }
 }
+
+.lp-presentes {
+  background: v.$lp-presentes;
+
+  .title,
+  .description,
+  & {
+    color: white;
+  }
+
+  ul li {
+    background-color: rgba(139, 94, 107, 0.8);
+  }
+
+  .btn-cta {
+    background: rgba(v.$lp-presentes, 0.65);
+
+    &:hover {
+      border-color: v.$lp-presentes-dark;
+      color: v.$lp-presentes-dark;
+      box-shadow: 10rem 10rem 0 v.$lp-presentes-dark;
+      background: white;
+    }
+  }
+}
 </style>

@@ -14,12 +14,19 @@ useSchemaOrg([
   })
 ]);
 
+const homeOgImage = 'https://www.fotografalilliatavares.com.br/share.webp?v3';
+
 useSeoMeta({
   title: home.value?.title,
   description: home.value?.description,
   ogTitle: home.value?.title,
   ogDescription: home.value?.description,
   ogUrl: 'https://fotografalilliatavares.com.br',
+  ogImage: homeOgImage,
+  twitterCard: 'summary_large_image',
+  twitterTitle: home.value?.title,
+  twitterDescription: home.value?.description,
+  twitterImage: homeOgImage,
 });
 
 useHead({

@@ -138,11 +138,45 @@ const map = {
     <LandingsForWho class="lp-dia-das-maes" :lp="slug" :data="forWho" />
     <LandingsColoracao class="lp-dia-das-maes" :lp="slug" />
     <LandingsMap class="lp-dia-das-maes" :lp="slug" :data="map" />
+
+    <section class="hub-backlink lp-dia-das-maes container" data-ani-type="fade-up">
+      <p>Veja outras ideias de presente com ensaio fotográfico</p>
+      <NuxtLink to="/presente-ensaio-fotografico-mogi" class="hub-backlink__link">
+        Explorar todas as opções de presente →
+      </NuxtLink>
+    </section>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .wrapper-dia-das-maes {
   padding-bottom: 100rem;
+}
+
+.hub-backlink {
+  text-align: center;
+  padding: 50rem 20rem;
+  margin-bottom: 40rem;
+  background: v.$lp-dia-das-maes-ultralight;
+  border-radius: 8rem;
+
+  p {
+    font-size: 22rem;
+    color: v.$lp-dia-das-maes-dark;
+    margin-bottom: 15rem;
+    font-weight: 600;
+  }
+
+  &__link {
+    font-size: 20rem;
+    font-weight: 700;
+    color: v.$lp-dia-das-maes;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: v.$lp-dia-das-maes-dark;
+    }
+  }
 }
 </style>

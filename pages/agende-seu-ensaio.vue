@@ -1,12 +1,14 @@
 <script lang="ts" setup>
-const title = 'Solicite o orçamento para saber o preço do seu ensaio fotográfico';
-const description = 'Se você gostou do meu trabalho e pretende fazer um ensaio fotográfico, agende seu horário. Entre em contato comigo e escolha o melhor dia';
+const title = 'Agende seu Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares';
+const description = 'Agende seu ensaio fotográfico profissional em Mogi das Cruzes. Entre em contato, escolha o melhor dia e tenha fotos incríveis. Atendemos toda a região do Alto Tietê.';
+const link = 'https://fotografalilliatavares.com.br/agende-seu-ensaio';
+const ogImage = 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public';
 
 useSchemaOrg([
   defineWebPage({
     '@type': 'ContactPage',
     name: title,
-    url: 'https://fotografalilliatavares.com.br/agende-seu-ensaio',
+    url: link,
     sameAs: [
       'https://www.facebook.com/fotografalilliatavares',
       'https://www.instagram.com/fotografalilliatavares',
@@ -17,8 +19,25 @@ useSchemaOrg([
 ]);
 
 useSeoMeta({
-  title: title,
-  description: description,
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: link,
+  ogImage,
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: ogImage,
+});
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: link
+    }
+  ]
 });
 </script>
 

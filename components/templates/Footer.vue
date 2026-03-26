@@ -206,4 +206,37 @@
             color: v.$lp-dia-das-maes !important;
         }
     }
+
+    .lp-presentes {
+        footer {
+            background: rgba(139, 94, 107, 0.1);
+        }
+
+        header {
+            background-color: v.$lp-presentes;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        :deep(.social) {
+            .link-social {
+                color: white;
+            }
+
+            .icon-whatsapp * {
+                stroke: white !important;
+            }
+    
+            .icon {
+                fill: white;
+            }
+        }
+
+        :deep(.menu) .link,
+        address {
+            color: v.$lp-presentes !important;
+        }
+    }
 </style>

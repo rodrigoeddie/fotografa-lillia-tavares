@@ -143,4 +143,13 @@ const props = defineProps({
         color: white;
     }
 }
+
+.lp-presentes {
+    background: v.$lp-presentes;
+    color: white;
+
+    .description {
+        color: white;
+    }
+}
 </style>

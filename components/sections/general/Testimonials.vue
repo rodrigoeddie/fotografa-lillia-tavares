@@ -243,4 +243,34 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
             }
         }
     }
+
+    .lp-presentes {
+        background: transparent;
+
+        .description-lp,
+        .title {
+            color: v.$lp-presentes;
+        }
+
+        :deep(.wrap-testimonial) {
+            .btn {
+                background: v.$lp-presentes-dark;
+                color: white;
+
+                &:hover {
+                    background: #eaeaea;
+                    color: v.$lp-presentes;
+                }
+            }
+
+            .description {
+                color: v.$lp-presentes-dark;
+            }
+
+            .text-testimonial {
+                box-shadow: 0 0 10rem rgba(0, 0, 0, 0.25);
+                background-color: v.$lp-presentes-ultralight;
+            }
+        }
+    }
 </style>

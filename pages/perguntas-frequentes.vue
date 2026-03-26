@@ -3,17 +3,54 @@ const { data: faqData } = await useAsyncData('faq', () => {
   return queryCollection('faq').first();
 });
 
+const faqTitle = 'Perguntas Frequentes sobre Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares';
+const faqDescription = faqData.value?.description ?? 'Tire suas dúvidas sobre ensaios fotográficos profissionais em Mogi das Cruzes: preços, agendamento, pacotes e mais.';
+const faqLink = 'https://fotografalilliatavares.com.br/perguntas-frequentes';
+const faqImage = 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public';
+
+// Build FAQ structured data for FAQPage schema
+const allQuestions = (faqData.value?.categories ?? []).flatMap((cat: any) =>
+  (cat.questions ?? []).map((q: any) => ({
+    '@type': 'Question' as const,
+    name: q.question,
+    acceptedAnswer: {
+      '@type': 'Answer' as const,
+      text: q.answer,
+    }
+  }))
+);
+
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'FAQPage',
+    name: faqTitle,
+    url: faqLink,
+    mainEntity: allQuestions
+  })
+]);
+
 useHead({
-  title: (faqData.value?.title ?? '') + ' - Lillia Tavares Fotografia',
-  meta: [{ name: 'description', content: faqData.value?.description ?? '' }]
+  title: faqTitle,
+  link: [
+    {
+      rel: 'canonical',
+      href: faqLink
+    }
+  ]
 });
 
 useSeoMeta({
-  title: (faqData.value?.title ?? '') + ' - Lillia Tavares Fotografia',
-  description: faqData.value?.description ?? '',
-  ogTitle: (faqData.value?.title ?? '') + ' - Lillia Tavares Fotografia',
-  ogDescription: faqData.value?.description ?? '',
-  ogType: 'website'
+  title: faqTitle,
+  description: faqDescription,
+  ogTitle: faqTitle,
+  ogDescription: faqDescription,
+  ogUrl: faqLink,
+  ogImage: faqImage,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: faqTitle,
+  twitterDescription: faqDescription,
+  twitterImage: faqImage,
 });
 </script>
 

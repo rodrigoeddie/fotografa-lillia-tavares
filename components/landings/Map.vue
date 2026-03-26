@@ -172,4 +172,12 @@ const props = defineProps({
         color: v.$lp-dia-das-maes;
     }
 }
+
+.lp-presentes {
+    color: v.$lp-presentes;
+
+    .description {
+        color: v.$lp-presentes;
+    }
+}
 </style>
