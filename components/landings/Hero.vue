@@ -241,11 +241,16 @@ const props = defineProps({
                 background: linear-gradient(90deg, rgba(157, 126, 105, 1), transparent);
                 pointer-events: none;
                 position: absolute;
+                right: 50%;
                 z-index: 1;
                 bottom: 0;
-                right: 50%;
                 left: 0;
                 top: 0;
+                
+                @include m.max(sm) {
+                    background: linear-gradient(90deg, rgba(157, 126, 105, .8) 60%, transparent);
+                    right: 25%;
+                }
             }
             
             .image {

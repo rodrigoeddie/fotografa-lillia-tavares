@@ -128,6 +128,12 @@ const props = defineProps({
     color: v.$lp-dia-das-maes;
     padding-top: 0;
 
+    .for-who__list .for-who__group {
+        @include m.max(sm) {
+            width: calc(50% - 13rem);
+        }
+    }
+
     .for-who__list {
         color: v.$lp-dia-das-maes;
     }
