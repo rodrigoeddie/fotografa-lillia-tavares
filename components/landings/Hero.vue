@@ -228,6 +228,10 @@ const props = defineProps({
     .lp-dia-das-maes {
         background: v.$lp-dia-das-maes;
 
+        @include m.max(sm) {
+            max-width: 100%;
+        }
+
         .wrap {
             justify-content: flex-start;
 
@@ -243,10 +247,37 @@ const props = defineProps({
                 left: 0;
                 top: 0;
             }
+            
+            .image {
+                @include m.max(sm) {
+                    width: 100%;
+                    margin-left: 0;
+                }
+
+                img {
+                    @include m.max(sm) {
+                        max-width: none;
+                        object-position: 25%;
+                    }
+                }
+            }
 
             .text {
                 padding-right: 40rem;
                 z-index: 2;
+
+                @include m.max(sm) {
+                    padding-right: 0;
+                    padding-left: 20rem;
+                    align-items: flex-start;
+                }
+
+                .subtitle-hero,
+                .title-hero {
+                    @include m.max(sm) {
+                        text-align: left;
+                    }
+                }
 
                 ul,
                 .subtitle-hero {

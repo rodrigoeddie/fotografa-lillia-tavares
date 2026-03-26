@@ -91,6 +91,10 @@ const props = defineProps({
 
             :deep(small) {
                 font-size: 20rem;
+        
+                @include m.max(sm) {
+                    font-size: 16rem;
+                }
             }
         
             @include m.max(sm) {

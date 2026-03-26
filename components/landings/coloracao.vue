@@ -41,19 +41,31 @@ const props = defineProps({
 <style scoped lang="scss">
 .section-lp {
     margin-bottom: 70rem;
+    border-radius: 8rem;
+    max-width: 1177rem;
     padding-bottom: 0;
+    overflow: hidden;
     padding-top: 0;
     display: flex;
-    max-width: 1177rem;
-    border-radius: 8rem;
-    overflow: hidden;
     gap: 35rem;
+    
+    @include m.max(xs) {
+        margin-top: 30rem;
+        border-radius: 0;
+        max-width: 100%;
+        gap: 0;
+    }
 }
 
 .wrap-image {
     aspect-ratio: 1 / 1.02;
     flex-shrink: 0;
     width: 35%;
+    
+    @include m.max(xs) {
+        aspect-ratio: 1;
+        width: 40%;
+    }
 
     .img {
         object-position: 50% 75%;
@@ -73,20 +85,53 @@ const props = defineProps({
     display: flex;
     justify-content: center;
     flex-direction: column;
+    
+    @include m.max(xs) {
+        padding-right: 20rem;
+        padding-left: 20rem;
+        width: 60%;
+        top: 0;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, v.$lp-dia-das-maes-dark 0%, v.$lp-dia-das-maes-dark 100%);
+        }
+    }
 
     .title {
         text-align: left;
         margin-bottom: 0;
         padding-top: 0;
+        z-index: 1;
+
+        @include m.max(xs) {
+            font-size: 25rem;
+        }
     }
 
     .subtitle {
         padding-top: 15rem;
+        z-index: 1;
+
+        @include m.max(xs) {
+            font-size: 19rem;
+        }
     }
     
     .description {
         padding-bottom: 20rem;
         text-align: left;
+        z-index: 1;
+
+        @include m.max(xs) {
+            font-size: 19rem;
+            line-height: 1.1em;
+        }
     }
 }
 

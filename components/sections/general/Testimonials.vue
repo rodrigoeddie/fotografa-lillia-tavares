@@ -120,7 +120,7 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
         padding-bottom: 30rem;
     }
 
-    .flex-testimonials {
+    .wrap-testimonials .flex-testimonials {
         display: flex;
         justify-content: center;
         gap: 16rem;
@@ -129,6 +129,19 @@ const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
 
         .swiper-slide {
             flex: 0 1 47%;
+
+            @include m.max(xs) {
+                flex: 0 1 100%;
+            }
+        }
+        .swiper-slide .wrap-testimonial {
+            margin-bottom: 0;
+
+            :deep(.text-testimonial) {
+                @include m.max(xs) {
+                    min-height: auto !important;
+                }
+            }
         }
     }
 

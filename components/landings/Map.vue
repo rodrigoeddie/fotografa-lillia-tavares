@@ -103,6 +103,10 @@ const props = defineProps({
 
     .text {
         width: calc(100% - 421px);
+
+        @include m.max(sm) {
+            width: 100%;
+        }
     }
 
     .title-lp {
@@ -117,6 +121,10 @@ const props = defineProps({
 
     .description {
         padding-top: 10rem;
+
+        @include m.max(sm) {
+            font-size: 19rem;
+        }
     }
 
     .description-final {

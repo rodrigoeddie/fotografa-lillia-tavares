@@ -198,6 +198,8 @@ const props = defineProps({
         }
 
         .item {
+            height: 256rem;
+
             .wrap-icon {
                 background: v.$lp-dia-das-maes;
             }

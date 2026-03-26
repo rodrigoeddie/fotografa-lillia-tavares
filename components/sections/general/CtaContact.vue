@@ -158,6 +158,10 @@ const props = defineProps({
     width: 100%;
     bottom: 0;
     left: 0;
+
+    @include m.max(xs) {
+      object-position: 40%;
+    }
   }
 
   .title,
