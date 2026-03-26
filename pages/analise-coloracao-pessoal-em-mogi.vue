@@ -57,22 +57,22 @@ const benefits = [
 
 const steps = [
   {
-    number: '1',
+    icon: '1',
     title: 'Agendamento',
     description: 'Entre em contato pelo WhatsApp e agende sua análise de coloração pessoal no estúdio em Mogi das Cruzes.'
   },
   {
-    number: '2',
+    icon: '2',
     title: 'Análise presencial',
     description: 'No estúdio, fazemos a análise com tecidos coloridos para identificar qual cartela de cores harmoniza com você.'
   },
   {
-    number: '3',
+    icon: '3',
     title: 'Cartela de cores',
     description: 'Você recebe sua cartela de cores personalizada com as tonalidades que mais valorizam sua beleza natural.'
   },
   {
-    number: '4',
+    icon: '4',
     title: 'Orientações',
     description: 'Receba dicas práticas sobre como aplicar as cores no guarda-roupa, maquiagem e acessórios do dia a dia.'
   }
@@ -93,14 +93,13 @@ const testimonials = [
 <template>
   <div class="coloracao-page">
     <!-- Hero -->
-    <section class="coloracao-hero" data-ani-type="fade-up">
-      <div class="container">
+    <section class="coloracao-hero container" data-ani-type="fade-up">
         <div class="coloracao-hero__content">
           <div class="coloracao-hero__text">
             <h1 class="coloracao-hero__title">Análise de Coloração Pessoal<br>em Mogi das Cruzes</h1>
             <p class="coloracao-hero__description">
               Descubra quais cores valorizam a sua beleza natural. A análise de coloração pessoal revela
-              as tonalidades que harmonizam com sua pele, cabelo e olhos — trazendo mais autoestima,
+              as tonalidades que harmonizam com sua pele, cabelo e olhos, trazendo mais autoestima,
               confiança e praticidade para o seu dia a dia.
             </p>
             <a
@@ -125,13 +124,12 @@ const testimonials = [
             />
           </div>
         </div>
-      </div>
     </section>
 
     <!-- Benefícios -->
     <section class="coloracao-benefits container" data-ani-type="fade-up">
-      <h2>Por que fazer uma análise de coloração pessoal?</h2>
-      <p class="coloracao-benefits__intro">
+      <h2 class="title">Por que fazer uma análise de coloração pessoal?</h2>
+      <p class="description">
         A análise de coloração pessoal vai muito além de saber se você é "verão" ou "inverno".
         É uma ferramenta prática que transforma seu dia a dia, suas compras e até suas fotos profissionais.
       </p>
@@ -151,24 +149,7 @@ const testimonials = [
     </section>
 
     <!-- Como funciona -->
-    <section class="coloracao-steps" data-ani-type="fade-up">
-      <div class="container">
-        <h2>Como funciona a análise de coloração pessoal</h2>
-        <div class="coloracao-steps__grid">
-          <div
-            v-for="(step, index) in steps"
-            :key="index"
-            class="coloracao-steps__card"
-            :data-ani-type="'fade-up'"
-            :data-ani-delay="`${0.15 * (index + 1)}s`"
-          >
-            <span class="coloracao-steps__number">{{ step.number }}</span>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.description }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <LandingsHowWorks class="coloracao-steps container" :data="{ title: 'Como funciona a análise de coloração pessoal?', list: steps }" />
 
     <!-- Depoimentos -->
     <section class="coloracao-testimonials container" data-ani-type="fade-up">
@@ -190,7 +171,7 @@ const testimonials = [
       <h2>Combine com um ensaio fotográfico</h2>
       <p>
         Muitas clientes aproveitam para fazer a análise de coloração pessoal junto com o ensaio fotográfico.
-        Assim, as fotos já são feitas com as cores que mais valorizam a sua beleza — uma combinação perfeita
+        Assim, as fotos já são feitas com as cores que mais valorizam a sua beleza, uma combinação perfeita
         para quem quer fotos incríveis e aprender sobre si mesma.
       </p>
       <div class="coloracao-crosssell__links">
@@ -204,7 +185,7 @@ const testimonials = [
     </section>
 
     <!-- CTA Final -->
-    <section class="coloracao-cta" data-ani-type="fade-up">
+    <section class="coloracao-cta container" data-ani-type="fade-up">
       <div class="container">
         <h2>Pronta para descobrir suas cores?</h2>
         <p>Agende sua análise de coloração pessoal em Mogi das Cruzes e transforme sua relação com as cores.</p>
@@ -228,7 +209,7 @@ const testimonials = [
 .coloracao-hero {
   background: v.$green;
   color: white;
-  padding: 60rem 0;
+  padding: 40rem;
 
   @include m.max(sm) {
     padding: 30rem 0;
@@ -321,17 +302,14 @@ const testimonials = [
 .coloracao-benefits {
   padding: 60rem 0;
 
-  h2 {
+  .title,
+  .description {
     text-align: center;
-    margin-bottom: 15rem;
+    color: v.$green;
   }
 
-  &__intro {
-    text-align: center;
-    max-width: 700rem;
-    margin: 0 auto 40rem;
-    font-size: 19rem;
-    line-height: 1.5;
+  .description {
+    padding-bottom: 15rem;
   }
 
   &__grid {
@@ -372,61 +350,6 @@ const testimonials = [
     font-size: 40rem;
     display: block;
     margin-bottom: 15rem;
-  }
-}
-
-.coloracao-steps {
-  background: v.$light-green;
-  padding: 60rem 0;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 40rem;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25rem;
-
-    @include m.max(sm) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include m.max(xs) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  &__card {
-    text-align: center;
-    padding: 20rem;
-
-    h3 {
-      font-size: 19rem;
-      margin-bottom: 8rem;
-      color: v.$dark-green;
-    }
-
-    p {
-      font-size: 16rem;
-      line-height: 1.5;
-      color: #555;
-    }
-  }
-
-  &__number {
-    width: 50rem;
-    height: 50rem;
-    border-radius: 50%;
-    background: v.$green;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24rem;
-    font-weight: 700;
-    margin: 0 auto 15rem;
   }
 }
 

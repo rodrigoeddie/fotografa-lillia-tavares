@@ -55,7 +55,7 @@ function save(prefs: typeof preferences.value) {
                 <span class="toggle__thumb" />
               </span>
               <span>
-                <strong>Essenciais</strong> — necessários para o funcionamento do site. Sempre ativos.
+                <strong>Essenciais</strong>: necessários para o funcionamento do site. Sempre ativos.
               </span>
             </div>
             <label class="cookie-option">
@@ -64,7 +64,7 @@ function save(prefs: typeof preferences.value) {
                 <span class="toggle__thumb" />
               </span>
               <span>
-                <strong>Analíticos</strong> — Google Analytics (GA4). Ajudam a entender como o site é usado.
+                <strong>Analíticos</strong>: Google Analytics (GA4). Ajudam a entender como o site é usado.
               </span>
             </label>
             <label class="cookie-option">
@@ -73,7 +73,7 @@ function save(prefs: typeof preferences.value) {
                 <span class="toggle__thumb" />
               </span>
               <span>
-                <strong>Marketing</strong> — Meta Pixel. Usados para mensurar e personalizar anúncios.
+                <strong>Marketing</strong>: Meta Pixel. Usados para mensurar e personalizar anúncios.
               </span>
             </label>
             <label class="cookie-option">
@@ -82,7 +82,7 @@ function save(prefs: typeof preferences.value) {
                 <span class="toggle__thumb" />
               </span>
               <span>
-                <strong>Gravação de sessão</strong> — Smartlook. Identificação de problemas de usabilidade.
+                <strong>Gravação de sessão</strong>: Smartlook. Identificação de problemas de usabilidade.
               </span>
             </label>
           </div>

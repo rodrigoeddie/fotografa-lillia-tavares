@@ -12,14 +12,14 @@ const props = defineProps({
     <section class="section-lp" data-ani-type="fade-up">
         <div class="container">
             <div class="ac">
-                <h1 class="title-lp">Como funciona o ensaio</h1>
+                <h1 class="title-lp">{{ props.data.title }}</h1>
             </div>
 
             <div class="list">
-                <div v-for="item in props.data" :key="item.title" class="item">
+                <div v-for="item in props.data.list" :key="item.title" class="item">
                     <div class="loop-index">
                         <span>
-                            {{ props.data.indexOf(item) + 1 }}
+                            {{ props.data.list.indexOf(item) + 1 }}
                         </span>
                     </div>
 
@@ -41,9 +41,30 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .section-lp {
+    background: v.$green;
     padding-top: 45rem;
     margin-top: 45rem;
     color: white;
+
+    .list {
+        .loop-index {
+            border: 4rem solid v.$green;
+            
+            span {
+                color: v.$green;
+            }
+        }
+
+        .item {
+            .wrap-icon {
+                background: v.$light-green;
+            }
+
+            .wrap {
+                color: v.$green;
+            }
+        }
+    }
 }
 
 .title-lp {

@@ -84,28 +84,31 @@ const forWho = {
   ]
 };
 
-const howWorks = [
-  {
-    title: 'Agendamento rápido',
-    description: 'Escolha o melhor dia e horário de forma simples e rápida pelo WhatsApp',
-    icon: 'chedule',
-  },
-  {
-    title: 'Experiência no estúdio',
-    description: 'Sua família será guiada em cada momento para se sentir confortável e sair linda nas fotos',
-    icon: 'camera',
-  },
-  {
-    title: 'Escolha das fotos',
-    description: 'Selecione suas imagens favoritas com calma e sem pressão',
-    icon: 'choose',
-  },
-  {
-    title: 'Entrega especial',
-    description: 'Receba fotos profissionais prontas para guardar como lembrança para toda a vida',
-    icon: 'envelope',
-  },
-];
+const howWorks = {
+  title: 'Como funciona o ensaio',
+  list: [
+    {
+      title: 'Agendamento rápido',
+      description: 'Escolha o melhor dia e horário de forma simples e rápida pelo WhatsApp',
+      icon: 'chedule',
+    },
+    {
+      title: 'Experiência no estúdio',
+      description: 'Sua família será guiada em cada momento para se sentir confortável e sair linda nas fotos',
+      icon: 'camera',
+    },
+    {
+      title: 'Escolha das fotos',
+      description: 'Selecione suas imagens favoritas com calma e sem pressão',
+      icon: 'choose',
+    },
+    {
+      title: 'Entrega especial',
+      description: 'Receba fotos profissionais prontas para guardar como lembrança para toda a vida',
+      icon: 'envelope',
+    },
+  ]
+};
 
 const portfolioSection = {
     title: 'Fotos de dia das mães feitas no estúdio',

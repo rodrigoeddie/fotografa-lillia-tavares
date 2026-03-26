@@ -82,28 +82,31 @@ const forWho = {
   ]
 };
 
-const howWorks = [
-  {
-    title: 'Agendamento',
-    description: 'Agende seu horário em poucos minutos',
-    icon: 'chedule',
-  },
-  {
-    title: 'Ensaio',
-    description: 'Receba direção completa durante o ensaio',
-    icon: 'camera',
-  },
-  {
-    title: 'Seleção',
-    description: 'Escolha suas melhores fotos',
-    icon: 'choose',
-  },
-  {
-    title: 'Entrega',
-    description: 'Receba imagens profissionais prontas para uso',
-    icon: 'envelope',
-  },
-];
+const howWorks = {
+  title: 'Como funciona o ensaio',
+  list: [
+    {
+      title: 'Agendamento',
+      description: 'Agende seu horário em poucos minutos',
+      icon: 'chedule',
+    },
+    {
+      title: 'Ensaio',
+      description: 'Receba direção completa durante o ensaio',
+      icon: 'camera',
+    },
+    {
+      title: 'Seleção',
+      description: 'Escolha suas melhores fotos',
+      icon: 'choose',
+    },
+    {
+      title: 'Entrega',
+      description: 'Receba imagens profissionais prontas para uso',
+      icon: 'envelope',
+    },
+  ]
+};
 
 const portfolioSection = {
     title: 'Fotos corporativas feitas no estúdio',

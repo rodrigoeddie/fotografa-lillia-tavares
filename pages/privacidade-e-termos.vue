@@ -35,7 +35,7 @@ definePageMeta({
           <a href="mailto:fotografalilliatavares@gmail.com">fotografalilliatavares@gmail.com</a>
           e pelo WhatsApp <a href="https://wa.me/5511911159795" target="_blank" rel="noopener noreferrer">(11) 91115-9795</a>,
           é responsável pelo tratamento dos dados pessoais coletados neste site,
-          em conformidade com a Lei Geral de Proteção de Dados — <strong>LGPD (Lei nº 13.709/2018)</strong>.
+          em conformidade com a Lei Geral de Proteção de Dados - <strong>LGPD (Lei nº 13.709/2018)</strong>.
         </p>
 
         <h3>1.2 Quais dados coletamos</h3>
@@ -59,19 +59,19 @@ definePageMeta({
           O tratamento dos seus dados é fundamentado nas seguintes bases legais previstas na LGPD:
         </p>
         <ul>
-          <li><strong>Consentimento</strong> — para envio de comunicações de marketing e uso de cookies não essenciais;</li>
-          <li><strong>Execução de contrato</strong> — para atendimento de orçamentos e agendamentos;</li>
-          <li><strong>Legítimo interesse</strong> — para análise de navegação e melhoria do site;</li>
-          <li><strong>Cumprimento de obrigação legal</strong> — quando exigido por lei.</li>
+          <li><strong>Consentimento</strong> - para envio de comunicações de marketing e uso de cookies não essenciais;</li>
+          <li><strong>Execução de contrato</strong> - para atendimento de orçamentos e agendamentos;</li>
+          <li><strong>Legítimo interesse</strong> - para análise de navegação e melhoria do site;</li>
+          <li><strong>Cumprimento de obrigação legal</strong> - quando exigido por lei.</li>
         </ul>
 
         <h3>1.5 Cookies e tecnologias de rastreamento</h3>
         <p>Utilizamos os seguintes tipos de cookies:</p>
         <ul>
           <li><strong>Essenciais:</strong> necessários para o funcionamento básico do site. Não podem ser desativados.</li>
-          <li><strong>Analíticos:</strong> Google Analytics (GA4) — para entender o comportamento dos visitantes.</li>
-          <li><strong>Marketing:</strong> Meta Pixel (Facebook/Instagram) — para mensurar e otimizar campanhas de anúncios.</li>
-          <li><strong>Gravação de sessão:</strong> Smartlook — para identificar problemas de usabilidade.</li>
+          <li><strong>Analíticos:</strong> Google Analytics (GA4) - para entender o comportamento dos visitantes.</li>
+          <li><strong>Marketing:</strong> Meta Pixel (Facebook/Instagram) - para mensurar e otimizar campanhas de anúncios.</li>
+          <li><strong>Gravação de sessão:</strong> Smartlook - para identificar problemas de usabilidade.</li>
         </ul>
         <p>Você pode gerenciar suas preferências de cookies a qualquer momento clicando em <strong>"Gerenciar Cookies"</strong> no rodapé do site.</p>
 
@@ -80,7 +80,7 @@ definePageMeta({
           Não vendemos seus dados pessoais. Podemos compartilhá-los com:
         </p>
         <ul>
-          <li>Plataformas de análise e marketing (Google, Meta) — para fins de análise e publicidade, conforme suas próprias políticas;</li>
+          <li>Plataformas de análise e marketing (Google, Meta), para fins de análise e publicidade, conforme suas próprias políticas;</li>
           <li>Prestadores de serviço que auxiliam na operação do site, sob obrigação de confidencialidade;</li>
           <li>Autoridades competentes, quando exigido por lei.</li>
         </ul>
@@ -135,7 +135,7 @@ definePageMeta({
 
         <h3>2.2 Propriedade intelectual</h3>
         <p>
-          Todo o conteúdo deste site — incluindo textos, fotografias, logotipos, layout e código-fonte —
+          Todo o conteúdo deste site - incluindo textos, fotografias, logotipos, layout e código-fonte -
           é de propriedade exclusiva de Lillia Tavares Fotografia e está protegido pelas leis de direitos
           autorais (Lei nº 9.610/1998). É expressamente proibido reproduzir, distribuir, modificar ou
           utilizar qualquer conteúdo sem autorização prévia e por escrito.
@@ -165,7 +165,7 @@ definePageMeta({
         <h3>2.6 Legislação aplicável</h3>
         <p>
           Estes termos são regidos pelas leis brasileiras. Fica eleito o foro da comarca de
-          Mogi das Cruzes — SP para dirimir quaisquer controvérsias.
+          Mogi das Cruzes - SP para dirimir quaisquer controvérsias.
         </p>
 
         <h3>2.7 Contato</h3>
