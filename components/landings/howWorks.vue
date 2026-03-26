@@ -198,7 +198,10 @@ const props = defineProps({
         }
 
         .item {
-            height: 256rem;
+            @include m.max(sm) {
+                height: 256rem;
+                // height: auto;
+            }
 
             .wrap-icon {
                 background: v.$lp-dia-das-maes;

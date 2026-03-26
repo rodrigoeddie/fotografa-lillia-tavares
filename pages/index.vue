@@ -40,8 +40,8 @@ const configPublic = useRuntimeConfig().public;
 
 <template >
   <div class="container wrap-hero-home">
-    <SectionsHomeAboutCta />
     <SectionsHomeBanner />
+    <SectionsHomeAboutCta />
   </div>
   <SectionsHomePortfolio />
   <SectionsGeneralTestimonials />

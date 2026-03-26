@@ -31,10 +31,22 @@
     max-width: 860rem;
     width: 50%;
 
+    @include m.max(xs) {
+        max-width: none;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1.4 / 1;
+    }
+
     .text {
         position: absolute;
         bottom: 30rem;
         left: 30rem;
+
+        @include m.max(xs) {
+            bottom: 15px;
+            left: 15px;
+        }
     }
 
     .title, .description {
