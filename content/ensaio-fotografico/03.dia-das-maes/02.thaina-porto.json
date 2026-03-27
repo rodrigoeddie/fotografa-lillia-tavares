@@ -58,6 +58,14 @@
       "canBeThumb": true,
       "alt": "",
       "customClass": "w50"
+    },
+    {
+      "imageId": "3d28f6b2-130c-4eef-d466-e94b0c05a000",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "canBeThumb": true,
+      "alt": ""
     }
   ]
 }

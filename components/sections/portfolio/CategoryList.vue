@@ -154,6 +154,8 @@ function atualizarConteudoComBaseNaRota(newRoute: any) {
 
 atualizarConteudoComBaseNaRota($route);
 
+const { init } = useScrollAnimations();
+
 watch(
   () => $route.fullPath,
   (novoFullPath, antigoFullPath) => {
@@ -165,6 +167,11 @@ watch(
   },
   { immediate: false }
 );
+
+// Re-inicializa animações após os dados chegarem e o DOM atualizar
+watch(ensaiosList, () => {
+  nextTick(() => init());
+});
 
 const classes: ClassConfig[] = [
   {
