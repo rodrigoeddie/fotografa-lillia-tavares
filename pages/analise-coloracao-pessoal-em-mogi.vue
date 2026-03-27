@@ -84,6 +84,10 @@ const steps = [
 
 <template>
   <div class="coloracao-page">
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Análise de Coloração Pessoal' },
+    ]" />
     <!-- Hero -->
     <section class="coloracao-hero container" data-ani-type="fade-up">
         <div class="coloracao-hero__content">

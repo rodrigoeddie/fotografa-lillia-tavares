@@ -72,6 +72,11 @@ const formatDate = (date: Date) => {
 
 <template>
   <div class="container post-list">
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Blog', to: '/blog' },
+      { label: categoryTitle },
+    ]" />
     <div v-if="categoryData" class="category-header">
       <h1 class="title">{{ categoryData.title }}</h1>
       <p v-if="categoryData.description" class="description">{{ categoryData.description }}</p>

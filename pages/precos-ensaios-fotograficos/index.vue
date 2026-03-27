@@ -36,6 +36,10 @@ useHead({
 </script>
 
 <template>
+  <BlocksBreadcrumb :items="[
+    { label: 'Home', to: '/' },
+    { label: 'Preços de Ensaios Fotográficos' },
+  ]" />
   <SectionsPrecosList />
 </template>
 

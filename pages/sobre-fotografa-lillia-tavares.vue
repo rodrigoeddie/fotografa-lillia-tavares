@@ -44,5 +44,9 @@ useHead({
 </script>
 
 <template>
+  <BlocksBreadcrumb :items="[
+    { label: 'Home', to: '/' },
+    { label: 'Sobre a Fotógrafa' },
+  ]" />
   <SectionsSobreContent />
 </template>

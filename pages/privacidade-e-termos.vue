@@ -22,6 +22,10 @@ definePageMeta({
 
 <template>
   <main class="privacidade container">
+      <BlocksBreadcrumb :items="[
+        { label: 'Home', to: '/' },
+        { label: 'Privacidade e Termos' },
+      ]" />
       <h1 class="page-title">Política de Privacidade e Termos de Uso</h1>
       <p class="updated">Última atualização: março de 2026</p>
 

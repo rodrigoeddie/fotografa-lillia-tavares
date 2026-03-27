@@ -42,6 +42,10 @@ useHead({
 </script>
 
 <template>
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Agendar Ensaio' },
+    ]" />
     <SectionsScheduleForm />
     <SectionsStudioTiny :showMap="true" />
 </template>

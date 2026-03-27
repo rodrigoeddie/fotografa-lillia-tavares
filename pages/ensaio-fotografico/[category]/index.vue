@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-const path = useRoute().path
+const route = useRoute()
+const path = route.path
 
 const { data: pageData } = await useAsyncData(path, () => {
   return queryCollection('works').path(path).first()
@@ -28,6 +29,11 @@ useSeoMeta({
 </script>
 
 <template>
+  <BlocksBreadcrumb :items="[
+    { label: 'Home', to: '/' },
+    { label: 'Ensaios Fotográficos', to: '/ensaio-fotografico' },
+    { label: pageData?.title || String(route.params.category) },
+  ]" />
   <SectionsPortfolioCategoryList class="no-padding" />
 </template>
 

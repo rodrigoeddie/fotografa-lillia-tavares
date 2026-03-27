@@ -36,6 +36,10 @@ useHead({
 </script>
 
 <template>
+  <BlocksBreadcrumb :items="[
+    { label: 'Home', to: '/' },
+    { label: 'Ensaios Fotográficos' },
+  ]" />
   <SectionsPortfolioList class="no-padding" />
 </template>
 

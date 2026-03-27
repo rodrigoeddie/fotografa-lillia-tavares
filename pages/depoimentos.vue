@@ -40,6 +40,10 @@ useHead({
 </script>
 
 <template>
+  <BlocksBreadcrumb :items="[
+    { label: 'Home', to: '/' },
+    { label: 'Depoimentos' },
+  ]" />
   <SectionsDepoimentosList />
   <SectionsScheduleTinyform :formType="'noType'" />
 </template>
