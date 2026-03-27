@@ -9,7 +9,19 @@
       "rating": 5,
       "date": "",
       "link": "",
-      "text": "Um ensaio fotográfico de respeito! Profissional muito competente, me deixou muito a vontade e tornou meu trabalho ainda mais valorizado. Espaço muito lindo, limpo e organizado. Me ajudou até com um difusor pra terminar de secar o meu cabelo.. uma querida!! Super recomendo e desejo muito sucesso ❤️"
+      "text": "Um ensaio fotográfico de respeito! Profissional muito competente, me deixou muito a vontade e tornou meu trabalho ainda mais valorizado. Espaço muito lindo, limpo e organizado. Me ajudou até com um difusor pra terminar de secar o meu cabelo.. uma querida!! Super recomendo e desejo muito sucesso ❤️",
+      "featured": true,
+      "portfolioLink": "corporativo/pollyanna-goncalves"
+    },
+    {
+      "id": 72,
+      "name": "Sheila Lima",
+      "photo": "ee985c1d-540d-4716-31db-2bb315650e00",
+      "rating": 5,
+      "date": "Há 8 meses atrás",
+      "link": "https://maps.app.goo.gl/mCvGFs6XZefjs1SX8",
+      "text": "O lugar é lindo, perfeito para ensaios fotográficos! As fotos ficaram maravilhosas - daquelas que a gente olha e se apaixona.<br> A Lillía é super simpática, envolvente e nos deixa completamente à vontade. Parecia que eu estava com uma amiga de longa data, mesmo sem nunca tê-la visto antes.<br> Foi uma experiência leve, divertida e inesquecível. Recomendo de olhos fechados!",
+      "portfolioLink": "corporativo/05-sheila-lima"
     },
     {
       "id": 0,
@@ -18,7 +30,8 @@
       "rating": 5,
       "date": "Ontem",
       "link": "https://maps.app.goo.gl/XYfAgs7nPh3te4RU7",
-      "text": "Minha experiência é SEMPRE maravilhosa!! O estúdio é lindo e muito aconchegante, dá vontade de ficar o dia todinho lá. A lillía é muito simpática, deixa a gente sempre muito a vontade e o trabalho dela é impecável. Recomendo demaaaaisss!!!!"
+      "text": "Minha experiência é SEMPRE maravilhosa!! O estúdio é lindo e muito aconchegante, dá vontade de ficar o dia todinho lá. A lillía é muito simpática, deixa a gente sempre muito a vontade e o trabalho dela é impecável. Recomendo demaaaaisss!!!!",
+      "portfolioLink": "dia-das-maes/thaina-porto"
     },
     {
       "id": 1,
@@ -222,7 +235,8 @@
       "photo": "b433972a-77c8-4fd9-36d2-5ed969800f00",
       "rating": 5,
       "date": "Há 46 semanas",
-      "text": "Maravilhosa! A Lillia é excelente, me senti confortável e linda! É uma dose de autoestima que eu não imaginava que teria em uma sessão de fotos. Os cenários são muito bonitos e as fotos ficaram fantásticas. Simplesmente amei e recomendo muito."
+      "text": "Maravilhosa! A Lillia é excelente, me senti confortável e linda! É uma dose de autoestima que eu não imaginava que teria em uma sessão de fotos. Os cenários são muito bonitos e as fotos ficaram fantásticas. Simplesmente amei e recomendo muito.",
+      "portfolioLink": "corporativo/juliana-kozma"
     },
     {
       "id": 24,
@@ -230,12 +244,13 @@
       "photo": "24a4d471-034f-42fd-b55a-dd55db869600",
       "rating": 5,
       "date": "Há 47 semanas",
-      "text": "Lilllia você é incrível e seu trabalho é impecável! Tirei minhas primeiras fotos profissionais com você e não me arrependo nem um pouco, o carinho, o acolhimento e as conversas deixaram a experiência ainda mais incrível. Obrigada e obrigada! 🥰"
+      "text": "Lilllia você é incrível e seu trabalho é impecável! Tirei minhas primeiras fotos profissionais com você e não me arrependo nem um pouco, o carinho, o acolhimento e as conversas deixaram a experiência ainda mais incrível. Obrigada e obrigada! 🥰",
+      "portfolioLink": "corporativo/nelma-caroline"
     },
     {
       "id": 25,
       "name": "Jefferson Fernandes da Cunha",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW6ay6I2ZJpIQCCCSu5FLJ1Oxo-dF-A5lDWrj2wJJ2IOOAGf0Hz=s72-c-rp-mo-ba4-br100",
+      "photo": "261abacf-aa19-4c18-463f-0c92cfdf1000",
       "rating": 5,
       "date": "Há 48 semanas",
       "text": "Fiz dois ensaios com eles, um foi de natal e o outro para minha empresa, local è muito bem pensado e fica bem no centro de mogi perto da estação e da prefeitura de mogi da cruzes, super recomendo."
@@ -246,7 +261,8 @@
       "photo": "c592e234-acdc-44e0-ee2c-5bfe5a12dd00",
       "rating": 5,
       "date": "Há 49 semanas",
-      "text": "O trabalho da Lillia é incrível! Atendimento impecável do começo ao fim! Eu nem havia terminado e já estava pensando em fazer outros ensaios."
+      "text": "O trabalho da Lillia é incrível! Atendimento impecável do começo ao fim! Eu nem havia terminado e já estava pensando em fazer outros ensaios.",
+      "portfolioLink": "corporativo/bruna-freire"
     },
     {
       "id": 27,
@@ -374,7 +390,8 @@
       "photo": "f73ae5ab-d686-4773-d0f2-3786248d8500",
       "rating": 5,
       "date": "5 de jun. de 2024",
-      "text": "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"
+      "text": "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️",
+      "portfolioLink": "corporativo/camila-nogueira"
     },
     {
       "id": 43,
@@ -398,7 +415,8 @@
       "photo": "68e9b783-755e-497c-001b-c2ce5bdb4400",
       "rating": 5,
       "date": "4 de jun. de 2024",
-      "text": "Tive o prazer de fazer o meu ensaio corporativo com ela! Foi incrível, ela é excelente em tudo que faz!!!. O espaço oferece um ambiente tranquilo e acolhedor. A beleza do lugar é surreal, muito bem estruturado e pensado para proporcionar comodidade, profissionalismo e fotos memoráveis. Recomendo muitooooooo. Melhor estúdio fotográfico de Mogi."
+      "text": "Tive o prazer de fazer o meu ensaio corporativo com ela! Foi incrível, ela é excelente em tudo que faz!!!. O espaço oferece um ambiente tranquilo e acolhedor. A beleza do lugar é surreal, muito bem estruturado e pensado para proporcionar comodidade, profissionalismo e fotos memoráveis. Recomendo muitooooooo. Melhor estúdio fotográfico de Mogi.",
+      "portfolioLink": "corporativo/karoline-siqueira"
     },
     {
       "id": 46,
@@ -567,7 +585,8 @@
       "photo": "ff7f1784-f0ec-4aa0-ed58-091d9c248e00",
       "rating": 5,
       "date": "2 de jun. de 2024",
-      "text": "Studio de fotografia lindo no centro cívico, em Mogi das Cruzes. Cenários diversos, atende homens, mulheres, família. Super indico!"
+      "text": "Studio de fotografia lindo no centro cívico, em Mogi das Cruzes. Cenários diversos, atende homens, mulheres, família. Super indico!",
+      "portfolioLink": "corporativo/vanessa-lima"
     }
   ]
 }

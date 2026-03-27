@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+
 const { data } = await useAsyncData('depoimentos', () =>
   queryCollection('depoimentos').first()
 );
@@ -17,6 +19,15 @@ function formatDate(dateStr: string) {
     month: 'long',
     year: 'numeric'
   });
+}
+
+// CF ID if photo is not a URL; otherwise fall back to local project asset.
+// Google URLs (lh3.googleusercontent.com) are intentionally ignored.
+function reviewAvatarUrl(review: { id: number; photo?: string }): string {
+  if (review.photo && !review.photo.startsWith('http')) {
+    return CF_IMG_BASE + review.photo + '/public';
+  }
+  return `/assets/images/depoimentos/reviewer-${review.id}.jpg`;
 }
 </script>
 
@@ -52,7 +63,7 @@ function formatDate(dateStr: string) {
           <div class="review-card__header">
             <div class="review-card__avatar">
               <img
-                :src="`/assets/images/depoimentos/reviewer-${review.id}.jpg`"
+                :src="reviewAvatarUrl(review)"
                 :alt="review.name"
                 class="review-card__photo"
                 loading="lazy"

@@ -2,8 +2,8 @@
   "artigo": "a",
   "colorHighlight": "#000000",
   "title": "Vanessa Lima",
-  "description": "<p>Ensaio Sensual/intimista realizado pela fot&oacute;grafa Lillia Tavares para a Vanessa Lima. O ensaio intimista feminino foi produzido no Estúdio de fotografia Lillia Tavares.</p>",
-  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "description": "<p>Ensaio Sensual/intimista realizado pela fotógrafa Lillia Tavares para a Vanessa Lima. O ensaio intimista feminino foi produzido no Estúdio de fotografia Lillia Tavares.</p>",
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
   "category": {
     "slug": "sensual-intimista",
     "title": "Sensual / Intimista"
@@ -76,5 +76,14 @@
       "customClass": "w33",
       "alt": "Foto em preto e branco de uma mulher de cabelos enrolados amarrados em coque, ela está de pé usando uma camisa branca, virada para a esquerda, olhando para a foto com o braço esquerdo angulado em 90 graus encostando a cortina, ao fundo são as cortinas do estúdio Lillia Tavares"
     }
-  ]
+  ],
+  "testimonialId": 70,
+  "testimonial": {
+    "text": "Studio de fotografia lindo no centro cívico, em Mogi das Cruzes. Cenários diversos, atende homens, mulheres, família. Super indico!",
+    "avatar": "ff7f1784-f0ec-4aa0-ed58-091d9c248e00",
+    "link": "",
+    "rating": 5,
+    "date": "2 de jun. de 2024",
+    "source": "Google Maps"
+  }
 }

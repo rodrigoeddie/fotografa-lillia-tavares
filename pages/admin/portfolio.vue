@@ -50,6 +50,15 @@ interface CfImage {
 const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
 const ESTUDIO_LINK = `<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>`;
 
+// Returns the correct avatar URL: CF if CF ID stored, otherwise local project file.
+// Google URLs (lh3.googleusercontent.com) are intentionally ignored.
+function reviewAvatarUrl(review: { id: number; photo?: string }): string {
+  if (review.photo && !review.photo.startsWith('http')) {
+    return CF_IMG_BASE + review.photo + '/public';
+  }
+  return `/assets/images/depoimentos/reviewer-${review.id}.jpg`;
+}
+
 // Auth
 const authenticated = ref(false);
 const loginPassword = ref('');
@@ -391,7 +400,7 @@ interface TreeNode {
 }
 interface FlatNode extends TreeNode { depth: number }
 
-const fileSidebarOpen = ref(false);
+const fileSidebarOpen = ref(true);
 const fileTree = ref<TreeNode[]>([]);
 const expandedPaths = ref(new Set<string>());
 const renamingPath = ref<string | null>(null);
@@ -613,6 +622,8 @@ interface Review {
   date: string;
   link?: string;
   text: string;
+  featured?: boolean;
+  portfolioLink?: string;
 }
 
 interface DepoimentosData {
@@ -793,12 +804,28 @@ async function openInCms(filePath: string) {
 // Compute URL for the work being edited
 const pageUrl = computed(() => {
   if (!selectedWork.value) return null;
-  // selectedWork = 'ensaio-fotografico/01.corporativo/some-slug.json'
+  // selectedWork = 'ensaio-fotografico/01.corporativo/01.some-slug.json'
   const parts = selectedWork.value.split('/');
   if (parts.length < 3) return null;
   const category = parts[1]?.replace(/^\d+\./, '');
-  const slug = parts[2]?.replace(/\.json$/, '');
+  const slug = parts[2]?.replace(/\.json$/, '').replace(/^\d+\./, '');
   return `/ensaio-fotografico/${category}/${slug}`;
+});
+
+const portfolioWorks = computed(() => {
+  const results: { label: string; value: string }[] = [];
+  const root = fileTree.value.find(n => n.name === 'ensaio-fotografico');
+  if (!root?.children) return results;
+  for (const catNode of root.children) {
+    if (!catNode.isDirectory || !catNode.children) continue;
+    const catSlug = catNode.name.replace(/^\d+\./, '');
+    for (const workNode of catNode.children) {
+      if (workNode.isDirectory || !workNode.name.endsWith('.json') || workNode.name === 'index.json') continue;
+      const workSlug = workNode.name.replace(/\.json$/, '').replace(/^\d+\./, '');
+      results.push({ label: `${catSlug} / ${workSlug}`, value: `${catSlug}/${workSlug}` });
+    }
+  }
+  return results;
 });
 
 function selectTestimonial(reviewId: string) {
@@ -814,7 +841,7 @@ function selectTestimonial(reviewId: string) {
   workData.value.testimonialId = id;
   workData.value.testimonial = {
     text: review.text,
-    avatar: review.photo ? CF_IMG_BASE + review.photo + '/public' : '',
+    avatar: review.photo || '',
     link: review.link || '',
     rating: review.rating,
     date: review.date,
@@ -988,8 +1015,7 @@ onMounted(() => {
               <div class="dep-card-header">
                 <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
                 <div class="dep-avatar-mini">
-                  <img v-if="review.photo" :src="CF_IMG_BASE + review.photo + '/public'" :alt="review.name" />
-                  <span v-else class="dep-avatar-placeholder">?</span>
+                  <img :src="reviewAvatarUrl(review)" :alt="review.name" />
                 </div>
                 <span class="dep-card-name">{{ review.name || '(sem nome)' }}</span>
                 <div class="dep-stars">
@@ -1000,6 +1026,12 @@ onMounted(() => {
                     @click="review.rating = s"
                   >★</button>
                 </div>
+                <button
+                  class="btn-favorite-dep"
+                  :class="{ active: review.featured }"
+                  @click="review.featured = !review.featured"
+                  :title="review.featured ? 'Remover dos favoritos' : 'Marcar como favorito'"
+                >★</button>
                 <button
                   class="btn-collapse-dep"
                   @click="toggleDepCollapse(review.id)"
@@ -1024,7 +1056,7 @@ onMounted(() => {
                     <label>Foto (avatar)</label>
                     <div class="avatar-upload-row">
                       <div class="avatar-thumb">
-                        <img v-if="review.photo && avatarUploading !== realIdx" :src="CF_IMG_BASE + review.photo + '/public'" :alt="review.name" />
+                        <img v-if="avatarUploading !== realIdx" :src="reviewAvatarUrl(review)" :alt="review.name" />
                         <div v-else-if="avatarUploading === realIdx" class="avatar-uploading">⏳</div>
                         <div v-else class="avatar-empty">?</div>
                       </div>
@@ -1051,6 +1083,13 @@ onMounted(() => {
                 <div class="field">
                   <label>Texto do depoimento</label>
                   <textarea v-model="review.text" rows="3" placeholder="Texto..."></textarea>
+                </div>
+                <div class="field">
+                  <label>Portfolio vinculado</label>
+                  <select v-model="review.portfolioLink">
+                    <option value="">Nenhum</option>
+                    <option v-for="w in portfolioWorks" :key="w.value" :value="w.value">{{ w.label }}</option>
+                  </select>
                 </div>
               </div>
 
@@ -1148,7 +1187,7 @@ onMounted(() => {
                 >{{ r.name }}</option>
               </select>
               <div v-if="workData.testimonial" class="testimonial-preview">
-                <img v-if="workData.testimonial.avatar" :src="workData.testimonial.avatar" :alt="depData?.reviews.find(r => r.id === workData!.testimonialId)?.name" />
+                <img v-if="workData.testimonial.avatar" :src="CF_IMG_BASE + workData.testimonial.avatar + '/public'" :alt="depData?.reviews.find(r => r.id === workData!.testimonialId)?.name" />
                 <div class="testimonial-preview-body">
                   <span class="testimonial-stars">{{ '★'.repeat(workData.testimonial.rating) }}</span>
                   <p class="testimonial-text">{{ workData.testimonial.text.slice(0, 100) }}{{ workData.testimonial.text.length > 100 ? '…' : '' }}</p>
@@ -1664,6 +1703,20 @@ onMounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.btn-favorite-dep {
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.15s;
+  &.active { color: #facc15; }
+  &:hover { color: #fbbf24; }
 }
 
 .btn-collapse-dep {
