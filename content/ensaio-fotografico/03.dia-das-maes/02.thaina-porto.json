@@ -2,10 +2,10 @@
   "artigo": "a",
   "home": false,
   "homeOrder": 2,
-  "colorHighlight": "#ae7267",
+  "colorHighlight": "#9d7e69",
   "title": "Thainá Porto",
-  "description": "<p>Um ensaio com 3 lindas gerações, a vovó Rose, a mamãe Vanessa e a netinha Giugiu, elas me deram a alegria de fotografá-las ❤️</p>",
-  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/cenarios/dia-das-maes-2025'>Estúdio Lillia Tavares</a>",
+  "description": "<p>não existe conexão maior que a de mãe e filho, me senti honrada em poder registrar esse amor transbordando, muito obrigado Thainá.</p>",
+  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/'>Estúdio Lillia Tavares</a>",
   "testimonial": {
     "text": "Minha experiência é SEMPRE maravilhosa!! O estúdio é lindo e muito aconchegante, dá vontade de ficar o dia todinho lá. A lillía é muito simpática, deixa a gente sempre muito a vontade e o trabalho dela é impecável. Recomendo demaaaaisss!!!!",
     "avatar": "010e2691-7333-4d8a-0781-ec4208dfe400",
@@ -20,16 +20,6 @@
   },
   "album": [
     {
-      "imageId": "70f766e4-741e-4046-4b2a-f79b99a3f100",
-      "width": 567,
-      "height": 850,
-      "order": 2,
-      "format": "retrato",
-      "canBeThumb": true,
-      "alt": "Mãe e filho se olhando",
-      "customClass": "w33"
-    },
-    {
       "imageId": "5946a0b1-48c7-44c1-163a-cc23a3906300",
       "width": 567,
       "height": 850,
@@ -37,6 +27,17 @@
       "highlight": true,
       "format": "retrato",
       "alt": "Mãe e filho sentados no chão, olhando para a câmera, há um violão atras deles",
+      "customClass": "w33"
+    },
+    {
+      "imageId": "70f766e4-741e-4046-4b2a-f79b99a3f100",
+      "width": 567,
+      "height": 850,
+      "order": 2,
+      "format": "retrato",
+      "canBeThumb": true,
+      "highlight": true,
+      "alt": "Mãe e filho se olhando",
       "customClass": "w33"
     },
     {
