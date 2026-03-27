@@ -5,7 +5,7 @@
   "colorHighlight": "#9d7e69",
   "title": "Thainá Porto",
   "description": "<p>não existe conexão maior que a de mãe e filho, me senti honrada em poder registrar esse amor transbordando, muito obrigado Thainá.</p>",
-  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio/'>Estúdio Lillia Tavares</a>",
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio/\">Estúdio Lillia Tavares</a>",
   "testimonial": {
     "text": "Minha experiência é SEMPRE maravilhosa!! O estúdio é lindo e muito aconchegante, dá vontade de ficar o dia todinho lá. A lillía é muito simpática, deixa a gente sempre muito a vontade e o trabalho dela é impecável. Recomendo demaaaaisss!!!!",
     "avatar": "010e2691-7333-4d8a-0781-ec4208dfe400",
@@ -65,6 +65,30 @@
       "height": 1134,
       "format": "paisagem",
       "canBeThumb": true,
+      "alt": ""
+    },
+    {
+      "imageId": "e4de2f1c-7045-4ce0-acb0-7cd858833700",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "e4f39fc6-df53-477d-2e4a-ce4938cbc900",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "99931b85-ffb1-4c75-a7af-b86b00f9ea00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
       "alt": ""
     }
   ]

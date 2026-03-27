@@ -669,363 +669,370 @@ onMounted(() => {
 
   <!-- CMS -->
   <div v-else class="admin-cms">
-    <header class="cms-header">
-      <div class="cms-header-left">
-        <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Arquivos">
-          <span class="toggle-icon">☰</span> Arquivos
-        </button>
-        <h1>CMS Portfolio</h1>
-      </div>
-      <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
-    </header>
+    <div class="container">
+        <header class="cms-header">
+        <div class="cms-header-left">
+            <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Arquivos">
+            <span class="toggle-icon">☰</span> Arquivos
+            </button>
+            <h1>CMS Portfolio</h1>
+        </div>
+        <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
+        </header>
 
-    <Transition name="fade">
-      <div v-if="message" class="notification" :class="messageType">{{ message }}</div>
-    </Transition>
+        <Transition name="fade">
+        <div v-if="message" class="notification" :class="messageType">{{ message }}</div>
+        </Transition>
 
-    <div class="cms-layout">
-      <!-- File Sidebar -->
-      <Transition name="slide-sidebar">
-        <div v-show="fileSidebarOpen" class="file-sidebar">
-          <div class="fs-header" @contextmenu.prevent="openCtxMenuRoot">
-            <span>content/</span>
-          </div>
+        <div class="cms-layout">
+        <!-- File Sidebar -->
+        <Transition name="slide-sidebar">
+            <div v-show="fileSidebarOpen" class="file-sidebar">
+            <div class="fs-header" @contextmenu.prevent="openCtxMenuRoot">
+                <span>content/</span>
+            </div>
 
-          <div class="fs-tree">
-            <template v-for="node in flatTree" :key="node.path">
-              <div
-                class="fs-node"
-                :style="{ paddingLeft: `${node.depth * 14 + 8}px` }"
-                :class="{ 'is-dir': node.isDirectory, 'is-selected': selectedWork === node.path || (fileEditorPath === node.path && fileEditorOpen) }"
-                @contextmenu.prevent="openCtxMenu($event, node)"
-                @click="node.isDirectory ? toggleDir(node.path) : openInCms(node.path)">
+            <div class="fs-tree">
+                <template v-for="node in flatTree" :key="node.path">
+                <div
+                    class="fs-node"
+                    :style="{ paddingLeft: `${node.depth * 14 + 8}px` }"
+                    :class="{ 'is-dir': node.isDirectory, 'is-selected': selectedWork === node.path || (fileEditorPath === node.path && fileEditorOpen) }"
+                    @contextmenu.prevent="openCtxMenu($event, node)"
+                    @click="node.isDirectory ? toggleDir(node.path) : openInCms(node.path)">
 
-                <!-- Rename mode -->
-                <template v-if="renamingPath === node.path">
-                  <input
-                    v-model="renameValue"
-                    class="fs-rename-input"
-                    @click.stop
-                    @keydown.enter="confirmRename"
-                    @keydown.esc="renamingPath = null"
+                    <!-- Rename mode -->
+                    <template v-if="renamingPath === node.path">
+                    <input
+                        v-model="renameValue"
+                        class="fs-rename-input"
+                        @click.stop
+                        @keydown.enter="confirmRename"
+                        @keydown.esc="renamingPath = null"
+                        @vue:mounted="(el: any) => el.el?.focus()"
+                    />
+                    <button class="fs-action-btn ok" @click.stop="confirmRename">✓</button>
+                    <button class="fs-action-btn cancel" @click.stop="renamingPath = null">✕</button>
+                    </template>
+
+                    <!-- Normal mode -->
+                    <template v-else>
+                    <span class="fs-toggle">{{ node.isDirectory ? (expandedPaths.has(node.path) ? '▾' : '▸') : '' }}</span>
+                    <span class="fs-icon">{{ fileIcon(node) }}</span>
+                    <span class="fs-name" :title="node.path">{{ node.name }}</span>
+                    </template>
+                </div>
+
+                <!-- Inline create row — shown right after the target parent folder's block -->
+                <div
+                    v-if="creatingIn === node.path"
+                    class="fs-create-row"
+                    :style="{ paddingLeft: `${(node.depth + 1) * 14 + 8}px` }"
+                    @click.stop>
+                    <input
+                    v-model="createName"
+                    class="fs-create-input"
+                    :placeholder="createType === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
+                    @keydown.enter="confirmCreate"
+                    @keydown.esc="creatingIn = null"
                     @vue:mounted="(el: any) => el.el?.focus()"
-                  />
-                  <button class="fs-action-btn ok" @click.stop="confirmRename">✓</button>
-                  <button class="fs-action-btn cancel" @click.stop="renamingPath = null">✕</button>
+                    />
+                    <button class="fs-action-btn ok" @click="confirmCreate">✓</button>
+                    <button class="fs-action-btn cancel" @click="creatingIn = null">✕</button>
+                </div>
                 </template>
 
-                <!-- Normal mode -->
-                <template v-else>
-                  <span class="fs-toggle">{{ node.isDirectory ? (expandedPaths.has(node.path) ? '▾' : '▸') : '' }}</span>
-                  <span class="fs-icon">{{ fileIcon(node) }}</span>
-                  <span class="fs-name" :title="node.path">{{ node.name }}</span>
-                </template>
-              </div>
-
-              <!-- Inline create row — shown right after the target parent folder's block -->
-              <div
-                v-if="creatingIn === node.path"
-                class="fs-create-row"
-                :style="{ paddingLeft: `${(node.depth + 1) * 14 + 8}px` }"
-                @click.stop>
+                <!-- Create at root -->
+                <div v-if="creatingIn === ''" class="fs-create-row" style="padding-left: 8px" @click.stop>
                 <input
-                  v-model="createName"
-                  class="fs-create-input"
-                  :placeholder="createType === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
-                  @keydown.enter="confirmCreate"
-                  @keydown.esc="creatingIn = null"
-                  @vue:mounted="(el: any) => el.el?.focus()"
+                    v-model="createName"
+                    class="fs-create-input"
+                    :placeholder="createType === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
+                    @keydown.enter="confirmCreate"
+                    @keydown.esc="creatingIn = null"
+                    @vue:mounted="(el: any) => el.el?.focus()"
                 />
                 <button class="fs-action-btn ok" @click="confirmCreate">✓</button>
                 <button class="fs-action-btn cancel" @click="creatingIn = null">✕</button>
-              </div>
+                </div>
+            </div>
+            </div>
+        </Transition>
+
+        <!-- Main CMS content -->
+        <div class="cms-main">
+        <div v-if="loading" class="loading">Carregando...</div>
+
+        <!-- Editor -->
+        <div v-if="workData && !loading" class="editor">
+        <!-- Sidebar -->
+        <div class="editor-sidebar">
+            <h2>Dados gerais</h2>
+
+            <div class="field">
+            <label>Título</label>
+            <input v-model="workData.title" type="text" />
+            </div>
+
+            <div class="field">
+            <label>Artigo (o/a)</label>
+            <select v-model="workData.artigo">
+                <option value="o">o</option>
+                <option value="a">a</option>
+            </select>
+            </div>
+
+            <div class="field">
+            <label>Cor destaque</label>
+            <div class="color-field">
+                <input v-model="workData.colorHighlight" type="color" />
+                <input v-model="workData.colorHighlight" type="text" class="color-text" />
+            </div>
+            </div>
+
+            <!-- Rich Description Editor -->
+            <div class="field">
+            <label>Descrição</label>
+            <div class="rich-toolbar">
+                <button type="button" @click="execCmd('bold')" title="Negrito"><b>B</b></button>
+                <button type="button" @click="execCmd('italic')" title="Itálico"><i>I</i></button>
+                <button type="button" @click="insertLink(descEditorRef)" title="Link">🔗</button>
+            </div>
+            <div ref="descEditorRef" class="rich-editor" contenteditable="true" @input="syncDescription"></div>
+            </div>
+
+            <!-- Rich Local Editor -->
+            <div class="field">
+            <label>Local</label>
+            <div class="rich-toolbar">
+                <button type="button" @click="execCmd('bold')" title="Negrito"><b>B</b></button>
+                <button type="button" @click="insertLink(localEditorRef)" title="Link">🔗</button>
+                <button type="button" class="btn-estudio" @click="insertEstudioLink" title="Inserir link do Estúdio">📍 Estúdio</button>
+            </div>
+            <div ref="localEditorRef" class="rich-editor rich-editor-single" contenteditable="true" @input="syncLocal"></div>
+            </div>
+
+            <!-- Category select -->
+            <div class="field">
+            <label>Categoria</label>
+            <select :value="workData.category?.slug" @change="onCategorySelect(($event.target as HTMLSelectElement).value)">
+                <option v-for="cat in categoryOptions" :key="cat.slug" :value="cat.slug">{{ cat.title }}</option>
+                <option value="__new__">+ Nova categoria...</option>
+            </select>
+            <input v-model="workData.category!.title" type="text" placeholder="Label da categoria" class="mt-4" />
+            </div>
+
+            <!-- Home switch -->
+            <div class="field">
+            <div class="switch-row">
+                <span>Mostrar na Home</span>
+                <label class="switch">
+                <input type="checkbox" v-model="workData.home" />
+                <span class="slider"></span>
+                </label>
+            </div>
+            </div>
+
+            <div class="field" v-if="workData.home">
+            <label>Ordem na Home</label>
+            <input v-model.number="workData.homeOrder" type="number" min="1" />
+            </div>
+
+            <button class="btn-save" @click="saveWork" :disabled="saving">
+            {{ saving ? 'Salvando...' : 'Salvar' }}
+            </button>
+
+            <NuxtLink v-if="pageUrl" :to="pageUrl" target="_blank" class="btn-view-page">
+            🔗 Ver página
+            </NuxtLink>
+        </div>
+
+        <!-- Main content -->
+        <div class="editor-main">
+            <!-- Highlight / Hero section -->
+            <div v-if="highlightItems.length > 0" class="section-label">
+            <span class="badge badge-highlight">★ DESTAQUE / HERO</span>
+            </div>
+            <div v-if="highlightItems.length > 0" class="album-grid-preview highlight-zone">
+            <div v-for="hi in highlightItems" :key="hi._origIndex" :class="['album-item is-highlight', getGridClass(hi)]">
+                <div class="image-zone">
+                <img v-if="hi.imageId" :src="CF_IMG_BASE + hi.imageId + '/public'" :alt="hi.alt" loading="lazy" />
+                <div v-else class="empty-slot"><span>Sem imagem</span></div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Album header -->
+            <div class="album-header">
+            <h2>Álbum ({{ workData.album?.length || 0 }} fotos)</h2>
+            </div>
+
+            <!-- Album grid -->
+            <div class="album-grid-preview">
+            <div
+                v-for="(item, index) in workData.album"
+                :key="index"
+                :class="['album-item', getGridClass(item), { 'drag-over': dragOverIndex === index, 'is-highlight': item.highlight }]"
+                draggable="true"
+                @dragstart="onDragStart(index)"
+                @dragover="(e) => onDragOver(e, index)"
+                @dragend="onDragEnd">
+                <div class="image-zone" @drop.prevent.stop="(e) => onFileDrop(e, index)" @dragover.prevent>
+                <div v-if="item._uploading" class="uploading">Enviando...</div>
+                <img v-else-if="item.imageId" :src="CF_IMG_BASE + item.imageId + '/public'" :alt="item.alt" loading="lazy" />
+                <div v-else class="empty-slot">
+                    <span>Arraste uma imagem aqui</span>
+                    <span class="or">ou</span>
+                    <label class="file-label">
+                    Selecionar arquivo
+                    <input type="file" accept="image/*" @change="(e) => onFileSelect(e, index)" hidden />
+                    </label>
+                    <button class="btn-browse" @click="openCfBrowser(index)">Buscar no Cloudflare</button>
+                </div>
+                <div v-if="item.imageId && !item._uploading" class="image-actions">
+                    <label class="action-btn">
+                    ↑ Upload
+                    <input type="file" accept="image/*" @change="(e) => onFileSelect(e, index)" hidden />
+                    </label>
+                    <button class="action-btn" @click="openCfBrowser(index)">☁ Cloudflare</button>
+                </div>
+                </div>
+                <div class="item-controls">
+                <select :value="getPresetKey(item)" @change="applyPreset(index, ($event.target as HTMLSelectElement).value)">
+                    <option v-for="(preset, key) in IMAGE_PRESETS" :key="key" :value="key">{{ preset.label }}</option>
+                </select>
+                <input v-model="item.alt" type="text" placeholder="Alt text" class="alt-input" />
+                <div class="flags">
+                    <label class="switch-mini" :class="{ active: item.canBeThumb }">
+                    <input type="checkbox" v-model="item.canBeThumb" />
+                    <span class="slider-mini"></span>
+                    <span class="switch-label">Thumb</span>
+                    </label>
+                    <label class="switch-mini" :class="{ active: item.highlight }">
+                    <input type="checkbox" v-model="item.highlight" />
+                    <span class="slider-mini"></span>
+                    <span class="switch-label">Destaque</span>
+                    </label>
+                </div>
+                <div class="size-info">{{ item.width }}×{{ item.height }} · {{ item.format }}{{ item.customClass ? ' · ' + item.customClass : '' }}</div>
+                <button class="btn-remove" @click="removeImage(index)" title="Remover">✕</button>
+                </div>
+            </div>
+            </div>
+            <div class="album-footer">
+                <div class="add-buttons">
+                <button v-for="(preset, key) in IMAGE_PRESETS" :key="key" class="btn-add" @click="addImage(key as string)">+ {{ preset.label }}</button>
+                </div>
+            </div>
+        </div>
+        </div><!-- /editor -->
+        </div><!-- /cms-main -->
+        </div><!-- /cms-layout -->
+
+        <!-- Context Menu -->
+        <Teleport to="body">
+        <div v-if="ctxMenu.visible" class="ctx-overlay" @click="closeCtxMenu" @contextmenu.prevent="closeCtxMenu"></div>
+        <div v-if="ctxMenu.visible" class="ctx-menu" :style="{ left: ctxMenu.x + 'px', top: ctxMenu.y + 'px' }">
+            <template v-if="ctxMenu.node && !ctxMenu.node.isDirectory">
+            <button class="ctx-item" @click="openInCms(ctxMenu.node!.path); closeCtxMenu()">
+                <span class="ctx-icon">🖥</span> Abrir no CMS
+            </button>
+            <button class="ctx-item" @click="openFileEditor(ctxMenu.node!.path); closeCtxMenu()">
+                <span class="ctx-icon">📄</span> Editar texto bruto
+            </button>
+            <div class="ctx-sep"></div>
+            <button class="ctx-item" @click="startRename(ctxMenu.node!); closeCtxMenu()">
+                <span class="ctx-icon">✎</span> Renomear
+            </button>
+            <button class="ctx-item danger" @click="deleteItem(ctxMenu.node!); closeCtxMenu()">
+                <span class="ctx-icon">🗑</span> Deletar
+            </button>
             </template>
+            <template v-else-if="ctxMenu.node && ctxMenu.node.isDirectory">
+            <button class="ctx-item" @click="ctxCreate(ctxMenu.node!.path, 'file')">
+                <span class="ctx-icon">+</span> Novo arquivo aqui
+            </button>
+            <button class="ctx-item" @click="ctxCreate(ctxMenu.node!.path, 'dir')">
+                <span class="ctx-icon">📁</span> Nova pasta aqui
+            </button>
+            <div class="ctx-sep"></div>
+            <button class="ctx-item" v-if="ctxMenu.node!.path !== ''" @click="startRename(ctxMenu.node!); closeCtxMenu()">
+                <span class="ctx-icon">✎</span> Renomear
+            </button>
+            <button class="ctx-item danger" v-if="ctxMenu.node!.path !== ''" @click="deleteItem(ctxMenu.node!); closeCtxMenu()">
+                <span class="ctx-icon">🗑</span> Deletar
+            </button>
+            </template>
+        </div>
+        </Teleport>
 
-            <!-- Create at root -->
-            <div v-if="creatingIn === ''" class="fs-create-row" style="padding-left: 8px" @click.stop>
-              <input
-                v-model="createName"
-                class="fs-create-input"
-                :placeholder="createType === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
-                @keydown.enter="confirmCreate"
-                @keydown.esc="creatingIn = null"
-                @vue:mounted="(el: any) => el.el?.focus()"
-              />
-              <button class="fs-action-btn ok" @click="confirmCreate">✓</button>
-              <button class="fs-action-btn cancel" @click="creatingIn = null">✕</button>
+        <!-- Cloudflare Image Browser Modal -->
+        <Teleport to="body">
+        <div v-if="cfBrowserOpen" class="modal-overlay" @click.self="cfBrowserOpen = false">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h3>Selecionar imagem do Cloudflare</h3>
+                <button class="modal-close" @click="cfBrowserOpen = false">✕</button>
             </div>
-          </div>
-        </div>
-      </Transition>
-
-      <!-- Main CMS content -->
-      <div class="cms-main">
-    <div v-if="loading" class="loading">Carregando...</div>
-
-    <!-- Editor -->
-    <div v-if="workData && !loading" class="editor">
-      <!-- Sidebar -->
-      <div class="editor-sidebar">
-        <h2>Dados gerais</h2>
-
-        <div class="field">
-          <label>Título</label>
-          <input v-model="workData.title" type="text" />
-        </div>
-
-        <div class="field">
-          <label>Artigo (o/a)</label>
-          <select v-model="workData.artigo">
-            <option value="o">o</option>
-            <option value="a">a</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Cor destaque</label>
-          <div class="color-field">
-            <input v-model="workData.colorHighlight" type="color" />
-            <input v-model="workData.colorHighlight" type="text" class="color-text" />
-          </div>
-        </div>
-
-        <!-- Rich Description Editor -->
-        <div class="field">
-          <label>Descrição</label>
-          <div class="rich-toolbar">
-            <button type="button" @click="execCmd('bold')" title="Negrito"><b>B</b></button>
-            <button type="button" @click="execCmd('italic')" title="Itálico"><i>I</i></button>
-            <button type="button" @click="insertLink(descEditorRef)" title="Link">🔗</button>
-          </div>
-          <div ref="descEditorRef" class="rich-editor" contenteditable="true" @input="syncDescription"></div>
-        </div>
-
-        <!-- Rich Local Editor -->
-        <div class="field">
-          <label>Local</label>
-          <div class="rich-toolbar">
-            <button type="button" @click="execCmd('bold')" title="Negrito"><b>B</b></button>
-            <button type="button" @click="insertLink(localEditorRef)" title="Link">🔗</button>
-            <button type="button" class="btn-estudio" @click="insertEstudioLink" title="Inserir link do Estúdio">📍 Estúdio</button>
-          </div>
-          <div ref="localEditorRef" class="rich-editor rich-editor-single" contenteditable="true" @input="syncLocal"></div>
-        </div>
-
-        <!-- Category select -->
-        <div class="field">
-          <label>Categoria</label>
-          <select :value="workData.category?.slug" @change="onCategorySelect(($event.target as HTMLSelectElement).value)">
-            <option v-for="cat in categoryOptions" :key="cat.slug" :value="cat.slug">{{ cat.title }}</option>
-            <option value="__new__">+ Nova categoria...</option>
-          </select>
-          <input v-model="workData.category!.title" type="text" placeholder="Label da categoria" class="mt-4" />
-        </div>
-
-        <!-- Home switch -->
-        <div class="field">
-          <div class="switch-row">
-            <span>Mostrar na Home</span>
-            <label class="switch">
-              <input type="checkbox" v-model="workData.home" />
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-
-        <div class="field" v-if="workData.home">
-          <label>Ordem na Home</label>
-          <input v-model.number="workData.homeOrder" type="number" min="1" />
-        </div>
-
-        <button class="btn-save" @click="saveWork" :disabled="saving">
-          {{ saving ? 'Salvando...' : 'Salvar' }}
-        </button>
-
-        <NuxtLink v-if="pageUrl" :to="pageUrl" target="_blank" class="btn-view-page">
-          🔗 Ver página
-        </NuxtLink>
-      </div>
-
-      <!-- Main content -->
-      <div class="editor-main">
-        <!-- Highlight / Hero section -->
-        <div v-if="highlightItems.length > 0" class="section-label">
-          <span class="badge badge-highlight">★ DESTAQUE / HERO</span>
-        </div>
-        <div v-if="highlightItems.length > 0" class="album-grid-preview highlight-zone">
-          <div v-for="hi in highlightItems" :key="hi._origIndex" :class="['album-item is-highlight', getGridClass(hi)]">
-            <div class="image-zone">
-              <img v-if="hi.imageId" :src="CF_IMG_BASE + hi.imageId + '/public'" :alt="hi.alt" loading="lazy" />
-              <div v-else class="empty-slot"><span>Sem imagem</span></div>
+            <div v-if="cfImagesLoading" class="loading">Carregando imagens...</div>
+            <div v-else-if="cfImagesError" class="cf-error">
+                <p>{{ cfImagesError }}</p>
+                <button class="cf-retry-btn" @click="loadCfImages(cfImagesPage)">Tentar novamente</button>
             </div>
-          </div>
-        </div>
-
-        <!-- Album header -->
-        <div class="album-header">
-          <h2>Álbum ({{ workData.album?.length || 0 }} fotos)</h2>
-        </div>
-
-        <!-- Album grid -->
-        <div class="album-grid-preview">
-          <div
-            v-for="(item, index) in workData.album"
-            :key="index"
-            :class="['album-item', getGridClass(item), { 'drag-over': dragOverIndex === index, 'is-highlight': item.highlight }]"
-            draggable="true"
-            @dragstart="onDragStart(index)"
-            @dragover="(e) => onDragOver(e, index)"
-            @dragend="onDragEnd"
-            @drop="(e) => onFileDrop(e, index)">
-            <div class="image-zone" @drop.prevent="(e) => onFileDrop(e, index)" @dragover.prevent>
-              <div v-if="item._uploading" class="uploading">Enviando...</div>
-              <img v-else-if="item.imageId" :src="CF_IMG_BASE + item.imageId + '/public'" :alt="item.alt" loading="lazy" />
-              <div v-else class="empty-slot">
-                <span>Arraste uma imagem aqui</span>
-                <span class="or">ou</span>
-                <label class="file-label">
-                  Selecionar arquivo
-                  <input type="file" accept="image/*" @change="(e) => onFileSelect(e, index)" hidden />
-                </label>
-                <button class="btn-browse" @click="openCfBrowser(index)">Buscar no Cloudflare</button>
-              </div>
-              <div v-if="item.imageId && !item._uploading" class="image-actions">
-                <label class="action-btn">
-                  ↑ Upload
-                  <input type="file" accept="image/*" @change="(e) => onFileSelect(e, index)" hidden />
-                </label>
-                <button class="action-btn" @click="openCfBrowser(index)">☁ Cloudflare</button>
-              </div>
+            <div v-else class="cf-grid">
+                <div v-for="img in cfImages" :key="img.id" class="cf-item" @click="selectCfImage(img.id)">
+                <img :src="CF_IMG_BASE + img.id + '/public'" loading="lazy" />
+                <span class="cf-filename">{{ img.filename || img.id.slice(0, 8) }}</span>
+                </div>
             </div>
-            <div class="item-controls">
-              <select :value="getPresetKey(item)" @change="applyPreset(index, ($event.target as HTMLSelectElement).value)">
-                <option v-for="(preset, key) in IMAGE_PRESETS" :key="key" :value="key">{{ preset.label }}</option>
-              </select>
-              <input v-model="item.alt" type="text" placeholder="Alt text" class="alt-input" />
-              <div class="flags">
-                <label class="switch-mini" :class="{ active: item.canBeThumb }">
-                  <input type="checkbox" v-model="item.canBeThumb" />
-                  <span class="slider-mini"></span>
-                  <span class="switch-label">Thumb</span>
-                </label>
-                <label class="switch-mini" :class="{ active: item.highlight }">
-                  <input type="checkbox" v-model="item.highlight" />
-                  <span class="slider-mini"></span>
-                  <span class="switch-label">Destaque</span>
-                </label>
-              </div>
-              <div class="size-info">{{ item.width }}×{{ item.height }} · {{ item.format }}{{ item.customClass ? ' · ' + item.customClass : '' }}</div>
-              <button class="btn-remove" @click="removeImage(index)" title="Remover">✕</button>
+            <div v-if="cfImagesTotalCount > 50" class="modal-pagination">
+                <button :disabled="cfImagesPage <= 1" @click="loadCfImages(cfImagesPage - 1)">← Anterior</button>
+                <span>Página {{ cfImagesPage }} ({{ cfImagesTotalCount }} imagens)</span>
+                <button :disabled="cfImages.length < 50" @click="loadCfImages(cfImagesPage + 1)">Próxima →</button>
             </div>
-          </div>
-        </div>
-        <div class="album-footer">
-            <div class="add-buttons">
-            <button v-for="(preset, key) in IMAGE_PRESETS" :key="key" class="btn-add" @click="addImage(key as string)">+ {{ preset.label }}</button>
             </div>
         </div>
-      </div>
-      </div><!-- /editor -->
-      </div><!-- /cms-main -->
-    </div><!-- /cms-layout -->
+        </Teleport>
 
-    <!-- Context Menu -->
-    <Teleport to="body">
-      <div v-if="ctxMenu.visible" class="ctx-overlay" @click="closeCtxMenu" @contextmenu.prevent="closeCtxMenu"></div>
-      <div v-if="ctxMenu.visible" class="ctx-menu" :style="{ left: ctxMenu.x + 'px', top: ctxMenu.y + 'px' }">
-        <template v-if="ctxMenu.node && !ctxMenu.node.isDirectory">
-          <button class="ctx-item" @click="openInCms(ctxMenu.node!.path); closeCtxMenu()">
-            <span class="ctx-icon">🖥</span> Abrir no CMS
-          </button>
-          <button class="ctx-item" @click="openFileEditor(ctxMenu.node!.path); closeCtxMenu()">
-            <span class="ctx-icon">📄</span> Editar texto bruto
-          </button>
-          <div class="ctx-sep"></div>
-          <button class="ctx-item" @click="startRename(ctxMenu.node!); closeCtxMenu()">
-            <span class="ctx-icon">✎</span> Renomear
-          </button>
-          <button class="ctx-item danger" @click="deleteItem(ctxMenu.node!); closeCtxMenu()">
-            <span class="ctx-icon">🗑</span> Deletar
-          </button>
-        </template>
-        <template v-else-if="ctxMenu.node && ctxMenu.node.isDirectory">
-          <button class="ctx-item" @click="ctxCreate(ctxMenu.node!.path, 'file')">
-            <span class="ctx-icon">+</span> Novo arquivo aqui
-          </button>
-          <button class="ctx-item" @click="ctxCreate(ctxMenu.node!.path, 'dir')">
-            <span class="ctx-icon">📁</span> Nova pasta aqui
-          </button>
-          <div class="ctx-sep"></div>
-          <button class="ctx-item" v-if="ctxMenu.node!.path !== ''" @click="startRename(ctxMenu.node!); closeCtxMenu()">
-            <span class="ctx-icon">✎</span> Renomear
-          </button>
-          <button class="ctx-item danger" v-if="ctxMenu.node!.path !== ''" @click="deleteItem(ctxMenu.node!); closeCtxMenu()">
-            <span class="ctx-icon">🗑</span> Deletar
-          </button>
-        </template>
-      </div>
-    </Teleport>
-
-    <!-- Cloudflare Image Browser Modal -->
-    <Teleport to="body">
-      <div v-if="cfBrowserOpen" class="modal-overlay" @click.self="cfBrowserOpen = false">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Selecionar imagem do Cloudflare</h3>
-            <button class="modal-close" @click="cfBrowserOpen = false">✕</button>
-          </div>
-          <div v-if="cfImagesLoading" class="loading">Carregando imagens...</div>
-          <div v-else-if="cfImagesError" class="cf-error">
-            <p>{{ cfImagesError }}</p>
-            <button class="cf-retry-btn" @click="loadCfImages(cfImagesPage)">Tentar novamente</button>
-          </div>
-          <div v-else class="cf-grid">
-            <div v-for="img in cfImages" :key="img.id" class="cf-item" @click="selectCfImage(img.id)">
-              <img :src="CF_IMG_BASE + img.id + '/public'" loading="lazy" />
-              <span class="cf-filename">{{ img.filename || img.id.slice(0, 8) }}</span>
+        <!-- File Editor Modal -->
+        <Teleport to="body">
+        <div v-if="fileEditorOpen" class="modal-overlay" @click.self="fileEditorOpen = false">
+            <div class="modal-content modal-file-editor">
+            <div class="modal-header">
+                <div>
+                <h3>Editando: <code>{{ fileEditorPath }}</code></h3>
+                <span v-if="fileEditorDirty" class="editor-dirty">● não salvo</span>
+                </div>
+                <div class="modal-header-actions">
+                <button class="btn-save-file" @click="saveFileEditor" :disabled="fileEditorSaving || !fileEditorDirty">
+                    {{ fileEditorSaving ? 'Salvando...' : '💾 Salvar' }}
+                </button>
+                <button class="modal-close" @click="fileEditorOpen = false">✕</button>
+                </div>
             </div>
-          </div>
-          <div v-if="cfImagesTotalCount > 50" class="modal-pagination">
-            <button :disabled="cfImagesPage <= 1" @click="loadCfImages(cfImagesPage - 1)">← Anterior</button>
-            <span>Página {{ cfImagesPage }} ({{ cfImagesTotalCount }} imagens)</span>
-            <button :disabled="cfImages.length < 50" @click="loadCfImages(cfImagesPage + 1)">Próxima →</button>
-          </div>
+            <div v-if="fileEditorLoading" class="loading">Carregando...</div>
+            <textarea
+                v-else
+                v-model="fileEditorContent"
+                class="file-editor-textarea"
+                spellcheck="false"
+                @input="fileEditorDirty = true"
+            ></textarea>
+            </div>
         </div>
-      </div>
-    </Teleport>
-
-    <!-- File Editor Modal -->
-    <Teleport to="body">
-      <div v-if="fileEditorOpen" class="modal-overlay" @click.self="fileEditorOpen = false">
-        <div class="modal-content modal-file-editor">
-          <div class="modal-header">
-            <div>
-              <h3>Editando: <code>{{ fileEditorPath }}</code></h3>
-              <span v-if="fileEditorDirty" class="editor-dirty">● não salvo</span>
-            </div>
-            <div class="modal-header-actions">
-              <button class="btn-save-file" @click="saveFileEditor" :disabled="fileEditorSaving || !fileEditorDirty">
-                {{ fileEditorSaving ? 'Salvando...' : '💾 Salvar' }}
-              </button>
-              <button class="modal-close" @click="fileEditorOpen = false">✕</button>
-            </div>
-          </div>
-          <div v-if="fileEditorLoading" class="loading">Carregando...</div>
-          <textarea
-            v-else
-            v-model="fileEditorContent"
-            class="file-editor-textarea"
-            spellcheck="false"
-            @input="fileEditorDirty = true"
-          ></textarea>
-        </div>
-      </div>
-    </Teleport>
+        </Teleport>
+    </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
 .login-screen {
   display: flex;
@@ -1080,9 +1087,6 @@ onMounted(() => {
   background: #111;
   color: #eee;
   min-height: 100vh;
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 .cms-header {
