@@ -41,60 +41,21 @@
       "customClass": "w33"
     },
     {
-      "imageId": "c46a3468-a2dd-4446-5caa-ac555c7dd400",
+      "imageId": "5a652dab-c42b-4672-3810-2aaef0d0ce00",
       "width": 850,
       "height": 567,
       "format": "paisagem",
-      "alt": "",
-      "customClass": "w50"
-    },
-    {
-      "imageId": "446e23c6-955b-489b-6b30-beeaa24f6000",
-      "width": 1700,
-      "height": 1134,
-      "format": "paisagem",
-      "alt": ""
-    },
-    {
-      "order": 1,
-      "imageId": "70a6e385-99f5-4194-5ed7-0ce8e098fc00",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "highlight": true,
       "canBeThumb": true,
       "alt": "",
       "customClass": "w50"
     },
     {
-      "imageId": "d8e67391-5a03-4f9d-61bb-8fc9f8a8a600",
+      "order": 1,
+      "imageId": "4b44edc8-39bf-46ba-9a6e-1257badcd700",
       "width": 850,
       "height": 567,
       "format": "paisagem",
-      "alt": "",
-      "customClass": "w50"
-    },
-    {
-      "imageId": "1a2f8e90-79ff-45f4-8d22-a5395d3df400",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "alt": "",
-      "customClass": "w50"
-    },
-    {
-      "imageId": "228de383-da97-4d89-1997-43160e526b00",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "alt": "",
-      "customClass": "w50"
-    },
-    {
-      "imageId": "4552c7b3-0e6e-4371-6658-f36e0d8c5000",
-      "width": 1000,
-      "height": 1500,
-      "format": "retrato",
+      "canBeThumb": true,
       "alt": "",
       "customClass": "w50"
     }
