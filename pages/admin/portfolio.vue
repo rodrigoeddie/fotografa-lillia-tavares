@@ -69,6 +69,7 @@ async function doLogin() {
       authenticated.value = true;
       sessionStorage.setItem('cms_token', res.token);
       loadCategories();
+      loadFileTree();
     }
   } catch {
     loginError.value = 'Senha incorreta';
@@ -380,6 +381,256 @@ function getPresetKey(item: AlbumItem): string {
   return 'retrato-w33';
 }
 
+// ─── File Manager ─────────────────────────────────────────────────────────────
+interface TreeNode {
+  name: string;
+  path: string;
+  isDirectory: boolean;
+  children?: TreeNode[];
+}
+interface FlatNode extends TreeNode { depth: number }
+
+const fileSidebarOpen = ref(false);
+const fileTree = ref<TreeNode[]>([]);
+const expandedPaths = ref(new Set<string>());
+const renamingPath = ref<string | null>(null);
+const renameValue = ref('');
+const creatingIn = ref<string | null>(null); // null = closed, '' = root, 'path' = inside folder
+const createName = ref('');
+const createType = ref<'file' | 'dir'>('file');
+
+// Context menu
+const ctxMenu = ref<{ visible: boolean; x: number; y: number; node: FlatNode | null }>({
+  visible: false, x: 0, y: 0, node: null,
+});
+
+function openCtxMenu(e: MouseEvent, node: FlatNode) {
+  e.preventDefault();
+  e.stopPropagation();
+  const margin = 8;
+  const menuW = 220;
+  const menuH = 180;
+  let x = e.clientX;
+  let y = e.clientY;
+  if (x + menuW > window.innerWidth - margin) x = window.innerWidth - menuW - margin;
+  if (y + menuH > window.innerHeight - margin) y = window.innerHeight - menuH - margin;
+  ctxMenu.value = { visible: true, x, y, node };
+}
+
+function openCtxMenuRoot(e: MouseEvent) {
+  e.preventDefault();
+  openCtxMenu(e, { name: 'content', path: '', isDirectory: true, depth: -1 });
+}
+
+function closeCtxMenu() {
+  ctxMenu.value.visible = false;
+}
+
+function ctxCreate(parentPath: string, type: 'file' | 'dir') {
+  closeCtxMenu();
+  creatingIn.value = parentPath;
+  createName.value = '';
+  createType.value = type;
+  // Auto-expand parent so inline row is visible
+  if (parentPath) {
+    const s = new Set(expandedPaths.value);
+    s.add(parentPath);
+    expandedPaths.value = s;
+  }
+}
+const fileEditorOpen = ref(false);
+const fileEditorPath = ref('');
+const fileEditorContent = ref('');
+const fileEditorSaving = ref(false);
+const fileEditorLoading = ref(false);
+const fileEditorDirty = ref(false);
+
+const flatTree = computed<FlatNode[]>(() => {
+  const result: FlatNode[] = [];
+  function walk(nodes: TreeNode[], depth: number) {
+    for (const node of nodes) {
+      result.push({ ...node, depth });
+      if (node.isDirectory && expandedPaths.value.has(node.path)) {
+        walk(node.children || [], depth + 1);
+      }
+    }
+  }
+  walk(fileTree.value, 0);
+  return result;
+});
+
+async function loadFileTree() {
+  try {
+    fileTree.value = await $fetch<TreeNode[]>('/api/fs/tree', { params: { _t: Date.now() } });
+  } catch (e: any) {
+    showMessage('Erro ao carregar árvore de arquivos: ' + e.message, 'error');
+  }
+}
+
+function toggleDir(path: string) {
+  const s = new Set(expandedPaths.value);
+  s.has(path) ? s.delete(path) : s.add(path);
+  expandedPaths.value = s;
+}
+
+async function openFileEditor(filePath: string) {
+  fileEditorPath.value = filePath;
+  fileEditorOpen.value = true;
+  fileEditorLoading.value = true;
+  fileEditorDirty.value = false;
+  try {
+    const res = await $fetch<{ content: string }>(`/api/fs/raw?path=${encodeURIComponent(filePath)}`);
+    let content = res.content;
+    if (filePath.endsWith('.json')) {
+      try { content = JSON.stringify(JSON.parse(content), null, 2); } catch { /* keep as-is */ }
+    }
+    fileEditorContent.value = content;
+  } catch (e: any) {
+    showMessage('Erro ao carregar: ' + e.message, 'error');
+    fileEditorOpen.value = false;
+  } finally {
+    fileEditorLoading.value = false;
+  }
+}
+
+async function saveFileEditor() {
+  fileEditorSaving.value = true;
+  try {
+    await $fetch('/api/fs/raw', {
+      method: 'POST',
+      body: { path: fileEditorPath.value, content: fileEditorContent.value },
+    });
+    fileEditorDirty.value = false;
+    showMessage('Arquivo salvo!', 'success');
+  } catch (e: any) {
+    showMessage('Erro ao salvar: ' + e.message, 'error');
+  } finally {
+    fileEditorSaving.value = false;
+  }
+}
+
+function startRename(node: FlatNode) {
+  renamingPath.value = node.path;
+  renameValue.value = node.name;
+}
+
+async function confirmRename() {
+  if (!renamingPath.value || !renameValue.value.trim()) { renamingPath.value = null; return; }
+  try {
+    await $fetch('/api/fs/action', { method: 'POST', body: { action: 'rename', path: renamingPath.value, newName: renameValue.value.trim() } });
+    await loadFileTree();
+    showMessage('Renomeado!', 'success');
+  } catch (e: any) {
+    showMessage('Erro ao renomear: ' + e.message, 'error');
+  } finally {
+    renamingPath.value = null;
+  }
+}
+
+async function deleteItem(node: FlatNode) {
+  if (!confirm(`Deletar "${node.name}"? ${node.isDirectory ? 'Isso irá deletar tudo dentro da pasta.' : ''}`)) return;
+  try {
+    await $fetch('/api/fs/action', { method: 'POST', body: { action: 'delete', path: node.path } });
+    await loadFileTree();
+    if (fileEditorPath.value.startsWith(node.path)) fileEditorOpen.value = false;
+    showMessage('Deletado!', 'success');
+  } catch (e: any) {
+    showMessage('Erro ao deletar: ' + e.message, 'error');
+  }
+}
+
+function startCreate(parentPath: string) {
+  creatingIn.value = parentPath;
+  createName.value = '';
+  createType.value = 'file';
+}
+
+const PORTFOLIO_TEMPLATE = (catSlug: string, catTitle: string) => JSON.stringify({
+  artigo: 'a',
+  home: false,
+  homeOrder: 99,
+  colorHighlight: '#0e2b42',
+  title: '',
+  description: '<p></p>',
+  category: { slug: catSlug, title: catTitle },
+  local: "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  album: [],
+}, null, 2);
+
+async function confirmCreate() {
+  if (!createName.value.trim()) { creatingIn.value = null; return; }
+  const parentPath = creatingIn.value || '';
+  const name = createName.value.trim();
+
+  // Detect if inside an ensaio-fotografico category folder — e.g. ensaio-fotografico/01.corporativo
+  const parts = parentPath.split('/');
+  const isPortfolioCategory =
+    parts[0] === 'ensaio-fotografico' &&
+    parts.length === 2 &&
+    createType.value === 'file' &&
+    name.endsWith('.json');
+
+  try {
+    await $fetch('/api/fs/action', { method: 'POST', body: { action: 'create', path: parentPath, name, type: createType.value } });
+
+    // Pre-fill portfolio template
+    if (isPortfolioCategory) {
+      const catSlug = parts[1].replace(/^\d+\./, '');
+      const catTitle = catSlug.charAt(0).toUpperCase() + catSlug.slice(1).replace(/-/g, ' ');
+      const newFilePath = parentPath ? `${parentPath}/${name}` : name;
+      await $fetch('/api/fs/raw', { method: 'POST', body: { path: newFilePath, content: PORTFOLIO_TEMPLATE(catSlug, catTitle) } });
+      showMessage('Arquivo criado com template de portfolio!', 'success');
+    } else {
+      showMessage('Criado!', 'success');
+    }
+
+    if (parentPath) { const s = new Set(expandedPaths.value); s.add(parentPath); expandedPaths.value = s; }
+    await loadFileTree();
+  } catch (e: any) {
+    showMessage('Erro ao criar: ' + e.message, 'error');
+  } finally {
+    creatingIn.value = null;
+  }
+}
+
+function fileIcon(node: FlatNode) {
+  if (node.isDirectory) return expandedPaths.value.has(node.path) ? '📂' : '📁';
+  if (node.name.endsWith('.json')) return '{}';
+  if (node.name.endsWith('.md')) return '📝';
+  return '📄';
+}
+
+/**
+ * Smart open: portfolio JSONs (ensaio-fotografico/cat/file.json) load in the CMS editor.
+ * Everything else opens in the raw text editor.
+ */
+async function openInCms(filePath: string) {
+  const parts = filePath.split('/');
+  const isPortfolioWork =
+    parts.length === 3 &&
+    parts[0] === 'ensaio-fotografico' &&
+    filePath.endsWith('.json');
+
+  if (!isPortfolioWork) {
+    openFileEditor(filePath);
+    return;
+  }
+
+  const categoryPath = `${parts[0]}/${parts[1]}`;
+
+  // Load category + works if not already loaded
+  if (selectedCategory.value !== categoryPath) {
+    selectedCategory.value = categoryPath;
+    await loadWorks(categoryPath);
+  }
+
+  selectedWork.value = filePath;
+  // Scroll the main content into view smoothly
+  await nextTick();
+  document.querySelector('.editor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 // Compute URL for the work being edited
 const pageUrl = computed(() => {
   if (!selectedWork.value) return null;
@@ -400,6 +651,7 @@ onMounted(() => {
     cmsToken.value = stored;
     authenticated.value = true;
     loadCategories();
+    loadFileTree();
   }
 });
 </script>
@@ -418,7 +670,12 @@ onMounted(() => {
   <!-- CMS -->
   <div v-else class="admin-cms">
     <header class="cms-header">
-      <h1>CMS Portfolio</h1>
+      <div class="cms-header-left">
+        <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Arquivos">
+          <span class="toggle-icon">☰</span> Arquivos
+        </button>
+        <h1>CMS Portfolio</h1>
+      </div>
       <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
     </header>
 
@@ -426,24 +683,83 @@ onMounted(() => {
       <div v-if="message" class="notification" :class="messageType">{{ message }}</div>
     </Transition>
 
-    <!-- Selectors -->
-    <div class="selectors">
-      <div class="field">
-        <label>Categoria</label>
-        <select v-model="selectedCategory">
-          <option value="">Selecione...</option>
-          <option v-for="cat in categories" :key="cat.path" :value="cat.path">{{ cat.title }}</option>
-        </select>
-      </div>
-      <div class="field" v-if="works.length > 0">
-        <label>Trabalho</label>
-        <select v-model="selectedWork">
-          <option value="">Selecione...</option>
-          <option v-for="w in works" :key="w.path" :value="w.path">{{ w.name.replace('.json', '') }}</option>
-        </select>
-      </div>
-    </div>
+    <div class="cms-layout">
+      <!-- File Sidebar -->
+      <Transition name="slide-sidebar">
+        <div v-show="fileSidebarOpen" class="file-sidebar">
+          <div class="fs-header" @contextmenu.prevent="openCtxMenuRoot">
+            <span>content/</span>
+          </div>
 
+          <div class="fs-tree">
+            <template v-for="node in flatTree" :key="node.path">
+              <div
+                class="fs-node"
+                :style="{ paddingLeft: `${node.depth * 14 + 8}px` }"
+                :class="{ 'is-dir': node.isDirectory, 'is-selected': selectedWork === node.path || (fileEditorPath === node.path && fileEditorOpen) }"
+                @contextmenu.prevent="openCtxMenu($event, node)"
+                @click="node.isDirectory ? toggleDir(node.path) : openInCms(node.path)">
+
+                <!-- Rename mode -->
+                <template v-if="renamingPath === node.path">
+                  <input
+                    v-model="renameValue"
+                    class="fs-rename-input"
+                    @click.stop
+                    @keydown.enter="confirmRename"
+                    @keydown.esc="renamingPath = null"
+                    @vue:mounted="(el: any) => el.el?.focus()"
+                  />
+                  <button class="fs-action-btn ok" @click.stop="confirmRename">✓</button>
+                  <button class="fs-action-btn cancel" @click.stop="renamingPath = null">✕</button>
+                </template>
+
+                <!-- Normal mode -->
+                <template v-else>
+                  <span class="fs-toggle">{{ node.isDirectory ? (expandedPaths.has(node.path) ? '▾' : '▸') : '' }}</span>
+                  <span class="fs-icon">{{ fileIcon(node) }}</span>
+                  <span class="fs-name" :title="node.path">{{ node.name }}</span>
+                </template>
+              </div>
+
+              <!-- Inline create row — shown right after the target parent folder's block -->
+              <div
+                v-if="creatingIn === node.path"
+                class="fs-create-row"
+                :style="{ paddingLeft: `${(node.depth + 1) * 14 + 8}px` }"
+                @click.stop>
+                <input
+                  v-model="createName"
+                  class="fs-create-input"
+                  :placeholder="createType === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
+                  @keydown.enter="confirmCreate"
+                  @keydown.esc="creatingIn = null"
+                  @vue:mounted="(el: any) => el.el?.focus()"
+                />
+                <button class="fs-action-btn ok" @click="confirmCreate">✓</button>
+                <button class="fs-action-btn cancel" @click="creatingIn = null">✕</button>
+              </div>
+            </template>
+
+            <!-- Create at root -->
+            <div v-if="creatingIn === ''" class="fs-create-row" style="padding-left: 8px" @click.stop>
+              <input
+                v-model="createName"
+                class="fs-create-input"
+                :placeholder="createType === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
+                @keydown.enter="confirmCreate"
+                @keydown.esc="creatingIn = null"
+                @vue:mounted="(el: any) => el.el?.focus()"
+              />
+              <button class="fs-action-btn ok" @click="confirmCreate">✓</button>
+              <button class="fs-action-btn cancel" @click="creatingIn = null">✕</button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+
+      <!-- Main CMS content -->
+      <div class="cms-main">
     <div v-if="loading" class="loading">Carregando...</div>
 
     <!-- Editor -->
@@ -609,7 +925,46 @@ onMounted(() => {
             </div>
         </div>
       </div>
-    </div>
+      </div><!-- /editor -->
+      </div><!-- /cms-main -->
+    </div><!-- /cms-layout -->
+
+    <!-- Context Menu -->
+    <Teleport to="body">
+      <div v-if="ctxMenu.visible" class="ctx-overlay" @click="closeCtxMenu" @contextmenu.prevent="closeCtxMenu"></div>
+      <div v-if="ctxMenu.visible" class="ctx-menu" :style="{ left: ctxMenu.x + 'px', top: ctxMenu.y + 'px' }">
+        <template v-if="ctxMenu.node && !ctxMenu.node.isDirectory">
+          <button class="ctx-item" @click="openInCms(ctxMenu.node!.path); closeCtxMenu()">
+            <span class="ctx-icon">🖥</span> Abrir no CMS
+          </button>
+          <button class="ctx-item" @click="openFileEditor(ctxMenu.node!.path); closeCtxMenu()">
+            <span class="ctx-icon">📄</span> Editar texto bruto
+          </button>
+          <div class="ctx-sep"></div>
+          <button class="ctx-item" @click="startRename(ctxMenu.node!); closeCtxMenu()">
+            <span class="ctx-icon">✎</span> Renomear
+          </button>
+          <button class="ctx-item danger" @click="deleteItem(ctxMenu.node!); closeCtxMenu()">
+            <span class="ctx-icon">🗑</span> Deletar
+          </button>
+        </template>
+        <template v-else-if="ctxMenu.node && ctxMenu.node.isDirectory">
+          <button class="ctx-item" @click="ctxCreate(ctxMenu.node!.path, 'file')">
+            <span class="ctx-icon">+</span> Novo arquivo aqui
+          </button>
+          <button class="ctx-item" @click="ctxCreate(ctxMenu.node!.path, 'dir')">
+            <span class="ctx-icon">📁</span> Nova pasta aqui
+          </button>
+          <div class="ctx-sep"></div>
+          <button class="ctx-item" v-if="ctxMenu.node!.path !== ''" @click="startRename(ctxMenu.node!); closeCtxMenu()">
+            <span class="ctx-icon">✎</span> Renomear
+          </button>
+          <button class="ctx-item danger" v-if="ctxMenu.node!.path !== ''" @click="deleteItem(ctxMenu.node!); closeCtxMenu()">
+            <span class="ctx-icon">🗑</span> Deletar
+          </button>
+        </template>
+      </div>
+    </Teleport>
 
     <!-- Cloudflare Image Browser Modal -->
     <Teleport to="body">
@@ -635,6 +990,34 @@ onMounted(() => {
             <span>Página {{ cfImagesPage }} ({{ cfImagesTotalCount }} imagens)</span>
             <button :disabled="cfImages.length < 50" @click="loadCfImages(cfImagesPage + 1)">Próxima →</button>
           </div>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- File Editor Modal -->
+    <Teleport to="body">
+      <div v-if="fileEditorOpen" class="modal-overlay" @click.self="fileEditorOpen = false">
+        <div class="modal-content modal-file-editor">
+          <div class="modal-header">
+            <div>
+              <h3>Editando: <code>{{ fileEditorPath }}</code></h3>
+              <span v-if="fileEditorDirty" class="editor-dirty">● não salvo</span>
+            </div>
+            <div class="modal-header-actions">
+              <button class="btn-save-file" @click="saveFileEditor" :disabled="fileEditorSaving || !fileEditorDirty">
+                {{ fileEditorSaving ? 'Salvando...' : '💾 Salvar' }}
+              </button>
+              <button class="modal-close" @click="fileEditorOpen = false">✕</button>
+            </div>
+          </div>
+          <div v-if="fileEditorLoading" class="loading">Carregando...</div>
+          <textarea
+            v-else
+            v-model="fileEditorContent"
+            class="file-editor-textarea"
+            spellcheck="false"
+            @input="fileEditorDirty = true"
+          ></textarea>
         </div>
       </div>
     </Teleport>
@@ -734,7 +1117,6 @@ onMounted(() => {
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
-.selectors { display: flex; gap: 16px; margin-bottom: 24px; }
 
 .field {
   display: flex;
@@ -1024,5 +1406,274 @@ onMounted(() => {
   .album-item {
     &.grid-w33, &.grid-w25 { width: calc(50% - 2px); }
   }
+}
+
+/* ─── Layout com sidebar ─────────────────────────────────── */
+.cms-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.cms-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Header esquerda ────────────────────────────────────── */
+.cms-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-sidebar-toggle {
+  background: #1e2d3d;
+  border: 1px solid #2d4a6a;
+  color: #60a5fa;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  &:hover { background: #253d55; }
+}
+
+/* ─── Arquivo · sidebar ──────────────────────────────────── */
+.file-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #111;
+  border-right: 1px solid #222;
+  min-height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.fs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px 8px;
+  border-bottom: 1px solid #222;
+  h4 { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; }
+}
+
+.fs-tree {
+  padding: 4px 0;
+}
+
+.fs-node {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 28px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: #ccc;
+  padding-right: 4px;
+  position: relative;
+  &:hover { background: #1a1a1a; }
+  &.is-dir { color: #93c5fd; font-weight: 500; }
+}
+
+.fs-indent {
+  flex-shrink: 0;
+}
+
+.fs-toggle {
+  width: 16px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 9px;
+  color: #555;
+}
+
+.fs-icon {
+  width: 18px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.fs-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fs-rename-input {
+  flex: 1;
+  background: #222;
+  border: 1px solid #3b82f6;
+  color: #eee;
+  font-size: 12px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  outline: none;
+}
+
+.fs-action-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  &:hover { background: #2a2a2a; color: #eee; }
+  &.ok { color: #4ade80; &:hover { background: #14532d; color: #86efac; } }
+  &.cancel { color: #f87171; &:hover { background: #450a0a; color: #fca5a5; } }
+  &.danger { color: #f87171; &:hover { background: #450a0a; color: #fca5a5; } }
+}
+
+.fs-node.is-selected {
+  background: #1a2a3a;
+  &:hover { background: #1a2a3a; }
+  .fs-name { color: #93c5fd; }
+}
+
+/* ─── Context menu ───────────────────────────────────────── */
+.ctx-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 19998;
+}
+
+.ctx-menu {
+  position: fixed;
+  z-index: 19999;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 200px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  font-size: 13px;
+}
+
+.ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ddd;
+  padding: 7px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  &:hover { background: #2a3a4a; color: #fff; }
+  &.danger { color: #f87171; &:hover { background: #450a0a; color: #fca5a5; } }
+}
+
+.ctx-icon {
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.ctx-sep {
+  height: 1px;
+  background: #333;
+  margin: 4px 8px;
+}
+
+.fs-create-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #0d1a2a;
+  border-top: 1px solid #1e3a5a;
+  flex-wrap: wrap;
+}
+
+.fs-new-input,
+.fs-create-input {
+  flex: 1;
+  min-width: 80px;
+  background: #111;
+  border: 1px solid #2d4a6a;
+  color: #eee;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* ─── Transição slide da sidebar ─────────────────────────── */
+.slide-sidebar-enter-active,
+.slide-sidebar-leave-active {
+  transition: width 0.25s ease, opacity 0.25s ease;
+  overflow: hidden;
+}
+.slide-sidebar-enter-from,
+.slide-sidebar-leave-to {
+  width: 0 !important;
+  opacity: 0;
+}
+
+/* ─── Modal editor de arquivo ────────────────────────────── */
+.modal-file-editor {
+  width: 90vw;
+  max-width: 1100px;
+  height: 82vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+
+  .modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #2a2a2a;
+    flex-shrink: 0;
+    h3 { font-size: 14px; color: #ccc; font-weight: 400; }
+    code { background: #222; padding: 1px 6px; border-radius: 4px; font-size: 13px; color: #93c5fd; }
+  }
+}
+
+.modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-dirty {
+  font-size: 12px;
+  color: #facc15;
+  margin-left: 8px;
+}
+
+.btn-save-file {
+  background: #1e40af;
+  border: none;
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  &:hover:not(:disabled) { background: #2563eb; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+.file-editor-textarea {
+  flex: 1;
+  width: 100%;
+  background: #0d0d0d;
+  border: none;
+  color: #d4d4d4;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 16px 20px;
+  resize: none;
+  outline: none;
+  tab-size: 2;
 }
 </style>
