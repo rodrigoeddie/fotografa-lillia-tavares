@@ -49,6 +49,7 @@ if (props.schema !== false) {
 <style scoped lang="scss">
 nav[aria-label=breadcrumb] {
   padding-top: 15rem;
+  margin-bottom: 15rem;
 
   .breadcrumb {
     padding: 0 0 0 20rem;
@@ -83,6 +84,15 @@ nav[aria-label=breadcrumb] {
           display: inline;
           margin: 0 10rem;
           content: "→";
+      }
+  }
+}
+
+.lp-presentes {
+  nav[aria-label=breadcrumb] .breadcrumb {
+    li,
+    a {
+      color: v.$lp-presentes;      
       }
   }
 }

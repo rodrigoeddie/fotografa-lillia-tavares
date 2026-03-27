@@ -27,7 +27,7 @@ const titleParts = computed(() => {
         <p class="description">{{ data.description }}</p>
       </header>
 
-      <SectionsGeneralPricingGrid :data="data" />
+      <SectionsGeneralPricingGrid :data="data" :class="`lp-${data.lp}`" />
 
       <section v-if="data.includes" class="pricing-details">
         <h2 class="title">O que está incluso em todos os pacotes</h2>
@@ -36,7 +36,7 @@ const titleParts = computed(() => {
         </ul>
       </section>
 
-      <SectionsGeneralCtaContact :data="data.cta" />
+      <SectionsGeneralCtaContact :data="data.cta" :class="`lp-${data.lp}`" />
     </div>
   </div>
   <div v-else class="pricing-page">

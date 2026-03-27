@@ -141,6 +141,13 @@ const map = {
 </script>
 
 <template>
+  <div class="container">
+    <BlocksBreadcrumb class="lp-presentes" :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Presentes' },
+    ]" />
+  </div>
+
   <div class="wrapper-presentes">
     <!-- Hero Section -->
     <section class="hero-presentes lp-presentes container" data-ani-type="fade-up">

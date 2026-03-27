@@ -84,10 +84,13 @@ const steps = [
 
 <template>
   <div class="coloracao-page">
-    <BlocksBreadcrumb :items="[
-      { label: 'Home', to: '/' },
-      { label: 'Análise de Coloração Pessoal' },
-    ]" />
+    <div class="container">
+      <BlocksBreadcrumb :items="[
+        { label: 'Home', to: '/' },
+        { label: 'Análise de Coloração Pessoal' },
+      ]" />
+    </div>
+
     <!-- Hero -->
     <section class="coloracao-hero container" data-ani-type="fade-up">
         <div class="coloracao-hero__content">
@@ -147,6 +150,8 @@ const steps = [
     <!-- Como funciona -->
     <LandingsHowWorks class="coloracao-steps container" :data="{ title: 'Como funciona a análise de coloração pessoal?', list: steps }" />
 
+    <br>
+    <br>
     <!-- Depoimentos -->
     <SectionsGeneralTestimonials />
 

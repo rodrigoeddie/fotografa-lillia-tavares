@@ -93,7 +93,8 @@ const enviar = async () => {
                 id="date"
                 required
                 v-model="formData.date"
-                type="date">
+                type="date"
+                lang="pt-BR">
                 <span class="error-msg" :class="{ show: errors.date }">{{ errors.date }}</span>
             </div>
 
