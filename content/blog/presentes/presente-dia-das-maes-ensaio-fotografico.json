@@ -1,7 +1,7 @@
 {
   "colorHighlight": "#9d7e69",
   "showSchedule": true,
-  "title": "Presente de Dia das Mães: Por que um Ensaio Fotográfico é a Melhor Escolha em Mogi das Cruzes",
+  "title": "Presente de Dia das Mães: Por que um ensaio fotográfico é a melhor escolha em Mogi das Cruzes",
   "date": "2026-03-26",
   "description": "Descubra por que um ensaio fotográfico profissional é o presente perfeito para o Dia das Mães em Mogi das Cruzes. Veja como funciona, depoimentos reais e pacotes especiais para surpreender sua mãe.",
   "category": {
@@ -9,7 +9,7 @@
     "title": "Presentes"
   },
   "image": {
-    "imageId": "bdffeee4-f95f-43d4-8421-a80f9e0ea100",
+    "imageId": "4b44edc8-39bf-46ba-9a6e-1257badcd700",
     "width": 935,
     "height": 624,
     "format": "paisagem",
@@ -36,7 +36,8 @@
     "<p class='description'>Atendemos famílias de Mogi das Cruzes, Suzano, Itaquaquecetuba, Poá, Ferraz de Vasconcelos, Guararema, Biritiba Mirim e toda a região.</p>",
     "<h2 class='title'>O que as mães falam sobre o ensaio</h2>",
     "<p class='description'>\"<i>Maravilhosa! Eu já fiz 2x fotos, fiz minha coloração pessoal, e eu amo!</i>\", Esse é um dos muitos depoimentos de mães que viveram a experiência no nosso estúdio. Veja mais em nosso <a href='/depoimentos'>depoimentos de clientes</a>.</p>",
-    "<p class='description'>\"<i>A experiência de fotos e análise de coloração pessoal com a Lillia é fantástica.</i>\", Além do ensaio, muitas mães aproveitam para fazer a <a href='/analise-coloracao-pessoal-em-mogi'>análise de coloração pessoal</a>, descobrindo quais cores valorizam sua beleza natural.</p>",
+    "<p class='description'>\"<i>A experiência de fotos e análise de coloração pessoal com a Lillia é fantástica.</i>\".</p>",
+    "<p class='description'>\"Além do ensaio, muitas mães aproveitam para fazer a <a href='/analise-coloracao-pessoal-em-mogi'>análise de coloração pessoal</a>, descobrindo quais cores valorizam sua beleza natural.</p>",
     "<h2 class='title'>Veja os pacotes de presente de Dia das Mães</h2>",
     "<p class='description'>Preparamos pacotes especiais para o Dia das Mães, com opções para diferentes perfis e bolsos. Cada pacote inclui direção de poses, fotos editadas e a experiência completa no estúdio.</p>",
     "<a href='/presente-ensaio-fotografico-mogi/dia-das-maes' class='link-interno'>Conheça os pacotes de ensaio para Dia das Mães em Mogi das Cruzes →</a>",
@@ -44,55 +45,5 @@
     "<a href='/presente-ensaio-fotografico-mogi' class='link-interno'>Veja todas as ideias de presente com ensaio fotográfico →</a>",
     "<p class='description'>E se você quer ver exemplos reais de ensaios de Dia das Mães feitos no nosso estúdio:</p>",
     "<a href='/ensaio-fotografico/dia-das-maes' class='link-interno'>Confira nosso portfólio de Dia das Mães →</a>"
-  ],
-  "album": [
-    {
-      "imageId": "b25c4856-522b-4367-2aac-6f1c36111100",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "customClass": "w50",
-      "alt": "Ensaio fotográfico de Dia das Mães no estúdio Lillia Tavares em Mogi das Cruzes"
-    },
-    {
-      "imageId": "49636a87-a093-4577-4b61-4b1bed232500",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "customClass": "w50",
-      "alt": "Mãe e filho em ensaio fotográfico profissional em Mogi das Cruzes"
-    },
-    {
-      "imageId": "6ea326b0-e9e1-4b05-29c1-46146f52a400",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "customClass": "w50",
-      "alt": "Cenário especial de Dia das Mães no estúdio fotográfico em Mogi das Cruzes"
-    },
-    {
-      "imageId": "c46a3468-a2dd-4446-5caa-ac555c7dd400",
-      "width": 850,
-      "height": 567,
-      "format": "paisagem",
-      "customClass": "w50",
-      "alt": "Família posando em ensaio de Dia das Mães em Mogi das Cruzes"
-    },
-    {
-      "imageId": "f15c8181-5d19-48f1-0525-8142dda65500",
-      "width": 468,
-      "height": 703,
-      "format": "retrato",
-      "customClass": "w33",
-      "alt": "Retrato de mãe em ensaio fotográfico profissional"
-    },
-    {
-      "imageId": "1754195e-e114-473f-941f-bfd589ab7a00",
-      "width": 468,
-      "height": 703,
-      "format": "retrato",
-      "customClass": "w33",
-      "alt": "Mãe e filho abraçados em foto profissional"
-    }
   ]
 }

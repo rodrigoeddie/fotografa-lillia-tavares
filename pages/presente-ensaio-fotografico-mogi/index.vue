@@ -18,11 +18,11 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description,
   ogUrl: link,
-  ogImage: 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public',
+  ogImage: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
   twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
-  twitterImage: 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public',
+  twitterImage: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
 });
 
 useHead({
@@ -41,7 +41,7 @@ definePageMeta({
 });
 
 const heroData = {
-  title: 'Presente com Ensaio Fotográfico<br>em Mogi das Cruzes',
+  title: 'Presenteie com Ensaio Fotográfico<br>em Mogi das Cruzes',
   subtitle: 'Surpreenda quem você ama com uma experiência única: um ensaio fotográfico profissional que transforma momentos em lembranças para toda a vida.',
   features: [
     'Memórias que duram para sempre',

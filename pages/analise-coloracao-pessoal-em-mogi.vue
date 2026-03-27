@@ -62,30 +62,22 @@ const steps = [
     description: 'Entre em contato pelo WhatsApp e agende sua análise de coloração pessoal no estúdio em Mogi das Cruzes.'
   },
   {
-    icon: 'analise-presencial',
+    icon: 'analise-presencial2',
+    fillnone: true,
     title: 'Análise presencial',
     description: 'No estúdio, fazemos a análise com tecidos coloridos para identificar qual cartela de cores harmoniza com você.'
   },
   {
     icon: 'cartela-cores',
+    fillnone: true,
     title: 'Cartela de cores',
     description: 'Você recebe sua cartela de cores personalizada com as tonalidades que mais valorizam sua beleza natural.'
   },
   {
     icon: 'orientacoes',
+    fillnone: true,
     title: 'Orientações',
     description: 'Receba dicas práticas sobre como aplicar as cores no guarda-roupa, maquiagem e acessórios do dia a dia.'
-  }
-];
-
-const testimonials = [
-  {
-    text: 'Maravilhosa! Eu já fiz 2x fotos, fiz minha coloração pessoal, e eu amo!',
-    source: 'Google'
-  },
-  {
-    text: 'A experiência de fotos e análise de coloração pessoal com a Lillia é fantástica.',
-    source: 'Google'
   }
 ];
 </script>
@@ -156,17 +148,19 @@ const testimonials = [
 
     <!-- Cross-sell com ensaio -->
     <section class="coloracao-crosssell container" data-ani-type="fade-up">
-      <h2>Combine com um ensaio fotográfico</h2>
-      <p>
+      <h2 class="title">Combine com um ensaio fotográfico</h2>
+      <p class="description">
         Muitas clientes aproveitam para fazer a análise de coloração pessoal junto com o ensaio fotográfico.
         Assim, as fotos já são feitas com as cores que mais valorizam a sua beleza, uma combinação perfeita
         para quem quer fotos incríveis e aprender sobre si mesma.
       </p>
+
       <div class="coloracao-crosssell__links">
-        <NuxtLink to="/ensaio-fotografico" class="coloracao-crosssell__link">
+        <NuxtLink to="/ensaio-fotografico" class="btn">
           Ver ensaios fotográficos →
         </NuxtLink>
-        <NuxtLink to="/presente-ensaio-fotografico-mogi" class="coloracao-crosssell__link">
+
+        <NuxtLink to="/presente-ensaio-fotografico-mogi" class="btn">
           Presentear com ensaio + coloração →
         </NuxtLink>
       </div>
@@ -372,38 +366,25 @@ const testimonials = [
 }
 
 .coloracao-crosssell {
-  padding: 40rem 0 60rem;
-  text-align: center;
+    padding: 40rem 0 60rem;
+    text-align: center;
 
-  h2 {
-    margin-bottom: 15rem;
-  }
-
-  p {
-    max-width: 700rem;
-    margin: 0 auto 30rem;
-    font-size: 19rem;
-    line-height: 1.5;
-  }
-
-  &__links {
-    display: flex;
-    justify-content: center;
-    gap: 30rem;
-    flex-wrap: wrap;
-  }
-
-  &__link {
-    font-size: 18rem;
-    font-weight: 700;
-    color: v.$green;
-    text-decoration: underline;
-    transition: color 0.3s;
-
-    &:hover {
-      color: v.$dark-green;
+    h2 {
+        margin-bottom: 0;
+        color: v.$green;
     }
-  }
+
+    p {
+        max-width: 700rem;
+        margin: 0 auto 30rem;
+    }
+
+    &__links {
+        justify-content: center;
+        flex-wrap: wrap;
+        display: flex;
+        gap: 30rem;
+    }
 }
 
 .coloracao-cta {

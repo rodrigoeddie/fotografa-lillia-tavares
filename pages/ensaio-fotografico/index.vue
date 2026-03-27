@@ -10,7 +10,7 @@ useSchemaOrg([
   })
 ]);
 
-const ensaioImage = 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public';
+const ensaioImage = 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public';
 
 useSeoMeta({
   title: title,

@@ -32,11 +32,11 @@ useSeoMeta({
   ogTitle: pageTitle,
   ogDescription: pageDescription,
   ogUrl: pageUrl,
-  ogImage: 'https://fotografalilliatavares.com.br/assets/share.webp?v3',
+  ogImage: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
   twitterCard: 'summary_large_image',
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
-  twitterImage: 'https://fotografalilliatavares.com.br/assets/share.webp?v3',
+  twitterImage: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
 });
 
 useHead({

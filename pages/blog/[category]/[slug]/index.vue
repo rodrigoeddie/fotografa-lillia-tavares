@@ -9,40 +9,19 @@ const title = post.value.title + ' | Ensaios fotográficos profissionais conheç
 
 const siteURI = 'https://fotografalilliatavares.com.br';
 
+const breadcrumbs = [
+  { label: 'Home', to: '/' },
+  { label: 'Blog', to: '/blog' },
+  { label: post.value.category.title, to: '/blog/' + post.value.category.slug },
+  { label: post.value.title },
+];
+
 useSchemaOrg([
   defineWebPage({
     '@type': 'ItemPage',
     name: title,
     url: siteURI + path,
   }),
-  defineBreadcrumb({
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteURI
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Blog',
-        item: siteURI + '/blog'
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: post.value.categoryTitle,
-        item: siteURI + '/blog/' + post.value.category
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: post.value.title,
-        item: siteURI + path
-      }
-    ]
-  })
 ]);
 
 useSeoMeta({
@@ -142,7 +121,7 @@ const processedContent = computed(() => {
 
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': post.colorHighlight }">
-    <SectionsGeneralHero :data="post" />
+    <SectionsGeneralHero :data="post" :breadcrumbs="breadcrumbs" />
 
     <div class="blog-content">
       <template v-for="(item, idx) in processedContent.content" :key="idx">

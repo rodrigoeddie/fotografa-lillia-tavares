@@ -26,7 +26,9 @@ const props = defineProps({
                     <div class="wrap-icon">
                         <Icon
                             :name="`icons:${item.icon}`"
-                            class="icon"/>
+                            class="icon"
+                            :fill="item.fillnone ? 'none' : 'currentColor'"
+                            :class="{ 'fill-none': item.fillnone }" />
                     </div>
 
                     <div class="wrap">
@@ -58,6 +60,11 @@ const props = defineProps({
         .item {
             .wrap-icon {
                 background-color: #a79f7b;
+
+                .fill-none {
+                    fill: none !important;
+                    color: transparent
+                }
             }
 
             .wrap {

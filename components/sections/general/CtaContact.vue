@@ -143,7 +143,7 @@ const props = defineProps({
   .text {
     text-align: left;
     padding-right: 40rem;
-    max-width: 875rem;
+    max-width: 850rem;
 
     ul {
       justify-content: flex-start;

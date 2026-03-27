@@ -17,7 +17,11 @@ const props = defineProps({
 </script>
 
 <template>
-    <section class="container section-lp" data-ani-type="fade-up">
+    <NuxtLink
+      to="/analise-coloracao-pessoal-em-mogi"
+      target="_blank"
+      class="container section-lp"
+      data-ani-type="fade-up">
         <div class="wrap-image">
             <nuxt-img
               provider="cloudflare"
@@ -35,7 +39,7 @@ const props = defineProps({
             <p class="subtitle"><b>{{ props.data?.subtitle }}</b></p>
             <div class="description" v-html="props.data?.description"></div>
         </div>
-    </section>
+    </NuxtLink>
 </template>
 
 <style scoped lang="scss">

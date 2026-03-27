@@ -156,17 +156,11 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <nav aria-label="breadcrumb">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/">Home</NuxtLink>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <NuxtLink to="/estudio">Estúdio</NuxtLink>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Cenários</li>
-                </ul>
-            </nav>
+            <BlocksBreadcrumb :items="[
+              { label: 'Home', to: '/' },
+              { label: 'Estúdio', to: '/estudio' },
+              { label: 'Cenários' },
+            ]" />
 
             <div class="wrap-title">
                 <h2 class="big-title green centered">

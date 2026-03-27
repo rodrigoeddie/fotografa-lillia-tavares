@@ -15,6 +15,13 @@ const title     = work.value.title + ' | Ensaios fotográficos profissionais con
 
 const siteURI = 'https://fotografalilliatavares.com.br';
 
+const breadcrumbs = [
+  { label: 'Home', to: '/' },
+  { label: 'Ensaios Fotográficos', to: '/ensaio-fotografico' },
+  { label: work.value.category.title, to: '/ensaio-fotografico/' + work.value.category.slug },
+  { label: work.value.title },
+];
+
 useSchemaOrg([
   defineWebPage({
     '@type': 'ItemPage',
@@ -33,34 +40,6 @@ useSchemaOrg([
     contentUrl: album.map(item => `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${item.imageId}/${item.format}`),
     url: 'https://fotografalilliatavares.com.br' + path,
   }),
-  defineBreadcrumb({
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteURI
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Ensaios Fotográficos',
-        item: siteURI + '/ensaio-fotografico'
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: work.value.category.title,
-        item: siteURI + '/ensaio-fotografico/' + work.value.category.slug
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: work.value.title,
-        item: siteURI + path
-      }
-    ]
-  })
 ]);
 
 useSeoMeta({
@@ -85,7 +64,7 @@ useHead({
 
 <template>
   <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
-    <SectionsGeneralHero :data="work" />
+    <SectionsGeneralHero :data="work" :breadcrumbs="breadcrumbs" />
     <SectionsGeneralGallery :album="album" />
     <SectionsScheduleTinyform :formType="work.category.title" />
   </div>

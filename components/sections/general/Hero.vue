@@ -4,11 +4,37 @@ const props = defineProps({
     type: Object,
     required: true,
     default: {}
+  },
+  breadcrumbs: {
+    type: Array as PropType<{ label: string; to?: string }[]>,
+    default: undefined
   }
 });
 
+// breadcrumb fallback: build from route if not provided via prop
 const route = useRoute();
 const workPage = '/' + (route.path.split('/')[1] || '');
+const workPageLabel = computed(() => {
+  const s = workPage.replace(/\//g, '').replace(/-/g, ' ');
+  return s.charAt(0).toUpperCase() + s.slice(1);
+});
+
+const breadcrumbItems = computed(() => {
+  if (props.breadcrumbs) return props.breadcrumbs;
+
+  const items: { label: string; to?: string }[] = [
+    { label: 'Home', to: '/' },
+    { label: workPageLabel.value, to: workPage },
+  ];
+  if (props.data.category) {
+    items.push({
+      label: props.data.category.title,
+      to: workPage + '/' + props.data.category.slug,
+    });
+  }
+  items.push({ label: props.data.title });
+  return items;
+});
 
 // Adicionar verificação de segurança
 let highlight = [];
@@ -46,20 +72,7 @@ const formatDate = (dateString: string) => {
     class="wrap-hero"
     data-ani-type="fade-up">
     <div class="text">
-      <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item">
-            <NuxtLink to="/">Home</NuxtLink>
-          </li>
-          <li class="breadcrumb-item">
-            <NuxtLink :to="workPage">{{ workPage.replace(/\//g, '').replace(/-/g, ' ') }}</NuxtLink>
-          </li>
-          <li class="breadcrumb-item" v-if="data.category">
-            <NuxtLink :to="workPage + `/${data.category.slug}`">{{ data.category.title }}</NuxtLink>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">{{ data.title }}</li>
-        </ul>
-      </nav>
+      <BlocksBreadcrumb :items="breadcrumbItems" :schema="!breadcrumbs" />
 
       <div class="about-text text-slide">
         <h1 class="title" v-html="data.title"></h1>
@@ -170,13 +183,7 @@ nav[aria-label="breadcrumb"] {
   height: 100%;
 
   .breadcrumb {
-    padding: 0 0 0 35rem;
-    flex-wrap: wrap;
     z-index: 3;
-
-    .breadcrumb-item {
-      text-transform: capitalize;
-    }
   }
 }
 

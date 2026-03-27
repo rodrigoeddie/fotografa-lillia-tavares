@@ -37,19 +37,17 @@ definePageMeta({
 });
 
 const cta = {
-  title: 'Pronto para ter fotos profissionais?',
-  description: 'Agende seu ensaio corporativo em Mogi das Cruzes e destaque-se com qualidade.',
-  buttonText: 'Agendar meu ensaio agora',
-  whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)',
+  title: 'Presenteie sua mãe com um ensaio fotográfico em Mogi das Cruzes',
+  description: 'Um presente que ela vai guardar para sempre. Agende o ensaio de Dia das Mães e surpreenda quem você mais ama com fotos profissionais cheias de emoção.',
+  buttonText: 'Quero presentear minha mãe →',
+  whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio de dia das mães (mensagem do site)',
   image: 'bdffeee4-f95f-43d4-8421-a80f9e0ea100',
   imageWidth: '2000',
-  // imageHeight: '889',
   imageAlt: 'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom',
   features: [
-    '✔ Direção completa durante o ensaio',
-    '✔ Ideal para LinkedIn e redes sociais',
-    '✔ Entrega rápida',
-    '✔ Estúdio em Mogi das Cruzes'
+    '✔ Presente com vale-ensaio personalizado',
+    '✔ Direção de poses durante todo o ensaio',
+    '✔ Lembranças para toda a vida'
   ]
 };
 

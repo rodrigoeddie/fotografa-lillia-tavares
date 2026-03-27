@@ -2,7 +2,7 @@
 const precosTitle = 'Preços de Ensaios Fotográficos em Mogi das Cruzes | Lillia Tavares';
 const precosDescription = 'Confira os preços e pacotes de ensaios fotográficos profissionais em Mogi das Cruzes: corporativo, gestante, casual-intimista, casal e aniversário. Atendemos o Alto Tietê.';
 const precosLink = 'https://fotografalilliatavares.com.br/precos-ensaios-fotograficos';
-const precosImage = 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public';
+const precosImage = 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public';
 
 useSchemaOrg([
   defineWebPage({

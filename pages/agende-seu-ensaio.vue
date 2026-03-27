@@ -2,7 +2,7 @@
 const title = 'Agende seu Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares';
 const description = 'Agende seu ensaio fotográfico profissional em Mogi das Cruzes. Entre em contato, escolha o melhor dia e tenha fotos incríveis. Atendemos toda a região do Alto Tietê.';
 const link = 'https://fotografalilliatavares.com.br/agende-seu-ensaio';
-const ogImage = 'https://images.fotografalilliatavares.com.br/images/TODO_OG_IMAGE_ID/public';
+const ogImage = 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public';
 
 useSchemaOrg([
   defineWebPage({
