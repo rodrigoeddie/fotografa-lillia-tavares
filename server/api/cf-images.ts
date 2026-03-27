@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const response = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v2?page=${page}&per_page=${perPage}&sort_order=desc`,
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1?page=${page}&per_page=${perPage}`,
       {
         headers: {
           Authorization: `Bearer ${apiKey}`,
@@ -32,15 +32,17 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    const images = (result.result?.images ?? []);
+
     return {
-      images: result.result.images.map((img: any) => ({
+      images: images.map((img: any) => ({
         id: img.id,
         filename: img.filename || '',
         uploaded: img.uploaded,
         variants: img.variants || [],
       })),
-      count: result.result_info?.count || 0,
-      total_count: result.result_info?.total_count || 0,
+      count: result.result_info?.count ?? images.length,
+      total_count: result.result_info?.total_count ?? images.length,
     };
   } catch (error: any) {
     if (error.statusCode) throw error;

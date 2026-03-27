@@ -97,6 +97,7 @@ const cfImagesPage = ref(1);
 const cfImagesTotalCount = ref(0);
 const cfBrowserOpen = ref(false);
 const cfBrowserTarget = ref(-1);
+const cfImagesError = ref('');
 
 // Rich editor refs
 const descEditorRef = ref<HTMLDivElement | null>(null);
@@ -231,7 +232,12 @@ async function uploadImage(file: File, index: number) {
       showMessage('Imagem enviada!', 'success');
     }
   } catch (e: any) {
-    showMessage('Erro no upload: ' + e.message, 'error');
+    console.error('[upload error]', e, 'e.data:', e.data);
+    // $fetch wraps h3 errors: e.data = full error body, e.data.data = the `data` field passed to createError
+    const cfErrors = e.data?.data as Array<{ code: number; message: string }> | undefined;
+    const detail = Array.isArray(cfErrors) && cfErrors[0]?.message ? cfErrors[0].message : null;
+    const fallback = e.data?.statusMessage || e.statusMessage || e.message;
+    showMessage(detail ? `Upload falhou: ${detail}` : `Erro no upload: ${fallback}`, 'error');
   } finally {
     if (workData.value?.album[index]) workData.value.album[index]._uploading = false;
   }
@@ -246,15 +252,20 @@ async function openCfBrowser(targetIndex: number) {
 
 async function loadCfImages(page: number) {
   cfImagesLoading.value = true;
+  cfImagesError.value = '';
   try {
     const res = await $fetch<{ images: CfImage[]; total_count: number }>('/api/cf-images', {
       params: { page, per_page: 50 },
     });
-    cfImages.value = res.images;
+    cfImages.value = res.images ?? [];
     cfImagesTotalCount.value = res.total_count;
     cfImagesPage.value = page;
+    if ((res.images ?? []).length === 0) {
+      cfImagesError.value = 'Nenhuma imagem encontrada no Cloudflare.';
+    }
   } catch (e: any) {
-    showMessage('Erro ao listar imagens: ' + e.message, 'error');
+    cfImages.value = [];
+    cfImagesError.value = 'Erro ao carregar imagens: ' + (e.statusMessage || e.message);
   } finally {
     cfImagesLoading.value = false;
   }
@@ -537,9 +548,6 @@ onMounted(() => {
         <!-- Album header -->
         <div class="album-header">
           <h2>Álbum ({{ workData.album?.length || 0 }} fotos)</h2>
-          <div class="add-buttons">
-            <button v-for="(preset, key) in IMAGE_PRESETS" :key="key" class="btn-add" @click="addImage(key as string)">+ {{ preset.label }}</button>
-          </div>
         </div>
 
         <!-- Album grid -->
@@ -595,7 +603,11 @@ onMounted(() => {
             </div>
           </div>
         </div>
-
+        <div class="album-footer">
+            <div class="add-buttons">
+            <button v-for="(preset, key) in IMAGE_PRESETS" :key="key" class="btn-add" @click="addImage(key as string)">+ {{ preset.label }}</button>
+            </div>
+        </div>
       </div>
     </div>
 
@@ -608,6 +620,10 @@ onMounted(() => {
             <button class="modal-close" @click="cfBrowserOpen = false">✕</button>
           </div>
           <div v-if="cfImagesLoading" class="loading">Carregando imagens...</div>
+          <div v-else-if="cfImagesError" class="cf-error">
+            <p>{{ cfImagesError }}</p>
+            <button class="cf-retry-btn" @click="loadCfImages(cfImagesPage)">Tentar novamente</button>
+          </div>
           <div v-else class="cf-grid">
             <div v-for="img in cfImages" :key="img.id" class="cf-item" @click="selectCfImage(img.id)">
               <img :src="CF_IMG_BASE + img.id + '/public'" loading="lazy" />
@@ -698,10 +714,19 @@ onMounted(() => {
 }
 
 .notification {
-  padding: 12px 20px;
-  border-radius: 6px;
-  margin-bottom: 16px;
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  min-width: 320px;
+  max-width: 600px;
+  padding: 14px 24px;
+  border-radius: 8px;
   font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
   &.success { background: #1a3a1a; color: #4ade80; border: 1px solid #166534; }
   &.error { background: #3a1a1a; color: #f87171; border: 1px solid #7f1d1d; }
 }
@@ -844,6 +869,10 @@ onMounted(() => {
   display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
   h2 { font-size: 18px; }
 }
+.album-footer {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+  h2 { font-size: 18px; }
+}
 
 .add-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
 
@@ -950,6 +979,22 @@ onMounted(() => {
 
 .modal-close {
   background: #333; border: none; color: #eee; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 16px;
+  &:hover { background: #444; }
+}
+
+.cf-error {
+  padding: 24px;
+  text-align: center;
+  color: #f87171;
+  font-size: 14px;
+  background: #3a1a1a;
+  border: 1px solid #7f1d1d;
+  border-radius: 6px;
+  p { margin-bottom: 12px; }
+}
+
+.cf-retry-btn {
+  background: #333; border: 1px solid #555; color: #eee; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px;
   &:hover { background: #444; }
 }
 
