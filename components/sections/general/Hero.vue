@@ -265,7 +265,7 @@ nav[aria-label="breadcrumb"] {
     justify-content: space-between;
     flex-direction: column;
     background: white;
-    padding-top: 30rem;
+    padding-top: 15rem;
     display: flex;
     width: 45%;
 

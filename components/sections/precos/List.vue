@@ -106,7 +106,7 @@ const categories = computed(() => {
   height: 48rem;
   color: v.$green;
 
-  svg {
+  :deep(svg:not([fill='none'])) {
     width: 100%;
     height: 100%;
     fill: v.$green;

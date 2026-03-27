@@ -395,43 +395,6 @@
   }
 }
 
-nav[aria-label=breadcrumb] {
-  .breadcrumb {
-    padding: 0 0 0 20rem;
-    display: flex;
-
-      li,
-      a {
-          font-size: 19rem;
-          display: inline;
-          flex-shrink: 0;
-
-          @include m.max(sm) {
-              font-size: 16rem;
-          }
-
-          &.active {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            font-weight: bold;
-            flex-shrink: initial;
-            padding-right: 15rem;
-          }
-      }
-
-      a:hover {
-          text-decoration: underline;
-      }
-
-      li:not(:last-child)::after {
-          display: inline;
-          margin: 0 10rem;
-          content: "→";
-      }
-  }
-}
-
 .ac {
   justify-content: center;
   display: flex;

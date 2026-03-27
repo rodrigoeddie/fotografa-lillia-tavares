@@ -94,11 +94,12 @@ const pageData = computed(() => sobre.value as any);
   background: #f9f9f9;
   border-radius: 8rem;
   margin-top: 48rem;
+  margin-bottom: v.$bigSpace;
 
   h2 {
     font-size: 32rem;
     font-weight: 600;
-    color: #333;
+    color: v.$green;
     margin-bottom: 16rem;
 
     @include m.max(sm) {

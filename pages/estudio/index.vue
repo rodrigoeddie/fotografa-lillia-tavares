@@ -80,10 +80,12 @@ const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>
-  <BlocksBreadcrumb :items="[
-    { label: 'Home', to: '/' },
-    { label: 'Estúdio Fotográfico' },
-  ]" />
+  <div class="container">
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Estúdio Fotográfico' },
+    ]" />
+  </div>
   <SectionsStudioAbout
     class="from-page-studio"
     :fromStudio="true" />

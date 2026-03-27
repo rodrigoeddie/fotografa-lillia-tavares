@@ -51,11 +51,13 @@ useHead({
 
 <template>
   <div v-if="pageData">
-    <BlocksBreadcrumb :items="[
-      { label: 'Home', to: '/' },
-      { label: 'Preços de Ensaios', to: '/precos-ensaios-fotograficos' },
-      { label: pageData.title || 'Pacote' },
-    ]" />
+    <div class="container">
+      <BlocksBreadcrumb :items="[
+        { label: 'Home', to: '/' },
+        { label: 'Preços de Ensaios', to: '/precos-ensaios-fotograficos' },
+        { label: pageData.title || 'Pacote' },
+      ]" />
+    </div>
     <SectionsPrecosInternal :data="pageData" />
   </div>
 </template>

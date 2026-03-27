@@ -185,6 +185,14 @@ definePageMeta({
 </template>
 
 <style scoped lang="scss">
+:deep(nav[aria-label="breadcrumb"]) {
+  padding-bottom: 20rem;
+
+  ul.breadcrumb {
+    padding-left: 0;
+  }
+}
+
 .privacidade {
     background-color: white;
   padding: 60rem v.$space;

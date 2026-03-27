@@ -50,7 +50,10 @@
             <TemplatesMenu class="from-footer" :fromFooter="true" />
         </footer>
 
-        <address>Copyright® <b>Fotógrafa Lillia Tavares</b> - Todos os direitos reservados</address>
+        <address>
+            <span>Copyright® <b>Fotógrafa Lillia Tavares</b> - Todos os direitos reservados</span>
+            <NuxtLink to="/privacidade-e-termos" class="privacy-link">Privacidade e Termos</NuxtLink>
+        </address>
     </div>
 </template>
 
@@ -135,9 +138,28 @@
         font-size: 16px;
         padding: 20px;
         width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
 
         @include m.max(sm) {
             font-size: 12px;
+        }
+
+        .privacy-link {
+            font-size: 13px;
+            opacity: 0.7;
+            text-decoration: underline;
+            color: inherit;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            @include m.max(sm) {
+                font-size: 11px;
+            }
         }
     }
 
