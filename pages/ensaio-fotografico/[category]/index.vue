@@ -29,11 +29,13 @@ useSeoMeta({
 </script>
 
 <template>
-  <BlocksBreadcrumb :items="[
-    { label: 'Home', to: '/' },
-    { label: 'Ensaios Fotográficos', to: '/ensaio-fotografico' },
-    { label: pageData?.title || String(route.params.category) },
-  ]" />
+  <div class="container">
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Ensaios Fotográficos', to: '/ensaio-fotografico' },
+      { label: pageData?.title || String(route.params.category) },
+    ]" />
+  </div>
   <SectionsPortfolioCategoryList class="no-padding" />
 </template>
 

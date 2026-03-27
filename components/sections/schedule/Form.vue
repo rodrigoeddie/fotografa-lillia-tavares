@@ -193,22 +193,23 @@ const enviar = async () => {
       .title-label {
         font-weight: bold;
         font-size: 20rem;
+        color: v.$green;
       }
 
       input,
       select,
       textarea {
-        border: 1px solid v.$red;
+        border: 1px solid v.$green;
         border-radius: 4px;
         font-size: 19rem;
+        color: v.$green;
         padding: 15rem;
         height: 50rem;
         width: 100%;
 
-        // @media (prefers-color-scheme: dark) {
-        //   border-color: white;
-        //   color-scheme: dark;
-        // }
+        &::placeholder {
+          color: v.$green;
+        }
       }
 
       input:focus,
@@ -243,6 +244,8 @@ const enviar = async () => {
           }
 
           .label-radio {
+            color: v.$green;
+             font-size: 18rem;
             font-weight: normal;
             font-size: 18rem;
             margin-bottom: 0;
@@ -300,6 +303,10 @@ const enviar = async () => {
         }
       }
     }
+  }
+
+  .title {
+    color: v.$green;
   }
 
   .wrap-schedule {

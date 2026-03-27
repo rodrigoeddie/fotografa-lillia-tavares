@@ -55,9 +55,11 @@ useSeoMeta({
 </script>
 
 <template>
-  <BlocksBreadcrumb :items="[
-    { label: 'Home', to: '/' },
-    { label: 'Perguntas Frequentes' },
-  ]" />
+  <div class="container">
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Perguntas Frequentes' },
+    ]" />
+  </div>
   <SectionsFaqPage />
 </template>

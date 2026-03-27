@@ -42,10 +42,12 @@ useHead({
 </script>
 
 <template>
-    <BlocksBreadcrumb :items="[
-      { label: 'Home', to: '/' },
-      { label: 'Agendar Ensaio' },
-    ]" />
+    <div class="container">
+      <BlocksBreadcrumb :items="[
+        { label: 'Home', to: '/' },
+        { label: 'Agendar Ensaio' },
+      ]" />
+    </div>
     <SectionsScheduleForm />
     <SectionsStudioTiny :showMap="true" />
 </template>

@@ -41,10 +41,12 @@ const formatDate = (date: Date) => {
 </script>
 
 <template>
-  <BlocksBreadcrumb :items="[
-    { label: 'Home', to: '/' },
-    { label: 'Blog' },
-  ]" />
+  <div class="container">
+    <BlocksBreadcrumb :items="[
+      { label: 'Home', to: '/' },
+      { label: 'Blog' },
+    ]" />
+  </div>
   <SectionsBlogList/>
 </template>
 

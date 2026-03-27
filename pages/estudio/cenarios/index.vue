@@ -225,22 +225,6 @@
 </template>
 
 <style scoped lang="scss">
-nav[aria-label=breadcrumb] {
-    top: 100% !important;
-    position: absolute;
-    color: v.$dark-green;
-    left: 35rem;
-
-    @include m.max(xs) {
-        top: 40% !important;
-    }
-
-    .breadcrumb {
-        padding: 0 !important;
-        z-index: 3;
-    }
-}
-
 .hero {
     overflow: hidden;
 
