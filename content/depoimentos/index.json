@@ -3,9 +3,18 @@
   "description": "Mais de 65 avaliações 5 estrelas no Google. Veja o que minhas clientes falam sobre a experiência de um ensaio fotográfico comigo.",
   "reviews": [
     {
+      "id": 71,
+      "name": "Pollyanna Gonçalves",
+      "photo": "63cdb80f-2df3-4e9c-c214-9a8ad4442200",
+      "rating": 5,
+      "date": "",
+      "link": "",
+      "text": "Um ensaio fotográfico de respeito! Profissional muito competente, me deixou muito a vontade e tornou meu trabalho ainda mais valorizado. Espaço muito lindo, limpo e organizado. Me ajudou até com um difusor pra terminar de secar o meu cabelo.. uma querida!! Super recomendo e desejo muito sucesso ❤️"
+    },
+    {
       "id": 0,
       "name": "Thainá Porto",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXH5C8uNLQ9KwfNKd6DYZ_Q0q8vsA4aq01Nc6zbfFFhrgk6wdWv=w36-h36-p-rp-mo-br100",
+      "photo": "010e2691-7333-4d8a-0781-ec4208dfe400",
       "rating": 5,
       "date": "Ontem",
       "link": "https://maps.app.goo.gl/XYfAgs7nPh3te4RU7",
@@ -210,7 +219,7 @@
     {
       "id": 23,
       "name": "Juliana Kozma",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWtLtU-NVL2WMvdvZk4Onmzwfqn7LjA_D3WsepvL5ciIToaG7gy=s72-c-rp-mo-br100",
+      "photo": "b433972a-77c8-4fd9-36d2-5ed969800f00",
       "rating": 5,
       "date": "Há 46 semanas",
       "text": "Maravilhosa! A Lillia é excelente, me senti confortável e linda! É uma dose de autoestima que eu não imaginava que teria em uma sessão de fotos. Os cenários são muito bonitos e as fotos ficaram fantásticas. Simplesmente amei e recomendo muito."
@@ -218,7 +227,7 @@
     {
       "id": 24,
       "name": "Nelma Caroline",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUzryPqvUvcTWAmKb0Jgj48sugm5H2X1oaV8eMgzJt09ff-yXxFOQ=s72-c-rp-mo-ba2-br100",
+      "photo": "24a4d471-034f-42fd-b55a-dd55db869600",
       "rating": 5,
       "date": "Há 47 semanas",
       "text": "Lilllia você é incrível e seu trabalho é impecável! Tirei minhas primeiras fotos profissionais com você e não me arrependo nem um pouco, o carinho, o acolhimento e as conversas deixaram a experiência ainda mais incrível. Obrigada e obrigada! 🥰"
@@ -234,7 +243,7 @@
     {
       "id": 26,
       "name": "Bruna Freire",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVla_YxsU38zH3cCV8ax6AI3xW43wSQuEuPiK7VEOnO_hk9lsgC4w=s72-c-rp-mo-ba4-br100",
+      "photo": "c592e234-acdc-44e0-ee2c-5bfe5a12dd00",
       "rating": 5,
       "date": "Há 49 semanas",
       "text": "O trabalho da Lillia é incrível! Atendimento impecável do começo ao fim! Eu nem havia terminado e já estava pensando em fazer outros ensaios."
@@ -362,7 +371,7 @@
     {
       "id": 42,
       "name": "Camila Nogueira",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWkhi-B-gA5HBabTTp15ZUHy2eVIf_-bS5sYE_Oy9TcM9rasIOmhg=s72-c-rp-mo-br100",
+      "photo": "f73ae5ab-d686-4773-d0f2-3786248d8500",
       "rating": 5,
       "date": "5 de jun. de 2024",
       "text": "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"
@@ -386,7 +395,7 @@
     {
       "id": 45,
       "name": "karoline siqueira",
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKQTnPCfS_sG4n5WVgCcf3y5peFN0j_jhcZZe_UYiL9KKuIwA=s72-c-rp-mo-br100",
+      "photo": "68e9b783-755e-497c-001b-c2ce5bdb4400",
       "rating": 5,
       "date": "4 de jun. de 2024",
       "text": "Tive o prazer de fazer o meu ensaio corporativo com ela! Foi incrível, ela é excelente em tudo que faz!!!. O espaço oferece um ambiente tranquilo e acolhedor. A beleza do lugar é surreal, muito bem estruturado e pensado para proporcionar comodidade, profissionalismo e fotos memoráveis. Recomendo muitooooooo. Melhor estúdio fotográfico de Mogi."
@@ -555,7 +564,7 @@
     {
       "id": 70,
       "name": "Vanessa de Melo Lima",
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVGi9MLjN8bc6OFwGEUvDLkZh3bukKhXQD-GlozElWYsfZWn0UoMQ=s72-c-rp-mo-br100",
+      "photo": "ff7f1784-f0ec-4aa0-ed58-091d9c248e00",
       "rating": 5,
       "date": "2 de jun. de 2024",
       "text": "Studio de fotografia lindo no centro cívico, em Mogi das Cruzes. Cenários diversos, atende homens, mulheres, família. Super indico!"
