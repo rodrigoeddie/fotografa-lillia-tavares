@@ -5,6 +5,10 @@ const { data: work } = await useAsyncData(path, () => {
   return queryCollection('works').path(path).first()
 });
 
+if (!work.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Ensaio não encontrado' });
+}
+
 const album     = work.value.album
                     .map((item, index) => ({
                       ...item,
