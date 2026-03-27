@@ -1,34 +1,57 @@
 
-import { defineEventHandler, readBody } from 'h3';
-import FormData from 'form-data';
+import { defineEventHandler, readMultipartFormData, createError } from 'h3';
 
 export default defineEventHandler(async (event) => {
-  const token = getCookie(event, 'auth_token'); // Recupera o token do cookie
+  const parts = await readMultipartFormData(event);
 
-  if (!token || token !== 'your-auth-token') {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' });
-  }
-  const body = await readBody(event);
-  const { file, filename } = body;
-
-  if (!file || !filename) {
-    throw createError({ statusCode: 400, statusMessage: 'File and filename are required' });
+  if (!parts || parts.length === 0) {
+    throw createError({ statusCode: 400, statusMessage: 'No file uploaded' });
   }
 
-  const form = new FormData();
-  form.append('file', file, filename);
+  const filePart = parts.find(p => p.name === 'file');
+  if (!filePart || !filePart.data) {
+    throw createError({ statusCode: 400, statusMessage: 'File field is required' });
+  }
+
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const apiKey = process.env.CLOUDFLARE_API_KEY;
+
+  if (!accountId || !apiKey) {
+    throw createError({ statusCode: 500, statusMessage: 'Cloudflare credentials not configured' });
+  }
+
+  const cfUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1`;
+
+  const formData = new FormData();
+  const blob = new Blob([filePart.data], { type: filePart.type || 'image/jpeg' });
+  formData.append('file', blob, filePart.filename || 'image.jpg');
 
   try {
-    const response = await $fetch(process.env.CLOUDFLARE_IMAGES_URL, {
+    const response = await fetch(cfUrl, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
       },
-      body: form,
+      body: formData,
     });
 
-    return response;
-  } catch (error) {
-    return { error: 'Failed to upload image', details: error };
+    const result = await response.json();
+
+    if (!result.success) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Cloudflare upload failed',
+        data: result.errors,
+      });
+    }
+
+    return result;
+  } catch (error: any) {
+    if (error.statusCode) throw error;
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to upload image',
+      data: { details: error.message },
+    });
   }
 });
