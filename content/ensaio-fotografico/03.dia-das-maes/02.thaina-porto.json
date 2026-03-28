@@ -138,6 +138,29 @@
       "format": "retrato",
       "customClass": "w33",
       "alt": ""
+    },
+    {
+      "imageId": "66da959d-3841-46aa-c8ad-6438e93c2700",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "imageId": "e094a7fa-e77b-415a-f4b0-530ad4c86c00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "28d6c447-79cd-4a96-3a33-89f441765e00",
+      "width": 850,
+      "height": 567,
+      "format": "paisagem",
+      "customClass": "w50",
+      "alt": ""
     }
   ]
 }
