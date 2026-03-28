@@ -76,7 +76,7 @@ function togglePackage(i: number) {
   else collapsedPackages.value.add(i);
 }
 
-function addPackage() {
+async function addPackage() {
   if (!data.value) return;
   data.value.packages.push({
     title: 'Novo Pacote',
@@ -87,6 +87,9 @@ function addPackage() {
     features: [],
     isRecommended: false,
   });
+  await nextTick();
+  const cards = document.querySelectorAll('.pkg-card');
+  cards[cards.length - 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function removePackage(i: number) {
@@ -216,10 +219,12 @@ defineExpose({ openFile });
                   <label>Valor da Parcela (R$)</label>
                   <input v-model.number="pkg.priceParcelas" type="number" min="0" step="1" />
                 </div>
-                <div class="inv-field inv-field--checkbox">
-                  <label>
+                <div class="inv-field">
+                  <label>Pacote recomendado</label>
+                  <label class="switch">
                     <input type="checkbox" v-model="pkg.isRecommended" />
-                    Pacote recomendado
+                    <span class="switch-track"><span class="switch-thumb"></span></span>
+                    <span class="switch-label">{{ pkg.isRecommended ? 'Sim' : 'Não' }}</span>
                   </label>
                 </div>
               </div>
@@ -304,6 +309,10 @@ defineExpose({ openFile });
 </template>
 
 <style lang="scss" scoped>
+.icon-preview {
+    width: 100rem;
+}
+
 .inv-editor {
   max-width: 900px;
 }
@@ -425,17 +434,7 @@ defineExpose({ openFile });
     &:focus { outline: none; border-color: #3b82f6; }
   }
 
-  &--checkbox {
-    label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #ccc;
-      cursor: pointer;
-      input { width: auto; accent-color: #3b82f6; }
-    }
-  }
+  // (checkbox variant removed — using .switch instead)
 }
 
 .icon-textarea { font-family: 'Fira Code', monospace; font-size: 12px; }
@@ -579,5 +578,49 @@ defineExpose({ openFile });
   padding: 16px 0 8px;
   border-top: 1px solid #222;
   margin-top: 8px;
+}
+
+/* Switch toggle */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+
+  input { display: none; }
+}
+
+.switch-track {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background: #333;
+  border-radius: 11px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+
+  .switch input:checked ~ & { background: #2563eb; }
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+
+  .switch input:checked ~ .switch-track & { transform: translateX(18px); }
+}
+
+.switch-label {
+  font-size: 13px;
+  color: #888;
+  min-width: 24px;
+
+  .switch input:checked ~ & { color: #60a5fa; }
 }
 </style>

@@ -611,6 +611,7 @@ onMounted(() => {
 
 .cms-header {
   display: flex;
+  padding-top: 20rem;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
