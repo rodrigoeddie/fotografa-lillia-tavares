@@ -32,7 +32,7 @@ const titleParts = computed(() => {
       <section v-if="data.includes" class="pricing-details">
         <h2 class="title">O que está incluso em todos os pacotes</h2>
         <ul class="pricing-details__list">
-          <li v-for="(item, index) in data.includes" :key="index">{{ item }}</li>
+          <li v-for="(item, index) in data.includes" :key="index" v-html="item"></li>
         </ul>
       </section>
 
@@ -75,6 +75,11 @@ const titleParts = computed(() => {
       position: relative;
       padding-left: 32rem;
       font-size: 18rem;
+
+      :deep(.highlight) {
+        font-weight: 600;
+        color: black;
+      }
       
       &:before {
         content: '✓';

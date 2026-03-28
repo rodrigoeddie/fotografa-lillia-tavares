@@ -49,6 +49,7 @@ const props = defineProps({
                 :numParcelas="pkg.numParcelas"
                 :priceParcelas="pkg.priceParcelas"
                 :type="data.title"
+                :bonus="pkg.bonus"
                 :is-recommended="pkg.isRecommended"
                 :class="props.lp"
               />

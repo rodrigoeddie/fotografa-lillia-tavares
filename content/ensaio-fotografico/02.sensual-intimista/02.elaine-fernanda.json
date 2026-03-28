@@ -2,7 +2,7 @@
   "artigo": "a",
   "home": false,
   "homeOrder": 99,
-  "colorHighlight": "#c50013",
+  "colorHighlight": "#9d1c2f",
   "title": "Elaine Fernanda",
   "description": "<p></p>",
   "category": {
@@ -156,7 +156,8 @@
       "width": 1700,
       "height": 1134,
       "format": "paisagem",
-      "alt": ""
+      "alt": "",
+      "canBeThumb": true
     },
     {
       "imageId": "ff1e93df-1223-43f9-9dc7-657164277b00",
@@ -203,7 +204,8 @@
       "width": 1700,
       "height": 1134,
       "format": "paisagem",
-      "alt": ""
+      "alt": "",
+      "canBeThumb": true
     }
   ]
 }

@@ -5,8 +5,8 @@
   "description": "Fotos profissionais para celebrar o Dia das Mães. Perfeitas para registrar momentos especiais e criar lembranças inesquecíveis.",
   "packages": [
     {
-      "title": "Perfil",
-      "subtitle": "Ideal para começar",
+      "title": "Alteza",
+      "subtitle": "Ideal para um presente delicado e especial",
       "price": 299,
       "numParcelas": 3,
       "priceParcelas": 115,
@@ -22,7 +22,7 @@
     },
     {
       "title": "Essencial",
-      "subtitle": "Para quem busca um pouco mais",
+      "subtitle": "Perfeito para mães e filhos",
       "price": 579,
       "numParcelas": 4,
       "priceParcelas": 168,
@@ -31,45 +31,48 @@
         "40 minutos de sessão",
         "Entrega em 5 dias úteis",
         "1 Cenário",
-        "2 trocas de roupa",
+        "até 2 trocas de roupa",
         "Fotos extras por R$28 cada"
       ],
       "isRecommended": false
     },
     {
-      "title": "Profissional",
-      "subtitle": "Perfeito para sua imagem",
+      "title": "Majestade",
+      "subtitle": "O mais escolhido para registrar momentos completos em família",
       "price": 799,
       "numParcelas": 4,
       "priceParcelas": 224,
+      "bonus": "Necessaire + vale presente<br>(15 primeiros pedidos)*",
       "features": [
         "25 fotos editadas",
         "1 hora e 30 minutos de sessão",
         "Entrega em 3 dias úteis",
         "Até 3 cenários",
-        "3 trocas de roupa",
+        "até 3 trocas de roupa",
         "Fotos extras por R$20 cada"
       ],
       "isRecommended": true
     },
     {
       "title": "Premium",
-      "subtitle": "A experiência completa",
+      "subtitle": "Experiência completa para um dia inesquecível",
       "price": 1199,
       "numParcelas": 5,
       "priceParcelas": 260,
       "features": [
         "40 fotos editadas",
+        "<b>Maquiagem profissional inclusa</b>",
         "2 horas de sessão",
         "Entrega em 3 dias úteis",
         "Até 4 cenários",
-        "4 trocas de roupa",
+        "até 4 trocas de roupa",
         "Fotos extras por R$19 cada"
       ],
       "isRecommended": false
     }
   ],
   "includes": [
+    "<span class=\"highlight\">* A Necessaire é ofertada para os 15 primeiros, temos 11 unidades restantes.</span>",
     "Fotos digitais em alta resolução",
     "Fotos enviadas por email",
     "Para garantia da vaga é necessário um sinal de R$100.",

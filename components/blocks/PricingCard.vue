@@ -12,6 +12,11 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  bonus: {
+    type: String,
+    default: '',
+    required: false
+  },
   numParcelas: {
     type: Number,
     required: true
@@ -85,10 +90,11 @@ function splitFeature(feature) {
       >
         <span class="pricing-card__feature-icon">✓</span>
         <span v-if="splitFeature(feature).number" class="pricing-card__feature-number">{{ splitFeature(feature).number }}</span>
-        <span>{{ splitFeature(feature).text }}</span>
+        <span v-html="splitFeature(feature).text"></span>
       </li>
     </ul>
-    
+    <span v-if="bonus" class="bonus" v-html="bonus"></span>
+
     <div class="pricing-card__cta">
       <a 
         :href="`https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre o pacote ${type} - ${title}.`"
@@ -123,22 +129,21 @@ function splitFeature(feature) {
     margin-right: auto;
   }
   
-  // &:hover {
-  //   border-color: #ccc;
-  //   box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.1);
-  // }
-  
   &--recommended {
     border-color: #731;
     border-width: 3px;
     z-index: 1;
     box-shadow: 0 4rem 16rem rgba(52, 75, 66, 0.12);
-    
-    // &:hover {
-    //   border-color: v.$red;
-    //   box-shadow: 0 8rem 24rem rgba(0, 0, 0, 0.15);
-    // }
   }
+}
+
+.bonus {
+  background-color: black;
+  text-align: center;
+  padding: 10px 0;
+  color: white;
+  font-size: 21rem;
+  font-weight: 700;
 }
 
 .pricing-card__badge {
