@@ -1,0 +1,209 @@
+{
+  "artigo": "a",
+  "home": false,
+  "homeOrder": 99,
+  "colorHighlight": "#c50013",
+  "title": "Elaine Fernanda",
+  "description": "<p></p>",
+  "category": {
+    "slug": "sensual-intimista",
+    "title": "Sensual intimista"
+  },
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "bad19ce9-bd75-4aac-fffa-8c57fcfad500",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": "",
+      "highlight": true,
+      "canBeThumb": true
+    },
+    {
+      "imageId": "9ebacc57-b75b-4aea-faf4-ccafdd944600",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": "",
+      "highlight": true,
+      "canBeThumb": true
+    },
+    {
+      "imageId": "187730b8-9106-42cc-7603-3e0b3dc25200",
+      "width": 425,
+      "height": 637,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "imageId": "3750452b-892a-422f-7829-5cfefe66d000",
+      "width": 425,
+      "height": 637,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "imageId": "2280ca61-6c47-45f2-9a0a-7755903d2d00",
+      "width": 425,
+      "height": 637,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "imageId": "2e5fb8ee-48f6-46e7-8251-76beeba25400",
+      "width": 425,
+      "height": 637,
+      "format": "retrato",
+      "customClass": "w25",
+      "alt": ""
+    },
+    {
+      "imageId": "014a5427-f325-484f-be31-f9c4f4111a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "96012eaa-973d-4e6c-a807-24fbb400da00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "f51811d4-a16d-4e44-aaf7-48c30a03e100",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "73994784-ba85-4bd4-de1d-737b95283e00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "de7fa871-d1dc-4cc1-54a2-22bc5132db00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "053e019d-871f-40d7-6e55-5ade32b6a100",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "47abcfad-d8c0-4f01-64ad-498102913d00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "2960b5eb-11d3-44cc-c5fe-130cc009af00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "05c886bc-f223-43f6-22bf-c625e2a00a00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "e40f2857-9b49-4986-0717-91e182922100",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "d8abfe69-803b-4f05-8ce9-a0f5c4a49f00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "135d37e9-c7f1-426f-1531-30192379f300",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "imageId": "ff1e93df-1223-43f9-9dc7-657164277b00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "35c1df4b-2c59-47e4-423b-bdf9851fba00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "2c0f57d0-d7a8-4b5f-bf00-5f42af33b900",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "2b095eab-7b02-4925-5c29-aacc57942300",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "6cb46976-dda3-4145-6195-c6dc11148400",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "8b94feca-eded-479f-5b6d-f068d1425800",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    }
+  ]
+}

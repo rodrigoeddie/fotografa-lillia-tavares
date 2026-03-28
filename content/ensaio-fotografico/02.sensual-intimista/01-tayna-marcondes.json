@@ -1,0 +1,124 @@
+{
+  "artigo": "a",
+  "home": false,
+  "homeOrder": 99,
+  "colorHighlight": "#0e2b42",
+  "title": "Tayna Marcondes",
+  "description": "<p></p>",
+  "category": {
+    "slug": "sensual-intimista",
+    "title": "Sensual intimista"
+  },
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "b4f10562-cb8e-4d72-4e34-543b7f041400",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": "",
+      "highlight": true,
+      "canBeThumb": true
+    },
+    {
+      "imageId": "8b79b80d-d4af-4ece-4783-5083f5945300",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "f384eb60-dc25-4b92-154d-7c4dbadac700",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "7c91fa40-30c1-4b7d-f984-bf636e523500",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "b526b1fd-f20c-4fa1-87bd-0e7e25ad4600",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "e33cee97-2d9e-4f43-5018-2cb5d1f3a100",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "30b6e773-da23-4c5f-4e4d-dac8f716ef00",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": "",
+      "canBeThumb": true
+    },
+    {
+      "imageId": "9c3378e7-1f13-4269-b50a-818216576300",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "289c14e7-2ec3-4200-a799-02143f58ea00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "e8f621c0-9a68-4048-c60d-76d166281400",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "cbc9f0ea-a6ce-4bcc-695b-f807f7e7f700",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "f9196152-4fdc-47c2-94fc-35daf7219700",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": "",
+      "canBeThumb": true
+    }
+  ],
+  "testimonialId": 39,
+  "testimonial": {
+    "text": "Ambiente maravilhoso, planejado, confortável, a fotografa é incrível e sabe te deixar a vontade.",
+    "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXpNybqvPkGqtDcKrk_QGQwT3We9a2wpjjoyv2Rvv1Klya99RWiNQ=s72-c-rp-mo-br100",
+    "link": "",
+    "rating": 5,
+    "date": "24 de set. de 2024",
+    "source": "Google Maps"
+  }
+}
