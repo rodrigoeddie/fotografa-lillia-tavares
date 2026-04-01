@@ -5,14 +5,14 @@ const route = useRoute();
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const fm = inject<ReturnType<typeof useAdminFileManager>>('fileManager')!;
 
-const portfolioEditorRef = ref<any>(null);
+const investimentoEditorRef = ref<any>(null);
 
 onMounted(async () => {
   await nextTick();
   const file = route.query.file as string | undefined;
   if (file) {
     fm.selectedWork.value = file;
-    await portfolioEditorRef.value?.openWork(file);
+    await investimentoEditorRef.value?.openFile(file);
   }
 });
 
@@ -20,15 +20,15 @@ watch(() => route.query.file, async (newFile) => {
   if (newFile && typeof newFile === 'string') {
     fm.selectedWork.value = newFile;
     await nextTick();
-    await portfolioEditorRef.value?.openWork(newFile);
+    await investimentoEditorRef.value?.openFile(newFile);
   }
 });
 </script>
 
 <template>
-  <AdminPortfolioEditor
-    ref="portfolioEditorRef"
-    class="portfolio-editor"
+  <AdminInvestimentoEditor
+    ref="investimentoEditorRef"
+    class="inv-editor"
     :show-message="showMessage"
   />
 </template>

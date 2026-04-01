@@ -13,6 +13,10 @@ export default defineNuxtConfig({
   debug: false,
   sourcemap: false,
 
+  imports: {
+    dirs: ['composables/admin'],
+  },
+
   site: {
     url: siteConfig.url,
     name: siteConfig.title,
@@ -113,6 +117,10 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/scripts'
   ],
+
+  robots: {
+    disallow: ['/admin/'],
+  },
 
   sitemap: {
     sources: [
@@ -291,6 +299,9 @@ export default defineNuxtConfig({
         headers: {
           'Cache-Control': 'public, max-age=3600, s-maxage=3600'
         }
+      },
+      '/admin/**': {
+        robots: 'noindex, nofollow',
       },
       '/api/**': { 
         headers: {
