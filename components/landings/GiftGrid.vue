@@ -62,6 +62,8 @@ const props = defineProps({
         :class="{ 'card--active': item.active, 'card--soon': !item.active }"
         :data-ani-type="'fade-up'"
         :data-ani-delay="`${0.1 * (index + 1)}s`"
+        :data-track-event="item.active ? 'cta-presente-grid' : undefined"
+        :data-track-params="item.active ? JSON.stringify({ label: item.title }) : undefined"
       >
         <span class="card__icon">{{ item.icon }}</span>
         <h3 class="card-title">{{ item.title }}</h3>

@@ -25,7 +25,8 @@ const description = computed(() => {
         <div class="about-ctas">
           <NuxtLink
             to="/ensaio-fotografico"
-            class="link">
+            class="link"
+            data-track-event="cta-ver-portfolio">
             <Icon
               name="icons:image-regular"
               class="icon icon-image"/>
@@ -34,7 +35,8 @@ const description = computed(() => {
 
           <NuxtLink
             to="/estudio"
-            class="link">
+            class="link"
+            data-track-event="cta-ver-estudio">
             <Icon
               name="icons:location-pin-solid"
               class="icon icon-location-pin"/>
@@ -43,7 +45,8 @@ const description = computed(() => {
 
           <NuxtLink
             to="/agende-seu-ensaio"
-            class="link link-agende">
+            class="link link-agende"
+            data-track-event="cta-agendar-home">
             <Icon
               name="icons:calendar-regular"
               class="icon icon-calendar"/>

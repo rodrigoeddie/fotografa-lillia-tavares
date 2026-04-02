@@ -1,13 +1,8 @@
 <script lang="ts" setup>
     const configPublic = useRuntimeConfig().public;
-    const { gtag } = useGtag();
+    const { trackEvent } = useTracking();
 
-    const clickLogo = () => {
-        gtag('event', 'click-logo', {
-            app_name: 'Site',
-            screen_name: 'Footer'
-        })
-    }
+    const clickLogo = () => trackEvent('click-logo', { screen_name: 'Footer' });
 
     const props = defineProps({
         lp: {

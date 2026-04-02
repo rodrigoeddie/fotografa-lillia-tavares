@@ -21,7 +21,8 @@ const props = defineProps({
       to="/analise-coloracao-pessoal-em-mogi"
       target="_blank"
       class="container section-lp"
-      data-ani-type="fade-up">
+      data-ani-type="fade-up"
+      data-track-event="cta-coloracao">
         <div class="wrap-image">
             <nuxt-img
               provider="cloudflare"

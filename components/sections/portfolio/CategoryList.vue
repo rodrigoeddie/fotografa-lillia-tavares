@@ -352,7 +352,8 @@ const formatDate = (dateString: string) => {
             :to="'/agende-seu-ensaio'"
             data-ani-type="polaroid"
             data-ani-batch="wrap-portfolio"
-            data-ani-stagger="0.07">
+            data-ani-stagger="0.07"
+            data-track-event="cta-agendar-portfolio">
             <span>Gostou? Agende o seu</span>
           </NuxtLink>
         </template>
@@ -364,7 +365,8 @@ const formatDate = (dateString: string) => {
               :to="'/agende-seu-ensaio'"
               data-ani-type="polaroid"
               data-ani-batch="wrap-portfolio"
-              data-ani-stagger="0.07">
+              data-ani-stagger="0.07"
+              data-track-event="cta-agendar-portfolio">
               <span>Gostou? Agende o seu</span>
             </NuxtLink>
           </template>

@@ -70,7 +70,9 @@ const images = computed(() => {
                 :to="props.data.buttonLink"
                 class="btn-hero"
                 target="_blank"
-                :aria-label="props.data.buttonLabel || props.data.buttonText">
+                :aria-label="props.data.buttonLabel || props.data.buttonText"
+                data-track-event="cta-ver-portfolio-externo"
+                :data-track-params="JSON.stringify({ label: props.data.buttonText })">
                 <span>{{ props.data.buttonText }}</span>
 
                 <Icon

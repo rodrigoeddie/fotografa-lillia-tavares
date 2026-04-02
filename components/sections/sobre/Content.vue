@@ -50,8 +50,11 @@ const pageData = computed(() => sobre.value as any);
       <section class="sobre-cta">
         <h2>Vamos criar algo especial juntos?</h2>
         <p>Entre em contato e agende seu ensaio fotográfico.</p>
-        <NuxtLink to="/precos-ensaios-fotograficos" class="sobre-cta__button">
-          Ver Pacotes
+        <NuxtLink
+          to="/precos-ensaios-fotograficos"
+          class="sobre-cta__button"
+          data-track-event="cta-ver-pacotes-sobre">
+            <span>Ver Pacotes</span>
         </NuxtLink>
       </section>
     </div>

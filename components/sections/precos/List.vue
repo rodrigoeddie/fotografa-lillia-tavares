@@ -45,7 +45,9 @@ const categories = computed(() => {
           class="category-card"
           data-ani-type="polaroid"
           data-ani-batch="investment-categories"
-          data-ani-stagger="0.07">
+          data-ani-stagger="0.07"
+          data-track-event="cta-ver-categoria-precos"
+          :data-track-params="JSON.stringify({ categoria: category.slug })">
           <div class="category-card__icon" v-html="category.icon"></div>
           <h2 class="category-card__title">{{ category.name }}</h2>
           <p class="category-card__description">{{ category.description }}</p>
@@ -91,6 +93,7 @@ const categories = computed(() => {
           target="_blank"
           rel="noopener noreferrer"
           class="investment-cta__button"
+          data-track-event="cta-whatsapp-precos"
         >
           Falar com a Fotógrafa
         </a>

@@ -28,6 +28,7 @@ const props = defineProps({
             target="_blank"
             rel="noopener noreferrer"
             class="btn-cta"
+            data-track-event="cta-whatsapp-contato"
           >
             {{ props.data.buttonText ? props.data.buttonText : 'Agendar Ensaio pelo WhatsApp' }}
           </a>

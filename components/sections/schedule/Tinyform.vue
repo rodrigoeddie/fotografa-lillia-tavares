@@ -11,7 +11,7 @@ const props = defineProps({
     }
   });
 
-const { gtag } = useGtag();
+const { trackEvent } = useTracking();
 
 const configPublic = useRuntimeConfig().public;
 
@@ -86,10 +86,7 @@ const enviar = async () => {
 
     window.open(whatsappUrl, '_blank');
 
-    gtag('event', 'envio-form', {
-      app_name: 'Site',
-      screen_name: 'Agende seu ensaio'
-    });
+    trackEvent('envio-form', { screen_name: 'Agende seu ensaio' });
   }
 };
 </script>

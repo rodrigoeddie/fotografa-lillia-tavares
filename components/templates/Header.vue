@@ -22,20 +22,10 @@ onMounted(() => {
   }
 });
 
-const { gtag } = useGtag();
+const { trackEvent } = useTracking();
 
-const clickLogo = () => {
-  gtag('event', 'click-logo', {
-    app_name: 'Site',
-    screen_name: 'Header'
-  })
-}
-const clickWhats = () => {
-  gtag('event', 'click-whats', {
-    app_name: 'Site',
-    screen_name: 'Header'
-  })
-}
+const clickLogo = () => trackEvent('click-logo', { screen_name: 'Header' });
+const clickWhats = () => trackEvent('click-whats', { screen_name: 'Header' });
 
 const props = defineProps({
     lp: {

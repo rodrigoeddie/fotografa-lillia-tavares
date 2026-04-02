@@ -44,7 +44,9 @@ const props = defineProps({
                         <li>Entrega rápida</li>
                     </ul>
             
-                    <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)">
+                    <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)"
+                       data-track-event="cta-whatsapp-hero"
+                       data-track-screen="LP Corporativo">
                         <Icon name="icons:whatsapp" class="icon"/>
                         <span>Agendar Ensaio</span>
                     </a>
@@ -87,7 +89,9 @@ const props = defineProps({
                             <li>Entrega rápida</li>
                         </ul>
                 
-                        <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio de dia das mães (mensagem do site)">
+                        <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio de dia das mães (mensagem do site)"
+                           data-track-event="cta-whatsapp-hero"
+                           data-track-screen="LP Dia das Mães">
                             <Icon name="icons:whatsapp" class="icon"/>
                             <span>Quero presentear com um ensaio →</span>
                         </a>

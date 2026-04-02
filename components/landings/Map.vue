@@ -24,7 +24,10 @@ const props = defineProps({
     <section>
         <div class="container wrapper-map">
             <div class="image">
-                <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank">
+                <a
+                  href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7"
+                  target="_blank"
+                  data-track-event="click-mapa">
                     <nuxt-img
                         provider="cloudflare"
                         :src='"https://images.fotografalilliatavares.com.br/images/11cdaead-933f-4b58-cb28-68e29ed44900/public"'
