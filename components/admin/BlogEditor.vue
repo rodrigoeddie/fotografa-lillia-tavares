@@ -422,7 +422,10 @@ defineExpose({ openFile });
             <button class="btn-small" @click="showNewCat = !showNewCat">+ Nova</button>
           </div>
           <div v-if="showNewCat" class="new-cat-row">
-            <input v-model="newCatName" placeholder="Nome da categoria" @keydown.enter="createNewCategory" />
+            <label>
+                <span>Nome da categoria</span>
+                <input v-model="newCatName" @keydown.enter="createNewCategory" />
+            </label>
             <button class="btn-small ok" @click="createNewCategory">✓</button>
             <button class="btn-small cancel" @click="showNewCat = false; newCatName = ''">✕</button>
           </div>
@@ -448,14 +451,26 @@ defineExpose({ openFile });
             <button class="btn-small" @click="openCfBrowser({ type: 'main', index: 0 })">Selecionar imagem</button>
           </div>
           <div class="image-fields" v-if="data.image.imageId">
-            <input v-model.number="data.image.width" type="number" placeholder="Width" />
-            <input v-model.number="data.image.height" type="number" placeholder="Height" />
-            <select v-model="data.image.format">
-              <option value="paisagem">Paisagem</option>
-              <option value="retrato">Retrato</option>
-              <option value="square">Quadrado</option>
-            </select>
-            <input v-model="data.image.alt" type="text" placeholder="Alt text" />
+            <label>
+                <span>Width</span>
+                <input v-model.number="data.image.width" type="number" />
+            </label>
+            <label>
+                <span>Height</span>
+                <input v-model.number="data.image.height" type="number" />
+            </label>
+            <label>
+                <span>Orientação</span>
+                <select v-model="data.image.format">
+                  <option value="paisagem">Paisagem</option>
+                  <option value="retrato">Retrato</option>
+                  <option value="square">Quadrado</option>
+                </select>
+            </label>
+            <label>
+                <span>Alt text</span>
+                <input v-model="data.image.alt" type="text" placeholder="" />
+            </label>
           </div>
         </div>
 
