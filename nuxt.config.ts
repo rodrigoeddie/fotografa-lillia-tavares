@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+import { fileURLToPath, URL } from 'node:url'
 import { definePerson } from 'nuxt-schema-org/schema';
 
 const siteConfig = {
@@ -116,7 +117,7 @@ export default defineNuxtConfig({
 
   icon: {
     mode: 'svg',
-    serverBundle: 'local', // empacota os ícones usados no build
+    serverBundle: 'remote', // ícones buscados da CDN Iconify no SSR — não entra no Worker
     clientBundle: {
       scan: true,           // detecta automaticamente quais ícones o cliente usa
     },
@@ -254,7 +255,22 @@ export default defineNuxtConfig({
     minify: true,
     compressPublicAssets: true,
     compatibilityDate: '2026-02-19',
-    
+
+    // Stub do Shiki no bundle do Worker: highlight: false + pre-render = Shiki nunca é
+    // chamado em runtime, mas ainda era importado estaticamente (2.9MB de WASM desnecessários).
+    alias: (() => {
+      const noop = fileURLToPath(new URL('./server/utils/shiki-noop.ts', import.meta.url))
+      return {
+        'shiki': noop,
+        'shiki/wasm': noop,
+        'shiki/engine/oniguruma': noop,
+        'shiki/engine/javascript': noop,
+        '@shikijs/core': noop,
+        '@shikijs/vscode-textmate': noop,
+        'vscode-oniguruma': noop,
+      }
+    })(),
+
     rollupConfig: {
       output: {
         manualChunks: undefined
@@ -302,6 +318,7 @@ export default defineNuxtConfig({
       },
       '/admin/**': {
         robots: 'noindex, nofollow',
+        ssr: false, // admin renderiza client-side — remove componentes admin do Worker
       },
       '/api/**': { 
         headers: {

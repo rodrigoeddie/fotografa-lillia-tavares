@@ -41,21 +41,21 @@ useSchemaOrg([
 body.lp-corporativo {
     --swiper-pagination-color: black;
     --swiper-pagination-bullet-inactive-color: #939DAB;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Lato', sans-serif;
     background: white;
 }
 
 body.lp-dia-das-maes {
     --swiper-pagination-color: black;
     --swiper-pagination-bullet-inactive-color: #aba093;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Lato', sans-serif;
     background: white;
 }
 
 body.lp-presentes {
     --swiper-pagination-color: black;
     --swiper-pagination-bullet-inactive-color: #b8909a;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Lato', sans-serif;
     background: white;
 }
 

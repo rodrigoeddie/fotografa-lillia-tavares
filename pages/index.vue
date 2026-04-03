@@ -27,6 +27,8 @@ useSeoMeta({
   twitterTitle: home.value?.title,
   twitterDescription: home.value?.description,
   twitterImage: homeOgImage,
+  fbAppId: '1304313054896815',
+  ogImageAlt: 'Fotógrafa Lillia Tavares segurando sua câmera fotográfica'
 });
 
 useHead({

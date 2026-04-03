@@ -23,7 +23,7 @@ useSchemaOrg([
 body.lp-corporativo {
     --swiper-pagination-color: black;
     --swiper-pagination-bullet-inactive-color: #939DAB;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Lato', sans-serif;
     background: white;
 }
 </style>
