@@ -337,8 +337,59 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2026-03-17',
-  
+
   experimental: {
     payloadExtraction: false,
+  },
+
+  hooks: {
+    // Garante que todas as páginas de conteúdo dinâmico sejam pré-renderizadas.
+    // Sem isso, páginas de terceiro nível (/blog/cat/slug, /ensaio/cat/slug) caem
+    // no Worker em runtime, que pode ter chunk hashes inconsistentes com os assets
+    // estáticos — causando "Failed to fetch dynamically imported module".
+    async 'nitro:config'(nitroConfig) {
+      if (nitroConfig.dev) return
+
+      const { promises: fsp } = await import('node:fs')
+      const { join } = await import('node:path')
+
+      const contentDir = join(process.cwd(), 'content')
+      const routes: string[] = []
+
+      // Strip prefixo numérico com ponto (ex: "01.corporativo" → "corporativo")
+      // Mantém variantes com traço (ex: "05-sheila-lima" → "05-sheila-lima")
+      function cleanSegment(name: string) {
+        return name.replace(/^\d+\./, '').replace(/\.(json|md)$/, '')
+      }
+
+      async function walk(dir: string, urlBase: string) {
+        let entries: import('fs').Dirent[]
+        try { entries = await fsp.readdir(dir, { withFileTypes: true }) }
+        catch { return }
+
+        for (const entry of entries) {
+          if (entry.name.startsWith('_') || entry.name.startsWith('.')) continue
+          const clean = cleanSegment(entry.name)
+          const url = `${urlBase}/${clean}`
+
+          if (entry.isDirectory()) {
+            await walk(join(dir, entry.name), url)
+          } else if (entry.isFile() && /\.(json|md)$/.test(entry.name)) {
+            // index.md/json = página de categoria, já listada em prerender.routes
+            if (/^index\.(json|md)$/.test(entry.name)) continue
+            routes.push(url)
+          }
+        }
+      }
+
+      await walk(join(contentDir, 'ensaio-fotografico'), '/ensaio-fotografico')
+      await walk(join(contentDir, 'blog'), '/blog')
+
+      nitroConfig.prerender = nitroConfig.prerender ?? {}
+      nitroConfig.prerender.routes = [
+        ...(nitroConfig.prerender.routes ?? []),
+        ...routes,
+      ]
+    },
   },
 })
