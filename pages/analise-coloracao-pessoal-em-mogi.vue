@@ -109,16 +109,17 @@ const steps = [
               <span>Agendar minha análise →</span>
             </a>
           </div>
-          <div class="coloracao-hero__image" data-ani-type="fade-left" data-ani-delay="0.3s">
+          <div class="coloracao-hero__image">
             <nuxt-img
               provider="cloudflare"
               src="https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
               alt="Fotógrafa e consultora de imagem Lillia Tavares realizando análise de coloração pessoal em Mogi das Cruzes"
               width="450"
-              lazyload="true"
+              height="600"
+              loading="eager"
+              fetchpriority="high"
               sizes="100vw sm:50vw md:450px"
               format="webp"
-              placeholder
               class="img"
             />
           </div>

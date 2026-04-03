@@ -1,7 +1,6 @@
 # ToDo
 
- - Página de coloração
- - Página da lista de presentes
+ - share para cada pagina
  - Páginas da interna dos outros preços
  - atualizar os produtos no google maps, e acrescentar dia das mães
 

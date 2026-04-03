@@ -62,7 +62,7 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
     <NuxtLink
       :to="workPage"
       :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
-      data-ani-type="fade">
+      >
       <h1 class="big-title green centered">
         <span class="box">
           <span v-if="!currentCategory">Explore meus</span>
@@ -77,10 +77,7 @@ const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
       <template v-for="(item, index) in ensaiosData">
         <BlocksCardSimplePortfolio
           :item="item"
-          :class="'lenght-items-' + ensaiosData.length"
-          data-ani-type="polaroid"
-          data-ani-batch="wrap-portfolio"
-          data-ani-stagger="0.07" />
+          :class="'lenght-items-' + ensaiosData.length" />
       </template>
     </div>
   </div>

@@ -15,7 +15,7 @@ const description = computed(() => {
 </script>
 
 <template>
-    <div class="wrap-about row" data-ani-type="fade">
+    <div class="wrap-about row">
       <div class="col col-text">
         <div class="about-text">
           <h1 class="title">{{ sobre?.title }}</h1>

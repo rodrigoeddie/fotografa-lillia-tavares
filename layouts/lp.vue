@@ -18,22 +18,7 @@ const logo = computed(() => {
 useHead({
   bodyAttrs: {
     class: computed(() => `lp-${lpType.value}`)
-  },
-  link: [
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.googleapis.com'
-    },
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.gstatic.com',
-      crossorigin: ''
-    },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap'
-    }
-  ]
+  }
 });
 
 useSchemaOrg([
@@ -46,7 +31,6 @@ useSchemaOrg([
 
 <template>
   <div :class="showHeader ? `wrapper-main` : ''">
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4335671090015485&ev=PageView&noscript=1" /></noscript>
     <TemplatesHeader v-if="showHeader" :class="`lp-${lpType}`" :lp="lpType" :logo="logo" />
     <slot />
     <TemplatesFooter :class="`lp-${lpType}`" :lp="lpType" :logo="logo" />

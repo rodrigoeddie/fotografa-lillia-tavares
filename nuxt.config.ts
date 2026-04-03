@@ -66,8 +66,9 @@ export default defineNuxtConfig({
           innerHTML: `(function(){var noop=function(){};['sharedStorage','attributionReporting'].forEach(function(k){try{Object.defineProperty(window,k,{get:noop,configurable:true})}catch(e){}});})();`,
         },
         {
-          // Snippet de init do GA — minúsculo, fica no main thread e define a fila dataLayer
+          // Snippet de init do GA — move para bodyClose para não bloquear rendering
           innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-8L15WEPJQE');`,
+          tagPosition: 'bodyClose',
         },
         {
           // O script pesado (173KB) é movido para web worker pelo Partytown
