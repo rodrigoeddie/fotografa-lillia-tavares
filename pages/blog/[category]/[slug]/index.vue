@@ -179,7 +179,7 @@ const processedContent = computed(() => {
 
     <SectionsGeneralGallery v-if="post.album" :album="post.album" />
     <SectionsPortfolioList v-if="post.works" :category="post.works" class="blog-portfolio" />
-    <SectionsScheduleTinyform v-if="post.showSchedule === true" :formType="post.title" />
+    <ClientOnly><SectionsScheduleTinyform v-if="post.showSchedule === true" :formType="post.title" /></ClientOnly>
   </div>
 </template>
 

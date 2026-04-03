@@ -249,22 +249,7 @@ export default defineNuxtConfig({
     minify: true,
     compressPublicAssets: true,
     compatibilityDate: '2026-02-19',
-
-    // Stub do Shiki no bundle do Worker: highlight: false + pre-render = Shiki nunca é
-    // chamado em runtime, mas ainda era importado estaticamente (2.9MB de WASM desnecessários).
-    alias: (() => {
-      const noop = fileURLToPath(new URL('./server/utils/shiki-noop.ts', import.meta.url))
-      return {
-        'shiki': noop,
-        'shiki/wasm': noop,
-        'shiki/engine/oniguruma': noop,
-        'shiki/engine/javascript': noop,
-        '@shikijs/core': noop,
-        '@shikijs/vscode-textmate': noop,
-        'vscode-oniguruma': noop,
-      }
-    })(),
-
+    
     rollupConfig: {
       output: {
         manualChunks: undefined
@@ -286,12 +271,6 @@ export default defineNuxtConfig({
     },
 
     routeRules: {
-      // Assets do build — nomes com hash, imutáveis
-      '/_nuxt/**': {
-        headers: {
-          'Cache-Control': 'public, max-age=31536000, immutable'
-        }
-      },
       '/': { 
         prerender: true,
         headers: {
@@ -312,7 +291,6 @@ export default defineNuxtConfig({
       },
       '/admin/**': {
         robots: 'noindex, nofollow',
-        ssr: false, // admin renderiza client-side — remove componentes admin do Worker
       },
       '/api/**': { 
         headers: {
@@ -331,132 +309,8 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2026-03-17',
-
+  
   experimental: {
     payloadExtraction: false,
-    // Quando um chunk JS não é encontrado (ex: deployment parcial com hashes novos
-    // e Worker antigo), o Nuxt recarrega a página automaticamente em vez de 500.
-    emitRouteChunkError: 'automatic',
-  },
-
-  hooks: {
-    // Após o build, patcha _routes.json para excluir do Worker todos os caminhos
-    // de conteúdo pré-renderizados. Sem isso, include: ["/*"] manda essas rotas
-    // ao Worker mesmo com HTML estático existente em dist, causando 500.
-    //
-    // IMPORTANTE: * em _routes.json do Cloudflare NÃO bate em múltiplos segmentos
-    // de path (comportamento glob padrão: * não inclui /). Ex: /ensaio-fotografico/*
-    // cobre /ensaio-fotografico/sensual-intimista mas NÃO
-    // /ensaio-fotografico/sensual-intimista/tayna-marcondes.
-    // Por isso usamos caminhos explícitos para cada página pré-renderizada.
-    //
-    // Para manter o total abaixo de 100 regras, removemos variantes .br/.gz
-    // (o Cloudflare serve compressão automaticamente via content negotiation).
-    'nitro:init'(nitro) {
-      nitro.hooks.hook('close', async () => {
-        if (nitro.options.dev) return
-
-        const { promises: fsp } = await import('node:fs')
-        const { join } = await import('node:path')
-
-        const routesPath = join(nitro.options.output.publicDir, '_routes.json')
-        try {
-          const content = JSON.parse(await fsp.readFile(routesPath, 'utf-8'))
-
-          // 1. Remove entradas desnecessárias para liberar espaço dentro do limite de 100:
-          //    - Variantes compactadas (.br/.gz) — Cloudflare usa content negotiation automático
-          //    - Arquivos .DS_Store compactados
-          //    - Wildcards quebrados para diretórios de conteúdo (/* não cobre paths aninhados)
-          const CONTENT_DIRS = ['/ensaio-fotografico', '/blog', '/estudio', '/presente-ensaio-fotografico-mogi']
-          content.exclude = (content.exclude as string[]).filter((rule: string) => {
-            if (rule.endsWith('.br') || rule.endsWith('.gz')) return false
-            if (rule.includes('.DS_Store') && rule !== '/.DS_Store') return false
-            if (CONTENT_DIRS.some((d) => rule === d + '/*')) return false
-            return true
-          })
-
-          // 2. Percorre o diretório de saída e adiciona cada página pré-renderizada explicitamente.
-          //    Usa Set para deduplicar com entradas já existentes.
-          const publicDir = nitro.options.output.publicDir
-          const toExclude = new Set(content.exclude as string[])
-
-          async function collectPagePaths(dir: string, urlBase: string) {
-            let entries: import('fs').Dirent[]
-            try { entries = await fsp.readdir(dir, { withFileTypes: true }) }
-            catch { return }
-
-            for (const entry of entries) {
-              if (!entry.isDirectory()) continue
-              if (entry.name.startsWith('_') || entry.name.startsWith('.')) continue
-
-              const subUrl = `${urlBase}/${entry.name}`
-              try {
-                await fsp.access(join(dir, entry.name, 'index.html'))
-                toExclude.add(subUrl)
-              } catch {}
-
-              await collectPagePaths(join(dir, entry.name), subUrl)
-            }
-          }
-
-          for (const dirName of ['ensaio-fotografico', 'blog', 'estudio', 'presente-ensaio-fotografico-mogi']) {
-            await collectPagePaths(join(publicDir, dirName), `/${dirName}`)
-          }
-
-          content.exclude = [...toExclude]
-
-          await fsp.writeFile(routesPath, JSON.stringify(content, null, 2))
-          console.log(`[routes] _routes.json patched: ${content.exclude.length} exclude rules (limit: 100)`)
-        } catch (e) {
-          console.warn('[routes] Could not patch _routes.json:', e)
-        }
-      })
-    },
-
-    // Garante que todas as páginas de conteúdo dinâmico sejam pré-renderizadas.
-    async 'nitro:config'(nitroConfig) {
-      if (nitroConfig.dev) return
-
-      const { promises: fsp } = await import('node:fs')
-      const { join } = await import('node:path')
-
-      const contentDir = join(process.cwd(), 'content')
-      const routes: string[] = []
-
-      // Strip prefixo numérico com ponto (ex: "01.corporativo" → "corporativo")
-      // Mantém variantes com traço (ex: "05-sheila-lima" → "05-sheila-lima")
-      function cleanSegment(name: string) {
-        return name.replace(/^\d+\./, '').replace(/\.(json|md)$/, '')
-      }
-
-      async function walk(dir: string, urlBase: string) {
-        let entries: import('fs').Dirent[]
-        try { entries = await fsp.readdir(dir, { withFileTypes: true }) }
-        catch { return }
-
-        for (const entry of entries) {
-          if (entry.name.startsWith('_') || entry.name.startsWith('.')) continue
-          const clean = cleanSegment(entry.name)
-          const url = `${urlBase}/${clean}`
-
-          if (entry.isDirectory()) {
-            await walk(join(dir, entry.name), url)
-          } else if (entry.isFile() && /\.(json|md)$/.test(entry.name)) {
-            // index.md/json = página de categoria, já listada em prerender.routes
-            if (/^index\.(json|md)$/.test(entry.name)) continue
-            routes.push(url)
-          }
-        }
-      }
-
-      await walk(join(contentDir, 'ensaio-fotografico'), '/ensaio-fotografico')
-      await walk(join(contentDir, 'blog'), '/blog')
-
-      nitroConfig.prerender = nitroConfig.prerender ?? {}
-      nitroConfig.prerender.routes = [
-        ...(nitroConfig.prerender.routes ?? []),
-        ...routes,
-      ]
-    },
   },
 })

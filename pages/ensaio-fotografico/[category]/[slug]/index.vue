@@ -70,7 +70,7 @@ useHead({
   <div class="container no-padding" :style="{ '--color-highlight': work.colorHighlight }">
     <SectionsGeneralHero :data="work" :breadcrumbs="breadcrumbs" />
     <SectionsGeneralGallery :album="album" />
-    <SectionsScheduleTinyform :formType="work.category.title" />
+    <ClientOnly><SectionsScheduleTinyform :formType="work.category.title" /></ClientOnly>
   </div>
 </template>
 

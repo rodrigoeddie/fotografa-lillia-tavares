@@ -47,5 +47,5 @@ useHead({
     ]" />
   </div>
   <SectionsDepoimentosList />
-  <SectionsScheduleTinyform :formType="'noType'" />
+  <ClientOnly><SectionsScheduleTinyform :formType="'noType'" /></ClientOnly>
 </template>
