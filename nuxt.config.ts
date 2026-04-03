@@ -57,26 +57,7 @@ export default defineNuxtConfig({
           href: 'https://images.fotografalilliatavares.com.br'
         }
       ],
-      script: [
-        {
-          // Suprime APIs descontinuadas (SharedStorage, AttributionReporting) que o gtag.js
-          // tenta usar no worker do Partytown, gerando avisos no PageSpeed.
-          // Roda antes do gtag carregar, dentro do mesmo contexto do worker (text/partytown).
-          type: 'text/partytown',
-          innerHTML: `(function(){var noop=function(){};['sharedStorage','attributionReporting'].forEach(function(k){try{Object.defineProperty(window,k,{get:noop,configurable:true})}catch(e){}});})();`,
-        },
-        {
-          // Snippet de init do GA — move para bodyClose para não bloquear rendering
-          innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-8L15WEPJQE');`,
-          tagPosition: 'bodyClose',
-        },
-        {
-          // O script pesado (173KB) é movido para web worker pelo Partytown
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-8L15WEPJQE',
-          type: 'text/partytown',
-          async: true,
-        },
-      ],
+
     },
   },
 
@@ -111,7 +92,6 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxtjs/partytown',
     'nuxt-easy-lightbox',
     'nuxt-schema-org',
     '@nuxtjs/device',
@@ -136,6 +116,10 @@ export default defineNuxtConfig({
 
   icon: {
     mode: 'svg',
+    serverBundle: 'local', // empacota os ícones usados no build
+    clientBundle: {
+      scan: true,           // detecta automaticamente quais ícones o cliente usa
+    },
     customCollections: [
       {
         prefix: 'icons',
@@ -144,11 +128,6 @@ export default defineNuxtConfig({
         // recursive: true,
       },
     ],
-  },
-
-  partytown: {
-    // Encaminha chamadas ao dataLayer do main thread para o worker onde o GA processa
-    forward: ['dataLayer.push'],
   },
 
   image: {
