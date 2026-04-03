@@ -66,11 +66,11 @@ const props = defineProps({
                         :height="'1333'"
                         :alt="'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom'"
                         loading="eager"
-                        sizes="100vw sm:50vw md:800px"
+                        sizes="100vw sm:50vw md:800px lg:2000px"
                         fetchpriority="high" />
                 </div>
 
-                    <div class="text" data-ani-type="fade-right" data-ani-delay="0.3s">
+                    <div class="text">
                         <nuxtLink to="/" aria-label="Voltar para a página inicial">
                             <nuxt-img
                                 provider="cloudflare"

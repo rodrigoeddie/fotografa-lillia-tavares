@@ -1,7 +1,5 @@
 
 <script setup lang="ts">
-import { data } from 'autoprefixer';
-
 const props = defineProps({
   lp: {
     type: String,
