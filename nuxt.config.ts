@@ -340,10 +340,47 @@ export default defineNuxtConfig({
   },
 
   hooks: {
+    // Após o build, patcha _routes.json para excluir do Worker todos os caminhos
+    // de conteúdo pré-renderizados. Sem isso, include: ["/*"] manda essas rotas
+    // ao Worker mesmo com HTML estático existente em dist, causando 500.
+    // Também compacta entradas individuais em wildcards para ficar abaixo do
+    // limite de 100 regras do Cloudflare Pages.
+    'nitro:init'(nitro) {
+      nitro.hooks.hook('close', async () => {
+        if (nitro.options.dev) return
+
+        const { promises: fsp } = await import('node:fs')
+        const { join } = await import('node:path')
+
+        const routesPath = join(nitro.options.output.publicDir, '_routes.json')
+        try {
+          const content = JSON.parse(await fsp.readFile(routesPath, 'utf-8'))
+
+          // Wildcards substituem TODAS as entradas individuais desses prefixos.
+          const wildcardPrefixes = [
+            '/ensaio-fotografico/',
+            '/blog/',
+            '/estudio/',
+          ]
+
+          // Remove entradas individuais cobertas pelos wildcards
+          content.exclude = content.exclude.filter((rule: string) =>
+            !wildcardPrefixes.some((prefix) => rule.startsWith(prefix))
+          )
+
+          // Adiciona os wildcards
+          const wildcards = wildcardPrefixes.map((p) => p + '**')
+          content.exclude.push(...wildcards.filter((w: string) => !content.exclude.includes(w)))
+
+          await fsp.writeFile(routesPath, JSON.stringify(content, null, 2))
+          console.log(`[routes] _routes.json patched: ${content.exclude.length} exclude rules (limit: 100)`)
+        } catch (e) {
+          console.warn('[routes] Could not patch _routes.json:', e)
+        }
+      })
+    },
+
     // Garante que todas as páginas de conteúdo dinâmico sejam pré-renderizadas.
-    // Sem isso, páginas de terceiro nível (/blog/cat/slug, /ensaio/cat/slug) caem
-    // no Worker em runtime, que pode ter chunk hashes inconsistentes com os assets
-    // estáticos — causando "Failed to fetch dynamically imported module".
     async 'nitro:config'(nitroConfig) {
       if (nitroConfig.dev) return
 
