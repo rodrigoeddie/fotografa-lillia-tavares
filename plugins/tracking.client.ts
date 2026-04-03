@@ -14,8 +14,13 @@
  *   <button data-track-event="envio-form" data-track-params='{"tipo":"corporativo"}'>
  */
 export default defineNuxtPlugin(() => {
-  const { gtag } = useGtag();
   const router = useRouter();
+
+  const fireGtag = (eventName: string, params: Record<string, unknown>) => {
+    if (typeof (window as any).gtag === 'function') {
+      ;(window as any).gtag('event', eventName, params);
+    }
+  };
 
   document.addEventListener('click', (e: MouseEvent) => {
     const target = (e.target as HTMLElement).closest<HTMLElement>('[data-track-event]');
@@ -35,7 +40,7 @@ export default defineNuxtPlugin(() => {
       }
     }
 
-    gtag('event', eventName, {
+    fireGtag(eventName, {
       app_name: 'Site',
       screen_name: screen,
       ...extra,

@@ -49,19 +49,6 @@ export default defineNuxtConfig({
       ],
       link: [
         {
-          rel: 'preconnect',
-          href: 'https://fonts.googleapis.com'
-        },
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
-          crossorigin: ''
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap'
-        },
-        {
           rel: 'dns-prefetch',
           href: 'https://images.fotografalilliatavares.com.br'
         },
@@ -69,7 +56,26 @@ export default defineNuxtConfig({
           rel: 'preconnect',
           href: 'https://images.fotografalilliatavares.com.br'
         }
-      ]
+      ],
+      script: [
+        {
+          // Suprime APIs descontinuadas (SharedStorage, AttributionReporting) que o gtag.js
+          // tenta usar no worker do Partytown, gerando avisos no PageSpeed.
+          // Roda antes do gtag carregar, dentro do mesmo contexto do worker (text/partytown).
+          type: 'text/partytown',
+          innerHTML: `(function(){var noop=function(){};['sharedStorage','attributionReporting'].forEach(function(k){try{Object.defineProperty(window,k,{get:noop,configurable:true})}catch(e){}});})();`,
+        },
+        {
+          // Snippet de init do GA — minúsculo, fica no main thread e define a fila dataLayer
+          innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-8L15WEPJQE');`,
+        },
+        {
+          // O script pesado (173KB) é movido para web worker pelo Partytown
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-8L15WEPJQE',
+          type: 'text/partytown',
+          async: true,
+        },
+      ],
     },
   },
 
@@ -112,7 +118,6 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
-    'nuxt-gtag',
     '@nuxt/ui',
     '@nuxt/icon',
     '@nuxt/scripts'
@@ -140,8 +145,9 @@ export default defineNuxtConfig({
     ],
   },
 
-  gtag: {
-    id: 'G-8L15WEPJQE'
+  partytown: {
+    // Encaminha chamadas ao dataLayer do main thread para o worker onde o GA processa
+    forward: ['dataLayer.push'],
   },
 
   image: {
@@ -212,6 +218,14 @@ export default defineNuxtConfig({
       cssMinify: 'lightningcss',
       sourcemap: false,
       target: 'esnext',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-swiper': ['swiper'],
+            'vendor-gsap': ['gsap', 'gsap/ScrollTrigger'],
+          },
+        },
+      },
     },
     optimizeDeps: {
       include: [
@@ -282,6 +296,12 @@ export default defineNuxtConfig({
     },
 
     routeRules: {
+      // Assets do build — nomes com hash, imutáveis
+      '/_nuxt/**': {
+        headers: {
+          'Cache-Control': 'public, max-age=31536000, immutable'
+        }
+      },
       '/': { 
         prerender: true,
         headers: {

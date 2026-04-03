@@ -65,7 +65,7 @@ const description = computed(() => {
           preload
           sizes="100vw sm:50vw md:935px"
           format="webp"
-          placeholder
+          loading="eager"
           class="img cover"/>
       </div>
     </div>

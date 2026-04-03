@@ -1,0 +1,21 @@
+# Assets do build do Nuxt — nomes com hash, seguro cachear por 1 ano
+/_nuxt/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Ícones e imagens estáticas da pasta public
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fontes
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable

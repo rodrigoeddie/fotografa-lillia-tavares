@@ -4,17 +4,17 @@
 <template>
     <NuxtLink
       to="/presente-ensaio-fotografico-mogi/dia-das-maes"
-      data-ani-type="fade"
       class="wrap-banner">
         <nuxt-img
           provider="cloudflare"
           :src='"https://images.fotografalilliatavares.com.br/images/5a652dab-c42b-4672-3810-2aaef0d0ce00/public"'
+          sizes="100vw md:50vw lg:860px"
           alt="Mãe e filho"
           width="860"
           fetchpriority="high"
           preload
+          loading="eager"
           format="webp"
-          placeholder
           class="img cover"/>
         
         <div class="text">

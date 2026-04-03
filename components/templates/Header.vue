@@ -38,68 +38,63 @@ const props = defineProps({
     }
 });
 
-const isScrolled = ref(false); // Estado para controlar se o header está "scrolled"
-const headerRef = ref<HTMLElement | null>(null); // Referência ao elemento do header
-let lastScrollTop = 0;
+const isScrolled = ref(false);
+const headerRef = ref<HTMLElement | null>(null);
 let headerPassedOnce = false;
-let initialHeaderTopPosition = 0; // Posição inicial do header (capturada apenas uma vez)
+let initialHeaderTopPosition = 0;
+let cachedHeaderHeight = 0;
+let cachedWrapperMain: HTMLElement | null = null;
+let rafId: number | null = null;
+
+const applyScrolled = () => {
+  if (isScrolled.value) return;
+  isScrolled.value = true;
+  headerRef.value?.classList.add('is-scrolled');
+  if (cachedWrapperMain) {
+    cachedWrapperMain.style.paddingTop = `${cachedHeaderHeight + 30}px`;
+  }
+};
+
+const removeScrolled = () => {
+  if (!isScrolled.value) return;
+  isScrolled.value = false;
+  headerRef.value?.classList.remove('is-scrolled');
+  if (cachedWrapperMain) {
+    cachedWrapperMain.style.paddingTop = '';
+  }
+};
 
 const handleScroll = () => {
-  const scrollTop = window.scrollY;
+  // throttle via rAF — evita leituras de layout a cada pixel scrollado
+  if (rafId !== null) return;
+  rafId = requestAnimationFrame(() => {
+    rafId = null;
+    const scrollTop = window.scrollY;
 
-  const headerElement = document.querySelector('.header');
-
-  if (headerElement) {
-    const headerRect = headerElement.getBoundingClientRect();
-
-    // Capturar a posição inicial do header apenas uma vez
-    if (initialHeaderTopPosition === 0) {
-      initialHeaderTopPosition = headerRect.top + scrollTop;
-    }
-
-    // Se o header alcançou a posição 0 (topo da tela) pela primeira vez
-    if (headerRect.top <= 0 && !headerPassedOnce) {
+    if (scrollTop > initialHeaderTopPosition && !headerPassedOnce) {
       headerPassedOnce = true;
-
-      if (!isScrolled.value) {
-        isScrolled.value = true;
-        headerRef.value?.classList.add('is-scrolled');
-
-        const wrapperMain = document.querySelector('.wrapper-main');
-        if (wrapperMain && headerRef.value) {
-          const headerHeight = headerRef.value.clientHeight;
-          const paddingTop = headerHeight + 30;
-          (wrapperMain as HTMLElement).style.paddingTop = `${paddingTop}px`;
-        }
-      }
-    }
-
-    // Se voltou para a posição inicial do header
-    if (scrollTop <= initialHeaderTopPosition && headerPassedOnce) {
+      applyScrolled();
+    } else if (scrollTop <= initialHeaderTopPosition && headerPassedOnce) {
       headerPassedOnce = false;
-
-      if (isScrolled.value) {
-        isScrolled.value = false;
-
-        const wrapperMain = document.querySelector('.wrapper-main');
-        if (wrapperMain) {
-          (wrapperMain as HTMLElement).style.paddingTop = '';
-        }
-
-        headerRef.value?.classList.remove('is-scrolled');
-      }
+      removeScrolled();
     }
-  }
-
-  lastScrollTop = scrollTop;
+  });
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll); // Adiciona o evento de scroll
+  // Lê dimensões UMA VEZ no mount, fora do scroll handler
+  if (headerRef.value) {
+    initialHeaderTopPosition = headerRef.value.offsetTop;
+    cachedHeaderHeight = headerRef.value.offsetHeight;
+  }
+  cachedWrapperMain = document.querySelector<HTMLElement>('.wrapper-main');
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll); // Remove o evento de scroll ao desmontar o componente
+  if (rafId !== null) cancelAnimationFrame(rafId);
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 

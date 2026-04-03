@@ -15,18 +15,20 @@
  *   data-track-params  — JSON com parâmetros extras (opcional), ex: '{"category":"ensaio"}'
  */
 export const useTracking = () => {
-  const { gtag } = useGtag();
   const route = useRoute();
 
   const trackEvent = (
     eventName: string,
     params?: Record<string, unknown>
   ) => {
-    gtag('event', eventName, {
-      app_name: 'Site',
-      screen_name: String(route.name || route.path),
-      ...params,
-    });
+    // gtag é definido pelo snippet inline no head; dataLayer.push é encaminhado ao Partytown worker
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      ;(window as any).gtag('event', eventName, {
+        app_name: 'Site',
+        screen_name: String(route.name || route.path),
+        ...params,
+      });
+    }
   };
 
   return { trackEvent };

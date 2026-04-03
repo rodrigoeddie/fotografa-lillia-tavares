@@ -1,15 +1,17 @@
 <script setup lang="ts">
 const { init, cleanup } = useScrollAnimations()
 const route = useRoute()
+const nuxtApp = useNuxtApp()
 
 watch(() => route.fullPath, () => {
   window.scrollTo({ top: 0 })
   cleanup()
 }, { flush: 'sync' })
 
-watch(() => route.fullPath, () => {
+// page:finish garante que o componente filho já montou completamente
+nuxtApp.hook('page:finish', () => {
   nextTick(() => init())
-}, { flush: 'post' })
+})
 
 onMounted(() => {
   const doInit = () => nextTick(() => init())
