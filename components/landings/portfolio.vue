@@ -42,7 +42,7 @@ const images = computed(() => {
 </script>
 
 <template>
-    <div class="portfolio section-lp" data-ani-type="fade-up" data-ani-delay="0.6s">
+    <div class="portfolio section-lp" data-ani-type="fade-up">
         <h1 class="title-lp">{{ props.data.title }}</h1>
         <p class="description-lp">
             {{ props.data.description }}

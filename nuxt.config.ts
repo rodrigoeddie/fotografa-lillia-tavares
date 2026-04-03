@@ -208,7 +208,6 @@ export default defineNuxtConfig({
         'gsap/ScrollTrigger',
         '@unhead/schema-org/vue',
         '@internationalized/date',
-        'autoprefixer', // CJS
       ]
     },
   },

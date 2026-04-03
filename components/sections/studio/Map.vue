@@ -9,7 +9,12 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
         <h2 class="title title-map">Estamos localizados em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light"><span>Mogi das cruzes, SP</span>. <Icon name="icons:external-link" class="icon"/></a></h2>
 
         <!-- Facade: iframe só carrega quando o usuário clicar -->
-        <div class="map-facade" :class="{ 'is-loaded': mapLoaded }" @click="mapLoaded = true">
+        <div
+          class="map-facade"
+          :class="{ 'is-loaded': mapLoaded }"
+          @click="mapLoaded = true"
+          data-track-event="clique-abrir-mapa"
+          data-track-screen="agende-seu-ensaio-mapa">
             <iframe
               v-if="mapLoaded"
               :src="MAP_SRC"
@@ -25,6 +30,17 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
                 <Icon name="mdi:map-marker" class="pin-icon" />
                 <span class="placeholder-label">Estúdio Lillia Tavares · Mogi das Cruzes, SP</span>
                 <span class="placeholder-cta">Clique para ver no mapa</span>
+                <div class="map">
+                    <nuxt-img
+                        provider="cloudflare"
+                        :src='"https://images.fotografalilliatavares.com.br/images/73237b0c-51ef-4c36-99d1-787235393900/public"'
+                        width="1579"
+                        height="494"
+                        class="img-map"
+                        :alt="'mapa de localização do estúdio em Mogi das Cruzes'"
+                        format="webp"
+                        placeholder />
+                </div>
             </div>
         </div>
     </div>
@@ -80,6 +96,10 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
         background-size: 40rem 40rem;
         transition: background-color 0.2s;
 
+        > * {
+            z-index: 1;
+        }
+
         &:hover {
             background-color: #ddd6c5;
         }
@@ -91,18 +111,48 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
         }
 
         .placeholder-label {
-            font-size: 16rem;
+            font-size: 20rem;
             font-weight: 600;
-            color: #3a3a3a;
+            color: v.$green;
         }
 
         .placeholder-cta {
-            font-size: 13rem;
-            color: #777;
-            border: 1px solid #bbb;
+            font-size: 16rem;
+            color: v.$green;
+            border: 1px solid v.$green;
             border-radius: 20rem;
-            padding: 6rem 16rem;
+            padding: 16rem 32rem;
             background: white;
+        }
+
+        .map {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+
+            .img-map {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 1;
+            }
+
+            &:before {
+                content: '';
+
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255,255,255,0.4);
+                backdrop-filter: blur(4px);
+                z-index: 2;
+            }
         }
     }
 

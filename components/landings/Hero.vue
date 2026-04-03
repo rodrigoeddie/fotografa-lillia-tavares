@@ -24,7 +24,10 @@ const props = defineProps({
                         fetchpriority="high" />
                 </div>
                 <div class="text" data-ani-type="fade-right" data-ani-delay="0.3s">
-                    <nuxtLink to="/" aria-label="Voltar para a página inicial">
+                    <nuxtLink
+                      to="/" aria-label="Voltar para a página inicial"
+                      data-track-event="home-site-logo"
+                      data-track-screen="LP Corporativo">
                         <nuxt-img
                             provider="cloudflare"
                             :src='"https://images.fotografalilliatavares.com.br/images/de7d6be6-8fed-43b0-e2ca-7b5643bd9d00/public"'
@@ -70,36 +73,41 @@ const props = defineProps({
                         fetchpriority="high" />
                 </div>
 
-                    <div class="text">
-                        <nuxtLink to="/" aria-label="Voltar para a página inicial">
-                            <nuxt-img
-                                provider="cloudflare"
-                                :src='"https://images.fotografalilliatavares.com.br/images/4cb733c9-64af-48fd-2578-c43f3a26d800/public"'
-                                :width="'320'"
-                                :height="'87'"
-                                :alt="'Logotipo Fotografa Lillia Tavares'"
-                                class="logo"
-                                loading="eager"
-                                sizes="320px"
-                                fetchpriority="high" />
-                        </nuxtLink>
+                <div class="text">
+                    <nuxtLink
+                      to="/" aria-label="Voltar para a página inicial"
+                      data-track-event="home-site-logo"
+                      data-track-screen="LP Dia das Mães">
+                        <nuxt-img
+                            provider="cloudflare"
+                            :src='"https://images.fotografalilliatavares.com.br/images/4cb733c9-64af-48fd-2578-c43f3a26d800/public"'
+                            :width="'320'"
+                            :height="'87'"
+                            :alt="'Logotipo Fotografa Lillia Tavares'"
+                            class="logo"
+                            loading="eager"
+                            sizes="320px"
+                            fetchpriority="high" />
+                    </nuxtLink>
 
-                        <h1 class="title-hero">O presente que ela vai <br>guardar para sempre</h1>
-                        <p class="subtitle-hero">Um ensaio fotográfico profissional <br>em Mogi das Cruzes.<br>Porque a sua mãe merece se ver<br>da forma como você a enxerga.</p>
-                        
-                        <ul>
-                            <li>Direção de poses</li>
-                            <li>Estúdio profissional</li>
-                            <li>Entrega rápida</li>
-                        </ul>
-                
-                        <a class="btn-hero" href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio de dia das mães (mensagem do site)"
-                           data-track-event="cta-whatsapp-hero"
-                           data-track-screen="LP Dia das Mães">
-                            <Icon name="icons:whatsapp" class="icon"/>
-                            <span>Quero presentear com um ensaio →</span>
-                        </a>
-                    </div>
+                    <h1 class="title-hero">O presente que ela vai <br>guardar para sempre</h1>
+                    <p class="subtitle-hero">Um ensaio fotográfico profissional <br>em Mogi das Cruzes.<br>Porque a sua mãe merece se ver<br>da forma como você a enxerga.</p>
+                    
+                    <ul>
+                        <li>Direção de poses</li>
+                        <li>Estúdio profissional</li>
+                        <li>Entrega rápida</li>
+                    </ul>
+            
+                    <a
+                        class="btn-hero"
+                        href="https://wa.me/5511911159795?text=Olá, gostaria de ver a disponibilidade de um ensaio de dia das mães (mensagem do site)"
+                        data-track-event="cta-whatsapp-hero"
+                        data-track-screen="LP Dia das Mães">
+                        <Icon name="icons:whatsapp" class="icon"/>
+                        <span>Quero presentear com um ensaio →</span>
+                    </a>
+                </div>
             </div>
         </div>
 </template>

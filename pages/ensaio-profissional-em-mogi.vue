@@ -2,7 +2,7 @@
 const title = 'Ensaio Profissional em Mogi das Cruzes | Fotos para LinkedIn e Empresas';
 const description = 'Ensaio fotográfico profissional em Mogi das Cruzes para LinkedIn, currículo e redes sociais. Estúdio completo, direção de poses e entrega rápida. Agende seu horário.';
 const link = 'https://fotografalilliatavares.com.br/ensaio-profissional-em-mogi';
-
+const imageShare = '54ca9011-783d-4bb0-c5ac-65e33edefa00';
 const slug = 'corporativo';
 
 useSchemaOrg([
@@ -13,11 +13,16 @@ useSchemaOrg([
 ]);
 
 useSeoMeta({
-  title: title,
-  description: description,
+  title,
+  description,
   ogTitle: title,
   ogDescription: description,
   ogUrl: link,
+  ogImage: `https://images.fotografalilliatavares.com.br/images/${imageShare}/public`,
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: `https://images.fotografalilliatavares.com.br/images/${imageShare}/public`,
 });
 
 useHead({

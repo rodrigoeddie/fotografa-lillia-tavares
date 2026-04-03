@@ -4,7 +4,7 @@ import { button } from '#build/ui';
 const title = 'Presente de Dia das Mães em Mogi das Cruzes: Ensaio Fotográfico Especial';
 const description = 'Se você está procurando um presente de dia das mães em Mogi das Cruzes, uma das opções mais especiais é um ensaio fotográfico profissional. Diferente de presentes comuns, como flores ou roupas, as fotos se tornam lembranças para toda a vida.';
 const link = 'https://fotografalilliatavares.com.br/ensaio-dia-das-maes-mogi-das-cruzes';
-
+const imageShare = '737d6560-9e6a-49b4-b503-4c7d56dad900';
 const slug = 'dia-das-maes';
 
 useSchemaOrg([
@@ -15,11 +15,16 @@ useSchemaOrg([
 ]);
 
 useSeoMeta({
-  title: title,
-  description: description,
+  title,
+  description,
   ogTitle: title,
   ogDescription: description,
   ogUrl: link,
+  ogImage: `https://images.fotografalilliatavares.com.br/images/${imageShare}/public`,
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: `https://images.fotografalilliatavares.com.br/images/${imageShare}/public`,
 });
 
 useHead({
