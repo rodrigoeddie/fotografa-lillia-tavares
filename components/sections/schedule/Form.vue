@@ -16,11 +16,6 @@ const formData = ref<FormData>({
 
 const errors = ref<{ [key: string]: string }>({});
 
-const formatDate = (date: string) => {
-  const [year, month, day] = date.split('-').map(Number);
-  return new Date(year, month - 1, day);
-};
-
 const formatDateToBR = (date: string) => {
   const [year, month, day] = date.split('-').map(Number);
   const formattedMonth     = String(month).padStart(2, '0');
@@ -31,16 +26,8 @@ const formatDateToBR = (date: string) => {
 
 const validateField = (field: keyof FormData) => {
   if (field === 'date') {
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
-
-    const selectedDate = formatDate(formData.value.date);
-    selectedDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
-
     if (!formData.value.date) {
       errors.value.date = 'Por favor, selecione uma data.';
-    } else if (selectedDate <= currentDate) {
-      errors.value.date = 'A data deve ser posterior à data atual.';
     } else {
       delete errors.value.date;
     }
@@ -83,16 +70,11 @@ const enviar = async () => {
             class="form"
             @submit.prevent="enviar">
             <div class="field-group">
-              <label class="title-label" for="date">
+              <label class="title-label">
                 Data que pretende fazer o ensaio:
               </label>
-              <input
-                id="date"
-                required
-                v-model="formData.date"
-                type="date"
-                lang="pt-BR">
-                <span class="error-msg" :class="{ show: errors.date }">{{ errors.date }}</span>
+              <BlocksSimpleCalendar v-model="formData.date" />
+              <span class="error-msg" :class="{ show: errors.date }">{{ errors.date }}</span>
             </div>
 
             <div class="field-group">
@@ -226,7 +208,7 @@ const enviar = async () => {
         display: flex;
         gap: 10rem;
 
-        div {
+        .wrap-radio {
           display: flex;
           align-items: center;
           gap: 5rem;
