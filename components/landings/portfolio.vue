@@ -39,6 +39,8 @@ const images = computed(() => {
     return picked.slice(0, 4)
 })
 
+const { init } = useScrollAnimations()
+onMounted(() => nextTick(() => init()))
 </script>
 
 <template>

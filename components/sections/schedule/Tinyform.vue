@@ -1,75 +1,43 @@
 
 <script lang="ts" setup>
-import { CalendarDate } from '@internationalized/date';
-import type { DateValue } from '@internationalized/date'
-
 const props = defineProps({
   formType: {
-      type: String,
-      required: false,
-      default: false
-    }
-  });
+    type: String,
+    required: false,
+    default: false
+  }
+});
 
 const { trackEvent } = useTracking();
 
-const configPublic = useRuntimeConfig().public;
-
-interface FormData {
-  date: CalendarDate;
-  sessionType: string;
-}
-
-const formData = ref<FormData>({
-  date: new CalendarDate('gregory', new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()),
+const formData = ref({
+  date: '',
   sessionType: props.formType,
 });
 
-const isDateUnavailable = (date: DateValue) => {
-  let isUnavailable: boolean = false;
+const errors = ref<Record<string, string>>({});
 
-  if(date.year < new Date().getFullYear()) {
-    isUnavailable = true;
-  }
-
-  if(date.month < new Date().getMonth() + 1) {
-    isUnavailable = true;
-  }
-
-  if(date.day < new Date().getDate() && date.month == new Date().getMonth() + 1) {
-    isUnavailable = true;
-  }
-
-  return isUnavailable;
-}
-
-const errors = ref<{ [key: string]: string }>({});
-
-const formatDate = (date: DateValue) => {
-  return new Date(date.year, date.month - 1, date.day);
-};
-
-const validateField = (field: keyof FormData) => {
+const validateField = (field: string) => {
   if (field === 'date') {
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
-
-    const selectedDate = formatDate(formData.value.date);
-    selectedDate.setHours(0, 0, 0, 0); // Normalizar para meia-noite
-
     if (!formData.value.date) {
       errors.value.date = 'Por favor, selecione uma data.';
-    } else if (selectedDate <= currentDate) {
-      errors.value.date = 'A data deve ser posterior à data atual.';
     } else {
-      delete errors.value.date;
+      const selected = new Date(formData.value.date + 'T00:00:00');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selected <= today) {
+        errors.value.date = 'A data deve ser posterior à data atual.';
+      } else {
+        delete errors.value.date;
+      }
     }
   }
-
-  if (field === 'sessionType' && !formData.value.sessionType) {
-    errors.value.sessionType = 'Por favor, selecione um tipo de ensaio.';
-  } else {
-    delete errors.value.sessionType;
+  if (field === 'sessionType') {
+    if (!formData.value.sessionType) {
+      errors.value.sessionType = 'Por favor, selecione um tipo de ensaio.';
+    } else {
+      delete errors.value.sessionType;
+    }
   }
 };
 
@@ -78,14 +46,12 @@ const enviar = async () => {
   validateField('sessionType');
 
   if (Object.keys(errors.value).length === 0) {
+    const [year, month, day] = formData.value.date.split('-');
     const whatsappNumber = '5511911159795';
     const message = formData.value.sessionType === 'noType'
-      ? `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${formData.value.date.day}/${formData.value.date.month}/${formData.value.date.year}. (mensagem do site)`
-      : `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${formData.value.date.day}/${formData.value.date.month}/${formData.value.date.year} com o tipo de ensaio ${formData.value.sessionType}. (mensagem do site)`;
-    const whatsappUrl    = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-    window.open(whatsappUrl, '_blank');
-
+      ? `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${day}/${month}/${year}. (mensagem do site)`
+      : `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${day}/${month}/${year} com o tipo de ensaio ${formData.value.sessionType}. (mensagem do site)`;
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
     trackEvent('envio-form', { screen_name: 'Agende seu ensaio' });
   }
 };
@@ -107,11 +73,7 @@ const enviar = async () => {
       </div>
 
       <div class="field-calendar">
-        <UCalendar
-          class="calendar"
-          v-model="formData.date"
-          :is-date-unavailable="isDateUnavailable"
-          locale="pt-BR" />
+        <BlocksSimpleCalendar v-model="formData.date" />
         <span class="error-msg" :class="{ show: errors.date }">{{ errors.date }}</span>
 
         <input
@@ -129,138 +91,6 @@ const enviar = async () => {
 </template>
 
 <style lang="scss">
-.calendar {
-  margin: 20rem auto;
-  color: black;
-  flex-shrink: 0;
-
-  --ui-text-muted: #c7c7c7;
-  --font-weight-medium: 500;
-  --spacing: 7rem;
-  --text-sm: 27rem;
-  --text-xs: 23rem;
-  --tw-space-y-reverse {
-      syntax: "*";
-      inherits: false;
-      initial-value: 0;
-  }
-
-  .mx-auto {
-    text-transform: uppercase;
-  }
-
-  .truncate {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-  }
-  .text-center {
-      text-align: center;
-  }
-  .grid {
-      display: grid;
-  }
-  .grid-cols-7 {
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-  }
-  .w-full {
-      width: 100%;
-  }
-  .flex-col {
-      flex-direction: column;
-  }
-  .pt-4 {
-      padding-top: calc(var(--spacing) * 4);
-  }
-  .m-0\.5 {
-    margin: calc(var(--spacing) * .5);
-    cursor: default;
-  }
-  .disabled {
-    opacity: .75;
-  }
-  .transition-colors {
-    transition: color .2s;
-  }
-  .text-sm {
-    font-size: 20rem;
-  }
-  .gap {
-    gap: 20rem;
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .items-center {
-    align-items: center;
-  }
-
-  .justify-between {
-    justify-content: space-between;
-  }
-
-  .justify-center {
-    justify-content: center;
-  }
-
-  .inline-flex {
-    display: inline-flex;
-  }
-  .size-8 {
-    height: calc(var(--spacing) * 8);
-    width: calc(var(--spacing) * 8);
-  }
-  .rounded-full {
-    border-radius: 3.40282e+38px;
-  }
-  [aria-selected] {
-      background-color: v.$dark-green;
-      color: white;
-  }
-  .text-\(--ui-primary\),
-  .text-\(--ui-primary\)\/75 {
-      color: red;
-  }
-  .text-sm, .text-sm\/6 {
-    font-size: var(--text-sm);
-  }
-  .text-xs, .text-xs\/5 {
-    font-size: var(--text-xs);
-  }
-  :where(.space-y-12>:not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-end: calc(var(--spacing) * 12 * (1 - var(--tw-space-y-reverse)));
-    margin-block-start: calc(var(--spacing) * 12 * var(--tw-space-y-reverse));
-  }
-  .font-medium {
-    font-weight: var(--font-weight-medium);
-  }
-  .data-unavailable\:line-through[data-unavailable] {
-    text-decoration-line: line-through;
-  }
-  .data-unavailable\:pointer-events-none[data-unavailable] {
-    pointer-events: none;
-  }
-  .data-\[outside-view\]\:text-\(--ui-text-muted\)[data-outside-view] {
-    color: var(--ui-text-muted);
-  }
-  .data-unavailable\:text-\(--ui-text-muted\)[data-unavailable] {
-    color: var(--ui-text-muted);
-
-    // @media (prefers-color-scheme: dark) {
-    //   color: #666;
-    // }
-  }
-  @media (hover: hover) {
-    @supports (color:color-mix(in lab,red,red)) {
-        .hover\:not-data-\[selected\]\:bg-\(--ui-primary\)\/20:hover:not([data-selected]) {
-            background-color: color-mix(in oklab, red 20%, transparent);
-        }
-    }
-  }
-}
 </style>
 
 <style scoped lang="scss">

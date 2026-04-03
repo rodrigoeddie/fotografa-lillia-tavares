@@ -44,6 +44,10 @@ export default defineNuxtConfig({
           content: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
         },
         {
+          property: 'fb:app_id',
+          content: '1304313054896815',
+        },
+        {
           name: 'twitter:image',
           content: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
         },
@@ -100,7 +104,6 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/image',
     'nuxt-swiper',
-    '@nuxt/ui',
     '@nuxt/icon',
     '@nuxt/scripts'
   ],
@@ -207,7 +210,6 @@ export default defineNuxtConfig({
         'gsap',
         'gsap/ScrollTrigger',
         '@unhead/schema-org/vue',
-        '@internationalized/date',
       ]
     },
   },
@@ -217,17 +219,6 @@ export default defineNuxtConfig({
       'postcss-responsive-type': {},
       'postcss-preset-env': {}
     }
-  },
-
-  tailwindcss: {
-    config: {
-      // ...existing config...
-    },
-    viewer: false,
-    exposeConfig: false,
-    cssPath: '~/assets/css/tailwind.css',
-    configPath: 'tailwind.config',
-    injectPosition: 'first'
   },
 
   runtimeConfig: {
@@ -248,7 +239,7 @@ export default defineNuxtConfig({
     preset: 'cloudflare-pages',
     minify: true,
     compressPublicAssets: true,
-    compatibilityDate: '2026-02-19',
+    compatibilityDate: '2026-04-03',
     
     rollupConfig: {
       output: {
@@ -308,7 +299,7 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2026-03-17',
+  compatibilityDate: '2026-04-03',
   
   experimental: {
     payloadExtraction: false,

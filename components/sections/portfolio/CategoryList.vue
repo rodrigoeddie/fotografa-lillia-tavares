@@ -173,6 +173,8 @@ watch(ensaiosList, () => {
   nextTick(() => init());
 });
 
+onMounted(() => nextTick(() => init()));
+
 const classes: ClassConfig[] = [
   {
     class: 'card card-column',

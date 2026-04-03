@@ -155,6 +155,9 @@ const ensaiosByCategory = computed(() => {
     })
     .filter((group) => group.items.length > 0);
 });
+
+const { init } = useScrollAnimations()
+onMounted(() => nextTick(() => init()))
 </script>
 
 <template>

@@ -10,6 +10,9 @@ const props = defineProps({
 const { data: pageData } = await useAsyncData(`investimento-${props.lp}`, () => {
   return queryCollection('investimento').path(`/investimento/${props.lp}`).first();
 });
+
+const { init } = useScrollAnimations()
+onMounted(() => nextTick(() => init()))
 </script>
 
 <template >

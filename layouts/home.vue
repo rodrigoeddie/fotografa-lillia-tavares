@@ -6,6 +6,7 @@
     })
   ]);
 </script>
+
 <template>
   <div class="wrapper-main">
     <TemplatesHeader class="from-home" />
