@@ -368,8 +368,8 @@ export default defineNuxtConfig({
             !wildcardPrefixes.some((prefix) => rule.startsWith(prefix))
           )
 
-          // Adiciona os wildcards
-          const wildcards = wildcardPrefixes.map((p) => p + '**')
+          // Adiciona os wildcards (Cloudflare Pages usa * simples, não **)
+          const wildcards = wildcardPrefixes.map((p) => p + '*')
           content.exclude.push(...wildcards.filter((w: string) => !content.exclude.includes(w)))
 
           await fsp.writeFile(routesPath, JSON.stringify(content, null, 2))
