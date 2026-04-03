@@ -343,8 +343,15 @@ export default defineNuxtConfig({
     // Após o build, patcha _routes.json para excluir do Worker todos os caminhos
     // de conteúdo pré-renderizados. Sem isso, include: ["/*"] manda essas rotas
     // ao Worker mesmo com HTML estático existente em dist, causando 500.
-    // Também compacta entradas individuais em wildcards para ficar abaixo do
-    // limite de 100 regras do Cloudflare Pages.
+    //
+    // IMPORTANTE: * em _routes.json do Cloudflare NÃO bate em múltiplos segmentos
+    // de path (comportamento glob padrão: * não inclui /). Ex: /ensaio-fotografico/*
+    // cobre /ensaio-fotografico/sensual-intimista mas NÃO
+    // /ensaio-fotografico/sensual-intimista/tayna-marcondes.
+    // Por isso usamos caminhos explícitos para cada página pré-renderizada.
+    //
+    // Para manter o total abaixo de 100 regras, removemos variantes .br/.gz
+    // (o Cloudflare serve compressão automaticamente via content negotiation).
     'nitro:init'(nitro) {
       nitro.hooks.hook('close', async () => {
         if (nitro.options.dev) return
@@ -356,21 +363,47 @@ export default defineNuxtConfig({
         try {
           const content = JSON.parse(await fsp.readFile(routesPath, 'utf-8'))
 
-          // Wildcards substituem TODAS as entradas individuais desses prefixos.
-          const wildcardPrefixes = [
-            '/ensaio-fotografico/',
-            '/blog/',
-            '/estudio/',
-          ]
+          // 1. Remove entradas desnecessárias para liberar espaço dentro do limite de 100:
+          //    - Variantes compactadas (.br/.gz) — Cloudflare usa content negotiation automático
+          //    - Arquivos .DS_Store compactados
+          //    - Wildcards quebrados para diretórios de conteúdo (/* não cobre paths aninhados)
+          const CONTENT_DIRS = ['/ensaio-fotografico', '/blog', '/estudio', '/presente-ensaio-fotografico-mogi']
+          content.exclude = (content.exclude as string[]).filter((rule: string) => {
+            if (rule.endsWith('.br') || rule.endsWith('.gz')) return false
+            if (rule.includes('.DS_Store') && rule !== '/.DS_Store') return false
+            if (CONTENT_DIRS.some((d) => rule === d + '/*')) return false
+            return true
+          })
 
-          // Remove entradas individuais cobertas pelos wildcards
-          content.exclude = content.exclude.filter((rule: string) =>
-            !wildcardPrefixes.some((prefix) => rule.startsWith(prefix))
-          )
+          // 2. Percorre o diretório de saída e adiciona cada página pré-renderizada explicitamente.
+          //    Usa Set para deduplicar com entradas já existentes.
+          const publicDir = nitro.options.output.publicDir
+          const toExclude = new Set(content.exclude as string[])
 
-          // Adiciona os wildcards (Cloudflare Pages usa * simples, não **)
-          const wildcards = wildcardPrefixes.map((p) => p + '*')
-          content.exclude.push(...wildcards.filter((w: string) => !content.exclude.includes(w)))
+          async function collectPagePaths(dir: string, urlBase: string) {
+            let entries: import('fs').Dirent[]
+            try { entries = await fsp.readdir(dir, { withFileTypes: true }) }
+            catch { return }
+
+            for (const entry of entries) {
+              if (!entry.isDirectory()) continue
+              if (entry.name.startsWith('_') || entry.name.startsWith('.')) continue
+
+              const subUrl = `${urlBase}/${entry.name}`
+              try {
+                await fsp.access(join(dir, entry.name, 'index.html'))
+                toExclude.add(subUrl)
+              } catch {}
+
+              await collectPagePaths(join(dir, entry.name), subUrl)
+            }
+          }
+
+          for (const dirName of ['ensaio-fotografico', 'blog', 'estudio', 'presente-ensaio-fotografico-mogi']) {
+            await collectPagePaths(join(publicDir, dirName), `/${dirName}`)
+          }
+
+          content.exclude = [...toExclude]
 
           await fsp.writeFile(routesPath, JSON.stringify(content, null, 2))
           console.log(`[routes] _routes.json patched: ${content.exclude.length} exclude rules (limit: 100)`)
