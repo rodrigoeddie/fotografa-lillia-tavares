@@ -148,17 +148,11 @@ export default defineNuxtConfig({
     },
   },
 
+  // og-image desativado: o site usa apenas URLs estáticas em useSeoMeta() — nunca
+  // chamou defineOgImage(). O módulo bundlava 3.58 MB desnecessários:
+  // resvg-js WASM (2.48 MB) + fontes Inter TTF (1.1 MB).
   ogImage: {
-    compatibility: {
-      runtime: {
-        // Desabilita sharp para Cloudflare
-        sharp: false
-      }
-    },
-    // Força PNG como formato padrão
-    defaults: {
-      extension: 'png'
-    }
+    enabled: false,
   },
 
   css: [
@@ -340,6 +334,9 @@ export default defineNuxtConfig({
 
   experimental: {
     payloadExtraction: false,
+    // Quando um chunk JS não é encontrado (ex: deployment parcial com hashes novos
+    // e Worker antigo), o Nuxt recarrega a página automaticamente em vez de 500.
+    emitRouteChunkError: 'automatic',
   },
 
   hooks: {
