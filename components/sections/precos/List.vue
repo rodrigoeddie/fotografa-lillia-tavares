@@ -15,9 +15,6 @@ const categories = computed(() => {
       description: item.description,
     }))
 })
-
-const { init } = useScrollAnimations()
-onMounted(() => nextTick(() => init()))
 </script>
 
 <template>

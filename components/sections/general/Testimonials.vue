@@ -21,9 +21,6 @@ const {
 });
 
 const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
-
-const { init } = useScrollAnimations()
-onMounted(() => nextTick(() => init()))
 </script>
 
 <template>

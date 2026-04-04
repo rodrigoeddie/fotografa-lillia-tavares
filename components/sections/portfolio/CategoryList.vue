@@ -168,12 +168,10 @@ watch(
   { immediate: false }
 );
 
-// Re-inicializa animações após os dados chegarem e o DOM atualizar
+// Re-inicializa animações após os dados chegarem e o DOM atualizar (navegação)
 watch(ensaiosList, () => {
   nextTick(() => init());
 });
-
-onMounted(() => nextTick(() => init()));
 
 const classes: ClassConfig[] = [
   {

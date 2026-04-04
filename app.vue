@@ -1,22 +1,23 @@
 <script setup lang="ts">
-const { init, cleanup, refresh } = useScrollAnimations()
+const { init, cleanup } = useScrollAnimations()
 const route = useRoute()
-const nuxtApp = useNuxtApp()
 
 watch(() => route.fullPath, () => {
   window.scrollTo({ top: 0 })
   cleanup()
 }, { flush: 'sync' })
 
-// page:finish garante que o componente filho já montou completamente
-nuxtApp.hook('page:finish', () => {
+watch(() => route.fullPath, () => {
   nextTick(() => init())
-})
+}, { flush: 'post' })
 
 onMounted(() => {
-  nextTick(() => init())
-  // Após todas as imagens carregarem, recalcula posições dos triggers
-  window.addEventListener('load', () => nextTick(() => refresh()), { once: true })
+  const doInit = () => nextTick(() => init())
+  if (document.readyState === 'complete') {
+    doInit()
+  } else {
+    window.addEventListener('load', doInit, { once: true })
+  }
 })
 onBeforeUnmount(() => cleanup())
 </script>
