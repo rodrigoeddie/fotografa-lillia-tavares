@@ -1,0 +1,84 @@
+{
+  "artigo": "a",
+  "home": false,
+  "homeOrder": 99,
+  "colorHighlight": "#2b272a",
+  "title": "Daniela Lima",
+  "description": "<p></p>",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "4d22c189-d9fd-44c2-f792-9b5b0ef3e000",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "",
+      "highlight": false,
+      "canBeThumb": true
+    },
+    {
+      "imageId": "6566c393-fec7-4ea2-fd48-8beb540ba100",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "",
+      "highlight": false,
+      "canBeThumb": true
+    },
+    {
+      "imageId": "1e3b73bc-873f-4d8d-46ea-188b6ba27000",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "0792d12d-d295-40d4-6623-c3f2eb98da00",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "f1f74945-ff52-492a-0d35-c74fc97a0500",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "f6c6699e-5706-49cb-28ef-0ce0fcfa3700",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "7063eaf7-4d26-405c-641d-5d4fb6d6b300",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "d4dd38e7-3e6f-41bc-b08e-3a6771e65300",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    }
+  ]
+}

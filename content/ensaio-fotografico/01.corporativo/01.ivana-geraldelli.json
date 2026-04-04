@@ -1,0 +1,89 @@
+{
+  "artigo": "a",
+  "home": false,
+  "homeOrder": 99,
+  "colorHighlight": "#3b1e1c",
+  "title": "Ivana Geraldelli",
+  "description": "Um ensaio lindo feito para a Dra. Ivana Geraldelli",
+  "category": {
+    "slug": "corporativo",
+    "title": "Corporativo"
+  },
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
+  "album": [
+    {
+      "imageId": "50b9e796-fa2b-4d6f-c4e5-b12e7d44f200",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "e8681201-f9a4-499a-053d-6e5fc798bf00",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": "",
+      "canBeThumb": true,
+      "highlight": true
+    },
+    {
+      "imageId": "ba6d55e4-fae9-4c85-08b0-b98d7ebe7000",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "imageId": "4a35266e-0a4c-4d56-37a7-5a81d0a8f600",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "5141e86f-9169-4e1b-d36e-ff57070e7400",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "7ca783ad-c79b-4345-6f38-c5d217aaf100",
+      "width": 567,
+      "height": 850,
+      "format": "retrato",
+      "customClass": "w33",
+      "alt": ""
+    },
+    {
+      "imageId": "3f8a063d-06ac-47a3-2331-b772f36b2f00",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": ""
+    },
+    {
+      "imageId": "322145cd-c809-45e6-59ae-e3a101e7b200",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    },
+    {
+      "imageId": "41969ed4-6bdd-44b9-80e5-ab027c84c400",
+      "width": 850,
+      "height": 1275,
+      "format": "retrato",
+      "customClass": "w50",
+      "alt": ""
+    }
+  ]
+}

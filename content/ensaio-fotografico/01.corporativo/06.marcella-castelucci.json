@@ -1,16 +1,15 @@
-
 {
   "artigo": "a",
   "home": true,
   "homeOrder": 1,
   "colorHighlight": "#948f93",
   "title": "Marcella Castelucci",
-  "description": "<p>Posicionamento de imagem realizado pela fot&oacute;grafa Lillia Tavares para a <a href=\"https://beacons.ai/marcellacastelucci\" title=\"Dra Marcella Castelucci\" target=\"_blank\" rel=\"noopener\">Advogada Familiarista - Dra Marcella Castelucci</a><br>Apaixonada por famílias felizes e acordos justos.<br>Especialista em divórcio e inventários.</p>",
+  "description": "<p>Posicionamento de imagem realizado pela fotógrafa Lillia Tavares para a <a href=\"https://beacons.ai/marcellacastelucci\" title=\"Dra Marcella Castelucci\" target=\"_blank\" rel=\"noopener\">Advogada Familiarista - Dra Marcella Castelucci</a><br>Apaixonada por famílias felizes e acordos justos.<br>Especialista em divórcio e inventários.</p>",
   "category": {
     "slug": "corporativo",
     "title": "Corporativo"
   },
-  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
   "album": [
     {
       "imageId": "91111e4b-8e4a-4427-1526-0dc442a23600",
@@ -79,6 +78,14 @@
       "format": "retrato",
       "customClass": "w50",
       "alt": "Mulher de cabelos longos e body preto"
+    },
+    {
+      "imageId": "d5deaa87-237a-4613-5acd-0cbe93343300",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": "",
+      "canBeThumb": true
     }
   ]
 }
