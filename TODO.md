@@ -3,6 +3,7 @@
  - share para cada pagina
  - Páginas da interna dos outros preços
  - atualizar os produtos no google maps, e acrescentar dia das mães
+ - Página de aluguel
 
  ## Página da lista de presentes:
  Presente com Ensaio Fotográfico em Mogi das Cruzes

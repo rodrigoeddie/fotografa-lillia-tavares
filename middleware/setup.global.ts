@@ -13,7 +13,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/ensaio-fotografico/sensual-intimista/cris-pole-e-lira', { redirectCode: 301 })
     } else if (to.path === '/blog/fotografia-corporativa/as-vantagens-de-investir-em-fotos-corporativas-profissionais') {
         return navigateTo('/blog/fotografia-corporativa/vantagens-fotos-corporativas', { redirectCode: 301 })
-    } else if (to.path === '/preco-ensaio-fotografico') {
+    } else if (to.path === '/preco-ensaio-fotografico/') {
+        return navigateTo('/precos-ensaios-fotograficos', { redirectCode: 301 })
+    }  else if (to.path === '/preco-ensaio-fotografico') {
         return navigateTo('/precos-ensaios-fotograficos', { redirectCode: 301 })
     } else if (to.path === '/ensaio-fotografico/dia-das-maes-2025') {
         return navigateTo('/ensaio-fotografico/dia-das-maes', { redirectCode: 301 })
@@ -21,5 +23,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/ensaio-fotografico/dia-das-maes/rosiney-de-melo', { redirectCode: 301 })
     } else if (to.path === '/ensaio-fotografico/dia-das-maes-2025/lillia-tavares') {
         return navigateTo('/ensaio-fotografico/dia-das-maes/lillia-tavares', { redirectCode: 301 })
+    } else if (to.path === '/corporativo') {
+        return navigateTo('/ensaio-fotografico/corporativo', { redirectCode: 301 })
+    } else if (to.path === '/ensaio-fotografico/corporativo/05-sheila-lima') {
+        return navigateTo('/ensaio-fotografico/corporativo/sheila-lima', { redirectCode: 301 })
+    } else if (to.path === '/ensaio-fotografico/corporativo/06-marcella-castelucci') {
+        return navigateTo('/ensaio-fotografico/corporativo/marcella-castelucci', { redirectCode: 301 })
     }
-  })
+})
