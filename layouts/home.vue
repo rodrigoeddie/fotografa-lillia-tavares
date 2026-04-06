@@ -5,6 +5,10 @@
       url: 'https://fotografalilliatavares.com.br'
     })
   ]);
+
+  useHead({
+    htmlAttrs: { lang: 'pt-BR' },
+  });
 </script>
 
 <template>

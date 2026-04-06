@@ -18,7 +18,8 @@ const logo = computed(() => {
 useHead({
   bodyAttrs: {
     class: computed(() => `lp-${lpType.value}`)
-  }
+  },
+  htmlAttrs: { lang: 'pt-BR' },
 });
 
 useSchemaOrg([
