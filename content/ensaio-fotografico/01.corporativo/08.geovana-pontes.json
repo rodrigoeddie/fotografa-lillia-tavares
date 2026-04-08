@@ -4,12 +4,12 @@
   "homeOrder": 2,
   "colorHighlight": "#2e2c31",
   "title": "Geovana Pontes",
-  "description": "<p>Posicionamento de imagem realizado pela fot&oacute;grafa Lillia Tavares para a <a href=\"https://www.instagram.com/geovanapontesadvocacia/\" target=\"_blank\" rel=\"noopener\">advogada Geovana Pontes</a> Advocacia especializada - Previdenciário, Cível e Trabalhista - Atendimento on-line e presencial</p>",
+  "description": "<p>Posicionamento de imagem realizado pela fotógrafa Lillia Tavares para a <a href=\"https://www.instagram.com/geovanapontesadvocacia/\" target=\"_blank\" rel=\"noopener\">advogada Geovana Pontes</a> Advocacia especializada - Previdenciário, Cível e Trabalhista - Atendimento on-line e presencial</p>",
   "category": {
     "slug": "corporativo",
     "title": "Corporativo"
   },
-  "local": "<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>",
+  "local": "<a href=\"https://www.fotografalilliatavares.com.br/estudio\">Estúdio Lillia Tavares</a>",
   "album": [
     {
       "imageId": "b2555a44-a101-433e-f29a-bb32cf455e00",
@@ -78,6 +78,14 @@
       "format": "retrato",
       "customClass": "w33",
       "alt": ""
+    },
+    {
+      "imageId": "254d2874-9639-4fb3-858c-918c119a3d00",
+      "width": 1700,
+      "height": 1134,
+      "format": "paisagem",
+      "alt": "",
+      "canBeThumb": true
     }
   ]
 }

@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 import { fileURLToPath, URL } from 'node:url'
+import { copyFileSync, mkdirSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { definePerson } from 'nuxt-schema-org/schema';
 
 const siteConfig = {
@@ -63,6 +65,16 @@ export default defineNuxtConfig({
         }
       ],
 
+      // Polyfill for Import Maps — required by Nuxt 4 (#entry specifier).
+      // Must load before the importmap (tagPriority -2) so browsers without
+      // native importmap support (Safari < 16.4, older Android) can resolve it.
+      script: [
+        {
+          src: '/assets/es-module-shims.js',
+          tagPosition: 'head',
+          tagPriority: -3,
+        }
+      ],
     },
   },
 
@@ -303,5 +315,17 @@ export default defineNuxtConfig({
   
   experimental: {
     payloadExtraction: false,
+    emitRouteChunkError: 'automatic',
+  },
+
+  hooks: {
+    // Keep the self-hosted es-module-shims polyfill in sync with the installed
+    // npm package version every time the project is built.
+    'build:before': () => {
+      const src = resolve('./node_modules/es-module-shims/dist/es-module-shims.js')
+      const dest = resolve('./public/assets/es-module-shims.js')
+      mkdirSync(resolve('./public/assets'), { recursive: true })
+      copyFileSync(src, dest)
+    },
   },
 })

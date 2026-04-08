@@ -23,6 +23,7 @@
     "@types/node": "^22.19.15",
     "autoprefixer": "^10.4.27",
     "cssnano": "^7.1.3",
+    "es-module-shims": "^2.8.0",
     "nitro-cloudflare-dev": "^0.2.2",
     "nuxt": "^4.4.2",
     "nuxt-easy-lightbox": "^1.1.0",
@@ -50,6 +51,6 @@
     "schema-org": "^0.2.1",
     "sharp": "^0.33.5",
     "unenv": "2.0.0-rc.24",
-    "wrangler": "^4.80.0"
+    "wrangler": "^4.81.0"
   }
 }
