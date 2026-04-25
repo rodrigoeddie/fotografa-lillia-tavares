@@ -234,21 +234,21 @@ provide('showMessage', showMessage);
 }
 
 .fs-db-label {
-  font-size: 9px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #555;
   font-weight: 700;
-  padding: 0 4px 4px;
+  padding: 20px 4px 4px;
 }
 
 .fs-db-link {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 8px;
+  padding: 8px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 15px;
   color: #aaa;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
