@@ -1,26 +1,24 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  lp: {
-    type: String,
-    default: ''
-  }
+  lp: { type: String, default: '' }
 });
 
-const {
-    data: works
-} = await useAsyncData(`testimonials-${props.lp}`, () => {
-    const query = queryCollection('works');
-    query.where('testimonial', '<>', null);
-
-    if (props.lp) {
-        query.where('path', 'LIKE', `%${props.lp}%`);
-    }
-
-    return query.all();
+const apiUrl = computed(() => {
+  const params = new URLSearchParams();
+  if (props.lp) params.set('categoria', props.lp);
+  return `/api/public/portfolio${params.toString() ? '?' + params.toString() : ''}`;
 });
 
-const isFewItems = computed(() => (works.value?.length ?? 0) <= 2);
+const { data: rawWorks } = await useFetch(apiUrl);
+
+const works = computed(() =>
+  (rawWorks.value as any[] | null ?? [])
+    .map(adaptPortfolioWork)
+    .filter((w: any) => !!w.testimonial)
+);
+
+const isFewItems = computed(() => works.value.length <= 2);
 </script>
 
 <template>

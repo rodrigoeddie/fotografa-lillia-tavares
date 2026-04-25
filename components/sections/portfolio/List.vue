@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-const $route       = useRoute();
-const configPublic = useRuntimeConfig().public;
+const $route = useRoute();
 
 const props = defineProps({
   fromHome: {
@@ -15,146 +14,47 @@ const props = defineProps({
   }
 });
 
-interface SlideFormat {
-  retrato: any[];
-  paisagem: any[];
-}
+const routeCategory = computed(() => ($route.params.category as string) || '');
 
-const filteredSlides = (item: any): SlideFormat => {
-  if (!item.album) {
-    return {
-      retrato: [],
-      paisagem: []
-    };
-  }
-
-  const retratoSlides = item.album
-    .filter((slide: any) => slide.format === 'retrato' && slide.canBeThumb === true)
-    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
-    .slice(0, 2);
-
-  const paisagemSlides = item.album
-    .filter((slide: any) => slide.format === 'paisagem' && slide.canBeThumb === true)
-    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
-    .slice(0, 2);
-
-  return {
-    retrato: retratoSlides,
-    paisagem: paisagemSlides
-  };
-}
-
-const { data: navigation } = await useAsyncData('portfolio-navigation', () => {
-  return queryCollectionNavigation('works');
+const apiUrl = computed(() => {
+  const cat = props.category ?? routeCategory.value;
+  const params = new URLSearchParams();
+  if (props.fromHome) params.set('home', '1');
+  else if (cat) params.set('categoria', cat);
+  const qs = params.toString();
+  return `/api/public/portfolio${qs ? '?' + qs : ''}`;
 });
 
-const workPage        = ref('');
-const currentCategory = ref<any>(null);
-
-// Computed para gerar a key do useAsyncData baseada nos parâmetros atuais
-const asyncDataKey = computed(() => {
-  const category = $route.params.category || '';
-  return `ensaios-${category}-${props.fromHome}`;
-});
-
-// Computed para gerar a query baseada nos parâmetros atuais
-const queryConfig = computed(() => {
-  const category = $route.params.category || '';
-  return {
-    category,
-    fromHome: props.fromHome
-  };
-});
-
-const { data: ensaiosList, refresh: refreshEnsaios } = await useAsyncData(
-  asyncDataKey,
-  () => {
-    const query = queryCollection('works');
-    const { category, fromHome } = queryConfig.value;
-
-    if (fromHome) {
-      query.limit(3);
-      query.where('home', '=', true);
-    }
-
-    if (category && !props.category) {
-      query.where('path', 'LIKE', `%/${category}%`);
-    }
-
-    if (props.category) {
-      query.where('path', 'LIKE', `%/${props.category}%`);
-    }
-
-    query.where('id', 'NOT LIKE', `%/index.json%`);
-
-    return query.all();
-  }
-);
+const { data: rawWorks, refresh: refreshEnsaios } = await useFetch(apiUrl);
 
 const ensaiosData = computed(() => {
-  if (!ensaiosList.value || !Array.isArray(ensaiosList.value)) {
-    return [];
+  const works = (rawWorks.value as any[] | null) ?? [];
+  const adapted = works.map(adaptPortfolioWork);
+  if (props.fromHome) {
+    return [...adapted].sort((a, b) => (a.homeOrder ?? 0) - (b.homeOrder ?? 0));
   }
-
-  const items = ensaiosList.value
-    .map((item: any) => {
-      return {
-        ...item,
-        photos: filteredSlides(item),
-        path: item.path
-      };
-    })
-    .sort((a: any, b: any) => {
-      if (props.fromHome) {
-        if (a.homeOrder && b.homeOrder) {
-          return a.homeOrder - b.homeOrder;
-        }
-        return 0;
-      }
-      return 0;
-    });
-
-  return props.category ? items.slice(0, 3) : items;
+  return props.category ? adapted.slice(0, 3) : adapted;
 });
 
-function atualizarConteudoComBaseNaRota(newRoute: any) {
-  if (!navigation.value || !navigation.value[0]) return;
+const CATEGORY_ORDER = ['corporativo', 'sensual-intimista', 'dia-das-maes', 'gestante', 'aniversario', 'casal'];
+const workPage = '/ensaio-fotografico';
 
-  const categories = navigation.value[0].children;
-  workPage.value = navigation.value[0].path;
-  const category = newRoute.params.category || '';
-
-  currentCategory.value = categories?.find(cat => cat.path === `/ensaio-fotografico/${category}`) || null;
-}
-
-atualizarConteudoComBaseNaRota($route);
-
-watch(
-  () => $route.fullPath,
-  (novoFullPath, antigoFullPath) => {
-    if (novoFullPath !== antigoFullPath) {
-      atualizarConteudoComBaseNaRota($route);
-      // Refresh dos dados quando a rota mudar
-      refreshEnsaios();
-    }
-  },
-  { immediate: false }
-);
+const currentCategory = computed(() => {
+  const cat = routeCategory.value;
+  return cat ? { slug: cat, title: PORTFOLIO_CATEGORIAS[cat] ?? cat } : null;
+});
 
 const ensaiosByCategory = computed(() => {
-  if (props.fromHome || props.category) return null;
-
-  const categories = navigation.value?.[0]?.children ?? [];
-
-  return (categories as any[])
-    .map((cat) => {
-      const items = ensaiosData.value
-        .filter((item: any) => item.path.startsWith(cat.path + '/'))
-        .slice(0, 4);
-      return { title: cat.title, path: cat.path, items };
+  if (props.fromHome || props.category || routeCategory.value) return null;
+  return CATEGORY_ORDER
+    .map((slug) => {
+      const items = ensaiosData.value.filter((item: any) => item.categoria === slug).slice(0, 4);
+      return { title: PORTFOLIO_CATEGORIAS[slug] ?? slug, path: `/ensaio-fotografico/${slug}`, items };
     })
-    .filter((group) => group.items.length > 0);
+    .filter((g) => g.items.length > 0);
 });
+
+watch(() => $route.fullPath, () => refreshEnsaios(), { immediate: false });
 </script>
 
 <template>

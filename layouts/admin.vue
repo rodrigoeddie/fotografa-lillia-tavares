@@ -66,6 +66,15 @@ provide('fileManager', fm);
               <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active">👥 Clientes</NuxtLink>
               <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active">🖼 Fotos para Seleção</NuxtLink>
               <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active">📦 Entregas</NuxtLink>
+              <div class="fs-db-label" style="margin-top:1rem">conteúdo</div>
+              <NuxtLink to="/admin/investimento" class="fs-db-link" active-class="fs-db-link--active">💰 Investimento</NuxtLink>
+              <NuxtLink to="/admin/depoimentos" class="fs-db-link" active-class="fs-db-link--active">⭐ Depoimentos</NuxtLink>
+              <NuxtLink to="/admin/faq" class="fs-db-link" active-class="fs-db-link--active">❓ FAQ</NuxtLink>
+              <NuxtLink to="/admin/blog" class="fs-db-link" active-class="fs-db-link--active">📝 Blog</NuxtLink>
+              <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active">🎨 Portfolio</NuxtLink>
+              <NuxtLink to="/admin/cenarios" class="fs-db-link" active-class="fs-db-link--active">🏛 Cenários</NuxtLink>
+              <div class="fs-db-label" style="margin-top:1rem">ferramentas</div>
+              <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active">🔍 SEO</NuxtLink>
             </div>
 
             <div class="fs-header" @contextmenu.prevent="fm.openCtxMenuRoot($event)">

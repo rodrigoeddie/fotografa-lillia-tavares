@@ -1,49 +1,53 @@
 <script lang="ts" setup>
-const path = useRoute().path
+const $route = useRoute();
+const path = $route.path;
+const category = $route.params.category as string;
+const slug = $route.params.slug as string;
 
-const { data: post } = await useAsyncData(path, () => {
-  return queryCollection('blog').path(path).first()
-});
+const { data: rawPost } = await useFetch(`/api/public/blog/${category}/${slug}`);
+const post = computed(() => rawPost.value ? adaptBlogPost(rawPost.value) : null);
 
-const title = post.value.title + ' | Ensaios fotográficos profissionais conheça o trabalho de Lillia Tavares';
-
+const title = computed(() =>
+  post.value ? post.value.title + ' | Fotógrafa Lillia Tavares' : ''
+);
 const siteURI = 'https://fotografalilliatavares.com.br';
 
-const breadcrumbs = [
+const breadcrumbs = computed(() => post.value ? [
   { label: 'Home', to: '/' },
   { label: 'Blog', to: '/blog' },
-  { label: post.value.category.title, to: '/blog/' + post.value.category.slug },
+  { label: post.value.category?.title ?? category, to: '/blog/' + category },
   { label: post.value.title },
-];
+] : []);
 
 useSchemaOrg([
-  defineWebPage({
-    '@type': 'ItemPage',
-    name: title,
+  defineArticle({
+    '@type': 'BlogPosting',
+    headline: computed(() => post.value?.title),
+    description: computed(() => post.value?.description),
+    image: computed(() => post.value?.image
+      ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public`
+      : undefined),
+    datePublished: computed(() => post.value?.date),
+    author: { '@type': 'Person', name: 'Lillia Tavares', url: siteURI + '/sobre-fotografa-lillia-tavares' },
     url: siteURI + path,
   }),
 ]);
 
 useSeoMeta({
   title: title,
-  description: post.value.description,
-  ogTitle: post.value.title,
-  ogDescription: post.value.description,
-  ogImage: post.value.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined,
+  description: computed(() => post.value?.description),
+  ogTitle: computed(() => post.value?.title),
+  ogDescription: computed(() => post.value?.description),
+  ogImage: computed(() => post.value?.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined),
   ogUrl: siteURI + path,
   twitterCard: 'summary_large_image',
-  twitterTitle: post.value.title,
-  twitterDescription: post.value.description,
-  twitterImage: post.value.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined,
+  twitterTitle: computed(() => post.value?.title),
+  twitterDescription: computed(() => post.value?.description),
+  twitterImage: computed(() => post.value?.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined),
 });
 
 useHead({
-  link: [
-    {
-      rel: 'canonical',
-      href: siteURI + path
-    }
-  ]
+  link: [{ rel: 'canonical', href: siteURI + path }]
 });
 
 // Processar conteúdo com imagens intercaladas
@@ -54,73 +58,45 @@ const processedContent = computed(() => {
 
   const contentImages = post.value.contentImages || [];
 
-  // Se não houver imagens, retornar apenas o conteúdo com estrutura
   if (contentImages.length === 0) {
     return {
-      content: post.value.content.map((block, idx) => ({
-        type: 'content',
-        data: block,
-        index: idx
-      })),
+      content: post.value.content.map((block: any, idx: number) => ({ type: 'content', data: block, index: idx })),
       endImages: []
     };
   }
 
-  // Separar imagens que vão no final das que vão intercaladas
-  const imagesForEnd = contentImages.filter(img => img.showAtEnd === true);
-  const imagesForContent = contentImages.filter(img => img.showAtEnd !== true);
+  const imagesForEnd = contentImages.filter((img: any) => img.showAtEnd === true);
+  const imagesForContent = contentImages.filter((img: any) => img.showAtEnd !== true);
 
-  const result = [];
+  const result: any[] = [];
   let imageIndex = 0;
   let paragraphCount = 0;
 
-  post.value.content.forEach((block, idx) => {
-    // Contar tags <p> no HTML usando regex (funciona em SSR)
+  post.value.content.forEach((block: any, idx: number) => {
     const paragraphMatches = block.match(/<p[^>]*>/g);
     const paragraphs = paragraphMatches ? paragraphMatches.length : 0;
 
-    // Adicionar imagem antes do primeiro parágrafo (imageIndex 0)
     if (idx === 0 && imageIndex < imagesForContent.length) {
-      result.push({
-        type: 'image',
-        data: imagesForContent[imageIndex],
-        position: imageIndex % 2 === 0 ? 'left' : 'right',
-        index: imageIndex
-      });
+      result.push({ type: 'image', data: imagesForContent[imageIndex], position: imageIndex % 2 === 0 ? 'left' : 'right', index: imageIndex });
       imageIndex++;
     }
 
-    // Adicionar o bloco de conteúdo
-    result.push({
-      type: 'content',
-      data: block,
-      index: idx
-    });
-
+    result.push({ type: 'content', data: block, index: idx });
     paragraphCount += paragraphs;
 
-    // Adicionar próxima imagem após 3 parágrafos
     if (paragraphCount >= 3 && imageIndex < imagesForContent.length) {
-      result.push({
-        type: 'image',
-        data: imagesForContent[imageIndex],
-        position: imageIndex % 2 === 0 ? 'left' : 'right',
-        index: imageIndex
-      });
+      result.push({ type: 'image', data: imagesForContent[imageIndex], position: imageIndex % 2 === 0 ? 'left' : 'right', index: imageIndex });
       imageIndex++;
-      paragraphCount = 0; // Reset contador
+      paragraphCount = 0;
     }
   });
 
-  return {
-    content: result,
-    endImages: imagesForEnd
-  };
+  return { content: result, endImages: imagesForEnd };
 });
 </script>
 
 <template>
-  <div class="container no-padding" :style="{ '--color-highlight': post.colorHighlight }">
+  <div class="container no-padding" :style="{ '--color-highlight': post?.colorHighlight }">
     <SectionsGeneralHero :data="post" :breadcrumbs="breadcrumbs" />
 
     <div class="blog-content">
@@ -136,7 +112,7 @@ const processedContent = computed(() => {
             :src="`https://images.fotografalilliatavares.com.br/images/${item.data.imageId}/public`"
             :width="item.data.width"
             :height="item.data.height"
-            :alt="item.data.alt || post.title"
+            :alt="item.data.alt || post?.title"
             format="webp"
             placeholder
             loading="lazy"
@@ -166,7 +142,7 @@ const processedContent = computed(() => {
           :src="`https://images.fotografalilliatavares.com.br/images/${image.imageId}/public`"
           :width="image.width"
           :height="image.height"
-          :alt="image.alt || post.title"
+          :alt="image.alt || post?.title"
           format="webp"
           placeholder
           loading="lazy"
@@ -177,9 +153,14 @@ const processedContent = computed(() => {
       </div>
     </div>
 
-    <SectionsGeneralGallery v-if="post.album" :album="post.album" />
-    <SectionsPortfolioList v-if="post.works" :category="post.works" class="blog-portfolio" />
-    <ClientOnly><SectionsScheduleTinyform v-if="post.showSchedule === true" :formType="post.title" /></ClientOnly>
+    <SectionsGeneralGallery v-if="post?.album" :album="post.album" />
+
+    <div v-if="post" class="blog-share container">
+      <BlocksShareButtons :title="post.title" />
+    </div>
+
+    <SectionsPortfolioList v-if="post?.works" :category="post.works" class="blog-portfolio" />
+    <ClientOnly><SectionsScheduleTinyform v-if="post?.showSchedule === true" :formType="post.title" /></ClientOnly>
   </div>
 </template>
 
@@ -344,5 +325,9 @@ const processedContent = computed(() => {
       }
     }
   }
+}
+
+.blog-share {
+  padding: 10rem 30rem 20rem;
 }
 </style>

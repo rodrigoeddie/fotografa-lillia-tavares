@@ -1,59 +1,20 @@
 <script lang="ts" setup>
-const $route       = useRoute();
-const configPublic = useRuntimeConfig().public;
+const $route = useRoute();
+const category = $route.params.category || '';
 
-const filteredSlides = (item) => {
-  if (!item || !Array.isArray(item.album)) {
-    return {
-      retrato: []
-    };
-  }
+const { data: rawWorks } = await useFetch('/api/public/portfolio?home=1');
 
-  const retratoSlides = item.album
-    .filter(slide => slide.format === 'retrato' && slide.canBeThumb === true)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    .slice(0, 2);
-
-  return {
-    retrato: retratoSlides
-  };
-}
-
-const { data: navigation } = await useAsyncData('home-portfolio-navigation', () => {
-  return queryCollectionNavigation('works');
+const ensaiosData = computed(() => {
+  const works = (rawWorks.value as any[] | null) ?? [];
+  return works
+    .map(adaptPortfolioWork)
+    .sort((a, b) => (a.homeOrder ?? 0) - (b.homeOrder ?? 0));
 });
 
-const categories = navigation.value?.[0]?.children ?? [];
-const workPage   = navigation.value?.[0]?.path ?? '/ensaio-fotografico';
-const category   = $route.params.category || '';
-
-const currentCategory = categories.find(cat => cat.path === `/ensaio-fotografico/${category}`);
-
-const {
-  data: ensaiosList
-} = await useAsyncData(() => {
-  const query = queryCollection('works')
-
-    query.limit(4);
-    query.where('home', '=', true);
-
-  if (category) {
-    query.where('path', 'LIKE', `%/${category}%`);
-  }
-
-  query.where('id', 'NOT LIKE', `%/index.json%`);
-
-  return query.all();
-});
-
-const ensaiosData = Array.isArray(ensaiosList.value) ? ensaiosList.value
-  .map(item => {
-    return {
-      ...item,
-      photos: filteredSlides(item),
-      path: item.path
-    };
-  }) : [];
+const workPage = '/ensaio-fotografico';
+const currentCategory = computed(() =>
+  category ? { slug: category, title: PORTFOLIO_CATEGORIAS[category as string] ?? category } : null
+);
 
 </script>
 

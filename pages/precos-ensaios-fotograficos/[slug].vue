@@ -2,17 +2,16 @@
 const route = useRoute();
 const slug = route.params.slug as string;
 
-// O conteúdo fica em /investimento/{slug} mas a URL é /precos-ensaios-fotograficos/{slug}
-const { data: pageData } = await useAsyncData(`investimento-${slug}`, () => {
-  return queryCollection('investimento').path(`/investimento/${slug}`).first();
+const { data: produtos } = await useFetch('/api/public/investimento');
+
+const pageData = computed(() => {
+  const found = (produtos.value as any[] | null)?.find((p: any) => p.slug === slug);
+  return found ? adaptProduto(found) : null;
 });
 
 // Se não encontrar, redireciona para 404
-if (!pageData.value) {
-  throw createError({
-    statusCode: 404,
-    message: 'Página não encontrada'
-  });
+if (!pageData.value && process.server) {
+  throw createError({ statusCode: 404, message: 'Página não encontrada' });
 }
 
 const pageTitle = `${pageData.value.title ? pageData.value.title + ' |' : 'Preços |'} Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares`;
@@ -23,7 +22,42 @@ useSchemaOrg([
   defineWebPage({
     name: pageTitle,
     url: pageUrl
-  })
+  }),
+  {
+    '@type': 'Service',
+    '@id': pageUrl + '#service',
+    name: computed(() => pageData.value?.title),
+    description: pageDescription,
+    url: pageUrl,
+    provider: {
+      '@type': 'LocalBusiness',
+      name: 'Fotógrafa Lillia Tavares',
+      url: 'https://fotografalilliatavares.com.br',
+      telephone: '+55-11-9111-59795',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Av. Ver. Narciso Yague Guimarães, 124 - Sala 21',
+        addressLocality: 'Mogi das Cruzes',
+        addressRegion: 'SP',
+        postalCode: '08780-200',
+        addressCountry: 'BR'
+      }
+    },
+    areaServed: {
+      '@type': 'GeoCircle',
+      geoMidpoint: { '@type': 'GeoCoordinates', latitude: '-23.5199319', longitude: '-46.1864729' },
+      geoRadius: '50000'
+    },
+    offers: computed(() => (pageData.value?.packages ?? []).map((pkg: any) => ({
+      '@type': 'Offer',
+      name: pkg.title,
+      description: pkg.subtitle,
+      price: pkg.price,
+      priceCurrency: 'BRL',
+      availability: 'https://schema.org/InStock',
+      url: pageUrl,
+    }))),
+  }
 ]);
 
 useSeoMeta({

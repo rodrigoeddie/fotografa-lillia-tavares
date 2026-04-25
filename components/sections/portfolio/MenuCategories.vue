@@ -3,47 +3,21 @@ const isMobile = ref(false);
 
 onMounted(() => {
   if (process.client) {
-    const checkMobile = () => {
-      return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    };
-    
+    const checkMobile = () => window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     isMobile.value = checkMobile();
-    
-    // Listener para mudanças de tela
-    const handleResize = () => {
-      isMobile.value = checkMobile();
-    };
-    
+    const handleResize = () => { isMobile.value = checkMobile(); };
     window.addEventListener('resize', handleResize);
-    
-    // Cleanup
-    onUnmounted(() => {
-      window.removeEventListener('resize', handleResize);
-    });
+    onUnmounted(() => window.removeEventListener('resize', handleResize));
   }
 });
 
-const { data: navigation } = await useAsyncData('portfolio-hero-navigation', () => {
-  return queryCollectionNavigation('works');
-});
+const CATEGORY_ORDER = ['corporativo', 'sensual-intimista', 'dia-das-maes', 'gestante', 'aniversario', 'casal'];
 
-const categories = await Promise.all(
-  navigation.value[0].children.map(async (category) => {
-    const path = category.children[1]?.path;
-
-    if (path) {
-      const pageData = await queryCollection('works').path(path).first();
-
-      const paisagemSlides = pageData.album
-        .filter(slide => slide.format === 'paisagem' && slide.canBeThumb === true)
-        .slice(0, 1);
-
-      category.image = paisagemSlides[0];
-    }
-
-    return category;
-  })
-);
+const categories = CATEGORY_ORDER.map((slug) => ({
+  slug,
+  title: PORTFOLIO_CATEGORIAS[slug] ?? slug,
+  path: `/ensaio-fotografico/${slug}`,
+}));
 </script>
 
 <template>

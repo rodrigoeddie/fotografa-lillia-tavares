@@ -2,25 +2,8 @@
 const $route = useRoute();
 const category = $route.params.category as string;
 
-const categoryData = await queryCollection('blog')
-                              .where('path', 'LIKE', `%/${category}%`)
-                              .where('id', 'LIKE', `%/index.md%`)
-                              .first();
-
-const { data: posts, refresh: refreshBlog } = await useAsyncData(
-  `posts-${category}`,
-  () => {
-    const query = queryCollection('blog');
-    
-    query.where('path', 'LIKE', `%/${category}%`);
-    query.where('id', 'NOT LIKE', `%/index.md%`);
-
-    return query.all();
-  }
-);
-
-const categoryTitle = categoryData.value?.title || category;
-const categoryDescription = categoryData.value?.description || '';
+const categoryTitle = BLOG_CATEGORIAS[category] ?? category;
+const categoryDescription = '';
 
 const title = categoryTitle + ' | BLOG';
 const description = categoryDescription || 'Blog de Lillia Tavares Fotografia, onde compartilho dicas, histórias e novidades sobre fotografia de ensaio.';
@@ -33,41 +16,20 @@ useSchemaOrg([
   })
 ]);
 
-useSeoMeta({
-  title: title,
-  description: description,
-});
+useSeoMeta({ title, description });
 
-const postsData = computed(() => {
-  if (!posts.value || !Array.isArray(posts.value)) {
-    return [];
-  }
+const { data: rawPosts, refresh: refreshBlog } = await useFetch(`/api/public/blog?categoria=${category}`);
 
-  return posts.value
-    .map((item: any) => {
-      return {
-        ...item,
-        ...(item.body as any),
-      };
-    })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-});
-
-watch(
-  () => $route.fullPath,
-  () => {
-    refreshBlog();
-  },
-  { immediate: false }
+const postsData = computed(() =>
+  ((rawPosts.value as any[] | null) ?? [])
+    .map(adaptBlogPost)
+    .sort((a: any, b: any) => new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime())
 );
 
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('pt-BR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
-};
+watch(() => $route.fullPath, () => refreshBlog(), { immediate: false });
+
+const formatDate = (date: string) =>
+  new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(date));
 </script>
 
 <template>
@@ -77,15 +39,9 @@ const formatDate = (date: Date) => {
       { label: 'Blog', to: '/blog' },
       { label: categoryTitle },
     ]" />
-    <div v-if="categoryData" class="category-header">
-      <h1 class="title">{{ categoryData.title }}</h1>
-      <p v-if="categoryData.description" class="description">{{ categoryData.description }}</p>
-
-      <div class="category-content description" v-if="categoryData.body">
-        <ContentRenderer :value="categoryData" />
-      </div>
+    <div class="category-header">
+      <h1 class="title">{{ categoryTitle }}</h1>
     </div>
-    <h1 v-else>{{ categoryTitle }}</h1>
   
     <div class="wrap-posts">
       <article v-for="post in postsData" :key="post.id" class="post-item">

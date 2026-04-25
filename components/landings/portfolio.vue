@@ -12,31 +12,24 @@ const props = defineProps({
 });
 
 const {
-    data: works
-} = await useAsyncData('work-'+ props.lp, () => {
-    const query = queryCollection('works');
-
-    if (props.lp) {
-        query.where('path', 'LIKE', `%${props.lp}%`);
-    }
-
-    return query.all();
-});
+    data: rawWorks
+} = await useFetch(computed(() => `/api/public/portfolio${props.lp ? '?categoria=' + props.lp : ''}`));
 
 const images = computed(() => {
-    if (!works.value) return []
+    const works = (rawWorks.value as any[] | null) ?? [];
 
-    const picked = works.value.map((work: any) => {
-        const retratos = (work.album ?? []).filter((img: any) => img.format === 'retrato')
+    const picked = works.map((work: any) => {
+        const adapted = adaptPortfolioWork(work);
+        const retratos = (adapted.album ?? []).filter((img: any) => img.format === 'retrato');
         const chosen =
-            retratos.find((img: any) => img.canbethumb && img.highlight) ??
+            retratos.find((img: any) => img.canBeThumb && img.highlight) ??
             retratos.find((img: any) => img.highlight) ??
-            retratos.find((img: any) => img.canbethumb) ??
-            retratos[0]
-        return chosen ? { ...chosen, _workTitle: work.title } : null
-    }).filter(Boolean)
+            retratos.find((img: any) => img.canBeThumb) ??
+            retratos[0];
+        return chosen ? { ...chosen, _workTitle: adapted.title } : null;
+    }).filter(Boolean);
 
-    return picked.slice(0, 4)
+    return picked.slice(0, 4);
 })
 </script>
 

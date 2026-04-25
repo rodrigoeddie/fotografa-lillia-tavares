@@ -19,25 +19,8 @@ useSeoMeta({
 });
 
 useHead({
-  link: [
-    {
-      rel: 'canonical',
-      href: 'https://fotografalilliatavares.com.br/blog'
-    }
-  ]
+  link: [{ rel: 'canonical', href: 'https://fotografalilliatavares.com.br/blog' }]
 });
-const posts = (await queryCollection('blog')
-  .where('id', 'NOT LIKE', `%/index.md%`)
-  .all())
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('pt-BR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
-};
 </script>
 
 <template>

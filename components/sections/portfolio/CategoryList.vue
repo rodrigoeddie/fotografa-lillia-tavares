@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-const $route       = useRoute();
-const configPublic = useRuntimeConfig().public;
+const $route = useRoute();
 
 const props = defineProps({
   fromHome: {
@@ -15,163 +14,46 @@ const props = defineProps({
   }
 });
 
-interface SlideFormat {
-  retrato: any[];
-  paisagem: any[];
-}
-
-interface EnsaioItem {
-  title: string;
-  description: string;
-  local?: string;
-  date?: string;
-  category?: {
-    slug: string;
-    title: string;
-  };
-  album?: any[];
-  photos: SlideFormat;
-  path: string;
-  homeOrder?: number;
-  [key: string]: any; // Para permitir outras propriedades do body
-}
-
 interface ClassConfig {
   class: string;
   format: 'paisagem' | 'retrato';
-  image: {
-    width: number;
-    height: number;
-  };
+  image: { width: number; height: number; };
 }
 
-const filteredSlides = (item: any): SlideFormat => {
-  if (!item.album) {
-    return {
-      retrato: [],
-      paisagem: []
-    };
-  }
+const routeCategory = computed(() => ($route.params.category as string) || '');
 
-  const retratoSlides = item.album
-    .filter((slide: any) => slide.format === 'retrato' && slide.canBeThumb === true)
-    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
-    .slice(0, 2);
-
-  const paisagemSlides = item.album
-    .filter((slide: any) => slide.format === 'paisagem' && slide.canBeThumb === true)
-    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
-    .slice(0, 2);
-
-  return {
-    retrato: retratoSlides,
-    paisagem: paisagemSlides
-  };
-}
-
-const { data: navigation } = await useAsyncData('portfolio-navigation', () => {
-  return queryCollectionNavigation('works');
+const apiUrl = computed(() => {
+  const cat = props.category ?? routeCategory.value;
+  const params = new URLSearchParams();
+  if (props.fromHome) params.set('home', '1');
+  else if (cat) params.set('categoria', cat);
+  return `/api/public/portfolio${params.toString() ? '?' + params.toString() : ''}`;
 });
 
-const workPage        = ref('');
-const currentCategory = ref<any>(null);
-
-// Computed para gerar a key do useAsyncData baseada nos parâmetros atuais
-const asyncDataKey = computed(() => {
-  const category = $route.params.category || '';
-  return `ensaios-${category}-${props.fromHome}`;
-});
-
-// Computed para gerar a query baseada nos parâmetros atuais
-const queryConfig = computed(() => {
-  const category = $route.params.category || '';
-  return {
-    category,
-    fromHome: props.fromHome
-  };
-});
-
-const { data: ensaiosList, refresh: refreshEnsaios } = await useAsyncData(
-  asyncDataKey,
-  () => {
-    const query = queryCollection('works');
-    const { category, fromHome } = queryConfig.value;
-
-    if (fromHome) {
-      query.limit(3);
-      query.where('home', '=', true);
-    }
-
-    if (category && !props.category) {
-      query.where('path', 'LIKE', `%/${category}%`);
-    }
-
-    if (props.category) {
-      query.where('path', 'LIKE', `%/${props.category}%`);
-    }
-
-    query.where('id', 'NOT LIKE', `%/index.json%`);
-
-    return query.all();
-  }
-);
+const { data: rawWorks, refresh: refreshEnsaios } = await useFetch(apiUrl);
 
 const ensaiosData = computed(() => {
-  if (!ensaiosList.value || !Array.isArray(ensaiosList.value)) {
-    return [];
-  }
-
-  const items = ensaiosList.value
-    .map((item: any) => {
-      return {
-        ...item,
-        photos: filteredSlides(item),
-        path: item.path
-      };
-    })
-    .sort((a: any, b: any) => {
-      if (props.fromHome) {
-        if (a.homeOrder && b.homeOrder) {
-          return a.homeOrder - b.homeOrder;
-        }
-        return 0;
-      }
-      return 0;
-    });
-
-  return props.category ? items.slice(0, 3) : items;
+  const works = (rawWorks.value as any[] | null) ?? [];
+  const adapted = works.map(adaptPortfolioWork);
+  if (props.fromHome) return [...adapted].sort((a, b) => (a.homeOrder ?? 0) - (b.homeOrder ?? 0));
+  return props.category ? adapted.slice(0, 3) : adapted;
 });
 
-function atualizarConteudoComBaseNaRota(newRoute: any) {
-  if (!navigation.value || !navigation.value[0]) return;
+const workPage = '/ensaio-fotografico';
 
-  const categories = navigation.value[0].children;
-  workPage.value = navigation.value[0].path;
-  const category = newRoute.params.category || '';
-
-  currentCategory.value = categories?.find(cat => cat.path === `/ensaio-fotografico/${category}`) || null;
-}
-
-atualizarConteudoComBaseNaRota($route);
+const currentCategory = computed(() => {
+  const cat = routeCategory.value;
+  return cat ? { slug: cat, title: PORTFOLIO_CATEGORIAS[cat] ?? cat } : null;
+});
+const currentCategory = computed(() => {
+  const cat = routeCategory.value;
+  return cat ? { slug: cat, title: PORTFOLIO_CATEGORIAS[cat] ?? cat } : null;
+});
 
 const { init } = useScrollAnimations();
 
-watch(
-  () => $route.fullPath,
-  (novoFullPath, antigoFullPath) => {
-    if (novoFullPath !== antigoFullPath) {
-      atualizarConteudoComBaseNaRota($route);
-      // Refresh dos dados quando a rota mudar
-      refreshEnsaios();
-    }
-  },
-  { immediate: false }
-);
-
-// Re-inicializa animações após os dados chegarem e o DOM atualizar (navegação)
-watch(ensaiosList, () => {
-  nextTick(() => init());
-});
+watch(() => $route.fullPath, () => refreshEnsaios(), { immediate: false });
+watch(rawWorks, () => nextTick(() => init()));
 
 const classes: ClassConfig[] = [
   {

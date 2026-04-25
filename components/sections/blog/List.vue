@@ -1,16 +1,15 @@
 <script lang="ts" setup>
-const posts = (await queryCollection('blog')
-  .where('id', 'NOT LIKE', `%/index.md%`)
-  .all())
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const { data: rawPosts } = await useFetch('/api/public/blog');
 
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('pt-BR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
-};
+const posts = computed(() =>
+  ((rawPosts.value as any[] | null) ?? [])
+    .map(adaptBlogPost)
+    .sort((a: any, b: any) => new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime())
+);
+
+const formatDate = (date: string) =>
+  new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(date));
+</script>
 </script>
 
 <template>

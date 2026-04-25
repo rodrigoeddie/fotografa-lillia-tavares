@@ -1,28 +1,12 @@
 <script setup lang="ts">
 const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
 
-const { data } = await useAsyncData('depoimentos', () =>
-  queryCollection('depoimentos').first()
+const { data: rawDepoimentos } = await useFetch('/api/public/depoimentos');
+
+const reviews = computed(() =>
+  (rawDepoimentos.value ?? []).map(adaptDepoimento)
 );
 
-function initials(name: string) {
-  return name
-    .split(' ')
-    .slice(0, 2)
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase();
-}
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('pt-BR', {
-    month: 'long',
-    year: 'numeric'
-  });
-}
-
-// CF ID if photo is not a URL; otherwise fall back to local project asset.
-// Google URLs (lh3.googleusercontent.com) are intentionally ignored.
 function reviewAvatarUrl(review: { id: number; photo?: string }): string {
   if (review.photo && !review.photo.startsWith('http')) {
     return CF_IMG_BASE + review.photo + '/public';
@@ -43,16 +27,16 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
             sobre mim
           </span>
         </h1>
-        <p class="depoimentos-header__description">{{ data?.description }}</p>
+        <p class="depoimentos-header__description"></p>
         <div class="depoimentos-header__badge">
           <span class="stars">★★★★★</span>
-          <span class="count">{{ data?.reviews?.length }}+ avaliações no Google</span>
+          <span class="count">{{ reviews.length }}+ avaliações no Google</span>
         </div>
       </header>
 
       <div class="reviews-grid">
         <article
-          v-for="(review, index) in data?.reviews"
+          v-for="(review, index) in reviews"
           :key="review.id"
           class="review-card"
           data-ani-type="polaroid"

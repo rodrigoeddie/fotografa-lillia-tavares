@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { data: faqData } = await useAsyncData('faq', () => {
-  return queryCollection('faq').first();
-});
+const { data: rawFaq } = await useFetch('/api/public/faq');
 
-if (!faqData.value) {
+const categories = computed(() => (rawFaq.value ?? []).map(adaptFaqCategoria));
+
+if (!rawFaq.value) {
   throw createError({
     statusCode: 404,
     message: 'Conteúdo não encontrado'
@@ -26,7 +26,7 @@ if (!faqData.value) {
         <p class="description">{{ faqData.description }}</p>
       </header>
 
-      <SectionsFaqSection :categories="faqData.categories" />
+      <SectionsFaqSection :categories="categories" />
     </div>
   </div>
 </template>

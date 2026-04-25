@@ -1,0 +1,41 @@
+import { defineEventHandler, readBody, createError, getMethod, getRouterParam } from 'h3';
+import { validateAdminToken } from '~/server/utils/auth-helpers';
+import { getDB, dbGetDepoimentoById, dbUpdateDepoimento, dbDeleteDepoimento } from '~/server/utils/d1-client';
+
+export default defineEventHandler(async (event) => {
+  validateAdminToken(event);
+  const db = getDB(event);
+  const id = Number(getRouterParam(event, 'id'));
+  if (!id) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
+
+  if (getMethod(event) === 'GET') {
+    const dep = await dbGetDepoimentoById(db, id);
+    if (!dep) throw createError({ statusCode: 404, statusMessage: 'Depoimento não encontrado' });
+    return dep;
+  }
+
+  if (getMethod(event) === 'PUT') {
+    const body = await readBody(event);
+    const { nome, foto_cf_id, rating, data, texto, link, featured, portfolio_link, ordem } = body ?? {};
+    if (!nome || !texto) throw createError({ statusCode: 400, statusMessage: 'nome e texto são obrigatórios' });
+
+    const dep = await dbGetDepoimentoById(db, id);
+    if (!dep) throw createError({ statusCode: 404, statusMessage: 'Depoimento não encontrado' });
+
+    await dbUpdateDepoimento(db, id, {
+      nome, foto_cf_id: foto_cf_id ?? null, rating: rating ?? 5,
+      data: data ?? null, texto, link: link ?? null,
+      featured: featured ? 1 : 0, portfolio_link: portfolio_link ?? null, ordem: ordem ?? dep.ordem,
+    });
+    return { success: true };
+  }
+
+  if (getMethod(event) === 'DELETE') {
+    const dep = await dbGetDepoimentoById(db, id);
+    if (!dep) throw createError({ statusCode: 404, statusMessage: 'Depoimento não encontrado' });
+    await dbDeleteDepoimento(db, id);
+    return { success: true };
+  }
+
+  throw createError({ statusCode: 405, statusMessage: 'Method not allowed' });
+});

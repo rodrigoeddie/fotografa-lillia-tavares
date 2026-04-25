@@ -6,9 +6,10 @@ const props = defineProps({
   }
 });
 
-// O conteúdo fica em /investimento/{slug} mas a URL é /precos-ensaios-fotograficos/{slug}
-const { data: pageData } = await useAsyncData(`investimento-${props.lp}`, () => {
-  return queryCollection('investimento').path(`/investimento/${props.lp}`).first();
+const { data: rawProdutos } = await useFetch('/api/public/investimento');
+const pageData = computed(() => {
+  const found = (rawProdutos.value as any[] | null)?.find((p: any) => p.slug === props.lp || p.lp_slug === props.lp);
+  return found ? adaptProduto(found) : null;
 });
 </script>
 

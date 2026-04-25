@@ -25,7 +25,7 @@ useHead({
 useSchemaOrg([
   defineWebSite({
     name: 'Fotógrafa Lillia Tavares',
-    url: 'https://fotografalilliatavares.com.br/ensaio-profissional-em-mogi'
+    url: 'https://fotografalilliatavares.com.br'
   })
 ]);
 </script>

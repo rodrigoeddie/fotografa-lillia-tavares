@@ -11,7 +11,32 @@ useSchemaOrg([
   defineWebPage({
     name: title,
     url: 'https://fotografalilliatavares.com.br'
-  })
+  }),
+  defineLocalBusiness({
+    name: 'Fotógrafa Lillia Tavares',
+    image: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
+    '@id': 'https://fotografalilliatavares.com.br',
+    url: 'https://fotografalilliatavares.com.br',
+    telephone: '+55-11-9111-59795',
+    priceRange: '$$',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Av. Ver. Narciso Yague Guimarães, 124 - Sala 21 - Vila Partenio',
+      addressLocality: 'Mogi das Cruzes',
+      addressRegion: 'SP',
+      postalCode: '08780-200',
+      addressCountry: 'BR'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '-23.5199319',
+      longitude: '-46.1864729'
+    },
+    sameAs: [
+      'https://www.facebook.com/fotografalilliatavares',
+      'https://www.instagram.com/fotografalilliatavares',
+    ],
+  }),
 ]);
 
 const homeOgImage = 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public';

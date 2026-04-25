@@ -1,19 +1,14 @@
 <script setup lang="ts">
-const { data: allInvestimentos } = await useAsyncData('investimento-categories', () =>
-  queryCollection('investimento').all()
-)
+const { data: produtos } = await useFetch('/api/public/investimento');
 
 const categories = computed(() => {
-  if (!allInvestimentos.value?.length) return []
-
-  return allInvestimentos.value
-    .filter((item) => !!item.active && !item.path?.endsWith('/index'))
-    .map((item) => ({
-      slug: item.path?.split('/').pop() ?? '',
-      name: item.title,
-      icon: item.icon,
-      description: item.description,
-    }))
+  if (!produtos.value?.length) return [];
+  return (produtos.value as any[]).map((item) => ({
+    slug: item.slug,
+    name: item.title,
+    icon: item.icon,
+    description: item.description,
+  }));
 })
 </script>
 

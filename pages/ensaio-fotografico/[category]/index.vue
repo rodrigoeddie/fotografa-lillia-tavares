@@ -1,17 +1,10 @@
 <script lang="ts" setup>
 const route = useRoute()
-const path = route.path
+const category = route.params.category as string;
 
-const { data: pageData } = await useAsyncData(path, () => {
-  return queryCollection('works').path(path).first()
-});
+const categoryTitle = PORTFOLIO_CATEGORIAS[category] ?? category;
 
-let titlePage = '';
-if(pageData.value) {
-  titlePage = pageData.value.title + ' | ';
-}
-
-const title = titlePage + 'Ensaios fotográficos profissionais';
+const title = (categoryTitle ? categoryTitle + ' | ' : '') + 'Ensaios fotográficos profissionais';
 const description = 'Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da fotógrafa Lillia Tavares e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.';
 
 useSchemaOrg([
@@ -33,7 +26,7 @@ useSeoMeta({
     <BlocksBreadcrumb :items="[
       { label: 'Home', to: '/' },
       { label: 'Ensaios Fotográficos', to: '/ensaio-fotografico' },
-      { label: pageData?.title || String(route.params.category) },
+      { label: categoryTitle },
     ]" />
   </div>
   <SectionsPortfolioCategoryList class="no-padding" />
