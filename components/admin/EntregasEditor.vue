@@ -37,13 +37,13 @@ const isUploading = ref(false);
 const uploadDone = ref(false);
 const zipFileRef = ref<HTMLInputElement | null>(null);
 const selectedZipFile = ref<File | null>(null);
+const replacingZip = ref(false);
+const oldZipKey = ref('');
 
-// CF Images browser for bg
-const showImageBrowser = ref(false);
-const cfImages = ref<any[]>([]);
-const cfImagesPage = ref(1);
-const cfImagesLoading = ref(false);
-const cfImagesHasMore = ref(true);
+// Background image upload
+const bgFileRef = ref<HTMLInputElement | null>(null);
+const isBgUploading = ref(false);
+const replacingBg = ref(false);
 
 async function load() {
   loading.value = true;
@@ -66,20 +66,36 @@ function openCreate() {
   selectedZipFile.value = null;
   uploadProgress.value = 0;
   uploadDone.value = false;
+  replacingZip.value = false;
+  oldZipKey.value = '';
+  replacingBg.value = false;
   view.value = 'create';
 }
 
 function openEdit(e: Entrega) {
+  // Popula imediatamente com os dados da lista (UX responsivo)
+  populateForm(e);
+  activeEntrega.value = { ...e };
+  view.value = 'edit';
+  // Depois re-busca do servidor para garantir dados frescos
+  adminFetch<Entrega>(`/api/admin/entregas/${e.sessao_id}`)
+    .then((fresh) => populateForm(fresh))
+    .catch(() => {}); // silently ignore — form já tem dados da lista
+}
+
+function populateForm(e: Entrega) {
   form.sessao_id = e.sessao_id;
   form.r2_key = e.r2_key ?? '';
   form.nome_arquivo = e.nome_arquivo ?? '';
   form.bg_image_id = e.bg_image_id ?? '';
   form.mensagem = e.mensagem ?? '';
   form.ativo = e.ativo === 1;
-  activeEntrega.value = { ...e };
   uploadProgress.value = 0;
   uploadDone.value = false;
-  view.value = 'edit';
+  selectedZipFile.value = null;
+  replacingZip.value = false;
+  oldZipKey.value = '';
+  replacingBg.value = false;
 }
 
 function onZipSelected(e: Event) {
@@ -87,6 +103,7 @@ function onZipSelected(e: Event) {
   if (!f) return;
   selectedZipFile.value = f;
   if (!form.nome_arquivo) form.nome_arquivo = f.name;
+  uploadZip();
 }
 
 async function uploadZip() {
@@ -94,13 +111,11 @@ async function uploadZip() {
   isUploading.value = true;
   uploadProgress.value = 0;
   try {
-    // 1. Pega presigned URL do servidor
     const { url, key } = await adminFetch<{ url: string; key: string }>('/api/admin/r2/presign', {
       method: 'POST',
       body: { filename: selectedZipFile.value.name, content_type: selectedZipFile.value.type || 'application/zip' },
     });
 
-    // 2. Upload direto para R2 via XHR (suporta progresso)
     await new Promise<void>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.upload.addEventListener('progress', (ev) => {
@@ -113,15 +128,43 @@ async function uploadZip() {
       xhr.send(selectedZipFile.value);
     });
 
+    // Deletar ZIP antigo do R2 se estava substituindo
+    if (oldZipKey.value) {
+      try {
+        await adminFetch('/api/admin/r2/delete', { method: 'POST', body: { key: oldZipKey.value } });
+      } catch { /* não bloquear se falhar */ }
+      oldZipKey.value = '';
+    }
+
     form.r2_key = key;
     if (!form.nome_arquivo) form.nome_arquivo = selectedZipFile.value.name;
     uploadDone.value = true;
+    replacingZip.value = false;
     props.showMessage('ZIP enviado com sucesso!', 'success');
   } catch (e: any) {
     props.showMessage('Erro no upload: ' + e.message, 'error');
   } finally {
     isUploading.value = false;
   }
+}
+
+function startReplaceZip() {
+  oldZipKey.value = form.r2_key;
+  form.r2_key = '';
+  form.nome_arquivo = '';
+  uploadDone.value = false;
+  selectedZipFile.value = null;
+  replacingZip.value = true;
+  nextTick(() => zipFileRef.value?.click());
+}
+
+function removeZip() {
+  form.r2_key = '';
+  form.nome_arquivo = '';
+  uploadDone.value = false;
+  selectedZipFile.value = null;
+  replacingZip.value = false;
+  oldZipKey.value = '';
 }
 
 async function saveEntrega() {
@@ -173,32 +216,34 @@ function copyLink(sessaoId: number) {
   navigator.clipboard.writeText(url).then(() => props.showMessage('Link copiado!', 'success'));
 }
 
-// CF Images browser
-async function openImageBrowser() {
-  showImageBrowser.value = true;
-  cfImages.value = [];
-  cfImagesPage.value = 1;
-  cfImagesHasMore.value = true;
-  await loadCfImages();
+function startReplaceBg() {
+  replacingBg.value = true;
+  nextTick(() => bgFileRef.value?.click());
 }
 
-async function loadCfImages() {
-  if (cfImagesLoading.value) return;
-  cfImagesLoading.value = true;
+async function uploadBgImage(e: Event) {
+  const file = (e.target as HTMLInputElement).files?.[0];
+  if (!file) return;
+  isBgUploading.value = true;
   try {
-    const res = await adminFetch<any>(`/api/cf-images?page=${cfImagesPage.value}`);
-    const imgs = res.result?.images ?? [];
-    cfImages.value.push(...imgs);
-    cfImagesHasMore.value = imgs.length >= 20;
-    cfImagesPage.value++;
+    const fd = new FormData();
+    fd.append('file', file);
+    const token = import.meta.client ? sessionStorage.getItem('cms_token') : null;
+    const res = await $fetch<any>('/api/upload', {
+      method: 'POST',
+      body: fd,
+      headers: token ? { 'x-cms-token': token } : {},
+    });
+    form.bg_image_id = res.result?.id ?? '';
+    if (!form.bg_image_id) throw new Error('ID de imagem não retornado');
+    replacingBg.value = false;
+    props.showMessage('Imagem de fundo enviada!', 'success');
+  } catch (err: any) {
+    props.showMessage('Erro ao enviar imagem: ' + (err.statusMessage || err.message), 'error');
   } finally {
-    cfImagesLoading.value = false;
+    isBgUploading.value = false;
+    if (bgFileRef.value) bgFileRef.value.value = '';
   }
-}
-
-function selectBgImage(imageId: string) {
-  form.bg_image_id = imageId;
-  showImageBrowser.value = false;
 }
 
 function cfUrl(id: string) { return `${cfURI}${id}/public`; }
@@ -262,27 +307,46 @@ onMounted(load);
         <!-- Upload ZIP -->
         <div class="upload-zip-section">
           <h3>📦 Arquivo ZIP do ensaio</h3>
-          <div v-if="form.r2_key && !selectedZipFile" class="current-file">
-            ✅ Arquivo atual: <strong>{{ form.nome_arquivo || form.r2_key }}</strong>
-            <button class="btn-sm" @click="selectedZipFile = null; form.r2_key = ''; uploadDone = false">Trocar arquivo</button>
+
+          <!-- Estado: arquivo já existe e não estamos substituindo -->
+          <div v-if="form.r2_key && !replacingZip" class="file-card">
+            <div class="file-card-icon">📦</div>
+            <div class="file-card-info">
+              <strong>{{ form.nome_arquivo || form.r2_key.split('/').pop() }}</strong>
+              <span class="text-muted text-sm">Arquivo salvo no R2</span>
+            </div>
+            <div class="file-card-actions">
+              <button class="btn-sm" @click="startReplaceZip">🔄 Substituir</button>
+              <button class="btn-sm btn-danger-sm" @click="removeZip">🗑 Remover</button>
+            </div>
           </div>
-          <template v-else>
-            <div class="upload-drop" @click="zipFileRef?.click()">
-              <span v-if="!selectedZipFile">📁 Clique para selecionar o arquivo ZIP</span>
-              <span v-else>📁 {{ selectedZipFile.name }} ({{ (selectedZipFile.size / 1024 / 1024).toFixed(1) }} MB)</span>
-            </div>
-            <input ref="zipFileRef" type="file" accept=".zip,.rar,.7z" style="display:none" @change="onZipSelected" />
-            <div v-if="selectedZipFile && !uploadDone" class="upload-actions">
-              <div v-if="isUploading" class="progress-wrap">
-                <div class="progress-bar">
-                  <div class="progress-fill" :style="{ width: uploadProgress + '%' }"></div>
-                </div>
-                <span>{{ uploadProgress }}%</span>
+
+          <!-- Estado: sem arquivo, ou em processo de substituição -->
+          <template v-else-if="!form.r2_key || replacingZip">
+            <!-- Uploading -->
+            <div v-if="isUploading" class="upload-progress-card">
+              <span>⬆ Enviando {{ selectedZipFile?.name }}…</span>
+              <div class="progress-bar" style="margin-top:8px">
+                <div class="progress-fill" :style="{ width: uploadProgress + '%' }"></div>
               </div>
-              <button v-else class="btn-primary" @click="uploadZip">⬆ Enviar para R2</button>
+              <span class="progress-pct">{{ uploadProgress }}%</span>
             </div>
-            <p v-if="uploadDone" class="upload-success">✅ Upload concluído!</p>
+
+            <!-- Drop zone (antes de selecionar) -->
+            <div v-else-if="!selectedZipFile" class="upload-drop" @click="zipFileRef?.click()">
+              📁 Clique para selecionar o arquivo ZIP
+            </div>
+
+            <!-- Selecionado, aguardando início (não deve aparecer pois auto-inicia) -->
+            <div v-else-if="selectedZipFile && !uploadDone" class="upload-drop disabled">
+              📁 {{ selectedZipFile.name }} — preparando…
+            </div>
+
+            <input ref="zipFileRef" type="file" accept=".zip,.rar,.7z" style="display:none" @change="onZipSelected" />
           </template>
+
+          <!-- Upload concluído -->
+          <p v-if="uploadDone" class="upload-success">✅ Upload concluído!</p>
         </div>
 
         <!-- Nome do arquivo (para exibir ao cliente) -->
@@ -301,13 +365,24 @@ onMounted(load);
         <div class="form-field">
           <label>Imagem de fundo da página</label>
           <div class="bg-image-picker">
-            <div v-if="form.bg_image_id" class="bg-preview">
-              <img :src="cfUrl(form.bg_image_id)" alt="Fundo selecionado" />
-              <button class="btn-sm" @click="form.bg_image_id = ''">Remover</button>
+            <!-- Imagem presente -->
+            <div v-if="form.bg_image_id && !replacingBg" class="bg-card">
+              <img :src="cfUrl(form.bg_image_id)" alt="Fundo atual" class="bg-thumb" />
+              <div class="bg-card-actions">
+                <button class="btn-sm" @click="startReplaceBg">🔄 Substituir</button>
+                <button class="btn-sm btn-danger-sm" @click="form.bg_image_id = ''; replacingBg = false">🗑 Remover</button>
+              </div>
             </div>
-            <button class="btn-secondary" @click="openImageBrowser">
-              {{ form.bg_image_id ? '🖼 Trocar imagem' : '🖼 Escolher imagem de fundo' }}
-            </button>
+
+            <!-- Sem imagem ou substituindo -->
+            <template v-else>
+              <div class="upload-drop" style="padding: 16px;" @click="bgFileRef?.click()">
+                <span v-if="isBgUploading">⏳ Enviando imagem...</span>
+                <span v-else>🖼 Clique para escolher uma imagem de fundo</span>
+              </div>
+            </template>
+
+            <input ref="bgFileRef" type="file" accept="image/*" style="display:none" :disabled="isBgUploading" @change="uploadBgImage" />
           </div>
         </div>
 
@@ -330,23 +405,7 @@ onMounted(load);
       </div>
     </template>
 
-    <!-- ─── CF Images browser modal ──────────────────────────────── -->
-    <div v-if="showImageBrowser" class="modal-overlay" @click.self="showImageBrowser = false">
-      <div class="modal">
-        <div class="modal-header">
-          <h3>Escolher imagem de fundo</h3>
-          <button class="btn-icon" @click="showImageBrowser = false">✕</button>
-        </div>
-        <div class="modal-grid">
-          <div v-for="img in cfImages" :key="img.id" class="modal-img-card" @click="selectBgImage(img.id)">
-            <img :src="cfUrl(img.id)" :alt="img.filename" loading="lazy" />
-          </div>
-        </div>
-        <button v-if="cfImagesHasMore" class="btn-secondary load-more" @click="loadCfImages" :disabled="cfImagesLoading">
-          {{ cfImagesLoading ? 'Carregando...' : 'Carregar mais' }}
-        </button>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -375,10 +434,20 @@ onMounted(load);
 .progress-bar { flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
 .progress-fill { height: 100%; background: #1f2937; transition: width 0.2s; }
 .upload-success { color: #16a34a; font-size: 14px; margin-top: 8px; }
-.current-file { font-size: 14px; color: #374151; display: flex; align-items: center; gap: 12px; }
+.upload-progress-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; font-size: 14px; color: #374151; }
+.progress-pct { display: block; text-align: right; font-size: 12px; font-weight: 600; color: #6b7280; margin-top: 4px; }
+.upload-drop.disabled { cursor: default; opacity: 0.6; &:hover { border-color: #d1d5db; background: transparent; } }
+
+.file-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px; }
+.file-card-icon { font-size: 28px; flex-shrink: 0; }
+.file-card-info { flex: 1; display: flex; flex-direction: column; gap: 2px; strong { font-size: 14px; color: #1f2937; } }
+.file-card-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn-danger-sm { background: #fef2f2; border-color: #fecaca; color: #b91c1c; &:hover { background: #fee2e2; } }
 
 .bg-image-picker { display: flex; flex-direction: column; gap: 12px; }
-.bg-preview { display: flex; align-items: center; gap: 16px; img { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #e5e7eb; } }
+.bg-card { display: flex; align-items: center; gap: 16px; }
+.bg-thumb { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid #e5e7eb; display: block; flex-shrink: 0; }
+.bg-card-actions { display: flex; flex-direction: column; gap: 8px; }
 
 .toggle-wrap { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; input { display: none; } }
 .toggle-track { width: 36px; height: 20px; background: #d1d5db; border-radius: 999px; position: relative; transition: background 0.2s; input:checked ~ & { background: #1f2937; } }

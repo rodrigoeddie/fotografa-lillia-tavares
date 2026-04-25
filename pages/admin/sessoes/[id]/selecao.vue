@@ -1,0 +1,107 @@
+<script lang="ts" setup>
+definePageMeta({ layout: 'admin' });
+const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
+const { adminFetch } = useAdminFetch();
+const cfURI = useRuntimeConfig().public.cloudflareURI;
+const route = useRoute();
+
+const sessaoId = computed(() => Number(route.params.id));
+
+interface Sessao { id: number; nome_sessao: string; fotos_incluidas: number; cliente_nome: string; }
+
+const sessao = ref<Sessao | null>(null);
+const selecao = ref<any>(null);
+const loading = ref(true);
+
+async function load() {
+  loading.value = true;
+  try {
+    const [sessoes, sel] = await Promise.all([
+      adminFetch<Sessao[]>('/api/admin/sessoes'),
+      adminFetch<any>(`/api/admin/sessoes/${sessaoId.value}/selecao`),
+    ]);
+    sessao.value = sessoes.find((s) => s.id === sessaoId.value) ?? null;
+    selecao.value = sel;
+  } catch (e: any) {
+    showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');
+  } finally {
+    loading.value = false;
+  }
+}
+
+function cfUrl(imageId: string) { return `${cfURI}${imageId}/public`; }
+
+onMounted(load);
+</script>
+
+<template>
+  <div class="page">
+    <div class="page-header">
+      <NuxtLink to="/admin/sessoes" class="page-back">← Voltar</NuxtLink>
+      <h2>Seleção — {{ sessao?.nome_sessao ?? '...' }}</h2>
+    </div>
+
+    <div v-if="loading" class="loading-hint">Carregando...</div>
+    <template v-else-if="selecao">
+      <div class="selecao-summary">
+        <div class="summary-stat">
+          <span class="stat-value">{{ selecao.selecionadas }}</span>
+          <span class="stat-label">fotos selecionadas</span>
+        </div>
+        <div class="summary-stat">
+          <span class="stat-value">{{ sessao?.fotos_incluidas }}</span>
+          <span class="stat-label">incluídas no pacote</span>
+        </div>
+        <div class="summary-stat" :class="{ 'stat-extra': selecao.extras > 0 }">
+          <span class="stat-value">{{ selecao.extras }}</span>
+          <span class="stat-label">fotos extras</span>
+        </div>
+        <div class="summary-stat" :class="{ 'stat-extra': selecao.valor_extras > 0 }">
+          <span class="stat-value">{{ selecao.valor_extras > 0 ? `R$ ${selecao.valor_extras.toFixed(2).replace('.', ',')}` : '—' }}</span>
+          <span class="stat-label">valor extras</span>
+        </div>
+      </div>
+
+      <div class="selecao-grid">
+        <div v-for="foto in selecao.fotos" :key="foto.id" class="selecao-card" :class="{ selected: foto.selecionada === 1 }">
+          <div class="selecao-img-wrap">
+            <img :src="cfUrl(foto.cloudflare_image_id)" :alt="`Foto ${foto.id}`" loading="lazy" />
+            <span v-if="foto.selecionada === 1" class="selecao-check">✓</span>
+          </div>
+          <div v-if="foto.comentario" class="selecao-comment">💬 {{ foto.comentario }}</div>
+        </div>
+      </div>
+    </template>
+    <div v-else class="empty-hint">Nenhuma seleção disponível.</div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+@use '~/assets/styles/admin-shared' as *;
+
+.selecao-summary {
+  display: flex; gap: 24px; margin-bottom: 24px;
+  padding: 16px 24px; background: #f9fafb; border-radius: 8px; flex-wrap: wrap;
+}
+.summary-stat {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  .stat-value { font-size: 28px; font-weight: 700; color: #1f2937; }
+  .stat-label { font-size: 12px; color: #6b7280; text-transform: uppercase; }
+  &.stat-extra .stat-value { color: #d97706; }
+}
+.selecao-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+.selecao-card {
+  border-radius: 6px; overflow: hidden; border: 2px solid transparent;
+  &.selected { border-color: #22c55e; }
+}
+.selecao-img-wrap {
+  position: relative; aspect-ratio: 1;
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+}
+.selecao-check {
+  position: absolute; bottom: 4px; right: 4px; background: #22c55e; color: #fff;
+  border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+}
+.selecao-comment { padding: 6px 8px; font-size: 12px; color: #374151; background: #fff; border-top: 1px solid #f3f4f6; }
+</style>

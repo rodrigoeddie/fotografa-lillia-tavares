@@ -64,7 +64,7 @@ provide('fileManager', fm);
             <div class="fs-db-nav">
               <div class="fs-db-label">banco de dados</div>
               <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active">👥 Clientes</NuxtLink>
-              <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active">🖼 Sessões de Fotos</NuxtLink>
+              <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active">🖼 Fotos para Seleção</NuxtLink>
               <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active">📦 Entregas</NuxtLink>
             </div>
 

@@ -12,7 +12,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "migrate:local": "wrangler d1 execute DB --local --file=server/db/migrations/001_photo_system.sql",
-    "migrate:prod": "wrangler d1 execute DB --remote --file=server/db/migrations/001_photo_system.sql"
+    "migrate:prod": "wrangler d1 execute DB --remote --file=server/db/migrations/001_photo_system.sql",
+    "r2:cors": "wrangler r2 bucket cors set fotografa-lillia-ensaios --file r2-cors.json"
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.98",

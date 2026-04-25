@@ -160,3 +160,42 @@ export async function generateR2GetPresignedUrl(opts: R2PresignOptions): Promise
 
   return `${endpoint}${canonicalUri}?${queryParams.toString()}`;
 }
+
+export async function deleteR2Object(opts: Omit<R2PresignOptions, 'contentType' | 'expiresIn'>): Promise<void> {
+  const { accountId, accessKeyId, secretAccessKey, bucketName, key } = opts;
+
+  const host = `${accountId}.r2.cloudflarestorage.com`;
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const datetimeStr = now.toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+
+  const credentialScope = `${dateStr}/${REGION}/${SERVICE}/aws4_request`;
+  const signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
+  const payloadHash = await sha256('');
+
+  const canonicalUri = `/${bucketName}/${key.replace(/^\//, '')}`;
+  const canonicalHeaders = `host:${host}\nx-amz-content-sha256:${payloadHash}\nx-amz-date:${datetimeStr}\n`;
+  const canonicalRequest = ['DELETE', canonicalUri, '', canonicalHeaders, signedHeaders, payloadHash].join('\n');
+  const requestHash = await sha256(canonicalRequest);
+  const stringToSign = ['AWS4-HMAC-SHA256', datetimeStr, credentialScope, requestHash].join('\n');
+
+  const signingKey = await deriveSigningKey(secretAccessKey, dateStr, REGION, SERVICE);
+  const signatureBuffer = await hmacSha256(signingKey, stringToSign);
+  const signature = toHex(signatureBuffer);
+
+  const authorization = `AWS4-HMAC-SHA256 Credential=${accessKeyId}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
+
+  const res = await fetch(`https://${host}${canonicalUri}`, {
+    method: 'DELETE',
+    headers: {
+      Host: host,
+      'x-amz-date': datetimeStr,
+      'x-amz-content-sha256': payloadHash,
+      Authorization: authorization,
+    },
+  });
+
+  if (!res.ok && res.status !== 204) {
+    throw new Error(`R2 DELETE failed: ${res.status}`);
+  }
+}
