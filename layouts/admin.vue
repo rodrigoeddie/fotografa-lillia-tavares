@@ -5,27 +5,19 @@ useHead({
 
 const { authenticated, loginPassword, loginError, loginLoading, doLogin, restoreSession } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
-const fm = useAdminFileManager(showMessage);
 
 const fileSidebarOpen = ref(true);
 
 onMounted(() => {
   restoreSession();
-  if (authenticated.value) {
-    fm.loadFileTree();
-  }
 });
 
 async function handleLogin() {
   await doLogin();
-  if (authenticated.value) {
-    fm.loadFileTree();
-  }
 }
 
 // Provide showMessage and fileManager to child pages
 provide('showMessage', showMessage);
-provide('fileManager', fm);
 </script>
 
 <template>
@@ -76,75 +68,6 @@ provide('fileManager', fm);
               <div class="fs-db-label" style="margin-top:1rem">ferramentas</div>
               <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active">🔍 SEO</NuxtLink>
             </div>
-
-            <div class="fs-header" @contextmenu.prevent="fm.openCtxMenuRoot($event)">
-              <span>content/</span>
-            </div>
-
-            <div class="fs-tree">
-              <template v-for="node in fm.flatTree.value" :key="node.path">
-                <div
-                  class="fs-node"
-                  :style="{ paddingLeft: `${node.depth * 14 + 8}px` }"
-                  :class="{ 'is-dir': node.isDirectory, 'is-selected': fm.selectedWork.value === node.path || (fm.fileEditorPath.value === node.path && fm.fileEditorOpen.value) }"
-                  @contextmenu.prevent="fm.openCtxMenu($event, node)"
-                  @click="node.isDirectory ? fm.toggleDir(node.path) : fm.openInCms(node.path)">
-
-                  <!-- Rename mode -->
-                  <template v-if="fm.renamingPath.value === node.path">
-                    <input
-                      v-model="fm.renameValue.value"
-                      class="fs-rename-input"
-                      @click.stop
-                      @keydown.enter="fm.confirmRename()"
-                      @keydown.esc="fm.renamingPath.value = null"
-                      @vue:mounted="(el: any) => el.el?.focus()"
-                    />
-                    <button class="fs-action-btn ok" @click.stop="fm.confirmRename()">✓</button>
-                    <button class="fs-action-btn cancel" @click.stop="fm.renamingPath.value = null">✕</button>
-                  </template>
-
-                  <!-- Normal mode -->
-                  <template v-else>
-                    <span class="fs-toggle">{{ node.isDirectory ? (fm.expandedPaths.value.has(node.path) ? '▾' : '▸') : '' }}</span>
-                    <span class="fs-icon">{{ fm.fileIcon(node) }}</span>
-                    <span class="fs-name" :title="node.path">{{ node.name }}</span>
-                  </template>
-                </div>
-
-                <!-- Inline create row -->
-                <div
-                  v-if="fm.creatingIn.value === node.path"
-                  class="fs-create-row"
-                  :style="{ paddingLeft: `${(node.depth + 1) * 14 + 8}px` }"
-                  @click.stop>
-                  <input
-                    v-model="fm.createName.value"
-                    class="fs-create-input"
-                    :placeholder="fm.createType.value === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
-                    @keydown.enter="fm.confirmCreate()"
-                    @keydown.esc="fm.creatingIn.value = null"
-                    @vue:mounted="(el: any) => el.el?.focus()"
-                  />
-                  <button class="fs-action-btn ok" @click="fm.confirmCreate()">✓</button>
-                  <button class="fs-action-btn cancel" @click="fm.creatingIn.value = null">✕</button>
-                </div>
-              </template>
-
-              <!-- Create at root -->
-              <div v-if="fm.creatingIn.value === ''" class="fs-create-row" style="padding-left: 8px" @click.stop>
-                <input
-                  v-model="fm.createName.value"
-                  class="fs-create-input"
-                  :placeholder="fm.createType.value === 'dir' ? 'nome-da-pasta' : 'arquivo.json'"
-                  @keydown.enter="fm.confirmCreate()"
-                  @keydown.esc="fm.creatingIn.value = null"
-                  @vue:mounted="(el: any) => el.el?.focus()"
-                />
-                <button class="fs-action-btn ok" @click="fm.confirmCreate()">✓</button>
-                <button class="fs-action-btn cancel" @click="fm.creatingIn.value = null">✕</button>
-              </div>
-            </div>
           </div>
         </Transition>
 
@@ -153,71 +76,6 @@ provide('fileManager', fm);
           <slot />
         </div>
       </div>
-
-      <!-- Context Menu -->
-      <Teleport to="body">
-        <div v-if="fm.ctxMenu.value.visible" class="ctx-overlay" @click="fm.closeCtxMenu()" @contextmenu.prevent="fm.closeCtxMenu()"></div>
-        <div v-if="fm.ctxMenu.value.visible" class="ctx-menu" :style="{ left: fm.ctxMenu.value.x + 'px', top: fm.ctxMenu.value.y + 'px' }">
-          <template v-if="fm.ctxMenu.value.node && !fm.ctxMenu.value.node.isDirectory">
-            <button class="ctx-item" @click="fm.openInCms(fm.ctxMenu.value.node!.path); fm.closeCtxMenu()">
-              <span class="ctx-icon">🖥</span> Abrir no CMS
-            </button>
-            <button class="ctx-item" @click="fm.openFileEditor(fm.ctxMenu.value.node!.path); fm.closeCtxMenu()">
-              <span class="ctx-icon">📄</span> Editar texto bruto
-            </button>
-            <div class="ctx-sep"></div>
-            <button class="ctx-item" @click="fm.startRename(fm.ctxMenu.value.node!); fm.closeCtxMenu()">
-              <span class="ctx-icon">✎</span> Renomear
-            </button>
-            <button class="ctx-item danger" @click="fm.deleteItem(fm.ctxMenu.value.node!); fm.closeCtxMenu()">
-              <span class="ctx-icon">🗑</span> Deletar
-            </button>
-          </template>
-          <template v-else-if="fm.ctxMenu.value.node && fm.ctxMenu.value.node.isDirectory">
-            <button class="ctx-item" @click="fm.ctxCreate(fm.ctxMenu.value.node!.path, 'file')">
-              <span class="ctx-icon">+</span> Novo arquivo aqui
-            </button>
-            <button class="ctx-item" @click="fm.ctxCreate(fm.ctxMenu.value.node!.path, 'dir')">
-              <span class="ctx-icon">📁</span> Nova pasta aqui
-            </button>
-            <div class="ctx-sep"></div>
-            <button class="ctx-item" v-if="fm.ctxMenu.value.node!.path !== ''" @click="fm.startRename(fm.ctxMenu.value.node!); fm.closeCtxMenu()">
-              <span class="ctx-icon">✎</span> Renomear
-            </button>
-            <button class="ctx-item danger" v-if="fm.ctxMenu.value.node!.path !== ''" @click="fm.deleteItem(fm.ctxMenu.value.node!); fm.closeCtxMenu()">
-              <span class="ctx-icon">🗑</span> Deletar
-            </button>
-          </template>
-        </div>
-      </Teleport>
-
-      <!-- File Editor Modal -->
-      <Teleport to="body">
-        <div v-if="fm.fileEditorOpen.value" class="modal-overlay" @click.self="fm.fileEditorOpen.value = false">
-          <div class="modal-content modal-file-editor">
-            <div class="modal-header">
-              <div>
-                <h3>Editando: <code>{{ fm.fileEditorPath.value }}</code></h3>
-                <span v-if="fm.fileEditorDirty.value" class="editor-dirty">● não salvo</span>
-              </div>
-              <div class="modal-header-actions">
-                <button class="btn-save-file" @click="fm.saveFileEditor()" :disabled="fm.fileEditorSaving.value || !fm.fileEditorDirty.value">
-                  {{ fm.fileEditorSaving.value ? 'Salvando...' : '💾 Salvar' }}
-                </button>
-                <button class="modal-close" @click="fm.fileEditorOpen.value = false">✕</button>
-              </div>
-            </div>
-            <div v-if="fm.fileEditorLoading.value" class="loading">Carregando...</div>
-            <textarea
-              v-else
-              v-model="fm.fileEditorContent.value"
-              class="file-editor-textarea"
-              spellcheck="false"
-              @input="fm.fileEditorDirty.value = true"
-            ></textarea>
-          </div>
-        </div>
-      </Teleport>
     </div>
   </div>
 </template>

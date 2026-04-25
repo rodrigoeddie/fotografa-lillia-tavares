@@ -7,9 +7,7 @@ const posts = computed(() =>
     .sort((a: any, b: any) => new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime())
 );
 
-const formatDate = (date: string) =>
-  new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(date));
-</script>
+const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(date));
 </script>
 
 <template>

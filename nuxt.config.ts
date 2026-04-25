@@ -222,6 +222,7 @@ export default defineNuxtConfig({
         'gsap',
         'gsap/ScrollTrigger',
         '@unhead/schema-org/vue',
+        'jszip',
       ]
     },
   },

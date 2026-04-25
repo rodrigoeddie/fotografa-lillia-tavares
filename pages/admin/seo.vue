@@ -39,7 +39,7 @@ onMounted(evaluate);
     <template v-else>
       <!-- Summary -->
       <div v-if="summary" class="seo-summary">
-        <div class="stat-card">
+        <div class="stat-card stat-total">
           <span class="stat-value">{{ summary.total }}</span>
           <span class="stat-label">Itens avaliados</span>
         </div>
@@ -122,8 +122,8 @@ onMounted(evaluate);
 
 .seo-summary {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 16rem;
+  margin-bottom: 24rem;
   flex-wrap: wrap;
 }
 
@@ -131,13 +131,14 @@ onMounted(evaluate);
   background: white;
   border: 1px solid var(--border, #e2e8f0);
   border-radius: 8px;
-  padding: 1rem 1.5rem;
+  padding: 16rem 24rem;
   text-align: center;
   min-width: 110px;
 
-  .stat-value { display: block; font-size: 2rem; font-weight: 700; line-height: 1; }
-  .stat-label { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; display: block; }
+  .stat-value { display: block; font-size: 16rem; font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 17rem; color: #64748b; margin-top: 5rem; display: block; }
 
+  &.stat-total { border-color: #ccc; background: #f9f9f9; .stat-value { color: #333; } }
   &.stat-good { border-color: #86efac; background: #f0fdf4; .stat-value { color: #16a34a; } }
   &.stat-ok   { border-color: #fde68a; background: #fffbeb; .stat-value { color: #d97706; } }
   &.stat-bad  { border-color: #fca5a5; background: #fef2f2; .stat-value { color: #dc2626; } }
@@ -145,25 +146,25 @@ onMounted(evaluate);
 
 .seo-filters {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
+  gap: 24rem;
+  margin-bottom: 16rem;
   flex-wrap: wrap;
   align-items: center;
 
   .filter-group {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    label { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+    gap: 7rem;
+    label { font-size: 14rem; color: #64748b; font-weight: 600; }
   }
 }
 
 .filter-btn {
-  padding: 0.25rem 0.75rem;
+  padding: 4rem 12rem;
   border: 1px solid #e2e8f0;
   border-radius: 4px;
-  background: white;
-  font-size: 0.8rem;
+  background: black;
+  font-size: 14rem;
   cursor: pointer;
   &.active { background: #1e293b; color: white; border-color: #1e293b; }
   &.filter-bad.active  { background: #dc2626; border-color: #dc2626; }
@@ -173,12 +174,12 @@ onMounted(evaluate);
 
 .score-badge {
   display: inline-block;
-  min-width: 2.5rem;
+  min-width: 40rem;
   text-align: center;
-  padding: 0.15rem 0.5rem;
+  padding: 10rem 15rem;
   border-radius: 4px;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 16rem;
 
   &.score-good { background: #dcfce7; color: #16a34a; }
   &.score-ok   { background: #fef9c3; color: #854d0e; }
@@ -187,9 +188,9 @@ onMounted(evaluate);
 
 .type-badge {
   display: inline-block;
-  padding: 0.15rem 0.5rem;
+  padding: 10rem 15rem;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 16rem;
   font-weight: 600;
   text-transform: uppercase;
 
@@ -197,18 +198,18 @@ onMounted(evaluate);
   &.type-blog      { background: #f3e8ff; color: #7e22ce; }
 }
 
-.title-cell { max-width: 200px; font-size: 0.85rem; }
+.title-cell { max-width: 200px; font-size: 19rem; }
 
-.issues-cell { max-width: 300px; }
+.issues-cell { max-width: 300px; font-size: 19rem; }
 
 .issues-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 19rem;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 5rem;
 }
 
 .issue-error   { color: #dc2626; &::before { content: '✗ '; } }
