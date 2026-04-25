@@ -5,7 +5,7 @@ const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('sh
 const { adminFetch } = useAdminFetch();
 
 const id = computed(() => Number(route.params.id));
-const cfUrl = 'https://imagedelivery.net/O6nFDZdJNNmAV7RmVd-_zw/';
+const cfUrl = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
 
 interface PortfolioFoto {
   id?: number;
@@ -264,7 +264,8 @@ onMounted(load);
 
 .add-foto-row {
   display: flex;
-  gap: 0.75rem;
+  gap: 15rem;
+
   input { flex: 1; }
 }
 
@@ -289,43 +290,46 @@ onMounted(load);
 
 .foto-controls {
   display: flex;
-  gap: 0.25rem;
-  padding: 0.5rem;
+  gap: 6rem;
+  padding: 6rem;
   justify-content: flex-end;
 }
 
 .foto-meta {
-  padding: 0.5rem;
+  padding: 6rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 10rem;
 
   .form-field {
     margin: 0;
-    label { font-size: 0.7rem; }
-    input, select { font-size: 0.8rem; padding: 0.2rem 0.4rem; }
+
+    label { font-size: 15rem; }
+
+    input, select { font-size: 15rem; padding: 6rem 12rem; }
   }
 }
 
 .checkboxes {
   display: flex;
-  gap: 1rem;
+  gap: 16rem;
   flex-direction: row !important;
-  label { display: flex; align-items: center; gap: 0.3rem; font-weight: normal !important; font-size: 0.8rem; }
+
+  label { display: flex; align-items: center; gap: 5rem; font-weight: normal !important; font-size: 17rem; }
 }
 
 .form-hint {
-  font-size: 0.85rem;
+  font-size: 19rem;
   color: #64748b;
-  margin-bottom: 0.75rem;
+  margin-bottom: 15rem;
 }
 
 .zip-progress {
-  margin-top: 0.75rem;
+  margin-top: 15rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  font-size: 0.82rem;
+  gap: 10rem;
+  font-size: 15rem;
   color: #475569;
 }
 
@@ -343,12 +347,12 @@ onMounted(load);
 }
 
 .zip-errors {
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  margin-top: 8rem;
+  padding: 8rem 12rem;
   background: #fff1f2;
   border: 1px solid #fecdd3;
   border-radius: 6px;
-  font-size: 0.8rem;
+  font-size: 15rem;
   color: #be123c;
   list-style: none;
 }
