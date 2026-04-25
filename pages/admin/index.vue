@@ -8,6 +8,9 @@ const sections = [
   { label: 'Blog', description: 'Posts do blog', icon: '📝', path: '/admin/blog' },
   { label: 'FAQ', description: 'Perguntas frequentes', icon: '❓', path: '/admin/faq' },
   { label: 'Menu', description: 'Menu de navegação', icon: '☰', path: '/admin/menu' },
+  { label: 'Clientes', description: 'Clientes da área restrita', icon: '👥', path: '/admin/clientes' },
+  { label: 'Seleção de Fotos', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
+  { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '📦', path: '/admin/entregas' },
 ];
 </script>
 

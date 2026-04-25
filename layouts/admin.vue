@@ -60,6 +60,14 @@ provide('fileManager', fm);
         <!-- File Sidebar -->
         <Transition name="slide-sidebar">
           <div v-show="fileSidebarOpen" class="file-sidebar">
+            <!-- Navegação DB -->
+            <div class="fs-db-nav">
+              <div class="fs-db-label">banco de dados</div>
+              <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active">👥 Clientes</NuxtLink>
+              <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active">🖼 Sessões de Fotos</NuxtLink>
+              <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active">📦 Entregas</NuxtLink>
+            </div>
+
             <div class="fs-header" @contextmenu.prevent="fm.openCtxMenuRoot($event)">
               <span>content/</span>
             </div>
@@ -348,6 +356,38 @@ provide('fileManager', fm);
   min-height: calc(100vh - 60px);
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.fs-db-nav {
+  padding: 10px 8px 6px;
+  border-bottom: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fs-db-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  font-weight: 700;
+  padding: 0 4px 4px;
+}
+
+.fs-db-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #aaa;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover { background: #1e1e1e; color: #eee; }
+  &--active { background: #252525; color: #fff; }
 }
 
 .fs-header {

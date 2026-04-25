@@ -100,7 +100,9 @@ export default defineContentConfig({
           subtitle: z.string(),
           price: z.number(),
           features: z.array(z.string()),
-          isRecommended: z.boolean()
+          isRecommended: z.boolean(),
+          fotos_incluidas: z.number().optional(),
+          preco_foto_extra: z.number().optional(),
         })).optional(),
         includes: z.array(z.string()).optional(),
         cta: z.object({

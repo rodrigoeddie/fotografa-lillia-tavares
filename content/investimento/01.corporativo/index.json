@@ -18,7 +18,9 @@
         "1 look",
         "Fotos extras por R$30 cada"
       ],
-      "isRecommended": false
+      "isRecommended": false,
+      "preco_foto_extra": 30,
+      "fotos_incluidas": 5
     },
     {
       "title": "Essencial",
@@ -34,7 +36,9 @@
         "2 trocas de roupa",
         "Fotos extras por R$28 cada"
       ],
-      "isRecommended": false
+      "isRecommended": false,
+      "fotos_incluidas": 10,
+      "preco_foto_extra": 28
     },
     {
       "title": "Profissional",
@@ -50,7 +54,9 @@
         "3 trocas de roupa",
         "Fotos extras por R$20 cada"
       ],
-      "isRecommended": true
+      "isRecommended": true,
+      "fotos_incluidas": 25,
+      "preco_foto_extra": 20
     },
     {
       "title": "Premium",
@@ -66,7 +72,9 @@
         "4 trocas de roupa",
         "Fotos extras por R$19 cada"
       ],
-      "isRecommended": false
+      "isRecommended": false,
+      "preco_foto_extra": 19,
+      "fotos_incluidas": 40
     }
   ],
   "includes": [

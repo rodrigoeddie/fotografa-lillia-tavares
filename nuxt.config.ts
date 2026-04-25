@@ -234,6 +234,11 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    clientJwtSecret: process.env.CLIENT_JWT_SECRET,
+    r2AccountId: process.env.R2_ACCOUNT_ID,
+    r2AccessKeyId: process.env.R2_ACCESS_KEY_ID,
+    r2SecretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+    r2BucketName: process.env.R2_BUCKET_NAME,
     public: {
       cloudflareURI: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/',
     }
@@ -294,6 +299,10 @@ export default defineNuxtConfig({
       },
       '/admin/**': {
         robots: 'noindex, nofollow',
+      },
+      '/area-cliente/**': {
+        robots: 'noindex, nofollow',
+        ssr: true,
       },
       '/api/**': { 
         headers: {

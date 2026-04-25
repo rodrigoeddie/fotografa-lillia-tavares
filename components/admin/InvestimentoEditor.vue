@@ -7,6 +7,8 @@ interface Package {
   priceParcelas: number;
   features: string[];
   isRecommended: boolean;
+  fotos_incluidas?: number;
+  preco_foto_extra?: number;
 }
 
 interface Cta {
@@ -86,6 +88,8 @@ async function addPackage() {
     priceParcelas: 0,
     features: [],
     isRecommended: false,
+    fotos_incluidas: 0,
+    preco_foto_extra: 0,
   });
   await nextTick();
   const cards = document.querySelectorAll('.pkg-card');
@@ -226,6 +230,14 @@ defineExpose({ openFile });
                     <span class="switch-track"><span class="switch-thumb"></span></span>
                     <span class="switch-label">{{ pkg.isRecommended ? 'Sim' : 'Não' }}</span>
                   </label>
+                </div>
+                <div class="inv-field">
+                  <label>Fotos incluídas <small>(para seleção do cliente)</small></label>
+                  <input v-model.number="pkg.fotos_incluidas" type="number" min="0" step="1" placeholder="Ex: 20" />
+                </div>
+                <div class="inv-field">
+                  <label>Preço foto extra (R$) <small>(para upsell na seleção)</small></label>
+                  <input v-model.number="pkg.preco_foto_extra" type="number" min="0" step="1" placeholder="Ex: 30" />
                 </div>
               </div>
 
