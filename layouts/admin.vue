@@ -32,7 +32,7 @@ provide('fileManager', fm);
   <!-- Login Screen -->
   <div v-if="!authenticated" class="login-screen">
     <form class="login-box" @submit.prevent="handleLogin">
-      <h1>CMS Admin</h1>
+      <h1>Administração</h1>
       <input v-model="loginPassword" type="password" placeholder="Senha" autofocus autocomplete="current-password" />
       <button type="submit" :disabled="loginLoading">{{ loginLoading ? 'Verificando...' : 'Entrar' }}</button>
       <p v-if="loginError" class="login-error">{{ loginError }}</p>
@@ -44,10 +44,10 @@ provide('fileManager', fm);
     <div class="container">
       <header class="cms-header">
         <div class="cms-header-left">
-          <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Arquivos">
-            <span class="toggle-icon">☰</span> Arquivos
+          <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Menu">
+            <span class="toggle-icon">☰</span> Menu
           </button>
-          <NuxtLink to="/admin" class="cms-title-link"><h1>CMS Admin</h1></NuxtLink>
+          <NuxtLink to="/admin" class="cms-title-link"><h1>Administração</h1></NuxtLink>
         </div>
         <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
       </header>

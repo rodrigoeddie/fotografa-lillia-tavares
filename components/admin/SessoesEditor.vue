@@ -663,10 +663,7 @@ onMounted(load);
   tr:hover td { background: #f9fafb; }
 }
 
-.status-select {
-  padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 6px;
-  font-size: 13px; background: #fff; cursor: pointer;
-}
+
 
 .actions-cell { display: flex; gap: 4px; justify-content: flex-end; }
 

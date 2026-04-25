@@ -101,9 +101,4 @@ onMounted(load);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
-
-.status-select {
-  padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 6px;
-  font-size: 13px; background: #fff; cursor: pointer;
-}
 </style>

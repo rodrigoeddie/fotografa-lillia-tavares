@@ -215,12 +215,6 @@ onMounted(load);
 @use '~/assets/styles/admin-shared' as *;
 
 .upload-section { margin-bottom: 32px; }
-.upload-drop {
-  border: 2px dashed #d1d5db; border-radius: 8px; padding: 32px; text-align: center;
-  cursor: pointer; display: flex; flex-direction: column; gap: 8px; color: #6b7280;
-  &:hover { border-color: #9ca3af; background: #f9fafb; }
-  small { font-size: 13px; color: #9ca3af; }
-}
 .upload-queue { margin-top: 16px; }
 .upload-queue-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 14px; }
 .queue-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
@@ -228,7 +222,6 @@ onMounted(load);
 .queue-name { flex: 1; color: #374151; }
 .queue-progress { width: 80px; height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
 .queue-fill { height: 100%; background: #1f2937; transition: width 0.2s; }
-.status-select { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 13px; background: #fff; cursor: pointer; }
 .fotos-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .fotos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
 .foto-card { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 1; img { width: 100%; height: 100%; object-fit: cover; display: block; } }
