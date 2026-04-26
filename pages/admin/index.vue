@@ -1,17 +1,21 @@
 <script lang="ts" setup>
 definePageMeta({ layout: 'admin' });
 
-const sections = [
-  { label: 'Portfolio', description: 'Ensaios fotográficos', icon: '📷', path: '/admin/portfolio' },
-  { label: 'Depoimentos', description: 'Avaliações de clientes', icon: '⭐', path: '/admin/depoimentos' },
-  { label: 'Investimento', description: 'Pacotes e preços', icon: '💰', path: '/admin/investimento' },
-  { label: 'Blog', description: 'Posts do blog', icon: '📝', path: '/admin/blog' },
-  { label: 'FAQ', description: 'Perguntas frequentes', icon: '❓', path: '/admin/faq' },
-  { label: 'Menu', description: 'Menu de navegação', icon: '☰', path: '/admin/menu' },
-  { label: 'Clientes', description: 'Clientes da área restrita', icon: '👥', path: '/admin/clientes' },
-  { label: 'Seleção de Fotos', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
-  { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '📦', path: '/admin/entregas' },
-];
+const sections = {
+  site: [
+    { label: 'Portfolio', description: 'Ensaios fotográficos', icon: '📷', path: '/admin/portfolio' },
+    { label: 'Depoimentos', description: 'Avaliações de clientes', icon: '⭐', path: '/admin/depoimentos' },
+    { label: 'Investimento', description: 'Pacotes e preços', icon: '💰', path: '/admin/investimento' },
+    { label: 'Blog', description: 'Posts do blog', icon: '📝', path: '/admin/blog' },
+    { label: 'FAQ', description: 'Perguntas frequentes', icon: '❓', path: '/admin/faq' },
+    { label: 'Menu', description: 'Menu de navegação', icon: '☰', path: '/admin/menu' },
+  ],
+  sistema: [
+    { label: 'Clientes', description: 'Clientes da área restrita', icon: '👥', path: '/admin/clientes' },
+    { label: 'Seleção de Fotos', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
+    { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '📦', path: '/admin/entregas' },
+  ],
+};
 </script>
 
 <template>
@@ -19,9 +23,31 @@ const sections = [
     <h2>Painel</h2>
     <p class="subtitle">Selecione uma seção para editar ou use a barra lateral de arquivos.</p>
 
+    <h3>Sistema</h3>
+    <br>
+
     <div class="dashboard-grid">
       <NuxtLink
-        v-for="s in sections"
+        v-for="s in sections.sistema"
+        :key="s.path"
+        :to="s.path"
+        class="dashboard-card"
+      >
+        <span class="card-icon">{{ s.icon }}</span>
+        <div>
+          <h3>{{ s.label }}</h3>
+          <p>{{ s.description }}</p>
+        </div>
+      </NuxtLink>
+    </div>
+
+    <br><br>
+    <h3>Site</h3>
+    <br>
+
+    <div class="dashboard-grid">
+      <NuxtLink
+        v-for="s in sections.site"
         :key="s.path"
         :to="s.path"
         class="dashboard-card"

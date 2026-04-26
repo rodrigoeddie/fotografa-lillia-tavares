@@ -8,7 +8,7 @@ const props = defineProps<{
   showMessage: (msg: string, type: 'success' | 'error') => void;
 }>();
 
-const MENU_PATH = 'globals/menu.json';
+const { adminFetch } = useAdminFetch();
 
 const menuData = ref<MenuItem[]>([]);
 const menuSaving = ref(false);
@@ -19,10 +19,10 @@ const menuDragOverIdx = ref<number | null>(null);
 async function load() {
   menuLoading.value = true;
   try {
-    const res = await $fetch<{ content: string }>(`/api/fs/raw?path=${encodeURIComponent(MENU_PATH)}`, { params: { _t: Date.now() } });
-    menuData.value = JSON.parse(res.content);
+    const results = await adminFetch<MenuItem[]>('/api/admin/menu');
+    menuData.value = results.map(({ label, path }) => ({ label, path }));
   } catch (e: any) {
-    props.showMessage('Erro ao carregar menu: ' + e.message, 'error');
+    props.showMessage('Erro ao carregar menu: ' + (e.statusMessage || e.message), 'error');
   } finally {
     menuLoading.value = false;
   }
@@ -31,13 +31,13 @@ async function load() {
 async function saveMenu() {
   menuSaving.value = true;
   try {
-    await $fetch('/api/fs/raw', {
-      method: 'POST',
-      body: { path: MENU_PATH, content: JSON.stringify(menuData.value, null, 4) },
+    await adminFetch('/api/admin/menu', {
+      method: 'PUT',
+      body: menuData.value,
     });
     props.showMessage('Menu salvo!', 'success');
   } catch (e: any) {
-    props.showMessage('Erro ao salvar menu: ' + e.message, 'error');
+    props.showMessage('Erro ao salvar menu: ' + (e.statusMessage || e.message), 'error');
   } finally {
     menuSaving.value = false;
   }

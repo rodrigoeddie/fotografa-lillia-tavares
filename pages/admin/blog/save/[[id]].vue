@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { useEditor, EditorContent } from '@tiptap/vue-3';
+import StarterKit from '@tiptap/starter-kit';
+import Link from '@tiptap/extension-link';
+
 definePageMeta({ layout: 'admin' });
 const route = useRoute();
 const router = useRouter();
@@ -50,28 +54,41 @@ async function uploadCover(file: File) {
   }
 }
 
-// ─── Rich editor – conteudo ───────────────────────────────────────────────────
-const conteudoEditorRef = ref<HTMLDivElement | null>(null);
+// ─── TipTap editor – conteudo ─────────────────────────────────────────────────
+const editor = useEditor({
+  extensions: [
+    StarterKit,
+    Link.configure({ openOnClick: false }),
+  ],
+  content: '',
+  editorProps: {
+    attributes: { class: 'tiptap-editor' },
+  },
+  onUpdate: ({ editor: e }) => {
+    form.conteudo = e.getHTML();
+  },
+});
+
 function syncConteudo() {
-  if (conteudoEditorRef.value) form.conteudo = conteudoEditorRef.value.innerHTML;
+  if (editor.value) form.conteudo = editor.value.getHTML();
 }
-function execCmd(cmd: string) { document.execCommand(cmd, false, undefined); }
-function execCmdValue(cmd: string, value: string) { document.execCommand(cmd, false, value); }
+
 function insertLink() {
   const url = prompt('URL do link:');
-  if (url && conteudoEditorRef.value) {
-    conteudoEditorRef.value.focus();
-    document.execCommand('createLink', false, url);
-  }
+  if (url) editor.value?.chain().focus().setLink({ href: url }).run();
 }
 
 onMounted(async () => {
   await init();
   nextTick(() => {
-    if (conteudoEditorRef.value && form.conteudo) {
-      conteudoEditorRef.value.innerHTML = form.conteudo;
+    if (editor.value && form.conteudo) {
+      editor.value.commands.setContent(form.conteudo);
     }
   });
+});
+
+onBeforeUnmount(() => {
+  editor.value?.destroy();
 });
 </script>
 
@@ -168,23 +185,18 @@ onMounted(async () => {
       <div class="form-card">
         <h3 class="form-section-title">Conteúdo</h3>
         <div class="rich-toolbar">
-          <button type="button" @click="execCmd('bold')"><b>B</b></button>
-          <button type="button" @click="execCmd('italic')"><i>I</i></button>
-          <button type="button" @click="execCmd('underline')"><u>U</u></button>
+          <button type="button" @click="editor?.chain().focus().toggleBold().run()" :class="{ 'is-active': editor?.isActive('bold') }"><b>B</b></button>
+          <button type="button" @click="editor?.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor?.isActive('italic') }"><i>I</i></button>
+          <button type="button" @click="insertLink" :class="{ 'is-active': editor?.isActive('link') }">🔗</button>
+          <button type="button" v-if="editor?.isActive('link')" @click="editor?.chain().focus().unsetLink().run()">Remover link</button>
           <span class="tb-sep">|</span>
-          <button type="button" @click="execCmdValue('formatBlock', 'h2')">H2</button>
-          <button type="button" @click="execCmdValue('formatBlock', 'h3')">H3</button>
-          <button type="button" @click="execCmdValue('formatBlock', 'p')">¶</button>
+          <button type="button" @click="editor?.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }">H2</button>
+          <button type="button" @click="editor?.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }">H3</button>
+          <button type="button" @click="editor?.chain().focus().setParagraph().run()" :class="{ 'is-active': editor?.isActive('paragraph') }">¶</button>
           <span class="tb-sep">|</span>
-          <button type="button" @click="execCmd('insertUnorderedList')">• Lista</button>
-          <button type="button" @click="insertLink()">🔗</button>
+          <button type="button" @click="editor?.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor?.isActive('bulletList') }">• Lista</button>
         </div>
-        <div
-          ref="conteudoEditorRef"
-          class="rich-editor"
-          contenteditable="true"
-          @input="syncConteudo"
-        />
+        <EditorContent :editor="editor" class="tiptap-content" />
       </div>
 
       <!-- ── SEO ────────────────────────────────────────────────────────── -->
@@ -202,7 +214,7 @@ onMounted(async () => {
 
       <div class="form-actions">
         <NuxtLink to="/admin/blog" class="btn-secondary">Cancelar</NuxtLink>
-        <button class="btn-primary" :disabled="saving" @click="save(() => router.push('/admin/blog'))">
+        <button class="btn-primary" :disabled="saving" @click="() => { syncConteudo(); save(() => router.push('/admin/blog')); }">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar' : '💾 Publicar') }}
         </button>
       </div>
@@ -269,19 +281,23 @@ onMounted(async () => {
     padding: 3px 10px; background: #2a2a2a; border: 1px solid #444;
     color: #eee; border-radius: 4px; font-size: 13px; cursor: pointer;
     &:hover { background: #3a3a3a; }
+    &.is-active { background: #1e3a5f; border-color: #2563eb; color: #93c5fd; }
   }
 }
 .tb-sep { color: #444; padding: 0 2px; font-size: 16px; }
-.rich-editor {
-  padding: 12px 14px; border: 1px solid #999; border-radius: 6px;
-  min-height: 320px; color: white; background: transparent;
-  font-size: 15px; font-family: inherit; outline: none; line-height: 1.7;
-  &:focus { border-color: #6b7280; }
-  h2 { font-size: 1.4em; font-weight: 600; margin: 1em 0 0.4em; }
-  h3 { font-size: 1.2em; font-weight: 600; margin: 0.8em 0 0.3em; }
-  a { color: #60a5fa; }
-  ul { padding-left: 1.4em; }
-  li { margin-bottom: 4px; }
+.tiptap-content {
+  border: 1px solid #999; border-radius: 6px; min-height: 320px;
+  &:focus-within { border-color: #6b7280; }
+  :deep(.tiptap-editor) {
+    padding: 12px 14px; color: white; background: transparent;
+    font-size: 15px; font-family: inherit; outline: none; line-height: 1.7; min-height: 320px;
+    h2 { font-size: 1.4em; font-weight: 600; margin: 1em 0 0.4em; }
+    h3 { font-size: 1.2em; font-weight: 600; margin: 0.8em 0 0.3em; }
+    a { color: #60a5fa; }
+    ul { padding-left: 1.4em; }
+    li { margin-bottom: 4px; }
+    p.is-empty::before { content: attr(data-placeholder); color: #555; pointer-events: none; float: left; height: 0; }
+  }
 }
 
 .includes-row { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; input { flex: 1; } }

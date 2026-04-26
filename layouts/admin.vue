@@ -58,13 +58,14 @@ provide('showMessage', showMessage);
               <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active">👥 Clientes</NuxtLink>
               <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active">🖼 Fotos para Seleção</NuxtLink>
               <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active">📦 Entregas</NuxtLink>
-              <div class="fs-db-label" style="margin-top:1rem">conteúdo</div>
+              <div class="fs-db-label" style="margin-top:1rem">conteúdo do site</div>
+              <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active">📷 Portfolio</NuxtLink>
               <NuxtLink to="/admin/investimento" class="fs-db-link" active-class="fs-db-link--active">💰 Investimento</NuxtLink>
               <NuxtLink to="/admin/depoimentos" class="fs-db-link" active-class="fs-db-link--active">⭐ Depoimentos</NuxtLink>
               <NuxtLink to="/admin/faq" class="fs-db-link" active-class="fs-db-link--active">❓ FAQ</NuxtLink>
               <NuxtLink to="/admin/blog" class="fs-db-link" active-class="fs-db-link--active">📝 Blog</NuxtLink>
-              <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active">🎨 Portfolio</NuxtLink>
               <NuxtLink to="/admin/cenarios" class="fs-db-link" active-class="fs-db-link--active">🏛 Cenários</NuxtLink>
+              <NuxtLink to="/admin/menu" class="fs-db-link" active-class="fs-db-link--active">☰ Menu</NuxtLink>
               <div class="fs-db-label" style="margin-top:1rem">ferramentas</div>
               <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active">🔍 SEO</NuxtLink>
             </div>
@@ -85,6 +86,7 @@ provide('showMessage', showMessage);
 
 .container {
   margin: 0 auto;
+  width: 1800rem;
 }
 
 .login-screen {
@@ -216,7 +218,7 @@ provide('showMessage', showMessage);
 
 /* File sidebar */
 .file-sidebar {
-  width: 260px;
+  width: 200px;
   flex-shrink: 0;
   background: #111;
   border-right: 1px solid #222;
