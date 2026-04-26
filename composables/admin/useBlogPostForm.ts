@@ -55,11 +55,25 @@ export function useBlogPostForm(idParam: Ref<number | undefined>) {
       const body = { ...form };
       if (isEdit.value) {
         await adminFetch(`/api/admin/blog/${idParam.value}`, { method: 'PUT', body });
-        showMessage('Post atualizado!', 'success');
       } else {
         await adminFetch('/api/admin/blog', { method: 'POST', body });
-        showMessage('Post criado!', 'success');
       }
+      // Purgar cache do Cloudflare para as URLs afetadas
+      try {
+        await adminFetch('/api/admin/cache/purge', {
+          method: 'POST',
+          body: {
+            urls: [
+              `https://fotografalilliatavares.com.br/blog`,
+              `https://fotografalilliatavares.com.br/blog/${form.categoria}`,
+              `https://fotografalilliatavares.com.br/blog/${form.categoria}/${form.slug}`,
+              `https://fotografalilliatavares.com.br/api/public/blog`,
+              `https://fotografalilliatavares.com.br/api/public/blog/${form.categoria}/${form.slug}`,
+            ],
+          },
+        });
+      } catch { /* purge falhou silenciosamente — não bloqueia o save */ }
+      showMessage(isEdit.value ? 'Post atualizado!' : 'Post criado!', 'success');
       onSuccess();
     } catch (e: any) {
       showMessage('Erro: ' + (e.statusMessage || e.message), 'error');

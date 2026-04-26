@@ -15,6 +15,10 @@ const sections = {
     { label: 'Seleção de Fotos', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
     { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '📦', path: '/admin/entregas' },
   ],
+  ferramentas: [
+    { label: 'SEO', description: 'Otimização para motores de busca', icon: '🔍', path: '/admin/seo' },
+    { label: 'Cache', description: 'Limpar cache do Cloudflare', icon: '🔄', path: '/admin/cache' },
+  ],
 };
 </script>
 
@@ -48,6 +52,25 @@ const sections = {
     <div class="dashboard-grid">
       <NuxtLink
         v-for="s in sections.site"
+        :key="s.path"
+        :to="s.path"
+        class="dashboard-card"
+      >
+        <span class="card-icon">{{ s.icon }}</span>
+        <div>
+          <h3>{{ s.label }}</h3>
+          <p>{{ s.description }}</p>
+        </div>
+      </NuxtLink>
+    </div>
+
+    <br><br>
+    <h3>Ferramentas</h3>
+    <br>
+
+    <div class="dashboard-grid">
+      <NuxtLink
+        v-for="s in sections.ferramentas"
         :key="s.path"
         :to="s.path"
         class="dashboard-card"
