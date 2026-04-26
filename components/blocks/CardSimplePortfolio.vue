@@ -178,6 +178,14 @@ const props = defineProps({
         display: flex;
     }
         
+    &.lenght-items-6 {
+        width: calc(16.6667% - 7rem);
+        
+        @include m.max(sm) {
+            width: 48%;
+        }
+    }
+        
     &.lenght-items-5 {
         width: calc(20% - 7rem);
         

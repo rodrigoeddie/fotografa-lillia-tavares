@@ -45,10 +45,6 @@ const currentCategory = computed(() => {
   const cat = routeCategory.value;
   return cat ? { slug: cat, title: PORTFOLIO_CATEGORIAS[cat] ?? cat } : null;
 });
-const currentCategory = computed(() => {
-  const cat = routeCategory.value;
-  return cat ? { slug: cat, title: PORTFOLIO_CATEGORIAS[cat] ?? cat } : null;
-});
 
 const { init } = useScrollAnimations();
 

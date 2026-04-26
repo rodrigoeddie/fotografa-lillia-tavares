@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
   if (getMethod(event) === 'PUT') {
     const body = await readBody(event);
     const {
-      slug, categoria, titulo, data, local,
+      slug, categoria, titulo, descricao, artigo, data, local,
       depoimento_texto, depoimento_avatar, depoimento_link,
       cor_destaque, home, home_order, video,
       instagram_uri, instagram_title, site,
@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
     if (!work) throw createError({ statusCode: 404, statusMessage: 'Portfolio work não encontrado' });
 
     await dbUpdatePortfolioWork(db, id, {
-      slug, categoria, titulo: titulo ?? null, data: data ?? null,
+      slug, categoria, titulo: titulo ?? null, descricao: descricao ?? null, artigo: artigo ?? 'a', data: data ?? null,
       local: local ?? null,
       depoimento_texto: depoimento_texto ?? null, depoimento_avatar: depoimento_avatar ?? null,
       depoimento_link: depoimento_link ?? null, cor_destaque: cor_destaque ?? null,
@@ -45,6 +45,16 @@ export default defineEventHandler(async (event) => {
       site: site ?? null, ativo: ativo !== false ? 1 : 0, ordem: ordem ?? work.ordem,
       seo_keywords: seo_keywords ? JSON.stringify(seo_keywords) : null,
     });
+    return { success: true };
+  }
+
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    const allowed: Record<string, string> = { ativo: 'ativo', home: 'home' };
+    const field = Object.keys(body ?? {}).find((k) => allowed[k]);
+    if (!field) throw createError({ statusCode: 400, statusMessage: 'Campo inválido para patch' });
+    const value = body[field] ? 1 : 0;
+    await db.prepare(`UPDATE portfolio_works SET ${field} = ? WHERE id = ?`).bind(value, id).run();
     return { success: true };
   }
 

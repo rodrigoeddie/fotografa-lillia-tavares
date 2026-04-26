@@ -479,6 +479,8 @@ export interface PortfolioWork {
   slug: string;
   categoria: string;
   titulo: string | null;
+  descricao: string | null;
+  artigo: string | null;
   data: string | null;
   local: string | null;
   depoimento_texto: string | null;
@@ -529,14 +531,14 @@ export function dbListPortfolioFotosByWork(db: D1Database, workId: number) {
 
 export function dbCreatePortfolioWork(db: D1Database, data: Omit<PortfolioWork, 'id'>) {
   return db.prepare(
-    'INSERT INTO portfolio_works (slug,categoria,titulo,data,local,depoimento_texto,depoimento_avatar,depoimento_link,cor_destaque,home,home_order,video,instagram_uri,instagram_title,site,ativo,ordem,seo_keywords) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-  ).bind(data.slug, data.categoria, data.titulo, data.data, data.local, data.depoimento_texto, data.depoimento_avatar, data.depoimento_link, data.cor_destaque, data.home, data.home_order, data.video, data.instagram_uri, data.instagram_title, data.site, data.ativo, data.ordem, data.seo_keywords).run();
+    'INSERT INTO portfolio_works (slug,categoria,titulo,descricao,artigo,data,local,depoimento_texto,depoimento_avatar,depoimento_link,cor_destaque,home,home_order,video,instagram_uri,instagram_title,site,ativo,ordem,seo_keywords) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+  ).bind(data.slug, data.categoria, data.titulo, data.descricao, data.artigo, data.data, data.local, data.depoimento_texto, data.depoimento_avatar, data.depoimento_link, data.cor_destaque, data.home, data.home_order, data.video, data.instagram_uri, data.instagram_title, data.site, data.ativo, data.ordem, data.seo_keywords).run();
 }
 
 export function dbUpdatePortfolioWork(db: D1Database, id: number, data: Omit<PortfolioWork, 'id'>) {
   return db.prepare(
-    'UPDATE portfolio_works SET slug=?,categoria=?,titulo=?,data=?,local=?,depoimento_texto=?,depoimento_avatar=?,depoimento_link=?,cor_destaque=?,home=?,home_order=?,video=?,instagram_uri=?,instagram_title=?,site=?,ativo=?,ordem=?,seo_keywords=? WHERE id=?',
-  ).bind(data.slug, data.categoria, data.titulo, data.data, data.local, data.depoimento_texto, data.depoimento_avatar, data.depoimento_link, data.cor_destaque, data.home, data.home_order, data.video, data.instagram_uri, data.instagram_title, data.site, data.ativo, data.ordem, data.seo_keywords, id).run();
+    'UPDATE portfolio_works SET slug=?,categoria=?,titulo=?,descricao=?,artigo=?,data=?,local=?,depoimento_texto=?,depoimento_avatar=?,depoimento_link=?,cor_destaque=?,home=?,home_order=?,video=?,instagram_uri=?,instagram_title=?,site=?,ativo=?,ordem=?,seo_keywords=? WHERE id=?',
+  ).bind(data.slug, data.categoria, data.titulo, data.descricao, data.artigo, data.data, data.local, data.depoimento_texto, data.depoimento_avatar, data.depoimento_link, data.cor_destaque, data.home, data.home_order, data.video, data.instagram_uri, data.instagram_title, data.site, data.ativo, data.ordem, data.seo_keywords, id).run();
 }
 
 export function dbDeletePortfolioWork(db: D1Database, id: number) {

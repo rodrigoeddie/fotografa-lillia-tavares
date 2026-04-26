@@ -11,7 +11,7 @@
     "generate": "NODE_OPTIONS=--max-old-space-size=3072 nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "migrate:local": "wrangler d1 execute DB --local --file=server/db/migrations/003_content_seeds.sql, server/db/migrations/002_content.sql, server/db/migrations/003_content_seeds.sql",
+    "migrate:local": "wrangler d1 execute nuxt-content --local --file=scripts/backfill-portfolio-descricao.sql",
     "migrate:prod": "wrangler d1 execute DB --remote --file=server/db/migrations/001_photo_system.sql, server/db/migrations/002_content.sql, server/db/migrations/003_content_seeds.sql",
     "r2:cors": "wrangler r2 bucket cors set fotografa-lillia-ensaios --file r2-cors.json"
   },

@@ -36,6 +36,20 @@ function insertLocalLink() {
   }
 }
 
+// ─── Rich editor – Descrição ──────────────────────────────────────────────────
+const descricaoEditorRef = ref<HTMLDivElement | null>(null);
+function syncDescricao() {
+  if (descricaoEditorRef.value) form.descricao = descricaoEditorRef.value.innerHTML;
+}
+function execDescCmd(cmd: string) { document.execCommand(cmd, false, undefined); }
+function insertDescLink() {
+  const url = prompt('URL do link:');
+  if (url && descricaoEditorRef.value) {
+    descricaoEditorRef.value.focus();
+    document.execCommand('createLink', false, url);
+  }
+}
+
 // ─── Testimonial selector ────────────────────────────────────────────────────
 const depoimentos = ref<any[]>([]);
 const selectedDepId = ref<number | null>(null);
@@ -91,6 +105,9 @@ onMounted(async () => {
     if (localEditorRef.value && form.local) {
       localEditorRef.value.innerHTML = form.local;
     }
+    if (descricaoEditorRef.value && form.descricao) {
+      descricaoEditorRef.value.innerHTML = form.descricao;
+    }
     if (form.depoimento_texto) {
       const match = depoimentos.value.find(d => d.texto === form.depoimento_texto);
       if (match) selectedDepId.value = match.id;
@@ -136,6 +153,14 @@ onMounted(async () => {
           <div class="form-field">
             <label>Título (nome do cliente)</label>
             <input v-model="form.titulo" type="text" />
+          </div>
+
+          <div class="form-field">
+            <label>Artigo (o / a)</label>
+            <select v-model="form.artigo">
+              <option value="a">a (feminino)</option>
+              <option value="o">o (masculino)</option>
+            </select>
           </div>
 
           <div class="form-field">
@@ -199,6 +224,22 @@ onMounted(async () => {
           </div>
 
         </div>
+      </div>
+
+      <!-- ── Descrição ──────────────────────────────────────────────────── -->
+      <div class="form-card">
+        <h3 class="form-section-title">Descrição</h3>
+        <div class="rich-toolbar">
+          <button type="button" @click="execDescCmd('bold')"><b>B</b></button>
+          <button type="button" @click="execDescCmd('italic')"><i>I</i></button>
+          <button type="button" @click="insertDescLink()">🔗</button>
+        </div>
+        <div
+          ref="descricaoEditorRef"
+          class="rich-editor"
+          contenteditable="true"
+          @input="syncDescricao"
+        />
       </div>
 
       <!-- ── Depoimento inline ──────────────────────────────────────────── -->

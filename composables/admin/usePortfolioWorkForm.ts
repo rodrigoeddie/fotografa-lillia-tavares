@@ -13,6 +13,8 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
     slug: '',
     categoria: '',
     titulo: '',
+    descricao: '',
+    artigo: 'a' as 'a' | 'o',
     data: '',
     local: '',
     depoimento_texto: '',
@@ -38,6 +40,8 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
       form.slug = w.slug;
       form.categoria = w.categoria;
       form.titulo = w.titulo ?? '';
+      form.descricao = w.descricao ?? '';
+      form.artigo = (w.artigo === 'o' ? 'o' : 'a') as 'a' | 'o';
       form.data = w.data ?? '';
       form.local = w.local ?? '';
       form.depoimento_texto = w.depoimento_texto ?? '';

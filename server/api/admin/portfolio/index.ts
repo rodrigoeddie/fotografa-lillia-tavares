@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   if (getMethod(event) === 'POST') {
     const body = await readBody(event);
     const {
-      slug, categoria, titulo, data, local,
+      slug, categoria, titulo, descricao, artigo, data, local,
       depoimento_texto, depoimento_avatar, depoimento_link,
       cor_destaque, home, home_order, video,
       instagram_uri, instagram_title, site,
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     if (!slug || !categoria) throw createError({ statusCode: 400, statusMessage: 'slug e categoria são obrigatórios' });
 
     const result = await dbCreatePortfolioWork(db, {
-      slug, categoria, titulo: titulo ?? null, data: data ?? null,
+      slug, categoria, titulo: titulo ?? null, descricao: descricao ?? null, artigo: artigo ?? 'a', data: data ?? null,
       local: local ?? null,
       depoimento_texto: depoimento_texto ?? null, depoimento_avatar: depoimento_avatar ?? null,
       depoimento_link: depoimento_link ?? null, cor_destaque: cor_destaque ?? null,

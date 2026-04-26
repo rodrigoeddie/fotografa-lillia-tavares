@@ -23,7 +23,7 @@ if (!rawFaq.value) {
             Frequentes
           </span>
         </h1>
-        <p class="description">{{ faqData.description }}</p>
+        <p class="description">Tire suas dúvidas sobre ensaios fotográficos, pacotes, agendamento e muito mais.</p>
       </header>
 
       <SectionsFaqSection :categories="categories" />
