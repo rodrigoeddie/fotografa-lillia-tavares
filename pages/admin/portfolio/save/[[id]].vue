@@ -101,18 +101,13 @@ function generateSlug() {
 onMounted(async () => {
   await init();
   await loadDepoimentos();
-  nextTick(() => {
-    if (localEditorRef.value && form.local) {
-      localEditorRef.value.innerHTML = form.local;
-    }
-    if (descricaoEditorRef.value && form.descricao) {
-      descricaoEditorRef.value.innerHTML = form.descricao;
-    }
-    if (form.depoimento_texto) {
-      const match = depoimentos.value.find(d => d.texto === form.depoimento_texto);
-      if (match) selectedDepId.value = match.id;
-    }
-  });
+  // v-show keeps refs always mounted, so we can set innerHTML directly here.
+  if (localEditorRef.value) localEditorRef.value.innerHTML = form.local ?? '';
+  if (descricaoEditorRef.value) descricaoEditorRef.value.innerHTML = form.descricao ?? '';
+  if (form.depoimento_texto) {
+    const match = depoimentos.value.find(d => d.texto === form.depoimento_texto);
+    if (match) selectedDepId.value = match.id;
+  }
 });
 </script>
 
@@ -127,7 +122,7 @@ onMounted(async () => {
     </div>
 
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <template v-else>
+    <div v-show="!loading">
 
       <!-- ── Dados do work ───────────────────────────────────────────────── -->
       <div class="form-card">
@@ -343,7 +338,7 @@ onMounted(async () => {
         </button>
       </div>
 
-    </template>
+    </div>
   </div>
 </template>
 
