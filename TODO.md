@@ -1,5 +1,7 @@
 # ToDo
+ - Adicionar uma imagem de background para o cliente no cadastro do cliente (para mostrar na area-do-cliente)
  - Ao sair da aba e voltar o login volta a aparecer e desconfigurado (mesmo logado)
+ - Na área do cliente, adicionar o "avalie no maps"
  - share para cada pagina
  - Páginas da interna dos outros preços
  - atualizar os produtos no google maps, e acrescentar dia das mães
