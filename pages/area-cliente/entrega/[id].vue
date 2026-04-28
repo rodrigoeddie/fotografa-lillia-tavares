@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-definePageMeta({ layout: false });
+definePageMeta({ layout: false, middleware: 'cliente-auth' });
 useHead({ title: 'Seu Ensaio — Lillia Tavares' });
 
-const { isAuthenticated, checkSession } = useClientAuth();
-const router = useRouter();
+const { checkSession } = useClientAuth();
 const route = useRoute();
 const sessaoId = Number(route.params.id);
 const cfURI = useRuntimeConfig().public.cloudflareURI;
@@ -25,7 +24,6 @@ function cfUrl(id: string) { return `${cfURI}${id}/public`; }
 
 onMounted(async () => {
   await checkSession();
-  if (!isAuthenticated.value) { await router.push('/area-cliente'); return; }
   try {
     data.value = await $fetch<EntregaData>(`/api/cliente/entregas/${sessaoId}`);
   } catch (e: any) {

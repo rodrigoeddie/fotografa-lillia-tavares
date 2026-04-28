@@ -1,5 +1,5 @@
 # ToDo
-
+ - Ao sair da aba e voltar o login volta a aparecer e desconfigurado (mesmo logado)
  - share para cada pagina
  - Páginas da interna dos outros preços
  - atualizar os produtos no google maps, e acrescentar dia das mães

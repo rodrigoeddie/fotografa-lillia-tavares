@@ -5,8 +5,8 @@ useHead({ title: 'Área do Cliente — Lillia Tavares' });
 const { login } = useClientAuth();
 const router = useRouter();
 
-const form = reactive({ email: '', senha: '' });
-const error = ref('');
+const form    = reactive({ email: '', senha: '' });
+const error   = ref('');
 const loading = ref(false);
 
 async function handleLogin() {
@@ -16,6 +16,7 @@ async function handleLogin() {
   }
   loading.value = true;
   error.value = '';
+
   try {
     await login(form.email, form.senha);
     await router.push('/area-cliente/meus-ensaios');
@@ -31,7 +32,19 @@ async function handleLogin() {
   <div class="login-page">
     <div class="login-card">
       <div class="login-brand">
-        <span class="login-brand-name">Lillia Tavares</span>
+        <span class="login-brand-name">
+          <nuxt-img
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+            alt="Logotipo Lillia Tavares Fotografia"
+            width="390"
+            height="107"
+            class="logo-black"
+            format="webp"
+            fetchpriority="high"
+            preload
+            placeholder />
+        </span>
         <p class="login-brand-sub">Área exclusiva para clientes</p>
       </div>
 
@@ -76,16 +89,15 @@ async function handleLogin() {
 <style lang="scss" scoped>
 .login-page {
   min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 32px 16px;
+  align-items: center;
+  display: flex;
 }
 
 .login-card {
   background: #fff;
   border-radius: 16px;
-  padding: 40px 32px;
+  padding: 20px;
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
@@ -97,17 +109,20 @@ async function handleLogin() {
 }
 
 .login-brand-name {
+  margin-bottom: 15px;
+  margin-right: auto;
+  margin-left: auto;
   display: block;
-  font-size: 24px;
-  font-weight: 700;
-  color: #5e2012;
-  letter-spacing: 0.04em;
-  margin-bottom: 6px;
+  width: 80%;
+
+  img {
+    height: auto;
+  }
 }
 
 .login-brand-sub {
-  font-size: 14px;
-  color: #9ca3af;
+  font-size: 16px;
+  color: #69554d;
 }
 
 .login-form {

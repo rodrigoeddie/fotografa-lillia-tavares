@@ -4,12 +4,23 @@ const { clienteData, isAuthenticated, logout } = useClientAuth();
 
 <template>
   <div class="cliente-layout">
-    <header class="cliente-header">
-      <div class="cliente-header-inner">
-        <NuxtLink to="/area-cliente/meus-ensaios" class="cliente-logo">
-          Lillia Tavares
+    <header class="cliente-header" v-if="isAuthenticated">
+      <div class="container header">
+        <NuxtLink to="/area-cliente/meus-ensaios" class="logo">
+          <nuxt-img
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+            alt="Logotipo Lillia Tavares Fotografia"
+            width="390"
+            height="107"
+            class="logo-black"
+            format="webp"
+            fetchpriority="high"
+            preload
+            placeholder />
         </NuxtLink>
-        <nav v-if="isAuthenticated" class="cliente-nav">
+
+        <nav class="cliente-nav">
           <span class="cliente-welcome">Olá, {{ clienteData?.nome?.split(' ')[0] }}</span>
           <NuxtLink to="/area-cliente/meus-ensaios" class="nav-link">Meus ensaios</NuxtLink>
           <button class="nav-btn-logout" @click="logout">Sair</button>
@@ -17,7 +28,7 @@ const { clienteData, isAuthenticated, logout } = useClientAuth();
       </div>
     </header>
 
-    <main class="cliente-main">
+    <main class="container cliente-main">
       <slot />
     </main>
   </div>
@@ -28,32 +39,47 @@ const { clienteData, isAuthenticated, logout } = useClientAuth();
   min-height: 100vh;
   background: #faf9f7;
   font-family: 'Lato', sans-serif;
+  padding-top: 20px;
 }
 
-.cliente-header {
-  background: #fff;
-  border-bottom: 1px solid #f0ede8;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.cliente-header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 60px;
-  display: flex;
-  align-items: center;
+.container.header {
+  box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid v.$green;
   justify-content: space-between;
+  background: white;
+  align-items: center;
+  padding: 0 25rem;
+  height: 90rem;
+  display: flex;
+
+  @include m.max(xs) {
+    padding-left: 15px;
+    padding-right: 0;
+    height: 55px;
+  }
 }
 
-.cliente-logo {
-  font-size: 18px;
-  font-weight: 700;
-  color: #5e2012;
-  text-decoration: none;
-  letter-spacing: 0.03em;
+.logo {
+  margin-top: -35rem;
+  width: 390rem;
+
+  @include m.max(md) {
+    margin-top: -20rem;
+    width: 215px;
+  }
+
+  img {
+    height: auto;
+  }
+
+  .logo-white {
+    display: none;
+  }
+
+  span {
+    text-indent: -9999px;
+    display: block;
+  }
 }
 
 .cliente-nav {
@@ -85,10 +111,8 @@ const { clienteData, isAuthenticated, logout } = useClientAuth();
 
   &:hover { color: #5e2012; }
 }
-
 .cliente-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 </style>

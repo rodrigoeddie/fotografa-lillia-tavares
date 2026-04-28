@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-definePageMeta({ layout: 'cliente' });
+definePageMeta({ layout: 'cliente', middleware: 'cliente-auth' });
 useHead({ title: 'Meus Ensaios — Lillia Tavares' });
 
-const { isAuthenticated, checkSession } = useClientAuth();
-const router = useRouter();
+const { checkSession } = useClientAuth();
 
 interface Sessao {
   id: number;
@@ -28,11 +27,12 @@ const statusInfo: Record<string, { label: string; color: string; action?: string
 
 onMounted(async () => {
   const sessoesList = await checkSession();
-  console.log('[meus-ensaios] sessoesList:', JSON.stringify(sessoesList));
-  if (!isAuthenticated.value || sessoesList === null) {
-    await router.push('/area-cliente');
+
+  if (sessoesList === null) {
+    loading.value = false;
     return;
   }
+
   sessoes.value = sessoesList;
   loading.value = false;
 });
@@ -51,7 +51,7 @@ onMounted(async () => {
 
     <div v-else-if="sessoes.length === 0" class="empty-state">
       <div class="empty-icon">📷</div>
-      <p>Nenhum ensaio disponível ainda.</p>
+      <p>Não há nenhum ensaio cadastrado.</p>
       <p class="text-muted">Em breve a Lillia irá preparar suas fotos!</p>
     </div>
 

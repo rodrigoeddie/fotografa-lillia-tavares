@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-definePageMeta({ layout: 'cliente' });
+definePageMeta({ layout: 'cliente', middleware: 'cliente-auth' });
 useHead({ title: 'Seleção de Fotos — Lillia Tavares' });
 
-const { isAuthenticated, checkSession } = useClientAuth();
+const { checkSession } = useClientAuth();
 const router = useRouter();
 const route = useRoute();
 const sessaoId = Number(route.params.id);
@@ -52,7 +52,6 @@ function cfUrl(id: string) { return `${cfURI}${id}/public`; }
 
 async function load() {
   await checkSession();
-  if (!isAuthenticated.value) { await router.push('/area-cliente'); return; }
   try {
     const data = await $fetch<ApiResponse>(`/api/cliente/sessoes/${sessaoId}/selecao`);
     state.value = data;

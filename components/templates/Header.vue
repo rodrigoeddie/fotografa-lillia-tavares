@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-const configPublic = useRuntimeConfig().public;
 const isMobile = ref(false);
 
 onMounted(() => {
@@ -24,7 +23,7 @@ onMounted(() => {
 
 const { trackEvent } = useTracking();
 
-const clickLogo = () => trackEvent('click-logo', { screen_name: 'Header' });
+const clickLogo = ()  => trackEvent('click-logo', { screen_name: 'Header' });
 const clickWhats = () => trackEvent('click-whats', { screen_name: 'Header' });
 
 const props = defineProps({
@@ -40,6 +39,7 @@ const props = defineProps({
 
 const isScrolled = ref(false);
 const headerRef = ref<HTMLElement | null>(null);
+  
 let headerPassedOnce = false;
 let initialHeaderTopPosition = 0;
 let cachedHeaderHeight = 0;
