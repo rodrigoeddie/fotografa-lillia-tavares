@@ -181,7 +181,7 @@ onUnmounted(() => {
   }
 
   .container {
-    box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
+    // box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid v.$green;
     justify-content: space-between;
     background: white;

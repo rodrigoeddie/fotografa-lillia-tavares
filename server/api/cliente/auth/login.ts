@@ -39,6 +39,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     success: true,
-    cliente: { id: cliente.id, nome: cliente.nome, email: cliente.email },
+    cliente: { id: cliente.id, nome: cliente.nome, email: cliente.email, bg_image: cliente.bg_image ?? null },
   };
 });

@@ -58,6 +58,16 @@ export default defineEventHandler(async (event) => {
     return { success: true };
   }
 
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    const allowed: Record<string, string> = { active: 'active', ordem: 'ordem' };
+    const field = Object.keys(body ?? {}).find((k) => allowed[k]);
+    if (!field) throw createError({ statusCode: 400, statusMessage: 'Campo inválido para patch' });
+    const value = field === 'active' ? (body[field] ? 1 : 0) : Number(body[field]);
+    await db.prepare(`UPDATE produtos SET ${field} = ? WHERE id = ?`).bind(value, id).run();
+    return { success: true };
+  }
+
   if (getMethod(event) === 'DELETE') {
     const produto = await dbGetProdutoById(db, id);
     if (!produto) throw createError({ statusCode: 404, statusMessage: 'Produto não encontrado' });

@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(() => {
+export default defineNuxtRouteMiddleware(async () => {
   // Server: cookie httpOnly é legível apenas no servidor
   if (import.meta.server) {
     const session = useCookie('cliente_session');
@@ -8,9 +8,12 @@ export default defineNuxtRouteMiddleware(() => {
     return;
   }
 
-  // Client: usa estado reativo do composable (definido após login bem-sucedido)
-  const { isAuthenticated } = useClientAuth();
+  // Client: se ainda não autenticado (ex: após refresh), verifica sessão no servidor
+  const { isAuthenticated, checkSession } = useClientAuth();
   if (!isAuthenticated.value) {
-    return navigateTo('/area-cliente');
+    const result = await checkSession();
+    if (result === null) {
+      return navigateTo('/area-cliente');
+    }
   }
 });

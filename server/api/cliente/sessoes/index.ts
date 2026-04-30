@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   const { results: sessoes } = await dbListSessoesByCliente(db, clienteId);
 
   return {
-    cliente: cliente ? { id: cliente.id, nome: cliente.nome, email: cliente.email } : null,
+    cliente: cliente ? { id: cliente.id, nome: cliente.nome, email: cliente.email, bg_image: cliente.bg_image ?? null } : null,
     sessoes,
   };
 });

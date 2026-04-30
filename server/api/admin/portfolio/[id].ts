@@ -50,10 +50,10 @@ export default defineEventHandler(async (event) => {
 
   if (getMethod(event) === 'PATCH') {
     const body = await readBody(event);
-    const allowed: Record<string, string> = { ativo: 'ativo', home: 'home' };
+    const allowed: Record<string, string> = { ativo: 'ativo', home: 'home', ordem: 'ordem' };
     const field = Object.keys(body ?? {}).find((k) => allowed[k]);
     if (!field) throw createError({ statusCode: 400, statusMessage: 'Campo inválido para patch' });
-    const value = body[field] ? 1 : 0;
+    const value = field === 'ordem' ? Number(body[field]) : (body[field] ? 1 : 0);
     await db.prepare(`UPDATE portfolio_works SET ${field} = ? WHERE id = ?`).bind(value, id).run();
     return { success: true };
   }

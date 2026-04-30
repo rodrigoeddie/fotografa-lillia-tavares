@@ -36,14 +36,12 @@ const { clienteData, isAuthenticated, logout } = useClientAuth();
 
 <style lang="scss">
 .cliente-layout {
-  min-height: 100vh;
-  background: #faf9f7;
   font-family: 'Lato', sans-serif;
+  min-height: 100vh;
   padding-top: 20px;
 }
 
 .container.header {
-  box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid v.$green;
   justify-content: space-between;
   background: white;

@@ -1,4 +1,4 @@
-const clienteData = ref<{ id: number; nome: string; email: string } | null>(null);
+const clienteData = ref<{ id: number; nome: string; email: string; bg_image: string | null } | null>(null);
 const isAuthenticated = ref(false);
 
 export function useClientAuth() {
