@@ -3,7 +3,7 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 });
 
-const { authenticated, loginPassword, loginError, loginLoading, doLogin } = useAdminAuth();
+const { authenticated, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
 
 const fileSidebarOpen = ref(true);
@@ -37,7 +37,10 @@ provide('showMessage', showMessage);
           </button>
           <NuxtLink to="/admin" class="cms-title-link"><h1>Administração</h1></NuxtLink>
         </div>
-        <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
+        <div class="cms-header-right">
+          <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
+          <button class="btn-logout" @click="logout">Sair</button>
+        </div>
       </header>
 
       <Transition name="fade">
@@ -150,6 +153,24 @@ provide('showMessage', showMessage);
   padding-bottom: 16px;
   h1 { font-size: 24px; }
   .back-link { color: #888; text-decoration: none; &:hover { color: #fff; } }
+}
+
+.cms-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid #444;
+  color: #888;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: border-color 0.15s, color 0.15s;
+  &:hover { border-color: #ef4444; color: #ef4444; }
 }
 
 .cms-title-link {
