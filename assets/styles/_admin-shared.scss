@@ -242,6 +242,7 @@
     font-size: 13px;
     padding: 0.2em 0.6em;
     border-radius: 999px;
+    flex-shrink: 0;
 
     &.active {
         background: #dcfce7;
@@ -596,6 +597,27 @@
   gap: 20px;
   flex-shrink: 0;
 }
+
+.btn-fotos {
+    font-size: 12px;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.btn-selecao {
+    width: 97px;
+
+    .btn-icon {
+        font-size: 12px;
+
+        &:hover {
+            color: black;
+        }
+    }
+}
+
 
 .list-empty {
   font-size: 13px;

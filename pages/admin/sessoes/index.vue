@@ -73,12 +73,15 @@ onMounted(load);
     <p v-else-if="sessoes.length === 0" class="list-empty">Nenhuma sessão cadastrada.</p>
     <div v-else class="item-list">
       <div v-for="s in sessoes" :key="s.id" class="item-row">
-        <div class="item-info">
-          <span class="item-title">{{ s.cliente_nome }}</span>
-          <span class="item-sub">{{ s.cliente_email }}</span>
-        </div>
-        <span class="item-meta">{{ s.nome_sessao }}</span>
-        <span class="item-badge">{{ s.produto_tipo }} · Pacote {{ s.pacote_index + 1 }}</span>
+        <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="link-row" title="Editar sessão">
+          <div class="item-info">
+            <span class="item-title">{{ s.cliente_nome }}</span>
+            <span class="item-sub">{{ s.cliente_email }}</span>
+          </div>
+          <span class="item-meta">{{ s.nome_sessao }}</span>
+          <span class="item-badge">{{ s.produto_tipo }} · Pacote {{ s.pacote_index + 1 }}</span>
+        </NuxtLink>
+
         <select
           class="status-select"
           :value="s.status"
@@ -90,10 +93,9 @@ onMounted(load);
           <option value="entregue">📦 Entregue</option>
         </select>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="btn-icon" title="Editar sessão">✏️</NuxtLink>
-          <NuxtLink :to="`/admin/sessoes/${s.id}/fotos`" class="btn-icon" title="Gerenciar fotos">🖼</NuxtLink>
-          <NuxtLink :to="`/admin/sessoes/${s.id}/selecao`" class="btn-icon" title="Ver seleção do cliente">👁</NuxtLink>
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteSessao(s)">🗑</button>
+          <NuxtLink :to="`/admin/sessoes/${s.id}/fotos`" class="btn-icon btn-fotos" title="Gerenciar fotos">🖼 Fotos</NuxtLink>
+          <span class="btn-selecao"><NuxtLink v-if="s.status === 'selecao_concluida' || s.status === 'entregue'" :to="`/admin/sessoes/${s.id}/selecao`" class="btn-icon" title="Ver seleção do cliente">👁 Ver seleção</NuxtLink></span>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteSessao(s)">🗑 Deletar</button>
         </div>
       </div>
     </div>

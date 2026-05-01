@@ -46,14 +46,15 @@ onMounted(load);
     <p v-else-if="clientes.length === 0" class="list-empty">Nenhum cliente cadastrado.</p>
     <div v-else class="item-list">
       <div v-for="c in clientes" :key="c.id" class="item-row">
-        <div class="item-info">
-          <span class="item-title">{{ c.nome }}</span>
-          <span class="item-sub">{{ c.email }}</span>
-        </div>
-        <span class="item-meta">{{ c.criado_em }}</span>
+        <NuxtLink :to="`/admin/clientes/save/${c.id}`" class="link-row" title="Editar">
+          <div class="item-info">
+            <span class="item-title">{{ c.nome }}</span>
+            <span class="item-sub">{{ c.email }}</span>
+          </div>
+          <span class="item-meta">{{ c.criado_em }}</span>
+        </NuxtLink>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/clientes/save/${c.id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteCliente(c.id, c.nome)">🗑</button>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteCliente(c.id, c.nome)">🗑 Deletar</button>
         </div>
       </div>
     </div>

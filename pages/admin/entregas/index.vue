@@ -56,18 +56,19 @@ onMounted(load);
     <p v-else-if="entregas.length === 0" class="list-empty">Nenhuma entrega cadastrada.</p>
     <div v-else class="item-list">
       <div v-for="e in entregas" :key="e.sessao_id" class="item-row">
-        <div class="item-info">
-          <span class="item-title">{{ e.nome_sessao }}</span>
-          <span class="item-sub">{{ e.cliente_nome }}</span>
-        </div>
-        <span class="item-meta">{{ e.nome_arquivo ?? '—' }}</span>
+        <NuxtLink :to="`/admin/entregas/save/${e.sessao_id}`" class="link-row" title="Editar">
+          <div class="item-info">
+            <span class="item-title">{{ e.nome_sessao }}</span>
+            <span class="item-sub">{{ e.cliente_nome }}</span>
+          </div>
+          <span class="item-meta">{{ e.nome_arquivo ?? '—' }}</span>
+        </NuxtLink>
         <span class="status-pill" :class="e.ativo ? 'active' : 'inactive'">
           {{ e.ativo ? '🟢 Ativa' : '🔴 Inativa' }}
         </span>
         <div class="item-actions">
           <button class="btn-icon" title="Copiar link do cliente" @click="copyLink(e.sessao_id)">🔗</button>
-          <NuxtLink :to="`/admin/entregas/save/${e.sessao_id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteEntrega(e)">🗑</button>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteEntrega(e)">🗑 Deletar</button>
         </div>
       </div>
     </div>
