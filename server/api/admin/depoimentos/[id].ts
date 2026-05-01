@@ -30,6 +30,16 @@ export default defineEventHandler(async (event) => {
     return { success: true };
   }
 
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    if ('featured' in (body ?? {})) {
+      const val = body.featured ? 1 : 0;
+      await db.prepare('UPDATE depoimentos SET featured = ? WHERE id = ?').bind(val, id).run();
+      return { success: true };
+    }
+    throw createError({ statusCode: 400, statusMessage: 'Campo inválido para patch' });
+  }
+
   if (getMethod(event) === 'DELETE') {
     const dep = await dbGetDepoimentoById(db, id);
     if (!dep) throw createError({ statusCode: 404, statusMessage: 'Depoimento não encontrado' });

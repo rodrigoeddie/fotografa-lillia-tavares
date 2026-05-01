@@ -116,18 +116,22 @@ onMounted(init);
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
 
+.cenario-block-header {
+  padding-bottom: 15rem;
+}
+
 .form-card-header {
   display: flex;
+  padding-top: 45px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .cenario-block {
   border: 1px solid var(--border, #e2e8f0);
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 16px;
+  margin-bottom: 16px;
 
   &-header {
     display: flex;

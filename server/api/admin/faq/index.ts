@@ -26,10 +26,15 @@ export default defineEventHandler(async (event) => {
   // POST cria categoria
   if (getMethod(event) === 'POST') {
     const body = await readBody(event);
-    const { titulo, slug, ordem, perguntas } = body ?? {};
+    const { titulo, slug, perguntas } = body ?? {};
     if (!titulo || !slug) throw createError({ statusCode: 400, statusMessage: 'titulo e slug são obrigatórios' });
 
-    const result = await dbCreateFaqCategoria(db, titulo, slug, ordem ?? 0);
+    const { results: maxResult } = await db
+      .prepare('SELECT COALESCE(MAX(ordem), 0) + 1 as next FROM faq_categorias')
+      .all<{ next: number }>();
+    const ordem = maxResult[0]?.next ?? 1;
+
+    const result = await dbCreateFaqCategoria(db, titulo, slug, ordem);
     const catId = result.meta.last_row_id as number;
 
     if (Array.isArray(perguntas)) {
@@ -42,6 +47,18 @@ export default defineEventHandler(async (event) => {
     }
 
     return { success: true, id: catId };
+  }
+
+  // PATCH reordena categorias: body = [{id, ordem}]
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    if (!Array.isArray(body)) throw createError({ statusCode: 400, statusMessage: 'Body deve ser um array' });
+    for (const item of body) {
+      if (item.id && item.ordem !== undefined) {
+        await db.prepare('UPDATE faq_categorias SET ordem = ? WHERE id = ?').bind(item.ordem, item.id).run();
+      }
+    }
+    return { success: true };
   }
 
   throw createError({ statusCode: 405, statusMessage: 'Method not allowed' });

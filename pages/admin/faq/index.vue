@@ -30,6 +30,33 @@ async function deleteCategoria(id: number, titulo: string) {
   }
 }
 
+// ─── Drag to reorder ─────────────────────────────────────────────────────────
+const dragIdx = ref<number | null>(null);
+const dragOverIdx = ref<number | null>(null);
+
+function onDragStart(i: number) { dragIdx.value = i; }
+function onDragOver(e: DragEvent, i: number) { e.preventDefault(); dragOverIdx.value = i; }
+function onDragEnd() {
+  if (dragIdx.value !== null && dragOverIdx.value !== null && dragIdx.value !== dragOverIdx.value) {
+    const [moved] = categorias.value.splice(dragIdx.value, 1);
+    if (moved) categorias.value.splice(dragOverIdx.value, 0, moved);
+    persistOrder();
+  }
+  dragIdx.value = null;
+  dragOverIdx.value = null;
+}
+
+async function persistOrder() {
+  try {
+    await adminFetch('/api/admin/faq', {
+      method: 'PATCH',
+      body: categorias.value.map((c, i) => ({ id: c.id, ordem: i + 1 })),
+    });
+  } catch (e: any) {
+    showMessage('Erro ao salvar ordem: ' + (e.statusMessage || e.message), 'error');
+  }
+}
+
 onMounted(load);
 </script>
 
@@ -45,13 +72,24 @@ onMounted(load);
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="categorias.length === 0" class="list-empty">Nenhuma categoria cadastrada.</p>
     <div v-else class="item-list">
-      <div v-for="c in categorias" :key="c.id" class="item-row">
-        <span class="item-title">{{ c.titulo }}</span>
-        <span class="item-slug">{{ c.slug }}</span>
-        <span class="item-badge">{{ c.perguntas?.length ?? 0 }} perguntas</span>
+      <div
+        v-for="(c, i) in categorias"
+        :key="c.id"
+        class="item-row"
+        :class="{ 'drag-over': dragOverIdx === i }"
+        draggable="true"
+        @dragstart="onDragStart(i)"
+        @dragover="(e) => onDragOver(e, i)"
+        @dragend="onDragEnd"
+      >
+        <span class="dep-drag-handle">⠿</span>
+        <NuxtLink :to="`/admin/faq/save/${c.id}`" class="link-row">
+          <span class="item-title">{{ c.titulo }}</span>
+          <span class="item-slug">{{ c.slug }}</span>
+          <span class="item-badge">{{ c.perguntas?.length ?? 0 }} perguntas</span>
+        </NuxtLink>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/faq/save/${c.id}`" class="btn-icon">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" @click="deleteCategoria(c.id, c.titulo)">🗑</button>
+          <button class="btn-icon btn-danger" @click="deleteCategoria(c.id, c.titulo)">🗑 Deletar</button>
         </div>
       </div>
     </div>

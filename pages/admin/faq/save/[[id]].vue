@@ -80,10 +80,6 @@ onMounted(init);
               <button class="btn-ghost-sm" type="button" title="Gerar slug" @click="generateSlug">↻</button>
             </div>
           </div>
-          <div class="form-field">
-            <label>Ordem</label>
-            <input v-model.number="form.ordem" type="number" />
-          </div>
         </div>
       </div>
 
@@ -174,7 +170,7 @@ onMounted(init);
 // Perguntas section header
 .perguntas-header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+  margin-top: 35px; flex-wrap: wrap; gap: 8px;
 }
 .perguntas-actions { display: flex; gap: 6px; align-items: center; }
 .btn-ctrl {

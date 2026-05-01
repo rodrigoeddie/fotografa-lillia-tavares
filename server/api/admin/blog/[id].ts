@@ -34,6 +34,16 @@ export default defineEventHandler(async (event) => {
     return { success: true };
   }
 
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    if ('ativo' in (body ?? {})) {
+      const val = body.ativo ? 1 : 0;
+      await db.prepare('UPDATE blog_posts SET ativo = ? WHERE id = ?').bind(val, id).run();
+      return { success: true };
+    }
+    throw createError({ statusCode: 400, statusMessage: 'Campo inválido para patch' });
+  }
+
   if (getMethod(event) === 'DELETE') {
     const post = await dbGetBlogPostById(db, id);
     if (!post) throw createError({ statusCode: 404, statusMessage: 'Post não encontrado' });

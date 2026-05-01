@@ -104,7 +104,10 @@ defineExpose({ load });
           class="menu-item-path"
           placeholder="Path (ex: /sobre)"
         />
-        <button class="btn-remove-review" @click="removeMenuItem(idx)" title="Remover">✕</button>
+
+        <div class="item-actions">
+          <button class="btn-icon btn-danger" @click="removeMenuItem(idx)">🗑 Deletar</button>
+        </div>
       </div>
     </div>
 
@@ -113,6 +116,8 @@ defineExpose({ load });
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-shared' as *;
+
 .menu-editor {
   padding: 0 0 40px;
 }

@@ -89,17 +89,18 @@ onMounted(load);
         @dragstart="onDragStart(i)"
         @dragover.prevent="(e) => onDragOver(e, i)"
       >
-        <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
-        <span class="item-order">{{ i + 1 }}</span>
-        <span class="item-slug text-muted">{{ p.slug }}</span>
-        <span class="item-title">{{ p.title }}</span>
+      <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
+        <NuxtLink :to="`/admin/investimento/save/${p.id}`" class="link-row">
+          <span class="item-order">{{ i + 1 }}</span>
+          <span class="item-slug text-muted">{{ p.slug }}</span>
+          <span class="item-title">{{ p.title }}</span>
+        </NuxtLink>
         <label class="switch" :title="p.active ? 'Desativar' : 'Ativar'">
           <input type="checkbox" :checked="!!p.active" @change="toggleActive(p)" />
           <span class="slider" />
         </label>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/investimento/save/${p.id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteProduto(p.id, p.title)">🗑</button>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteProduto(p.id, p.title)">🗑 Deletar</button>
         </div>
       </div>
     </div>

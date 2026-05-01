@@ -30,6 +30,17 @@ async function deleteDepoimento(id: number, nome: string) {
   }
 }
 
+async function toggleFeatured(d: Depoimento) {
+  const prev = d.featured;
+  d.featured = prev ? 0 : 1;
+  try {
+    await adminFetch(`/api/admin/depoimentos/${d.id}`, { method: 'PATCH', body: { featured: d.featured } });
+  } catch (e: any) {
+    d.featured = prev;
+    showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
+  }
+}
+
 onMounted(load);
 </script>
 
@@ -46,13 +57,18 @@ onMounted(load);
     <p v-else-if="depoimentos.length === 0" class="list-empty">Nenhum depoimento cadastrado.</p>
     <div v-else class="item-list">
       <div v-for="d in depoimentos" :key="d.id" class="item-row">
-        <span class="item-title">{{ d.nome }}</span>
+        <NuxtLink :to="`/admin/depoimentos/save/${d.id}`" class="link-row">
+          <span class="item-title">{{ d.nome }}</span>
+        </NuxtLink>
+        <span class="item-toggle-label">Destaque</span>
+        <label class="switch" :title="d.featured ? 'Remover destaque' : 'Destacar'">
+          <input type="checkbox" :checked="!!d.featured" @change="toggleFeatured(d)" />
+          <span class="slider" />
+        </label>
         <span class="item-meta">{{ '⭐'.repeat(d.rating) }}</span>
-        <span class="item-badge" v-if="d.featured">✅ Destaque</span>
-        <span class="item-meta">{{ d.data || '—' }}</span>
+        <span class="item-meta item-stars">{{ d.data || '—' }}</span>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/depoimentos/save/${d.id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteDepoimento(d.id, d.nome)">🗑</button>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteDepoimento(d.id, d.nome)">🗑 Deletar</button>
         </div>
       </div>
     </div>

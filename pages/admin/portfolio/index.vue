@@ -90,23 +90,28 @@ onMounted(load);
         @dragover.prevent="(e) => onDragOver(e, i)"
       >
         <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
-        <span class="item-order">{{ i + 1 }}</span>
-        <span class="item-title">{{ w.titulo || w.slug }}</span>
-        <span class="item-categoria">{{ w.categoria }}</span>
+        <NuxtLink :to="`/admin/portfolio/save/${w.id}`" class="link-row" title="Editar">
+          <span class="item-order">{{ i + 1 }}</span>
+          <span class="item-title">{{ w.titulo || w.slug }}</span>
+          <span class="item-categoria">{{ w.categoria }}</span>
+        </NuxtLink>
+        <span class="row">
         <span class="item-toggle-label">Home</span>
         <label class="switch" :title="w.home ? 'Remover da home' : 'Exibir na home'">
           <input type="checkbox" :checked="!!w.home" @change="toggleField(w, 'home')" />
-          <span class="slider" />
+          <span class="slider"></span>
         </label>
+        </span>
+        <span class="row">
         <span class="item-toggle-label">Ativo</span>
         <label class="switch" :title="w.ativo ? 'Desativar' : 'Ativar'">
           <input type="checkbox" :checked="!!w.ativo" @change="toggleField(w, 'ativo')" />
-          <span class="slider" />
+          <span class="slider"></span>
         </label>
+        </span>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/portfolio/${w.id}/fotos`" class="btn-icon" title="Fotos">🖼</NuxtLink>
-          <NuxtLink :to="`/admin/portfolio/save/${w.id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" @click="deleteWork(w.id, w.titulo || w.slug)">🗑</button>
+          <NuxtLink :to="`/admin/portfolio/${w.id}/fotos`" class="btn-icon" title="Fotos">🖼 Fotos</NuxtLink>
+          <button class="btn-icon btn-danger" @click="deleteWork(w.id, w.titulo || w.slug)">🗑 Deletar</button>
         </div>
       </div>
     </div>

@@ -30,6 +30,17 @@ async function deletePost(id: number, titulo: string) {
   }
 }
 
+async function toggleAtivo(p: BlogPost) {
+  const prev = p.ativo;
+  p.ativo = prev ? 0 : 1;
+  try {
+    await adminFetch(`/api/admin/blog/${p.id}`, { method: 'PATCH', body: { ativo: p.ativo } });
+  } catch (e: any) {
+    p.ativo = prev;
+    showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
+  }
+}
+
 onMounted(load);
 </script>
 
@@ -46,13 +57,17 @@ onMounted(load);
     <p v-else-if="posts.length === 0" class="list-empty">Nenhum post publicado.</p>
     <div v-else class="item-list">
       <div v-for="p in posts" :key="p.id" class="item-row">
-        <span class="item-title">{{ p.titulo }}</span>
-        <span class="item-slug">{{ p.categoria }}</span>
-        <span class="item-meta">{{ p.data || '—' }}</span>
-        <span class="status-pill" :class="p.ativo ? 'active' : 'inactive'">{{ p.ativo ? 'Ativo' : 'Inativo' }}</span>
+        <NuxtLink :to="`/admin/blog/save/${p.id}`" class="link-row">
+          <span class="item-title">{{ p.titulo }}</span>
+          <span class="item-slug">{{ p.categoria }}</span>
+          <span class="item-meta">{{ p.data || '—' }}</span>
+        </NuxtLink>
+        <label class="switch" :title="p.ativo ? 'Desativar' : 'Ativar'">
+          <input type="checkbox" :checked="!!p.ativo" @change="toggleAtivo(p)" />
+          <span class="slider" />
+        </label>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/blog/save/${p.id}`" class="btn-icon">✏️</NuxtLink>
-          <button class="btn-icon btn-danger" @click="deletePost(p.id, p.titulo)">🗑</button>
+          <button class="btn-icon btn-danger" @click="deletePost(p.id, p.titulo)">🗑 Deletar</button>
         </div>
       </div>
     </div>

@@ -18,7 +18,6 @@ export function useFaqForm(idParam: Ref<number | undefined>) {
   const form = reactive({
     titulo: '',
     slug: '',
-    ordem: 0,
   });
 
   const perguntas = ref<FaqPerguntaForm[]>([]);
@@ -38,7 +37,6 @@ export function useFaqForm(idParam: Ref<number | undefined>) {
       const c = await adminFetch<any>(`/api/admin/faq/${idParam.value}`);
       form.titulo = c.titulo;
       form.slug = c.slug;
-      form.ordem = c.ordem;
       perguntas.value = (c.perguntas ?? []).map((p: any) => ({
         id: p.id, pergunta: p.pergunta, resposta: p.resposta,
       }));
