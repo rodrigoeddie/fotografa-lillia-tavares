@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   if (getMethod(event) === 'POST') {
     const body = await readBody(event);
-    const { nome, email, senha, bg_image } = body ?? {};
+    const { nome, email, senha, celular, bg_image } = body ?? {};
 
     if (!nome || !email || !senha) {
       throw createError({ statusCode: 400, statusMessage: 'nome, email e senha são obrigatórios' });
@@ -30,8 +30,8 @@ export default defineEventHandler(async (event) => {
     const result = await dbCreateCliente(db, nome, email, senhaHash);
     const newId = result.meta.last_row_id as number;
 
-    if (bg_image) {
-      await db.prepare('UPDATE clientes SET bg_image = ? WHERE id = ?').bind(bg_image, newId).run();
+    if (bg_image || celular) {
+      await db.prepare('UPDATE clientes SET bg_image = ?, celular = ? WHERE id = ?').bind(bg_image ?? null, celular ?? null, newId).run();
     }
 
     return { success: true, id: newId };

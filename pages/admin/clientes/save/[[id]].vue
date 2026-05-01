@@ -56,6 +56,10 @@ onMounted(init);
           <label>{{ isEdit ? 'Nova senha' : 'Senha' }} <small v-if="isEdit">(deixe em branco para manter)</small></label>
           <input v-model="form.senha" type="password" :placeholder="isEdit ? 'Nova senha' : 'Senha de acesso'" autocomplete="new-password" />
         </div>
+        <div class="form-field">
+          <label>Celular <small>(opcional — sem DDD, ex: 95980-1065)</small></label>
+          <input v-model="form.celular" type="tel" placeholder="95980-1065" maxlength="10" />
+        </div>
       </div>
 
       <!-- Background image -->

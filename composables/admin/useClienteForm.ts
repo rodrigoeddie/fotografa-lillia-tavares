@@ -8,7 +8,7 @@ export function useClienteForm(idParam: Ref<number | undefined>) {
   const isEdit = computed(() => !!idParam.value && !isNaN(idParam.value));
   const loading = ref(false);
   const saving = ref(false);
-  const form = reactive({ nome: '', email: '', senha: '', bg_image: '' });
+  const form = reactive({ nome: '', email: '', celular: '', senha: '', bg_image: '' });
 
   async function init() {
     if (!isEdit.value) return;
@@ -17,6 +17,7 @@ export function useClienteForm(idParam: Ref<number | undefined>) {
       const c = await adminFetch<any>(`/api/admin/clientes/${idParam.value}`);
       form.nome = c.nome;
       form.email = c.email;
+      form.celular = c.celular ?? '';
       form.senha = '';
       form.bg_image = c.bg_image ?? '';
     } catch (e: any) {
@@ -41,13 +42,13 @@ export function useClienteForm(idParam: Ref<number | undefined>) {
       if (isEdit.value) {
         await adminFetch(`/api/admin/clientes/${idParam.value}`, {
           method: 'PUT',
-          body: { nome: form.nome, email: form.email, bg_image: form.bg_image || null, ...(form.senha ? { senha: form.senha } : {}) },
+          body: { nome: form.nome, email: form.email, celular: form.celular || null, bg_image: form.bg_image || null, ...(form.senha ? { senha: form.senha } : {}) },
         });
         showMessage('Cliente atualizado!', 'success');
       } else {
         await adminFetch('/api/admin/clientes', {
           method: 'POST',
-          body: { nome: form.nome, email: form.email, senha: form.senha, bg_image: form.bg_image || null },
+          body: { nome: form.nome, email: form.email, celular: form.celular || null, senha: form.senha, bg_image: form.bg_image || null },
         });
         showMessage('Cliente criado!', 'success');
       }

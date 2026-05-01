@@ -3,7 +3,9 @@ definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
 
-interface Cliente { id: number; nome: string; email: string; criado_em: string; }
+interface Cliente { id: number; nome: string; email: string; celular: string | null; bg_image: string | null; criado_em: string; }
+
+const CF_URL = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
 
 const clientes = ref<Cliente[]>([]);
 const loading = ref(false);
@@ -47,9 +49,12 @@ onMounted(load);
     <div v-else class="item-list">
       <div v-for="c in clientes" :key="c.id" class="item-row">
         <NuxtLink :to="`/admin/clientes/save/${c.id}`" class="link-row" title="Editar">
+          <img v-if="c.bg_image" class="item-thumb" :src="`${CF_URL}${c.bg_image}/w=70,h=40`" alt="" />
+          <div v-else class="item-thumb item-thumb--placeholder">👤</div>
           <div class="item-info">
             <span class="item-title">{{ c.nome }}</span>
             <span class="item-sub">{{ c.email }}</span>
+            <span v-if="c.celular" class="item-sub">📱 {{ c.celular }}</span>
           </div>
           <span class="item-meta">{{ c.criado_em }}</span>
         </NuxtLink>
@@ -63,4 +68,20 @@ onMounted(load);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.item-thumb {
+  width: 70px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #2a2a2a;
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 1px solid #333;
+  }
+}
 </style>

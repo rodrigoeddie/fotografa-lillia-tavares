@@ -23,13 +23,13 @@ export default defineEventHandler(async (event) => {
 
   if (getMethod(event) === 'PUT') {
     const body = await readBody(event);
-    const { nome, email, senha, bg_image } = body ?? {};
+    const { nome, email, senha, celular, bg_image } = body ?? {};
     if (!nome || !email) throw createError({ statusCode: 400, statusMessage: 'nome e email são obrigatórios' });
 
     const cliente = await dbGetClienteById(db, id);
     if (!cliente) throw createError({ statusCode: 404, statusMessage: 'Cliente não encontrado' });
 
-    await dbUpdateCliente(db, id, nome, email, bg_image ?? null);
+    await dbUpdateCliente(db, id, nome, email, bg_image ?? null, celular ?? null);
 
     if (senha) {
       const hashBuffer = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(senha));
