@@ -3,7 +3,7 @@ import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { generateR2PutPresignedUrl } from '~/server/utils/r2-presign';
 
 export default defineEventHandler(async (event) => {
-  validateAdminToken(event);
+  await validateAdminToken(event);
 
   const body = await readBody(event);
   const { filename, content_type } = body ?? {};

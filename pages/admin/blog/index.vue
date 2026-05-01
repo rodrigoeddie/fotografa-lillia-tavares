@@ -35,27 +35,27 @@ onMounted(load);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>Blog <span class="count-badge">{{ posts.length }}</span></h2>
-      <NuxtLink to="/admin/blog/save" class="btn-primary">+ Novo post</NuxtLink>
+    <div class="dep-header">
+      <div>
+        <h2>Blog</h2>
+        <p class="dep-meta">{{ posts.length }} posts</p>
+      </div>
+      <NuxtLink to="/admin/blog/save" class="btn-add-item">+ Novo post</NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-else-if="posts.length === 0" class="empty-hint">Nenhum post publicado.</div>
-    <table v-else class="data-table">
-      <thead><tr><th>Título</th><th>Categoria</th><th>Data</th><th>Ativo</th><th></th></tr></thead>
-      <tbody>
-        <tr v-for="p in posts" :key="p.id">
-          <td>{{ p.titulo }}</td>
-          <td class="text-muted">{{ p.categoria }}</td>
-          <td class="text-sm text-muted">{{ p.data || '—' }}</td>
-          <td>{{ p.ativo ? '✅' : '❌' }}</td>
-          <td class="actions-cell">
-            <NuxtLink :to="`/admin/blog/save/${p.id}`" class="btn-icon">✏️</NuxtLink>
-            <button class="btn-icon btn-danger" @click="deletePost(p.id, p.titulo)">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-else-if="posts.length === 0" class="list-empty">Nenhum post publicado.</p>
+    <div v-else class="item-list">
+      <div v-for="p in posts" :key="p.id" class="item-row">
+        <span class="item-title">{{ p.titulo }}</span>
+        <span class="item-slug">{{ p.categoria }}</span>
+        <span class="item-meta">{{ p.data || '—' }}</span>
+        <span class="status-pill" :class="p.ativo ? 'active' : 'inactive'">{{ p.ativo ? 'Ativo' : 'Inativo' }}</span>
+        <div class="item-actions">
+          <NuxtLink :to="`/admin/blog/save/${p.id}`" class="btn-icon">✏️</NuxtLink>
+          <button class="btn-icon btn-danger" @click="deletePost(p.id, p.titulo)">🗑</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

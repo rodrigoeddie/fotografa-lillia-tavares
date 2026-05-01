@@ -2,7 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 
 export default defineEventHandler(async (event) => {
-  validateAdminToken(event);
+  await validateAdminToken(event);
 
   if (getMethod(event) !== 'POST') {
     throw createError({ statusCode: 405, statusMessage: 'Method not allowed' });

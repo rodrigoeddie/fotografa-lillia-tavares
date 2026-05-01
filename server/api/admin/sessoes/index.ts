@@ -3,7 +3,7 @@ import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getDB, dbListSessoes, dbCreateSessao, dbGetClienteById } from '~/server/utils/d1-client';
 
 export default defineEventHandler(async (event) => {
-  validateAdminToken(event);
+  await validateAdminToken(event);
   const db = getDB(event);
 
   if (getMethod(event) === 'GET') {

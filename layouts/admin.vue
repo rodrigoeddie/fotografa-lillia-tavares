@@ -3,14 +3,10 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 });
 
-const { authenticated, loginPassword, loginError, loginLoading, doLogin, restoreSession } = useAdminAuth();
+const { authenticated, loginPassword, loginError, loginLoading, doLogin } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
 
 const fileSidebarOpen = ref(true);
-
-onMounted(() => {
-  restoreSession();
-});
 
 async function handleLogin() {
   await doLogin();

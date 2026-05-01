@@ -62,40 +62,41 @@ onMounted(load);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>Fotos para Seleção <span class="count-badge">{{ sessoes.length }}</span></h2>
-      <NuxtLink to="/admin/sessoes/save" class="btn-primary">+ Nova sessão</NuxtLink>
+    <div class="dep-header">
+      <div>
+        <h2>Fotos para Seleção</h2>
+        <p class="dep-meta">{{ sessoes.length }} sessões</p>
+      </div>
+      <NuxtLink to="/admin/sessoes/save" class="btn-add-item">+ Nova sessão</NuxtLink>
     </div>
-
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-else-if="sessoes.length === 0" class="empty-hint">Nenhuma sessão cadastrada.</div>
-
-    <table v-else class="data-table">
-      <thead>
-        <tr><th>Cliente</th><th>Sessão</th><th>Produto / Pacote</th><th>Status</th><th></th></tr>
-      </thead>
-      <tbody>
-        <tr v-for="s in sessoes" :key="s.id">
-          <td>{{ s.cliente_nome }}<br /><small class="text-muted">{{ s.cliente_email }}</small></td>
-          <td>{{ s.nome_sessao }}</td>
-          <td>{{ s.produto_tipo }}<br /><small class="text-muted">Pacote {{ s.pacote_index + 1 }} · {{ s.fotos_incluidas }} fotos</small></td>
-          <td>
-            <select class="status-select" :value="s.status" @change="updateStatus(s, ($event.target as HTMLSelectElement).value)">
-              <option value="aguardando_fotos">⏳ Aguardando fotos</option>
-              <option value="aguardando_selecao">📸 Aguardando seleção</option>
-              <option value="selecao_concluida">✅ Seleção concluída</option>
-              <option value="entregue">📦 Entregue</option>
-            </select>
-          </td>
-          <td class="actions-cell">
-            <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="btn-icon" title="Editar sessão">✏️</NuxtLink>
-            <NuxtLink :to="`/admin/sessoes/${s.id}/fotos`" class="btn-icon" title="Gerenciar fotos">🖼</NuxtLink>
-            <NuxtLink :to="`/admin/sessoes/${s.id}/selecao`" class="btn-icon" title="Ver seleção do cliente">👁</NuxtLink>
-            <button class="btn-icon btn-danger" title="Excluir" @click="deleteSessao(s)">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-else-if="sessoes.length === 0" class="list-empty">Nenhuma sessão cadastrada.</p>
+    <div v-else class="item-list">
+      <div v-for="s in sessoes" :key="s.id" class="item-row">
+        <div class="item-info">
+          <span class="item-title">{{ s.cliente_nome }}</span>
+          <span class="item-sub">{{ s.cliente_email }}</span>
+        </div>
+        <span class="item-meta">{{ s.nome_sessao }}</span>
+        <span class="item-badge">{{ s.produto_tipo }} · Pacote {{ s.pacote_index + 1 }}</span>
+        <select
+          class="status-select"
+          :value="s.status"
+          @change="updateStatus(s, ($event.target as HTMLSelectElement).value)"
+        >
+          <option value="aguardando_fotos">⏳ Aguardando fotos</option>
+          <option value="aguardando_selecao">📸 Aguardando seleção</option>
+          <option value="selecao_concluida">✅ Seleção concluída</option>
+          <option value="entregue">📦 Entregue</option>
+        </select>
+        <div class="item-actions">
+          <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="btn-icon" title="Editar sessão">✏️</NuxtLink>
+          <NuxtLink :to="`/admin/sessoes/${s.id}/fotos`" class="btn-icon" title="Gerenciar fotos">🖼</NuxtLink>
+          <NuxtLink :to="`/admin/sessoes/${s.id}/selecao`" class="btn-icon" title="Ver seleção do cliente">👁</NuxtLink>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteSessao(s)">🗑</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

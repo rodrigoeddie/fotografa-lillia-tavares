@@ -1,7 +1,9 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-    const token = useCookie('auth_token');
+export default defineNuxtRouteMiddleware(() => {
+  const { authenticated } = useAdminAuth();
 
-    // if (!token.value || token.value !== 'your-auth-token') {
-    //   return navigateTo('/login');
-    // }
+  if (!authenticated.value) {
+    // Fica na página atual (o layout exibe o form de login)
+    // Não faz redirect para não expor a rota /admin
+    return;
+  }
 });

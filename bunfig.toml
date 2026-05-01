@@ -1,0 +1,5 @@
+[install]
+# Hoist all packages to node_modules (equivalent to shamefully-hoist in pnpm)
+hoist = true
+# Do not fail on peer dependency mismatches
+peer = false

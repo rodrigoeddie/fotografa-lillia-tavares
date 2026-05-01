@@ -1,28 +1,32 @@
 import { defineEventHandler, readBody, createError } from 'h3';
+import { getDB, dbGetAdminByUsername } from '~/server/utils/d1-client';
+import { verifyPassword } from '~/server/utils/password';
+import { signAdminToken } from '~/server/utils/admin-jwt';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { password } = body;
+  const { password } = body ?? {};
 
   if (!password) {
-    throw createError({ statusCode: 400, statusMessage: 'Password is required' });
+    throw createError({ statusCode: 400, statusMessage: 'Senha obrigatória' });
   }
 
-  const expectedHash = process.env.KEYCMS;
-  if (!expectedHash) {
-    throw createError({ statusCode: 500, statusMessage: 'CMS key not configured' });
+  const secret = process.env.CLIENT_JWT_SECRET;
+  if (!secret) {
+    throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
   }
 
-  // SHA-512 hash using Web Crypto API (works on Cloudflare Workers + Node)
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hashBuffer = await crypto.subtle.digest('SHA-512', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const db    = getDB(event);
+  const admin = await dbGetAdminByUsername(db, 'admin');
 
-  if (hashHex === expectedHash) {
-    return { success: true, token: hashHex.slice(0, 64) };
-  }
+  // Resposta genérica para não revelar se o usuário existe
+  const invalid = () => createError({ statusCode: 401, statusMessage: 'Senha incorreta' });
 
-  throw createError({ statusCode: 401, statusMessage: 'Senha incorreta' });
+  if (!admin) throw invalid();
+
+  const ok = await verifyPassword(password, admin.password_hash, admin.salt);
+  if (!ok) throw invalid();
+
+  const token = await signAdminToken(admin.username, secret);
+  return { success: true, token };
 });

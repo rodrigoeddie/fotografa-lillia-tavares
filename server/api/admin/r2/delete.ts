@@ -3,7 +3,7 @@ import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { deleteR2Object } from '~/server/utils/r2-presign';
 
 export default defineEventHandler(async (event) => {
-  validateAdminToken(event);
+  await validateAdminToken(event);
 
   const body = await readBody(event);
   const { key } = body ?? {};

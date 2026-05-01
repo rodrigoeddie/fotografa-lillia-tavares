@@ -27,9 +27,11 @@ onMounted(evaluate);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>Avaliação SEO</h2>
-      <button class="btn-primary btn-sm" :disabled="loading" @click="evaluate">
+    <div class="dep-header">
+      <div>
+        <h2>Avaliação SEO</h2>
+      </div>
+      <button class="btn-add-item" :disabled="loading" @click="evaluate">
         {{ loading ? 'Analisando...' : '🔍 Reanalisar' }}
       </button>
     </div>
@@ -74,44 +76,28 @@ onMounted(evaluate);
         </div>
       </div>
 
-      <!-- Table -->
-      <div class="form-card">
-        <p v-if="filtered.length === 0" class="empty-hint">Nenhum item encontrado.</p>
-        <table v-else class="data-table">
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Título</th>
-              <th>Score</th>
-              <th>Issues</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in filtered" :key="`${item.type}-${item.id}`">
-              <td>
-                <span :class="['type-badge', `type-${item.type}`]">{{ item.type }}</span>
-              </td>
-              <td class="title-cell">{{ item.title }}</td>
-              <td>
-                <span :class="['score-badge', scoreClass(item.score)]">{{ item.score }}</span>
-              </td>
-              <td class="issues-cell">
-                <ul class="issues-list">
-                  <li
-                    v-for="(issue, i) in item.issues"
-                    :key="i"
-                    :class="`issue-${issue.severity}`">
-                    {{ issue.message }}
-                  </li>
-                </ul>
-              </td>
-              <td>
-                <NuxtLink :to="item.editUrl" class="btn-icon">✏️</NuxtLink>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- List -->
+      <p v-if="filtered.length === 0" class="list-empty">Nenhum item encontrado.</p>
+      <div v-else class="item-list">
+        <div
+          v-for="item in filtered"
+          :key="`${item.type}-${item.id}`"
+          class="item-row seo-row"
+        >
+          <span :class="['type-badge', `type-${item.type}`]">{{ item.type }}</span>
+          <span class="item-title">{{ item.title }}</span>
+          <span :class="['score-badge', scoreClass(item.score)]">{{ item.score }}</span>
+          <ul class="issues-list">
+            <li
+              v-for="(issue, i) in item.issues"
+              :key="i"
+              :class="`issue-${issue.severity}`"
+            >{{ issue.message }}</li>
+          </ul>
+          <div class="item-actions">
+            <NuxtLink :to="item.editUrl" class="btn-icon">✏️</NuxtLink>
+          </div>
+        </div>
       </div>
     </template>
   </div>
@@ -174,12 +160,13 @@ onMounted(evaluate);
 
 .score-badge {
   display: inline-block;
-  min-width: 40rem;
+  min-width: 34px;
   text-align: center;
-  padding: 10rem 15rem;
+  padding: 2px 8px;
   border-radius: 4px;
   font-weight: 700;
-  font-size: 16rem;
+  font-size: 13px;
+  flex-shrink: 0;
 
   &.score-good { background: #dcfce7; color: #16a34a; }
   &.score-ok   { background: #fef9c3; color: #854d0e; }
@@ -188,31 +175,36 @@ onMounted(evaluate);
 
 .type-badge {
   display: inline-block;
-  padding: 10rem 15rem;
+  padding: 2px 8px;
   border-radius: 4px;
-  font-size: 16rem;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
+  flex-shrink: 0;
 
-  &.type-portfolio { background: #dbeafe; color: #1d4ed8; }
-  &.type-blog      { background: #f3e8ff; color: #7e22ce; }
+  &.type-portfolio { background: #1e3a5f; color: #93c5fd; }
+  &.type-blog      { background: #3b1f5e; color: #d8b4fe; }
 }
 
-.title-cell { max-width: 200px; font-size: 19rem; }
-
-.issues-cell { max-width: 300px; font-size: 19rem; }
+.seo-row {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
 .issues-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 19rem;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3px;
+  flex: 1;
+  min-width: 180px;
 }
 
-.issue-error   { color: #dc2626; &::before { content: '✗ '; } }
-.issue-warning { color: #d97706; &::before { content: '⚠ '; } }
-.issue-info    { color: #64748b; &::before { content: 'ℹ '; } }
+.issue-error   { color: #f87171; &::before { content: '✗ '; } }
+.issue-warning { color: #fbbf24; &::before { content: '⚠ '; } }
+.issue-info    { color: #6b7280; &::before { content: 'ℹ '; } }
 </style>

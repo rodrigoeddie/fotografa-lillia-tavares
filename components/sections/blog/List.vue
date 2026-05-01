@@ -89,9 +89,9 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
 
 .post-item {
   width: calc(25% - v.$space/2);
-  border: 1px solid v.$green;
   flex-direction: column;
   background: white;
+  padding: 10rem;
   display: flex;
 
   @include m.max(lg) {
@@ -107,11 +107,11 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
   }
 
   .text {
-    padding: v.$space;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    flex-direction: column;
+    padding: v.$space 0;
+    display: flex;
+    height: 100%;
   }
 
   .subtitle {

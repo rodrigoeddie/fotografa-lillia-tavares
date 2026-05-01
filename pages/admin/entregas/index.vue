@@ -45,36 +45,32 @@ onMounted(load);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>Entregas de Ensaio <span class="count-badge">{{ entregas.length }}</span></h2>
-      <NuxtLink to="/admin/entregas/save" class="btn-primary">+ Nova entrega</NuxtLink>
+    <div class="dep-header">
+      <div>
+        <h2>Entregas de Ensaio</h2>
+        <p class="dep-meta">{{ entregas.length }} entregas</p>
+      </div>
+      <NuxtLink to="/admin/entregas/save" class="btn-add-item">+ Nova entrega</NuxtLink>
     </div>
-
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-else-if="entregas.length === 0" class="empty-hint">Nenhuma entrega cadastrada.</div>
-
-    <table v-else class="data-table">
-      <thead>
-        <tr><th>Sessão</th><th>Cliente</th><th>Arquivo</th><th>Status</th><th></th></tr>
-      </thead>
-      <tbody>
-        <tr v-for="e in entregas" :key="e.sessao_id">
-          <td>{{ e.nome_sessao }}</td>
-          <td>{{ e.cliente_nome }}</td>
-          <td class="text-sm text-muted">{{ e.nome_arquivo ?? '—' }}</td>
-          <td>
-            <span class="status-pill" :class="e.ativo ? 'active' : 'inactive'">
-              {{ e.ativo ? '🟢 Ativa' : '🔴 Inativa' }}
-            </span>
-          </td>
-          <td class="actions-cell">
-            <button class="btn-icon" title="Copiar link do cliente" @click="copyLink(e.sessao_id)">🔗</button>
-            <NuxtLink :to="`/admin/entregas/save/${e.sessao_id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-            <button class="btn-icon btn-danger" title="Excluir" @click="deleteEntrega(e)">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-else-if="entregas.length === 0" class="list-empty">Nenhuma entrega cadastrada.</p>
+    <div v-else class="item-list">
+      <div v-for="e in entregas" :key="e.sessao_id" class="item-row">
+        <div class="item-info">
+          <span class="item-title">{{ e.nome_sessao }}</span>
+          <span class="item-sub">{{ e.cliente_nome }}</span>
+        </div>
+        <span class="item-meta">{{ e.nome_arquivo ?? '—' }}</span>
+        <span class="status-pill" :class="e.ativo ? 'active' : 'inactive'">
+          {{ e.ativo ? '🟢 Ativa' : '🔴 Inativa' }}
+        </span>
+        <div class="item-actions">
+          <button class="btn-icon" title="Copiar link do cliente" @click="copyLink(e.sessao_id)">🔗</button>
+          <NuxtLink :to="`/admin/entregas/save/${e.sessao_id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteEntrega(e)">🗑</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -1,15 +1,25 @@
 import { createError, getCookie, getHeader, type H3Event } from 'h3';
 import { verifyClientToken } from './client-jwt';
+import { verifyAdminToken } from './admin-jwt';
 
 /**
- * Valida o token CMS do admin (header x-cms-token).
- * O token é os primeiros 64 chars do hash SHA-512 da senha.
+ * Valida o token JWT admin (header x-cms-token).
+ * O token é um JWT HS256 assinado com CLIENT_JWT_SECRET, expira em 8h.
  */
-export function validateAdminToken(event: H3Event): void {
-  const token = getHeader(event, 'x-cms-token');
-  const expected = process.env.KEYCMS?.slice(0, 64);
-  if (!expected || !token || token !== expected) {
+export async function validateAdminToken(event: H3Event): Promise<void> {
+  const token  = getHeader(event, 'x-cms-token');
+  const secret = process.env.CLIENT_JWT_SECRET;
+
+  if (!secret) {
+    throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
+  }
+  if (!token) {
     throw createError({ statusCode: 401, statusMessage: 'Não autorizado' });
+  }
+
+  const username = await verifyAdminToken(token, secret);
+  if (!username) {
+    throw createError({ statusCode: 401, statusMessage: 'Sessão inválida ou expirada' });
   }
 }
 

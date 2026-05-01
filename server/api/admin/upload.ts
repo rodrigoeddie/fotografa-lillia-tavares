@@ -2,7 +2,7 @@ import { defineEventHandler, readMultipartFormData, createError } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 
 export default defineEventHandler(async (event) => {
-  validateAdminToken(event);
+  await validateAdminToken(event);
 
   const parts = await readMultipartFormData(event);
   if (!parts || parts.length === 0) {

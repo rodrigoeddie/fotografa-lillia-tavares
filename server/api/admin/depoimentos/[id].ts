@@ -3,7 +3,7 @@ import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getDB, dbGetDepoimentoById, dbUpdateDepoimento, dbDeleteDepoimento } from '~/server/utils/d1-client';
 
 export default defineEventHandler(async (event) => {
-  validateAdminToken(event);
+  await validateAdminToken(event);
   const db = getDB(event);
   const id = Number(getRouterParam(event, 'id'));
   if (!id) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });

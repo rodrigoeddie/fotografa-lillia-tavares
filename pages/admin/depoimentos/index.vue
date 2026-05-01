@@ -35,27 +35,27 @@ onMounted(load);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>Depoimentos <span class="count-badge">{{ depoimentos.length }}</span></h2>
-      <NuxtLink to="/admin/depoimentos/save" class="btn-primary">+ Novo depoimento</NuxtLink>
+    <div class="dep-header">
+      <div>
+        <h2>Depoimentos</h2>
+        <p class="dep-meta">{{ depoimentos.length }} depoimentos</p>
+      </div>
+      <NuxtLink to="/admin/depoimentos/save" class="btn-add-item">+ Novo depoimento</NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-else-if="depoimentos.length === 0" class="empty-hint">Nenhum depoimento cadastrado.</div>
-    <table v-else class="data-table">
-      <thead><tr><th>Nome</th><th>Rating</th><th>Featured</th><th>Data</th><th></th></tr></thead>
-      <tbody>
-        <tr v-for="d in depoimentos" :key="d.id">
-          <td>{{ d.nome }}</td>
-          <td>{{ '⭐'.repeat(d.rating) }}</td>
-          <td>{{ d.featured ? '✅' : '' }}</td>
-          <td class="text-muted text-sm">{{ d.data || '—' }}</td>
-          <td class="actions-cell">
-            <NuxtLink :to="`/admin/depoimentos/save/${d.id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
-            <button class="btn-icon btn-danger" title="Excluir" @click="deleteDepoimento(d.id, d.nome)">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-else-if="depoimentos.length === 0" class="list-empty">Nenhum depoimento cadastrado.</p>
+    <div v-else class="item-list">
+      <div v-for="d in depoimentos" :key="d.id" class="item-row">
+        <span class="item-title">{{ d.nome }}</span>
+        <span class="item-meta">{{ '⭐'.repeat(d.rating) }}</span>
+        <span class="item-badge" v-if="d.featured">✅ Destaque</span>
+        <span class="item-meta">{{ d.data || '—' }}</span>
+        <div class="item-actions">
+          <NuxtLink :to="`/admin/depoimentos/save/${d.id}`" class="btn-icon" title="Editar">✏️</NuxtLink>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteDepoimento(d.id, d.nome)">🗑</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

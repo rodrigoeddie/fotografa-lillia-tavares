@@ -35,26 +35,26 @@ onMounted(load);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>FAQ <span class="count-badge">{{ categorias.length }} categorias</span></h2>
-      <NuxtLink to="/admin/faq/save" class="btn-primary">+ Nova categoria</NuxtLink>
+    <div class="dep-header">
+      <div>
+        <h2>FAQ</h2>
+        <p class="dep-meta">{{ categorias.length }} categorias</p>
+      </div>
+      <NuxtLink to="/admin/faq/save" class="btn-add-item">+ Nova categoria</NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-else-if="categorias.length === 0" class="empty-hint">Nenhuma categoria.</div>
-    <table v-else class="data-table">
-      <thead><tr><th>Título</th><th>Slug</th><th>Perguntas</th><th></th></tr></thead>
-      <tbody>
-        <tr v-for="c in categorias" :key="c.id">
-          <td>{{ c.titulo }}</td>
-          <td class="text-muted">{{ c.slug }}</td>
-          <td>{{ c.perguntas?.length ?? 0 }}</td>
-          <td class="actions-cell">
-            <NuxtLink :to="`/admin/faq/save/${c.id}`" class="btn-icon">✏️</NuxtLink>
-            <button class="btn-icon btn-danger" @click="deleteCategoria(c.id, c.titulo)">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-else-if="categorias.length === 0" class="list-empty">Nenhuma categoria cadastrada.</p>
+    <div v-else class="item-list">
+      <div v-for="c in categorias" :key="c.id" class="item-row">
+        <span class="item-title">{{ c.titulo }}</span>
+        <span class="item-slug">{{ c.slug }}</span>
+        <span class="item-badge">{{ c.perguntas?.length ?? 0 }} perguntas</span>
+        <div class="item-actions">
+          <NuxtLink :to="`/admin/faq/save/${c.id}`" class="btn-icon">✏️</NuxtLink>
+          <button class="btn-icon btn-danger" @click="deleteCategoria(c.id, c.titulo)">🗑</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

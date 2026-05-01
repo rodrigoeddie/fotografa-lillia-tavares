@@ -35,26 +35,26 @@ onMounted(load);
 
 <template>
   <div class="page">
-    <div class="page-header">
-      <h2>Cenários <span class="count-badge">{{ paginas.length }} páginas</span></h2>
-      <NuxtLink to="/admin/cenarios/save" class="btn-primary">+ Nova página</NuxtLink>
+    <div class="dep-header">
+      <div>
+        <h2>Cenários</h2>
+        <p class="dep-meta">{{ paginas.length }} páginas</p>
+      </div>
+      <NuxtLink to="/admin/cenarios/save" class="btn-add-item">+ Nova página</NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-else-if="paginas.length === 0" class="empty-hint">Nenhuma página de cenários.</div>
-    <table v-else class="data-table">
-      <thead><tr><th>Título</th><th>Slug</th><th>Cenários</th><th></th></tr></thead>
-      <tbody>
-        <tr v-for="p in paginas" :key="p.id">
-          <td>{{ p.titulo }}</td>
-          <td class="text-muted">{{ p.slug }}</td>
-          <td>{{ p.cenarios?.length ?? 0 }}</td>
-          <td class="actions-cell">
-            <NuxtLink :to="`/admin/cenarios/save/${p.id}`" class="btn-icon">✏️</NuxtLink>
-            <button class="btn-icon btn-danger" @click="deletePagina(p.id, p.titulo)">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-else-if="paginas.length === 0" class="list-empty">Nenhuma página de cenários.</p>
+    <div v-else class="item-list">
+      <div v-for="p in paginas" :key="p.id" class="item-row">
+        <span class="item-title">{{ p.titulo }}</span>
+        <span class="item-slug">{{ p.slug }}</span>
+        <span class="item-badge">{{ p.cenarios?.length ?? 0 }} cenários</span>
+        <div class="item-actions">
+          <NuxtLink :to="`/admin/cenarios/save/${p.id}`" class="btn-icon">✏️</NuxtLink>
+          <button class="btn-icon btn-danger" @click="deletePagina(p.id, p.titulo)">🗑</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

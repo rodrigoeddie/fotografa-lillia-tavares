@@ -115,7 +115,6 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxtjs/seo',
     '@nuxt/image',
-    'nuxt-swiper',
     '@nuxt/icon',
     '@nuxt/scripts'
   ],
@@ -225,13 +224,6 @@ export default defineNuxtConfig({
         'jszip',
       ]
     },
-  },
-
-  postcss: {
-    plugins: {
-      'postcss-responsive-type': {},
-      'postcss-preset-env': {}
-    }
   },
 
   runtimeConfig: {

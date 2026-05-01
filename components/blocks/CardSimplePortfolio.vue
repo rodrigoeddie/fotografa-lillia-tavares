@@ -89,8 +89,8 @@ const props = defineProps({
 <style scoped lang="scss">
 .thumb {
     box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
-    border: 1px solid v.$green;
     background: white;
+    padding: 10rem;
 
     .inner-thumb {
         flex-direction: column;
@@ -100,7 +100,7 @@ const props = defineProps({
     
     .wrap-info {
         color: v.$green;
-        padding: v.$space;
+        padding: v.$space 0;
         height: 100%;
         
         .wrap-text {
@@ -245,6 +245,7 @@ const props = defineProps({
 .slider {
     aspect-ratio: 384/450;
     background: #f6f6f6;
+    overflow: hidden;
     flex-shrink: 0;
     width: 100%;
 }
