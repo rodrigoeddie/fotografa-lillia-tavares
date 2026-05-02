@@ -3,7 +3,7 @@ definePageMeta({ layout: 'admin' });
 const route = useRoute();
 const router = useRouter();
 
-const sessaoIdParam = computed(() => {
+const entregaIdParam = computed(() => {
   const id = route.params.id as string;
   return id ? Number(id) : undefined;
 });
@@ -13,7 +13,7 @@ const {
   uploadProgress, isUploading, uploadDone, zipFileRef, selectedZipFile, replacingZip,
   bgFileRef, isBgUploading, replacingBg,
   cfUrl, init, onZipSelected, startReplaceZip, removeZip, startReplaceBg, uploadBgImage, save,
-} = useEntregaForm(sessaoIdParam);
+} = useEntregaForm(entregaIdParam);
 
 onMounted(init);
 </script>

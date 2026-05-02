@@ -40,7 +40,10 @@ onMounted(load);
         <h2>Cenários</h2>
         <p class="dep-meta">{{ paginas.length }} páginas</p>
       </div>
-      <NuxtLink to="/admin/cenarios/save" class="btn-add-item">+ Nova página</NuxtLink>
+      <NuxtLink to="/admin/cenarios/save" class="btn-add-item">
+        <span class="material-symbols-outlined"> add </span>
+        <span>Nova página</span>
+      </NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="paginas.length === 0" class="list-empty">Nenhuma página de cenários.</p>

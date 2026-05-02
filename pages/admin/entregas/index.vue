@@ -50,7 +50,10 @@ onMounted(load);
         <h2>Entregas de Ensaio</h2>
         <p class="dep-meta">{{ entregas.length }} entregas</p>
       </div>
-      <NuxtLink to="/admin/entregas/save" class="btn-add-item">+ Nova entrega</NuxtLink>
+      <NuxtLink to="/admin/entregas/save" class="btn-add-item">
+        <span class="material-symbols-outlined"> add </span>
+        <span>Nova entrega</span>
+      </NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="entregas.length === 0" class="list-empty">Nenhuma entrega cadastrada.</p>

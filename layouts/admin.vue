@@ -39,8 +39,14 @@ provide('showMessage', showMessage);
           <NuxtLink to="/admin" class="cms-title-link"><h1>Administração</h1></NuxtLink>
         </div>
         <div class="cms-header-right">
-          <NuxtLink to="/" class="back-link">← Voltar ao site</NuxtLink>
-          <button class="btn-logout" @click="logout">Sair</button>
+          <NuxtLink to="/" class="back-link">
+            <span class="material-symbols-outlined"> arrow_back </span>
+            <span>Voltar ao site</span>
+          </NuxtLink>
+          <button class="btn-logout" @click="logout">
+            <span class="material-symbols-outlined"> exit_to_app </span>
+            <span>Sair</span>
+          </button>
         </div>
       </header>
 
@@ -152,8 +158,26 @@ provide('showMessage', showMessage);
   margin-bottom: 24px;
   border-bottom: 1px solid #333;
   padding-bottom: 16px;
-  h1 { font-size: 24px; }
-  .back-link { color: #888; text-decoration: none; &:hover { color: #fff; } }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .back-link {
+    text-decoration: none;
+    align-items: center;
+    color: #888;
+    display: flex;
+    gap: 5rem;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 .cms-header-right {
@@ -168,10 +192,22 @@ provide('showMessage', showMessage);
   color: #888;
   padding: 6px 14px;
   border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
   cursor: pointer;
   font-size: 13px;
   transition: border-color 0.15s, color 0.15s;
-  &:hover { border-color: #ef4444; color: #ef4444; }
+
+  .material-symbols-outlined {
+    font-size: 18px;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
 }
 
 .cms-title-link {

@@ -2,13 +2,14 @@ import type { Ref } from 'vue';
 
 interface Sessao { id: number; nome_sessao: string; cliente_nome: string; status: string; }
 
-export function useEntregaForm(sessaoIdParam: Ref<number | undefined>) {
+export function useEntregaForm(entregaIdParam: Ref<number | undefined>) {
   const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
   const { adminFetch } = useAdminFetch();
   const cfURI = useRuntimeConfig().public.cloudflareURI;
   const router = useRouter();
+  const route = useRoute();
 
-  const isEdit = computed(() => !!sessaoIdParam.value && !isNaN(sessaoIdParam.value));
+  const isEdit = computed(() => !!entregaIdParam.value && !isNaN(entregaIdParam.value));
   const loading = ref(false);
   const saving = ref(false);
   const sessoes = ref<Sessao[]>([]);
@@ -16,6 +17,7 @@ export function useEntregaForm(sessaoIdParam: Ref<number | undefined>) {
 
   const form = reactive({
     sessao_id: 0,
+    lote_id: null as number | null,
     r2_key: '',
     nome_arquivo: '',
     bg_image_id: '',
@@ -51,8 +53,9 @@ export function useEntregaForm(sessaoIdParam: Ref<number | undefined>) {
     if (isEdit.value) {
       loading.value = true;
       try {
-        const e = await adminFetch<any>(`/api/admin/entregas/${sessaoIdParam.value}`);
+        const e = await adminFetch<any>(`/api/admin/entregas/item/${entregaIdParam.value}`);
         form.sessao_id = e.sessao_id;
+        form.lote_id = e.lote_id ?? null;
         form.r2_key = e.r2_key ?? '';
         form.nome_arquivo = e.nome_arquivo ?? '';
         form.bg_image_id = e.bg_image_id ?? '';
@@ -67,6 +70,11 @@ export function useEntregaForm(sessaoIdParam: Ref<number | undefined>) {
         loading.value = false;
       }
     } else {
+      // Pré-preenche sessao_id e lote_id vindos de query params
+      const qSessao = route.query.sessao_id;
+      const qLote = route.query.lote_id;
+      if (qSessao) form.sessao_id = Number(qSessao);
+      if (qLote) form.lote_id = Number(qLote);
       try {
         sessoes.value = await adminFetch<Sessao[]>('/api/admin/sessoes');
       } catch (e: any) {
@@ -174,12 +182,11 @@ export function useEntregaForm(sessaoIdParam: Ref<number | undefined>) {
     saving.value = true;
     try {
       if (isEdit.value) {
-        await adminFetch(`/api/admin/entregas/${sessaoIdParam.value}`, {
+        await adminFetch(`/api/admin/entregas/item/${entregaIdParam.value}`, {
           method: 'PUT',
           body: {
             r2_key: form.r2_key, nome_arquivo: form.nome_arquivo,
             bg_image_id: form.bg_image_id, mensagem: form.mensagem, ativo: form.ativo,
-            sessao_id: sessaoIdParam.value,
           },
         });
         showMessage('Entrega atualizada!', 'success');
@@ -187,9 +194,9 @@ export function useEntregaForm(sessaoIdParam: Ref<number | undefined>) {
         await adminFetch('/api/admin/entregas', {
           method: 'POST',
           body: {
-            sessao_id: Number(form.sessao_id), r2_key: form.r2_key,
-            nome_arquivo: form.nome_arquivo, bg_image_id: form.bg_image_id,
-            mensagem: form.mensagem, ativo: form.ativo,
+            sessao_id: Number(form.sessao_id), lote_id: form.lote_id,
+            r2_key: form.r2_key, nome_arquivo: form.nome_arquivo,
+            bg_image_id: form.bg_image_id, mensagem: form.mensagem, ativo: form.ativo,
           },
         });
         showMessage('Entrega criada!', 'success');

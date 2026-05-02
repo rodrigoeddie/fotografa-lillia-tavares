@@ -118,11 +118,15 @@ onMounted(load);
 <template>
   <div class="page">
     <div class="dep-header">
-      <div>
-        <h2>Fotos para Seleção</h2>
-        <p class="dep-meta">{{ sessoes.length }} sessões</p>
+      <div class="row aic">
+        <span class="material-symbols-outlined">photo_library</span>
+        <h2>Ensaios</h2>
+        <p class="dep-meta"> - {{ sessoes.length }} sessões</p>
       </div>
-      <NuxtLink to="/admin/sessoes/save" class="btn-add-item">+ Nova sessão</NuxtLink>
+      <NuxtLink to="/admin/sessoes/save" class="btn-add-item">
+        <span class="material-symbols-outlined"> add </span>
+        <span>Nova sessão</span>
+      </NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <div v-else class="kanban-board">
@@ -165,6 +169,9 @@ onMounted(load);
                 title="Ver seleção"
               >
                 <span class="material-symbols-outlined">visibility</span> <span>Ver seleção</span>
+              </NuxtLink>
+              <NuxtLink :to="`/admin/entregas/${s.id}`" class="card-action" title="Ver entregas">
+                <span class="material-symbols-outlined">inventory_2</span> <span>Entregas</span>
               </NuxtLink>
               <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="card-action" title="Editar">
                 <span class="material-symbols-outlined"> edit </span> <span>Editar</span>

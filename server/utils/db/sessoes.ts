@@ -81,6 +81,7 @@ export interface SessaoFoto {
   sessao_id: number;
   cloudflare_image_id: string;
   ordem: number;
+  entregue: number;
 }
 
 export function dbListFotosBySessao(db: D1Database, sessaoId: number) {
@@ -101,9 +102,38 @@ export function dbCountFotosBySessao(db: D1Database, sessaoId: number) {
 
 // ─── Seleções ─────────────────────────────────────────────────────────────────
 
-export interface Selecao {
+export interface SelecaoLote {
   id: number;
   sessao_id: number;
+  criado_em: string;
+  status: 'aguardando_selecao' | 'selecao_concluida' | 'entregue';
+}
+
+export function dbListLotesBySessao(db: D1Database, sessaoId: number) {
+  return db.prepare('SELECT * FROM selecao_lotes WHERE sessao_id = ? ORDER BY criado_em ASC').bind(sessaoId).all<SelecaoLote>();
+}
+
+export function dbGetLoteById(db: D1Database, loteId: number) {
+  return db.prepare('SELECT * FROM selecao_lotes WHERE id = ?').bind(loteId).first<SelecaoLote>();
+}
+
+export function dbGetActiveLoteBySessao(db: D1Database, sessaoId: number) {
+  return db.prepare(
+    "SELECT * FROM selecao_lotes WHERE sessao_id = ? AND status = 'aguardando_selecao' ORDER BY criado_em DESC LIMIT 1"
+  ).bind(sessaoId).first<SelecaoLote>();
+}
+
+export function dbCreateLote(db: D1Database, sessaoId: number) {
+  return db.prepare('INSERT INTO selecao_lotes (sessao_id) VALUES (?)').bind(sessaoId).run();
+}
+
+export function dbUpdateLoteStatus(db: D1Database, loteId: number, status: SelecaoLote['status']) {
+  return db.prepare('UPDATE selecao_lotes SET status = ? WHERE id = ?').bind(status, loteId).run();
+}
+
+export interface Selecao {
+  id: number;
+  lote_id: number;
   foto_id: number;
   selecionada: number;
   comentario: string | null;
@@ -112,30 +142,48 @@ export interface Selecao {
 export interface SelecaoComFoto extends Selecao {
   cloudflare_image_id: string;
   ordem: number;
+  entregue: number;
 }
 
-export function dbGetSelecoesBySessao(db: D1Database, sessaoId: number) {
+export function dbGetSelecoesByLote(db: D1Database, loteId: number) {
   return db.prepare(`
-    SELECT sf.*, sel.selecionada, sel.comentario
+    SELECT sf.*, sel.selecionada, sel.comentario, sel.lote_id
     FROM sessao_fotos sf
-    LEFT JOIN selecoes sel ON sel.foto_id = sf.id AND sel.sessao_id = sf.sessao_id
-    WHERE sf.sessao_id = ?
+    LEFT JOIN selecoes sel ON sel.foto_id = sf.id AND sel.lote_id = ?
+    WHERE sf.sessao_id = (SELECT sessao_id FROM selecao_lotes WHERE id = ?)
     ORDER BY sf.ordem ASC
-  `).bind(sessaoId).all<SelecaoComFoto>();
+  `).bind(loteId, loteId).all<SelecaoComFoto>();
+}
+
+/** Fotos disponíveis para nova leva: apenas as ainda não entregues */
+export function dbGetFotosDisponiveis(db: D1Database, sessaoId: number) {
+  return db.prepare(
+    'SELECT * FROM sessao_fotos WHERE sessao_id = ? AND entregue = 0 ORDER BY ordem ASC'
+  ).bind(sessaoId).all<SessaoFoto>();
 }
 
 export function dbUpsertSelecao(
   db: D1Database,
-  sessaoId: number,
+  loteId: number,
   fotoId: number,
   selecionada: boolean,
   comentario: string,
 ) {
   return db.prepare(`
-    INSERT INTO selecoes (sessao_id, foto_id, selecionada, comentario)
+    INSERT INTO selecoes (lote_id, foto_id, selecionada, comentario)
     VALUES (?, ?, ?, ?)
-    ON CONFLICT(sessao_id, foto_id) DO UPDATE SET
+    ON CONFLICT(lote_id, foto_id) DO UPDATE SET
       selecionada = excluded.selecionada,
-      comentario = excluded.comentario
-  `).bind(sessaoId, fotoId, selecionada ? 1 : 0, comentario || null).run();
+      comentario  = excluded.comentario
+  `).bind(loteId, fotoId, selecionada ? 1 : 0, comentario || null).run();
+}
+
+/** Marca todas as fotos selecionadas de um lote como entregues */
+export function dbMarkFotosEntregues(db: D1Database, loteId: number) {
+  return db.prepare(`
+    UPDATE sessao_fotos SET entregue = 1
+    WHERE id IN (
+      SELECT foto_id FROM selecoes WHERE lote_id = ? AND selecionada = 1
+    )
+  `).bind(loteId).run();
 }

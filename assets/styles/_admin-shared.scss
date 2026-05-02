@@ -467,10 +467,18 @@
   padding: 0 0 16px;
   border-bottom: 1px solid #222;
   margin-bottom: 20px;
-  h2 { font-size: 20px; margin: 0 0 4px; }
+
+  h2 {
+    font-size: 20px;
+    margin: 0 0 4px;
+  }
 }
 
 .dep-meta { font-size: 13px; color: #666; margin: 0; }
+
+.aic {
+    align-items: center;
+}
 
 .btn-add-item {
   background: #1e2d3d;
@@ -482,7 +490,21 @@
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  &:hover { background: #253d55; }
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+
+  span {
+    line-height: 1em;
+  }
+
+  .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  &:hover {
+    background: #253d55;
+  }
 }
 
 // ─── Item list rows ──────────────────────────────────────────────────────────
