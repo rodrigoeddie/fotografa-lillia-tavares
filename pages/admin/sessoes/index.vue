@@ -186,7 +186,7 @@ onMounted(load);
 
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   align-items: start;
   overflow-x: auto;
@@ -254,6 +254,7 @@ onMounted(load);
   padding: 10px 12px;
   cursor: grab;
   display: flex;
+  flex-direction: column;
   gap: 8px;
   align-items: flex-start;
   transition: border-color 0.15s, opacity 0.15s, box-shadow 0.15s;
@@ -289,10 +290,13 @@ onMounted(load);
 }
 
 .card-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  border-top: 1px solid #2a2a2a;
+  margin-top: 10px;
+  padding-top: 15px;
   flex-shrink: 0;
+  display: flex;
+  width: 100%;
+  gap: 4px;
 }
 
 .card-action {
@@ -301,11 +305,23 @@ onMounted(load);
   cursor: pointer;
   font-size: 14px;
   color: #555;
+  gap: 4rem;
   padding: 2px 4px;
   border-radius: 4px;
   text-decoration: none;
   line-height: 1.4;
   transition: background 0.1s, color 0.1s;
+  display: flex;
+  align-items: center;
+
+  span {
+    font-size: 14px;
+    color: white;
+
+    &.material-symbols-outlined {
+      font-size: 18px;
+    }
+  }
 
   &:hover { background: #2a2a2a; color: #ccc; }
   &--danger:hover { background: #2a1010; color: #ef4444; }
