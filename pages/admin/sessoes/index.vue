@@ -2,11 +2,13 @@
 definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
+const cfURI = useRuntimeConfig().public.cloudflareURI;
 
 interface Sessao {
   id: number; cliente_id: number; nome_sessao: string; produto_tipo: string;
   pacote_index: number; fotos_incluidas: number; preco_foto_extra: number;
   status: string; criado_em: string; cliente_nome: string; cliente_email: string;
+  primeira_foto_id: string | null;
 }
 
 const sessoes = ref<Sessao[]>([]);
@@ -120,11 +122,18 @@ onMounted(load);
             :key="s.id"
             class="kanban-card"
           >
-            <div class="card-body">
-              <p class="card-name">{{ s.cliente_nome }}</p>
-              <p class="card-sub">{{ s.nome_sessao }}</p>
-              <p class="card-badge">{{ s.produto_tipo }} · Pacote {{ s.pacote_index + 1 }}</p>
-            </div>
+            <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="wrap-info">
+              <span class="material-symbols-outlined icon-edit"> edit </span>
+              <div class="card-thumb">
+                <img v-if="s.primeira_foto_id" :src="`${cfURI}${s.primeira_foto_id}/public`" alt="" />
+                <span v-else class="material-symbols-outlined">no_photography</span>
+              </div>
+              <div class="card-body">
+                <p class="card-name">{{ s.cliente_nome }}</p>
+                <p class="card-sub">{{ s.nome_sessao }}</p>
+                <p class="card-badge">{{ s.produto_tipo }} · Pacote {{ s.pacote_index + 1 }}</p>
+              </div>
+            </NuxtLink>
             <div class="card-actions">
               <NuxtLink :to="`/admin/sessoes/${s.id}/fotos`" class="card-action" title="Gerenciar fotos">
                 <span class="material-symbols-outlined">photo_library</span> <span>Fotos</span>
@@ -140,9 +149,6 @@ onMounted(load);
               <NuxtLink v-if="entregasSessaoIds.has(s.id)" :to="`/admin/entregas/${s.id}`" class="card-action" title="Ver entregas">
                 <span class="material-symbols-outlined">inventory_2</span> <span>Entregas</span>
               </NuxtLink>
-              <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="card-action" title="Editar">
-                <span class="material-symbols-outlined"> edit </span> <span>Editar</span>
-              </NuxtLink>
               <button class="card-action card-action--danger" title="Excluir" @click="deleteSessao(s)">
                 <span class="material-symbols-outlined">delete</span> <span>Deletar</span>
               </button>
@@ -157,6 +163,24 @@ onMounted(load);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.wrap-info {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+
+  .icon-edit {
+    transition: opacity 0.2s;
+    position: absolute;
+    opacity: 0;
+    right: 5px;
+    top: 5px;
+  }
+
+  &:hover .icon-edit {
+    opacity: 1;
+  }
+}
 
 .kanban-board {
   display: grid;
@@ -203,10 +227,14 @@ onMounted(load);
   }
 }
 
-.kanban-col--aguardando_fotos   .kanban-col-header { border-bottom-color: #92200e40; }
+.kanban-col--aguardando_fotos,
+.kanban-col--aguardando_fotos .kanban-col-header { border-bottom-color: #92200e40; }
+.kanban-col--aguardando_selecao,
 .kanban-col--aguardando_selecao .kanban-col-header { border-bottom-color: #af921e40; }
-.kanban-col--selecao_concluida  .kanban-col-header { border-bottom-color: #16653440; }
-.kanban-col--entregue           .kanban-col-header { border-bottom-color: #4c1d9540; }
+.kanban-col--selecao_concluida,
+.kanban-col--selecao_concluida .kanban-col-header { border-bottom-color: #16653440; }
+.kanban-col--entregue,
+.kanban-col--entregue .kanban-col-header { border-bottom-color: #4c1d9540; }
 
 .kanban-cards {
   padding: 10px;
@@ -220,34 +248,51 @@ onMounted(load);
   background: #1e1e1e;
   border: 1px solid #2e2e2e;
   border-radius: 8px;
-  padding: 10px 12px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   align-items: flex-start;
   transition: border-color 0.15s, box-shadow 0.15s;
+
+  &:hover { border-color: #444; box-shadow: 0 2px 8px #0004; }
 }
+
+.card-thumb {
+  width: 100px;
+  height: 100px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .material-symbols-outlined { font-size: 32px; color: #333; }
+}
+
 .card-body {
   flex: 1;
   min-width: 0;
-}
+  padding: 10px 12px 0 0;
 
-.card-name { font-size: 13px; font-weight: 600; color: #e5e7eb; margin: 0 0 2px; }
-.card-sub  { font-size: 11px; color: #6b7280; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-badge {
-  display: inline-block;
-  font-size: 10px;
-  background: #2a2a2a;
-  color: #9ca3af;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin: 0;
+  .card-name { font-size: 13px; font-weight: 600; color: #e5e7eb; margin: 0 0 2px; }
+  .card-sub  { font-size: 11px; color: #6b7280; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-badge {
+    display: inline-block;
+    font-size: 10px;
+    background: #2a2a2a;
+    color: #9ca3af;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0;
+  }
 }
-
 .card-actions {
   border-top: 1px solid #2a2a2a;
-  margin-top: 10px;
-  padding-top: 15px;
+  padding: 12px 12px 10px;
+  justify-content: center;
   flex-shrink: 0;
   display: flex;
   width: 100%;
@@ -259,27 +304,48 @@ onMounted(load);
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: #555;
   gap: 4rem;
-  padding: 2px 4px;
-  border-radius: 4px;
+  padding: 4px 7px;
   text-decoration: none;
+  color: #555;
+  border-bottom: 2px solid transparent;
   line-height: 1.4;
   transition: background 0.1s, color 0.1s;
   display: flex;
   align-items: center;
 
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    background: #2a2a2a;
+    margin-left: 5px;
+    left: -6px;
+    position: absolute;
+  }
+
+  &:first-child:before {
+    display: none;
+    margin-left: 0;
+  }
+
   span {
     font-size: 14px;
-    color: white;
 
     &.material-symbols-outlined {
       font-size: 18px;
     }
   }
 
-  &:hover { background: #2a2a2a; color: #ccc; }
-  &--danger:hover { background: #2a1010; color: #ef4444; }
+  &:hover {
+    border-bottom: 2px solid #555;
+    color: white;
+  }
+
+  &--danger:hover {
+    color: #ef4444;
+  }
 }
 
 .kanban-empty {

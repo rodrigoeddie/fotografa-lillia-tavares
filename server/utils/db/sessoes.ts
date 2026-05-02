@@ -15,11 +15,13 @@ export interface Sessao {
 export interface SessaoComCliente extends Sessao {
   cliente_nome: string;
   cliente_email: string;
+  primeira_foto_id: string | null;
 }
 
 export function dbListSessoes(db: D1Database) {
   return db.prepare(`
-    SELECT s.*, c.nome AS cliente_nome, c.email AS cliente_email
+    SELECT s.*, c.nome AS cliente_nome, c.email AS cliente_email,
+      (SELECT cloudflare_image_id FROM sessao_fotos WHERE sessao_id = s.id ORDER BY ordem ASC, id ASC LIMIT 1) AS primeira_foto_id
     FROM sessoes s JOIN clientes c ON s.cliente_id = c.id
     ORDER BY s.criado_em DESC
   `).all<SessaoComCliente>();
