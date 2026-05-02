@@ -9,6 +9,9 @@ import {
   dbGetActiveLoteBySessao,
   dbGetFotosDisponiveis,
   dbUpdateLoteStatus,
+  dbCreateLote,
+  dbListProdutos,
+  dbListPacotesByProduto,
 } from '~/server/utils/d1-client';
 
 export default defineEventHandler(async (event) => {
@@ -22,8 +25,23 @@ export default defineEventHandler(async (event) => {
   if (sessao.cliente_id !== clienteId) throw createError({ statusCode: 403, statusMessage: 'Acesso negado' });
 
   if (getMethod(event) === 'GET') {
-    const lote = await dbGetActiveLoteBySessao(db, sessaoId);
-    const extras = lote ? 0 : 0; // calculado abaixo
+    let lote = await dbGetActiveLoteBySessao(db, sessaoId);
+
+    // Resolve nome do pacote
+    const { results: todosProdutos } = await dbListProdutos(db);
+    const produto = todosProdutos.find((p) => p.title === sessao.produto_tipo);
+    let pacote_titulo: string | null = null;
+    if (produto) {
+      const { results: pacotes } = await dbListPacotesByProduto(db, produto.id);
+      pacote_titulo = pacotes[sessao.pacote_index]?.title ?? null;
+    }
+
+    // Se não há lote ativo mas a sessão já tem fotos disponíveis, cria o lote automaticamente
+    if (!lote && sessao.status !== 'aguardando_fotos') {
+      const result = await dbCreateLote(db, sessaoId);
+      const loteId = result.meta.last_row_id as number;
+      lote = await dbGetActiveLoteBySessao(db, sessaoId);
+    }
 
     if (!lote) {
       return {
@@ -31,6 +49,7 @@ export default defineEventHandler(async (event) => {
           id: sessao.id,
           nome_sessao: sessao.nome_sessao,
           produto_tipo: sessao.produto_tipo,
+          pacote_titulo,
           fotos_incluidas: sessao.fotos_incluidas,
           preco_foto_extra: sessao.preco_foto_extra,
           status: sessao.status,
@@ -52,6 +71,7 @@ export default defineEventHandler(async (event) => {
         id: sessao.id,
         nome_sessao: sessao.nome_sessao,
         produto_tipo: sessao.produto_tipo,
+        pacote_titulo,
         fotos_incluidas: sessao.fotos_incluidas,
         preco_foto_extra: sessao.preco_foto_extra,
         status: sessao.status,

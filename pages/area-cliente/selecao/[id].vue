@@ -26,6 +26,8 @@ interface ApiResponse {
   sessao: {
     id: number;
     nome_sessao: string;
+    produto_tipo: string;
+    pacote_titulo: string | null;
     fotos_incluidas: number;
     preco_foto_extra: number;
     status: string;
@@ -181,12 +183,19 @@ onMounted(load);
       <div v-if="state.sessao.status === 'aguardando_selecao'" class="sticky-bar">
         <div class="sticky-bar-inner">
           <div class="sticky-counts">
-            <span class="count-main">
-              <strong>{{ totalSelecionadas }}</strong> de {{ fotos_incluidas }} fotos incluídas
+            <span class="count-main fotos-selecionadas" v-if="totalSelecionadas > 0">
+              <strong>{{ totalSelecionadas }}</strong>
+              <span>foto{{ totalSelecionadas > 1 ? 's' : '' }} selecionada{{ totalSelecionadas > 1 ? 's' : '' }}</span>
             </span>
-            <span v-if="extras > 0" class="count-extras">
-              +{{ extras }} extra{{ extras > 1 ? 's' : '' }} = R$ {{ valorExtras.toFixed(2).replace('.', ',') }}
-            </span>
+            <div class="infos-pacotes">
+              <span class="count-main">
+                <span>{{ fotos_incluidas }}</span>
+                fotos incluídas no pacote: {{ state.sessao.produto_tipo }}<template v-if="state.sessao.pacote_titulo"> · {{ state.sessao.pacote_titulo }}</template>
+              </span>
+              <span v-if="extras > 0" class="count-extras">
+                +{{ extras }} extra{{ extras > 1 ? 's' : '' }} = R$ {{ valorExtras.toFixed(2).replace('.', ',') }}
+              </span>
+            </div>
           </div>
           <button class="finalizar-btn" :disabled="finalizing" @click="finalizar">
             {{ finalizing ? 'Finalizando...' : 'Finalizar seleção' }}
@@ -213,9 +222,11 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
 }
 
 .fotos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  columns: 2;
+  column-gap: 12px;
+
+  @media (min-width: 640px)  { columns: 3; }
+  @media (min-width: 1024px) { columns: 4; }
 }
 
 .foto-card {
@@ -225,6 +236,8 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
   border: 2px solid transparent;
   transition: border-color 0.15s, box-shadow 0.15s;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  break-inside: avoid;
+  margin-bottom: 12px;
 
   &.selected {
     border-color: #5e2012;
@@ -234,11 +247,10 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
 
 .foto-img-wrap {
   position: relative;
-  aspect-ratio: 3/2;
   cursor: pointer;
   overflow: hidden;
 
-  img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.2s; }
+  img { width: 100%; height: auto; display: block; transition: transform 0.2s; }
   &:hover img { transform: scale(1.02); }
 }
 
@@ -271,7 +283,14 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
 }
 
 .sticky-counts { display: flex; flex-direction: column; gap: 2px; }
-.count-main { font-size: 15px; color: #374151; }
+.count-main {
+  font-size: 15px;
+  color: #374151;
+
+  &.fotos-selecionadas {
+    display: flex;
+  }
+}
 .count-extras { font-size: 14px; color: #b45309; font-weight: 600; }
 
 .finalizar-btn {
