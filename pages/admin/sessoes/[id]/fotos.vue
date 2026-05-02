@@ -15,7 +15,7 @@ interface Sessao {
 
 const sessao = ref<Sessao | null>(null);
 const fotos = ref<Foto[]>([]);
-const uploadQueue = ref<{ file: File; status: 'pending' | 'processing' | 'done' | 'error'; progress: number; name: string; }[]>([]);
+const uploadQueue = ref<{ file: File; status: 'pending' | 'processing' | 'done' | 'error'; progress: number; name: string; preview: string; }[]>([]);
 const isUploading = ref(false);
 const fileInputRef = ref<HTMLInputElement | null>(null);
 
@@ -52,7 +52,7 @@ function onFilesSelected(e: Event) {
   const input = e.target as HTMLInputElement;
   if (!input.files) return;
   for (const file of Array.from(input.files)) {
-    uploadQueue.value.push({ file, status: 'pending', progress: 0, name: file.name });
+    uploadQueue.value.push({ file, status: 'pending', progress: 0, name: file.name, preview: URL.createObjectURL(file) });
   }
   input.value = '';
 }
@@ -183,7 +183,7 @@ onMounted(load);
         @dragover.prevent
         @drop.prevent="(e) => { const dt = (e as DragEvent).dataTransfer; if (dt) { const fake = { target: { files: dt.files } } as any; onFilesSelected(fake); } }">
         <span class="flex aic gap-5">
-          <span class="material-symbols-outlined"> photo </span>
+          <span class="material-symbols-outlined icon-photo"> photo </span>
           <span>Arraste fotos aqui ou clique para selecionar</span>
         </span>
         <small>A marca d'água será aplicada automaticamente antes do upload</small>
@@ -198,6 +198,7 @@ onMounted(load);
           </button>
         </div>
         <div v-for="(item, i) in uploadQueue" :key="i" class="queue-item">
+          <img class="queue-thumb" :src="item.preview" :alt="item.name" />
           <span class="queue-status" :class="item.status">
             {{ item.status === 'done' ? '✅' : item.status === 'error' ? '❌' : item.status === 'processing' ? '⏳' : '⬜' }}
           </span>
@@ -215,7 +216,15 @@ onMounted(load);
       <div v-if="fotos.length === 0" class="empty-hint">Nenhuma foto adicionada ainda.</div>
       <div v-else class="fotos-grid">
         <div v-for="foto in fotos" :key="foto.id" class="foto-card">
-          <img :src="cfUrl(foto.cloudflare_image_id)" :alt="`Foto ${foto.id}`" loading="lazy" />
+          <nuxt-img
+            provider="cloudflare"
+            :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
+            width="200"
+            class="image"
+            :alt="`Foto ${foto.id}`"
+            format="webp"
+            placeholder
+            loading="lazy"/>
           <button class="foto-remove" title="Remover foto" @click="removePhoto(foto)">✕</button>
         </div>
       </div>
@@ -226,17 +235,34 @@ onMounted(load);
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
 
+.icon-photo {
+  margin-right: 2px;
+  top: 6px;
+}
 .upload-section { margin-bottom: 32px; }
 .upload-queue { margin-top: 16px; }
 .upload-queue-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 14px; }
 .queue-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+.queue-thumb { width: 100px; height: auto; border-radius: 4px; object-fit: contain; flex-shrink: 0; display: block; }
 .queue-status { font-size: 16px; width: 24px; text-align: center; }
 .queue-name { flex: 1; color: #374151; }
 .queue-progress { width: 80px; height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
 .queue-fill { height: 100%; background: #1f2937; transition: width 0.2s; }
 .fotos-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.fotos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-.foto-card { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 1; img { width: 100%; height: 100%; object-fit: cover; display: block; } }
+.fotos-grid {
+  column-gap: 12px;
+  columns: 6;
+  gap: 12px;
+}
+
+.foto-card {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  
+  img { width: 100%; display: block; }
+}
 .foto-remove {
   position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.6); color: #fff;
   border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer;

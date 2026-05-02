@@ -163,9 +163,20 @@ onMounted(load);
           :class="{ selected: selecoes[foto.id]?.selecionada }"
         >
           <div class="foto-img-wrap" @click="() => { selecoes[foto.id].selecionada = !selecoes[foto.id].selecionada; onToggle(foto.id); }">
-            <img :src="cfUrl(foto.cloudflare_image_id)" :alt="`Foto ${foto.id}`" loading="lazy" />
+            <nuxt-img
+              provider="cloudflare"
+              :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
+              width="400"
+              class="image"
+              :alt="`Foto ${foto.id}`"
+              format="webp"
+              placeholder
+              loading="lazy"/>
             <div class="foto-overlay">
-              <span class="foto-check">{{ selecoes[foto.id]?.selecionada ? '✅' : '○' }}</span>
+              <span class="foto-check">
+                <span class="material-symbols-outlined" :class="{ 'selected': selecoes[foto.id]?.selecionada }"> check_box </span>
+                <span class="material-symbols-outlined unselected" :class="{ 'selected': !selecoes[foto.id]?.selecionada }"> check_box_outline_blank </span>
+              </span>
             </div>
           </div>
           <div v-if="selecoes[foto.id]?.selecionada" class="foto-comment">
@@ -226,7 +237,9 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
   column-gap: 12px;
 
   @media (min-width: 640px)  { columns: 3; }
-  @media (min-width: 1024px) { columns: 4; }
+  @media (min-width: 1024px) { columns: 5; }
+  @media (min-width: 1450px) { columns: 6; }
+  @media (min-width: 1700px) { columns: 7; }
 }
 
 .foto-card {
@@ -259,14 +272,51 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
   padding: 8px;
 }
 
-.foto-check { font-size: 20px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+.foto-check {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+  font-size: 20px;
+  
+  span {
+    background: #5e2012;
+    border-radius: 7rem;
+    line-height: 1em;
+    color: white;
+    display: none;
+    
+    &.selected {
+      display: inline-block;
+    }
+
+    &.unselected {
+      background: rgb(94 32 18 / 40%);
+    }
+  }
+}
 
 .foto-comment {
+  position: absolute;
   padding: 8px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.45);
+
   textarea {
-    width: 100%; box-sizing: border-box; font-size: 13px; border: 1px solid #e5e7eb; border-radius: 6px;
-    padding: 6px 8px; resize: none; font-family: inherit; color: #374151;
-    &:focus { outline: none; border-color: #5e2012; }
+  background: rgba(255,255,255,0.60);
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 13px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 6px 8px;
+    resize: none;
+    font-family: inherit;
+    color: #374151;
+
+    &:focus {
+      outline: none;
+      border-color: #5e2012;
+    }
   }
 }
 

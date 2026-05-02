@@ -36,7 +36,13 @@ export function dbGetSessaoById(db: D1Database, id: number) {
 }
 
 export function dbListSessoesByCliente(db: D1Database, clienteId: number) {
-  return db.prepare('SELECT * FROM sessoes WHERE cliente_id = ? ORDER BY criado_em DESC').bind(clienteId).all<Sessao>();
+  return db.prepare(`
+    SELECT s.*,
+      (SELECT cloudflare_image_id FROM sessao_fotos WHERE sessao_id = s.id ORDER BY ordem ASC, id ASC LIMIT 1) AS primeira_foto_id
+    FROM sessoes s
+    WHERE s.cliente_id = ?
+    ORDER BY s.criado_em DESC
+  `).bind(clienteId).all<Sessao & { primeira_foto_id: string | null }>();
 }
 
 export function dbCreateSessao(
@@ -88,6 +94,10 @@ export interface SessaoFoto {
 
 export function dbListFotosBySessao(db: D1Database, sessaoId: number) {
   return db.prepare('SELECT * FROM sessao_fotos WHERE sessao_id = ? ORDER BY ordem ASC').bind(sessaoId).all<SessaoFoto>();
+}
+
+export function dbGetFotoById(db: D1Database, fotoId: number, sessaoId: number) {
+  return db.prepare('SELECT * FROM sessao_fotos WHERE id = ? AND sessao_id = ?').bind(fotoId, sessaoId).first<SessaoFoto>();
 }
 
 export function dbAddFoto(db: D1Database, sessaoId: number, cfImageId: string, ordem: number) {

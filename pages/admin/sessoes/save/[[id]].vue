@@ -73,9 +73,13 @@ onMounted(init);
       </div>
 
       <div class="form-actions">
-        <NuxtLink to="/admin/sessoes" class="btn-secondary">Cancelar</NuxtLink>
+        <NuxtLink to="/admin/sessoes" class="btn-secondary">
+          <span class="material-symbols-outlined"> cancel </span>
+          <span>Cancelar</span>
+        </NuxtLink>
         <button class="btn-primary" :disabled="saving" @click="save((newId) => newId ? router.push(`/admin/sessoes/${newId}/fotos`) : router.push('/admin/sessoes'))">
-          {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar alterações' : '✓ Criar sessão') }}
+          <span class="material-symbols-outlined"> save </span>
+          <span>{{ saving ? 'Salvando...' : (isEdit ? 'Salvar alterações' : 'Criar sessão') }}</span>
         </button>
       </div>
     </div>

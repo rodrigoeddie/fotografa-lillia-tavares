@@ -15,6 +15,7 @@ interface Sessao {
   fotos_incluidas: number;
   status: string;
   criado_em: string;
+  primeira_foto_id: string | null;
 }
 
 const sessoes = ref<Sessao[]>([]);
@@ -81,41 +82,56 @@ onMounted(async () => {
         :class="{ 'sessao-card--link': !!statusInfo[s.status]?.route }"
         :to="statusInfo[s.status]?.route ? statusInfo[s.status]!.route!(s.id) : undefined"
       >
-        <div class="sessao-card-header">
-          <div class="sessao-tipo">{{ s.produto_tipo }}</div>
-          <div
-            class="sessao-status"
-            :style="{ color: statusInfo[s.status]?.color ?? '#6b7280' }"
-          >
-            {{ statusInfo[s.status]?.label ?? s.status }}
+        <div class="sessao-thumb">
+          <nuxt-img
+            v-if="s.primeira_foto_id"
+            :src="`${CF_IMG_BASE}${s.primeira_foto_id}/public`"
+            format="webp"
+            width="400"
+            placeholder
+            loading="lazy"
+            :alt="s.nome_sessao"
+          />
+          <div v-else class="sessao-thumb-placeholder">📷</div>
+        </div>
+
+        <div class="wrap-info">
+          <div class="sessao-card-header">
+            <div class="sessao-tipo">{{ s.produto_tipo }}</div>
+            <div
+              class="sessao-status"
+              :style="{ color: statusInfo[s.status]?.color ?? '#6b7280' }"
+            >
+              {{ statusInfo[s.status]?.label ?? s.status }}
+            </div>
           </div>
-        </div>
 
-        <h2 class="sessao-nome">{{ s.nome_sessao }}</h2>
+          <h2 class="sessao-nome">{{ s.nome_sessao }}</h2>
 
-        <div class="sessao-meta">
-          <span>Pacote {{ s.pacote_index + 1 }}</span>
-          <span>·</span>
-          <span>{{ s.fotos_incluidas }} fotos incluídas</span>
-          <span>·</span>
-          <span>{{ new Date(s.criado_em).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) }}</span>
-        </div>
+          <div class="sessao-meta">
+            <span>Pacote {{ s.pacote_index + 1 }}</span>
+            <span>·</span>
+            <span>{{ s.fotos_incluidas }} fotos incluídas</span>
+            <span>·</span>
+            <span>{{ new Date(s.criado_em).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) }}</span>
+          </div>
 
-        <div class="sessao-progress">
-          <div
-            class="progress-step"
-            :class="['aguardando_fotos', 'aguardando_selecao', 'selecao_concluida', 'entregue'].indexOf(s.status) >= 0 ? 'done' : ''"
-          >Ensaio</div>
-          <div class="progress-line" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
-          <div class="progress-step" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''">Seleção</div>
-          <div class="progress-line" :class="['selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
-          <div class="progress-step" :class="['selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''">Selecionado</div>
-          <div class="progress-line" :class="s.status === 'entregue' ? 'done' : ''"></div>
-          <div class="progress-step" :class="s.status === 'entregue' ? 'done' : ''">Entregue</div>
-        </div>
+          <div class="sessao-progress">
+            <div
+              class="progress-step"
+              :class="['aguardando_fotos', 'aguardando_selecao', 'selecao_concluida', 'entregue'].indexOf(s.status) >= 0 ? 'done' : ''"
+            >Ensaio</div>
+            <div class="progress-line" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
+            <div class="progress-step" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''">Seleção</div>
+            <div class="progress-line" :class="['selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
+            <div class="progress-step" :class="['selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''">Selecionado</div>
+            <div class="progress-line" :class="s.status === 'entregue' ? 'done' : ''"></div>
+            <div class="progress-step" :class="s.status === 'entregue' ? 'done' : ''">Entregue</div>
+          </div>
 
-        <div v-if="statusInfo[s.status]?.action" class="sessao-cta">
-          {{ statusInfo[s.status]?.action }} →
+          <div v-if="statusInfo[s.status]?.action" class="sessao-cta">
+            {{ statusInfo[s.status]?.action }} →
+          </div>
         </div>
       </component>
     </div>
@@ -170,8 +186,16 @@ onMounted(async () => {
 }
 
 .ensaios-header {
-  margin-bottom: 32px;
-  h1 { font-size: 28px; font-weight: 700; color: #1f2937; margin-bottom: 4px; }
+  padding-top: 25px;
+  margin-bottom: 15px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+
   &.has-hero { margin-bottom: 24px; }
 }
 
@@ -181,17 +205,20 @@ onMounted(async () => {
 .loading-state { text-align: center; padding: 48px; color: #9ca3af; }
 .empty-state { text-align: center; padding: 64px 32px; .empty-icon { font-size: 48px; margin-bottom: 16px; } p { color: #374151; font-size: 16px; } .text-muted { color: #9ca3af; font-size: 14px; margin-top: 4px; } }
 
-.sessoes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.sessoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
 
 .sessao-card {
   background: #fff;
   border-radius: 16px;
-  padding: 24px;
+  overflow: hidden;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   border: 1px solid #f0ede8;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  gap: 15px;
   text-decoration: none;
   color: inherit;
 
@@ -205,14 +232,28 @@ onMounted(async () => {
   }
 }
 
-.sessao-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.sessao-thumb {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #f3f0ec;
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+}
+
+.sessao-thumb-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 40px; color: #d1c9bf;
+}
+
+.sessao-card-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 20px 0; }
 .sessao-tipo { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #9ca3af; font-weight: 600; }
 .sessao-status { font-size: 13px; font-weight: 700; }
-.sessao-nome { font-size: 18px; font-weight: 700; color: #1f2937; line-height: 1.3; }
-.sessao-meta { display: flex; gap: 8px; font-size: 13px; color: #9ca3af; flex-wrap: wrap; }
+.sessao-nome { font-size: 18px; font-weight: 700; color: #1f2937; line-height: 1.3; padding: 0 20px; }
+.sessao-meta { display: flex; gap: 8px; font-size: 13px; color: #9ca3af; flex-wrap: wrap; padding: 0 20px; }
 
 .sessao-progress {
-  display: flex; align-items: center; gap: 0; margin-top: 4px;
+  display: flex; align-items: center; gap: 0; margin-top: 4px; padding: 0 20px;
 }
 .progress-step {
   font-size: 11px; color: #d1d5db; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
@@ -234,7 +275,7 @@ onMounted(async () => {
   font-size: 14px;
   font-weight: 600;
   text-align: center;
-  margin-top: 4px;
+  margin: 4px 20px 20px;
   transition: background 0.15s;
   &:hover { background: #4a1a0f; }
 }

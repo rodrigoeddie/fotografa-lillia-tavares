@@ -4,6 +4,7 @@ import {
   getDB,
   dbGetSessaoById,
   dbListFotosBySessao,
+  dbGetFotoById,
   dbAddFoto,
   dbDeleteFoto,
   dbCountFotosBySessao,
@@ -46,6 +47,20 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const { foto_id } = body ?? {};
     if (!foto_id) throw createError({ statusCode: 400, statusMessage: 'foto_id é obrigatório' });
+
+    // Busca cloudflare_image_id antes de deletar do banco
+    const foto = await dbGetFotoById(db, Number(foto_id), sessaoId);
+    if (foto) {
+      const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+      const apiKey = process.env.CLOUDFLARE_API_KEY;
+      if (accountId && apiKey) {
+        await fetch(
+          `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1/${foto.cloudflare_image_id}`,
+          { method: 'DELETE', headers: { Authorization: `Bearer ${apiKey}` } },
+        ).catch(() => {}); // falha silenciosa para não bloquear a remoção do banco
+      }
+    }
+
     await dbDeleteFoto(db, Number(foto_id), sessaoId);
     await purgeCache(event, [
       `/api/cliente/sessoes/${sessaoId}/fotos`,

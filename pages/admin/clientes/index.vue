@@ -38,29 +38,54 @@ onMounted(load);
 <template>
   <div class="page">
     <div class="dep-header">
-      <div>
-        <h2>Clientes</h2>
-        <p class="dep-meta">{{ clientes.length }} clientes</p>
+      <div class="row aic">
+        <span class="material-symbols-outlined"> person_3 </span>
+        <h2>
+          <span>Clientes</span>
+        </h2>
+        <p class="dep-meta"> - {{ clientes.length }} clientes</p>
       </div>
-      <NuxtLink to="/admin/clientes/save" class="btn-add-item">+ Novo cliente</NuxtLink>
+      <NuxtLink to="/admin/clientes/save" class="btn-add-item">
+        <span class="material-symbols-outlined"> person_add </span>
+        <span>Novo cliente</span>
+      </NuxtLink>
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="clientes.length === 0" class="list-empty">Nenhum cliente cadastrado.</p>
     <div v-else class="item-list wrap">
       <div v-for="c in clientes" :key="c.id" class="item-row item-300 wrap">
         <NuxtLink :to="`/admin/clientes/save/${c.id}`" class="link-row" title="Editar">
-          <img v-if="c.bg_image" class="item-thumb" :src="`${CF_URL}${c.bg_image}/w=70,h=40`" alt="" />
-          <div v-else class="item-thumb item-thumb--placeholder">👤</div>
+          <nuxt-img
+            v-if="c.bg_image"
+            class="item-thumb"
+            :src="`${CF_URL}${c.bg_image}/public`"
+            format="webp"
+            width="70"
+            placeholder
+            loading="lazy"
+          />
+          <div v-else class="item-thumb item-thumb--placeholder">
+            <span class="material-symbols-outlined"> photo </span>
+          </div>
           <div class="item-info">
             <span class="item-title">{{ c.nome }}</span>
             <span class="item-sub">{{ c.email }}</span>
-            <span v-if="c.celular" class="item-sub">📱 {{ c.celular }}</span>
+            <span v-if="c.celular" class="item-sub">
+              <span class="material-symbols-outlined"> call </span>
+              <span>{{ c.celular }}</span>
+            </span>
           </div>
           <!-- <span class="item-meta">{{ c.criado_em }}</span> -->
         </NuxtLink>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/sessoes/save?cliente_id=${c.id}`" class="btn-icon btn-fotos" title="Nova sessão"><span class="material-symbols-outlined">camera_alt</span> Nova sessão</NuxtLink>
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteCliente(c.id, c.nome)"><span class="material-symbols-outlined">delete</span> Deletar</button>
+          <NuxtLink :to="`/admin/sessoes/save?cliente_id=${c.id}`" class="btn-icon btn-fotos" title="Nova sessão">
+            <span class="material-symbols-outlined">camera_alt</span>
+            <span>Nova sessão</span>
+          </NuxtLink>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteCliente(c.id, c.nome)">
+            <span class="material-symbols-outlined">delete</span>
+            <span>Deletar</span>
+          </button>
         </div>
       </div>
     </div>
@@ -69,6 +94,14 @@ onMounted(load);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.item-info {
+  .material-symbols-outlined {
+    padding-right: 4px;
+    font-size: 12px;
+    top: 3px;
+  }
+}
 
 .item-thumb {
   width: 70px;

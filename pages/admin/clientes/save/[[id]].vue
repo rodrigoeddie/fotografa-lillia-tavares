@@ -67,13 +67,21 @@ onMounted(init);
         <h3 class="form-section-title">Imagem de fundo da área do cliente</h3>
         <div class="bg-image-editor">
           <div v-if="form.bg_image" class="bg-preview">
-            <img :src="`${CF_IMG_BASE}${form.bg_image}/public`" alt="Preview" />
+            <nuxt-img
+              provider="cloudflare"
+              :src="`${CF_IMG_BASE}${form.bg_image}/public`"
+              width="300"
+              class="image"
+              format="webp"
+              placeholder
+              loading="lazy"/>
             <button class="btn-remove-bg" @click="form.bg_image = ''" title="Remover imagem">✕</button>
           </div>
           <div v-else class="bg-placeholder">Nenhuma imagem selecionada</div>
           <div class="bg-upload-row">
             <label class="btn-upload" :class="{ loading: uploading }">
-              {{ uploading ? 'Enviando...' : '📤 Enviar imagem' }}
+              <span class="material-symbols-outlined"> upload </span>
+              <span>{{ uploading ? 'Enviando...' : 'Enviar imagem' }}</span>
               <input type="file" accept="image/*" @change="uploadBgImage" :disabled="uploading" />
             </label>
           </div>
@@ -81,9 +89,13 @@ onMounted(init);
       </div>
 
       <div class="form-actions">
-        <NuxtLink to="/admin/clientes" class="btn-secondary">Cancelar</NuxtLink>
+        <NuxtLink to="/admin/clientes" class="btn-secondary">
+          <span class="material-symbols-outlined"> cancel </span>
+          <span>Cancelar</span>
+        </NuxtLink>
         <button class="btn-primary" :disabled="saving" @click="save(() => router.push('/admin/clientes'))">
-          {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar alterações' : '💾 Criar cliente') }}
+          <span class="material-symbols-outlined"> save </span>
+          <span>{{ saving ? 'Salvando...' : (isEdit ? 'Salvar alterações' : 'Criar cliente') }}</span>
         </button>
       </div>
     </div>
@@ -117,14 +129,13 @@ onMounted(init);
 .bg-preview {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 300px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #333;
+
   img {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
     display: block;
   }
 }
@@ -174,6 +185,9 @@ onMounted(init);
   padding: 7px 16px;
   border-radius: 6px;
   font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
   white-space: nowrap;
   &.loading { opacity: 0.6; cursor: not-allowed; }

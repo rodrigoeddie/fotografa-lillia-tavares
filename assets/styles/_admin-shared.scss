@@ -120,7 +120,7 @@
 }
 
 .btn-secondary {
-    background: #fff;
+    background: #ddd;
     color: #374151;
     border: 1px solid #d1d5db;
     border-radius: 6px;
@@ -128,9 +128,12 @@
     font-size: 14px;
     cursor: pointer;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
     &:hover {
-        background: #f9fafb;
+        background: #fff;
     }
 }
 
@@ -179,6 +182,10 @@
         font-size: 12px;
         background: #555;
 
+        span {
+            font-size: 12px;
+        }
+
         &:hover {
             color: black;
         }
@@ -188,6 +195,10 @@
         background: #b91c1c;
         font-size: 12px;
         border: 1px solid #999;
+
+        span {
+            font-size: 12px;
+        }
 
         &:hover {
             color: #b91c1c;
@@ -470,11 +481,18 @@
 
   h2 {
     font-size: 20px;
-    margin: 0 0 4px;
+    margin: 0;
+    line-height: 1em;
   }
 }
 
-.dep-meta { font-size: 13px; color: #666; margin: 0; }
+.dep-meta {
+    font-size: 13px;
+    top: 1px;
+    color: #666;
+    margin: 0;
+    line-height: 1em;
+}
 
 .aic {
     align-items: center;
