@@ -97,6 +97,21 @@ async function startUpload() {
 
   isUploading.value = false;
   fotos.value = await adminFetch<Foto[]>(`/api/admin/sessoes/${sessaoId.value}/fotos`);
+
+  // Muda status automaticamente quando atingir o mínimo de fotos incluídas no pacote
+  if (
+    sessao.value &&
+    sessao.value.status === 'aguardando_fotos' &&
+    fotos.value.length >= sessao.value.fotos_incluidas &&
+    sessao.value.fotos_incluidas > 0
+  ) {
+    await updateStatus('aguardando_selecao');
+    // Cria o primeiro lote de seleção automaticamente
+    try {
+      await adminFetch(`/api/admin/sessoes/${sessaoId.value}/lotes`, { method: 'POST' });
+    } catch {}
+    showMessage(`✅ Status alterado para "Aguardando seleção" automaticamente.`, 'success');
+  }
 }
 
 async function applyWatermark(file: File): Promise<Blob> {
@@ -154,18 +169,12 @@ onMounted(load);
 
 <template>
   <div class="page">
+    <NuxtLink to="/admin/sessoes" class="page-back">← Voltar</NuxtLink>
     <div class="page-header">
-      <NuxtLink to="/admin/sessoes" class="page-back">← Voltar</NuxtLink>
       <div style="flex:1">
         <h2>{{ sessao?.nome_sessao ?? '...' }}</h2>
         <p class="text-muted text-sm">{{ sessao?.cliente_nome }} · {{ sessao ? statusLabels[sessao.status] : '' }}</p>
       </div>
-      <select v-if="sessao" class="status-select" :value="sessao.status" @change="updateStatus(($event.target as HTMLSelectElement).value)">
-        <option value="aguardando_fotos">⏳ Aguardando fotos</option>
-        <option value="aguardando_selecao">📸 Aguardando seleção</option>
-        <option value="selecao_concluida">✅ Seleção concluída</option>
-        <option value="entregue">📦 Entregue</option>
-      </select>
     </div>
 
     <!-- Upload -->
@@ -173,7 +182,10 @@ onMounted(load);
       <div class="upload-drop" @click="fileInputRef?.click()"
         @dragover.prevent
         @drop.prevent="(e) => { const dt = (e as DragEvent).dataTransfer; if (dt) { const fake = { target: { files: dt.files } } as any; onFilesSelected(fake); } }">
-        <span>🖼 Arraste fotos aqui ou clique para selecionar</span>
+        <span class="flex aic gap-5">
+          <span class="material-symbols-outlined"> photo </span>
+          <span>Arraste fotos aqui ou clique para selecionar</span>
+        </span>
         <small>A marca d'água será aplicada automaticamente antes do upload</small>
       </div>
       <input ref="fileInputRef" type="file" accept="image/*" multiple style="display:none" @change="onFilesSelected" />

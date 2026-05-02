@@ -18,8 +18,8 @@ onMounted(init);
 
 <template>
   <div class="page">
+    <NuxtLink to="/admin/sessoes" class="page-back">← Voltar</NuxtLink>
     <div class="page-header">
-      <NuxtLink to="/admin/sessoes" class="page-back">← Voltar</NuxtLink>
       <h2>{{ isEdit ? `Editar sessão${clienteNome ? ` — ${clienteNome}` : ''}` : 'Nova sessão' }}</h2>
     </div>
 
@@ -51,10 +51,13 @@ onMounted(init);
             <option v-for="p in produtos" :key="p.title" :value="p.title">{{ p.title }}</option>
           </select>
         </div>
-        <div v-if="produtoSelecionado" class="form-field">
+        <div class="form-field">
           <label>Pacote</label>
-          <select v-model.number="form.pacote_index">
-            <option v-for="(pkg, i) in produtoSelecionado.packages" :key="i" :value="i">{{ pkg.title }}</option>
+          <select v-model.number="form.pacote_index" :disabled="!produtoSelecionado">
+            <option v-if="!produtoSelecionado" value="">Selecione o tipo de produto primeiro</option>
+            <template v-else>
+              <option v-for="(pkg, i) in produtoSelecionado.packages" :key="i" :value="i">{{ pkg.title }}</option>
+            </template>
           </select>
         </div>
         <div class="form-field">

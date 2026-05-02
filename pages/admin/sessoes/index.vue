@@ -11,6 +11,7 @@ interface Sessao {
 
 const sessoes = ref<Sessao[]>([]);
 const loading = ref(false);
+const entregasSessaoIds = ref<Set<number>>(new Set());
 
 const columns = [
   {
@@ -41,7 +42,12 @@ const columnCards = (status: string) => sessoes.value.filter((s) => s.status ===
 async function load() {
   loading.value = true;
   try {
-    sessoes.value = await adminFetch<Sessao[]>('/api/admin/sessoes');
+    const [s, e] = await Promise.all([
+      adminFetch<Sessao[]>('/api/admin/sessoes'),
+      adminFetch<{ sessao_id: number }[]>('/api/admin/entregas'),
+    ]);
+    sessoes.value = s;
+    entregasSessaoIds.value = new Set(e.map((x) => x.sessao_id));
   } catch (e: any) {
     showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');
   } finally {
@@ -80,38 +86,6 @@ async function deleteSessao(s: Sessao) {
   }
 }
 
-// ─── Drag & drop ─────────────────────────────────────────────────────────────
-const draggingId = ref<number | null>(null);
-const dragOverCol = ref<string | null>(null);
-
-function onDragStart(e: DragEvent, sessao: Sessao) {
-  draggingId.value = sessao.id;
-  e.dataTransfer!.effectAllowed = 'move';
-}
-function onDragOver(e: DragEvent, colKey: string) {
-  e.preventDefault();
-  e.dataTransfer!.dropEffect = 'move';
-  dragOverCol.value = colKey;
-}
-function onDragLeave(e: DragEvent) {
-  // só limpa se saiu da coluna de fato (não para filho)
-  if (!(e.currentTarget as Element).contains(e.relatedTarget as Node)) {
-    dragOverCol.value = null;
-  }
-}
-function onDrop(e: DragEvent, colKey: string) {
-  e.preventDefault();
-  dragOverCol.value = null;
-  if (draggingId.value === null) return;
-  const sessao = sessoes.value.find((s) => s.id === draggingId.value);
-  if (sessao) updateStatus(sessao, colKey);
-  draggingId.value = null;
-}
-function onDragEnd() {
-  draggingId.value = null;
-  dragOverCol.value = null;
-}
-
 onMounted(load);
 </script>
 
@@ -134,10 +108,7 @@ onMounted(load);
         v-for="col in columns"
         :key="col.key"
         class="kanban-col"
-        :class="[`kanban-col--${col.key}`, { 'kanban-col--drag-over': dragOverCol === col.key }]"
-        @dragover="(e) => onDragOver(e, col.key)"
-        @dragleave="(e) => onDragLeave(e)"
-        @drop="(e) => onDrop(e, col.key)"
+        :class="`kanban-col--${col.key}`"
       >
         <div class="kanban-col-header">
           <span class="col-label" v-html="col.label"></span>
@@ -148,10 +119,6 @@ onMounted(load);
             v-for="s in columnCards(col.key)"
             :key="s.id"
             class="kanban-card"
-            :class="{ 'kanban-card--dragging': draggingId === s.id }"
-            draggable="true"
-            @dragstart="(e) => onDragStart(e, s)"
-            @dragend="onDragEnd"
           >
             <div class="card-body">
               <p class="card-name">{{ s.cliente_nome }}</p>
@@ -170,7 +137,7 @@ onMounted(load);
               >
                 <span class="material-symbols-outlined">visibility</span> <span>Ver seleção</span>
               </NuxtLink>
-              <NuxtLink :to="`/admin/entregas/${s.id}`" class="card-action" title="Ver entregas">
+              <NuxtLink v-if="entregasSessaoIds.has(s.id)" :to="`/admin/entregas/${s.id}`" class="card-action" title="Ver entregas">
                 <span class="material-symbols-outlined">inventory_2</span> <span>Entregas</span>
               </NuxtLink>
               <NuxtLink :to="`/admin/sessoes/save/${s.id}`" class="card-action" title="Editar">
@@ -208,11 +175,6 @@ onMounted(load);
   display: flex;
   flex-direction: column;
   transition: border-color 0.15s, background 0.15s;
-
-  &--drag-over {
-    border-color: #3b82f6;
-    background: #0f1a2e;
-  }
 }
 
 .kanban-col-header {
@@ -259,26 +221,12 @@ onMounted(load);
   border: 1px solid #2e2e2e;
   border-radius: 8px;
   padding: 10px 12px;
-  cursor: grab;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: flex-start;
-  transition: border-color 0.15s, opacity 0.15s, box-shadow 0.15s;
-
-  &:hover { border-color: #444; box-shadow: 0 2px 8px #0004; }
-  &--dragging { opacity: 0.4; cursor: grabbing; }
-
-  .card-drag-handle {
-    color: #444;
-    font-size: 16px;
-    cursor: grab;
-    line-height: 1;
-    padding-top: 2px;
-    flex-shrink: 0;
-  }
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-
 .card-body {
   flex: 1;
   min-width: 0;

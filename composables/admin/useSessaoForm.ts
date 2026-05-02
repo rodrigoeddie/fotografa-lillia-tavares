@@ -52,21 +52,17 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
 
   async function loadProdutos() {
     try {
-      const tree = await $fetch<any[]>('/api/fs/tree');
-      const investNode = tree.find((n: any) => n.name === 'investimento' && n.isDirectory);
-      if (!investNode?.children) return;
-      const prods: Produto[] = [];
-      for (const subdir of investNode.children) {
-        if (!subdir.isDirectory) continue;
-        const indexFile = subdir.children?.find((c: any) => c.name === 'index.json');
-        if (!indexFile) continue;
-        try {
-          const raw = await $fetch<{ content: string }>('/api/fs/raw', { params: { path: indexFile.path } });
-          const data = JSON.parse(raw.content);
-          if (data.title && data.packages) prods.push(data);
-        } catch {}
-      }
-      produtos.value = prods;
+      const data = await adminFetch<any[]>('/api/admin/produtos');
+      produtos.value = data
+        .filter((p: any) => p.active)
+        .map((p: any) => ({
+          title: p.title,
+          packages: (p.pacotes ?? []).map((pk: any) => ({
+            title: pk.title,
+            fotos_incluidas: pk.fotos_incluidas,
+            preco_foto_extra: pk.preco_foto_extra,
+          })),
+        }));
     } catch {}
   }
 
@@ -120,6 +116,23 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
     saving.value = true;
     try {
       if (isEdit.value) {
+        let targetStatus = sessaoStatus.value;
+
+        // Verifica se o número de fotos bate com o pacote e ajusta status entre as duas etapas iniciais
+        if (
+          (targetStatus === 'aguardando_fotos' || targetStatus === 'aguardando_selecao') &&
+          form.fotos_incluidas > 0
+        ) {
+          try {
+            const fotos = await adminFetch<any[]>(`/api/admin/sessoes/${idParam.value}/fotos`);
+            if (fotos.length >= form.fotos_incluidas) {
+              targetStatus = 'aguardando_selecao';
+            } else {
+              targetStatus = 'aguardando_fotos';
+            }
+          } catch {}
+        }
+
         await adminFetch(`/api/admin/sessoes/${idParam.value}`, {
           method: 'PUT',
           body: {
@@ -128,10 +141,23 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
             pacote_index: form.pacote_index,
             fotos_incluidas: form.fotos_incluidas,
             preco_foto_extra: form.preco_foto_extra,
-            status: sessaoStatus.value,
+            status: targetStatus,
           },
         });
-        showMessage('Sessão atualizada!', 'success');
+
+        if (targetStatus !== sessaoStatus.value) {
+          sessaoStatus.value = targetStatus;
+          // Cria lote de seleção automaticamente se ainda não existir
+          try {
+            const lotes = await adminFetch<any[]>(`/api/admin/sessoes/${idParam.value}/lotes`);
+            if (lotes.length === 0) {
+              await adminFetch(`/api/admin/sessoes/${idParam.value}/lotes`, { method: 'POST' });
+            }
+          } catch {}
+          showMessage('Sessão atualizada! Status alterado para "Aguardando seleção".', 'success');
+        } else {
+          showMessage('Sessão atualizada!', 'success');
+        }
         onSuccess();
       } else {
         const res = await adminFetch<{ id: number }>('/api/admin/sessoes', {
