@@ -7,6 +7,7 @@ import {
   dbUpdateClienteSenha,
   dbDeleteCliente,
 } from '~/server/utils/d1-client';
+import { purgeCache } from '~/server/utils/purge-cache';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -37,6 +38,7 @@ export default defineEventHandler(async (event) => {
       await dbUpdateClienteSenha(db, id, senhaHash);
     }
 
+    await purgeCache(event, ['/api/cliente/sessoes']);
     return { success: true };
   }
 

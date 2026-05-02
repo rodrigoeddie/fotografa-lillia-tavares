@@ -92,7 +92,12 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
       if (isEdit.value) {
         tasks.push(loadSessao());
       } else {
-        tasks.push(adminFetch<Cliente[]>('/api/admin/clientes').then((c) => { clientes.value = c; }));
+        tasks.push(adminFetch<Cliente[]>('/api/admin/clientes').then((c) => {
+          clientes.value = c;
+          const route = useRoute();
+          const qid = route.query.cliente_id;
+          if (qid) form.cliente_id = String(qid);
+        }));
       }
       await Promise.all(tasks);
     } catch (e: any) {

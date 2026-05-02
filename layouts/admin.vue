@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
+  link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block' }],
 });
 
 const { authenticated, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
@@ -33,7 +34,7 @@ provide('showMessage', showMessage);
       <header class="cms-header">
         <div class="cms-header-left">
           <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Menu">
-            <span class="toggle-icon">☰</span> Menu
+            <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">menu</span> Menu
           </button>
           <NuxtLink to="/admin" class="cms-title-link"><h1>Administração</h1></NuxtLink>
         </div>
@@ -53,20 +54,20 @@ provide('showMessage', showMessage);
           <div v-show="fileSidebarOpen" class="file-sidebar">
             <!-- Navegação DB -->
             <div class="fs-db-nav">
-              <div class="fs-db-label">banco de dados</div>
-              <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active">👥 Clientes</NuxtLink>
-              <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active">🖼 Fotos para Seleção</NuxtLink>
-              <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active">📦 Entregas</NuxtLink>
-              <div class="fs-db-label" style="margin-top:1rem">conteúdo do site</div>
-              <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active">📷 Portfolio</NuxtLink>
-              <NuxtLink to="/admin/investimento" class="fs-db-link" active-class="fs-db-link--active">💰 Investimento</NuxtLink>
-              <NuxtLink to="/admin/depoimentos" class="fs-db-link" active-class="fs-db-link--active">⭐ Depoimentos</NuxtLink>
-              <NuxtLink to="/admin/faq" class="fs-db-link" active-class="fs-db-link--active">❓ FAQ</NuxtLink>
-              <NuxtLink to="/admin/blog" class="fs-db-link" active-class="fs-db-link--active">📝 Blog</NuxtLink>
-              <NuxtLink to="/admin/cenarios" class="fs-db-link" active-class="fs-db-link--active">🏛 Cenários</NuxtLink>
-              <NuxtLink to="/admin/menu" class="fs-db-link" active-class="fs-db-link--active">☰ Menu</NuxtLink>
+              <div class="fs-db-label">------</div>
+              <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">group</span> Clientes</NuxtLink>
+              <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">photo_library</span> Ensaios</NuxtLink>
+              <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">folder_zip</span> Entregas</NuxtLink>
+              <div class="fs-db-label" style="margin-top:1rem">Site</div>
+              <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">camera_alt</span> Portfolio</NuxtLink>
+              <NuxtLink to="/admin/investimento" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">payments</span> Preços</NuxtLink>
+              <NuxtLink to="/admin/depoimentos" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">star</span> Avaliações</NuxtLink>
+              <NuxtLink to="/admin/faq" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
+              <NuxtLink to="/admin/blog" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
+              <NuxtLink to="/admin/cenarios" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
+              <NuxtLink to="/admin/menu" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
               <div class="fs-db-label" style="margin-top:1rem">ferramentas</div>
-              <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active">🔍 SEO</NuxtLink>
+              <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">search</span> SEO</NuxtLink>
             </div>
           </div>
         </Transition>
@@ -212,7 +213,7 @@ provide('showMessage', showMessage);
 .cms-main {
   flex: 1;
   min-width: 0;
-  padding: 20px;
+  padding: 0 10px 20px 20px;
 }
 
 .cms-header-left {
@@ -235,7 +236,7 @@ provide('showMessage', showMessage);
 
 /* File sidebar */
 .file-sidebar {
-  width: 200px;
+  width: 133px;
   flex-shrink: 0;
   background: #111;
   border-right: 1px solid #222;
@@ -245,7 +246,7 @@ provide('showMessage', showMessage);
 }
 
 .fs-db-nav {
-  padding: 10px 8px 6px;
+  padding: 0 8px 6px;
   border-bottom: 1px solid #222;
   display: flex;
   flex-direction: column;
@@ -259,6 +260,10 @@ provide('showMessage', showMessage);
   color: #555;
   font-weight: 700;
   padding: 20px 4px 4px;
+
+  &:first-child {
+    padding-top: 0;
+  }
 }
 
 .fs-db-link {
@@ -267,13 +272,23 @@ provide('showMessage', showMessage);
   gap: 6px;
   padding: 8px;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 13px;
   color: #aaa;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 
+  .material-symbols-outlined {
+    font-size: 18px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
   &:hover { background: #1e1e1e; color: #eee; }
-  &--active { background: #252525; color: #fff; }
+  &--active {
+    background: #252525;
+    color: #fff;
+    .material-symbols-outlined { opacity: 1; }
+  }
 }
 
 .fs-header {

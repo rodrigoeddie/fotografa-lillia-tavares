@@ -12,7 +12,7 @@ const sections = {
   ],
   sistema: [
     { label: 'Clientes', description: 'Clientes da área restrita', icon: '👥', path: '/admin/clientes' },
-    { label: 'Seleção de Fotos', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
+    { label: 'Ensaios', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
     { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '📦', path: '/admin/entregas' },
   ],
   ferramentas: [

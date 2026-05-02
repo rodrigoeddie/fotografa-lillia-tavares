@@ -1,6 +1,7 @@
 import { defineEventHandler, readBody, createError, getMethod, getRouterParam } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getDB, dbGetEntregaBySessao, dbUpsertEntrega, dbDeleteEntrega } from '~/server/utils/d1-client';
+import { purgeCache } from '~/server/utils/purge-cache';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -28,6 +29,7 @@ export default defineEventHandler(async (event) => {
       ativo !== false,
     );
 
+    await purgeCache(event, [`/api/cliente/entregas/${sessaoId}`]);
     return { success: true };
   }
 
@@ -35,6 +37,7 @@ export default defineEventHandler(async (event) => {
     const entrega = await dbGetEntregaBySessao(db, sessaoId);
     if (!entrega) throw createError({ statusCode: 404, statusMessage: 'Entrega não encontrada' });
     await dbDeleteEntrega(db, entrega.id);
+    await purgeCache(event, [`/api/cliente/entregas/${sessaoId}`]);
     return { success: true };
   }
 

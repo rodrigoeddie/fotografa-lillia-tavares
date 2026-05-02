@@ -8,6 +8,7 @@ import {
   dbDeleteFoto,
   dbCountFotosBySessao,
 } from '~/server/utils/d1-client';
+import { purgeCache } from '~/server/utils/purge-cache';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -34,6 +35,10 @@ export default defineEventHandler(async (event) => {
     const ordem = (countResult?.count ?? 0);
 
     const result = await dbAddFoto(db, sessaoId, cloudflare_image_id, ordem);
+    await purgeCache(event, [
+      `/api/cliente/sessoes/${sessaoId}/fotos`,
+      `/api/cliente/sessoes/${sessaoId}/selecao`,
+    ]);
     return { success: true, id: result.meta.last_row_id };
   }
 
@@ -42,6 +47,10 @@ export default defineEventHandler(async (event) => {
     const { foto_id } = body ?? {};
     if (!foto_id) throw createError({ statusCode: 400, statusMessage: 'foto_id é obrigatório' });
     await dbDeleteFoto(db, Number(foto_id), sessaoId);
+    await purgeCache(event, [
+      `/api/cliente/sessoes/${sessaoId}/fotos`,
+      `/api/cliente/sessoes/${sessaoId}/selecao`,
+    ]);
     return { success: true };
   }
 

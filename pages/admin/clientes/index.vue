@@ -46,8 +46,8 @@ onMounted(load);
     </div>
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="clientes.length === 0" class="list-empty">Nenhum cliente cadastrado.</p>
-    <div v-else class="item-list">
-      <div v-for="c in clientes" :key="c.id" class="item-row">
+    <div v-else class="item-list wrap">
+      <div v-for="c in clientes" :key="c.id" class="item-row item-300 wrap">
         <NuxtLink :to="`/admin/clientes/save/${c.id}`" class="link-row" title="Editar">
           <img v-if="c.bg_image" class="item-thumb" :src="`${CF_URL}${c.bg_image}/w=70,h=40`" alt="" />
           <div v-else class="item-thumb item-thumb--placeholder">👤</div>
@@ -56,10 +56,11 @@ onMounted(load);
             <span class="item-sub">{{ c.email }}</span>
             <span v-if="c.celular" class="item-sub">📱 {{ c.celular }}</span>
           </div>
-          <span class="item-meta">{{ c.criado_em }}</span>
+          <!-- <span class="item-meta">{{ c.criado_em }}</span> -->
         </NuxtLink>
         <div class="item-actions">
-          <button class="btn-icon btn-danger" title="Excluir" @click="deleteCliente(c.id, c.nome)">🗑 Deletar</button>
+          <NuxtLink :to="`/admin/sessoes/save?cliente_id=${c.id}`" class="btn-icon btn-fotos" title="Nova sessão"><span class="material-symbols-outlined">camera_alt</span> Nova sessão</NuxtLink>
+          <button class="btn-icon btn-danger" title="Excluir" @click="deleteCliente(c.id, c.nome)"><span class="material-symbols-outlined">delete</span> Deletar</button>
         </div>
       </div>
     </div>

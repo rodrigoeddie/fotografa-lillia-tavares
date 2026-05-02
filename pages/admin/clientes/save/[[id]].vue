@@ -36,8 +36,8 @@ onMounted(init);
 
 <template>
   <div class="page">
+    <NuxtLink to="/admin/clientes" class="page-back">← Voltar</NuxtLink>
     <div class="page-header">
-      <NuxtLink to="/admin/clientes" class="page-back">← Voltar</NuxtLink>
       <h2>{{ isEdit ? 'Editar cliente' : 'Novo cliente' }}</h2>
     </div>
 
@@ -76,13 +76,6 @@ onMounted(init);
               {{ uploading ? 'Enviando...' : '📤 Enviar imagem' }}
               <input type="file" accept="image/*" @change="uploadBgImage" :disabled="uploading" />
             </label>
-            <span class="or-sep">ou</span>
-            <input
-              v-model="form.bg_image"
-              type="text"
-              class="bg-id-input"
-              placeholder="ID da imagem no Cloudflare"
-            />
           </div>
         </div>
       </div>

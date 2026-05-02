@@ -222,6 +222,7 @@ export default defineNuxtConfig({
         'gsap/ScrollTrigger',
         '@unhead/schema-org/vue',
         'jszip',
+        'swiper/element/bundle',
       ]
     },
   },
@@ -297,9 +298,19 @@ export default defineNuxtConfig({
         robots: 'noindex, nofollow',
         ssr: true,
       },
-      '/api/**': { 
+      '/api/public/**': {
         headers: {
           'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+        }
+      },
+      '/api/cliente/**': {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate'
+        }
+      },
+      '/api/admin/**': {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate'
         }
       },
       '/**': {

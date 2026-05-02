@@ -110,8 +110,8 @@ onMounted(load);
         </label>
         </span>
         <div class="item-actions">
-          <NuxtLink :to="`/admin/portfolio/${w.id}/fotos`" class="btn-icon" title="Fotos">🖼 Fotos</NuxtLink>
-          <button class="btn-icon btn-danger" @click="deleteWork(w.id, w.titulo || w.slug)">🗑 Deletar</button>
+          <NuxtLink :to="`/admin/portfolio/${w.id}/fotos`" class="btn-icon btn-fotos" title="Fotos"><span class="material-symbols-outlined">camera_alt</span> Fotos</NuxtLink>
+          <button class="btn-icon btn-danger" @click="deleteWork(w.id, w.titulo || w.slug)"><span class="material-symbols-outlined">delete</span> Deletar</button>
         </div>
       </div>
     </div>
