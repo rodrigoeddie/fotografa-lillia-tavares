@@ -132,25 +132,38 @@ onMounted(async () => {
           <div class="sessao-progress">
             <div
               class="progress-step"
-              :class="['aguardando_fotos', 'aguardando_selecao', 'selecao_concluida', 'entregue'].indexOf(s.status) >= 0 ? 'done' : ''"
-            >Ensaio</div>
+              :class="{ done: ['aguardando_fotos', 'aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status), current: s.status === 'aguardando_fotos' }">
+              <span class="material-symbols-outlined"> add_a_photo </span>
+              <span>Ensaio</span>
+            </div>
+
             <div class="progress-line" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
-            <div class="progress-step" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''">Seleção</div>
+           
+            <div class="progress-step" :class="{ done: ['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status), current: s.status === 'aguardando_selecao' }">
+              <span class="material-symbols-outlined"> select </span>
+              <span>Seleção</span>
+            </div>
+            
             <div class="progress-line" :class="['selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
-            <div class="progress-step" :class="['selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''">Selecionado</div>
+            
+            <div class="progress-step" :class="{ done: ['selecao_concluida', 'entregue'].includes(s.status), current: s.status === 'selecao_concluida' }">
+              <span class="material-symbols-outlined"> select_all </span>
+              <span>Selecionado</span>
+            </div>
+            
             <div class="progress-line" :class="s.status === 'entregue' ? 'done' : ''"></div>
-            <div class="progress-step" :class="s.status === 'entregue' ? 'done' : ''">Entregue</div>
+
+            <div class="progress-step" :class="{ done: s.status === 'entregue', current: s.status === 'entregue' }">
+              <span class="material-symbols-outlined"> cloud_upload </span>
+              <span>Entregue</span>
+            </div>
           </div>
 
           <div v-if="statusInfo[s.status]?.action" class="sessao-cta">
             {{ statusInfo[s.status]?.action }} →
           </div>
         </div>
-
-          
-
-
-        </div>
+      </div>
       </component>
     </div>
 
@@ -166,7 +179,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .ensaios-hero {
-  width: 100%;
+  width: 300px;
   background-size: cover;
   background-position: center;
   border-radius: 16px;
@@ -226,8 +239,8 @@ onMounted(async () => {
 .empty-state { text-align: center; padding: 64px 32px; .empty-icon { font-size: 48px; margin-bottom: 16px; } p { color: #374151; font-size: 16px; } .text-muted { color: #9ca3af; font-size: 14px; margin-top: 4px; } }
 
 .sessoes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+  display: flex;
+  width: 100%;
   gap: 20px;
 }
 
@@ -266,7 +279,8 @@ onMounted(async () => {
   }
 
   .wrap-info {
-    padding-top: 20px
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   
   .sessao-thumb-placeholder {
@@ -306,15 +320,30 @@ onMounted(async () => {
     gap: 0;
     
     .progress-step {
-      font-size: 11px;
-      color: #d1d5db;
-      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      flex-direction: column;
+      align-items: center;
       white-space: nowrap;
+      font-weight: 600;
+      color: #d1d5db;
+      font-size: 12px;
+      display: flex;
       
       &.done {
+        color: #333;
+      }
+
+      &.current {
         color: #5e2012;
+
+        .material-symbols-outlined {
+          background: #5e2012;
+          color: #fff;
+          border-radius: 50%;
+          padding: 4px;
+          font-size: 16px;
+        }
       }
     }
     
