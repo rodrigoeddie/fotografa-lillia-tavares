@@ -65,7 +65,15 @@ onMounted(load);
       <div class="selecao-grid">
         <div v-for="foto in selecao.fotos" :key="foto.id" class="selecao-card" :class="{ selected: foto.selecionada === 1 }">
           <div class="selecao-img-wrap">
-            <img :src="cfUrl(foto.cloudflare_image_id)" :alt="`Foto ${foto.id}`" loading="lazy" />
+            <nuxt-img
+              provider="cloudflare"
+              :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
+              width="200"
+              class="image"
+              :alt="`Foto ${foto.id}`"
+              format="webp"
+              placeholder
+              loading="lazy"/>
             <span v-if="foto.selecionada === 1" class="selecao-check">✓</span>
           </div>
           <div v-if="foto.comentario" class="selecao-comment">💬 {{ foto.comentario }}</div>
@@ -89,19 +97,56 @@ onMounted(load);
   .stat-label { font-size: 12px; color: #6b7280; text-transform: uppercase; }
   &.stat-extra .stat-value { color: #d97706; }
 }
-.selecao-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+.selecao-grid {
+  column-gap: 12px;
+  columns: 6;
+  gap: 12px;
+}
+
 .selecao-card {
-  border-radius: 6px; overflow: hidden; border: 2px solid transparent;
-  &.selected { border-color: #22c55e; }
+  border: 2px solid transparent;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+
+  &.selected {
+    border-color: #22c55e;
+
+    .selecao-img-wrap {
+      img {
+        filter: none;
+        opacity: 1;
+      }
+    }
+  }
 }
+
 .selecao-img-wrap {
-  position: relative; aspect-ratio: 1;
-  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  position: relative;
+  
+  img {
+    filter: grayscale(100%);
+    display: block;
+    opacity: 0.4;
+    width: 100%;
+  }
 }
+
 .selecao-check {
-  position: absolute; bottom: 4px; right: 4px; background: #22c55e; color: #fff;
-  border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700;
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: #22c55e;
+  color: #fff;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
 }
+
 .selecao-comment { padding: 6px 8px; font-size: 12px; color: #374151; background: #fff; border-top: 1px solid #f3f4f6; }
 </style>

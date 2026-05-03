@@ -99,14 +99,29 @@ function onToggle(fotoId: number) {
 }
 
 async function finalizar() {
-  if (totalSelecionadas.value === 0) {
-    alert('Selecione pelo menos uma foto antes de finalizar.');
+  const { showAlert, showConfirm } = useDialog();
+
+  if (fotos_incluidas.value > 0 && totalSelecionadas.value < fotos_incluidas.value) {
+    const faltam = fotos_incluidas.value - totalSelecionadas.value;
+    await showAlert(
+      `Você precisa selecionar pelo menos ${fotos_incluidas.value} foto(s). Ainda falt${faltam === 1 ? 'a' : 'am'} ${faltam}.`,
+      'warning',
+      'Seleção incompleta',
+    );
     return;
   }
+
+  if (totalSelecionadas.value === 0) {
+    await showAlert('Selecione pelo menos uma foto antes de finalizar.', 'warning');
+    return;
+  }
+
   const msg = extras.value > 0
     ? `Você selecionou ${extras.value} foto(s) extra(s), totalizando R$ ${valorExtras.value.toFixed(2).replace('.', ',')} a mais. Confirmar seleção?`
     : `Você selecionou ${totalSelecionadas.value} foto(s). Confirmar seleção?`;
-  if (!confirm(msg)) return;
+
+  const confirmed = await showConfirm(msg, 'Finalizar seleção', 'Confirmar', 'Cancelar');
+  if (!confirmed) return;
 
   finalizing.value = true;
   try {
@@ -123,7 +138,7 @@ async function finalizar() {
     });
     await router.push('/area-cliente/meus-ensaios');
   } catch (e: any) {
-    alert('Erro ao finalizar: ' + (e.statusMessage || e.message));
+    await showAlert('Erro ao finalizar: ' + (e.statusMessage || e.message), 'error');
   } finally {
     finalizing.value = false;
   }
@@ -208,9 +223,17 @@ onMounted(load);
               </span>
             </div>
           </div>
-          <button class="finalizar-btn" :disabled="finalizing" @click="finalizar">
-            {{ finalizing ? 'Finalizando...' : 'Finalizar seleção' }}
-          </button>
+          <div class="finalizar-wrap">
+            <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas" class="finalizar-hint">
+              Faltam {{ fotos_incluidas - totalSelecionadas }} foto(s)
+            </span>
+            <button
+              class="finalizar-btn"
+              :disabled="finalizing || (fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas)"
+              @click="finalizar">
+              {{ finalizing ? 'Finalizando...' : 'Finalizar seleção' }}
+            </button>
+          </div>
         </div>
       </div>
     </template>
@@ -342,6 +365,19 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
   }
 }
 .count-extras { font-size: 14px; color: #b45309; font-weight: 600; }
+
+.finalizar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.finalizar-hint {
+  font-size: 12px;
+  color: #b45309;
+  font-weight: 600;
+}
 
 .finalizar-btn {
   background: #5e2012; color: #fff; border: none; border-radius: 10px;

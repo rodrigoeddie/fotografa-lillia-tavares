@@ -54,3 +54,7 @@ body {
     font-family: v.$open;
     font-size: 16rem;
 }
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+    font-size: 16px !important;
+}

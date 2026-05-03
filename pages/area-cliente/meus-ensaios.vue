@@ -11,6 +11,7 @@ interface Sessao {
   id: number;
   nome_sessao: string;
   produto_tipo: string;
+  pacote_titulo: string | null;
   pacote_index: number;
   fotos_incluidas: number;
   status: string;
@@ -27,7 +28,12 @@ const bgImageUrl = computed(() => {
   return id ? `${CF_IMG_BASE}${id}/public` : null;
 });
 
-const statusInfo: Record<string, { label: string; color: string; action?: string; route?: (id: number) => string }> = {
+const statusInfo: Record<string, {
+  label: string;
+  color: string;
+  action?: string;
+  route?: (id: number) => string;
+  message?: string }> = {
   aguardando_fotos: {
     label: 'Fotos em preparação',
     color: '#d97706'
@@ -40,7 +46,12 @@ const statusInfo: Record<string, { label: string; color: string; action?: string
   },
   selecao_concluida: {
     label: 'Seleção enviada ✓',
-    color: '#16a34a'
+    color: '#16a34a',
+    message: `
+      Sua seleção foi enviada para a Lillia.<br>
+      Em breve ela irá preparar as fotos escolhidas<br>
+      e avisar quando estiverem prontas,<br>
+      você poderá baixar diretamente por aqui!`
   },
   entregue: {
     label: 'Ensaio entregue! 📦',
@@ -64,11 +75,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="ensaios-page">
-    <div class="ensaios-header" :class="{ 'has-hero': !!bgImageUrl }">
+  <div class="shoots-page">
+    <div class="shoots-header" :class="{ 'has-hero': !!bgImageUrl }">
       <div v-if="!bgImageUrl">
         <h1>Meus Ensaios</h1>
-        <p class="ensaios-sub">Acompanhe suas sessões fotográficas</p>
+        <p class="shoots-sub">Acompanhe suas sessões fotográficas</p>
       </div>
     </div>
 
@@ -83,9 +94,9 @@ onMounted(async () => {
     </div>
 
     <div v-else class="sessoes-grid">
-      <div v-if="bgImageUrl" class="ensaios-hero" :style="{ backgroundImage: `url(${bgImageUrl})` }">
-        <div class="ensaios-hero-overlay">
-          <h1 class="ensaios-hero-title">Olá, {{ clienteData?.nome?.split(' ')[0] }}</h1>
+      <div v-if="bgImageUrl" class="shoots-hero" :style="{ backgroundImage: `url(${bgImageUrl})` }">
+        <div class="shoots-hero-overlay">
+          <h1 class="shoots-hero-title">Olá, {{ clienteData?.nome?.split(' ')[0] }}</h1>
           <p>Acompanhe suas sessões fotográficas:</p>
         </div>
       </div>
@@ -94,10 +105,10 @@ onMounted(async () => {
         :is="statusInfo[s.status]?.route ? NuxtLinkComponent : 'div'"
         v-for="s in sessoes"
         :key="s.id"
-        class="sessao-card"
-        :class="{ 'sessao-card--link': !!statusInfo[s.status]?.route }"
+        class="shoot-card"
+        :class="{ 'shoot-link': !!statusInfo[s.status]?.route }"
         :to="statusInfo[s.status]?.route ? statusInfo[s.status]!.route!(s.id) : undefined">
-        <div class="sessao-thumb">
+        <div class="shoot-thumb">
           <nuxt-img
             v-if="s.primeira_foto_id"
             :src="`${CF_IMG_BASE}${s.primeira_foto_id}/public`"
@@ -107,29 +118,27 @@ onMounted(async () => {
             loading="lazy"
             :alt="s.nome_sessao"
           />
-          <div v-else class="sessao-thumb-placeholder">📷</div>
+          <div v-else class="shoot-thumb-placeholder">📷</div>
         </div>
 
         <div
-          class="sessao-status"
+          class="shoot-status"
           :style="{ background: statusInfo[s.status]?.color ?? '#6b7280' }">
             {{ statusInfo[s.status]?.label ?? s.status }}
         </div>
 
         <div class="wrap-info">
-          <h2 class="sessao-nome">{{ s.nome_sessao }}</h2>
-
-          <div class="sessao-card-header">
-            <div class="sessao-tipo">{{ s.produto_tipo }}</div>
-            <div class="sessao-meta">
-            <span>Pacote {{ s.pacote_index + 1 }}</span>
-            <span>·</span>
-            <span>{{ s.fotos_incluidas }} fotos incluídas</span>
-            <span>·</span>
-            <span>{{ new Date(s.criado_em).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) }}</span>
+          
+          <div class="shoot-product-info">
+            <div class="shoot-product-name">{{ s.produto_tipo }}</div>
+            <div class="shoot-package">
+              <span>Pacote {{ s.pacote_titulo }}</span>
+              <span>·</span>
+              <span>{{ s.fotos_incluidas }} fotos incluídas</span>
+            </div>
           </div>
   
-          <div class="sessao-progress">
+          <div class="shoot-progress">
             <div
               class="progress-step"
               :class="{ done: ['aguardando_fotos', 'aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status), current: s.status === 'aguardando_fotos' }">
@@ -138,7 +147,7 @@ onMounted(async () => {
             </div>
 
             <div class="progress-line" :class="['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status) ? 'done' : ''"></div>
-           
+          
             <div class="progress-step" :class="{ done: ['aguardando_selecao', 'selecao_concluida', 'entregue'].includes(s.status), current: s.status === 'aguardando_selecao' }">
               <span class="material-symbols-outlined"> select </span>
               <span>Seleção</span>
@@ -159,11 +168,12 @@ onMounted(async () => {
             </div>
           </div>
 
-          <div v-if="statusInfo[s.status]?.action" class="sessao-cta">
+          <div v-if="statusInfo[s.status]?.message" class="shoot-message" v-html="statusInfo[s.status]?.message"></div>
+
+          <div v-if="statusInfo[s.status]?.action" class="shoot-cta">
             {{ statusInfo[s.status]?.action }} →
           </div>
         </div>
-      </div>
       </component>
     </div>
 
@@ -178,7 +188,7 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-.ensaios-hero {
+.shoots-hero {
   width: 300px;
   background-size: cover;
   background-position: center;
@@ -191,7 +201,7 @@ onMounted(async () => {
     border-radius: 12px;
   }
   
-  .ensaios-hero-overlay {
+  .shoots-hero-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%);
@@ -207,7 +217,7 @@ onMounted(async () => {
     }
   }
   
-  .ensaios-hero-title {
+  .shoots-hero-title {
     font-size: 26px;
     font-weight: 700;
     color: #fff;
@@ -216,7 +226,7 @@ onMounted(async () => {
   }
 }
 
-.ensaios-header {
+.shoots-header {
   padding-top: 25px;
   margin-bottom: 15px;
 
@@ -232,8 +242,10 @@ onMounted(async () => {
   }
 }
 
-.ensaios-sub { font-size: 15px; color: #6b7280; }
-.ensaios-sub-hero { font-size: 16px; color: #6b7280; margin: 0 0 24px; }
+.shoots-sub {
+  font-size: 15px;
+  color: #6b7280;
+}
 
 .loading-state { text-align: center; padding: 48px; color: #9ca3af; }
 .empty-state { text-align: center; padding: 64px 32px; .empty-icon { font-size: 48px; margin-bottom: 16px; } p { color: #374151; font-size: 16px; } .text-muted { color: #9ca3af; font-size: 14px; margin-top: 4px; } }
@@ -244,7 +256,7 @@ onMounted(async () => {
   gap: 20px;
 }
 
-.sessao-card {
+.shoot-card {
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
@@ -262,7 +274,7 @@ onMounted(async () => {
     }
   }
   
-  .sessao-thumb {
+  .shoot-thumb {
     width: 185px;
     aspect-ratio: 1;
     overflow: hidden;
@@ -278,22 +290,40 @@ onMounted(async () => {
     }
   }
 
+  .shoot-message {
+    font-size: 14px;
+    color: #4b5563;
+  }
+
   .wrap-info {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px;
   }
   
-  .sessao-thumb-placeholder {
+  .shoot-thumb-placeholder {
     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
     font-size: 40px; color: #d1c9bf;
   }
-  
-  .sessao-card-header {
-    padding: 16px 20px 0;
+
+  .shoot-product-info {
+    padding-top: 15px;
+    color: #666;
+
+    .shoot-product-name {
+      padding-bottom: 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .shoot-package {
+      display: flex;
+      font-size: 13px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
   }
-  
-  .sessao-tipo { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #9ca3af; font-weight: 600; }
-  .sessao-status {
+
+  .shoot-status {
     border-bottom-left-radius: 12px;
     position: absolute;
     padding: 10px 16px;
@@ -303,16 +333,17 @@ onMounted(async () => {
     right: 0;
     top: 0;
   }
-  .sessao-nome { font-size: 18px; font-weight: 700; color: #1f2937; line-height: 1.3; padding: 0 20px; }
-  .sessao-meta {
-    display: flex;
-    gap: 8px;
-    font-size: 13px;
-    color: #9ca3af;
-    flex-wrap: wrap;
+
+  .shoot-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.3;
   }
+
+
   
-  .sessao-progress {
+  .shoot-progress {
     align-items: center;
     margin-bottom: 15px;
     margin-top: 15px;
@@ -321,7 +352,6 @@ onMounted(async () => {
     
     .progress-step {
       text-transform: uppercase;
-      letter-spacing: 0.04em;
       flex-direction: column;
       align-items: center;
       white-space: nowrap;
@@ -329,9 +359,11 @@ onMounted(async () => {
       color: #d1d5db;
       font-size: 12px;
       display: flex;
+      opacity: 0;
       
       &.done {
-        color: #333;
+        color: #d1d5db;
+        opacity: 1;
       }
 
       &.current {
@@ -359,7 +391,7 @@ onMounted(async () => {
     }
   }
   
-  .sessao-cta {
+  .shoot-cta {
     display: inline-block;
     background: #5e2012;
     color: #fff;

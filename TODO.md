@@ -1,4 +1,11 @@
 # ToDo
+
+Usando o gateway de pagamento da sumup (previamente pesquisado) crie um sistema de pagamentos para:
+
+- um checkout para pagar o valor de fotos extras na seleção de fotos da area do cliente
+- o admin pode adicionar o valor restante do pacote (fora o valor da entrada) na sessão a ser pago no checkout da seleção (junto com as fotos extras)
+- caso o cliente peça para selecionar mais fotos da sessão, após ter concluido uma primeira seleção, 
+
  - custom og-share para cada pagina
  - Páginas da interna dos outros preços
  - atualizar os produtos no google maps, e acrescentar dia das mães
