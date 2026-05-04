@@ -54,7 +54,7 @@ const statusInfo: Record<string, {
       você poderá baixar diretamente por aqui!`
   },
   entregue: {
-    label: 'Ensaio entregue! 📦',
+    label: 'Ensaio entregue! <span class="material-symbols-outlined"> download_for_offline </span>',
     color: '#7c3aed',
     action: 'Baixar ensaio',
     route: (id) => `/area-cliente/entrega/${id}`
@@ -88,7 +88,7 @@ onMounted(async () => {
     </div>
 
     <div v-else-if="sessoes.length === 0" class="empty-state">
-      <div class="empty-icon">📷</div>
+      <div class="empty-icon"><span class="material-symbols-outlined"> photo_camera </span></div>
       <p>Não há nenhum ensaio cadastrado.</p>
       <p class="text-muted">Em breve a Lillia irá preparar suas fotos!</p>
     </div>
@@ -118,13 +118,13 @@ onMounted(async () => {
             loading="lazy"
             :alt="s.nome_sessao"
           />
-          <div v-else class="shoot-thumb-placeholder">📷</div>
+          <div v-else class="shoot-thumb-placeholder"><span class="material-symbols-outlined"> photo_camera </span></div>
         </div>
 
         <div
           class="shoot-status"
-          :style="{ background: statusInfo[s.status]?.color ?? '#6b7280' }">
-            {{ statusInfo[s.status]?.label ?? s.status }}
+          :style="{ background: statusInfo[s.status]?.color ?? '#6b7280' }"
+          v-html="statusInfo[s.status]?.label ?? s.status">
         </div>
 
         <div class="wrap-info">
@@ -326,9 +326,12 @@ onMounted(async () => {
   .shoot-status {
     border-bottom-left-radius: 12px;
     position: absolute;
-    padding: 10px 16px;
+    padding: 5px 10px;
     font-weight: 700;
     font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: white;
     right: 0;
     top: 0;

@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 
-interface Sessao { id: number; nome_sessao: string; cliente_nome: string; status: string; }
+interface Sessao { id: number; nome_sessao: string; cliente_nome: string; produto_tipo: string; status: string; }
 
 export function useEntregaForm(entregaIdParam: Ref<number | undefined>) {
   const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
@@ -80,6 +80,17 @@ export function useEntregaForm(entregaIdParam: Ref<number | undefined>) {
       } catch (e: any) {
         showMessage('Erro ao carregar sessões: ' + (e.statusMessage || e.message), 'error');
       }
+
+      // Auto-preenche nome_arquivo quando usuário seleciona sessão
+      watch(() => form.sessao_id, (sessaoId) => {
+        if (!form.nome_arquivo && sessaoId) {
+          const s = sessoes.value.find((x) => x.id === sessaoId);
+          if (s) {
+            const sanitize = (str: string) => str.replace(/[^a-zA-Z0-9\u00C0-\u024F]+/g, '-').replace(/^-|-$/g, '');
+            form.nome_arquivo = `Ensaio-${sanitize(s.produto_tipo)}-${sanitize(s.cliente_nome)}.zip`;
+          }
+        }
+      });
     }
   }
 

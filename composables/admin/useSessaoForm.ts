@@ -23,6 +23,7 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
     pacote_index: 0,
     fotos_incluidas: 0,
     preco_foto_extra: 0,
+    prazo_selecao: '',
   });
 
   const produtoSelecionado = computed(() =>
@@ -76,6 +77,7 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
     form.pacote_index = Number(s.pacote_index);
     form.fotos_incluidas = Number(s.fotos_incluidas);
     form.preco_foto_extra = Number(s.preco_foto_extra);
+    form.prazo_selecao = s.prazo_selecao ?? '';
     sessaoStatus.value = s.status;
     clienteNome.value = s.cliente_nome ?? '';
     setTimeout(() => { initializingEdit = false; }, 50);
@@ -142,6 +144,7 @@ export function useSessaoForm(idParam: Ref<number | undefined>) {
             fotos_incluidas: form.fotos_incluidas,
             preco_foto_extra: form.preco_foto_extra,
             status: targetStatus,
+            prazo_selecao: form.prazo_selecao || null,
           },
         });
 

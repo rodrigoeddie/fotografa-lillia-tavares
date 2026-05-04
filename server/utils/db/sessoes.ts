@@ -9,6 +9,7 @@ export interface Sessao {
   fotos_incluidas: number;
   preco_foto_extra: number;
   status: 'aguardando_fotos' | 'aguardando_selecao' | 'selecao_concluida' | 'entregue';
+  prazo_selecao: string | null;
   criado_em: string;
 }
 
@@ -38,9 +39,12 @@ export function dbGetSessaoById(db: D1Database, id: number) {
 export function dbListSessoesByCliente(db: D1Database, clienteId: number) {
   return db.prepare(`
     SELECT s.*,
+      CASE WHEN e.id IS NOT NULL THEN 'entregue' ELSE s.status END AS status,
       (SELECT cloudflare_image_id FROM sessao_fotos WHERE sessao_id = s.id ORDER BY ordem ASC, id ASC LIMIT 1) AS primeira_foto_id
     FROM sessoes s
+    LEFT JOIN entregas e ON e.sessao_id = s.id AND e.ativo = 1
     WHERE s.cliente_id = ?
+    GROUP BY s.id
     ORDER BY s.criado_em DESC
   `).bind(clienteId).all<Sessao & { primeira_foto_id: string | null }>();
 }
@@ -72,10 +76,11 @@ export function dbUpdateSessao(
   fotosIncluidas: number,
   precoFotoExtra: number,
   status: Sessao['status'],
+  prazoSelecao: string | null,
 ) {
   return db.prepare(
-    'UPDATE sessoes SET nome_sessao = ?, produto_tipo = ?, pacote_index = ?, fotos_incluidas = ?, preco_foto_extra = ?, status = ? WHERE id = ?',
-  ).bind(nomeSessao, produtoTipo, pacoteIndex, fotosIncluidas, precoFotoExtra, status, id).run();
+    'UPDATE sessoes SET nome_sessao = ?, produto_tipo = ?, pacote_index = ?, fotos_incluidas = ?, preco_foto_extra = ?, status = ?, prazo_selecao = ? WHERE id = ?',
+  ).bind(nomeSessao, produtoTipo, pacoteIndex, fotosIncluidas, precoFotoExtra, status, prazoSelecao, id).run();
 }
 
 export function dbDeleteSessao(db: D1Database, id: number) {

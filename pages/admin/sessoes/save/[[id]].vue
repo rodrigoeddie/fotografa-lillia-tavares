@@ -70,6 +70,11 @@ onMounted(init);
           <input v-model.number="form.preco_foto_extra" type="number" min="0" step="1" />
           <small v-if="form.preco_foto_extra === 0 && produtoSelecionado" class="field-hint warn">⚠️ Defina no editor de Investimento</small>
         </div>
+        <div class="form-field">
+          <label>Prazo para seleção <small>(data limite)</small></label>
+          <input v-model="form.prazo_selecao" type="date" />
+          <small class="field-hint">Deixe em branco para sem prazo</small>
+        </div>
       </div>
 
       <div class="form-actions">

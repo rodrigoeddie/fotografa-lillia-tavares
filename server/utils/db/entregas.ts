@@ -18,7 +18,15 @@ export function dbGetEntregaBySessao(db: D1Database, sessaoId: number) {
 }
 
 export function dbGetEntregaById(db: D1Database, id: number) {
-  return db.prepare('SELECT * FROM entregas WHERE id = ?').bind(id).first<Entrega>();
+  return db.prepare(`
+    SELECT e.*,
+           s.nome_sessao, s.produto_tipo,
+           c.nome AS cliente_nome
+    FROM entregas e
+    JOIN sessoes s ON s.id = e.sessao_id
+    JOIN clientes c ON c.id = s.cliente_id
+    WHERE e.id = ?
+  `).bind(id).first<Entrega & { nome_sessao: string; produto_tipo: string; cliente_nome: string }>();
 }
 
 export function dbListEntregasBySessao(db: D1Database, sessaoId: number) {

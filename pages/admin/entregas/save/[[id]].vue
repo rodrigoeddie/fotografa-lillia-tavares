@@ -110,7 +110,7 @@ onMounted(init);
 
       <div class="form-actions">
         <NuxtLink to="/admin/entregas" class="btn-secondary">Cancelar</NuxtLink>
-        <button class="btn-primary" :disabled="saving || isUploading || isBgUploading" @click="save(() => router.push('/admin/entregas'))">
+        <button class="btn-primary" :disabled="saving || isUploading || isBgUploading" @click="save(() => router.push(isEdit ? '/admin/entregas' : `/admin/entregas/${form.sessao_id}`))">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar alterações' : '💾 Criar entrega') }}
         </button>
       </div>

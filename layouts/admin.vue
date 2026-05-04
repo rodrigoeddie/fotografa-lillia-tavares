@@ -6,12 +6,28 @@ useHead({
 
 const { authenticated, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
+const { adminFetch } = useAdminFetch();
+
+const {
+  notificacoes: adminNotifs, unread: adminUnread, open: adminNotifOpen,
+  load: loadAdminNotif, toggleOpen: toggleAdminNotif, requestPushPermission,
+} = useNotifications('admin', adminFetch);
 
 const fileSidebarOpen = ref(true);
 
 async function handleLogin() {
   await doLogin();
+  await loadAdminNotif();
+  // Ask push permission on first login
+  if (import.meta.client && 'Notification' in window && Notification.permission === 'default') {
+    const accepted = window.confirm('Receber notificações quando clientes finalizarem a seleção?');
+    if (accepted) await requestPushPermission();
+  }
 }
+
+watch(authenticated, (v) => {
+  if (v) loadAdminNotif();
+});
 
 // Provide showMessage and fileManager to child pages
 provide('showMessage', showMessage);
@@ -39,6 +55,23 @@ provide('showMessage', showMessage);
           <NuxtLink to="/admin" class="cms-title-link"><h1>Administração</h1></NuxtLink>
         </div>
         <div class="cms-header-right">
+          <!-- Notificações -->
+          <div class="notif-wrap" v-if="authenticated">
+            <button class="notif-bell" :class="{ 'has-unread': adminUnread > 0 }" @click="toggleAdminNotif" title="Notificações">
+              <span class="material-symbols-outlined">notifications</span>
+              <span v-if="adminUnread > 0" class="notif-badge">{{ adminUnread > 9 ? '9+' : adminUnread }}</span>
+            </button>
+            <div v-if="adminNotifOpen" class="notif-dropdown">
+              <p class="notif-header">Notificações</p>
+              <p v-if="adminNotifs.length === 0" class="notif-empty">Nenhuma notificação</p>
+              <div v-for="n in adminNotifs" :key="n.id" class="notif-item" :class="{ unread: n.lida === 0 }">
+                <p class="notif-titulo">{{ n.titulo }}</p>
+                <p v-if="n.mensagem" class="notif-mensagem">{{ n.mensagem }}</p>
+                <p class="notif-data">{{ new Date(n.criado_em).toLocaleDateString('pt-BR') }}</p>
+              </div>
+            </div>
+          </div>
+
           <NuxtLink to="/" class="back-link">
             <span class="material-symbols-outlined"> arrow_back </span>
             <span>Voltar ao site</span>
@@ -184,6 +217,94 @@ provide('showMessage', showMessage);
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+// Notification bell (reused in both layouts)
+.notif-wrap { position: relative; }
+
+.notif-bell {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0;
+
+  .material-symbols-outlined { font-size: 22px; }
+  &:hover { color: #fff; }
+  &.has-unread { color: #e8a87c; }
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: #e8a87c;
+  color: #111;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 1px 4px;
+  line-height: 1.3;
+}
+
+.notif-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 300px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.notif-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ccc;
+  padding: 12px 16px;
+  border-bottom: 1px solid #2a2a2a;
+  margin: 0;
+}
+
+.notif-empty {
+  font-size: 13px;
+  color: #555;
+  padding: 16px;
+  margin: 0;
+  text-align: center;
+}
+
+.notif-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #222;
+
+  &:last-child { border-bottom: none; }
+  &.unread { background: #1a1208; }
+}
+
+.notif-titulo {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ddd;
+  margin: 0 0 2px;
+}
+
+.notif-mensagem {
+  font-size: 12px;
+  color: #888;
+  margin: 0 0 4px;
+}
+
+.notif-data {
+  font-size: 11px;
+  color: #555;
+  margin: 0;
 }
 
 .btn-logout {

@@ -3,21 +3,21 @@ definePageMeta({ layout: 'admin' });
 
 const sections = {
   site: [
-    { label: 'Portfolio', description: 'Ensaios fotográficos', icon: '📷', path: '/admin/portfolio' },
-    { label: 'Depoimentos', description: 'Avaliações de clientes', icon: '⭐', path: '/admin/depoimentos' },
-    { label: 'Investimento', description: 'Pacotes e preços', icon: '💰', path: '/admin/investimento' },
-    { label: 'Blog', description: 'Posts do blog', icon: '📝', path: '/admin/blog' },
-    { label: 'FAQ', description: 'Perguntas frequentes', icon: '❓', path: '/admin/faq' },
-    { label: 'Menu', description: 'Menu de navegação', icon: '☰', path: '/admin/menu' },
+    { label: 'Portfolio', description: 'Ensaios fotográficos', icon: '<span class="material-symbols-outlined"> photo_camera </span>', path: '/admin/portfolio' },
+    { label: 'Depoimentos', description: 'Avaliações de clientes', icon: '<span class="material-symbols-outlined"> star </span>', path: '/admin/depoimentos' },
+    { label: 'Investimento', description: 'Pacotes e preços', icon: '<span class="material-symbols-outlined"> finance_chip </span>', path: '/admin/investimento' },
+    { label: 'Blog', description: 'Posts do blog', icon: '<span class="material-symbols-outlined"> article </span>', path: '/admin/blog' },
+    { label: 'FAQ', description: 'Perguntas frequentes', icon: '<span class="material-symbols-outlined"> quiz </span>', path: '/admin/faq' },
+    { label: 'Menu', description: 'Menu de navegação', icon: '<span class="material-symbols-outlined"> menu </span>', path: '/admin/menu' },
   ],
   sistema: [
-    { label: 'Clientes', description: 'Clientes da área restrita', icon: '👥', path: '/admin/clientes' },
-    { label: 'Ensaios', description: 'Sessões e envio de fotos', icon: '🖼', path: '/admin/sessoes' },
-    { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '📦', path: '/admin/entregas' },
+    { label: 'Clientes', description: 'Clientes da área restrita', icon: '<span class="material-symbols-outlined"> person_3 </span>', path: '/admin/clientes' },
+    { label: 'Ensaios', description: 'Sessões e envio de fotos', icon: '<span class="material-symbols-outlined"> photo_library </span>', path: '/admin/sessoes' },
+    { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '<span class="material-symbols-outlined"> folder_zip </span>', path: '/admin/entregas' },
   ],
   ferramentas: [
-    { label: 'SEO', description: 'Otimização para motores de busca', icon: '🔍', path: '/admin/seo' },
-    { label: 'Cache', description: 'Limpar cache do Cloudflare', icon: '🔄', path: '/admin/cache' },
+    { label: 'SEO', description: 'Otimização para motores de busca', icon: '<span class="material-symbols-outlined"> search </span>', path: '/admin/seo' },
+    { label: 'Cache', description: 'Limpar cache do Cloudflare', icon: '<span class="material-symbols-outlined"> refresh </span>', path: '/admin/cache' },
   ],
 };
 </script>
@@ -37,7 +37,7 @@ const sections = {
         :to="s.path"
         class="dashboard-card"
       >
-        <span class="card-icon">{{ s.icon }}</span>
+        <span class="card-icon" v-html="s.icon"></span>
         <div>
           <h3>{{ s.label }}</h3>
           <p>{{ s.description }}</p>
@@ -56,7 +56,7 @@ const sections = {
         :to="s.path"
         class="dashboard-card"
       >
-        <span class="card-icon">{{ s.icon }}</span>
+        <span class="card-icon" v-html="s.icon"></span>
         <div>
           <h3>{{ s.label }}</h3>
           <p>{{ s.description }}</p>
@@ -75,7 +75,7 @@ const sections = {
         :to="s.path"
         class="dashboard-card"
       >
-        <span class="card-icon">{{ s.icon }}</span>
+        <span class="card-icon" v-html="s.icon"></span>
         <div>
           <h3>{{ s.label }}</h3>
           <p>{{ s.description }}</p>

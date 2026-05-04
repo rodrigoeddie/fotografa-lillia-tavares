@@ -31,6 +31,7 @@ interface ApiResponse {
     fotos_incluidas: number;
     preco_foto_extra: number;
     status: string;
+    prazo_selecao: string | null;
   };
   fotos: FotoComSelecao[];
   selecionadas: number;
@@ -49,6 +50,20 @@ const totalSelecionadas = computed(() => Object.values(selecoes.value).filter(s 
 const fotos_incluidas = computed(() => state.value?.sessao.fotos_incluidas ?? 0);
 const extras = computed(() => Math.max(0, totalSelecionadas.value - fotos_incluidas.value));
 const valorExtras = computed(() => extras.value * (state.value?.sessao.preco_foto_extra ?? 0));
+
+const prazoInfo = computed(() => {
+  const prazo = state.value?.sessao.prazo_selecao;
+  if (!prazo) return null;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const prazoDate = new Date(prazo + 'T00:00:00');
+  const diffMs = prazoDate.getTime() - today.getTime();
+  const dias = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  if (dias < 0) return { label: `Prazo encerrado em ${prazoDate.toLocaleDateString('pt-BR')}`, urgente: true, encerrado: true };
+  if (dias === 0) return { label: 'Prazo: hoje!', urgente: true, encerrado: false };
+  if (dias === 1) return { label: 'Prazo: amanhã!', urgente: true, encerrado: false };
+  return { label: `Prazo: ${dias} dias (${prazoDate.toLocaleDateString('pt-BR')})`, urgente: dias <= 3, encerrado: false };
+});
 
 function cfUrl(id: string) { return `${cfURI}${id}/public`; }
 
@@ -160,6 +175,12 @@ onMounted(load);
         <p class="selecao-sub">Selecione as fotos que você quer receber no seu ensaio final</p>
       </div>
 
+      <!-- Prazo countdown -->
+      <div v-if="prazoInfo && state.sessao.status === 'aguardando_selecao'" class="prazo-banner" :class="{ urgente: prazoInfo.urgente, encerrado: prazoInfo.encerrado }">
+        <span class="material-symbols-outlined">schedule</span>
+        {{ prazoInfo.label }}
+      </div>
+
       <!-- Se já finalizado -->
       <div v-if="state.sessao.status === 'selecao_concluida'" class="status-banner done">
         ✅ Seleção enviada! Aguarde a Lillia preparar seu ensaio.
@@ -253,6 +274,22 @@ h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-
   padding: 14px 20px; border-radius: 10px; font-size: 15px; font-weight: 500; margin-bottom: 24px;
   &.done { background: #dcfce7; color: #15803d; }
   a { color: #15803d; font-weight: 700; text-decoration: none; margin-left: 8px; }
+}
+
+.prazo-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  background: #fef9c3;
+  color: #854d0e;
+  .material-symbols-outlined { font-size: 18px; }
+  &.urgente { background: #fee2e2; color: #991b1b; }
+  &.encerrado { background: #fce7f3; color: #9d174d; }
 }
 
 .fotos-grid {

@@ -6,6 +6,7 @@ export * from './depoimentos';
 export * from './entregas';
 export * from './faq';
 export * from './menu';
+export * from './notificacoes';
 export * from './portfolio';
 export * from './produtos';
 export * from './sessoes';

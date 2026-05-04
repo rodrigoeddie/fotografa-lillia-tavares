@@ -3,8 +3,21 @@
 Usando o gateway de pagamento da sumup (previamente pesquisado) crie um sistema de pagamentos para:
 
 - um checkout para pagar o valor de fotos extras na seleção de fotos da area do cliente
-- o admin pode adicionar o valor restante do pacote (fora o valor da entrada) na sessão a ser pago no checkout da seleção (junto com as fotos extras)
-- caso o cliente peça para selecionar mais fotos da sessão, após ter concluido uma primeira seleção, 
+- o admin pode adicionar o valor restante do pacote (fora o valor da entrada) na sessão (no lote) a ser pago no checkout da seleção (junto com as fotos extras)
+- caso o cliente peça para selecionar mais fotos da sessão, após ter concluido uma primeira seleção, considerar que o lote será outro, e que a partir do lote 1 (a primeira entrega), o valor a ser calculado é somente de fotos extra
+- o pagamento pode ser via cartão de crédito ou pix (o numero de parcelas permitidas está no prooduto->pacote-escolhido)
+- o pagamento online não é obrigatório, ou seja, deixar claro que o cliente pode pagar online no checkout, ou se desejar tratar diretamente com a fotografa Lillia
+
+criar um sistema de notificações para o admin e area-cliente:
+- ao mudar o status das sessões no admin para avisar o cliente
+- a uma entrega ser cadastrada no admin pra avisar o cliente
+- a uma seleção ser feita na area-cliente para avisar o admin
+
+<!-- - adicionar um prazo para a seleção (o prazo por ser aberto ou ter uma data especifica), e caso a data esteja proxima do prazo, mandar um email ou notificação
+- no admin/sessoes quando a sessão for "Seleção concluída" e nao tiver nenhuma entrega mostrar um botão para cadastrar uma entrega
+- no /admin/entregas/save o nome do arquivo na entrega, deve ter o nome do "Ensaio-" + produto + nome-do-cliente
+- ao concluir a entrega, em area-cliente/meus-ensaios o card não mostra o novo status
+- no admin entregas, ao clicar na entrega: Erro ao carregar: Entrega no encontrada (a url era pra ser /admin/entregas/save/1 ao invés disso, está mostrando /admin/entregas/save/3) -->
 
  - custom og-share para cada pagina
  - Páginas da interna dos outros preços

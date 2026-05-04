@@ -12,7 +12,9 @@ import {
   dbCreateLote,
   dbListProdutos,
   dbListPacotesByProduto,
+  dbCreateNotificacao,
 } from '~/server/utils/d1-client';
+import { sendPushNotifications } from '~/server/utils/send-push';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);
@@ -53,6 +55,7 @@ export default defineEventHandler(async (event) => {
           fotos_incluidas: sessao.fotos_incluidas,
           preco_foto_extra: sessao.preco_foto_extra,
           status: sessao.status,
+          prazo_selecao: sessao.prazo_selecao ?? null,
         },
         lote: null,
         fotos: [],
@@ -75,6 +78,7 @@ export default defineEventHandler(async (event) => {
         fotos_incluidas: sessao.fotos_incluidas,
         preco_foto_extra: sessao.preco_foto_extra,
         status: sessao.status,
+        prazo_selecao: sessao.prazo_selecao ?? null,
       },
       lote,
       fotos: results,
@@ -113,6 +117,17 @@ export default defineEventHandler(async (event) => {
     if (finalizar) {
       await dbUpdateLoteStatus(db, lote.id, 'selecao_concluida');
       await dbUpdateSessaoStatus(db, sessaoId, 'selecao_concluida');
+      // Notifica admin que cliente finalizou a seleção
+      await dbCreateNotificacao(
+        db, 'admin', null,
+        `Seleção finalizada: ${sessao.nome_sessao}`,
+        `O cliente finalizou a seleção do ensaio “${sessao.nome_sessao}”. Hora de preparar a entrega!`,
+      );
+      await sendPushNotifications(
+        event, db, 'admin', null,
+        `Seleção finalizada: ${sessao.nome_sessao}`,
+        'O cliente finalizou a seleção. Hora de preparar a entrega!',
+      );
     }
 
     return { success: true, finalizado: !!finalizar };

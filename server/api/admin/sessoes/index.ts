@@ -1,6 +1,6 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbListSessoes, dbCreateSessao, dbGetClienteById } from '~/server/utils/d1-client';
+import { getDB, dbListSessoes, dbCreateSessao, dbGetClienteById, dbCreateNotificacao } from '~/server/utils/d1-client';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -30,6 +30,13 @@ export default defineEventHandler(async (event) => {
       Number(pacote_index ?? 0),
       Number(fotos_incluidas ?? 0),
       Number(preco_foto_extra ?? 0),
+    );
+
+    // Notifica o cliente que a sessão foi criada
+    await dbCreateNotificacao(
+      db, 'cliente', Number(cliente_id),
+      `Sessão criada: ${nome_sessao}`,
+      'Sua sessão foi criada! Em breve as fotos estarão disponíveis para seleção.',
     );
 
     return { success: true, id: result.meta.last_row_id };

@@ -5,7 +5,7 @@ const { adminFetch } = useAdminFetch();
 const router = useRouter();
 
 interface Entrega {
-  sessao_id: number; r2_key: string | null; nome_arquivo: string | null;
+  id: number; sessao_id: number; r2_key: string | null; nome_arquivo: string | null;
   bg_image_id: string | null; mensagem: string | null; ativo: number;
   nome_sessao?: string; cliente_nome?: string;
 }
@@ -59,7 +59,7 @@ onMounted(load);
     <p v-else-if="entregas.length === 0" class="list-empty">Nenhuma entrega cadastrada.</p>
     <div v-else class="item-list">
       <div v-for="e in entregas" :key="e.sessao_id" class="item-row">
-        <NuxtLink :to="`/admin/entregas/save/${e.sessao_id}`" class="link-row" title="Editar">
+        <NuxtLink :to="`/admin/entregas/save/${e.id}`" class="link-row" title="Editar">
           <div class="item-info">
             <span class="item-title">{{ e.nome_sessao }}</span>
             <span class="item-sub">{{ e.cliente_nome }}</span>

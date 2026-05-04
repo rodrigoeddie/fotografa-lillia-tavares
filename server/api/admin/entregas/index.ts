@@ -1,6 +1,7 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbListEntregas, dbCreateEntrega, dbGetSessaoById, dbGetLoteById, dbUpdateLoteStatus, dbMarkFotosEntregues, dbUpdateSessaoStatus } from '~/server/utils/d1-client';
+import { getDB, dbListEntregas, dbCreateEntrega, dbGetSessaoById, dbGetLoteById, dbUpdateLoteStatus, dbMarkFotosEntregues, dbUpdateSessaoStatus, dbCreateNotificacao } from '~/server/utils/d1-client';
+import { sendPushNotifications } from '~/server/utils/send-push';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -34,12 +35,26 @@ export default defineEventHandler(async (event) => {
       r2_key ?? null, nome_arquivo ?? null, bg_image_id ?? null, mensagem ?? null, ativo !== false,
     );
 
-    // Ao criar entrega: marca lote como entregue e bloqueia fotos
+    // Ao criar entrega: sempre marca sessão como entregue
+    await dbUpdateSessaoStatus(db, Number(sessao_id), 'entregue');
+
+    // Se há lote associado: marca o lote e bloqueia fotos do lote
     if (loteIdNum) {
       await dbUpdateLoteStatus(db, loteIdNum, 'entregue');
       await dbMarkFotosEntregues(db, loteIdNum);
-      await dbUpdateSessaoStatus(db, Number(sessao_id), 'entregue');
     }
+
+    // Notifica o cliente que o ensaio foi entregue
+    await dbCreateNotificacao(
+      db, 'cliente', Number(sessao.cliente_id),
+      'Seu ensaio está pronto! 🎉',
+      `O ensaio "${sessao.nome_sessao}" foi entregue. Acesse a área do cliente para baixar.`,
+    );
+    await sendPushNotifications(
+      event, db, 'cliente', Number(sessao.cliente_id),
+      'Seu ensaio está pronto! 🎉',
+      `O ensaio “${sessao.nome_sessao}” foi entregue. Acesse a área do cliente para baixar.`,
+    );
 
     return { success: true, id: result.meta.last_row_id };
   }

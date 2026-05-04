@@ -149,6 +149,14 @@ onMounted(load);
               <NuxtLink v-if="entregasSessaoIds.has(s.id)" :to="`/admin/entregas/${s.id}`" class="card-action" title="Ver entregas">
                 <span class="material-symbols-outlined">inventory_2</span> <span>Entregas</span>
               </NuxtLink>
+              <NuxtLink
+                v-if="s.status === 'selecao_concluida' && !entregasSessaoIds.has(s.id)"
+                :to="`/admin/entregas/save?sessao_id=${s.id}`"
+                class="card-action card-action--primary"
+                title="Cadastrar entrega"
+              >
+                <span class="material-symbols-outlined">upload_file</span> <span>Cadastrar entrega</span>
+              </NuxtLink>
               <button class="card-action card-action--danger" title="Excluir" @click="deleteSessao(s)">
                 <span class="material-symbols-outlined">delete</span> <span>Deletar</span>
               </button>
@@ -345,6 +353,14 @@ onMounted(load);
 
   &--danger:hover {
     color: #ef4444;
+  }
+
+  &--primary {
+    color: #8ba87a;
+    &:hover {
+      border-bottom-color: #8ba87a;
+      color: #b5d4a0;
+    }
   }
 }
 
