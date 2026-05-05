@@ -49,7 +49,17 @@ const error = ref('');
 const totalSelecionadas = computed(() => Object.values(selecoes.value).filter(s => s.selecionada).length);
 const fotos_incluidas = computed(() => state.value?.sessao.fotos_incluidas ?? 0);
 const extras = computed(() => Math.max(0, totalSelecionadas.value - fotos_incluidas.value));
-const valorExtras = computed(() => extras.value * (state.value?.sessao.preco_foto_extra ?? 0));
+
+// Desconto progressivo: a cada 5 fotos extras, 5% de desconto
+const descontoPercent = computed(() => Math.floor(extras.value / 5) * 5);
+const valorExtrasBruto = computed(() => extras.value * (state.value?.sessao.preco_foto_extra ?? 0));
+const valorExtras = computed(() => valorExtrasBruto.value * (1 - descontoPercent.value / 100));
+const economiaTotalExtras = computed(() => valorExtrasBruto.value - valorExtras.value);
+const faltamParaProximoDesconto = computed(() => {
+  const progressoNaTier = extras.value % 5;
+  return progressoNaTier === 0 ? 5 : 5 - progressoNaTier;
+});
+const proximoDescontoPercent = computed(() => descontoPercent.value + 5);
 
 const prazoInfo = computed(() => {
   const prazo = state.value?.sessao.prazo_selecao;
@@ -132,7 +142,9 @@ async function finalizar() {
   }
 
   const msg = extras.value > 0
-    ? `Você selecionou ${extras.value} foto(s) extra(s), totalizando R$ ${valorExtras.value.toFixed(2).replace('.', ',')} a mais. Confirmar seleção?`
+    ? descontoPercent.value > 0
+      ? `Você selecionou ${extras.value} foto(s) extra(s) com ${descontoPercent.value}% de desconto! Total extras: R$ ${valorExtras.value.toFixed(2).replace('.', ',')} (economia de R$ ${economiaTotalExtras.value.toFixed(2).replace('.', ',')}). Confirmar seleção?`
+      : `Você selecionou ${extras.value} foto(s) extra(s), totalizando R$ ${valorExtras.value.toFixed(2).replace('.', ',')} a mais. Confirmar seleção?`
     : `Você selecionou ${totalSelecionadas.value} foto(s). Confirmar seleção?`;
 
   const confirmed = await showConfirm(msg, 'Finalizar seleção', 'Confirmar', 'Cancelar');
@@ -241,19 +253,80 @@ onMounted(load);
             
             <span class="included-photos">
               <span><b>{{ fotos_incluidas }}</b>&nbsp;</span>
-              <span>fotos inclusas</span>
+              <span>fotos inclusas no pacote</span>
+            </span>
+
+            <span v-if="state.sessao.preco_foto_extra > 0" class="extra-photos-hint">
+              <span class="material-symbols-outlined">add_circle</span>
+              <b>{{ state.sessao.preco_foto_extra.toFixed(2).replace('.', ',') }}</b>/ foto extra
             </span>
           </div>
 
           <div class="sticky-counts">
-            <span class="count-main fotos-selecionadas" v-if="totalSelecionadas > 0">
-              <span><strong>{{ totalSelecionadas }}</strong> foto{{ totalSelecionadas > 1 ? 's' : '' }} selecionada{{ totalSelecionadas > 1 ? 's' : '' }}</span>
-              <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas" class="finalizar-hint">
-                Faltam {{ fotos_incluidas - totalSelecionadas }} foto(s)
-              </span>
-              <span v-if="extras > 0" class="count-extras">
-                +{{ extras }} extra{{ extras > 1 ? 's' : '' }} = R$ {{ valorExtras.toFixed(2).replace('.', ',') }}
-              </span>
+            <template v-if="totalSelecionadas > 0">
+              <div class="count-main">
+                <span class="fotos-count-label">
+                  <strong>{{ totalSelecionadas }}</strong> foto{{ totalSelecionadas > 1 ? 's' : '' }} selecionada{{ totalSelecionadas > 1 ? 's' : '' }}
+                </span>
+
+                <span v-if="extras > 0" class="count-extras">
+                  <span class="material-symbols-outlined">add_circle</span>
+                  <span>+{{ extras }} extra{{ extras > 1 ? 's' : '' }}</span>
+                  <template v-if="descontoPercent > 0">
+                    <span class="preco-riscado">R$ {{ valorExtrasBruto.toFixed(2).replace('.', ',') }}</span>
+                    <span class="preco-final">R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</span>
+                  </template>
+                  <span v-else>— R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</span>
+                </span>
+
+                <span v-if="descontoPercent > 0" class="desconto-ativo">
+                  🎉 {{ descontoPercent }}% OFF aplicado! Você economizou <strong>R$ {{ economiaTotalExtras.toFixed(2).replace('.', ',') }}</strong>
+                </span>
+              </div>
+
+              <!-- Teaser: dentro do pacote, antecipa o benefício sem barra -->
+              <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
+                <span class="material-symbols-outlined">local_offer</span>
+                <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
+              </div>
+
+              <!-- Meter: só aparece quando há fotos extras de fato -->
+              <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
+                <div class="desconto-meter-texto">
+                  <template v-if="descontoPercent === 0">
+                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
+                  </template>
+                  <template v-else>
+                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
+                  </template>
+                </div>
+                <div class="desconto-barra-wrap">
+                  <div class="desconto-segmentos">
+                    <div
+                      v-for="i in 5"
+                      :key="i"
+                      class="segmento"
+                      :class="{ filled: (extras % 5) >= i }"
+                    ></div>
+                  </div>
+                  <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
+                </div>
+                <div class="desconto-tiers">
+                  <span
+                    v-for="tier in [5, 10, 15, 20, 25]"
+                    :key="tier"
+                    class="tier-badge"
+                    :class="{ ativo: descontoPercent >= tier }"
+                  >
+                    <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                    {{ tier }}%
+                  </span>
+                </div>
+              </div>
+            </template>
+
+            <span v-else class="count-main selecao-empty-hint">
+              <span>Toque nas fotos para selecionar as que você quer receber</span>
             </span>
           </div>
 
@@ -391,8 +464,12 @@ onMounted(load);
 }
 
 .foto-overlay {
-  position: absolute; inset: 0; display: flex; align-items: flex-start; justify-content: flex-end;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: absolute;
+  display: flex;
   padding: 8px;
+  inset: 0;
 }
 
 .foto-check {
@@ -490,29 +567,203 @@ onMounted(load);
         padding-top: 10px;
         display: block;
       }
+
+      .extra-photos-hint {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px dashed #d1d5db;
+        font-size: 12px;
+        color: #7c3aed;
+        font-weight: 600;
+
+        .material-symbols-outlined {
+          font-size: 14px;
+        }
+      }
     }
   }
 }
 
 .sticky-counts { 
   height: 100%;
-  
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
   .count-main {
     flex-direction: column;
     color: #374151;
     font-size: 15px;
     display: flex;
-  
-    &.fotos-selecionadas {
-      display: flex;
+    gap: 4px;
+
+    &.selecao-empty-hint {
+      color: #9ca3af;
+      font-size: 14px;
+      font-style: italic;
     }
   }
 
   .count-extras {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 14px;
-    color: #b45309;
     font-weight: 600;
+    color: #374151;
+
+    .material-symbols-outlined {
+      font-size: 16px;
+      color: #15803d;
+    }
+
+    .preco-riscado {
+      text-decoration: line-through;
+      color: #9ca3af;
+      font-weight: 400;
+      font-size: 13px;
+    }
+
+    .preco-final {
+      color: #15803d;
+      font-weight: 700;
+    }
   }
+
+  .desconto-ativo {
+    font-size: 13px;
+    color: #15803d;
+    font-weight: 600;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 3px 8px;
+    animation: desconto-pop 0.4s ease;
+  }
+
+  .upsell-hint {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #7c3aed;
+    font-weight: 600;
+    animation: pulse-hint 2s ease-in-out infinite;
+
+    .material-symbols-outlined {
+      font-size: 15px;
+    }
+  }
+
+  .desconto-teaser {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #5b21b6;
+    background: linear-gradient(135deg, #faf5ff, #ede9fe);
+    border: 1px solid #c4b5fd;
+    border-radius: 8px;
+    padding: 7px 10px;
+
+    .material-symbols-outlined {
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+  }
+
+  .desconto-meter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 210px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #faf5ff, #ede9fe);
+    border-radius: 10px;
+    border: 1px solid #c4b5fd;
+
+    .desconto-meter-texto {
+      font-size: 12px;
+      color: #5b21b6;
+      line-height: 1.4;
+    }
+
+    .desconto-destaque {
+      color: #7c3aed;
+      font-size: 13px;
+    }
+
+    .desconto-barra-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .desconto-segmentos {
+        display: flex;
+        flex: 1;
+        gap: 4px;
+
+        .segmento {
+          flex: 1;
+          height: 8px;
+          border-radius: 4px;
+          background: #ddd6fe;
+          transition: background 0.35s, transform 0.2s;
+
+          &.filled {
+            background: linear-gradient(90deg, #7c3aed, #a855f7);
+            transform: scaleY(1.25);
+          }
+        }
+      }
+
+      .desconto-barra-label {
+        font-size: 11px;
+        color: #7c3aed;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+    }
+
+    .desconto-tiers {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+
+      .tier-badge {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #c4b5fd;
+        transition: all 0.3s;
+
+        .material-symbols-outlined {
+          font-size: 13px;
+        }
+
+        &.ativo {
+          color: #5b21b6;
+          animation: desconto-pop 0.4s ease;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse-hint {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes desconto-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
 }
 
 .finalizar-wrap {
