@@ -2,6 +2,7 @@
 definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
+const { showConfirm } = useDialog();
 const cfURI = useRuntimeConfig().public.cloudflareURI;
 
 interface Sessao {
@@ -78,7 +79,8 @@ async function updateStatus(sessao: Sessao, newStatus: string) {
 }
 
 async function deleteSessao(s: Sessao) {
-  if (!confirm(`Excluir sessão "${s.nome_sessao}"? As fotos cadastradas serão removidas.`)) return;
+  const ok = await showConfirm(`As fotos cadastradas serão removidas.`, `Excluir sessão "${s.nome_sessao}"?`, 'Excluir', 'Cancelar');
+  if (!ok) return;
   try {
     await adminFetch(`/api/admin/sessoes/${s.id}`, { method: 'DELETE' });
     showMessage('Sessão removida', 'success');
@@ -308,29 +310,31 @@ onMounted(load);
 }
 
 .card-action {
+  transition: background 0.1s, color 0.1s;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  align-items: center;
   background: none;
-  border: none;
+  padding: 4px 7px;
+  line-height: 1.4;
   cursor: pointer;
   font-size: 14px;
-  gap: 4rem;
-  padding: 4px 7px;
-  text-decoration: none;
-  color: #555;
-  border-bottom: 2px solid transparent;
-  line-height: 1.4;
-  transition: background 0.1s, color 0.1s;
+  border: none;
+  flex-direction: column;
   display: flex;
-  align-items: center;
+  color: #777;
+  gap: 4rem;
 
   &:before {
     content: '';
+
     display: inline-block;
-    width: 1px;
-    height: 14px;
-    background: #2a2a2a;
-    margin-left: 5px;
-    left: -6px;
+    background: #363636;
     position: absolute;
+    margin-left: 5px;
+    height: 40px;
+    width: 1px;
+    left: -6px;
   }
 
   &:first-child:before {

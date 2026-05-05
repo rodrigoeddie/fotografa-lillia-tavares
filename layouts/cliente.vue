@@ -94,6 +94,7 @@ onMounted(async () => {
   padding: 0 25rem;
   height: 90rem;
   display: flex;
+  z-index: 2;
 
   @include m.max(xs) {
     padding-left: 15px;
@@ -249,5 +250,6 @@ onMounted(async () => {
 .cliente-main {
   padding-right: 10px;
   padding-left: 10px;
+  width: 1820rem;
 }
 </style>

@@ -24,4 +24,4 @@ logs
 .env.*
 !.env.example
 
-_AUX
+_AUX\n.dev.vars

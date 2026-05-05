@@ -20,10 +20,10 @@ const isUploading = ref(false);
 const fileInputRef = ref<HTMLInputElement | null>(null);
 
 const statusLabels: Record<string, string> = {
-  aguardando_fotos: '⏳ Aguardando fotos',
-  aguardando_selecao: '📸 Aguardando seleção',
-  selecao_concluida: '✅ Seleção concluída',
-  entregue: '📦 Entregue',
+  aguardando_fotos: '<span class="material-symbols-outlined"> hourglass </span> Aguardando fotos',
+  aguardando_selecao: '<span class="material-symbols-outlined"> photo_camera </span> Aguardando seleção',
+  selecao_concluida: '<span class="material-symbols-outlined"> check_circle </span> Seleção concluída',
+  entregue: '<span class="material-symbols-outlined"> local_shipping </span> Entregue',
 };
 
 async function load() {
@@ -46,6 +46,10 @@ async function updateStatus(status: string) {
   } catch (e: any) {
     showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
   }
+}
+
+function removeFromQueue(index: number) {
+  uploadQueue.value.splice(index, 1);
 }
 
 function onFilesSelected(e: Event) {
@@ -173,7 +177,7 @@ onMounted(load);
     <div class="page-header">
       <div style="flex:1">
         <h2>{{ sessao?.nome_sessao ?? '...' }}</h2>
-        <p class="text-muted text-sm">{{ sessao?.cliente_nome }} · {{ sessao ? statusLabels[sessao.status] : '' }}</p>
+        <p class="text-muted text-sm"><b>Cliente: </b> {{ sessao?.cliente_nome }} · Status: <span v-if="sessao" v-html="statusLabels[sessao.status]"></span></p>
       </div>
     </div>
 
@@ -206,6 +210,7 @@ onMounted(load);
           <div v-if="item.status === 'processing'" class="queue-progress">
             <div class="queue-fill" :style="{ width: item.progress + '%' }"></div>
           </div>
+          <button v-if="item.status === 'pending'" class="queue-remove" title="Remover" @click="removeFromQueue(i)">✕</button>
         </div>
       </div>
     </div>
@@ -235,6 +240,14 @@ onMounted(load);
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
 
+.text-muted {
+  padding-top: 15px;
+}
+.text-muted span,
+.text-muted {
+  align-items: center;
+  display: flex;
+}
 .icon-photo {
   margin-right: 2px;
   top: 6px;
@@ -248,6 +261,11 @@ onMounted(load);
 .queue-name { flex: 1; color: #374151; }
 .queue-progress { width: 80px; height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
 .queue-fill { height: 100%; background: #1f2937; transition: width 0.2s; }
+.queue-remove {
+  margin-left: auto; background: none; border: none; color: #9ca3af; cursor: pointer;
+  font-size: 12px; padding: 2px 4px; border-radius: 3px;
+  &:hover { color: #dc2626; background: #fee2e2; }
+}
 .fotos-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .fotos-grid {
   column-gap: 12px;

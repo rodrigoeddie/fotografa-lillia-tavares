@@ -170,7 +170,9 @@ onMounted(load);
     <template v-else-if="state">
       <!-- Header -->
       <div class="selecao-header">
-        <NuxtLink to="/area-cliente/meus-ensaios" class="back-link">← Meus ensaios</NuxtLink>
+        <NuxtLink to="/area-cliente/meus-ensaios" class="back-link">
+          <span class="material-symbols-outlined"> arrow_back_ios </span> Meus ensaios
+        </NuxtLink>
         <h1>{{ state.sessao.nome_sessao }}</h1>
         <p class="selecao-sub">Selecione as fotos que você quer receber no seu ensaio final</p>
       </div>
@@ -265,10 +267,44 @@ onMounted(load);
 .selecao-page { padding-bottom: 100px; }
 .loading-state, .error-state { text-align: center; padding: 48px; color: #9ca3af; }
 
-.selecao-header { margin-bottom: 24px; }
-.back-link { font-size: 14px; color: #6b7280; text-decoration: none; &:hover { color: #5e2012; } }
-h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-bottom: 4px; }
-.selecao-sub { font-size: 14px; color: #6b7280; }
+.selecao-header {
+  margin-bottom: 24px;
+  text-align: center;
+  padding-top: 10px;
+  
+  .back-link {
+    text-decoration: none;
+    align-items: center;
+    position: absolute;
+    color: #6b7280;
+    font-size: 14px;
+    display: flex;
+    z-index: 2;
+    top: 25px;
+    left: 0;
+
+    span {
+      font-size: 17px;
+    }
+
+    &:hover {
+      color: #5e2012;
+    }
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+  
+  .selecao-sub {
+    font-size: 14px;
+    color: #6b7280;
+  }
+}
 
 .status-banner {
   padding: 14px 20px; border-radius: 10px; font-size: 15px; font-weight: 500; margin-bottom: 24px;

@@ -13,7 +13,8 @@
     "postinstall": "nuxt prepare",
     "migrate:local": "wrangler d1 execute nuxt-content --local --file=server/db/migrations/004_portfolio_descricao.sql && wrangler d1 execute nuxt-content --local --file=scripts/backfill-portfolio-descricao.sql",
     "migrate:prod": "wrangler d1 execute nuxt-content --remote --file=server/db/migrations/001_photo_system.sql && wrangler d1 execute nuxt-content --remote --file=server/db/migrations/002_content_system.sql && wrangler d1 execute nuxt-content --remote --file=server/db/migrations/003_content_seeds.sql && wrangler d1 execute nuxt-content --remote --file=server/db/migrations/004_portfolio_descricao.sql && wrangler d1 execute nuxt-content --remote --file=scripts/backfill-portfolio-descricao.sql",
-    "r2:cors": "wrangler r2 bucket cors set fotografa-lillia-ensaios --file r2-cors.json"
+    "r2:cors": "wrangler r2 bucket cors set fotografa-lillia-ensaios --file r2-cors.json",
+    "test:push": "bun run build && npx wrangler pages dev dist"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260501.1",

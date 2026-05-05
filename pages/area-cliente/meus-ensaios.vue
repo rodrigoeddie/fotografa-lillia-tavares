@@ -36,7 +36,12 @@ const statusInfo: Record<string, {
   message?: string }> = {
   aguardando_fotos: {
     label: 'Fotos em preparação',
-    color: '#d97706'
+    color: '#d97706',
+    message: `
+      Maravilha, o ensaio foi realizado!<br>
+      Agora a Lillia está preparando as fotos para você.<br>
+      Em breve elas estarão disponíveis por aqui<br>
+      para você selecionar as suas favoritas!`
   },
   aguardando_selecao: {
     label: 'Pronto para seleção!',
@@ -76,8 +81,8 @@ onMounted(async () => {
 
 <template>
   <div class="shoots-page">
-    <div class="shoots-header" :class="{ 'has-hero': !!bgImageUrl }">
-      <div v-if="!bgImageUrl">
+    <div v-if="!bgImageUrl" class="shoots-header" :class="{ 'has-hero': !!bgImageUrl }">
+      <div>
         <h1>Meus Ensaios</h1>
         <p class="shoots-sub">Acompanhe suas sessões fotográficas</p>
       </div>
@@ -128,7 +133,6 @@ onMounted(async () => {
         </div>
 
         <div class="wrap-info">
-          
           <div class="shoot-product-info">
             <div class="shoot-product-name">{{ s.produto_tipo }}</div>
             <div class="shoot-package">
@@ -175,6 +179,8 @@ onMounted(async () => {
           </div>
         </div>
       </component>
+
+      <div class="shoot-card empty"></div>
     </div>
 
     <!-- Google Maps review CTA -->
@@ -189,12 +195,14 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .shoots-hero {
-  width: 300px;
+  width: 20%;
+  aspect-ratio: 1;
   background-size: cover;
   background-position: center;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
+  text-align: right;
 
   @media (max-width: 600px) {
     height: 180px;
@@ -251,19 +259,23 @@ onMounted(async () => {
 .empty-state { text-align: center; padding: 64px 32px; .empty-icon { font-size: 48px; margin-bottom: 16px; } p { color: #374151; font-size: 16px; } .text-muted { color: #9ca3af; font-size: 14px; margin-top: 4px; } }
 
 .sessoes-grid {
+  justify-content: flex-end;
+  padding-top: 15px;
+  flex-wrap: wrap;
   display: flex;
   width: 100%;
-  gap: 20px;
+  gap: 15px;
 }
 
 .shoot-card {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
   border: 1px solid #f0ede8;
-  display: flex;
+  width: calc(40% - 15px);
   text-decoration: none;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
   color: inherit;
+  display: flex;
 
   &--link {
     transition: box-shadow 0.15s, transform 0.15s;
@@ -272,6 +284,12 @@ onMounted(async () => {
     &:hover {
       box-shadow: 0 0 10px rgba(77, 15, 1, 0.12);
     }
+  }
+
+  &.empty {
+    border: none;
+    background: transparent;
+    pointer-events: none;
   }
   
   .shoot-thumb {
@@ -348,8 +366,8 @@ onMounted(async () => {
   
   .shoot-progress {
     align-items: center;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-top: 30px;
     display: flex;
     gap: 0;
     
