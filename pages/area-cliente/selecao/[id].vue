@@ -313,7 +313,7 @@ onMounted(load);
                 </div>
                 <div class="desconto-tiers">
                   <span
-                    v-for="tier in [5, 10, 15, 20, 25]"
+                    v-for="tier in [5, 10, 15, 20, 25, 30, 35]"
                     :key="tier"
                     class="tier-badge"
                     :class="{ ativo: descontoPercent >= tier }"
