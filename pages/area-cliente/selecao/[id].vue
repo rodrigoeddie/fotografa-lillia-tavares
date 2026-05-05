@@ -231,25 +231,33 @@ onMounted(load);
       <!-- Sticky bar -->
       <div v-if="state.sessao.status === 'aguardando_selecao'" class="sticky-bar">
         <div class="sticky-bar-inner">
+          <div class="package-info">
+            <span class="package-title">{{ state.sessao.produto_tipo }}</span>
+            
+            <span class="package-name">
+              <span>Pacote - </span>
+              <template v-if="state.sessao.pacote_titulo">{{ state.sessao.pacote_titulo }}</template>
+            </span>
+            
+            <span class="included-photos">
+              <span><b>{{ fotos_incluidas }}</b>&nbsp;</span>
+              <span>fotos inclusas</span>
+            </span>
+          </div>
+
           <div class="sticky-counts">
             <span class="count-main fotos-selecionadas" v-if="totalSelecionadas > 0">
-              <strong>{{ totalSelecionadas }}</strong>
-              <span>foto{{ totalSelecionadas > 1 ? 's' : '' }} selecionada{{ totalSelecionadas > 1 ? 's' : '' }}</span>
-            </span>
-            <div class="infos-pacotes">
-              <span class="count-main">
-                <span>{{ fotos_incluidas }}</span>
-                fotos incluídas no pacote: {{ state.sessao.produto_tipo }}<template v-if="state.sessao.pacote_titulo"> · {{ state.sessao.pacote_titulo }}</template>
+              <span><strong>{{ totalSelecionadas }}</strong> foto{{ totalSelecionadas > 1 ? 's' : '' }} selecionada{{ totalSelecionadas > 1 ? 's' : '' }}</span>
+              <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas" class="finalizar-hint">
+                Faltam {{ fotos_incluidas - totalSelecionadas }} foto(s)
               </span>
               <span v-if="extras > 0" class="count-extras">
                 +{{ extras }} extra{{ extras > 1 ? 's' : '' }} = R$ {{ valorExtras.toFixed(2).replace('.', ',') }}
               </span>
-            </div>
-          </div>
-          <div class="finalizar-wrap">
-            <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas" class="finalizar-hint">
-              Faltam {{ fotos_incluidas - totalSelecionadas }} foto(s)
             </span>
+          </div>
+
+          <div class="finalizar-wrap">
             <button
               class="finalizar-btn"
               :disabled="finalizing || (fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas)"
@@ -264,8 +272,16 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
-.selecao-page { padding-bottom: 100px; }
-.loading-state, .error-state { text-align: center; padding: 48px; color: #9ca3af; }
+.selecao-page {
+  padding-bottom: 100px;
+}
+
+.loading-state,
+.error-state {
+  text-align: center;
+  color: #9ca3af;
+  padding: 48px;
+}
 
 .selecao-header {
   margin-bottom: 24px;
@@ -323,9 +339,20 @@ onMounted(load);
   margin-bottom: 20px;
   background: #fef9c3;
   color: #854d0e;
-  .material-symbols-outlined { font-size: 18px; }
-  &.urgente { background: #fee2e2; color: #991b1b; }
-  &.encerrado { background: #fce7f3; color: #9d174d; }
+
+  .material-symbols-outlined {
+    font-size: 18px;
+  }
+  
+  &.urgente {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  
+  &.encerrado {
+    background: #fce7f3;
+    color: #9d174d;
+  }
 }
 
 .fotos-grid {
@@ -398,7 +425,7 @@ onMounted(load);
   background: rgba(255,255,255,0.45);
 
   textarea {
-  background: rgba(255,255,255,0.60);
+    background: rgba(255,255,255,0.60);
     width: 100%;
     box-sizing: border-box;
     font-size: 13px;
@@ -417,27 +444,76 @@ onMounted(load);
 }
 
 .sticky-bar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
-  background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
-  border-top: 1px solid #f0ede8;
+  background: rgba(255,255,255,0.95);
   box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  border-top: 1px solid #f0ede8;
+  backdrop-filter: blur(8px);
   padding: 14px 24px;
-}
-
-.sticky-bar-inner {
-  max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px;
-}
-
-.sticky-counts { display: flex; flex-direction: column; gap: 2px; }
-.count-main {
-  font-size: 15px;
-  color: #374151;
-
-  &.fotos-selecionadas {
+  position: fixed;
+  z-index: 50;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  
+  .sticky-bar-inner {
+    padding-left: 220px;
+    width: 1750rem;
+    margin: 0 auto;
+    max-width: 98%;
     display: flex;
+    justify-content: space-between;
+
+    .package-info {
+      padding: 10px 20px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #4b5563;
+      display: flex;
+      flex-direction: column;
+      border: #15803d 1px solid;
+      width: 200px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      .package-title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .package-name {
+        font-size: 15px;
+      }
+
+      .included-photos {
+        padding-top: 10px;
+        display: block;
+      }
+    }
   }
 }
-.count-extras { font-size: 14px; color: #b45309; font-weight: 600; }
+
+.sticky-counts { 
+  height: 100%;
+  
+  .count-main {
+    flex-direction: column;
+    color: #374151;
+    font-size: 15px;
+    display: flex;
+  
+    &.fotos-selecionadas {
+      display: flex;
+    }
+  }
+
+  .count-extras {
+    font-size: 14px;
+    color: #b45309;
+    font-weight: 600;
+  }
+}
 
 .finalizar-wrap {
   display: flex;
