@@ -240,104 +240,132 @@ onMounted(load);
         </div>
       </div>
 
-      <!-- Sticky bar -->
+      <!-- Carrinho -->
       <div v-if="state.sessao.status === 'aguardando_selecao'" class="sticky-bar">
         <div class="sticky-bar-inner">
-          <div class="package-info">
-            <span class="package-title">{{ state.sessao.produto_tipo }}</span>
-            
-            <span class="package-name">
-              <span>Pacote - </span>
-              <template v-if="state.sessao.pacote_titulo">{{ state.sessao.pacote_titulo }}</template>
-            </span>
-            
-            <span class="included-photos">
-              <span><b>{{ fotos_incluidas }}</b>&nbsp;</span>
-              <span>fotos inclusas no pacote</span>
-            </span>
 
-            <span v-if="state.sessao.preco_foto_extra > 0" class="extra-photos-hint">
-              <span class="material-symbols-outlined">add_circle</span>
-              <b>{{ state.sessao.preco_foto_extra.toFixed(2).replace('.', ',') }}</b>/ foto extra
-            </span>
+          <!-- Cabeçalho do carrinho -->
+          <div class="cart-header">
+            <div class="cart-header-left">
+              <span class="material-symbols-outlined">shopping_cart</span>
+              <span class="cart-title">Seu carrinho</span>
+            </div>
+            <span v-if="totalSelecionadas > 0" class="cart-badge">{{ totalSelecionadas }}</span>
           </div>
 
-          <div class="sticky-counts">
-            <template v-if="totalSelecionadas > 0">
-              <div class="count-main">
-                <span class="fotos-count-label">
-                  <strong>{{ totalSelecionadas }}</strong> foto{{ totalSelecionadas > 1 ? 's' : '' }} selecionada{{ totalSelecionadas > 1 ? 's' : '' }}
-                </span>
+          <!-- Estado vazio -->
+          <div v-if="totalSelecionadas === 0" class="cart-empty">
+            <span class="material-symbols-outlined">add_photo_alternate</span>
+            <p>Toque nas fotos para adicioná-las ao carrinho</p>
+          </div>
 
-                <span v-if="extras > 0" class="count-extras">
+          <template v-else>
+            <!-- Itens do carrinho -->
+            <div class="cart-items">
+              <!-- Pacote base -->
+              <div class="cart-item">
+                <div class="cart-item-icon">
+                  <span class="material-symbols-outlined">photo_library</span>
+                </div>
+                <div class="cart-item-details">
+                  <span class="cart-item-name">{{ state.sessao.produto_tipo }}</span>
+                  <span class="cart-item-sub">{{ state.sessao.pacote_titulo }}</span>
+                  <span class="cart-item-qty">{{ Math.min(totalSelecionadas, fotos_incluidas) }} / {{ fotos_incluidas }} fotos incluídas</span>
+                </div>
+                <span class="cart-item-price cart-item-price--free">Incluso</span>
+              </div>
+
+              <!-- Fotos extras -->
+              <div v-if="extras > 0" class="cart-item cart-item--extras">
+                <div class="cart-item-icon">
                   <span class="material-symbols-outlined">add_circle</span>
-                  <span>+{{ extras }} extra{{ extras > 1 ? 's' : '' }}</span>
-                  <template v-if="descontoPercent > 0">
-                    <span class="preco-riscado">R$ {{ valorExtrasBruto.toFixed(2).replace('.', ',') }}</span>
-                    <span class="preco-final">R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</span>
-                  </template>
-                  <span v-else>— R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</span>
+                </div>
+                <div class="cart-item-details">
+                  <span class="cart-item-name">{{ extras }} foto{{ extras > 1 ? 's' : '' }} extra{{ extras > 1 ? 's' : '' }}</span>
+                  <span class="cart-item-sub">R$ {{ state.sessao.preco_foto_extra.toFixed(2).replace('.', ',') }} / foto</span>
+                </div>
+                <div class="cart-item-price-wrap">
+                  <span v-if="descontoPercent > 0" class="cart-item-price-old">R$ {{ valorExtrasBruto.toFixed(2).replace('.', ',') }}</span>
+                  <span class="cart-item-price">R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</span>
+                </div>
+              </div>
+
+              <!-- Linha de desconto -->
+              <div v-if="descontoPercent > 0 && extras > 0" class="cart-discount-row">
+                <span class="cart-discount-tag">
+                  <span class="material-symbols-outlined">local_offer</span>
+                  {{ descontoPercent }}% OFF aplicado
                 </span>
+                <span class="cart-discount-saving">–R$ {{ economiaTotalExtras.toFixed(2).replace('.', ',') }}</span>
+              </div>
+            </div>
 
-                <span v-if="descontoPercent > 0" class="desconto-ativo">
-                  🎉 {{ descontoPercent }}% OFF aplicado! Você economizou <strong>R$ {{ economiaTotalExtras.toFixed(2).replace('.', ',') }}</strong>
+            <!-- Teaser: incentivo antes do primeiro extra -->
+            <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
+              <span class="material-symbols-outlined">local_offer</span>
+              <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
+            </div>
+
+            <!-- Meter: progresso ao próximo desconto -->
+            <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
+              <div class="desconto-meter-texto">
+                <template v-if="descontoPercent === 0">
+                  <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
+                </template>
+                <template v-else>
+                  <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
+                </template>
+              </div>
+              <div class="desconto-barra-wrap">
+                <div class="desconto-segmentos">
+                  <div
+                    v-for="i in 5"
+                    :key="i"
+                    class="segmento"
+                    :class="{ filled: (extras % 5) >= i }"
+                  ></div>
+                </div>
+                <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
+              </div>
+              <div class="desconto-tiers">
+                <span
+                  v-for="tier in [5, 10, 15, 20, 25, 30, 35]"
+                  :key="tier"
+                  class="tier-badge"
+                  :class="{ ativo: descontoPercent >= tier }"
+                >
+                  <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                  {{ tier }}%
                 </span>
               </div>
+            </div>
 
-              <!-- Teaser: dentro do pacote, antecipa o benefício sem barra -->
-              <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
-                <span class="material-symbols-outlined">local_offer</span>
-                <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
+            <!-- Total do carrinho -->
+            <div v-if="extras > 0" class="cart-total">
+              <div v-if="descontoPercent > 0" class="cart-total-savings">
+                🎉 Você economizou <strong>R$ {{ economiaTotalExtras.toFixed(2).replace('.', ',') }}</strong>
               </div>
-
-              <!-- Meter: só aparece quando há fotos extras de fato -->
-              <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
-                <div class="desconto-meter-texto">
-                  <template v-if="descontoPercent === 0">
-                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
-                  </template>
-                  <template v-else>
-                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
-                  </template>
-                </div>
-                <div class="desconto-barra-wrap">
-                  <div class="desconto-segmentos">
-                    <div
-                      v-for="i in 5"
-                      :key="i"
-                      class="segmento"
-                      :class="{ filled: (extras % 5) >= i }"
-                    ></div>
-                  </div>
-                  <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
-                </div>
-                <div class="desconto-tiers">
-                  <span
-                    v-for="tier in [5, 10, 15, 20, 25, 30, 35]"
-                    :key="tier"
-                    class="tier-badge"
-                    :class="{ ativo: descontoPercent >= tier }"
-                  >
-                    <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
-                    {{ tier }}%
-                  </span>
-                </div>
+              <div class="cart-total-row">
+                <span>Total extras</span>
+                <strong>R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</strong>
               </div>
-            </template>
+            </div>
+          </template>
 
-            <span v-else class="count-main selecao-empty-hint">
-              <span>Toque nas fotos para selecionar as que você quer receber</span>
-            </span>
-          </div>
-
+          <!-- Finalizar -->
           <div class="finalizar-wrap">
             <button
               class="finalizar-btn"
               :disabled="finalizing || (fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas)"
               @click="finalizar">
+              <span class="material-symbols-outlined">check_circle</span>
               {{ finalizing ? 'Finalizando...' : 'Finalizar seleção' }}
             </button>
+            <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas && totalSelecionadas > 0" class="finalizar-hint">
+              Selecione mais {{ fotos_incluidas - totalSelecionadas }} foto{{ (fotos_incluidas - totalSelecionadas) > 1 ? 's' : '' }}
+            </span>
           </div>
+
         </div>
       </div>
     </template>
@@ -521,235 +549,337 @@ onMounted(load);
 }
 
 .sticky-bar {
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
-  border-top: 1px solid #f0ede8;
-  backdrop-filter: blur(8px);
-  padding: 14px 24px;
+  background: #fff;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.08);
+  border-left: 1px solid #f0ede8;
   position: fixed;
+  width: 350px;
   z-index: 50;
   bottom: 0;
   right: 0;
-  left: 0;
-  
+  top: 0;
+  display: flex;
+  flex-direction: column;
+
   .sticky-bar-inner {
-    padding-left: 220px;
-    width: 1750rem;
-    margin: 0 auto;
-    max-width: 98%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
 
-    .package-info {
-      padding: 10px 20px;
-      background: #f0f0f0;
-      border-radius: 8px;
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #f0ede8;
+  background: #fdf8f5;
+  flex-shrink: 0;
+
+  .cart-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .material-symbols-outlined {
+      font-size: 22px;
+      color: #5e2012;
+    }
+  }
+
+  .cart-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .cart-badge {
+    background: #5e2012;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 99px;
+    padding: 2px 10px;
+    line-height: 1.6;
+  }
+}
+
+.cart-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 24px;
+  color: #9ca3af;
+  text-align: center;
+
+  .material-symbols-outlined {
+    font-size: 48px;
+    opacity: 0.4;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.cart-items {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #f0ede8;
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px dashed #f0ede8;
+
+  &:last-child { border-bottom: none; }
+
+  &.cart-item--extras .cart-item-icon .material-symbols-outlined { color: #9b3a22; }
+
+  .cart-item-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #f5ede8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .material-symbols-outlined {
+      font-size: 17px;
+      color: #5e2012;
+    }
+  }
+
+  .cart-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+
+    .cart-item-name {
       font-size: 13px;
-      color: #4b5563;
-      display: flex;
-      flex-direction: column;
-      border: #15803d 1px solid;
-      width: 200px;
-      position: absolute;
-      left: 0;
-      bottom: 0;
+      font-weight: 600;
+      color: #1f2937;
+    }
 
-      .package-title {
-        font-size: 16px;
-        font-weight: bold;
-      }
+    .cart-item-sub {
+      font-size: 12px;
+      color: #6b7280;
+    }
 
-      .package-name {
-        font-size: 15px;
-      }
+    .cart-item-qty {
+      font-size: 11px;
+      color: #9b3a22;
+      font-weight: 500;
+    }
+  }
 
-      .included-photos {
-        padding-top: 10px;
-        display: block;
-      }
+  .cart-item-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f2937;
+    white-space: nowrap;
 
-      .extra-photos-hint {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-top: 6px;
-        padding-top: 6px;
-        border-top: 1px dashed #d1d5db;
-        font-size: 12px;
-        color: #7c3aed;
-        font-weight: 600;
+    &.cart-item-price--free {
+      color: #15803d;
+      font-size: 11px;
+      background: #dcfce7;
+      border-radius: 6px;
+      padding: 2px 8px;
+      align-self: flex-start;
+      font-weight: 600;
+    }
+  }
 
-        .material-symbols-outlined {
-          font-size: 14px;
-        }
-      }
+  .cart-item-price-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+
+    .cart-item-price-old {
+      font-size: 11px;
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+
+    .cart-item-price {
+      font-size: 13px;
+      font-weight: 700;
+      color: #9b3a22;
     }
   }
 }
 
-.sticky-counts { 
-  height: 100%;
+.cart-discount-row {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: #fef3c7;
+  border-radius: 8px;
+  border: 1px solid #fde68a;
+  margin: 4px 0 8px;
 
-  .count-main {
-    flex-direction: column;
-    color: #374151;
-    font-size: 15px;
-    display: flex;
-    gap: 4px;
-
-    &.selecao-empty-hint {
-      color: #9ca3af;
-      font-size: 14px;
-      font-style: italic;
-    }
-  }
-
-  .count-extras {
+  .cart-discount-tag {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #92400e;
 
-    .material-symbols-outlined {
-      font-size: 16px;
-      color: #15803d;
-    }
-
-    .preco-riscado {
-      text-decoration: line-through;
-      color: #9ca3af;
-      font-weight: 400;
-      font-size: 13px;
-    }
-
-    .preco-final {
-      color: #15803d;
-      font-weight: 700;
-    }
+    .material-symbols-outlined { font-size: 14px; }
   }
 
-  .desconto-ativo {
+  .cart-discount-saving {
     font-size: 13px;
+    font-weight: 700;
     color: #15803d;
+  }
+}
+
+.cart-total {
+  padding: 14px 16px;
+  border-top: 2px solid #f0ede8;
+  background: #fdf8f5;
+  flex-shrink: 0;
+
+  .cart-total-savings {
+    font-size: 12px;
+    color: #92400e;
     font-weight: 600;
-    background: #dcfce7;
-    border: 1px solid #bbf7d0;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    background: #fef3c7;
     border-radius: 6px;
-    padding: 3px 8px;
+    border: 1px solid #fde68a;
     animation: desconto-pop 0.4s ease;
   }
 
-  .upsell-hint {
+  .cart-total-row {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    color: #7c3aed;
-    font-weight: 600;
-    animation: pulse-hint 2s ease-in-out infinite;
+    font-size: 14px;
+    color: #4b5563;
 
-    .material-symbols-outlined {
-      font-size: 15px;
+    strong {
+      font-size: 18px;
+      font-weight: 800;
+      color: #5e2012;
     }
   }
+}
 
-  .desconto-teaser {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.desconto-teaser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #5e2012;
+  background: linear-gradient(135deg, #fdf8f5, #f5ede8);
+  border: 1px solid #d4b0a6;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 8px 16px;
+
+  .material-symbols-outlined {
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .desconto-destaque { color: #7a2d1a; }
+}
+
+.desconto-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 4px 16px 8px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #fdf8f5, #f5ede8);
+  border-radius: 10px;
+  border: 1px solid #d4b0a6;
+
+  .desconto-meter-texto {
     font-size: 12px;
-    color: #5b21b6;
-    background: linear-gradient(135deg, #faf5ff, #ede9fe);
-    border: 1px solid #c4b5fd;
-    border-radius: 8px;
-    padding: 7px 10px;
+    color: #5e2012;
+    line-height: 1.4;
+  }
 
-    .material-symbols-outlined {
-      font-size: 15px;
-      flex-shrink: 0;
+  .desconto-destaque {
+    color: #7a2d1a;
+    font-size: 13px;
+  }
+
+  .desconto-barra-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .desconto-segmentos {
+      display: flex;
+      flex: 1;
+      gap: 4px;
+
+      .segmento {
+        flex: 1;
+        height: 8px;
+        border-radius: 4px;
+        background: #e8c4b8;
+        transition: background 0.35s, transform 0.2s;
+
+        &.filled {
+          background: linear-gradient(90deg, #5e2012, #9b3a22);
+          transform: scaleY(1.25);
+        }
+      }
+    }
+
+    .desconto-barra-label {
+      font-size: 11px;
+      color: #7a2d1a;
+      font-weight: 700;
+      white-space: nowrap;
     }
   }
 
-  .desconto-meter {
+  .desconto-tiers {
     display: flex;
-    flex-direction: column;
     gap: 6px;
-    min-width: 210px;
-    padding: 10px 14px;
-    background: linear-gradient(135deg, #faf5ff, #ede9fe);
-    border-radius: 10px;
-    border: 1px solid #c4b5fd;
+    flex-wrap: wrap;
 
-    .desconto-meter-texto {
-      font-size: 12px;
-      color: #5b21b6;
-      line-height: 1.4;
-    }
-
-    .desconto-destaque {
-      color: #7c3aed;
-      font-size: 13px;
-    }
-
-    .desconto-barra-wrap {
+    .tier-badge {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 2px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #d4b0a6;
+      transition: all 0.3s;
 
-      .desconto-segmentos {
-        display: flex;
-        flex: 1;
-        gap: 4px;
-
-        .segmento {
-          flex: 1;
-          height: 8px;
-          border-radius: 4px;
-          background: #ddd6fe;
-          transition: background 0.35s, transform 0.2s;
-
-          &.filled {
-            background: linear-gradient(90deg, #7c3aed, #a855f7);
-            transform: scaleY(1.25);
-          }
-        }
+      .material-symbols-outlined {
+        font-size: 13px;
       }
 
-      .desconto-barra-label {
-        font-size: 11px;
-        color: #7c3aed;
-        font-weight: 700;
-        white-space: nowrap;
-      }
-    }
-
-    .desconto-tiers {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-
-      .tier-badge {
-        display: flex;
-        align-items: center;
-        gap: 2px;
-        font-size: 11px;
-        font-weight: 600;
-        color: #c4b5fd;
-        transition: all 0.3s;
-
-        .material-symbols-outlined {
-          font-size: 13px;
-        }
-
-        &.ativo {
-          color: #5b21b6;
-          animation: desconto-pop 0.4s ease;
-        }
+      &.ativo {
+        color: #5e2012;
+        animation: desconto-pop 0.4s ease;
       }
     }
   }
@@ -767,22 +897,36 @@ onMounted(load);
 }
 
 .finalizar-wrap {
+  padding: 16px;
+  border-top: 1px solid #f0ede8;
+  background: #fff;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
+  align-items: stretch;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .finalizar-hint {
   font-size: 12px;
-  color: #b45309;
+  color: #9b3a22;
   font-weight: 600;
+  text-align: center;
 }
 
 .finalizar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
   background: #5e2012; color: #fff; border: none; border-radius: 10px;
-  padding: 12px 32px; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  padding: 14px 32px; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap;
   transition: background 0.15s;
+
+  .material-symbols-outlined { font-size: 20px; }
+
   &:hover:not(:disabled) { background: #4a1a0f; }
   &:disabled { opacity: 0.6; cursor: not-allowed; }
 }
