@@ -1,17 +1,19 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, getOrm, dbListEntregas, dbCreateEntrega, dbGetSessaoById, dbGetLoteById, dbUpdateLoteStatus, dbMarkFotosEntregues, dbUpdateSessaoStatus } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
 import { sendPushNotifications } from '~/server/utils/send-push';
 import { NotificacaoService } from '~/server/services/NotificacaoService';
+import { SessaoService } from '~/server/services/SessaoService';
+import { EntregaService } from '~/server/services/EntregaService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db  = getDB(event);
-  const orm = getOrm(event);
+  const orm        = getOrm(event);
+  const entregaSvc = new EntregaService(orm);
+  const sessaoSvc  = new SessaoService(orm);
 
   if (getMethod(event) === 'GET') {
-    const { results } = await dbListEntregas(db);
-    return results;
+    return entregaSvc.listAll();
   }
 
   if (getMethod(event) === 'POST') {
@@ -20,30 +22,34 @@ export default defineEventHandler(async (event) => {
 
     if (!sessao_id) throw createError({ statusCode: 400, statusMessage: 'sessao_id é obrigatório' });
 
-    const sessao = await dbGetSessaoById(db, Number(sessao_id));
+    const sessao = await sessaoSvc.getById(Number(sessao_id));
     if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
 
     const loteIdNum = lote_id ? Number(lote_id) : null;
 
-    // Valida lote se informado
     if (loteIdNum) {
-      const lote = await dbGetLoteById(db, loteIdNum);
+      const lote = await sessaoSvc.getLoteById(loteIdNum);
       if (!lote || lote.sessao_id !== Number(sessao_id))
         throw createError({ statusCode: 400, statusMessage: 'Lote não pertence à sessão' });
     }
 
-    const result = await dbCreateEntrega(
-      db, Number(sessao_id), loteIdNum,
-      r2_key ?? null, nome_arquivo ?? null, bg_image_id ?? null, mensagem ?? null, ativo !== false,
+    const result = await entregaSvc.create(
+      Number(sessao_id),
+      loteIdNum,
+      r2_key ?? null,
+      nome_arquivo ?? null,
+      bg_image_id ?? null,
+      mensagem ?? null,
+      ativo !== false,
     );
 
     // Ao criar entrega: sempre marca sessão como entregue
-    await dbUpdateSessaoStatus(db, Number(sessao_id), 'entregue');
+    await sessaoSvc.updateStatus(Number(sessao_id), 'entregue');
 
     // Se há lote associado: marca o lote e bloqueia fotos do lote
     if (loteIdNum) {
-      await dbUpdateLoteStatus(db, loteIdNum, 'entregue');
-      await dbMarkFotosEntregues(db, loteIdNum);
+      await sessaoSvc.updateLoteStatus(loteIdNum, 'entregue');
+      await sessaoSvc.markFotosEntregues(loteIdNum);
     }
 
     // Notifica o cliente que o ensaio foi entregue

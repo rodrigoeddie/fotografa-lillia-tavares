@@ -1,17 +1,17 @@
 import { defineEventHandler } from 'h3';
 import { getAuthenticatedCliente } from '~/server/utils/auth-helpers';
-import { getDB, getOrm, dbListSessoesByCliente } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
 import { ProdutoService } from '~/server/services/ProdutoService';
 import { ClienteService } from '~/server/services/ClienteService';
+import { SessaoService } from '~/server/services/SessaoService';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);
-  const db  = getDB(event);
   const orm = getOrm(event);
 
-  const [cliente, { results: sessoes }, todosProdutosComPacotes] = await Promise.all([
+  const [cliente, sessoes, todosProdutosComPacotes] = await Promise.all([
     new ClienteService(orm).getById(clienteId),
-    dbListSessoesByCliente(db, clienteId),
+    new SessaoService(orm).listByCliente(clienteId),
     new ProdutoService(orm).listComPacotes(),
   ]);
 

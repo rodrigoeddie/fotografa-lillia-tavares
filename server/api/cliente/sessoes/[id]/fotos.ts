@@ -1,14 +1,15 @@
 import { defineEventHandler, createError, getRouterParam } from 'h3';
 import { getAuthenticatedCliente } from '~/server/utils/auth-helpers';
-import { getDB, dbGetSessaoById, dbListFotosBySessao, dbGetActiveLoteBySessao, dbGetFotosDisponiveis } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { SessaoService } from '~/server/services/SessaoService';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);
-  const db = getDB(event);
+  const svc = new SessaoService(getOrm(event));
   const sessaoId = Number(getRouterParam(event, 'id'));
   if (!sessaoId) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
 
-  const sessao = await dbGetSessaoById(db, sessaoId);
+  const sessao = await svc.getById(sessaoId);
   if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
 
   if (sessao.cliente_id !== clienteId) {
@@ -20,14 +21,10 @@ export default defineEventHandler(async (event) => {
   }
 
   // Se há uma leva de seleção aberta, exibe apenas as fotos ainda não entregues
-  const loteAtivo = await dbGetActiveLoteBySessao(db, sessaoId);
+  const loteAtivo = await svc.getActiveLote(sessaoId);
   if (loteAtivo) {
-    const { results } = await dbGetFotosDisponiveis(db, sessaoId);
-    return results;
+    return svc.fotosDisponiveis(sessaoId);
   }
 
-  // Caso contrário (sem lote aberto), retorna todas as fotos
-  const { results } = await dbListFotosBySessao(db, sessaoId);
-  return results;
+  return svc.listFotos(sessaoId);
 });
-

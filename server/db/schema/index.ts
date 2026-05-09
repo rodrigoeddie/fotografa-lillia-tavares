@@ -15,3 +15,5 @@ export * from './cenarios';
 export * from './menu';
 export * from './admin-users';
 export * from './notificacoes';
+export * from './landing-pages';
+export * from './page-seo';

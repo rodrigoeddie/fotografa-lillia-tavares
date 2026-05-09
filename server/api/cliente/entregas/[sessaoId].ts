@@ -1,19 +1,24 @@
 import { defineEventHandler, createError, getRouterParam } from 'h3';
 import { getAuthenticatedCliente } from '~/server/utils/auth-helpers';
-import { getDB, dbGetSessaoById, dbGetEntregaBySessao } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { SessaoService } from '~/server/services/SessaoService';
+import { EntregaService } from '~/server/services/EntregaService';
 import { generateR2GetPresignedUrl } from '~/server/utils/r2-presign';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);
-  const db = getDB(event);
+  const orm        = getOrm(event);
+  const sessaoSvc  = new SessaoService(orm);
+  const entregaSvc = new EntregaService(orm);
+
   const sessaoId = Number(getRouterParam(event, 'sessaoId'));
   if (!sessaoId) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
 
-  const sessao = await dbGetSessaoById(db, sessaoId);
+  const sessao = await sessaoSvc.getById(sessaoId);
   if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
   if (sessao.cliente_id !== clienteId) throw createError({ statusCode: 403, statusMessage: 'Acesso negado' });
 
-  const entrega = await dbGetEntregaBySessao(db, sessaoId);
+  const entrega = await entregaSvc.getActiveBySessao(sessaoId);
   if (!entrega || !entrega.ativo || !entrega.r2_key) {
     throw createError({ statusCode: 404, statusMessage: 'Entrega não disponível' });
   }
@@ -33,7 +38,7 @@ export default defineEventHandler(async (event) => {
     secretAccessKey,
     bucketName,
     key: entrega.r2_key,
-    expiresIn: 24 * 3600, // 24 horas
+    expiresIn: 24 * 3600,
   });
 
   return {

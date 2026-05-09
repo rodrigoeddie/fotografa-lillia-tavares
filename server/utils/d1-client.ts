@@ -4,12 +4,7 @@ import * as schema from '../db/schema';
 
 export type ORM = DrizzleD1Database<typeof schema>;
 
-/**
- * Retorna o D1Database raw do binding `DB` no contexto Cloudflare.
- *
- * @deprecated Prefira `getOrm(event)` (Drizzle ORM). Este export sobrevive
- * apenas durante a transição em que parte dos services ainda usa SQL raw.
- */
+/** Acesso ao binding D1 raw — necessário apenas para Drizzle e casos especiais (transações fora do ORM). Endpoints devem usar `getOrm`. */
 export function getDB(event: H3Event): D1Database {
   const cf = (event.context as any).cloudflare;
   const db = cf?.env?.DB;
@@ -19,16 +14,27 @@ export function getDB(event: H3Event): D1Database {
   return db as D1Database;
 }
 
-/**
- * Retorna um cliente Drizzle ORM tipado, com todas as tabelas declaradas em
- * `server/db/schema/` injetadas no `schema` do Drizzle. Use este em toda a
- * camada nova de services (`server/services/`).
- */
+/** Cliente Drizzle ORM tipado, com todas as tabelas declaradas em `server/db/schema/`. */
 export function getOrm(event: H3Event): ORM {
   return drizzle(getDB(event), { schema });
 }
 
-// Re-exporta utilitários legacy de query (server/utils/db/*) durante a
-// transição. Estes serão removidos quando todos os endpoints estiverem
-// consumindo services baseados em Drizzle.
-export * from './db/index';
+// Re-exports de tipos legados (Cliente, Sessao, BlogPost, etc.) que vêm dos schemas Drizzle.
+// Mantidos aqui para compatibilidade com imports espalhados (ex: `import { Sessao } from '~/server/utils/d1-client'`).
+export type {
+  Cliente,
+  Sessao, SessaoFoto,
+  SelecaoLote, Selecao,
+  Entrega, EntregaPortfolioFoto,
+  Produto, Pacote,
+  Depoimento,
+  FaqCategoria, FaqPergunta,
+  BlogPost,
+  PortfolioWork, PortfolioFoto,
+  CenarioPagina, Cenario,
+  MenuItem,
+  AdminUser,
+  Notificacao, PushSubscription,
+  LandingPage, LpBlockRow,
+  PageSeo,
+} from '../db/schema';

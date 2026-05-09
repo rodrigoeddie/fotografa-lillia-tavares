@@ -1,137 +1,25 @@
 <script lang="ts" setup>
-const title = 'Ensaio Profissional em Mogi das Cruzes | Fotos para LinkedIn e Empresas';
-const description = 'Ensaio fotográfico profissional em Mogi das Cruzes para LinkedIn, currículo e redes sociais. Estúdio completo, direção de poses e entrega rápida. Agende seu horário.';
-const link = 'https://fotografalilliatavares.com.br/ensaio-profissional-em-mogi';
-const imageShare = '54ca9011-783d-4bb0-c5ac-65e33edefa00';
 const slug = 'corporativo';
 
-useSchemaOrg([
-  defineWebPage({
-    name: title,
-    url: link
-  })
-]);
+const { data: lp } = await useLandingPage(slug);
 
-useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogUrl: link,
-  ogImage: `https://images.fotografalilliatavares.com.br/images/${imageShare}/public`,
-  twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
-  twitterImage: `https://images.fotografalilliatavares.com.br/images/${imageShare}/public`,
-});
-
-useHead({
-  link: [
-    {
-      rel: 'canonical',
-      href: link
-    }
-  ]
-});
+if (lp.value?.pageSeo) {
+  applyPageSeo(lp.value.pageSeo);
+}
 
 definePageMeta({
   layout: 'lp',
-  lpType: 'corporativo'
+  lpType: 'corporativo',
 });
-
-const cta = {
-  title: 'Pronto para ter fotos profissionais?',
-  description: 'Agende seu ensaio corporativo em Mogi das Cruzes e destaque-se com qualidade.',
-  buttonText: 'Agendar meu ensaio agora',
-  whatsappMessage: 'Olá, gostaria de ver a disponibilidade de um ensaio corporativo (mensagem do site)',
-  image: 'efcab108-fb74-4ac1-431e-5f18938ada00',
-  imageAlt: 'Mulher branca de cabelos longos sentadas em uma poltrona de couro marrom, usando um body preto',
-  features: [
-    '✔ Direção completa durante o ensaio',
-    '✔ Ideal para LinkedIn e redes sociais',
-    '✔ Entrega rápida',
-    '✔ Estúdio em Mogi das Cruzes'
-  ]
-};
-
-const forWho = {
-  title: 'Para quem é esse ensaio',
-  description: 'Não precisa saber posar, nós te direcionamos durante todo o ensaio',
-  lists: [
-    {
-      title: 'Redes Sociais',
-      list: [
-        'LinkedIn',
-        'Instagram',
-        'Facebook',
-        'Site institucional'
-      ]
-    },
-    {
-      title: 'Empresários',
-      list: [
-        'Advogados',
-        'Médicos',
-        'Psicólogos',
-        'Influenciadores...',
-      ]
-    },
-    {
-      title: 'Outros',
-      list: [
-        'Inscrições para comissários',
-        'Executivos',
-        'Currículos...',
-      ]
-    }
-  ]
-};
-
-const howWorks = {
-  title: 'Como funciona o ensaio',
-  list: [
-    {
-      title: 'Agendamento',
-      description: 'Agende seu horário em poucos minutos',
-      icon: 'chedule',
-    },
-    {
-      title: 'Ensaio',
-      description: 'Receba direção completa durante o ensaio',
-      icon: 'camera',
-    },
-    {
-      title: 'Seleção',
-      description: 'Escolha suas melhores fotos',
-      icon: 'choose',
-    },
-    {
-      title: 'Entrega',
-      description: 'Receba imagens profissionais prontas para uso',
-      icon: 'envelope',
-    },
-  ]
-};
-
-const portfolioSection = {
-    title: 'Fotos corporativas feitas no estúdio',
-    description: 'Mais de 288 clientes atendidos em Mogi das Cruzes',
-    buttonText: 'Ver Portifólio Completo',
-    buttonLink: '/ensaio-fotografico/corporativo',
-    buttonLabel: 'Ver portfólio completo de fotos corporativas feitas no estúdio'
-}
 </script>
 
-<template >
-  <div class="wrapper-corporativo">
-    <LandingsHero class="lp-corporativo" :lp="slug" />
-    <LandingsPortfolio class="lp-corporativo" :lp="slug" :data="portfolioSection" />
-    <LandingsForWho class="lp-corporativo" :lp="slug" :data="forWho" />
-    <LandingsHowWorks class="lp-corporativo" :lp="slug" :data="howWorks" />
-    <LandingsPrices class="lp-corporativo" :lp="slug" />
-    <SectionsGeneralTestimonials class="lp-corporativo" :lp="slug" />
-    <SectionsGeneralCtaContact class="lp-corporativo" :data="cta" />
-    <LandingsMap class="lp-corporativo" :lp="slug" />
+<template>
+  <div v-if="lp" class="wrapper-corporativo">
+    <LandingsBlockRenderer
+      :blocks="lp.blocks"
+      :lp="lp.landingPage.slug"
+      :lp-class="lp.landingPage.lp_class ?? ''"
+    />
   </div>
 </template>
 

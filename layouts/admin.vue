@@ -104,6 +104,7 @@ provide('showMessage', showMessage);
               <NuxtLink to="/admin/faq" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
               <NuxtLink to="/admin/blog" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
               <NuxtLink to="/admin/cenarios" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
+              <NuxtLink to="/admin/landing-pages" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
               <NuxtLink to="/admin/menu" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
               <div class="fs-db-label" style="margin-top:1rem">ferramentas</div>
               <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">search</span> SEO</NuxtLink>
