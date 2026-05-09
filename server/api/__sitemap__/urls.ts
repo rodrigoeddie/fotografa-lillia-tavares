@@ -1,107 +1,84 @@
-import { promises as fs } from 'fs'
-import { join } from 'path'
+import { getOrm } from '~/server/utils/d1-client';
+import { BlogService } from '~/server/services/BlogService';
+import { PortfolioService } from '~/server/services/PortfolioService';
+import { LandingPageService } from '~/server/services/LandingPageService';
 
-export default defineEventHandler(async () => {
-  const siteUrl = 'https://fotografalilliatavares.com.br'
-  
-  try {
-    const urls: any[] = []
-    const contentDir = join(process.cwd(), 'content')
-    
-    // Função para remover prefixo numérico (ex: "01.corporativo" -> "corporativo")
-    function removeNumericPrefix(name: string): string {
-      return name.replace(/^\d+\./, '')
-    }
-    
-    // Função auxiliar para ler arquivos JSON de um diretório
-    async function readJsonFiles(dir: string, basePath: string) {
-      const entries = await fs.readdir(dir, { withFileTypes: true })
-      const files: any[] = []
-      
-      for (const entry of entries) {
-        const fullPath = join(dir, entry.name)
-        // Remover prefixo numérico do nome para gerar o path correto
-        const cleanName = removeNumericPrefix(entry.name.replace(/\.(json|md)$/, ''))
-        const relativePath = `${basePath}/${cleanName}`
-        
-        if (entry.isDirectory()) {
-          files.push(...await readJsonFiles(fullPath, relativePath))
-        } else if (entry.isFile() && entry.name.endsWith('.json') && entry.name !== 'index.json') {
-          try {
-            const content = await fs.readFile(fullPath, 'utf-8')
-            const data = JSON.parse(content)
-            files.push({
-              path: relativePath,
-              data: data
-            })
-          } catch (e) {
-            console.error(`Error reading ${fullPath}:`, e)
-          }
-        } else if (entry.isFile() && entry.name === 'index.json') {
-          // Adicionar categoria
-          files.push({
-            path: basePath,
-            isCategory: true
-          })
-        }
-      }
-      
-      return files
-    }
-    
-    // Buscar posts do blog
-    try {
-      const blogFiles = await readJsonFiles(join(contentDir, 'blog'), '/blog')
-      blogFiles.forEach(file => {
-        urls.push({
-          loc: `${siteUrl}${file.path}`,
-          lastmod: file.data?.updatedAt || file.data?.date || new Date().toISOString(),
-        })
-      })
-    } catch (e) {
-      console.error('Error reading blog files:', e)
-    }
-    
-    // Buscar ensaios fotográficos
-    try {
-      const portfolioFiles = await readJsonFiles(join(contentDir, 'ensaio-fotografico'), '/ensaio-fotografico')
-      const categories = new Set<string>()
-      
-      portfolioFiles.forEach(file => {
-        if (file.isCategory) {
-          // É uma categoria
-          urls.push({
-            loc: `${siteUrl}${file.path}`,
-          })
-        } else {
-          // É um post
-          urls.push({
-            loc: `${siteUrl}${file.path}`,
-            lastmod: file.data?.updatedAt || file.data?.date || new Date().toISOString(),
-          })
-          
-          // Coletar slug da categoria
-          if (file.data?.category?.slug) {
-            categories.add(file.data.category.slug)
-          }
-        }
-      })
-      
-      // Adicionar páginas de categorias
-      categories.forEach(categorySlug => {
-        if (!urls.find((u: any) => u.loc === `${siteUrl}/ensaio-fotografico/${categorySlug}`)) {
-          urls.push({
-            loc: `${siteUrl}/ensaio-fotografico/${categorySlug}`,
-          })
-        }
-      })
-    } catch (e) {
-      console.error('Error reading portfolio files:', e)
-    }
-    
-    return urls
-  } catch (error) {
-    console.error('Error generating sitemap URLs:', error)
-    return []
+const SITE_URL = 'https://fotografalilliatavares.com.br';
+
+/** Rotas estáticas conhecidas que entram no sitemap. */
+const STATIC_ROUTES = [
+  '/',
+  '/sobre-fotografa-lillia-tavares',
+  '/depoimentos',
+  '/perguntas-frequentes',
+  '/agende-seu-ensaio',
+  '/analise-coloracao-pessoal-em-mogi',
+  '/blog',
+  '/ensaio-fotografico',
+  '/estudio',
+  '/precos-ensaios-fotograficos',
+  '/presente-ensaio-fotografico-mogi',
+];
+
+export default defineEventHandler(async (event) => {
+  const orm = getOrm(event);
+  const urls: { loc: string; lastmod?: string }[] = [];
+
+  // Estáticas
+  for (const path of STATIC_ROUTES) {
+    urls.push({ loc: `${SITE_URL}${path}` });
   }
-})
+
+  // Landing Pages ativas (vindas do DB)
+  try {
+    const lps = await new LandingPageService(orm).list();
+    for (const lp of lps) {
+      if (lp.ativo === 1 && !STATIC_ROUTES.includes(lp.rota)) {
+        urls.push({
+          loc: `${SITE_URL}${lp.rota}`,
+          lastmod: lp.atualizado_em || lp.criado_em || undefined,
+        });
+      }
+    }
+  } catch (e) {
+    console.error('sitemap: LP fetch failed', e);
+  }
+
+  // Blog posts ativos
+  try {
+    const posts = await new BlogService(orm).list(true);
+    const categorias = new Set<string>();
+    for (const post of posts) {
+      urls.push({
+        loc: `${SITE_URL}/blog/${post.categoria}/${post.slug}`,
+        lastmod: post.criado_em || undefined,
+      });
+      categorias.add(post.categoria);
+    }
+    for (const cat of categorias) {
+      urls.push({ loc: `${SITE_URL}/blog/${cat}` });
+    }
+  } catch (e) {
+    console.error('sitemap: blog fetch failed', e);
+  }
+
+  // Portfolio works ativos (slug já inclui "categoria/work")
+  try {
+    const works = await new PortfolioService(orm).list(true);
+    const categorias = new Set<string>();
+    for (const work of works) {
+      urls.push({
+        loc: `${SITE_URL}/ensaio-fotografico/${work.slug}`,
+        lastmod: work.data || undefined,
+      });
+      categorias.add(work.categoria);
+    }
+    for (const cat of categorias) {
+      urls.push({ loc: `${SITE_URL}/ensaio-fotografico/${cat}` });
+    }
+  } catch (e) {
+    console.error('sitemap: portfolio fetch failed', e);
+  }
+
+  return urls;
+});

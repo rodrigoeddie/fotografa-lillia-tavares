@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const { data: rawFaq } = await useFetch('/api/public/faq');
 
-const faqTitle = 'Perguntas Frequentes sobre Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares';
-const faqDescription = 'Tire suas dúvidas sobre ensaios fotográficos profissionais em Mogi das Cruzes: preços, agendamento, pacotes e mais.';
-const faqLink = 'https://fotografalilliatavares.com.br/perguntas-frequentes';
-const faqImage = 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public';
+await usePageSeo('static', '/perguntas-frequentes');
 
-// Build FAQ structured data for FAQPage schema
+// FAQPage schema com mainEntity dinâmico (perguntas vindas do API).
+// Mantido localmente porque o conteúdo é dinâmico e não cabe num jsonld_data
+// estático no DB. As metas básicas (title/description/og/canonical) vêm via
+// usePageSeo acima. O jsonld_type='FAQPage' do registro é apenas informativo.
 const allQuestions = computed(() =>
   (rawFaq.value ?? []).flatMap((cat: any) =>
     (cat.perguntas ?? []).map((q: any) => ({
@@ -20,35 +20,9 @@ const allQuestions = computed(() =>
 useSchemaOrg([
   defineWebPage({
     '@type': 'FAQPage',
-    name: faqTitle,
-    url: faqLink,
-    mainEntity: allQuestions.value
-  })
+    mainEntity: allQuestions.value,
+  }),
 ]);
-
-useHead({
-  title: faqTitle,
-  link: [
-    {
-      rel: 'canonical',
-      href: faqLink
-    }
-  ]
-});
-
-useSeoMeta({
-  title: faqTitle,
-  description: faqDescription,
-  ogTitle: faqTitle,
-  ogDescription: faqDescription,
-  ogUrl: faqLink,
-  ogImage: faqImage,
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: faqTitle,
-  twitterDescription: faqDescription,
-  twitterImage: faqImage,
-});
 </script>
 
 <template>

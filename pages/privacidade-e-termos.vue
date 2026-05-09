@@ -1,19 +1,5 @@
 <script lang="ts" setup>
-const title = 'Política de Privacidade e Termos de Uso | Lillia Tavares Fotografia';
-const description = 'Conheça nossa Política de Privacidade e Termos de Uso. Saiba como coletamos, utilizamos e protegemos seus dados pessoais em conformidade com a LGPD.';
-const link = 'https://fotografalilliatavares.com.br/privacidade-e-termos';
-
-useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogUrl: link,
-});
-
-useHead({
-  link: [{ rel: 'canonical', href: link }]
-});
+await usePageSeo('static', '/privacidade-e-termos');
 
 definePageMeta({
   layout: 'default'

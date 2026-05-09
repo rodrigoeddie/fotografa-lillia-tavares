@@ -52,21 +52,26 @@ SELECT
   'WebPage'
 FROM portfolio_works;
 
--- ── Páginas estáticas: registros mínimos por rota ───────────────────────────
-INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description, og_image_cf_id, canonical, jsonld_type) VALUES
+-- ── Páginas estáticas ───────────────────────────────────────────────────────
+-- Home: LocalBusiness com jsonld_data completo (replica useSchemaOrg de pages/index.vue)
+INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description, og_image_cf_id, og_image_alt, canonical, jsonld_type, jsonld_data) VALUES
   ('static', '/',
     'Fotógrafa Lillia Tavares',
     'Lillia Tavares: Fotógrafa de retratos femininos que celebra a singularidade das mulheres. Destaque sua realeza com uma sessão única que empodera sua autoestima.',
     'a0839ccd-c1b8-4142-e44f-77c07c62c800',
+    'Fotógrafa Lillia Tavares segurando sua câmera fotográfica',
     'https://fotografalilliatavares.com.br/',
-    'LocalBusiness'),
+    'LocalBusiness',
+    json('{"name":"Fotógrafa Lillia Tavares","image":"https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public","@id":"https://fotografalilliatavares.com.br","url":"https://fotografalilliatavares.com.br","telephone":"+55-11-9111-59795","priceRange":"$$","address":{"@type":"PostalAddress","streetAddress":"Av. Ver. Narciso Yague Guimarães, 124 - Sala 21 - Vila Partenio","addressLocality":"Mogi das Cruzes","addressRegion":"SP","postalCode":"08780-200","addressCountry":"BR"},"geo":{"@type":"GeoCoordinates","latitude":"-23.5199319","longitude":"-46.1864729"},"sameAs":["https://www.facebook.com/fotografalilliatavares","https://www.instagram.com/fotografalilliatavares"]}'));
 
+-- Demais estáticas: jsonld_data fica null (form do admin permite preencher quando necessário)
+INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description, og_image_cf_id, canonical, jsonld_type) VALUES
   ('static', '/sobre-fotografa-lillia-tavares',
     'Sobre Lillia Tavares - Fotógrafa de Retratos Femininos em Mogi das Cruzes',
     'Conheça Lillia Tavares, fotógrafa especializada em retratos femininos em Mogi das Cruzes. História, estilo e missão de eternizar a realeza única de cada mulher.',
-    'a0839ccd-c1b8-4142-e44f-77c07c62c800',
+    '5aaf1433-aaa7-42ed-7198-15626f964000',
     'https://fotografalilliatavares.com.br/sobre-fotografa-lillia-tavares',
-    'WebPage'),
+    'AboutPage'),
 
   ('static', '/depoimentos',
     'Depoimentos - Fotógrafa Lillia Tavares',
@@ -99,7 +104,7 @@ INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description
   ('static', '/analise-coloracao-pessoal-em-mogi',
     'Análise de Coloração Pessoal em Mogi das Cruzes',
     'Descubra sua paleta de cores ideal com análise de coloração pessoal profissional em Mogi das Cruzes. Aumente sua autoestima e estilo pessoal.',
-    'a0839ccd-c1b8-4142-e44f-77c07c62c800',
+    '5aaf1433-aaa7-42ed-7198-15626f964000',
     'https://fotografalilliatavares.com.br/analise-coloracao-pessoal-em-mogi',
     'Service'),
 
@@ -117,12 +122,7 @@ INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description
     'https://fotografalilliatavares.com.br/ensaio-fotografico',
     'CollectionPage'),
 
-  ('static', '/estudio',
-    'Estúdio Fotográfico em Mogi das Cruzes - Lillia Tavares',
-    'Conheça o estúdio fotográfico de Lillia Tavares em Mogi das Cruzes. Cenários variados, ambiente confortável e estrutura profissional para seu ensaio.',
-    'a0839ccd-c1b8-4142-e44f-77c07c62c800',
-    'https://fotografalilliatavares.com.br/estudio',
-    'WebPage'),
+  -- /estudio também é LocalBusiness; tratado abaixo num INSERT separado para incluir jsonld_data.
 
   ('static', '/precos-ensaios-fotograficos',
     'Preços de Ensaios Fotográficos em Mogi das Cruzes',
@@ -130,3 +130,13 @@ INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description
     'a0839ccd-c1b8-4142-e44f-77c07c62c800',
     'https://fotografalilliatavares.com.br/precos-ensaios-fotograficos',
     'WebPage');
+
+-- /estudio: LocalBusiness com jsonld_data completo (replica useSchemaOrg de pages/estudio/index.vue)
+INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description, og_image_cf_id, canonical, jsonld_type, jsonld_data) VALUES
+  ('static', '/estudio',
+    'Estúdio Fotográfico em Mogi das Cruzes - Lillia Tavares',
+    'Conheça o estúdio fotográfico de Lillia Tavares em Mogi das Cruzes. Cenários variados, ambiente confortável e estrutura profissional para seu ensaio.',
+    'a0839ccd-c1b8-4142-e44f-77c07c62c800',
+    'https://fotografalilliatavares.com.br/estudio',
+    'LocalBusiness',
+    json('{"name":"Estúdio Fotográfico Lillia Tavares","image":"https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/0e29fb7d-191c-4447-7a71-95448ed4fd00/public","@id":"https://fotografalilliatavares.com.br/estudio","url":"https://fotografalilliatavares.com.br/estudio","telephone":"+55-11-9111-59795","address":{"@type":"PostalAddress","streetAddress":"Av. Ver. Narciso Yague Guimarães, 124 - Sala 21 - Vila Partenio","addressLocality":"Mogi das Cruzes","addressRegion":"SP","postalCode":"08780-200","addressCountry":"BR"},"geo":{"@type":"GeoCoordinates","latitude":"-23.5199319","longitude":"-46.1864729"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],"sameAs":["https://www.facebook.com/fotografalilliatavares","https://www.instagram.com/fotografalilliatavares","https://www.tiktok.com/@fotografalilliatavares","https://wa.me/5511911159795"]}'));

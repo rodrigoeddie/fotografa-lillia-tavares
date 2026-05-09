@@ -7,9 +7,6 @@ const slug = $route.params.slug as string;
 const { data: rawPost } = await useFetch(`/api/public/blog/${category}/${slug}`);
 const post = computed(() => rawPost.value ? adaptBlogPost(rawPost.value) : null);
 
-const title = computed(() =>
-  post.value ? post.value.title + ' | Fotógrafa Lillia Tavares' : ''
-);
 const siteURI = 'https://fotografalilliatavares.com.br';
 
 const breadcrumbs = computed(() => post.value ? [
@@ -19,6 +16,11 @@ const breadcrumbs = computed(() => post.value ? [
   { label: post.value.title },
 ] : []);
 
+// Meta tags + canonical via DB (page_seo)
+await usePageSeo('blog', slug);
+
+// JSON-LD do post: campos dinâmicos (headline, image, datePublished) que dependem
+// da entidade — não cabem em jsonld_data estático no DB. Mantido localmente.
 useSchemaOrg([
   defineArticle({
     '@type': 'BlogPosting',
@@ -32,23 +34,6 @@ useSchemaOrg([
     url: siteURI + path,
   }),
 ]);
-
-useSeoMeta({
-  title: title,
-  description: computed(() => post.value?.description),
-  ogTitle: computed(() => post.value?.title),
-  ogDescription: computed(() => post.value?.description),
-  ogImage: computed(() => post.value?.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined),
-  ogUrl: siteURI + path,
-  twitterCard: 'summary_large_image',
-  twitterTitle: computed(() => post.value?.title),
-  twitterDescription: computed(() => post.value?.description),
-  twitterImage: computed(() => post.value?.image ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public` : undefined),
-});
-
-useHead({
-  link: [{ rel: 'canonical', href: siteURI + path }]
-});
 
 // Processar conteúdo com imagens intercaladas
 const processedContent = computed(() => {

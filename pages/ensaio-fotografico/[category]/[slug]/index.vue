@@ -19,8 +19,6 @@ const album = computed(() => {
     .filter((item: any) => !item.highlight);
 });
 
-const title = computed(() => (work.value?.title ?? '') + ' | Fotógrafa Lillia Tavares em Mogi das Cruzes');
-
 const siteURI = 'https://fotografalilliatavares.com.br';
 
 const breadcrumbs = computed(() => [
@@ -30,10 +28,13 @@ const breadcrumbs = computed(() => [
   { label: work.value?.title ?? slugParam },
 ]);
 
+// Meta tags + canonical via DB (page_seo). Slug do portfolio inclui "categoria/work".
+await usePageSeo('portfolio', `${category}/${slugParam}`);
+
+// JSON-LD com ImageObject contendo a galeria (dinâmico, não cabe no DB)
 useSchemaOrg([
   defineWebPage({
     '@type': 'ItemPage',
-    name: title,
     url: siteURI + path,
   }),
   defineImage({
@@ -46,20 +47,6 @@ useSchemaOrg([
     url: siteURI + path,
   }),
 ]);
-
-useSeoMeta({
-  title: title.value,
-  description: work.value?.description,
-  ogTitle: work.value?.title,
-  ogDescription: work.value?.description,
-  ogImage: album.value?.[0] ? `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${album.value[0].imageId}/public` : undefined,
-  ogUrl: siteURI + path,
-  twitterCard: 'summary_large_image',
-});
-
-useHead({
-  link: [{ rel: 'canonical', href: siteURI + path }],
-});
 </script>
 
 <template>

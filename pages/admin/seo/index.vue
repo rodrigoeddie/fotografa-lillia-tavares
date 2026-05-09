@@ -3,7 +3,7 @@ definePageMeta({ layout: 'admin' });
 
 const { items, loading, summary, evaluate } = useSeoEvaluator();
 
-const filterType = ref<'all' | 'portfolio' | 'blog'>('all');
+const filterType = ref<'all' | 'lp' | 'portfolio' | 'blog' | 'static'>('all');
 const filterScore = ref<'all' | 'bad' | 'ok' | 'good'>('all');
 
 const filtered = computed(() => {
@@ -64,8 +64,10 @@ onMounted(evaluate);
         <div class="filter-group">
           <label>Tipo:</label>
           <button :class="['filter-btn', filterType === 'all' ? 'active' : '']" @click="filterType = 'all'">Todos</button>
-          <button :class="['filter-btn', filterType === 'portfolio' ? 'active' : '']" @click="filterType = 'portfolio'">Portfolio</button>
+          <button :class="['filter-btn', filterType === 'lp' ? 'active' : '']" @click="filterType = 'lp'">LPs</button>
           <button :class="['filter-btn', filterType === 'blog' ? 'active' : '']" @click="filterType = 'blog'">Blog</button>
+          <button :class="['filter-btn', filterType === 'portfolio' ? 'active' : '']" @click="filterType = 'portfolio'">Portfolio</button>
+          <button :class="['filter-btn', filterType === 'static' ? 'active' : '']" @click="filterType = 'static'">Estáticas</button>
         </div>
         <div class="filter-group">
           <label>Score:</label>
@@ -184,6 +186,8 @@ onMounted(evaluate);
 
   &.type-portfolio { background: #1e3a5f; color: #93c5fd; }
   &.type-blog      { background: #3b1f5e; color: #d8b4fe; }
+  &.type-lp        { background: #5e2f1f; color: #fdba74; }
+  &.type-static    { background: #1f3b2f; color: #86efac; }
 }
 
 .seo-row {

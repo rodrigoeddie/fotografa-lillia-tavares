@@ -4,6 +4,7 @@ interface PageSeoData {
   meta_title: string | null;
   meta_description: string | null;
   og_image_cf_id: string | null;
+  og_image_alt: string | null;
   twitter_image_cf_id: string | null;
   canonical: string | null;
   jsonld_type: string | null;
@@ -37,6 +38,7 @@ export function applyPageSeo(seo: PageSeoData | null | undefined) {
     ogDescription: description,
     ogUrl: url,
     ogImage: ogImage ?? undefined,
+    ogImageAlt: seo.og_image_alt ?? undefined,
     twitterCard: twImage ? 'summary_large_image' : 'summary',
     twitterTitle: title,
     twitterDescription: description,

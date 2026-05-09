@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
 import type { LpBlock } from '~/shared/schemas/landing-page';
 
 const props = defineProps<{
@@ -9,22 +10,22 @@ const props = defineProps<{
   lpClass?: string;
 }>();
 
-// Mapa tipo → componente Nuxt (auto-import resolve via prefixos `Landings*`/`SectionsGeneral*`).
-// Cada componente recebe `data` (= block.dados) e `lp` quando aplicável.
-const componentMap: Record<LpBlock['tipo'], string> = {
-  hero:           'LandingsHero',
-  heroPresentes:  'LandingsHeroPresentes',
-  forWho:         'LandingsForWho',
-  howWorks:       'LandingsHowWorks',
-  prices:         'LandingsPrices',
-  testimonials:   'SectionsGeneralTestimonials',
-  ctaContact:     'SectionsGeneralCtaContact',
-  map:            'LandingsMap',
-  portfolioGrid:  'LandingsPortfolio',
-  giftGrid:       'LandingsGiftGrid',
-  coloracao:      'LandingsColoracao',
-  deliverables:   'LandingsDeliverables',
-  hubBacklink:    'LandingsHubBacklink',
+// `resolveComponent` resolve nomes Nuxt auto-imported em runtime; necessário
+// porque `:is="'LandingsHero'"` (string) não funciona com runtime-only build.
+const componentMap: Record<LpBlock['tipo'], Component | string> = {
+  hero:           resolveComponent('LandingsHero'),
+  heroPresentes:  resolveComponent('LandingsHeroPresentes'),
+  forWho:         resolveComponent('LandingsForWho'),
+  howWorks:       resolveComponent('LandingsHowWorks'),
+  prices:         resolveComponent('LandingsPrices'),
+  testimonials:   resolveComponent('SectionsGeneralTestimonials'),
+  ctaContact:     resolveComponent('SectionsGeneralCtaContact'),
+  map:            resolveComponent('LandingsMap'),
+  portfolioGrid:  resolveComponent('LandingsPortfolio'),
+  giftGrid:       resolveComponent('LandingsGiftGrid'),
+  coloracao:      resolveComponent('LandingsColoracao'),
+  deliverables:   resolveComponent('LandingsDeliverables'),
+  hubBacklink:    resolveComponent('LandingsHubBacklink'),
 };
 </script>
 

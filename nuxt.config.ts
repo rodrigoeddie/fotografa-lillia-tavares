@@ -223,6 +223,7 @@ export default defineNuxtConfig({
         '@unhead/schema-org/vue',
         'jszip',
         'swiper/element/bundle',
+        'zod',
       ]
     },
   },

@@ -1,36 +1,5 @@
 <script lang="ts" setup>
-const title = 'Análise de Coloração Pessoal em Mogi das Cruzes | Lillia Tavares';
-const description = 'Descubra quais cores valorizam sua beleza natural com a análise de coloração pessoal em Mogi das Cruzes. Receba sua cartela de cores personalizada e eleve sua autoestima. Agende com a fotógrafa e consultora Lillia Tavares.';
-const link = 'https://fotografalilliatavares.com.br/analise-coloracao-pessoal-em-mogi';
-
-useSchemaOrg([
-  defineWebPage({
-    name: title,
-    url: link
-  }),
-]);
-
-useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogUrl: link,
-  ogImage: 'https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public',
-  twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
-  twitterImage: 'https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public',
-});
-
-useHead({
-  link: [
-    {
-      rel: 'canonical',
-      href: link
-    }
-  ]
-});
+await usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
 
 const benefits = [
   {

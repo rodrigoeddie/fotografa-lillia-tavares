@@ -1,38 +1,5 @@
 <script lang="ts" setup>
-const title = 'Ensaios Fotográficos Profissionais em Mogi das Cruzes | Lillia Tavares';
-const description = 'Conheça os ensaios fotográficos profissionais de Lillia Tavares em Mogi das Cruzes. Corporativo, gestante, casual, casal e família. Estúdio completo no centro da cidade, atendendo todo o Alto Tietê.';
-
-useSchemaOrg([
-  defineWebPage({
-    '@type': 'CollectionPage',
-    name: title,
-    url: 'https://fotografalilliatavares.com.br/ensaio-fotografico',
-  })
-]);
-
-const ensaioImage = 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public';
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: title,
-  ogDescription: description,
-  ogUrl: 'https://fotografalilliatavares.com.br/ensaio-fotografico',
-  ogImage: ensaioImage,
-  twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
-  twitterImage: ensaioImage,
-});
-
-useHead({
-  link: [
-    {
-      rel: 'canonical',
-      href: 'https://fotografalilliatavares.com.br/ensaio-fotografico'
-    }
-  ]
-});
+await usePageSeo('static', '/ensaio-fotografico');
 </script>
 
 <template>
