@@ -14,7 +14,11 @@
     "migrate:local": "wrangler d1 execute nuxt-content --local --file=server/db/migrations/004_portfolio_descricao.sql && wrangler d1 execute nuxt-content --local --file=scripts/backfill-portfolio-descricao.sql",
     "migrate:prod": "wrangler d1 execute nuxt-content --remote --file=server/db/migrations/001_photo_system.sql && wrangler d1 execute nuxt-content --remote --file=server/db/migrations/002_content_system.sql && wrangler d1 execute nuxt-content --remote --file=server/db/migrations/003_content_seeds.sql && wrangler d1 execute nuxt-content --remote --file=server/db/migrations/004_portfolio_descricao.sql && wrangler d1 execute nuxt-content --remote --file=scripts/backfill-portfolio-descricao.sql",
     "r2:cors": "wrangler r2 bucket cors set fotografa-lillia-ensaios --file r2-cors.json",
-    "test:push": "bun run build && npx wrangler pages dev dist"
+    "test:push": "bun run build && npx wrangler pages dev dist",
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio",
+    "db:apply:local": "bun scripts/apply-drizzle-migrations.ts --local",
+    "db:apply:prod": "bun scripts/apply-drizzle-migrations.ts --remote"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260501.1",
@@ -28,6 +32,8 @@
     "@types/jszip": "^3.4.1",
     "@types/node": "^22.19.17",
     "cssnano": "^7.1.7",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-zod": "^0.8.3",
     "es-module-shims": "^2.8.0",
     "nitro-cloudflare-dev": "^0.2.2",
     "nuxt": "^4.4.4",
@@ -44,6 +50,7 @@
     "@tiptap/starter-kit": "^3.22.5",
     "@tiptap/vue-3": "^3.22.5",
     "better-sqlite3": "^12.9.0",
+    "drizzle-orm": "^0.45.2",
     "gsap": "^3.15.0",
     "jszip": "^3.10.1",
     "mime-types": "^3.0.2",
@@ -54,6 +61,7 @@
     "sweetalert2": "^11.26.24",
     "swiper": "^12.1.4",
     "unenv": "2.0.0-rc.24",
-    "wrangler": "^4.87.0"
+    "wrangler": "^4.87.0",
+    "zod": "^4.4.3"
   }
 }
