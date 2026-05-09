@@ -1,15 +1,18 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbListSessoes, dbCreateSessao, dbGetClienteById, dbCreateNotificacao } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
 import { sendPushNotifications } from '~/server/utils/send-push';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
+import { ClienteService } from '~/server/services/ClienteService';
+import { SessaoService } from '~/server/services/SessaoService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const orm = getOrm(event);
+  const svc = new SessaoService(orm);
 
   if (getMethod(event) === 'GET') {
-    const { results } = await dbListSessoes(db);
-    return results;
+    return svc.listAll();
   }
 
   if (getMethod(event) === 'POST') {
@@ -20,11 +23,10 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 400, statusMessage: 'cliente_id, nome_sessao e produto_tipo são obrigatórios' });
     }
 
-    const cliente = await dbGetClienteById(db, Number(cliente_id));
+    const cliente = await new ClienteService(orm).getById(Number(cliente_id));
     if (!cliente) throw createError({ statusCode: 404, statusMessage: 'Cliente não encontrado' });
 
-    const result = await dbCreateSessao(
-      db,
+    const result = await svc.create(
       Number(cliente_id),
       nome_sessao,
       produto_tipo,
@@ -34,13 +36,14 @@ export default defineEventHandler(async (event) => {
     );
 
     // Notifica o cliente que a sessão foi criada
-    await dbCreateNotificacao(
-      db, 'cliente', Number(cliente_id),
+    const notif = new NotificacaoService(orm);
+    await notif.create(
+      'cliente', Number(cliente_id),
       `Sessão criada: ${nome_sessao}`,
       'Sua sessão foi criada! Em breve as fotos estarão disponíveis para seleção.',
     );
     await sendPushNotifications(
-      event, db, 'cliente', Number(cliente_id),
+      event, orm, 'cliente', Number(cliente_id),
       `Sessão criada: ${nome_sessao}`,
       'Sua sessão foi criada! Em breve as fotos estarão disponíveis para seleção.',
     );

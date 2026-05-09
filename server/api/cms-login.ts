@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError } from 'h3';
-import { getDB, dbGetAdminByUsername } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { AdminUserService } from '~/server/services/AdminUserService';
 import { verifyPassword } from '~/server/utils/password';
 import { signAdminToken } from '~/server/utils/admin-jwt';
 
@@ -16,8 +17,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
   }
 
-  const db    = getDB(event);
-  const admin = await dbGetAdminByUsername(db, 'admin');
+  const admin = await new AdminUserService(getOrm(event)).getByUsername('admin');
 
   // Resposta genérica para não revelar se o usuário existe
   const invalid = () => createError({ statusCode: 401, statusMessage: 'Senha incorreta' });

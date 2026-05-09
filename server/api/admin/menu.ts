@@ -1,14 +1,14 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbListMenu, dbReplaceMenu } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { MenuService } from '~/server/services/MenuService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const svc = new MenuService(getOrm(event));
 
   if (getMethod(event) === 'GET') {
-    const { results } = await dbListMenu(db);
-    return results;
+    return svc.list();
   }
 
   if (getMethod(event) === 'PUT') {
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     if (!Array.isArray(body)) {
       throw createError({ statusCode: 400, statusMessage: 'Body deve ser um array de itens' });
     }
-    await dbReplaceMenu(db, body);
+    await svc.replace(body);
     return { success: true };
   }
 

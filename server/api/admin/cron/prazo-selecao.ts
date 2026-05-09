@@ -8,13 +8,17 @@
  * Notifica clientes cujo prazo de seleção é em 1 ou 3 dias.
  */
 import { defineEventHandler } from 'h3';
+import { and, eq } from 'drizzle-orm';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbCreateNotificacao } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { sessoes as sessoesTable } from '~/server/db/schema';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
 import { sendPushNotifications } from '~/server/utils/send-push';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const orm   = getOrm(event);
+  const notif = new NotificacaoService(orm);
 
   const today = new Date();
   const format = (d: Date) => d.toISOString().slice(0, 10);
@@ -27,14 +31,19 @@ export default defineEventHandler(async (event) => {
   let total = 0;
 
   for (const { date, dias } of targets) {
-    const { results: sessoes } = await db
-      .prepare(
-        `SELECT s.id, s.nome_sessao, s.prazo_selecao, s.cliente_id
-         FROM sessoes s
-         WHERE s.status = 'aguardando_selecao' AND s.prazo_selecao = ?`,
-      )
-      .bind(date)
-      .all<{ id: number; nome_sessao: string; prazo_selecao: string; cliente_id: number }>();
+    const sessoes = await orm
+      .select({
+        id:          sessoesTable.id,
+        nome_sessao: sessoesTable.nome_sessao,
+        cliente_id:  sessoesTable.cliente_id,
+      })
+      .from(sessoesTable)
+      .where(
+        and(
+          eq(sessoesTable.status, 'aguardando_selecao'),
+          eq(sessoesTable.prazo_selecao, date),
+        ),
+      );
 
     for (const sessao of sessoes) {
       const titulo = dias === 1
@@ -42,8 +51,8 @@ export default defineEventHandler(async (event) => {
         : 'Prazo de seleção: 3 dias restantes';
       const mensagem = `Finalize a seleção do ensaio "${sessao.nome_sessao}" antes do prazo.`;
 
-      await dbCreateNotificacao(db, 'cliente', sessao.cliente_id, titulo, mensagem);
-      await sendPushNotifications(event, db, 'cliente', sessao.cliente_id, titulo, mensagem);
+      await notif.create('cliente', sessao.cliente_id, titulo, mensagem);
+      await sendPushNotifications(event, orm, 'cliente', sessao.cliente_id, titulo, mensagem);
       total++;
     }
   }

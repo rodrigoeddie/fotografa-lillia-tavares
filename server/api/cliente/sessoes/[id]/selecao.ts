@@ -2,6 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod, getRouterParam } 
 import { getAuthenticatedCliente } from '~/server/utils/auth-helpers';
 import {
   getDB,
+  getOrm,
   dbGetSessaoById,
   dbGetSelecoesByLote,
   dbUpsertSelecao,
@@ -10,15 +11,15 @@ import {
   dbGetFotosDisponiveis,
   dbUpdateLoteStatus,
   dbCreateLote,
-  dbListProdutos,
-  dbListPacotesByProduto,
-  dbCreateNotificacao,
 } from '~/server/utils/d1-client';
 import { sendPushNotifications } from '~/server/utils/send-push';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
+import { ProdutoService } from '~/server/services/ProdutoService';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);
-  const db = getDB(event);
+  const db  = getDB(event);
+  const orm = getOrm(event);
   const sessaoId = Number(getRouterParam(event, 'id'));
   if (!sessaoId) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
 
@@ -30,11 +31,12 @@ export default defineEventHandler(async (event) => {
     let lote = await dbGetActiveLoteBySessao(db, sessaoId);
 
     // Resolve nome do pacote
-    const { results: todosProdutos } = await dbListProdutos(db);
+    const produtoSvc = new ProdutoService(orm);
+    const todosProdutos = await produtoSvc.list();
     const produto = todosProdutos.find((p) => p.title === sessao.produto_tipo);
     let pacote_titulo: string | null = null;
     if (produto) {
-      const { results: pacotes } = await dbListPacotesByProduto(db, produto.id);
+      const pacotes = await produtoSvc.listPacotesByProduto(produto.id);
       pacote_titulo = pacotes[sessao.pacote_index]?.title ?? null;
     }
 
@@ -118,13 +120,13 @@ export default defineEventHandler(async (event) => {
       await dbUpdateLoteStatus(db, lote.id, 'selecao_concluida');
       await dbUpdateSessaoStatus(db, sessaoId, 'selecao_concluida');
       // Notifica admin que cliente finalizou a seleção
-      await dbCreateNotificacao(
-        db, 'admin', null,
+      await new NotificacaoService(orm).create(
+        'admin', null,
         `Seleção finalizada: ${sessao.nome_sessao}`,
         `O cliente finalizou a seleção do ensaio “${sessao.nome_sessao}”. Hora de preparar a entrega!`,
       );
       await sendPushNotifications(
-        event, db, 'admin', null,
+        event, orm, 'admin', null,
         `Seleção finalizada: ${sessao.nome_sessao}`,
         'O cliente finalizou a seleção. Hora de preparar a entrega!',
       );

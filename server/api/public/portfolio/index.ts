@@ -1,24 +1,20 @@
 import { defineEventHandler, getQuery } from 'h3';
-import { getDB, dbListPortfolioWorks, dbListPortfolioFotosByWork } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { PortfolioService } from '~/server/services/PortfolioService';
 
 export default defineEventHandler(async (event) => {
   event.node.res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=3600');
-  const db = getDB(event);
   const { categoria, home } = getQuery(event);
-  const { results } = await dbListPortfolioWorks(db, true);
-  let filtered = results;
-  if (categoria) filtered = filtered.filter((w) => w.categoria === categoria);
-  if (home === '1') filtered = filtered.filter((w) => w.home === 1);
+  const svc = new PortfolioService(getOrm(event));
+  let works = await svc.list(true);
+  if (categoria) works = works.filter((w) => w.categoria === categoria);
+  if (home === '1') works = works.filter((w) => w.home === 1);
 
-  const works = await Promise.all(
-    filtered.map(async (w) => {
-      const { results: fotos } = await dbListPortfolioFotosByWork(db, w.id);
-      return {
-        ...w,
-        seo_keywords: w.seo_keywords ? JSON.parse(w.seo_keywords) : [],
-        fotos,
-      };
-    }),
+  return Promise.all(
+    works.map(async (w) => ({
+      ...w,
+      seo_keywords: w.seo_keywords ? JSON.parse(w.seo_keywords) : [],
+      fotos: await svc.listFotosByWork(w.id),
+    })),
   );
-  return works;
 });

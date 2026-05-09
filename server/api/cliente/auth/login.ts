@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError, setCookie } from 'h3';
-import { getDB, dbGetClienteByEmail } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { ClienteService } from '~/server/services/ClienteService';
 import { signClientToken } from '~/server/utils/client-jwt';
 
 export default defineEventHandler(async (event) => {
@@ -13,8 +14,7 @@ export default defineEventHandler(async (event) => {
   const secret = process.env.CLIENT_JWT_SECRET;
   if (!secret) throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
 
-  const db = getDB(event);
-  const cliente = await dbGetClienteByEmail(db, email.toLowerCase().trim());
+  const cliente = await new ClienteService(getOrm(event)).getByEmail(email.toLowerCase().trim());
 
   if (!cliente) {
     throw createError({ statusCode: 401, statusMessage: 'E-mail ou senha incorretos' });

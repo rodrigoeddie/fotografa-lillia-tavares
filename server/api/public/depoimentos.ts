@@ -1,9 +1,8 @@
 import { defineEventHandler } from 'h3';
-import { getDB, dbListDepoimentos } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { DepoimentoService } from '~/server/services/DepoimentoService';
 
 export default defineEventHandler(async (event) => {
   event.node.res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=3600');
-  const db = getDB(event);
-  const { results } = await dbListDepoimentos(db);
-  return results;
+  return new DepoimentoService(getOrm(event)).list();
 });

@@ -1,13 +1,13 @@
 import { defineEventHandler, getRouterParam, createError } from 'h3';
-import { getDB, dbGetBlogPostBySlug } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { BlogService } from '~/server/services/BlogService';
 
 export default defineEventHandler(async (event) => {
   event.node.res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=3600');
-  const db = getDB(event);
   const slug = getRouterParam(event, 'slug');
   if (!slug) throw createError({ statusCode: 400, statusMessage: 'slug obrigatório' });
 
-  const post = await dbGetBlogPostBySlug(db, slug);
+  const post = await new BlogService(getOrm(event)).getBySlug(slug);
   if (!post || post.ativo === 0) throw createError({ statusCode: 404, statusMessage: 'Post não encontrado' });
 
   return {

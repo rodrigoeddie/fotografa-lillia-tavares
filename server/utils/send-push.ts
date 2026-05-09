@@ -6,7 +6,8 @@
  */
 
 import type { H3Event } from 'h3';
-import { dbListPushSubscriptions, dbDeletePushSubscription, type PushSubscription } from './db/notificacoes';
+import type { ORM } from './d1-client';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
 
 // ─── Helpers VAPID ────────────────────────────────────────────────────────────
 
@@ -163,7 +164,7 @@ export async function sendPushToSubscriptionRaw(
 
 export async function sendPushNotifications(
   event: H3Event,
-  db: D1Database,
+  db: ORM,
   tipo: 'admin' | 'cliente',
   destinatarioId: number | null,
   title: string,
@@ -176,13 +177,14 @@ export async function sendPushNotifications(
 
   if (!vapidPublicKey || !vapidPrivateKey) return; // VAPID not configured yet
 
-  const { results: subs } = await dbListPushSubscriptions(db, tipo, destinatarioId);
+  const svc = new NotificacaoService(db);
+  const subs = await svc.listPushSubscriptions(tipo, destinatarioId);
 
   await Promise.all(
     subs.map(async (sub) => {
       const ok = await sendPushToSubscriptionRaw(sub, title, body, vapidPublicKey, vapidPrivateKey, vapidSubject);
       if (!ok) {
-        await dbDeletePushSubscription(db, sub.endpoint);
+        await svc.deletePushSubscription(sub.endpoint);
       }
     }),
   );

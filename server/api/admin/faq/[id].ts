@@ -1,26 +1,18 @@
 import { defineEventHandler, readBody, createError, getMethod, getRouterParam } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import {
-  getDB,
-  dbGetFaqCategoriaById,
-  dbUpdateFaqCategoria,
-  dbDeleteFaqCategoria,
-  dbListFaqPerguntasByCategoria,
-  dbCreateFaqPergunta,
-  dbUpdateFaqPergunta,
-  dbDeleteFaqPergunta,
-} from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { FaqService } from '~/server/services/FaqService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
-  const id = Number(getRouterParam(event, 'id'));
+  const svc = new FaqService(getOrm(event));
+  const id  = Number(getRouterParam(event, 'id'));
   if (!id) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
 
   if (getMethod(event) === 'GET') {
-    const cat = await dbGetFaqCategoriaById(db, id);
+    const cat = await svc.getCategoriaById(id);
     if (!cat) throw createError({ statusCode: 404, statusMessage: 'Categoria não encontrada' });
-    const { results: perguntas } = await dbListFaqPerguntasByCategoria(db, id);
+    const perguntas = await svc.listByCategoria(id);
     return { ...cat, perguntas };
   }
 
@@ -29,27 +21,24 @@ export default defineEventHandler(async (event) => {
     const { titulo, slug, ordem, perguntas } = body ?? {};
     if (!titulo || !slug) throw createError({ statusCode: 400, statusMessage: 'titulo e slug são obrigatórios' });
 
-    const cat = await dbGetFaqCategoriaById(db, id);
+    const cat = await svc.getCategoriaById(id);
     if (!cat) throw createError({ statusCode: 404, statusMessage: 'Categoria não encontrada' });
 
-    await dbUpdateFaqCategoria(db, id, titulo, slug, ordem ?? cat.ordem);
+    await svc.updateCategoria(id, titulo, slug, ordem ?? cat.ordem);
 
-    // Rewrite all perguntas for this category
     if (Array.isArray(perguntas)) {
-      const { results: existing } = await dbListFaqPerguntasByCategoria(db, id);
-      // Delete removed ones
+      const existing = await svc.listByCategoria(id);
       const newIds = perguntas.filter((p) => p.id).map((p) => p.id);
       for (const e of existing) {
-        if (!newIds.includes(e.id)) await dbDeleteFaqPergunta(db, e.id);
+        if (!newIds.includes(e.id)) await svc.deletePergunta(e.id);
       }
-      // Update or create
       for (let i = 0; i < perguntas.length; i++) {
         const p = perguntas[i];
         if (!p.pergunta || !p.resposta) continue;
         if (p.id) {
-          await dbUpdateFaqPergunta(db, p.id, p.pergunta, p.resposta, i + 1);
+          await svc.updatePergunta(p.id, p.pergunta, p.resposta, i + 1);
         } else {
-          await dbCreateFaqPergunta(db, id, p.pergunta, p.resposta, i + 1);
+          await svc.createPergunta(id, p.pergunta, p.resposta, i + 1);
         }
       }
     }
@@ -58,9 +47,9 @@ export default defineEventHandler(async (event) => {
   }
 
   if (getMethod(event) === 'DELETE') {
-    const cat = await dbGetFaqCategoriaById(db, id);
+    const cat = await svc.getCategoriaById(id);
     if (!cat) throw createError({ statusCode: 404, statusMessage: 'Categoria não encontrada' });
-    await dbDeleteFaqCategoria(db, id);
+    await svc.deleteCategoria(id);
     return { success: true };
   }
 

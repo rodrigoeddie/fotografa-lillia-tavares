@@ -1,11 +1,13 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbListEntregas, dbCreateEntrega, dbGetSessaoById, dbGetLoteById, dbUpdateLoteStatus, dbMarkFotosEntregues, dbUpdateSessaoStatus, dbCreateNotificacao } from '~/server/utils/d1-client';
+import { getDB, getOrm, dbListEntregas, dbCreateEntrega, dbGetSessaoById, dbGetLoteById, dbUpdateLoteStatus, dbMarkFotosEntregues, dbUpdateSessaoStatus } from '~/server/utils/d1-client';
 import { sendPushNotifications } from '~/server/utils/send-push';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const db  = getDB(event);
+  const orm = getOrm(event);
 
   if (getMethod(event) === 'GET') {
     const { results } = await dbListEntregas(db);
@@ -45,13 +47,13 @@ export default defineEventHandler(async (event) => {
     }
 
     // Notifica o cliente que o ensaio foi entregue
-    await dbCreateNotificacao(
-      db, 'cliente', Number(sessao.cliente_id),
+    await new NotificacaoService(orm).create(
+      'cliente', Number(sessao.cliente_id),
       'Seu ensaio está pronto! 🎉',
       `O ensaio "${sessao.nome_sessao}" foi entregue. Acesse a área do cliente para baixar.`,
     );
     await sendPushNotifications(
-      event, db, 'cliente', Number(sessao.cliente_id),
+      event, orm, 'cliente', Number(sessao.cliente_id),
       'Seu ensaio está pronto! 🎉',
       `O ensaio “${sessao.nome_sessao}” foi entregue. Acesse a área do cliente para baixar.`,
     );

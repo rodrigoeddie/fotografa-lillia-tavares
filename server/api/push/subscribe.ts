@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
-import { getDB, dbUpsertPushSubscription, dbDeletePushSubscription } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
 
 // Determines caller type from Authorization header prefix
 function getCallerInfo(event: any): { tipo: 'admin' | 'cliente'; id: number | null } {
@@ -27,7 +28,7 @@ function getCallerInfo(event: any): { tipo: 'admin' | 'cliente'; id: number | nu
 }
 
 export default defineEventHandler(async (event) => {
-  const db = getDB(event);
+  const svc = new NotificacaoService(getOrm(event));
   const { tipo, id } = getCallerInfo(event);
 
   if (getMethod(event) === 'POST') {
@@ -35,7 +36,7 @@ export default defineEventHandler(async (event) => {
     const { endpoint, p256dh, auth } = body ?? {};
     if (!endpoint || !p256dh || !auth)
       throw createError({ statusCode: 400, statusMessage: 'endpoint, p256dh e auth são obrigatórios' });
-    await dbUpsertPushSubscription(db, tipo, id, endpoint, p256dh, auth);
+    await svc.upsertPushSubscription(tipo, id, endpoint, p256dh, auth);
     return { success: true };
   }
 
@@ -43,7 +44,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const { endpoint } = body ?? {};
     if (!endpoint) throw createError({ statusCode: 400, statusMessage: 'endpoint é obrigatório' });
-    await dbDeletePushSubscription(db, endpoint);
+    await svc.deletePushSubscription(endpoint);
     return { success: true };
   }
 

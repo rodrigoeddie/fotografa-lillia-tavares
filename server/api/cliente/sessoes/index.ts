@@ -1,25 +1,25 @@
 import { defineEventHandler } from 'h3';
 import { getAuthenticatedCliente } from '~/server/utils/auth-helpers';
-import { getDB, dbGetClienteById, dbListSessoesByCliente, dbListProdutos, dbListPacotesByProduto } from '~/server/utils/d1-client';
+import { getDB, getOrm, dbListSessoesByCliente } from '~/server/utils/d1-client';
+import { ProdutoService } from '~/server/services/ProdutoService';
+import { ClienteService } from '~/server/services/ClienteService';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);
-  const db = getDB(event);
+  const db  = getDB(event);
+  const orm = getOrm(event);
 
-  const [cliente, { results: sessoes }, { results: todosProdutos }] = await Promise.all([
-    dbGetClienteById(db, clienteId),
+  const [cliente, { results: sessoes }, todosProdutosComPacotes] = await Promise.all([
+    new ClienteService(orm).getById(clienteId),
     dbListSessoesByCliente(db, clienteId),
-    dbListProdutos(db),
+    new ProdutoService(orm).listComPacotes(),
   ]);
 
   // Build a map: produto title → ordered pacotes
   const pacotesMap = new Map<string, string[]>();
-  await Promise.all(
-    todosProdutos.map(async (p) => {
-      const { results: pacotes } = await dbListPacotesByProduto(db, p.id);
-      pacotesMap.set(p.title, pacotes.map((pc) => pc.title));
-    }),
-  );
+  for (const p of todosProdutosComPacotes) {
+    pacotesMap.set(p.title, p.pacotes.map((pc) => pc.title));
+  }
 
   const sessoesComTitulo = sessoes.map((s) => ({
     ...s,

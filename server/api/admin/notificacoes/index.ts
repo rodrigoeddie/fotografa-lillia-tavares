@@ -1,27 +1,22 @@
-import { defineEventHandler, getMethod, readBody } from 'h3';
+import { defineEventHandler, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import {
-  getDB,
-  dbListNotificacoes,
-  dbCountUnreadNotificacoes,
-  dbMarkNotificacoesLidas,
-} from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { NotificacaoService } from '~/server/services/NotificacaoService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const svc = new NotificacaoService(getOrm(event));
 
   if (getMethod(event) === 'GET') {
-    const [{ results }, unread] = await Promise.all([
-      dbListNotificacoes(db, 'admin', null),
-      dbCountUnreadNotificacoes(db, 'admin', null),
+    const [notificacoes, unread] = await Promise.all([
+      svc.list('admin', null),
+      svc.countUnread('admin', null),
     ]);
-    return { notificacoes: results, unread: unread?.count ?? 0 };
+    return { notificacoes, unread };
   }
 
   if (getMethod(event) === 'POST') {
-    // Mark all as read
-    await dbMarkNotificacoesLidas(db, 'admin', null);
+    await svc.markRead('admin', null);
     return { success: true };
   }
 });

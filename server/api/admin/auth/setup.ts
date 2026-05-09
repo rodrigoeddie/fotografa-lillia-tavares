@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError, getHeader } from 'h3';
-import { getDB, dbCountAdminUsers, dbCreateAdminUser } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { AdminUserService } from '~/server/services/AdminUserService';
 import { hashPassword } from '~/server/utils/password';
 
 /**
@@ -34,10 +35,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, statusMessage: 'Chave de setup inválida' });
   }
 
-  const db    = getDB(event);
-  const count = await dbCountAdminUsers(db);
+  const svc   = new AdminUserService(getOrm(event));
+  const count = await svc.count();
 
-  if ((count?.count ?? 0) > 0) {
+  if (count > 0) {
     throw createError({ statusCode: 409, statusMessage: 'Admin já configurado' });
   }
 
@@ -49,7 +50,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { hash, salt } = await hashPassword(password);
-  await dbCreateAdminUser(db, 'admin', hash, salt);
+  await svc.create('admin', hash, salt);
 
   return { success: true, message: 'Usuário admin criado. Você já pode remover KEYCMS do .env.' };
 });

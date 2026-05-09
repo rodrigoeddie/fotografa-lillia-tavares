@@ -1,14 +1,14 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbListClientes, dbCreateCliente, dbGetClienteByEmail } from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { ClienteService } from '~/server/services/ClienteService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const svc = new ClienteService(getOrm(event));
 
   if (getMethod(event) === 'GET') {
-    const { results } = await dbListClientes(db);
-    return results;
+    return svc.list();
   }
 
   if (getMethod(event) === 'POST') {
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 400, statusMessage: 'nome, email e senha são obrigatórios' });
     }
 
-    const existing = await dbGetClienteByEmail(db, email);
+    const existing = await svc.getByEmail(email);
     if (existing) {
       throw createError({ statusCode: 409, statusMessage: 'E-mail já cadastrado' });
     }
@@ -27,11 +27,11 @@ export default defineEventHandler(async (event) => {
     const hashBuffer = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(senha));
     const senhaHash = Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
 
-    const result = await dbCreateCliente(db, nome, email, senhaHash);
+    const result = await svc.create(nome, email, senhaHash);
     const newId = result.meta.last_row_id as number;
 
     if (bg_image || celular) {
-      await db.prepare('UPDATE clientes SET bg_image = ?, celular = ? WHERE id = ?').bind(bg_image ?? null, celular ?? null, newId).run();
+      await svc.update(newId, nome, email, bg_image ?? null, celular ?? null);
     }
 
     return { success: true, id: newId };

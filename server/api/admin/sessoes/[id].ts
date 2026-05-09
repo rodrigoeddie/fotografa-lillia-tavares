@@ -1,15 +1,16 @@
 import { defineEventHandler, readBody, createError, getMethod, getRouterParam } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getDB, dbGetSessaoById, dbUpdateSessao, dbDeleteSessao, type Sessao } from '~/server/utils/d1-client';
+import { getOrm, type Sessao } from '~/server/utils/d1-client';
+import { SessaoService } from '~/server/services/SessaoService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
-  const id = Number(getRouterParam(event, 'id'));
+  const svc = new SessaoService(getOrm(event));
+  const id  = Number(getRouterParam(event, 'id'));
   if (!id) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
 
   if (getMethod(event) === 'GET') {
-    const sessao = await dbGetSessaoById(db, id);
+    const sessao = await svc.getById(id);
     if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
     return sessao;
   }
@@ -22,11 +23,10 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 400, statusMessage: 'nome_sessao, produto_tipo e status são obrigatórios' });
     }
 
-    const sessao = await dbGetSessaoById(db, id);
+    const sessao = await svc.getById(id);
     if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
 
-    await dbUpdateSessao(
-      db,
+    await svc.update(
       id,
       nome_sessao,
       produto_tipo,
@@ -41,9 +41,9 @@ export default defineEventHandler(async (event) => {
   }
 
   if (getMethod(event) === 'DELETE') {
-    const sessao = await dbGetSessaoById(db, id);
+    const sessao = await svc.getById(id);
     if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
-    await dbDeleteSessao(db, id);
+    await svc.delete(id);
     return { success: true };
   }
 

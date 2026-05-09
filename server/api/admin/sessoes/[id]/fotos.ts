@@ -1,28 +1,20 @@
 import { defineEventHandler, readBody, createError, getMethod, getRouterParam } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import {
-  getDB,
-  dbGetSessaoById,
-  dbListFotosBySessao,
-  dbGetFotoById,
-  dbAddFoto,
-  dbDeleteFoto,
-  dbCountFotosBySessao,
-} from '~/server/utils/d1-client';
+import { getOrm } from '~/server/utils/d1-client';
+import { SessaoService } from '~/server/services/SessaoService';
 import { purgeCache } from '~/server/utils/purge-cache';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const db = getDB(event);
+  const svc = new SessaoService(getOrm(event));
   const sessaoId = Number(getRouterParam(event, 'id'));
   if (!sessaoId) throw createError({ statusCode: 400, statusMessage: 'ID inválido' });
 
-  const sessao = await dbGetSessaoById(db, sessaoId);
+  const sessao = await svc.getById(sessaoId);
   if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
 
   if (getMethod(event) === 'GET') {
-    const { results } = await dbListFotosBySessao(db, sessaoId);
-    return results;
+    return svc.listFotos(sessaoId);
   }
 
   if (getMethod(event) === 'POST') {
@@ -32,10 +24,8 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 400, statusMessage: 'cloudflare_image_id é obrigatório' });
     }
 
-    const countResult = await dbCountFotosBySessao(db, sessaoId);
-    const ordem = (countResult?.count ?? 0);
-
-    const result = await dbAddFoto(db, sessaoId, cloudflare_image_id, ordem);
+    const ordem = await svc.countFotos(sessaoId);
+    const result = await svc.addFoto(sessaoId, cloudflare_image_id, ordem);
     await purgeCache(event, [
       `/api/cliente/sessoes/${sessaoId}/fotos`,
       `/api/cliente/sessoes/${sessaoId}/selecao`,
@@ -49,7 +39,7 @@ export default defineEventHandler(async (event) => {
     if (!foto_id) throw createError({ statusCode: 400, statusMessage: 'foto_id é obrigatório' });
 
     // Busca cloudflare_image_id antes de deletar do banco
-    const foto = await dbGetFotoById(db, Number(foto_id), sessaoId);
+    const foto = await svc.getFoto(Number(foto_id), sessaoId);
     if (foto) {
       const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
       const apiKey = process.env.CLOUDFLARE_API_KEY;
@@ -61,7 +51,7 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    await dbDeleteFoto(db, Number(foto_id), sessaoId);
+    await svc.deleteFoto(Number(foto_id), sessaoId);
     await purgeCache(event, [
       `/api/cliente/sessoes/${sessaoId}/fotos`,
       `/api/cliente/sessoes/${sessaoId}/selecao`,
