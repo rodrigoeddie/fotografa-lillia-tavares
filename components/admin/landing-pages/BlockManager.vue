@@ -15,9 +15,8 @@ const expandedIdx = ref<number | null>(null);
 const dragIdx = ref<number | null>(null);
 const dragOverIdx = ref<number | null>(null);
 
-// JSON local por bloco para edição (separado do `dados` para validar antes de gravar)
-const editJson = ref<Record<number, string>>({});
-const editError = ref<Record<number, string>>({});
+/** Erro de validação Zod por bloco, mostrado abaixo do editor. */
+const validationError = ref<Record<number, string>>({});
 
 function addBlock(tipo: LpBlockType) {
   const newBlock: LpBlock = { tipo, ordem: blocks.value.length, dados: defaultDataFor(tipo) } as LpBlock;
@@ -33,32 +32,25 @@ function removeBlock(i: number) {
 }
 
 function toggleExpand(i: number) {
-  if (expandedIdx.value === i) {
-    expandedIdx.value = null;
-    return;
-  }
-  expandedIdx.value = i;
-  // Inicializa textarea com o JSON atual
-  editJson.value[i] = JSON.stringify(blocks.value[i]!.dados, null, 2);
-  editError.value[i] = '';
+  expandedIdx.value = expandedIdx.value === i ? null : i;
 }
 
-function applyEdit(i: number) {
-  try {
-    const parsed = JSON.parse(editJson.value[i] ?? '{}');
-    const candidate = { tipo: blocks.value[i]!.tipo, ordem: blocks.value[i]!.ordem, dados: parsed };
-    const result = BlockSchema.safeParse(candidate);
-    if (!result.success) {
-      editError.value[i] = result.error.issues.map((e) => `${e.path.join('.')}: ${e.message}`).join('; ');
-      return;
-    }
-    const next = [...blocks.value];
-    next[i] = result.data;
-    blocks.value = next;
-    editError.value[i] = '';
-  } catch (e: any) {
-    editError.value[i] = `JSON inválido: ${e.message}`;
-  }
+/**
+ * Atualiza os dados de um bloco. Valida com Zod a cada mudança — se inválido,
+ * persiste mesmo assim (o usuário pode estar no meio da edição) mas mostra erro
+ * inline. Validação final acontece no submit do form e no endpoint (Zod).
+ */
+function updateBlockDados(i: number, dados: any) {
+  const next = [...blocks.value];
+  next[i] = { ...next[i]!, dados };
+  blocks.value = next;
+
+  // Validação live (não bloqueia)
+  const candidate = { tipo: next[i]!.tipo, ordem: next[i]!.ordem, dados };
+  const result = BlockSchema.safeParse(candidate);
+  validationError.value[i] = result.success
+    ? ''
+    : result.error.issues.map((e) => `${e.path.join('.')}: ${e.message}`).join('; ');
 }
 
 function onDragStart(i: number) { dragIdx.value = i; }
@@ -93,6 +85,27 @@ function defaultDataFor(tipo: LpBlockType): any {
     default:                return {};
   }
 }
+
+/** Sumário curto exibido na linha colapsada (sem expor o JSON inteiro) */
+function summary(b: { tipo: string; dados: any }): string {
+  const d = b.dados ?? {};
+  switch (b.tipo) {
+    case 'hero':           return d.variant ?? '';
+    case 'heroPresentes':  return d.title?.slice(0, 60) ?? '';
+    case 'forWho':         return d.title?.slice(0, 60) ?? '';
+    case 'howWorks':       return `${d.title?.slice(0, 40) ?? ''} (${d.list?.length ?? 0} passos)`;
+    case 'prices':         return `produto: ${d.produtoSlug ?? '?'}`;
+    case 'testimonials':   return d.description?.slice(0, 60) ?? '(padrão)';
+    case 'ctaContact':     return d.title?.slice(0, 60) ?? '';
+    case 'map':            return d.title?.slice(0, 60) ?? '';
+    case 'portfolioGrid':  return `categoria: ${d.categoria ?? '?'}`;
+    case 'giftGrid':       return d.title?.slice(0, 60) ?? '(padrão)';
+    case 'coloracao':      return d.title?.slice(0, 60) ?? '(padrão)';
+    case 'deliverables':   return `${d.title?.slice(0, 40) ?? ''} (${d.items?.length ?? 0} cards)`;
+    case 'hubBacklink':    return `${d.linkLabel ?? ''} → ${d.linkTo ?? ''}`;
+    default:               return '';
+  }
+}
 </script>
 
 <template>
@@ -118,18 +131,21 @@ function defaultDataFor(tipo: LpBlockType): any {
           <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
           <span class="item-order">{{ i + 1 }}</span>
           <span class="item-title">{{ b.tipo }}</span>
-          <span class="item-meta">{{ JSON.stringify(b.dados).slice(0, 80) }}…</span>
+          <span class="item-meta">{{ summary(b) }}</span>
+          <span v-if="validationError[i]" class="validation-pill" title="Erro de validação">⚠</span>
           <button type="button" class="btn-icon btn-danger" @click.stop="removeBlock(i)">
             <span class="material-symbols-outlined">delete</span>
           </button>
         </div>
         <div v-if="expandedIdx === i" class="block-editor">
-          <label>JSON do bloco (validado por Zod ao aplicar)</label>
-          <textarea v-model="editJson[i]" rows="14"></textarea>
-          <p v-if="editError[i]" class="block-error">{{ editError[i] }}</p>
+          <AdminLandingPagesBlockEditor
+            :tipo="b.tipo"
+            :model-value="b.dados"
+            @update:model-value="(v) => updateBlockDados(i, v)"
+          />
+          <p v-if="validationError[i]" class="block-error">{{ validationError[i] }}</p>
           <div class="block-actions">
             <button type="button" class="btn-secondary" @click="toggleExpand(i)">Fechar</button>
-            <button type="button" class="btn-primary" @click="applyEdit(i)">Aplicar</button>
           </div>
         </div>
       </div>
@@ -189,7 +205,6 @@ function defaultDataFor(tipo: LpBlockType): any {
   .item-meta {
     flex: 1;
     color: #888;
-    font-family: monospace;
     font-size: 12rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -197,33 +212,62 @@ function defaultDataFor(tipo: LpBlockType): any {
   }
 }
 
+.validation-pill {
+  color: #fbbf24;
+  font-size: 14rem;
+  margin-right: 4rem;
+}
+
 .block-editor {
   padding: 12rem 0;
   border-top: 1rem solid #333;
 
-  label {
-    display: block;
-    font-size: 13rem;
-    color: #aaa;
-    margin-bottom: 6rem;
+  :deep(.block-editor-fields) {
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
   }
 
-  textarea {
+  :deep(.form-field label) {
+    display: block;
+    font-size: 13rem;
+    color: #ccc;
+    margin-bottom: 4rem;
+  }
+
+  :deep(.form-field small) {
+    display: block;
+    color: #666;
+    font-size: 11rem;
+    margin-top: 2rem;
+  }
+
+  :deep(.form-field input),
+  :deep(.form-field textarea),
+  :deep(.form-field select) {
     width: 100%;
-    background: #0a0a0a;
-    color: #ddd;
-    border: 1rem solid #333;
+    background: #222;
+    color: #eee;
+    border: 1rem solid #444;
     border-radius: 4rem;
-    padding: 8rem;
-    font-family: monospace;
-    font-size: 12rem;
-    line-height: 1.5;
+    padding: 6rem 8rem;
+    font-size: 13rem;
+    font-family: inherit;
+
+    &:focus { outline: none; border-color: #60a5fa; }
+  }
+
+  :deep(.form-field textarea) {
+    resize: vertical;
   }
 
   .block-error {
     color: #f87171;
-    font-size: 13rem;
+    font-size: 12rem;
     margin-top: 8rem;
+    padding: 8rem;
+    background: rgba(248, 113, 113, 0.1);
+    border-radius: 4rem;
   }
 
   .block-actions {
