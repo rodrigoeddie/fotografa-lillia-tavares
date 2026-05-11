@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { data: rawFaq } = await useFetch('/api/public/faq');
 
-await usePageSeo('static', '/perguntas-frequentes');
+usePageSeo('static', '/perguntas-frequentes');
 
 // FAQPage schema com mainEntity dinâmico (perguntas vindas do API).
 // Mantido localmente porque o conteúdo é dinâmico e não cabe num jsonld_data

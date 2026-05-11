@@ -1,17 +1,11 @@
 <script lang="ts" setup>
-const slug = 'presentes';
-
-const { data: lp } = await useLandingPage(slug);
-
-if (lp.value?.pageSeo) {
-  applyPageSeo(lp.value.pageSeo);
-}
-
 definePageMeta({
   showHeader: true,
   layout: 'lp',
   lpType: 'presentes',
 });
+
+const { data: lp } = useLandingPage('presentes');
 </script>
 
 <template>

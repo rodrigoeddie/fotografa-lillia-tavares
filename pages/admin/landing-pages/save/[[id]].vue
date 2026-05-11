@@ -9,9 +9,13 @@ const idParam = computed(() => {
 
 const { isEdit, loading, saving, form, init, save } = useLandingPageForm(idParam);
 
+const seoEditorRef = ref<{ save: () => Promise<number | null> } | null>(null);
+
 onMounted(init);
 
-function onSaved() {
+async function onSaved(_lpId: number) {
+  // Após salvar a LP (com ID conhecido), persiste o SEO via SeoEditor.
+  await seoEditorRef.value?.save();
   router.push('/admin/landing-pages');
 }
 </script>
@@ -66,6 +70,20 @@ function onSaved() {
 
       <AdminLandingPagesBlockManager v-model="form.blocks" />
 
+      <div v-if="isEdit" class="seo-section">
+        <h3 class="section-title">SEO desta landing page</h3>
+        <AdminSeoEditor
+          ref="seoEditorRef"
+          entity-type="lp"
+          :entity-id="idParam"
+          :page-url="`https://fotografalilliatavares.com.br${form.rota}`"
+          mode="inline"
+        />
+      </div>
+      <p v-else class="seo-hint">
+        Salve a landing page primeiro para poder editar o SEO desta página.
+      </p>
+
       <div class="form-actions">
         <NuxtLink to="/admin/landing-pages" class="btn-secondary">Cancelar</NuxtLink>
         <button type="submit" class="btn-primary" :disabled="saving">
@@ -78,4 +96,25 @@ function onSaved() {
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.seo-section {
+  margin-top: 32rem;
+
+  .section-title {
+    font-size: 16rem;
+    margin: 0 0 12rem;
+    color: #ddd;
+  }
+}
+
+.seo-hint {
+  margin-top: 24rem;
+  padding: 16rem;
+  background: #1a1a1a;
+  border: 1rem dashed #444;
+  border-radius: 8rem;
+  color: #888;
+  font-size: 13rem;
+  text-align: center;
+}
 </style>

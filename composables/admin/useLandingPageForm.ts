@@ -46,7 +46,7 @@ export function useLandingPageForm(idParam: Ref<number | undefined>) {
     }
   }
 
-  async function save(onSuccess: () => void) {
+  async function save(onSuccess: (lpId: number) => void) {
     if (!form.slug || !form.titulo || !form.rota) {
       showMessage('Slug, título e rota são obrigatórios', 'error');
       return;
@@ -93,7 +93,7 @@ export function useLandingPageForm(idParam: Ref<number | undefined>) {
       } catch { /* purge falhou silenciosamente */ }
 
       showMessage(isEdit.value ? 'LP atualizada!' : 'LP criada!', 'success');
-      onSuccess();
+      onSuccess(lpId);
     } catch (e: any) {
       showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
     } finally {

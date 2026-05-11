@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-await usePageSeo('static', '/privacidade-e-termos');
+usePageSeo('static', '/privacidade-e-termos');
 
 definePageMeta({
   layout: 'default'

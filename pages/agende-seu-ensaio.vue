@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-await usePageSeo('static', '/agende-seu-ensaio');
+usePageSeo('static', '/agende-seu-ensaio');
 </script>
 
 <template>

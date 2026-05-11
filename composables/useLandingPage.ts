@@ -23,9 +23,18 @@ interface RenderedLandingPage {
   } | null;
 }
 
-/** Carrega uma landing page (LP + blocks + page_seo) do endpoint público. */
-export async function useLandingPage(slug: string) {
-  return useFetch<RenderedLandingPage>(`/api/public/landing-pages/${slug}`, {
+/**
+ * Carrega uma landing page (LP + blocks + page_seo) E aplica o SEO da
+ * página reativamente. Chamada SÍNCRONA — sem `await`. O Nuxt bloqueia
+ * o SSR até o useFetch resolver. As páginas LP apenas consomem `lp.value`.
+ */
+export function useLandingPage(slug: string) {
+  const { data, pending, error, refresh } = useFetch<RenderedLandingPage>(`/api/public/landing-pages/${slug}`, {
     key: `lp-${slug}`,
   });
+
+  // Aplica SEO ANTES de qualquer await — Nuxt context preservado.
+  applyPageSeo(() => data.value?.pageSeo);
+
+  return { data, pending, error, refresh };
 }

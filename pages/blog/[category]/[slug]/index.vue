@@ -17,7 +17,7 @@ const breadcrumbs = computed(() => post.value ? [
 ] : []);
 
 // Meta tags + canonical via DB (page_seo)
-await usePageSeo('blog', slug);
+usePageSeo('blog', slug);
 
 // JSON-LD do post: campos dinâmicos (headline, image, datePublished) que dependem
 // da entidade — não cabem em jsonld_data estático no DB. Mantido localmente.

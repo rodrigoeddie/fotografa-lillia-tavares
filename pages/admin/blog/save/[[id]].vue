@@ -16,6 +16,13 @@ const cfUrl = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
 const { isEdit, loading, saving, form, init, save } = useBlogPostForm(idParam);
 const { adminFetch } = useAdminFetch();
 
+const seoEditorRef = ref<{ save: () => Promise<number | null> } | null>(null);
+
+async function onSaved() {
+  await seoEditorRef.value?.save();
+  router.push('/admin/blog');
+}
+
 const categoriasOptions = [
   'fotografia-corporativa',
   'cenarios-tematicos',
@@ -199,22 +206,24 @@ onBeforeUnmount(() => {
         <EditorContent :editor="editor" class="tiptap-content" />
       </div>
 
-      <!-- ── SEO ────────────────────────────────────────────────────────── -->
-      <div class="form-card">
-        <h3 class="form-section-title">SEO</h3>
-        <div class="form-field">
-          <label>Keywords SEO</label>
-          <div v-for="(_, i) in form.seo_keywords" :key="i" class="includes-row">
-            <input v-model="form.seo_keywords[i]" type="text" />
-            <button class="btn-icon btn-danger" @click="form.seo_keywords.splice(i, 1)">✕</button>
-          </div>
-          <button class="btn-secondary btn-sm" @click="form.seo_keywords.push('')">+ Keyword</button>
-        </div>
+      <!-- ── SEO unificado (page_seo) ─────────────────────────────────── -->
+      <div v-if="isEdit" class="form-card">
+        <h3 class="form-section-title">SEO desta página</h3>
+        <AdminSeoEditor
+          ref="seoEditorRef"
+          entity-type="blog"
+          :entity-id="idParam"
+          :page-url="`https://fotografalilliatavares.com.br/blog/${form.categoria}/${form.slug}`"
+          mode="inline"
+        />
       </div>
+      <p v-else class="seo-hint">
+        Salve o post primeiro para poder editar o SEO.
+      </p>
 
       <div class="form-actions">
         <NuxtLink to="/admin/blog" class="btn-secondary">Cancelar</NuxtLink>
-        <button class="btn-primary" :disabled="saving" @click="() => { syncConteudo(); save(() => router.push('/admin/blog')); }">
+        <button class="btn-primary" :disabled="saving" @click="() => { syncConteudo(); save(onSaved); }">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar' : '💾 Publicar') }}
         </button>
       </div>
@@ -301,4 +310,15 @@ onBeforeUnmount(() => {
 }
 
 .includes-row { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; input { flex: 1; } }
+
+.seo-hint {
+  margin: 16px 0;
+  padding: 16px;
+  background: #1a1a1a;
+  border: 1px dashed #444;
+  border-radius: 8px;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+}
 </style>

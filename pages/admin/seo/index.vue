@@ -2,9 +2,25 @@
 definePageMeta({ layout: 'admin' });
 
 const { items, loading, summary, evaluate } = useSeoEvaluator();
+const { adminFetch } = useAdminFetch();
+const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 
 const filterType = ref<'all' | 'lp' | 'portfolio' | 'blog' | 'static'>('all');
 const filterScore = ref<'all' | 'bad' | 'ok' | 'good'>('all');
+const recalculating = ref(false);
+
+async function recalculateScores() {
+  recalculating.value = true;
+  try {
+    const res = await adminFetch<{ updated: number }>('/api/admin/seo/evaluate-all', { method: 'POST' });
+    showMessage(`Scores recalculados em ${res.updated} registros`, 'success');
+    await evaluate();
+  } catch (e: any) {
+    showMessage('Erro ao recalcular: ' + (e.statusMessage || e.message), 'error');
+  } finally {
+    recalculating.value = false;
+  }
+}
 
 const filtered = computed(() => {
   return items.value.filter((item) => {
@@ -31,9 +47,14 @@ onMounted(evaluate);
       <div>
         <h2>Avaliação SEO</h2>
       </div>
-      <button class="btn-add-item" :disabled="loading" @click="evaluate">
-        {{ loading ? 'Analisando...' : '🔍 Reanalisar' }}
-      </button>
+      <div class="header-actions">
+        <button class="btn-secondary" :disabled="recalculating" @click="recalculateScores">
+          {{ recalculating ? 'Recalculando...' : '↻ Recalcular scores (DB)' }}
+        </button>
+        <button class="btn-add-item" :disabled="loading" @click="evaluate">
+          {{ loading ? 'Analisando...' : '🔍 Reanalisar' }}
+        </button>
+      </div>
     </div>
 
     <div v-if="loading" class="loading-hint">Carregando e avaliando conteúdo...</div>
@@ -211,4 +232,10 @@ onMounted(evaluate);
 .issue-error   { color: #f87171; &::before { content: '✗ '; } }
 .issue-warning { color: #fbbf24; &::before { content: '⚠ '; } }
 .issue-info    { color: #6b7280; &::before { content: 'ℹ '; } }
+
+.header-actions {
+  display: flex;
+  gap: 8rem;
+  align-items: center;
+}
 </style>

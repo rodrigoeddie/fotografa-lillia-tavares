@@ -45,7 +45,7 @@ export function useBlogPostForm(idParam: Ref<number | undefined>) {
     }
   }
 
-  async function save(onSuccess: () => void) {
+  async function save(onSuccess: (postId: number) => void) {
     if (!form.slug || !form.titulo || !form.categoria) {
       showMessage('Slug, título e categoria são obrigatórios', 'error');
       return;
@@ -53,10 +53,13 @@ export function useBlogPostForm(idParam: Ref<number | undefined>) {
     saving.value = true;
     try {
       const body = { ...form };
+      let postId: number;
       if (isEdit.value) {
         await adminFetch(`/api/admin/blog/${idParam.value}`, { method: 'PUT', body });
+        postId = idParam.value as number;
       } else {
-        await adminFetch('/api/admin/blog', { method: 'POST', body });
+        const res = await adminFetch<{ id: number }>('/api/admin/blog', { method: 'POST', body });
+        postId = res.id;
       }
       // Purgar cache do Cloudflare para as URLs afetadas
       try {
@@ -74,7 +77,7 @@ export function useBlogPostForm(idParam: Ref<number | undefined>) {
         });
       } catch { /* purge falhou silenciosamente — não bloqueia o save */ }
       showMessage(isEdit.value ? 'Post atualizado!' : 'Post criado!', 'success');
-      onSuccess();
+      onSuccess(postId);
     } catch (e: any) {
       showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
     } finally {

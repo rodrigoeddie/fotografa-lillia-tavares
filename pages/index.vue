@@ -3,7 +3,7 @@ const { data: home } = await useAsyncData(() => {
   return queryCollection('content').path('/').first();
 });
 
-await usePageSeo('static', '/');
+usePageSeo('static', '/');
 
 definePageMeta({
   layout: 'home',

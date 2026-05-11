@@ -67,7 +67,7 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
     }
   }
 
-  async function save(onSuccess: () => void) {
+  async function save(onSuccess: (workId: number) => void) {
     if (!form.slug || !form.categoria) {
       showMessage('Slug e categoria são obrigatórios', 'error');
       return;
@@ -75,14 +75,17 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
     saving.value = true;
     try {
       const body = { ...form };
+      let workId: number;
       if (isEdit.value) {
         await adminFetch(`/api/admin/portfolio/${idParam.value}`, { method: 'PUT', body });
+        workId = idParam.value as number;
         showMessage('Portfolio atualizado!', 'success');
       } else {
-        await adminFetch('/api/admin/portfolio', { method: 'POST', body });
+        const res = await adminFetch<{ id: number }>('/api/admin/portfolio', { method: 'POST', body });
+        workId = res.id;
         showMessage('Portfolio criado!', 'success');
       }
-      onSuccess();
+      onSuccess(workId);
     } catch (e: any) {
       showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
     } finally {

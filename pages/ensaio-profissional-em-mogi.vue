@@ -1,16 +1,11 @@
 <script lang="ts" setup>
-const slug = 'corporativo';
-
-const { data: lp } = await useLandingPage(slug);
-
-if (lp.value?.pageSeo) {
-  applyPageSeo(lp.value.pageSeo);
-}
-
 definePageMeta({
   layout: 'lp',
   lpType: 'corporativo',
 });
+
+// SEO aplicado internamente — useLandingPage retorna refs (sync, sem await)
+const { data: lp } = useLandingPage('corporativo');
 </script>
 
 <template>

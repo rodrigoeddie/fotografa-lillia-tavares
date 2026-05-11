@@ -29,7 +29,7 @@ const breadcrumbs = computed(() => [
 ]);
 
 // Meta tags + canonical via DB (page_seo). Slug do portfolio inclui "categoria/work".
-await usePageSeo('portfolio', `${category}/${slugParam}`);
+usePageSeo('portfolio', `${category}/${slugParam}`);
 
 // JSON-LD com ImageObject contendo a galeria (dinâmico, não cabe no DB)
 useSchemaOrg([

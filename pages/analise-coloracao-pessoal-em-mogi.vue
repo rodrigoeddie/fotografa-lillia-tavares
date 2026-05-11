@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-await usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
+usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
 
 const benefits = [
   {

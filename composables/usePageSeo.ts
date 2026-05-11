@@ -17,68 +17,74 @@ function cfUrl(id: string | null | undefined): string | null {
   return id ? `${CF_BASE}/${id}/public` : null;
 }
 
-/**
- * Aplica useSeoMeta + useSchemaOrg + useHead a partir do registro page_seo
- * armazenado no DB. Aceita o objeto pré-carregado (vindo de useLandingPage,
- * useBlogPost, etc.) ou null para fallback aos defaults globais.
- */
-export function applyPageSeo(seo: PageSeoData | null | undefined) {
-  if (!seo) return;
+type SeoSource = PageSeoData | null | undefined | (() => PageSeoData | null | undefined);
 
-  const ogImage     = cfUrl(seo.og_image_cf_id);
-  const twImage     = cfUrl(seo.twitter_image_cf_id ?? seo.og_image_cf_id);
-  const title       = seo.meta_title ?? undefined;
-  const description = seo.meta_description ?? undefined;
-  const url         = seo.canonical ?? undefined;
+/**
+ * Aplica useSeoMeta + useHead reativamente a partir do registro page_seo.
+ *
+ * IMPORTANTE: deve ser chamado dentro de setup ANTES de qualquer await.
+ * Aceita getter (função) para que os valores sejam reativos — quando o
+ * `useFetch` que popula a fonte completar, os meta tags atualizam.
+ */
+export function applyPageSeo(source: SeoSource) {
+  const get = (): PageSeoData | null | undefined =>
+    typeof source === 'function' ? (source as () => PageSeoData | null | undefined)() : source;
 
   useSeoMeta({
-    title,
-    description,
-    ogTitle: title,
-    ogDescription: description,
-    ogUrl: url,
-    ogImage: ogImage ?? undefined,
-    ogImageAlt: seo.og_image_alt ?? undefined,
-    twitterCard: twImage ? 'summary_large_image' : 'summary',
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterImage: twImage ?? undefined,
+    title:              () => get()?.meta_title ?? undefined,
+    description:        () => get()?.meta_description ?? undefined,
+    ogTitle:            () => get()?.meta_title ?? undefined,
+    ogDescription:      () => get()?.meta_description ?? undefined,
+    ogUrl:              () => get()?.canonical ?? undefined,
+    ogImage:            () => cfUrl(get()?.og_image_cf_id) ?? undefined,
+    ogImageAlt:         () => get()?.og_image_alt ?? undefined,
+    twitterCard:        () => (cfUrl(get()?.twitter_image_cf_id ?? get()?.og_image_cf_id) ? 'summary_large_image' : 'summary'),
+    twitterTitle:       () => get()?.meta_title ?? undefined,
+    twitterDescription: () => get()?.meta_description ?? undefined,
+    twitterImage:       () => cfUrl(get()?.twitter_image_cf_id ?? get()?.og_image_cf_id) ?? undefined,
   });
 
-  if (seo.canonical) {
-    useHead({ link: [{ rel: 'canonical', href: seo.canonical }] });
-  }
-
-  // JSON-LD: aplica via useSchemaOrg quando type for um suportado pelo @nuxtjs/seo;
-  // para types arbitrários ou 'custom', injeta como <script type="application/ld+json"> via useHead.
-  if (seo.jsonld_type && seo.jsonld_data) {
-    try {
-      const parsed = JSON.parse(seo.jsonld_data);
-      useHead({
-        script: [{
+  useHead({
+    link: computed(() => {
+      const seo = get();
+      return seo?.canonical ? [{ rel: 'canonical', href: seo.canonical }] : [];
+    }),
+    script: computed(() => {
+      const seo = get();
+      if (!seo?.jsonld_type || !seo.jsonld_data) return [];
+      try {
+        const parsed = typeof seo.jsonld_data === 'string' ? JSON.parse(seo.jsonld_data) : seo.jsonld_data;
+        return [{
           type: 'application/ld+json',
           innerHTML: JSON.stringify({ '@context': 'https://schema.org', '@type': seo.jsonld_type, ...parsed }),
-        }],
-      });
-    } catch {
-      // JSON inválido — ignora silenciosamente
-    }
-  }
+        }];
+      } catch {
+        return [];
+      }
+    }),
+  });
 }
 
 /**
- * Carrega page_seo de uma entidade dinâmica (blog/portfolio/lp via slug)
- * ou rota estática, e aplica os meta tags. Para LPs, prefira passar o
- * `pageSeo` que já vem em `useLandingPage()` (evita request duplicado).
+ * Carrega page_seo de uma entidade dinâmica ou rota estática e aplica os
+ * meta tags reativamente. Chamada SÍNCRONA — não use `await` aqui.
+ *
+ * O `useFetch` retorna ref reativo que preenche quando o request completa.
+ * O Nuxt bloqueia o SSR automaticamente até o useFetch resolver.
+ *
+ * Uso:
+ *   <script setup>
+ *   usePageSeo('static', '/');
+ *   </script>
  */
-export async function usePageSeo(entityType: EntityType, slugOrRoute: string) {
+export function usePageSeo(entityType: EntityType, slugOrRoute: string) {
   const url = entityType === 'static'
     ? `/api/public/page-seo/by-route?route=${encodeURIComponent(slugOrRoute)}`
     : `/api/public/page-seo/by/${entityType}/${slugOrRoute}`;
 
-  const { data } = await useFetch<PageSeoData | null>(url, {
+  const { data } = useFetch<PageSeoData | null>(url, {
     key: `page-seo-${entityType}-${slugOrRoute}`,
   });
-  applyPageSeo(data.value ?? null);
+  applyPageSeo(() => data.value);
   return data;
 }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-await usePageSeo('static', '/blog');
+usePageSeo('static', '/blog');
 </script>
 
 <template>

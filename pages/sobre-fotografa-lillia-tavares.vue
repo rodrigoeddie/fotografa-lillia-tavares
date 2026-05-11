@@ -5,7 +5,7 @@ const { data: sobre } = await useAsyncData('sobre-page', () => {
 
 const pageData = computed(() => sobre.value as any);
 
-await usePageSeo('static', '/sobre-fotografa-lillia-tavares');
+usePageSeo('static', '/sobre-fotografa-lillia-tavares');
 </script>
 
 <template>

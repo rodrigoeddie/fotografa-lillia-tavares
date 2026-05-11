@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-await usePageSeo('static', '/estudio');
+usePageSeo('static', '/estudio');
 
 const configPublic = useRuntimeConfig().public;
 </script>

@@ -12,6 +12,13 @@ const categoriasOptions = ['corporativo', 'dia-das-maes', 'sensual-intimista', '
 const { isEdit, loading, saving, form, init, save } = usePortfolioWorkForm(idParam);
 const { adminFetch } = useAdminFetch();
 
+const seoEditorRef = ref<{ save: () => Promise<number | null> } | null>(null);
+
+async function onSaved() {
+  await seoEditorRef.value?.save();
+  router.push('/admin/portfolio');
+}
+
 // ─── Rich editor – Local ─────────────────────────────────────────────────────
 const localEditorRef = ref<HTMLDivElement | null>(null);
 const ESTUDIO_LINK = `<a href="https://fotografalilliatavares.com.br/estudio" target="_blank">Estúdio Lillia Tavares</a>`;
@@ -312,18 +319,20 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- ── SEO ────────────────────────────────────────────────────────── -->
-      <div class="form-card">
-        <h3 class="form-section-title">SEO</h3>
-        <div class="form-field">
-          <label>Keywords SEO (uma por linha)</label>
-          <div v-for="(_, i) in form.seo_keywords" :key="i" class="includes-row">
-            <input v-model="form.seo_keywords[i]" type="text" />
-            <button class="btn-icon btn-danger" @click="form.seo_keywords.splice(i, 1)">✕</button>
-          </div>
-          <button class="btn-secondary btn-sm" @click="form.seo_keywords.push('')">+ Keyword</button>
-        </div>
+      <!-- ── SEO unificado (page_seo) ─────────────────────────────────── -->
+      <div v-if="isEdit" class="form-card">
+        <h3 class="form-section-title">SEO desta página</h3>
+        <AdminSeoEditor
+          ref="seoEditorRef"
+          entity-type="portfolio"
+          :entity-id="idParam"
+          :page-url="`https://fotografalilliatavares.com.br/ensaio-fotografico/${form.slug}`"
+          mode="inline"
+        />
       </div>
+      <p v-else class="seo-hint">
+        Salve o portfolio primeiro para poder editar o SEO.
+      </p>
 
       <!-- ── Ações ──────────────────────────────────────────────────────── -->
       <div class="form-actions">
@@ -333,7 +342,7 @@ onMounted(async () => {
           class="btn-secondary"
           @click="router.push(`/admin/portfolio/${idParam}/fotos`)"
         >🖼 Gerenciar fotos</button>
-        <button class="btn-primary" :disabled="saving" @click="save(() => router.push('/admin/portfolio'))">
+        <button class="btn-primary" :disabled="saving" @click="save(onSaved)">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar' : '💾 Criar') }}
         </button>
       </div>
@@ -344,6 +353,17 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.seo-hint {
+  margin: 16px 0;
+  padding: 16px;
+  background: #1a1a1a;
+  border: 1px dashed #444;
+  border-radius: 8px;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+}
 
 .form-section-title {
   font-size: 13px;

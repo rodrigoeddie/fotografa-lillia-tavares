@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-await usePageSeo('static', '/ensaio-fotografico');
+usePageSeo('static', '/ensaio-fotografico');
 </script>
 
 <template>
