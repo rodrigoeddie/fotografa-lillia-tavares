@@ -1,33 +1,45 @@
 <script setup lang="ts">
 const route = useRoute();
 const slug = route.params.slug as string;
+const pageUrl = `https://fotografalilliatavares.com.br/precos-ensaios-fotograficos/${slug}`;
 
-const { data: produtos } = await useFetch('/api/public/investimento');
+// SEO/SchemaOrg precisam ser chamados ANTES de qualquer await (preserva contexto Nuxt).
+// Os valores reativos virão de `pageData` depois que o useFetch resolver.
+const produtos = useFetch('/api/public/investimento').data;
 
 const pageData = computed(() => {
-  const found = (produtos.value as any[] | null)?.find((p: any) => p.slug === slug);
+  const list = produtos.value as any[] | null;
+  const found = list?.find((p: any) => p.slug === slug);
   return found ? adaptProduto(found) : null;
 });
 
-// Se não encontrar, redireciona para 404
-if (!pageData.value && process.server) {
-  throw createError({ statusCode: 404, message: 'Página não encontrada' });
-}
+useSeoMeta({
+  title:              () => pageData.value ? `${pageData.value.title} | Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares` : 'Preços de Ensaios | Lillia Tavares',
+  description:        () => pageData.value?.description ?? `Confira os pacotes e preços para ensaio fotográfico em Mogi das Cruzes e Alto Tietê com a fotógrafa Lillia Tavares.`,
+  ogTitle:            () => pageData.value ? `${pageData.value.title} | Ensaio Fotográfico em Mogi das Cruzes` : 'Preços de Ensaios',
+  ogDescription:      () => pageData.value?.description ?? undefined,
+  ogUrl:              pageUrl,
+  ogImage:            'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
+  twitterCard:        'summary_large_image',
+  twitterTitle:       () => pageData.value?.title,
+  twitterDescription: () => pageData.value?.description ?? undefined,
+  twitterImage:       'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
+});
 
-const pageTitle = `${pageData.value.title ? pageData.value.title + ' |' : 'Preços |'} Ensaio Fotográfico em Mogi das Cruzes | Lillia Tavares`;
-const pageDescription = pageData.value.description || `Confira os pacotes e preços para ensaio fotográfico ${pageData.value.title || ''} em Mogi das Cruzes e Alto Tietê com a fotógrafa Lillia Tavares.`;
-const pageUrl = `https://fotografalilliatavares.com.br/precos-ensaios-fotograficos/${slug}`;
+useHead({
+  link: [{ rel: 'canonical', href: pageUrl }],
+});
 
 useSchemaOrg([
   defineWebPage({
-    name: pageTitle,
-    url: pageUrl
+    name: () => pageData.value?.title ? `${pageData.value.title} | Lillia Tavares` : 'Preços de Ensaios',
+    url: pageUrl,
   }),
   {
     '@type': 'Service',
     '@id': pageUrl + '#service',
     name: computed(() => pageData.value?.title),
-    description: pageDescription,
+    description: computed(() => pageData.value?.description),
     url: pageUrl,
     provider: {
       '@type': 'LocalBusiness',
@@ -59,28 +71,6 @@ useSchemaOrg([
     }))),
   }
 ]);
-
-useSeoMeta({
-  title: pageTitle,
-  description: pageDescription,
-  ogTitle: pageTitle,
-  ogDescription: pageDescription,
-  ogUrl: pageUrl,
-  ogImage: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
-  twitterCard: 'summary_large_image',
-  twitterTitle: pageTitle,
-  twitterDescription: pageDescription,
-  twitterImage: 'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
-});
-
-useHead({
-  link: [
-    {
-      rel: 'canonical',
-      href: pageUrl
-    }
-  ]
-});
 </script>
 
 <template>

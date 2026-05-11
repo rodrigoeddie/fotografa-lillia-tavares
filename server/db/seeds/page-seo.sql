@@ -129,6 +129,13 @@ INSERT OR IGNORE INTO page_seo (entity_type, route, meta_title, meta_description
     'Confira os pacotes e preços dos ensaios fotográficos da Lillia Tavares em Mogi das Cruzes. Opções para retrato feminino, corporativo, família e mais.',
     'a0839ccd-c1b8-4142-e44f-77c07c62c800',
     'https://fotografalilliatavares.com.br/precos-ensaios-fotograficos',
+    'WebPage'),
+
+  ('static', '/orcamentos/dia-das-maes',
+    'Orçamento de Ensaio para Dia das Mães em Mogi das Cruzes',
+    'Receba o orçamento personalizado para um ensaio fotográfico de Dia das Mães em Mogi das Cruzes com a fotógrafa Lillia Tavares.',
+    '737d6560-9e6a-49b4-b503-4c7d56dad900',
+    'https://fotografalilliatavares.com.br/orcamentos/dia-das-maes',
     'WebPage');
 
 -- /estudio: LocalBusiness com jsonld_data completo (replica useSchemaOrg de pages/estudio/index.vue)
