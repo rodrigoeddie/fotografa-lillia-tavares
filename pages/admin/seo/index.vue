@@ -48,6 +48,7 @@ onMounted(evaluate);
         <h2>Avaliação SEO</h2>
       </div>
       <div class="header-actions">
+        <NuxtLink to="/admin/seo/audit" class="btn-secondary">🛠 Auditoria técnica</NuxtLink>
         <button class="btn-secondary" :disabled="recalculating" @click="recalculateScores">
           {{ recalculating ? 'Recalculando...' : '↻ Recalcular scores (DB)' }}
         </button>
