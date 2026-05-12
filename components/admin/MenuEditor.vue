@@ -2,6 +2,7 @@
 interface MenuItem {
   label: string;
   path: string;
+  blank: boolean;
 }
 
 const props = defineProps<{
@@ -20,7 +21,7 @@ async function load() {
   menuLoading.value = true;
   try {
     const results = await adminFetch<MenuItem[]>('/api/admin/menu');
-    menuData.value = results.map(({ label, path }) => ({ label, path }));
+    menuData.value = results.map(({ label, path, blank }) => ({ label, path, blank: blank ?? false }));
   } catch (e: any) {
     props.showMessage('Erro ao carregar menu: ' + (e.statusMessage || e.message), 'error');
   } finally {
@@ -44,7 +45,7 @@ async function saveMenu() {
 }
 
 function addMenuItem() {
-  menuData.value.push({ label: '', path: '/' });
+  menuData.value.push({ label: '', path: '/', blank: false });
 }
 
 function removeMenuItem(index: number) {
@@ -104,6 +105,14 @@ defineExpose({ load });
           class="menu-item-path"
           placeholder="Path (ex: /sobre)"
         />
+
+        <span class="menu-item-blank">
+          <label class="switch">
+            <input type="checkbox" v-model="item.blank" />
+            <span class="slider" />
+          </label>
+          <span class="menu-item-blank-label">Link externo</span>
+        </span>
 
         <div class="item-actions">
           <button class="btn-icon btn-danger" @click="removeMenuItem(idx)">🗑 Deletar</button>
@@ -239,6 +248,19 @@ defineExpose({ load });
   font-family: monospace;
   padding: 6px 10px;
   &:focus { outline: none; border-color: #444; }
+}
+
+.menu-item-blank {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.menu-item-blank-label {
+  font-size: 12px;
+  color: #555;
+  white-space: nowrap;
 }
 
 .menu-empty {

@@ -128,7 +128,7 @@ onUnmounted(() => {
     </div>
 
     <NuxtLink
-      to="https://wa.me/5511911159795"
+      to="https://wa.me/5511911159795?text=Olá, vim pelo seu site e queria mais informações..."
       class="fixed-whatsapp"
       @click="clickWhats"
       target="_blank"

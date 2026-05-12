@@ -2,7 +2,7 @@
 const isMobile = ref(false);
 
 const { data: menu } = await useAsyncData('menu', () =>
-  $fetch<{ label: string; path: string }[]>('/api/public/menu')
+  $fetch<{ label: string; path: string; blank: boolean }[]>('/api/public/menu')
 );
 
 onMounted(() => {
@@ -53,9 +53,15 @@ function toggleMenu() {
                 v-for="item in menu"
                 :key="item.path"
                 :to="item.path"
+                :target="item.blank ? '_blank' : undefined"
+                :rel="item.blank ? 'noopener noreferrer' : undefined"
                 class="link"
                 @click="isOpen = false">
                 <span class="txt">{{ item.label }}</span>
+                <Icon
+                    v-if="item.blank"
+                    name="icons:external"
+                    class="icon icon-external"/>
             </NuxtLink>
         </nav>
 
@@ -363,6 +369,11 @@ function toggleMenu() {
         @include m.max(sm) {
             padding-right: 20px;
         }
+    }
+
+    .icon-external {
+        margin-right: 15rem;
+        margin-left: 4rem;
     }
 }
 

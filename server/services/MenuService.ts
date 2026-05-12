@@ -9,9 +9,9 @@ export class MenuService {
     return this.db.select().from(menu_items).orderBy(asc(menu_items.ordem));
   }
 
-  async replace(items: { label: string; path: string }[]) {
+  async replace(items: { label: string; path: string; blank: boolean }[]) {
     const inserts = items.map((item, idx) =>
-      this.db.insert(menu_items).values({ label: item.label, path: item.path, ordem: idx })
+      this.db.insert(menu_items).values({ label: item.label, path: item.path, blank: item.blank, ordem: idx })
     );
     return this.db.batch([this.db.delete(menu_items), ...inserts] as any);
   }

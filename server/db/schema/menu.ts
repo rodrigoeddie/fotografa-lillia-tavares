@@ -5,6 +5,7 @@ export const menu_items = sqliteTable('menu_items', {
   label: text().notNull(),
   path:  text().notNull(),
   ordem: integer().notNull().default(0),
+  blank: integer({ mode: 'boolean' }).notNull().default(false),
 });
 
 // Alias camelCase
