@@ -10,5 +10,7 @@ usePageSeo('static', '/depoimentos');
     ]" />
   </div>
   <SectionsDepoimentosList />
-  <ClientOnly><SectionsScheduleTinyform :formType="'noType'" /></ClientOnly>
+  <ClientOnly>
+    <SectionsScheduleTinyform :formType="'noType'" />
+  </ClientOnly>
 </template>

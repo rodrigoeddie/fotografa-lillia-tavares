@@ -1,25 +1,21 @@
 <script lang="ts" setup>
-const configPublic = useRuntimeConfig().public;
-
-const {
-  data: sobre
-} = await useAsyncData('home-sobre', () => {
-  return queryCollection('content').path('/home/sobre').first()
-});
-
-// Converte o body do markdown em HTML
-const description = computed(() => {
-  const html = useMarkdownToHtml(sobre.value?.body);
-  return html;
-});
 </script>
 
 <template>
     <div class="wrap-about row">
       <div class="col col-text">
         <div class="about-text">
-          <h1 class="title">{{ sobre?.title }}</h1>
-          <div class="description" v-html="description"></div>
+          <h1 class="title">
+            <NuxtLink
+            to="/sobre-fotografa-lillia-tavares">
+              <span>Fotógrafa Lillia Tavares</span>
+            </NuxtLink>
+          </h1>
+
+          <div class="description">
+            <p>Com <NuxtLink to="/estudio">estúdio em Mogi das Cruzes</NuxtLink>, atendendo todo o Alto Tietê, é especializada em retratos e ensaios corporativos.</p>
+            <p>Transforma cada sessão em uma experiência acolhedora, criando um ambiente onde os modelos se sentem à vontade.</p>
+          </div>
         </div>
 
         <div class="about-ctas">

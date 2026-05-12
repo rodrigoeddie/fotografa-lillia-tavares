@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 usePageSeo('static', '/privacidade-e-termos');
-
-definePageMeta({
-  layout: 'default'
-});
 </script>
 
 <template>

@@ -21,15 +21,15 @@ export const seoIssueSchema = z.object({
 export const keywordsSchema = z.array(z.string().trim().min(1).max(60)).max(15);
 
 const seoBase = {
-  focus_keyword:        z.string().trim().max(80).nullable().optional(),
+  focus_keyword:        z.string().trim().max(160).nullable().optional(),
   keywords:             keywordsSchema.nullable().optional(),
-  meta_title:           z.string().trim().max(80).nullable().optional(),
-  meta_description:     z.string().trim().max(200).nullable().optional(),
-  og_image_cf_id:       z.string().trim().regex(/^[a-z0-9-]+$/i).nullable().optional(),
-  og_image_alt:         z.string().trim().max(160).nullable().optional(),
-  twitter_image_cf_id:  z.string().trim().regex(/^[a-z0-9-]+$/i).nullable().optional(),
-  canonical:            z.string().url().nullable().optional(),
-  robots:               z.string().trim().max(60).nullable().optional(),
+  meta_title:           z.string().trim().max(160).nullable().optional(),
+  meta_description:     z.string().trim().max(500).nullable().optional(),
+  og_image_cf_id:       z.string().trim().max(120).nullable().optional(),
+  og_image_alt:         z.string().trim().max(300).nullable().optional(),
+  twitter_image_cf_id:  z.string().trim().max(120).nullable().optional(),
+  canonical:            z.string().trim().max(500).nullable().optional(),
+  robots:               z.string().trim().max(100).nullable().optional(),
   jsonld_type:          jsonLdTypeSchema.nullable().optional(),
   jsonld_data:          z.unknown().nullable().optional(),
 };

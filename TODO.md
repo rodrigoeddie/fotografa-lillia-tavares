@@ -1,4 +1,11 @@
+
+# notas
+- depoimentos.featured ainda em desuso (na home, uso o vínculo de portfolio + depoimentos), mas pode ser muito útil para listar os melhores depoimentos na pagina de depoimentos, ou como destaque em outras paginas
+
 # ToDo
+- em depoimentos na home, adicionar botão ver todos os depoimentos
+
+-----
 
 Usando o gateway de pagamento da sumup (previamente pesquisado) crie um sistema de pagamentos para:
 
@@ -7,13 +14,13 @@ Usando o gateway de pagamento da sumup (previamente pesquisado) crie um sistema 
 - caso o cliente peça para selecionar mais fotos da sessão, após ter concluido uma primeira seleção, considerar que o lote será outro, e que a partir do lote 1 (a primeira entrega), o valor a ser calculado é somente de fotos extra
 - o pagamento pode ser via cartão de crédito ou pix (o numero de parcelas permitidas está no prooduto->pacote-escolhido)
 - o pagamento online não é obrigatório, ou seja, deixar claro que o cliente pode pagar online no checkout, ou se desejar tratar diretamente com a fotografa Lillia
-
+<!-- 
 criar um sistema de notificações para o admin e area-cliente:
 - ao mudar o status das sessões no admin para avisar o cliente
 - a uma entrega ser cadastrada no admin pra avisar o cliente
 - a uma seleção ser feita na area-cliente para avisar o admin
 
-<!-- - adicionar um prazo para a seleção (o prazo por ser aberto ou ter uma data especifica), e caso a data esteja proxima do prazo, mandar um email ou notificação
+- adicionar um prazo para a seleção (o prazo por ser aberto ou ter uma data especifica), e caso a data esteja proxima do prazo, mandar um email ou notificação
 - no admin/sessoes quando a sessão for "Seleção concluída" e nao tiver nenhuma entrega mostrar um botão para cadastrar uma entrega
 - no /admin/entregas/save o nome do arquivo na entrega, deve ter o nome do "Ensaio-" + produto + nome-do-cliente
 - ao concluir a entrega, em area-cliente/meus-ensaios o card não mostra o novo status

@@ -11,6 +11,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
   if (review.photo && !review.photo.startsWith('http')) {
     return CF_IMG_BASE + review.photo + '/public';
   }
+
   return `/assets/images/depoimentos/reviewer-${review.id}.jpg`;
 }
 </script>

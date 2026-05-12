@@ -172,25 +172,25 @@ async function save(): Promise<number | null> {
     }
   }
 
+  const body: any = {
+    entity_type: props.entityType,
+    meta_title: form.meta_title || null,
+    meta_description: form.meta_description || null,
+    focus_keyword: form.focus_keyword || null,
+    keywords: form.keywords.length ? form.keywords : null,
+    og_image_cf_id: form.og_image_cf_id || null,
+    og_image_alt: form.og_image_alt || null,
+    twitter_image_cf_id: form.twitter_image_cf_id || null,
+    canonical: form.canonical || null,
+    robots: form.robots || null,
+    jsonld_type: form.jsonld_type || null,
+    jsonld_data: form.jsonld_data ? JSON.parse(form.jsonld_data) : null,
+  };
+  if (props.entityType === 'static') body.route = props.route;
+  else body.entity_id = props.entityId;
+
   saving.value = true;
   try {
-    const body: any = {
-      entity_type: props.entityType,
-      meta_title: form.meta_title || null,
-      meta_description: form.meta_description || null,
-      focus_keyword: form.focus_keyword || null,
-      keywords: form.keywords.length ? form.keywords : null,
-      og_image_cf_id: form.og_image_cf_id || null,
-      og_image_alt: form.og_image_alt || null,
-      twitter_image_cf_id: form.twitter_image_cf_id || null,
-      canonical: form.canonical || null,
-      robots: form.robots || null,
-      jsonld_type: form.jsonld_type || null,
-      jsonld_data: form.jsonld_data ? JSON.parse(form.jsonld_data) : null,
-    };
-    if (props.entityType === 'static') body.route = props.route;
-    else body.entity_id = props.entityId;
-
     const result = await adminFetch<{ id: number; created: boolean }>('/api/admin/page-seo', { method: 'POST', body });
     existingId.value = result.id;
     emit('saved', result.id);

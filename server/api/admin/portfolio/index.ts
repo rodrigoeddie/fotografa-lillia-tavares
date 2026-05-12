@@ -8,7 +8,14 @@ export default defineEventHandler(async (event) => {
   const svc = new PortfolioService(getOrm(event));
 
   if (getMethod(event) === 'GET') {
-    return svc.list();
+    const [works, thumbRows] = await Promise.all([svc.list(), svc.listAllThumbs()]);
+    const thumbMap = new Map<number, { id: number; cf_image_id: string; width: number | null; height: number | null }[]>();
+    for (const t of thumbRows) {
+      const arr = thumbMap.get(t.work_id) ?? [];
+      arr.push({ id: t.id, cf_image_id: t.cf_image_id, width: t.width, height: t.height });
+      thumbMap.set(t.work_id, arr);
+    }
+    return works.map((w) => ({ ...w, thumb_photos: thumbMap.get(w.id) ?? [] }));
   }
 
   if (getMethod(event) === 'POST') {

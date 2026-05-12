@@ -42,5 +42,14 @@ export default defineEventHandler(async (event) => {
     return { success: true };
   }
 
+  // PATCH toggles can_be_thumb for a single foto
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    const { foto_id, can_be_thumb } = body ?? {};
+    if (!foto_id) throw createError({ statusCode: 400, statusMessage: 'foto_id obrigatório' });
+    await svc.setFotoCanBeThumb(Number(foto_id), !!can_be_thumb);
+    return { success: true };
+  }
+
   throw createError({ statusCode: 405, statusMessage: 'Method not allowed' });
 });

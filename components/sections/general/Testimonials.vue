@@ -6,17 +6,25 @@ const props = defineProps({
 
 const apiUrl = computed(() => {
   const params = new URLSearchParams();
+
   if (props.lp) params.set('categoria', props.lp);
+
   return `/api/public/portfolio${params.toString() ? '?' + params.toString() : ''}`;
 });
 
 const { data: rawWorks } = await useFetch(apiUrl);
 
-const works = computed(() =>
-  (rawWorks.value as any[] | null ?? [])
+const works = computed(() => {
+  const seen = new Set<string>();
+  return (rawWorks.value as any[] | null ?? [])
     .map(adaptPortfolioWork)
-    .filter((w: any) => !!w.testimonial)
-);
+    .filter((w: any) => {
+      if (!w.testimonial?.text) return false;
+      if (seen.has(w.testimonial.text)) return false;
+      seen.add(w.testimonial.text);
+      return true;
+    });
+});
 
 const isFewItems = computed(() => works.value.length <= 2);
 </script>

@@ -1,21 +1,11 @@
 <script lang="ts" setup>
-const { data: home } = await useAsyncData(() => {
-  return queryCollection('content').path('/').first();
-});
-
 usePageSeo('static', '/');
-
-definePageMeta({
-  layout: 'home',
-});
-
-const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>
   <div class="container wrap-hero-home">
-    <SectionsHomeBanner />
     <SectionsHomeAboutCta />
+    <SectionsHomeCTAServices />
   </div>
   <SectionsHomePortfolio />
   <SectionsGeneralTestimonials />

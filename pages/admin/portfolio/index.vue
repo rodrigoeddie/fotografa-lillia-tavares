@@ -3,7 +3,10 @@ definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
 
-interface PortfolioWork { id: number; slug: string; titulo: string; categoria: string; ativo: number; home: number; ordem: number; }
+const CF_IMG = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
+
+interface ThumbPhoto { id: number; cf_image_id: string; width?: number | null; height?: number | null; }
+interface PortfolioWork { id: number; slug: string; titulo: string; categoria: string; ativo: number; home: number; ordem: number; thumb_photos: ThumbPhoto[]; }
 
 const works = ref<PortfolioWork[]>([]);
 const loading = ref(false);
@@ -40,6 +43,18 @@ async function toggleField(w: PortfolioWork, field: 'ativo' | 'home') {
     await adminFetch(`/api/admin/portfolio/${w.id}`, { method: 'PATCH', body: { [field]: w[field] } });
   } catch (e: any) {
     w[field] = prev;
+    showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
+  }
+}
+
+async function toggleThumb(w: PortfolioWork, foto: ThumbPhoto) {
+  try {
+    await adminFetch(`/api/admin/portfolio/${w.id}/fotos`, {
+      method: 'PATCH',
+      body: { foto_id: foto.id, can_be_thumb: false },
+    });
+    w.thumb_photos = w.thumb_photos.filter((f) => f.id !== foto.id);
+  } catch (e: any) {
     showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
   }
 }
@@ -94,6 +109,20 @@ onMounted(load);
           <span class="item-order">{{ i + 1 }}</span>
           <span class="item-title">{{ w.titulo || w.slug }}</span>
           <span class="item-categoria">{{ w.categoria }}</span>
+
+          <span v-if="w.thumb_photos?.length" class="item-thumbs">
+            <span v-for="foto in w.thumb_photos" :key="foto.id" class="item-thumb-wrap">
+              <img
+                :src="`${CF_IMG}${foto.cf_image_id}/w=200`"
+                class="item-thumb"
+                :class="foto.width && foto.height ? (foto.height > foto.width ? 'portrait' : 'landscape') : ''"
+                :style="foto.width && foto.height ? { aspectRatio: `${foto.width}/${foto.height}` } : {}"
+                alt=""
+              />
+              <button class="btn-thumb-remove" title="Remover thumb" @click.prevent="toggleThumb(w, foto)">✕</button>
+            </span>
+          </span>
+          <span v-else class="item-thumb item-thumb--empty"></span>
         </NuxtLink>
         <span class="row">
         <span class="item-toggle-label">Home</span>
@@ -120,4 +149,53 @@ onMounted(load);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.item-title {
+  width: 150px;
+  flex: none;
+}
+
+.item-thumbs {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.item-thumb-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.item-thumb {
+  width: 80px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
+  &.landscape { width: 181px; }
+
+  &--empty {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    background: #2a2a2a;
+    border-radius: 4px;
+  }
+}
+
+.btn-thumb-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+
+  &:hover { background: #c0392b; }
+}
 </style>

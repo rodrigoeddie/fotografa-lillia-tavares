@@ -15,7 +15,6 @@ const workPage = '/ensaio-fotografico';
 const currentCategory = computed(() =>
   category ? { slug: category, title: PORTFOLIO_CATEGORIAS[category as string] ?? category } : null
 );
-
 </script>
 
 <template>

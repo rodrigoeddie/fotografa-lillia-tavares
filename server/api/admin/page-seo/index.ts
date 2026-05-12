@@ -22,7 +22,15 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const parsed = PageSeoUpsertSchema.safeParse(body);
     if (!parsed.success) {
-      throw createError({ statusCode: 400, statusMessage: 'Validação falhou', data: parsed.error.flatten() });
+      const flat = parsed.error.flatten();
+      const fieldMsg = Object.entries(flat.fieldErrors as Record<string, string[]>)
+        .map(([k, v]) => `${k}: ${v.join(', ')}`)
+        .join('; ');
+      throw createError({
+        statusCode: 400,
+        statusMessage: fieldMsg ? `Validação falhou — ${fieldMsg}` : 'Validação falhou',
+        data: flat,
+      });
     }
     const result = await svc.upsert(parsed.data);
     return { success: true, ...result };

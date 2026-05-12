@@ -55,6 +55,27 @@ export class PortfolioService {
 
   // ── Fotos ─────────────────────────────────────────────────
 
+  listAllThumbs() {
+    return this.db
+      .select({
+        id: portfolio_fotos.id,
+        work_id: portfolio_fotos.work_id,
+        cf_image_id: portfolio_fotos.cf_image_id,
+        width: portfolio_fotos.width,
+        height: portfolio_fotos.height,
+      })
+      .from(portfolio_fotos)
+      .where(eq(portfolio_fotos.can_be_thumb, 1))
+      .orderBy(asc(portfolio_fotos.ordem));
+  }
+
+  setFotoCanBeThumb(fotoId: number, value: boolean) {
+    return this.db
+      .update(portfolio_fotos)
+      .set({ can_be_thumb: value ? 1 : 0 })
+      .where(eq(portfolio_fotos.id, fotoId));
+  }
+
   listFotosByWork(workId: number) {
     return this.db
       .select()

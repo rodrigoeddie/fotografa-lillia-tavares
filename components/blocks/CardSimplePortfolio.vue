@@ -78,7 +78,7 @@ const props = defineProps({
     <NuxtLink
     :to="item.path"
     class="btn btn-green">
-        <span>Acesse esse ensaio</span>
+        <span>Ver fotos do ensaio</span>
     </NuxtLink>
         </div>
     </div>
@@ -222,7 +222,7 @@ const props = defineProps({
         background-color: v.$green;
         text-transform: none;
         position: absolute;
-        font-size: 13px;
+        font-size: 18rem;
         bottom: 0;
         right: 0;
         left: 0;
@@ -243,7 +243,7 @@ const props = defineProps({
     --swiper-navigation-size: 30rem !important;
 }
 .slider {
-    aspect-ratio: 384/450;
+    aspect-ratio: 384/543;
     background: #f6f6f6;
     overflow: hidden;
     flex-shrink: 0;
