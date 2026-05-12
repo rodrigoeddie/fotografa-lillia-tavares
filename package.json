@@ -20,7 +20,9 @@
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "db:apply:local": "bun scripts/apply-drizzle-migrations.ts --local",
-    "db:apply:prod": "bun scripts/apply-drizzle-migrations.ts --remote"
+    "db:apply:prod": "bun scripts/apply-drizzle-migrations.ts --remote",
+    "db:backup": "bun scripts/db-backup.ts",
+    "db:restore": "bun scripts/db-restore.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260501.1",

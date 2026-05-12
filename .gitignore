@@ -25,3 +25,6 @@ logs
 !.env.example
 
 _AUX\n.dev.vars
+
+# DB backups
+scripts/backups/
