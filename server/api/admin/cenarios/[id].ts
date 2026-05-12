@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
           titulo: c.titulo,
           descricao: c.descricao ?? null,
           imagem_bg_cf_id: c.imagem_bg_cf_id ?? null,
+          imagem_bg_alt: c.imagem_bg_alt ?? null,
           imagem_exemplo_cf_id: c.imagem_exemplo_cf_id ?? null,
           imagem_exemplo_alt: c.imagem_exemplo_alt ?? null,
           imagem_exemplo_link: c.imagem_exemplo_link ?? null,

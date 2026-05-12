@@ -74,6 +74,10 @@ onMounted(init);
               <img v-if="c.imagem_bg_cf_id" :src="`${cfUrl}${c.imagem_bg_cf_id}/public`" class="preview-img" alt="" />
             </div>
             <div class="form-field">
+              <label>Alt imagem BG</label>
+              <input v-model="c.imagem_bg_alt" type="text" />
+            </div>
+            <div class="form-field">
               <label>Imagem Exemplo (CF ID)</label>
               <input v-model="c.imagem_exemplo_cf_id" type="text" />
               <img v-if="c.imagem_exemplo_cf_id" :src="`${cfUrl}${c.imagem_exemplo_cf_id}/public`" class="preview-img" alt="" />

@@ -10,6 +10,7 @@ interface CenarioForm {
   titulo: string;
   descricao: string;
   imagem_bg_cf_id: string;
+  imagem_bg_alt: string;
   imagem_exemplo_cf_id: string;
   imagem_exemplo_alt: string;
   imagem_exemplo_link: string;
@@ -40,6 +41,7 @@ export function useCenarioForm(idParam: Ref<number | undefined>) {
       titulo: '',
       descricao: '',
       imagem_bg_cf_id: '',
+      imagem_bg_alt: '',
       imagem_exemplo_cf_id: '',
       imagem_exemplo_alt: '',
       imagem_exemplo_link: '',
@@ -67,6 +69,7 @@ export function useCenarioForm(idParam: Ref<number | undefined>) {
         titulo: c.titulo ?? '',
         descricao: c.descricao ?? '',
         imagem_bg_cf_id: c.imagem_bg_cf_id ?? '',
+        imagem_bg_alt: c.imagem_bg_alt ?? '',
         imagem_exemplo_cf_id: c.imagem_exemplo_cf_id ?? '',
         imagem_exemplo_alt: c.imagem_exemplo_alt ?? '',
         imagem_exemplo_link: c.imagem_exemplo_link ?? '',

@@ -14,6 +14,7 @@ export const cenarios = sqliteTable('cenarios', {
   titulo:                     text().notNull(),
   descricao:                  text(),
   imagem_bg_cf_id:            text(),
+  imagem_bg_alt:              text(),
   imagem_exemplo_cf_id:       text(),
   imagem_exemplo_alt:         text(),
   imagem_exemplo_link:        text(),
