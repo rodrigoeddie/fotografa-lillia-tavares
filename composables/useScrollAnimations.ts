@@ -134,6 +134,19 @@ const ANIMATIONS: Record<string, AnimationConfig> = {
 
 // ─── Composable ─────────────────────────────────────────────────────
 
+function isInViewport(el: HTMLElement, ratio = 0.88): boolean {
+  const rect = el.getBoundingClientRect()
+  const vh = window.innerHeight || document.documentElement.clientHeight
+  return rect.top < vh * ratio && rect.bottom > 0
+}
+
+function killStaleTriggers() {
+  ScrollTrigger.getAll().forEach((st) => {
+    const trigger = st.trigger as HTMLElement | null
+    if (!trigger || !document.body.contains(trigger)) st.kill()
+  })
+}
+
 export function useScrollAnimations() {
   function initBatches(container: Document | HTMLElement) {
     const batchEls = Array.from(
@@ -141,7 +154,6 @@ export function useScrollAnimations() {
     )
     if (batchEls.length === 0) return
 
-    // Agrupa por valor de data-ani-batch
     const groups = new Map<string, HTMLElement[]>()
     batchEls.forEach((el) => {
       const key = el.dataset.aniBatch!
@@ -150,7 +162,6 @@ export function useScrollAnimations() {
     })
 
     groups.forEach((els) => {
-      // Usa o primeiro elemento para ler as configurações do grupo
       const first = els[0]
       if (!first) return
 
@@ -169,26 +180,50 @@ export function useScrollAnimations() {
       const fromVars = { ...config.from, opacity: 0 }
       const toVars   = { ...config.to,   opacity: 1 }
 
-      // Estado inicial em todos os elementos do grupo de uma vez
       gsap.set(els, fromVars)
       els.forEach((el) => { el.dataset.aniInitialized = 'true' })
 
-      // Uma única instância de ScrollTrigger para todo o grupo
-      ScrollTrigger.batch(els, {
-        start: 'top 88%',
-        batchMax,
-        onEnter: (batch) => {
-          gsap.to(batch, {
-            ...toVars,
-            duration,
-            ease,
-            stagger,
-            onComplete() {
-              ;(batch as HTMLElement[]).forEach((el) => el.classList.add('animated'))
-            },
-          })
-        },
+      // Separa elementos já visíveis (anima imediatamente) dos que ainda
+      // estão fora da viewport (ScrollTrigger.batch). Isso evita o bug
+      // do ScrollTrigger.batch não disparar onEnter quando o elemento já
+      // está passado do start no momento da criação (acontece após
+      // navegação SPA com scroll-to-top + dados carregados async).
+      const visible: HTMLElement[] = []
+      const offscreen: HTMLElement[] = []
+      els.forEach((el) => {
+        if (isInViewport(el)) visible.push(el)
+        else offscreen.push(el)
       })
+
+      if (visible.length > 0) {
+        gsap.to(visible, {
+          ...toVars,
+          duration,
+          ease,
+          stagger,
+          onComplete() {
+            visible.forEach((el) => el.classList.add('animated'))
+          },
+        })
+      }
+
+      if (offscreen.length > 0) {
+        ScrollTrigger.batch(offscreen, {
+          start: 'top 88%',
+          batchMax,
+          onEnter: (batch) => {
+            gsap.to(batch, {
+              ...toVars,
+              duration,
+              ease,
+              stagger,
+              onComplete() {
+                ;(batch as HTMLElement[]).forEach((el) => el.classList.add('animated'))
+              },
+            })
+          },
+        })
+      }
     })
   }
 
@@ -197,10 +232,10 @@ export function useScrollAnimations() {
 
     const container = root || document
 
-    // Processa grupos (batch) antes dos individuais
+    killStaleTriggers()
+
     initBatches(container)
 
-    // Elementos individuais (sem data-ani-batch)
     const elements = container.querySelectorAll<HTMLElement>('[data-ani-type]:not([data-ani-batch]):not([data-ani-initialized])')
 
     elements.forEach((el) => {
@@ -218,14 +253,28 @@ export function useScrollAnimations() {
       const stagger = parseFloat(el.dataset.aniStagger || '0')
       const ease = el.dataset.aniEase || config.ease || 'power2.out'
 
-      // Se tem stagger, anima os filhos diretos
       const targets = stagger > 0 ? el.children : el
 
-      // Garante que todo elemento comece invisível
       const fromVars = { ...config.from, opacity: 0 }
       const toVars = { ...config.to, opacity: 1 }
 
       gsap.set(targets, fromVars)
+
+      // Se o elemento já está visível, anima direto (evita depender do
+      // ScrollTrigger detectar a posição inicial em pós-navegação).
+      if (isInViewport(el, 0.85)) {
+        gsap.to(targets, {
+          ...toVars,
+          duration,
+          delay,
+          ease,
+          stagger: stagger > 0 ? stagger : undefined,
+          onComplete: () => {
+            el.classList.add('animated')
+          },
+        })
+        return
+      }
 
       gsap.to(targets, {
         ...toVars,
@@ -245,7 +294,6 @@ export function useScrollAnimations() {
       })
     })
 
-    // Aguarda o browser pintar e estabilizar o layout antes de calcular posições
     requestAnimationFrame(() => {
       requestAnimationFrame(() => ScrollTrigger.refresh())
     })
