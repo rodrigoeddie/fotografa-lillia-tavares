@@ -111,8 +111,7 @@
 
     footer {
         justify-content: center;
-        // background: v.$green;
-        background: rgba(72, 83, 73, 0.2);
+        background: #d7d6cd;
         align-items: center;
         text-align: center;
         flex-wrap: wrap;

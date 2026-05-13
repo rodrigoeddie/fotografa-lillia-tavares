@@ -107,10 +107,6 @@ function toggleMenu() {
             height: 100%;
         }
 
-        @include m.max(lg) {
-            right: 20px;
-        }
-
         @include m.max(md) {
             font-size: 20rem;
             right: 0;

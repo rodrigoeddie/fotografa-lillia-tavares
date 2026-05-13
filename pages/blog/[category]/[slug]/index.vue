@@ -105,7 +105,7 @@ const processedContent = computed(() => {
           />
         </div>
 
-        <div v-else-if="item.type === 'content'" v-html="item.data"></div>
+        <div v-else-if="item.type === 'content'" class="description" v-html="item.data"></div>
       </template>
       <div style="clear: both;"></div>
 

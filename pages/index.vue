@@ -15,7 +15,7 @@ usePageSeo('static', '/');
 <style scoped lang="scss">
   .wrap-hero-home {
     justify-content: space-between;
-    margin-top: 20rem;
+    margin-top: 0;
     display: flex;
 
     @include m.max(xs) {

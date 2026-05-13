@@ -187,7 +187,7 @@ onUnmounted(() => {
     background: white;
     align-items: center;
     padding: 0 25rem;
-    height: 90rem;
+    height: 63rem;
     display: flex;
 
     @include m.max(xs) {
@@ -200,7 +200,7 @@ onUnmounted(() => {
   .logo {
     transition: width .3s;
     margin-top: -28rem;
-    width: 370rem;
+    width: 315rem;
 
     @include m.max(md) {
       width: 215px;
@@ -227,7 +227,7 @@ onUnmounted(() => {
     top: 0;
 
     .logo {
-      width: 286rem;
+      width: 218rem;
       margin-top: 0;
     }
   }

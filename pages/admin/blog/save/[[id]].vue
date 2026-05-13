@@ -138,7 +138,7 @@ onBeforeUnmount(() => {
           </div>
 
           <div class="form-field form-field--full">
-            <label>Descrição (meta SEO)</label>
+            <label>Descrição</label>
             <textarea v-model="form.descricao" rows="3" />
           </div>
 
