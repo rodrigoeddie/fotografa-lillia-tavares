@@ -140,6 +140,7 @@ const isFewItems = computed(() => works.value.length <= 2);
                 flex: 0 1 100%;
             }
         }
+
         .swiper-slide .wrap-testimonial {
             margin-bottom: 0;
 
@@ -152,7 +153,7 @@ const isFewItems = computed(() => works.value.length <= 2);
     }
 
     .wrap-testimonials {
-        background: rgba(72, 83, 73, 0.14);
+        background: #f7f4e8;
         margin-bottom: calc(v.$space * 2);
         width: 100%;
         padding: 30rem 0 30rem 30rem;

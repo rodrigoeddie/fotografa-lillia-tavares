@@ -252,10 +252,10 @@ const processedContent = computed(() => {
       }
 
       .link-interno {
-        text-decoration: underline;
+        text-decoration: none;
         display: inline-block;
         font-size: 19rem;
-        padding: 15rem 0;
+        padding: 10rem 8rem;
       }
     }
   }

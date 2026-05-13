@@ -1,6 +1,5 @@
 
 <script setup lang="ts">
-
 const props = defineProps({
   testimonial: {
     type: Object,
@@ -100,7 +99,7 @@ const props = defineProps({
 
         .text-testimonial {
             box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
-            background: #f9f9f9;
+            background: white;
             border-radius: 10rem;
             padding: 20rem;
             width: 87%;
