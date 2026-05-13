@@ -33,7 +33,7 @@
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper" data-ani-type="fade-up">
     <div class="wrap-title">
         <h1 class="big-title green centered">
             <span class="box">

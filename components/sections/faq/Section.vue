@@ -27,6 +27,9 @@ const props = defineProps({
           :question="item.question"
           :answer="item.answer"
           :is-open="showAllOpen"
+          data-ani-type="polaroid"
+          data-ani-batch="faq-section"
+          data-ani-stagger="0.07"
         />
       </div>
     </div>

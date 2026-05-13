@@ -50,7 +50,6 @@ const toggle = () => {
 .faq-item {
   box-shadow: 0 0 10rem rgba(55, 71, 34, 0.1);
   border: 1rem solid #e5e5e5;
-  transition: all 0.3s ease;
   margin-bottom: 16rem;
   border-radius: 8rem;
   background: #fff;

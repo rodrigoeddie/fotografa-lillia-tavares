@@ -46,18 +46,18 @@
 <template>
   <div class="wrapper">
     <div class="wrap-inner row container">
-      <div class="side side-text">
-        <h1 :class="['big-title', props.fromStudio ? 'from-studio' : 'green']">
+      <div class="side side-text" data-ani-type="fade-right">
+        <h1 class="big-title green">
           <span class="box">
             <span>Sobre o</span>
           </span>
           <span class="big">Estúdio</span>
         </h1>
-        <p :class="['description', props.fromStudio ? '' : 'green']">
+        <p class="description green">
           O estúdio está localizado em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light">Mogi das cruzes</a>, no coração da cidade, com ótimas opções para estacionamento e transportes.
         </p>
 
-        <p :class="['description', props.fromStudio ? '' : 'green']">
+        <p class="description green">
           Oferecemos <span class="highlight light">7 cenários</span> modernos e sofisticados, com fundo infinito fotográfico de <span class="highlight light">várias cores</span>, possibilitando diversas opções para seu ensaio.
         </p>
 
@@ -68,7 +68,7 @@
         </NuxtLink>
       </div>
 
-      <div class="slider">
+      <div class="slider" data-ani-type="fade-left">
         <ClientOnly>
           <swiper-container
             class="side wrap-images"

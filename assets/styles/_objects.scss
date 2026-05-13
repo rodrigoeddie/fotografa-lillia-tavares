@@ -2,10 +2,6 @@
 @use "@/assets/styles/_mixins.scss" as m;
 @use "sass:color";
 
-[data-ani-type] {
-  opacity: 0;
-}
-
 .vel-img {
   max-height: 85vh !important;
   max-width: 85vw !important;
@@ -56,86 +52,20 @@
   font-family: v.$lato;
   align-items: center;
   font-weight: 900;
-  font-size: 66rem;
+  font-size: 35rem;
   color: v.$green;
-  flex-wrap: wrap;
-  display: flex;
-  bottom: 2rem;
-  gap: 20rem;
 
   @include m.max(md) {
-    bottom: 2rem;
-  }
-
-  @include m.max(md) {
-    justify-content: center;
+    text-align: center;
     font-size: 17px;
   }
 
-  .box {
-    text-transform: none;
-    padding: 9rem 18rem;
-    align-items: center;
-    font-weight: bold;
-    font-size: 27rem;
-    color: white;
-    display: flex;
-    top: 2rem;
-
-    @include m.max(md) {
-      font-size: 23rem;
-    }
-  }
-
-  .big {
-    line-height: 1em;
-    display: block;
-  }
-
   &.centered {
-    justify-content: center;
-  }
-
-  &.green {
-    color: v.$green;
-
-    // @media (prefers-color-scheme: dark) {
-    //   color: v.$dark-green;
-    // }
-
-    .big {
-      // @include faux-bold(v.$green);
-    }
-
-    .box {
-      color: #f4f2e9;
-      background: v.$green;
-
-      // @media (prefers-color-scheme: dark) {
-      //   background: v.$dark-green;
-      // }
-    }
+    text-align: center;
   }
 
   &.red {
     color: v.$red;
-
-    .big {
-    }
-
-    .box {
-      background: v.$red;
-      color: #f4f2e9;
-    }
-  }
-
-  &.from-studio {
-    color: v.$dark-green;
-
-    .box {
-      background: v.$dark-green;
-      color: white;
-    }
   }
 }
 

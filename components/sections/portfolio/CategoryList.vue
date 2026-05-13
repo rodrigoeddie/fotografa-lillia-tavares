@@ -112,7 +112,7 @@ const formatDate = (dateString: string) => {
       </span>
       <span class="big" v-if="props.category">com esse tema</span>
       <span class="big" v-else-if="currentCategory">{{ currentCategory.title }}</span>
-      <span class="big" v-else>Últimos trabalhos</span>
+      <span class="big" v-else> Últimos trabalhos</span>
     </h1>
 
     <SectionsPortfolioMenuCategories data-ani-type="fade" />

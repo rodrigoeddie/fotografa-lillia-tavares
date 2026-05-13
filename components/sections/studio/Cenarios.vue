@@ -32,7 +32,7 @@
 }
 
 .wrapper {
-    background: rgba(72, 83, 73, 0.2);
+    background: #d7d6cd;
     padding-bottom: 60rem;
     padding-top: 60rem;
     display: block;

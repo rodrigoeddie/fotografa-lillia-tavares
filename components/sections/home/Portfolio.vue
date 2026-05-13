@@ -19,19 +19,19 @@ const currentCategory = computed(() =>
 
 <template>
   <div class="container no-padding">
-    <NuxtLink
-      :to="workPage"
-      :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
-      >
-      <h1 class="big-title green centered">
+    <h1 class="big-title green centered">
+      <NuxtLink
+          :to="workPage"
+          :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
+          >
         <span class="box">
           <span v-if="!currentCategory">Explore meus</span>
           <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
         </span>
-        <span class="big" v-if="!currentCategory">Últimos trabalhos</span>
-        <span class="big" v-if="currentCategory">{{ currentCategory.title }}</span>
-      </h1>
-    </NuxtLink>
+        <span class="big" v-if="!currentCategory"> Últimos trabalhos</span>
+        <span class="big" v-if="currentCategory"> {{ currentCategory.title }}</span>
+      </NuxtLink>
+    </h1>
 
     <div class="wrap-portfolio">
       <template v-for="(item, index) in ensaiosData">
