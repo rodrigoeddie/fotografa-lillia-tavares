@@ -37,4 +37,6 @@ export type {
   Notificacao, PushSubscription,
   LandingPage, LpBlockRow,
   PageSeo,
+  BlogCategoria, BlogCategoriaInsert,
+  PortfolioCategoria, PortfolioCategoriaInsert,
 } from '../db/schema';

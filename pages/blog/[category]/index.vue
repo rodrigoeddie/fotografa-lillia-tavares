@@ -3,20 +3,20 @@ const $route = useRoute();
 const category = $route.params.category as string;
 
 const categoryTitle = BLOG_CATEGORIAS[category] ?? category;
-const categoryDescription = '';
+const fallbackTitle = categoryTitle + ' | BLOG';
 
-const title = categoryTitle + ' | BLOG';
-const description = categoryDescription || 'Blog de Lillia Tavares Fotografia, onde compartilho dicas, histórias e novidades sobre fotografia de ensaio.';
+// SEO via DB — já aplica todos os meta tags reativamente (useSeoMeta + useHead)
+// Deve ser chamado ANTES de qualquer await
+usePageSeo('static', `/blog/${category}`);
 
+// Schema.org estruturado para a página de listagem da categoria
 useSchemaOrg([
   defineWebPage({
     '@type': 'CollectionPage',
-    name: title,
+    name: fallbackTitle,
     url: `https://fotografalilliatavares.com.br/blog/${category}`,
   })
 ]);
-
-useSeoMeta({ title, description });
 
 const { data: rawPosts, refresh: refreshBlog } = await useFetch(`/api/public/blog?categoria=${category}`);
 

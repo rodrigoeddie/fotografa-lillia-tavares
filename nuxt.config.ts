@@ -224,6 +224,7 @@ export default defineNuxtConfig({
         'jszip',
         'swiper/element/bundle',
         'zod',
+        'sweetalert2',
       ]
     },
   },

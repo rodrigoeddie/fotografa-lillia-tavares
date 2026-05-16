@@ -2,22 +2,36 @@
 definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
+const { showConfirm } = useDialog();
 
 const CF_IMG = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
 
 interface ThumbPhoto { id: number; cf_image_id: string; width?: number | null; height?: number | null; }
 interface PortfolioWork { id: number; slug: string; titulo: string; categoria: string; ativo: number; home: number; ordem: number; thumb_photos: ThumbPhoto[]; }
+interface Categoria { id: number; slug: string; titulo: string; }
 
 const works = ref<PortfolioWork[]>([]);
+const categorias = ref<Categoria[]>([]);
 const loading = ref(false);
 const dragIdx = ref<number | null>(null);
 const dragOverIdx = ref<number | null>(null);
+const filterCategoria = ref('');
+
+const filteredWorks = computed(() =>
+  filterCategoria.value
+    ? works.value.filter((w) => w.categoria === filterCategoria.value)
+    : works.value
+);
 
 async function load() {
   loading.value = true;
   try {
-    const data = await adminFetch<PortfolioWork[]>('/api/admin/portfolio');
+    const [data, cats] = await Promise.all([
+      adminFetch<PortfolioWork[]>('/api/admin/portfolio'),
+      adminFetch<Categoria[]>('/api/admin/portfolio/categorias'),
+    ]);
     works.value = [...data].sort((a, b) => a.ordem - b.ordem);
+    categorias.value = cats;
   } catch (e: any) {
     showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');
   } finally {
@@ -25,8 +39,13 @@ async function load() {
   }
 }
 
+function categoriaLabel(slug: string) {
+  return categorias.value.find((c) => c.slug === slug)?.titulo ?? slug;
+}
+
 async function deleteWork(id: number, titulo: string) {
-  if (!confirm(`Excluir "${titulo}"?`)) return;
+  const confirmed = await showConfirm(`Excluir "${titulo}"?`, 'Confirmar exclusão', 'Sim, excluir');
+  if (!confirmed) return;
   try {
     await adminFetch(`/api/admin/portfolio/${id}`, { method: 'DELETE' });
     showMessage('Portfolio removido', 'success');
@@ -88,15 +107,34 @@ onMounted(load);
     <div class="dep-header">
       <div>
         <h2>Portfolio</h2>
-        <p class="dep-meta">{{ works.length }} trabalhos</p>
+        <p class="dep-meta">{{ filteredWorks.length }} trabalhos<span v-if="filterCategoria"> na categoria selecionada</span></p>
       </div>
-      <NuxtLink to="/admin/portfolio/save" class="btn-add-item">+ Novo work</NuxtLink>
+      <div class="header-actions">
+        <NuxtLink to="/admin/portfolio/categorias" class="btn-add-item btn-category"><span class="material-symbols-outlined"> category </span> Categorias</NuxtLink>
+        <NuxtLink to="/admin/portfolio/save" class="btn-add-item"><span class="material-symbols-outlined"> add_2 </span> Novo work</NuxtLink>
+      </div>
     </div>
+
+    <!-- Filtro por categoria -->
+    <div v-if="categorias.length" class="filter-bar">
+      <span class="filter-label">Categoria:</span>
+      <button
+        :class="['filter-btn', filterCategoria === '' ? 'active' : '']"
+        @click="filterCategoria = ''"
+      >Todas</button>
+      <button
+        v-for="cat in categorias"
+        :key="cat.id"
+        :class="['filter-btn', filterCategoria === cat.slug ? 'active' : '']"
+        @click="filterCategoria = cat.slug"
+      >{{ cat.titulo }}</button>
+    </div>
+
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <p v-else-if="works.length === 0" class="list-empty">Nenhum portfolio cadastrado.</p>
+    <p v-else-if="filteredWorks.length === 0" class="list-empty">Nenhum portfolio encontrado.</p>
     <div v-else class="item-list" @dragover.prevent @drop.prevent="onDrop">
       <div
-        v-for="(w, i) in works"
+        v-for="(w, i) in filteredWorks"
         :key="w.id"
         class="item-row"
         :class="{ 'item-drag-over': dragOverIdx === i }"
@@ -108,7 +146,7 @@ onMounted(load);
         <NuxtLink :to="`/admin/portfolio/save/${w.id}`" class="link-row" title="Editar">
           <span class="item-order">{{ i + 1 }}</span>
           <span class="item-title">{{ w.titulo || w.slug }}</span>
-          <span class="item-categoria">{{ w.categoria }}</span>
+          <span class="item-categoria">{{ categoriaLabel(w.categoria) }}</span>
 
           <span v-if="w.thumb_photos?.length" class="item-thumbs">
             <span v-for="foto in w.thumb_photos" :key="foto.id" class="item-thumb-wrap">
@@ -149,6 +187,7 @@ onMounted(load);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
 
 .item-title {
   width: 150px;

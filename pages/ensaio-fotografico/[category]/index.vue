@@ -3,22 +3,20 @@ const route = useRoute()
 const category = route.params.category as string;
 
 const categoryTitle = PORTFOLIO_CATEGORIAS[category] ?? category;
+const fallbackTitle = (categoryTitle ? categoryTitle + ' | ' : '') + 'Ensaios fotográficos profissionais';
 
-const title = (categoryTitle ? categoryTitle + ' | ' : '') + 'Ensaios fotográficos profissionais';
-const description = 'Ao unir o espaço amplo e acolhedor do nosso estúdio, a sensibilidade artística da fotógrafa Lillia Tavares e a beleza única de cada cliente, transformamos cada ensaio em uma experiência verdadeiramente singular.';
+// SEO via DB — já aplica todos os meta tags reativamente (useSeoMeta + useHead)
+// Deve ser chamado ANTES de qualquer await
+usePageSeo('static', `/ensaio-fotografico/${category}`);
 
+// Schema.org estruturado para a página de listagem da categoria
 useSchemaOrg([
   defineWebPage({
     '@type': 'CollectionPage',
-    name: title,
-    url: 'https://fotografalilliatavares.com.br/ensaio-fotografico',
+    name: fallbackTitle,
+    url: 'https://fotografalilliatavares.com.br/ensaio-fotografico/' + category,
   })
 ]);
-
-useSeoMeta({
-  title: title,
-  description: description,
-});
 </script>
 
 <template>

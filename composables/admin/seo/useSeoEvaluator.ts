@@ -145,14 +145,54 @@ export function useSeoEvaluator() {
       }
 
       // Estáticas (todas com entity_type='static')
+      // Exclui páginas de categoria gerenciadas pelo bloco abaixo para evitar duplicatas
+      const categoryRoutePatterns = [/^\/blog\/[^/]+$/, /^\/ensaio-fotografico\/[^/]+$/];
+      const isCategoryRoute = (route: string) => categoryRoutePatterns.some((p) => p.test(route));
+
       for (const s of seoEntries ?? []) {
         if (s.entity_type !== 'static') continue;
+        if (isCategoryRoute(s.route)) continue; // tratadas abaixo com contexto da categoria
         const { issues, score } = evaluateStaticPage({ pageSeo: s });
         next.push({
           id: s.route,
           type: 'static',
           title: s.meta_title || s.route,
           editUrl: `/admin/seo/static-pages/save/${s.id}`,
+          score,
+          issues,
+        });
+      }
+
+      // Páginas de categoria de blog
+      const [blogCats, portfolioCats] = await Promise.all([
+        adminFetch<any[]>('/api/admin/blog/categorias'),
+        adminFetch<any[]>('/api/admin/portfolio/categorias'),
+      ]);
+
+      for (const cat of blogCats ?? []) {
+        const route = `/blog/${cat.slug}`;
+        const pageSeo = seoByEntity.get(`static::${route}`) ?? null;
+        const { issues, score } = evaluateStaticPage({ pageSeo });
+        next.push({
+          id: pageSeo ? pageSeo.id : `cat-blog-${cat.slug}`,
+          type: 'static',
+          title: pageSeo?.meta_title || `${cat.titulo} | BLOG`,
+          editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/new?route=${encodeURIComponent(route)}`,
+          score,
+          issues,
+        });
+      }
+
+      // Páginas de categoria de portfolio/ensaio-fotografico
+      for (const cat of portfolioCats ?? []) {
+        const route = `/ensaio-fotografico/${cat.slug}`;
+        const pageSeo = seoByEntity.get(`static::${route}`) ?? null;
+        const { issues, score } = evaluateStaticPage({ pageSeo });
+        next.push({
+          id: pageSeo ? pageSeo.id : `cat-portfolio-${cat.slug}`,
+          type: 'static',
+          title: pageSeo?.meta_title || `${cat.titulo} | Ensaios fotográficos profissionais`,
+          editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/new?route=${encodeURIComponent(route)}`,
           score,
           issues,
         });
