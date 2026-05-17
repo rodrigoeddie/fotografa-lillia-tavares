@@ -39,4 +39,5 @@ export type {
   PageSeo,
   BlogCategoria, BlogCategoriaInsert,
   PortfolioCategoria, PortfolioCategoriaInsert,
+  HeroBanner, HeroBannerInsert, HeroBannerPage,
 } from '../db/schema';

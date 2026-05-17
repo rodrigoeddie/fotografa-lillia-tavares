@@ -8,6 +8,7 @@ const sections = {
     { label: 'Investimento', description: 'Pacotes e preços', icon: '<span class="material-symbols-outlined"> finance_chip </span>', path: '/admin/investimento' },
     { label: 'Blog', description: 'Posts do blog', icon: '<span class="material-symbols-outlined"> article </span>', path: '/admin/blog' },
     { label: 'FAQ', description: 'Perguntas frequentes', icon: '<span class="material-symbols-outlined"> quiz </span>', path: '/admin/faq' },
+    { label: 'Hero Banners', description: 'Banners de destaque por página', icon: '<span class="material-symbols-outlined"> image </span>', path: '/admin/hero-banners' },
     { label: 'Menu', description: 'Menu de navegação', icon: '<span class="material-symbols-outlined"> menu </span>', path: '/admin/menu' },
   ],
   sistema: [

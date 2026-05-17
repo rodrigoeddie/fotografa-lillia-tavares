@@ -13,6 +13,7 @@
 <template>
   <div class="wrapper-main">
     <TemplatesHeader />
+    <SectionsHero />
     <slot />
     <SectionsFaqDynamic />
     <TemplatesFooter />

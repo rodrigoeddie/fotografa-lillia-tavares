@@ -99,6 +99,7 @@ provide('showMessage', showMessage);
               <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">photo_library</span> Ensaios</NuxtLink>
               <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">folder_zip</span> Entregas</NuxtLink>
               <div class="fs-db-label" style="margin-top:1rem">Site</div>
+              <NuxtLink to="/admin/hero-banners" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">panorama</span> Banners</NuxtLink>
               <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">camera_alt</span> Portfolio</NuxtLink>
               <NuxtLink to="/admin/investimento" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">payments</span> Preços</NuxtLink>
               <NuxtLink to="/admin/depoimentos" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">star</span> Avaliações</NuxtLink>

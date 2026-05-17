@@ -142,7 +142,7 @@ onMounted(init);
       <div class="form-card pages-card">
         <h3 class="form-section-title">Páginas do site</h3>
         <p class="pages-hint">Selecione em quais páginas este grupo de FAQ deve aparecer automaticamente.</p>
-        <AdminRouteMultiSelect v-model="selectedPages" />
+        <AdminRouteSelect2 v-model="selectedPages" />
       </div>
 
       <div class="form-actions">
