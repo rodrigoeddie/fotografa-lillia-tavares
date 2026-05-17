@@ -8,7 +8,7 @@ const idParam = computed(() => {
   return id ? Number(id) : undefined;
 });
 
-const { isEdit, loading, saving, form, perguntas, addPergunta, removePergunta, init, save } = useFaqForm(idParam);
+const { isEdit, loading, saving, form, perguntas, selectedPages, addPergunta, removePergunta, init, save } = useFaqForm(idParam);
 
 // ─── Slug auto-generate ──────────────────────────────────────────────────────
 function generateSlug() {
@@ -139,6 +139,12 @@ onMounted(init);
         </div>
       </div>
 
+      <div class="form-card pages-card">
+        <h3 class="form-section-title">Páginas do site</h3>
+        <p class="pages-hint">Selecione em quais páginas este grupo de FAQ deve aparecer automaticamente.</p>
+        <AdminRouteMultiSelect v-model="selectedPages" />
+      </div>
+
       <div class="form-actions">
         <NuxtLink to="/admin/faq" class="btn-secondary">Cancelar</NuxtLink>
         <button class="btn-primary" :disabled="saving" @click="save(() => router.push('/admin/faq'))">
@@ -204,6 +210,10 @@ onMounted(init);
   padding: 12px 14px; border-top: 1px solid #222;
   display: flex; flex-direction: column; gap: 12px;
 }
+
+// Pages card
+.pages-card { margin-top: 24px; }
+.pages-hint { font-size: 12px; color: #666; margin: 4px 0 12px; }
 
 // Dashed add button
 .btn-add-dashed {

@@ -14,6 +14,7 @@
   <div class="wrapper-main">
     <TemplatesHeader />
     <slot />
+    <SectionsFaqDynamic />
     <TemplatesFooter />
     <TemplatesCookieConsent />
   </div>

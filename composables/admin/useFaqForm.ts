@@ -22,6 +22,9 @@ export function useFaqForm(idParam: Ref<number | undefined>) {
 
   const perguntas = ref<FaqPerguntaForm[]>([]);
 
+  /** Rotas onde esta categoria de FAQ deve aparecer */
+  const selectedPages = ref<string[]>([]);
+
   function addPergunta() {
     perguntas.value.push({ pergunta: '', resposta: '' });
   }
@@ -40,6 +43,9 @@ export function useFaqForm(idParam: Ref<number | undefined>) {
       perguntas.value = (c.perguntas ?? []).map((p: any) => ({
         id: p.id, pergunta: p.pergunta, resposta: p.resposta,
       }));
+      // Carrega páginas associadas
+      const pages = await adminFetch<{ route: string }[]>(`/api/admin/page-faq?faq_slug=${encodeURIComponent(c.slug)}`);
+      selectedPages.value = (pages ?? []).map((p) => p.route);
     } catch (e: any) {
       showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');
       router.push('/admin/faq');
@@ -63,6 +69,11 @@ export function useFaqForm(idParam: Ref<number | undefined>) {
         await adminFetch('/api/admin/faq', { method: 'POST', body });
         showMessage('Categoria criada!', 'success');
       }
+      // Salva as páginas associadas (usa slug atual do form)
+      await adminFetch('/api/admin/page-faq', {
+        method: 'PUT',
+        body: { faq_slug: form.slug, routes: selectedPages.value },
+      });
       onSuccess();
     } catch (e: any) {
       showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
@@ -71,5 +82,5 @@ export function useFaqForm(idParam: Ref<number | undefined>) {
     }
   }
 
-  return { isEdit, loading, saving, form, perguntas, addPergunta, removePergunta, init, save };
+  return { isEdit, loading, saving, form, perguntas, selectedPages, addPergunta, removePergunta, init, save };
 }

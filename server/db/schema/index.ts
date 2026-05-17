@@ -18,3 +18,4 @@ export * from './notificacoes';
 export * from './landing-pages';
 export * from './page-seo';
 export * from './categorias';
+export * from './page-faq';
