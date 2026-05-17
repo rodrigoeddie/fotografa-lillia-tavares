@@ -45,6 +45,11 @@ export function useSwiper(swiperContainerRef: Ref<HTMLElement | null>, options?:
 
   onMounted(() => nextTick(() => _initialize()));
 
+  // Re-initialize when the container element is replaced (e.g. after v-if toggle in a layout)
+  watch(swiperContainerRef, (el, prev) => {
+    if (el && el !== prev) nextTick(() => _initialize());
+  });
+
   return {
     instance: swiper,
     isBeginning,

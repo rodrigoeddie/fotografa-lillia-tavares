@@ -3,24 +3,24 @@ const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
 
 const route = useRoute();
 
-const { data: banners } = await useFetch('/api/public/hero-banners', {
-  query: computed(() => ({ route: route.path })),
-  key: computed(() => `hero-banners-${route.path}`),
-});
-
 interface Banner {
   id: number;
-  titulo: string;
+  titulo: string | null;
   subtitulo: string | null;
   descricao: string | null;
-  bg_image: string | null;
+  bg_image: string;
   bg_image_mobile: string | null;
   cta_nome: string | null;
   cta_url: string | null;
   cta_target: string;
 }
 
-const list = computed<Banner[]>(() => (banners.value as Banner[]) ?? []);
+const { data: banners } = await useFetch<Banner[]>('/api/public/hero-banners', {
+  query: computed(() => ({ route: route.path })),
+  watch: [() => route.path],
+});
+
+const list = computed<Banner[]>(() => banners.value ?? []);
 
 const swiperRef = ref<HTMLElement | null>(null);
 const swiper    = useSwiper(swiperRef, {
