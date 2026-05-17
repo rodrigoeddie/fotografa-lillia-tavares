@@ -145,8 +145,11 @@ onMounted(load);
         <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
         <NuxtLink :to="`/admin/portfolio/save/${w.id}`" class="link-row" title="Editar">
           <span class="item-order">{{ i + 1 }}</span>
-          <span class="item-title">{{ w.titulo || w.slug }}</span>
-          <span class="item-categoria">{{ categoriaLabel(w.categoria) }}</span>
+          <span class="item-title">
+            {{ w.titulo || w.slug }}
+            <br>
+            <span class="item-categoria">{{ categoriaLabel(w.categoria) }}</span>
+          </span>
 
           <span v-if="w.thumb_photos?.length" class="item-thumbs">
             <span v-for="foto in w.thumb_photos" :key="foto.id" class="item-thumb-wrap">

@@ -23,6 +23,7 @@ const editorMap: Record<LpBlockType, ReturnType<typeof resolveComponent>> = {
   coloracao:      resolveComponent('AdminLandingPagesBlocksColoracaoEditor'),
   deliverables:   resolveComponent('AdminLandingPagesBlocksDeliverablesEditor'),
   hubBacklink:    resolveComponent('AdminLandingPagesBlocksHubBacklinkEditor'),
+  faq:            resolveComponent('AdminLandingPagesBlocksFaqEditor'),
 };
 </script>
 

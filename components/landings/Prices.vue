@@ -13,8 +13,8 @@ const pageData = computed(() => {
 });
 </script>
 
-<template >
-    <section class="container" data-ani-type="fade-up">
+<template>
+    <section v-if="pageData" class="container" data-ani-type="fade-up">
       <h1 class="title-lp title-precos">
         Confira nossos preços
       </h1>

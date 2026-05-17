@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useSeoEvaluator } from '~/composables/admin/seo';
+
 definePageMeta({ layout: 'admin' });
 
 const { items, loading, summary, evaluate } = useSeoEvaluator();
@@ -101,7 +103,7 @@ onMounted(evaluate);
       </div>
 
       <!-- List -->
-      <p v-if="filtered.length === 0" class="list-empty">Nenhum item encontrado.</p>
+      <p v-if="!filtered || filtered.length === 0" class="list-empty">Nenhum item encontrado.</p>
       <div v-else class="item-list">
         <div
           v-for="item in filtered"
@@ -113,7 +115,7 @@ onMounted(evaluate);
           <span :class="['score-badge', scoreClass(item.score)]">{{ item.score }}</span>
           <ul class="issues-list">
             <li
-              v-for="(issue, i) in item.issues"
+              v-for="(issue, i) in (item.issues ?? [])"
               :key="i"
               :class="`issue-${issue.severity}`"
             >{{ issue.message }}</li>

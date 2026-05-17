@@ -13,7 +13,7 @@ const idParam = computed(() => {
 const isEdit = computed(() => !!idParam.value && !isNaN(idParam.value as number));
 
 const loading = ref(false);
-const routeInput = ref('');
+const routeInput = ref((route.query.route as string) ?? '');
 const editorRef = ref<{ save: () => Promise<number | null> } | null>(null);
 
 async function init() {

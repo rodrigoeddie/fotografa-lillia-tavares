@@ -67,6 +67,16 @@ function onDrop() {
   dragIdx.value = null; dragOverIdx.value = null;
 }
 
+function moveBlock(i: number, dir: -1 | 1) {
+  const j = i + dir;
+  if (j < 0 || j >= blocks.value.length) return;
+  const list = [...blocks.value];
+  [list[i], list[j]] = [list[j]!, list[i]!];
+  blocks.value = list.map((b, idx) => ({ ...b, ordem: idx }));
+  if (expandedIdx.value === i) expandedIdx.value = j;
+  else if (expandedIdx.value === j) expandedIdx.value = i;
+}
+
 function defaultDataFor(tipo: LpBlockType): any {
   switch (tipo) {
     case 'hero':            return { variant: 'corporativo' };
@@ -82,6 +92,7 @@ function defaultDataFor(tipo: LpBlockType): any {
     case 'coloracao':       return {};
     case 'deliverables':    return { title: '', description: '', items: [] };
     case 'hubBacklink':     return { text: '', linkLabel: '', linkTo: '' };
+    case 'faq':             return { slug: '' };
     default:                return {};
   }
 }
@@ -103,6 +114,7 @@ function summary(b: { tipo: string; dados: any }): string {
     case 'coloracao':      return d.title?.slice(0, 60) ?? '(padrão)';
     case 'deliverables':   return `${d.title?.slice(0, 40) ?? ''} (${d.items?.length ?? 0} cards)`;
     case 'hubBacklink':    return `${d.linkLabel ?? ''} → ${d.linkTo ?? ''}`;
+    case 'faq':            return `categoria: ${d.slug ?? '?'}`;
     default:               return '';
   }
 }
@@ -128,11 +140,18 @@ function summary(b: { tipo: string; dados: any }): string {
         @dragover.prevent="(e) => onDragOver(e, i)"
       >
         <div class="block-summary" @click="toggleExpand(i)">
-          <span class="dep-drag-handle" title="Arrastar para reordenar">⠿</span>
           <span class="item-order">{{ i + 1 }}</span>
           <span class="item-title">{{ b.tipo }}</span>
           <span class="item-meta">{{ summary(b) }}</span>
           <span v-if="validationError[i]" class="validation-pill" title="Erro de validação">⚠</span>
+          <div class="block-move-btns" @click.stop>
+            <button type="button" class="btn-icon" :disabled="i === 0" @click="moveBlock(i, -1)" title="Mover para cima">
+              <span class="material-symbols-outlined">arrow_upward</span>
+            </button>
+            <button type="button" class="btn-icon" :disabled="i === blocks.length - 1" @click="moveBlock(i, 1)" title="Mover para baixo">
+              <span class="material-symbols-outlined">arrow_downward</span>
+            </button>
+          </div>
           <button type="button" class="btn-icon btn-danger" @click.stop="removeBlock(i)">
             <span class="material-symbols-outlined">delete</span>
           </button>
@@ -209,6 +228,25 @@ function summary(b: { tipo: string; dados: any }): string {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+}
+
+.block-move-btns {
+  display: flex;
+  gap: 2rem;
+
+  .btn-icon {
+    padding: 2rem;
+    opacity: 0.6;
+
+    &:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      opacity: 1;
+    }
   }
 }
 

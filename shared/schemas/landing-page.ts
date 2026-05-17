@@ -111,6 +111,10 @@ export const HubBacklinkDataSchema = z.object({
   linkTo:    z.string(),
 });
 
+export const FaqDataSchema = z.object({
+  slug: z.string().min(1),
+});
+
 // ── discriminated union ──────────────────────────────────────
 export const BlockSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('hero'),          ordem: z.number().int().min(0), dados: HeroDataSchema }),
@@ -126,6 +130,7 @@ export const BlockSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('coloracao'),     ordem: z.number().int().min(0), dados: ColoracaoDataSchema }),
   z.object({ tipo: z.literal('deliverables'),  ordem: z.number().int().min(0), dados: DeliverablesDataSchema }),
   z.object({ tipo: z.literal('hubBacklink'),   ordem: z.number().int().min(0), dados: HubBacklinkDataSchema }),
+  z.object({ tipo: z.literal('faq'),           ordem: z.number().int().min(0), dados: FaqDataSchema }),
 ]);
 
 export const BlocksReplaceSchema = z.array(BlockSchema).max(40);
@@ -147,5 +152,5 @@ export type LandingPageInput = z.infer<typeof LandingPageInputSchema>;
 
 export const LP_BLOCK_TYPES: LpBlockType[] = [
   'hero', 'heroPresentes', 'forWho', 'howWorks', 'prices', 'testimonials',
-  'ctaContact', 'map', 'portfolioGrid', 'giftGrid', 'coloracao', 'deliverables', 'hubBacklink',
+  'ctaContact', 'map', 'portfolioGrid', 'giftGrid', 'coloracao', 'deliverables', 'hubBacklink', 'faq',
 ];

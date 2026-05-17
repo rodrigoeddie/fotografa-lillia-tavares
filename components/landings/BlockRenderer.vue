@@ -26,6 +26,7 @@ const componentMap: Record<LpBlock['tipo'], Component | string> = {
   coloracao:      resolveComponent('LandingsColoracao'),
   deliverables:   resolveComponent('LandingsDeliverables'),
   hubBacklink:    resolveComponent('LandingsHubBacklink'),
+  faq:            resolveComponent('LandingsFaq'),
 };
 </script>
 

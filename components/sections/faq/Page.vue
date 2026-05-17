@@ -26,7 +26,7 @@ if (!rawFaq.value) {
         <p class="description">Tire suas dúvidas sobre ensaios fotográficos, pacotes, agendamento e muito mais.</p>
       </header>
 
-      <SectionsFaqSection :categories="categories" />
+      <SectionsFaqSection :categories="categories" slug="all" />
     </div>
   </div>
 </template>

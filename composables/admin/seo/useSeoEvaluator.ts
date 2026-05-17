@@ -146,7 +146,7 @@ export function useSeoEvaluator() {
 
       // Estáticas (todas com entity_type='static')
       // Exclui páginas de categoria gerenciadas pelo bloco abaixo para evitar duplicatas
-      const categoryRoutePatterns = [/^\/blog\/[^/]+$/, /^\/ensaio-fotografico\/[^/]+$/];
+      const categoryRoutePatterns = [/^\/blog\/[^\/]+$/, /^\/ensaio-fotografico\/[^\/]+$/];
       const isCategoryRoute = (route: string) => categoryRoutePatterns.some((p) => p.test(route));
 
       for (const s of seoEntries ?? []) {
@@ -172,12 +172,12 @@ export function useSeoEvaluator() {
       for (const cat of blogCats ?? []) {
         const route = `/blog/${cat.slug}`;
         const pageSeo = seoByEntity.get(`static::${route}`) ?? null;
-        const { issues, score } = evaluateStaticPage({ pageSeo });
+        const { issues, score } = evaluateStaticPage({ pageSeo: pageSeo ?? emptyPageSeo(route) });
         next.push({
           id: pageSeo ? pageSeo.id : `cat-blog-${cat.slug}`,
           type: 'static',
           title: pageSeo?.meta_title || `${cat.titulo} | BLOG`,
-          editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/new?route=${encodeURIComponent(route)}`,
+          editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/save?route=${encodeURIComponent(route)}`,
           score,
           issues,
         });
@@ -187,12 +187,12 @@ export function useSeoEvaluator() {
       for (const cat of portfolioCats ?? []) {
         const route = `/ensaio-fotografico/${cat.slug}`;
         const pageSeo = seoByEntity.get(`static::${route}`) ?? null;
-        const { issues, score } = evaluateStaticPage({ pageSeo });
+        const { issues, score } = evaluateStaticPage({ pageSeo: pageSeo ?? emptyPageSeo(route) });
         next.push({
           id: pageSeo ? pageSeo.id : `cat-portfolio-${cat.slug}`,
           type: 'static',
           title: pageSeo?.meta_title || `${cat.titulo} | Ensaios fotográficos profissionais`,
-          editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/new?route=${encodeURIComponent(route)}`,
+          editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/save?route=${encodeURIComponent(route)}`,
           score,
           issues,
         });
@@ -208,3 +208,16 @@ export function useSeoEvaluator() {
 }
 
 function safeJson(s: string) { try { return JSON.parse(s); } catch { return {}; } }
+
+/** Objeto sentinela para páginas sem registro page_seo — gera score 0. */
+function emptyPageSeo(route: string) {
+  return {
+    route,
+    meta_title: null,
+    meta_description: null,
+    og_image_cf_id: null,
+    canonical: null,
+    keywords: null,
+    focus_keyword: null,
+  };
+}

@@ -4,6 +4,7 @@
 
 # ToDo
 - em depoimentos na home, adicionar botão ver todos os depoimentos
+- adicionar linha historica no sobre
 
 -----
 

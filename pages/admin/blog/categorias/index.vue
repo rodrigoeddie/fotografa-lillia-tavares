@@ -105,6 +105,20 @@ async function saveEdit(cat: BlogCategoria) {
   }
 }
 
+async function toggleAtivo(cat: CategoriaDetail) {
+  const prev = cat.ativo;
+  cat.ativo = prev ? 0 : 1;
+  try {
+    await adminFetch(`/api/admin/blog/categorias/${cat.id}`, {
+      method: 'PUT',
+      body: { titulo: cat.titulo, descricao: cat.descricao, ordem: cat.ordem, ativo: !!cat.ativo },
+    });
+  } catch (e: any) {
+    cat.ativo = prev;
+    showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
+  }
+}
+
 async function deleteCategoria(cat: BlogCategoria) {
   // Primeiro, carrega os posts vinculados para informar o usuário
   let posts: { id: number; titulo: string; slug: string }[] = [];
@@ -196,9 +210,10 @@ onMounted(load);
               <span class="item-title">{{ cat.titulo }}</span>
               <span class="item-sub">{{ cat.slug }}</span>
             </div>
-            <span :class="['status-pill', cat.ativo ? 'active' : 'inactive']">
-              {{ cat.ativo ? 'Ativo' : 'Inativo' }}
-            </span>
+            <label class="switch" :title="cat.ativo ? 'Desativar' : 'Ativar'">
+              <input type="checkbox" :checked="!!cat.ativo" @change="toggleAtivo(cat)" />
+              <span class="slider" />
+            </label>
             <div class="item-actions">
               <button class="btn-icon" @click="startEdit(cat)" title="Editar">✏ Editar</button>
               <button class="btn-icon btn-danger" @click="deleteCategoria(cat)" title="Deletar">🗑 Deletar</button>
@@ -216,10 +231,11 @@ onMounted(load);
                 <label>Ordem</label>
                 <input v-model.number="formEdit.ordem" type="number" min="0" />
               </div>
-              <div class="form-field form-field--check">
-                <label>
+              <div class="form-field">
+                <label>Ativo</label>
+                <label class="switch" style="margin-top: 4px">
                   <input type="checkbox" v-model="formEdit.ativo" />
-                  Ativo
+                  <span class="slider" />
                 </label>
               </div>
               <div class="form-field form-field--full">

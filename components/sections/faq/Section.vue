@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   categories: {
     type: Array,
@@ -7,14 +7,24 @@ const props = defineProps({
   showAllOpen: {
     type: Boolean,
     default: false
+  },
+  slug: {
+    type: String,
+    default: 'all'
   }
 });
+
+const visibleCategories = computed(() =>
+  props.slug === 'all'
+    ? props.categories
+    : props.categories.filter((c: any) => c.slug === props.slug)
+);
 </script>
 
 <template>
   <div class="faq-section">
     <div 
-      v-for="(category, catIndex) in categories" 
+      v-for="(category, catIndex) in visibleCategories" 
       :key="category.slug"
       class="faq-category"
     >

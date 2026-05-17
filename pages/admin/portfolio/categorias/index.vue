@@ -102,6 +102,20 @@ async function saveEdit(cat: PortfolioCategoria) {
   }
 }
 
+async function toggleAtivo(cat: CategoriaDetail) {
+  const prev = cat.ativo;
+  cat.ativo = prev ? 0 : 1;
+  try {
+    await adminFetch(`/api/admin/portfolio/categorias/${cat.id}`, {
+      method: 'PUT',
+      body: { titulo: cat.titulo, descricao: cat.descricao, ordem: cat.ordem, ativo: !!cat.ativo },
+    });
+  } catch (e: any) {
+    cat.ativo = prev;
+    showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
+  }
+}
+
 async function deleteCategoria(cat: PortfolioCategoria) {
   let works: { id: number; titulo: string | null; slug: string }[] = [];
   try {
@@ -192,12 +206,13 @@ onMounted(load);
               <span class="item-title">{{ cat.titulo }}</span>
               <span class="item-sub">{{ cat.slug }}</span>
             </div>
-            <span :class="['status-pill', cat.ativo ? 'active' : 'inactive']">
-              {{ cat.ativo ? 'Ativo' : 'Inativo' }}
-            </span>
+            <label class="switch" :title="cat.ativo ? 'Desativar' : 'Ativar'">
+              <input type="checkbox" :checked="!!cat.ativo" @change="toggleAtivo(cat)" />
+              <span class="slider" />
+            </label>
             <div class="item-actions">
-              <button class="btn-icon" @click="startEdit(cat)" title="Editar">✏ Editar</button>
-              <button class="btn-icon btn-danger" @click="deleteCategoria(cat)" title="Deletar">🗑 Deletar</button>
+              <button class="btn-icon" @click="startEdit(cat)" title="Editar"><span class="material-symbols-outlined"> edit </span> Editar</button>
+              <button class="btn-icon btn-danger" @click="deleteCategoria(cat)" title="Deletar"><span class="material-symbols-outlined"> delete </span> Deletar</button>
             </div>
           </template>
 
@@ -212,10 +227,11 @@ onMounted(load);
                 <label>Ordem</label>
                 <input v-model.number="formEdit.ordem" type="number" min="0" />
               </div>
-              <div class="form-field form-field--check">
-                <label>
+              <div class="form-field">
+                <label>Ativo</label>
+                <label class="switch" style="margin-top: 4px">
                   <input type="checkbox" v-model="formEdit.ativo" />
-                  Ativo
+                  <span class="slider" />
                 </label>
               </div>
               <div class="form-field form-field--full">
@@ -327,7 +343,7 @@ onMounted(load);
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 12px 6px;
 }
 
 .cat-link {
