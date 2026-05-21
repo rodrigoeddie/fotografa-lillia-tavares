@@ -13,8 +13,9 @@ import { spawnSync } from 'node:child_process';
 const D1_DIR = '.wrangler/state/v3/d1/miniflare-D1DatabaseObject';
 const BACKUPS_DIR = 'scripts/backups';
 
-// Tabelas internas do SQLite/Wrangler a excluir do dump
-const SKIP_TABLES = new Set(['_cf_KV', 'd1_migrations', 'sqlite_sequence']);
+// Tabelas internas do SQLite/Wrangler/D1 a excluir do dump
+const SKIP_TABLES = new Set(['_cf_KV', '_cf_METADATA', 'd1_migrations', 'sqlite_sequence']);
+const SKIP_PREFIX = /^_cf_/i;
 
 const files = readdirSync(D1_DIR).filter(
   (f) => f.endsWith('.sqlite') && !f.startsWith('metadata'),
@@ -26,7 +27,7 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-const dbFile = join(D1_DIR, files[0]);
+const dbFile = join(D1_DIR, files[0]!);
 
 // Nome customizado via --name <slug>
 const nameIdx = process.argv.indexOf('--name');
@@ -53,8 +54,9 @@ const filtered: string[] = [];
 
 for (const line of lines) {
   // Detecta início de CREATE TABLE ou INSERT INTO para tabela interna
-  const tableMatch = line.match(/^(?:CREATE TABLE|INSERT INTO) "?(\w+)"?/i);
-  if (tableMatch && SKIP_TABLES.has(tableMatch[1])) {
+  const tableMatch = line.match(/^(?:CREATE TABLE(?: IF NOT EXISTS)?|INSERT INTO) [`"']?(\w+)[`"']?/i);
+  const tableName = tableMatch?.[2] ?? '';
+  if (tableName && (SKIP_TABLES.has(tableName) || SKIP_PREFIX.test(tableName))) {
     skipUntilSemicolon = true;
   }
   if (skipUntilSemicolon) {

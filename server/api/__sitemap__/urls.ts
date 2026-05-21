@@ -21,12 +21,19 @@ const STATIC_ROUTES = [
 ];
 
 export default defineEventHandler(async (event) => {
-  const orm = getOrm(event);
   const urls: { loc: string; lastmod?: string }[] = [];
 
   // Estáticas
   for (const path of STATIC_ROUTES) {
     urls.push({ loc: `${SITE_URL}${path}` });
+  }
+
+  // DB não disponível durante build — retorna só rotas estáticas
+  let orm: ReturnType<typeof getOrm>;
+  try {
+    orm = getOrm(event);
+  } catch {
+    return urls;
   }
 
   // Landing Pages ativas (vindas do DB)

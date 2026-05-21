@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 const isMobile = ref(false);
 
-const { data: menu } = await useAsyncData('menu', () =>
-  $fetch<{ label: string; path: string; blank: boolean }[]>('/api/public/menu')
-);
+const { data: menu } = await useFetch<{ label: string; path: string; blank: boolean }[]>('/api/public/menu', {
+  key: 'menu',
+});
 
 onMounted(() => {
   if (process.client) {

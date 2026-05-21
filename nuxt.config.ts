@@ -261,37 +261,25 @@ export default defineNuxtConfig({
     },
 
     prerender: {
-      crawlLinks: true,
+      crawlLinks: false,
       failOnError: false,
-      routes: [
-        '/',
-        '/blog',
-        '/ensaio-fotografico',
-        '/estudio',
-        '/estudio/cenarios',
-      ],
-      ignore: [
-        /^\/precos-ensaios-fotograficos\/.+/
-      ]
+      routes: [],
     },
 
     routeRules: {
-      '/': { 
-        prerender: true,
+      '/': {
         headers: {
-          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600'
         }
       },
-      '/blog/**': { 
-        prerender: true,
+      '/blog/**': {
         headers: {
-          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600'
         }
       },
-      '/ensaio-fotografico/**': { 
-        prerender: true,
+      '/ensaio-fotografico/**': {
         headers: {
-          'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600'
         }
       },
       '/admin/**': {
