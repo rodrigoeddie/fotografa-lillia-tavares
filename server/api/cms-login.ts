@@ -6,10 +6,10 @@ import { signAdminToken } from '~/server/utils/admin-jwt';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { password } = body ?? {};
+  const { email, password } = body ?? {};
 
-  if (!password) {
-    throw createError({ statusCode: 400, statusMessage: 'Senha obrigatória' });
+  if (!email || !password) {
+    throw createError({ statusCode: 400, statusMessage: 'Email e senha obrigatórios' });
   }
 
   const secret = process.env.CLIENT_JWT_SECRET;
@@ -17,10 +17,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
   }
 
-  const admin = await new AdminUserService(getOrm(event)).getByUsername('admin');
+  // Resposta genérica para não revelar informações
+  const invalid = () => createError({ statusCode: 401, statusMessage: 'Email ou senha incorretos' });
 
-  // Resposta genérica para não revelar se o usuário existe
-  const invalid = () => createError({ statusCode: 401, statusMessage: 'Senha incorreta' });
+  const admin = await new AdminUserService(getOrm(event)).getByEmail(email);
 
   if (!admin) throw invalid();
 

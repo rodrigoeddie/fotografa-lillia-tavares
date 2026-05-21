@@ -1,4 +1,4 @@
-import { eq, sql, count } from 'drizzle-orm';
+import { eq, count } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import { admin_users } from '~/server/db/schema';
 
@@ -7,6 +7,11 @@ export class AdminUserService {
 
   async getByUsername(username: string) {
     const [row] = await this.db.select().from(admin_users).where(eq(admin_users.username, username));
+    return row ?? null;
+  }
+
+  async getByEmail(email: string) {
+    const [row] = await this.db.select().from(admin_users).where(eq(admin_users.email, email.toLowerCase()));
     return row ?? null;
   }
 

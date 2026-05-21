@@ -22,6 +22,13 @@
       "when": 1778589281345,
       "tag": "0002_odd_swordsman",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1748390400000,
+      "tag": "0003_admin_users_email",
+      "breakpoints": true
     }
   ]
 }

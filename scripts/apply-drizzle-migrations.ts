@@ -52,14 +52,36 @@ await mkdir(tmpDir, { recursive: true });
 for (const f of files) {
   const srcPath = join(dir, f);
   const original = await readFile(srcPath, 'utf8');
-  const patched = makeIdempotent(original);
-  const tmpPath = join(tmpDir, srcPath.replace(/[/\\]/g, '_'));
-  await writeFile(tmpPath, patched);
-  console.log(`→ Applying ${f} (${flag}, idempotent)`);
-  const res = spawnSync('wrangler', ['d1', 'execute', dbName, flag, `--file=${tmpPath}`], { stdio: 'inherit' });
-  if (res.status !== 0) {
-    console.error(`✗ Failed to apply ${f}`);
-    process.exit(res.status ?? 1);
+  const statements = original
+    .split(/--> statement-breakpoint/i)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  console.log(`→ Applying ${f} (${flag}, idempotent, ${statements.length} statement(s))`);
+
+  for (const stmt of statements) {
+    const patched = makeIdempotent(stmt);
+    const isAlterAdd = /ALTER TABLE .+ ADD\s+(?:COLUMN\s+)?`/i.test(patched);
+    const tmpPath = join(tmpDir, `stmt_${Date.now()}_${Math.random().toString(36).slice(2)}.sql`);
+    await writeFile(tmpPath, patched);
+
+    const res = spawnSync('wrangler', ['d1', 'execute', dbName, flag, `--file=${tmpPath}`], {
+      stdio: isAlterAdd ? 'pipe' : 'inherit',
+    });
+
+    if (res.status !== 0) {
+      if (isAlterAdd) {
+        const out = (res.stdout?.toString() ?? '') + (res.stderr?.toString() ?? '');
+        if (/duplicate column|already exists/i.test(out)) {
+          console.log(`  ⚠ Column already exists, skipping: ${patched.slice(0, 80).trim()}`);
+          continue;
+        }
+        process.stdout.write(res.stdout ?? '');
+        process.stderr.write(res.stderr ?? '');
+      }
+      console.error(`✗ Failed to apply ${f}`);
+      process.exit(res.status ?? 1);
+    }
   }
 }
 console.log(`✓ ${files.length} drizzle migration(s) applied (${flag})`);

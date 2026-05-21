@@ -52,16 +52,41 @@ function makeIdempotent(sql: string): string {
 
 async function runDrizzle(srcPath: string) {
   const original = await readFile(srcPath, 'utf8');
-  const patched = makeIdempotent(original);
+  // Divide por statement-breakpoint do drizzle-kit para tratar cada DDL separado
+  const statements = original
+    .split(/--> statement-breakpoint/i)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
   const tmpDir = join(tmpdir(), 'drizzle-apply');
   await mkdir(tmpDir, { recursive: true });
-  const tmpPath = join(tmpDir, srcPath.replace(/[/\\]/g, '_'));
-  await writeFile(tmpPath, patched);
-  console.log(`→ ${srcPath} (${flag}, idempotent)`);
-  const res = spawnSync('wrangler', ['d1', 'execute', dbName, flag, `--file=${tmpPath}`], { stdio: 'inherit' });
-  if (res.status !== 0) {
-    console.error(`✗ Falhou em ${srcPath}`);
-    process.exit(res.status ?? 1);
+
+  console.log(`→ ${srcPath} (${flag}, idempotent, ${statements.length} statement(s))`);
+
+  for (const stmt of statements) {
+    const patched = makeIdempotent(stmt);
+    const isAlterAdd = /ALTER TABLE .+ ADD\s+(?:COLUMN\s+)?`/i.test(patched);
+    const tmpPath = join(tmpDir, `stmt_${Date.now()}_${Math.random().toString(36).slice(2)}.sql`);
+    await writeFile(tmpPath, patched);
+
+    const res = spawnSync('wrangler', ['d1', 'execute', dbName, flag, `--file=${tmpPath}`], {
+      stdio: isAlterAdd ? 'pipe' : 'inherit',
+    });
+
+    if (res.status !== 0) {
+      if (isAlterAdd) {
+        const out = (res.stdout?.toString() ?? '') + (res.stderr?.toString() ?? '');
+        if (/duplicate column|already exists/i.test(out)) {
+          console.log(`  ⚠ Coluna já existe, ignorando: ${patched.slice(0, 80).trim()}`);
+          continue;
+        }
+        // Erro real — mostrar output e falhar
+        process.stdout.write(res.stdout ?? '');
+        process.stderr.write(res.stderr ?? '');
+      }
+      console.error(`✗ Falhou em ${srcPath}`);
+      process.exit(res.status ?? 1);
+    }
   }
 }
 

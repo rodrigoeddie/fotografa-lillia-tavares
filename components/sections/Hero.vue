@@ -92,7 +92,7 @@ const swiper    = useSwiper(swiperRef, {
 <style scoped lang="scss">
 .hero-banners {
   width: 100%;
-  bottom: 25rem;
+  margin-bottom: 25rem;
 }
 
 .hero-swiper {

@@ -5,7 +5,7 @@ useHead({
   link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block' }],
 });
 
-const { authenticated, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
+const { authenticated, loginEmail, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
 const { adminFetch } = useAdminFetch();
 
@@ -39,7 +39,8 @@ provide('showMessage', showMessage);
   <div v-if="!authenticated" class="login-screen">
     <form class="login-box" @submit.prevent="handleLogin">
       <h1>Administração</h1>
-      <input v-model="loginPassword" type="password" placeholder="Senha" autofocus autocomplete="current-password" />
+      <input v-model="loginEmail" type="email" placeholder="Email" autofocus autocomplete="email" />
+      <input v-model="loginPassword" type="password" placeholder="Senha" autocomplete="current-password" />
       <button type="submit" :disabled="loginLoading">{{ loginLoading ? 'Verificando...' : 'Entrar' }}</button>
       <p v-if="loginError" class="login-error">{{ loginError }}</p>
     </form>

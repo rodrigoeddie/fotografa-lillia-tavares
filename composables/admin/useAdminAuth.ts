@@ -15,6 +15,7 @@ export function useAdminAuth() {
   const tokenCookie    = useCookie(COOKIE_NAME, { maxAge: COOKIE_MAX_AGE, sameSite: 'strict', path: '/' });
   const authenticated  = computed(() => !!tokenCookie.value && !tokenIsExpired(tokenCookie.value));
 
+  const loginEmail    = ref('');
   const loginPassword = ref('');
   const loginError    = ref('');
   const loginLoading  = ref(false);
@@ -25,13 +26,13 @@ export function useAdminAuth() {
     try {
       const res = await $fetch<{ success: boolean; token: string }>('/api/cms-login', {
         method: 'POST',
-        body: { password: loginPassword.value },
+        body: { email: loginEmail.value, password: loginPassword.value },
       });
       if (res.success) {
         tokenCookie.value = res.token;
       }
     } catch {
-      loginError.value = 'Senha incorreta';
+      loginError.value = 'Email ou senha incorretos';
     } finally {
       loginLoading.value = false;
     }
@@ -44,6 +45,7 @@ export function useAdminAuth() {
   return {
     authenticated,
     cmsToken: tokenCookie,
+    loginEmail,
     loginPassword,
     loginError,
     loginLoading,

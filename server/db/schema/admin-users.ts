@@ -4,6 +4,7 @@ import { sql } from 'drizzle-orm';
 export const admin_users = sqliteTable('admin_users', {
   id:            integer().primaryKey({ autoIncrement: true }),
   username:      text().notNull().unique(),
+  email:         text(),
   password_hash: text().notNull(),
   salt:          text().notNull(),
   created_at:    text().notNull().default(sql`(datetime('now'))`),
