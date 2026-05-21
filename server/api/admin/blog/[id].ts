@@ -2,6 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod, getRouterParam } 
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { BlogService } from '~/server/services/BlogService';
+import { deleteCfImages } from '~/server/utils/delete-cf-images';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -51,6 +52,7 @@ export default defineEventHandler(async (event) => {
   if (getMethod(event) === 'DELETE') {
     const post = await svc.getById(id);
     if (!post) throw createError({ statusCode: 404, statusMessage: 'Post não encontrado' });
+    await deleteCfImages(event, [post.imagem_cf_id]);
     await svc.delete(id);
     return { success: true };
   }

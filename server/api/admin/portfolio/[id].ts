@@ -2,6 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod, getRouterParam } 
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { PortfolioService } from '~/server/services/PortfolioService';
+import { deleteCfImages } from '~/server/utils/delete-cf-images';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -75,6 +76,8 @@ export default defineEventHandler(async (event) => {
   if (getMethod(event) === 'DELETE') {
     const work = await svc.getById(id);
     if (!work) throw createError({ statusCode: 404, statusMessage: 'Portfolio work não encontrado' });
+    const fotos = await svc.listFotosByWork(id);
+    await deleteCfImages(event, fotos.map((f) => f.cf_image_id));
     await svc.delete(id);
     return { success: true };
   }

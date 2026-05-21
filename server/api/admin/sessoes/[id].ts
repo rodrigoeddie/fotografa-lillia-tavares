@@ -2,6 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod, getRouterParam } 
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm, type Sessao } from '~/server/utils/d1-client';
 import { SessaoService } from '~/server/services/SessaoService';
+import { deleteCfImages } from '~/server/utils/delete-cf-images';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -43,6 +44,8 @@ export default defineEventHandler(async (event) => {
   if (getMethod(event) === 'DELETE') {
     const sessao = await svc.getById(id);
     if (!sessao) throw createError({ statusCode: 404, statusMessage: 'Sessão não encontrada' });
+    const fotos = await svc.listFotos(id);
+    await deleteCfImages(event, fotos.map((f) => f.cloudflare_image_id));
     await svc.delete(id);
     return { success: true };
   }

@@ -2,6 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod, getRouterParam } 
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { HeroBannerService } from '~/server/services/HeroBannerService';
+import { deleteCfImages } from '~/server/utils/delete-cf-images';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -46,6 +47,7 @@ export default defineEventHandler(async (event) => {
   if (getMethod(event) === 'DELETE') {
     const existing = await svc.getBannerById(id);
     if (!existing) throw createError({ statusCode: 404, statusMessage: 'Banner não encontrado' });
+    await deleteCfImages(event, [existing.bg_image, existing.bg_image_mobile]);
     await svc.deleteBanner(id);
     return { success: true };
   }

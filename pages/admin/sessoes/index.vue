@@ -6,9 +6,17 @@ const { showConfirm } = useDialog();
 const cfURI = useRuntimeConfig().public.cloudflareURI;
 
 interface Sessao {
-  id: number; cliente_id: number; nome_sessao: string; produto_tipo: string;
-  pacote_index: number; fotos_incluidas: number; preco_foto_extra: number;
-  status: string; criado_em: string; cliente_nome: string; cliente_email: string;
+  id: number;
+  cliente_id: number;
+  nome_sessao: string;
+  produto_tipo: string;
+  pacote_index: number;
+  fotos_incluidas: number;
+  preco_foto_extra: number;
+  status: string;
+  criado_em: string;
+  cliente_nome: string;
+  cliente_email: string;
   primeira_foto_id: string | null;
 }
 
