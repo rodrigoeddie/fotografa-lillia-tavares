@@ -66,7 +66,7 @@ export function adaptPortfolioWork(w: any) {
           text: w.depoimento?.texto ?? w.depoimento_texto,
           avatar: w.depoimento?.foto_cf_id ?? w.depoimento_avatar ?? '',
           link: w.depoimento?.link ?? w.depoimento_link ?? '',
-          date: w.depoimento?.data ?? '',
+          data: w.depoimento?.data ?? '',
           rating: Number(w.depoimento?.rating ?? 5),
           source: 'Google',
         }
@@ -139,7 +139,6 @@ export function adaptDepoimento(d: any) {
     name: d.nome,
     text: d.texto,
     photo: d.foto_cf_id ?? '',
-    date: d.data ?? '',
     source: 'Google',
     rating: Number(d.rating ?? 5),
   };

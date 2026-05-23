@@ -56,7 +56,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
             </div>
             <div class="review-card__meta">
               <strong class="review-card__name">{{ review.name }}</strong>
-              <span class="review-card__date">{{ review.date }}</span>
+              <span class="review-card__date">{{ review.data }}</span>
             </div>
 
             <div class="review-card__google">

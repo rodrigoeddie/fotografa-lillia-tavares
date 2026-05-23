@@ -17,7 +17,6 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
     artigo: 'a' as 'a' | 'o',
     data: '',
     local: '',
-    depoimento_id: null as number | null,
     depoimento_texto: '',
     depoimento_avatar: '',
     depoimento_link: '',
@@ -45,7 +44,6 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
       form.artigo = (w.artigo === 'o' ? 'o' : 'a') as 'a' | 'o';
       form.data = w.data ?? '';
       form.local = w.local ?? '';
-      form.depoimento_id = w.depoimento_id ?? null;
       form.depoimento_texto = w.depoimento_texto ?? '';
       form.depoimento_avatar = w.depoimento_avatar ?? '';
       form.depoimento_link = w.depoimento_link ?? '';

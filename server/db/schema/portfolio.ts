@@ -1,5 +1,4 @@
 import { sqliteTable, integer, text, index } from 'drizzle-orm/sqlite-core';
-import { depoimentos } from './depoimentos';
 
 export const portfolio_works = sqliteTable('portfolio_works', {
   id:                 integer().primaryKey({ autoIncrement: true }),
@@ -8,7 +7,6 @@ export const portfolio_works = sqliteTable('portfolio_works', {
   titulo:             text(),
   data:               text(),
   local:              text(),
-  depoimento_id:      integer().references(() => depoimentos.id),
   depoimento_texto:   text(),
   depoimento_avatar:  text(),
   depoimento_link:    text(),

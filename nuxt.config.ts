@@ -112,11 +112,10 @@ export default defineNuxtConfig({
     'nuxt-easy-lightbox',
     'nuxt-schema-org',
     '@nuxtjs/device',
-    '@nuxt/content',
+    '@nuxt/scripts',
     '@nuxtjs/seo',
     '@nuxt/image',
     '@nuxt/icon',
-    '@nuxt/scripts'
   ],
 
   robots: {

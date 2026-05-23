@@ -35,14 +35,15 @@ export class PortfolioService {
     return enriched ?? null;
   }
 
-  async #embedDepoimentos<T extends { depoimento_id: number | null }>(works: T[]) {
-    const ids = works.map(w => w.depoimento_id).filter((id): id is number => id != null);
-    if (ids.length === 0) return works.map(w => ({ ...w, depoimento: null }));
-    const deps = await this.db.select().from(depoimentos).where(inArray(depoimentos.id, ids));
-    const depMap = new Map(deps.map(d => [d.id, d]));
+  async #embedDepoimentos<T extends { slug: string }>(works: T[]) {
+    const slugs = works.map(w => w.slug).filter(Boolean);
+    if (slugs.length === 0) return works.map(w => ({ ...w, depoimento: null }));
+    const deps = await this.db.select().from(depoimentos)
+      .where(inArray(depoimentos.portfolio_link, slugs));
+    const depMap = new Map(deps.map(d => [d.portfolio_link, d]));
     return works.map(w => ({
       ...w,
-      depoimento: w.depoimento_id ? (depMap.get(w.depoimento_id) ?? null) : null,
+      depoimento: depMap.get(w.slug) ?? null,
     }));
   }
 
