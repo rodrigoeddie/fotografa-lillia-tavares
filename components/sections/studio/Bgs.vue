@@ -36,11 +36,7 @@
   <div class="wrapper" data-ani-type="fade-up">
     <div class="wrap-title">
         <h1 class="big-title green centered">
-            <span class="box">
-                <span>Fundo Infinito</span>
-            </span>
-
-            <span class="big">fotográfico</span>
+            <span>Fundo Infinito fotográfico</span>
         </h1>
 
         <p class="description">

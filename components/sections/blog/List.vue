@@ -14,12 +14,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
   <h1
     class="big-title green centered"
     data-ani-type="fade">
-    <span class="box">
-      Dicas e Inspirações
-    </span>
-    <span class="big">
-      Fotográficas
-    </span>
+    Dicas e Inspirações Fotográficas
   </h1>
 
   <div class="container">

@@ -21,15 +21,11 @@ const currentCategory = computed(() =>
   <div class="container no-padding">
     <h1 class="big-title green centered">
       <NuxtLink
-          :to="workPage"
-          :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
-          >
-        <span class="box">
-          <span v-if="!currentCategory">Explore meus</span>
-          <span v-if="currentCategory">Ensaios fotográficos da categoria</span>
-        </span>
-        <span class="big" v-if="!currentCategory"> Últimos trabalhos</span>
-        <span class="big" v-if="currentCategory"> {{ currentCategory.title }}</span>
+        :to="workPage"
+        :aria-label="'Ver ' + (currentCategory ? 'categoria ' + currentCategory.title : 'últimos trabalhos')"
+        >
+          <span v-if="!currentCategory">Explore meus Últimos trabalhos</span>
+          <span v-if="currentCategory">Ensaios fotográficos da categoria {{ currentCategory.title }}</span>
       </NuxtLink>
     </h1>
 

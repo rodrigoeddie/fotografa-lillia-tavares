@@ -13,8 +13,7 @@ const image = {
 
       <header class="sobre-header">
         <h1 class="big-title green centered">
-          <span class="box">Sobre a Fotógrafa</span>
-          <span class="big">Lillia Tavares</span>
+          Sobre a Fotógrafa Lillia Tavares
         </h1>
       </header>
 

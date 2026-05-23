@@ -64,8 +64,7 @@ const enviar = async () => {
     @submit.prevent="enviar">
       <div class="field-text">
         <h1 class="big-title green">
-          <span class="box"><span>Gostou?</span></span>
-          <span class="big">Agende o seu:</span>
+          Gostou? Agende o seu:
         </h1>
         <p class="description">
           Preencha no calendário a data que pretende fazer o ensaio e clique no botão <b>"Enviar usando o Whatsapp"</b>, você será redirecionado para seu aplicativo do Whatsapp com a mensagem já configurada, prontinha pra ser enviada ☺️:

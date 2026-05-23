@@ -16,12 +16,7 @@ if (!rawFaq.value) {
     <div class="container">
       <header class="faq-header">
         <h1 class="big-title green centered">
-          <span class="box">
-            Perguntas
-          </span>
-          <span class="big">
-            Frequentes
-          </span>
+          Perguntas Frequentes
         </h1>
         <p class="description">Tire suas dúvidas sobre ensaios fotográficos, pacotes, agendamento e muito mais.</p>
       </header>

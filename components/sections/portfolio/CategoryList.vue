@@ -105,14 +105,9 @@ const formatDate = (dateString: string) => {
     <h1
       class="big-title green centered"
       data-ani-type="fade">
-      <span class="box">
-        <span v-if="props.category">Trabalhos</span>
-        <span v-else-if="currentCategory">Ensaios fotográficos da categoria</span>
-        <span v-else>Explore meus</span>
-      </span>
-      <span class="big" v-if="props.category">com esse tema</span>
-      <span class="big" v-else-if="currentCategory">{{ currentCategory.title }}</span>
-      <span class="big" v-else> Últimos trabalhos</span>
+        <span v-if="props.category">Trabalhos com esse tema</span>
+        <span v-else-if="currentCategory">Ensaios fotográficos da categoria {{ currentCategory.title }}</span>
+        <span v-else>Explore meus Últimos trabalhos</span>
     </h1>
 
     <SectionsPortfolioMenuCategories data-ani-type="fade" />

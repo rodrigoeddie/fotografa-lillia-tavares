@@ -20,8 +20,7 @@ const titleParts = computed(() => {
     <div class="container">
       <header class="pricing-header">
         <h1 class="big-title green centered">
-          <span class="box">Pacote do {{ titleParts.box }}</span>
-          <span class="big">{{ titleParts.big }}</span>
+          Pacote do {{ titleParts.box }} {{ titleParts.big }}
         </h1>
 
         <p class="description">{{ data.description }}</p>

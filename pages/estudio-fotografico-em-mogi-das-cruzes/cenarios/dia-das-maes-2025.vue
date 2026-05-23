@@ -67,11 +67,7 @@ const onHide = () => (visibleRef.value = false);
 
             <div class="wrap-title">
                 <h2 class="big-title green centered">
-                    <span class="box">
-                        <span>Conheça nosso cenário do</span>
-                    </span>
-
-                    <span class="big"> dia das mães 2025</span>
+                    <span>Conheça nosso cenário do dia das mães 2025</span>
                 </h2>
             </div>
         </div>

@@ -8,11 +8,7 @@
       class="wrapper">
         <div class="wrap-title">
             <h1 class="big-title green centered">
-                <span class="box">
-                    <span>Conheça os</span>
-                </span>
-
-                <span class="big">Cenários</span>
+                <span>Conheça os Cenários</span>
             </h1>
         </div>
 

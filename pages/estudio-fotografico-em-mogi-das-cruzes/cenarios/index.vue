@@ -66,11 +66,7 @@ const onHide = () => (visibleRef.value = false);
 
             <div class="wrap-title">
                 <h2 class="big-title green centered">
-                    <span class="box">
-                        <span>Conheça os</span>
-                    </span>
-
-                    <span class="big">Cenários</span>
+                    <span>Conheça os Cenários</span>
                 </h2>
             </div>
         </div>

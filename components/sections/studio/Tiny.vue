@@ -17,10 +17,7 @@
     <div class="wrap-inner row container">
       <div class="side side-text">
         <h1 class="big-title green">
-          <span class="box">
-            <span>Conheça nosso</span>
-          </span>
-          <span class="big">Estúdio</span>
+          Conheça nosso Estúdio
         </h1>
 
         <p class="description green">

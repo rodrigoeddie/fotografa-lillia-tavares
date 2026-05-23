@@ -19,12 +19,7 @@ const categories = computed(() => {
         class="investment-header"
         data-ani-type="fade-up">
         <h1 class="big-title green centered">
-          <span class="box">
-            Pacotes dos 
-          </span>
-          <span class="big">
-            Ensaios Fotográficos
-          </span>
+          Pacotes dos Ensaios Fotográficos
         </h1>
         <p class="investment-header__description">
           Escolha o tipo de ensaio que melhor se encaixa no seu momento especial.

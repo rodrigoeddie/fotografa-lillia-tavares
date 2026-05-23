@@ -46,10 +46,7 @@
     <div class="wrap-inner row container">
       <div class="side side-text" data-ani-type="fade-right">
         <h1 class="big-title green">
-          <span class="box">
-            <span>Sobre o</span>
-          </span>
-          <span class="big">Estúdio</span>
+          <span>Sobre o Estúdio</span>
         </h1>
         <p class="description green">
           O estúdio está localizado em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light">Mogi das cruzes</a>, no coração da cidade, com ótimas opções para estacionamento e transportes.
