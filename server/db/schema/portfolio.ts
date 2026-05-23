@@ -10,6 +10,8 @@ export const portfolio_works = sqliteTable('portfolio_works', {
   depoimento_texto:   text(),
   depoimento_avatar:  text(),
   depoimento_link:    text(),
+  depoimento_date:    text(),
+  depoimento_rating:  integer(),
   cor_destaque:       text(),
   home:               integer().notNull().default(0),
   home_order:         integer().notNull().default(0),

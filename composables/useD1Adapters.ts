@@ -66,6 +66,8 @@ export function adaptPortfolioWork(w: any) {
           text: w.depoimento_texto,
           avatar: w.depoimento_avatar ?? '',
           link: w.depoimento_link ?? '',
+          date: w.depoimento_date ?? '',
+          rating: w.depoimento_rating ?? 5,
           source: 'Google',
         }
       : null,
