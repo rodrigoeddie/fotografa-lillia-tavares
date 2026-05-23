@@ -2,7 +2,7 @@
 const configPublic = useRuntimeConfig().public;
 const cfUrl = configPublic.cloudflareURI as string;
 
-const { data: rawData } = await useFetch('/api/public/cenarios?slug=dia-das-maes-2025');
+const { data: rawData } = await useFetch('/api/public/cenarios?slug=estudio');
 
 const cenarios = computed(() => {
   const pagina = rawData.value as any;
@@ -60,26 +60,24 @@ const onHide = () => (visibleRef.value = false);
         <div class="container">
             <BlocksBreadcrumb :items="[
               { label: 'Home', to: '/' },
-              { label: 'Estúdio', to: '/estudio' },
-              { label: 'Cenários', to: '/estudio/cenarios' },
-              { label: 'Dia das Mães 2025' },
+              { label: 'Estúdio', to: '/estudio-fotografico-em-mogi-das-cruzes' },
+              { label: 'Cenários' },
             ]" />
 
             <div class="wrap-title">
                 <h2 class="big-title green centered">
                     <span class="box">
-                        <span>Conheça nosso cenário do</span>
+                        <span>Conheça os</span>
                     </span>
 
-                    <span class="big"> dia das mães 2025</span>
+                    <span class="big">Cenários</span>
                 </h2>
             </div>
         </div>
 
         <div
           class="cenario"
-          :class="'cenario-' + index"
-          v-for="(cenario, index) in cenarios">
+          v-for="cenario in cenarios">
             <div class="container">
                 <nuxt-img
                   :src='cenario.imageBg.src + "/public"'
@@ -99,7 +97,7 @@ const onHide = () => (visibleRef.value = false);
                       height="200"
                       loading="lazy"
                       :class='"img-example " + cenario.example.orientation'
-                      @click="() => showImg(cenario.example.id)"/>
+                      @click="() => showImg(cenario.example!.id)"/>
                     <NuxtLink
                       v-if='cenario.example.link'
                       class="link-example"
@@ -129,9 +127,56 @@ const onHide = () => (visibleRef.value = false);
 </template>
 
 <style scoped lang="scss">
+.hero {
+    overflow: hidden;
+
+    .img-hero {
+        display: block;
+        margin: 0 auto;
+        height: auto;
+    }
+
+    .container {
+        justify-content: center;
+        align-items: flex-end;
+        display: flex;
+    }
+
+    .wrap-title {
+        margin-bottom: -8rem;
+        display: inline-flex;
+        padding-bottom: 5rem;
+        padding-left: 12rem;
+        padding-top: 5rem;
+        z-index: 2;
+
+        .big-title {
+            padding-right: 20rem;
+            padding-top: 0;
+
+            @include m.max(sm) {
+                padding-right: 0;
+            }
+
+            // .box {
+            //     @media (prefers-color-scheme: dark) {
+            //         background: white;
+            //         color: #2c2a15;
+            //     }
+            // }
+
+            // .big {
+            //     text-shadow: none;
+
+            //     @media (prefers-color-scheme: dark) {
+            //         color: white;
+            //     }
+            // }
+        }
+    }
+}
 
 .cenario {
-
     .container {
         align-items: center;
         display: flex;
@@ -205,7 +250,7 @@ const onHide = () => (visibleRef.value = false);
     }
 
     &:nth-child(even) {
-        // background: rgba(255, 255, 255, .5);
+        // background: white;
 
         @include m.min(md) {
             padding-right: 30rem;
@@ -241,10 +286,6 @@ const onHide = () => (visibleRef.value = false);
                 margin-right: 0;
             }
         }
-    }
-
-    &.cenario-0 {
-        padding-top: 100rem;
     }
 
     h3 {

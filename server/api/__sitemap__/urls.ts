@@ -15,7 +15,8 @@ const STATIC_ROUTES = [
   '/analise-coloracao-pessoal-em-mogi',
   '/blog',
   '/ensaio-fotografico',
-  '/estudio',
+  '/estudio-fotografico-em-mogi-das-cruzes',
+  '/estudio-fotografico-em-mogi-das-cruzes/aluguel',
   '/precos-ensaios-fotograficos',
   '/presente-ensaio-fotografico-mogi',
 ];

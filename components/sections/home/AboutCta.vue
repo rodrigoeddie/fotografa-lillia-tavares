@@ -13,7 +13,7 @@
           </h1>
 
           <div class="description">
-            <p>Com <NuxtLink to="/estudio">estúdio em Mogi das Cruzes</NuxtLink>, atendendo todo o Alto Tietê, é especializada em retratos e ensaios corporativos.</p>
+            <p>Com <NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes">estúdio em Mogi das Cruzes</NuxtLink>, atendendo todo o Alto Tietê, é especializada em retratos e ensaios corporativos.</p>
             <p>Transforma cada sessão em uma experiência acolhedora, criando um ambiente onde os modelos se sentem à vontade.</p>
           </div>
         </div>
@@ -30,7 +30,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/estudio"
+            to="/estudio-fotografico-em-mogi-das-cruzes"
             class="link"
             data-track-event="cta-ver-estudio">
             <Icon

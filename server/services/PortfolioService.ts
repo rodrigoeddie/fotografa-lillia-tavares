@@ -1,8 +1,9 @@
-import { eq, asc } from 'drizzle-orm';
+import { eq, asc, inArray } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import {
   portfolio_works,
   portfolio_fotos,
+  depoimentos,
   type PortfolioWorkInsert,
   type PortfolioFotoInsert,
 } from '~/server/db/schema';
@@ -12,21 +13,37 @@ export class PortfolioService {
 
   // ── Works ─────────────────────────────────────────────────
 
-  list(onlyAtivo = false) {
+  async list(onlyAtivo = false) {
     const q = this.db.select().from(portfolio_works);
-    return (onlyAtivo
+    const works = await (onlyAtivo
       ? q.where(eq(portfolio_works.ativo, 1))
       : q).orderBy(asc(portfolio_works.ordem));
+    return this.#embedDepoimentos(works);
   }
 
   async getById(id: number) {
     const [row] = await this.db.select().from(portfolio_works).where(eq(portfolio_works.id, id));
-    return row ?? null;
+    if (!row) return null;
+    const [enriched] = await this.#embedDepoimentos([row]);
+    return enriched ?? null;
   }
 
   async getBySlug(slug: string) {
     const [row] = await this.db.select().from(portfolio_works).where(eq(portfolio_works.slug, slug));
-    return row ?? null;
+    if (!row) return null;
+    const [enriched] = await this.#embedDepoimentos([row]);
+    return enriched ?? null;
+  }
+
+  async #embedDepoimentos<T extends { depoimento_id: number | null }>(works: T[]) {
+    const ids = works.map(w => w.depoimento_id).filter((id): id is number => id != null);
+    if (ids.length === 0) return works.map(w => ({ ...w, depoimento: null }));
+    const deps = await this.db.select().from(depoimentos).where(inArray(depoimentos.id, ids));
+    const depMap = new Map(deps.map(d => [d.id, d]));
+    return works.map(w => ({
+      ...w,
+      depoimento: w.depoimento_id ? (depMap.get(w.depoimento_id) ?? null) : null,
+    }));
   }
 
   create(data: Omit<PortfolioWorkInsert, 'id'>) {

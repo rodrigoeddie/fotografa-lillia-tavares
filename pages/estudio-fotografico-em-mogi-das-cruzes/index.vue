@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-usePageSeo('static', '/estudio');
+usePageSeo('static', '/estudio-fotografico-em-mogi-das-cruzes');
 
-const configPublic = useRuntimeConfig().public;
 </script>
 
 <template>

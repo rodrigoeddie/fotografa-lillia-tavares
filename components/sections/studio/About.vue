@@ -8,8 +8,6 @@
     }
   });
 
-  const $route       = useRoute();
-  const currentPath  = $route.path;
   const configPublic = useRuntimeConfig().public;
   const visibleRef = ref(false);
   const indexRef = ref(0);
@@ -62,9 +60,9 @@
         </p>
 
         <NuxtLink
-          :to="currentPath === '/estudio' ? '/agende-seu-ensaio' : '/estudio'"
+          :to="fromStudio ? '/agende-seu-ensaio' : '/estudio-fotografico-em-mogi-das-cruzes'"
           class="btn btn-green">
-            <span>{{ currentPath === '/estudio' ? 'Agende Seu Ensaio' : 'Ver mais' }}</span>
+            <span>{{ fromStudio ? 'Agende Seu Ensaio' : 'Ver mais' }}</span>
         </NuxtLink>
       </div>
 
@@ -72,7 +70,7 @@
         <ClientOnly>
           <swiper-container
             class="side wrap-images"
-            :class="{'is-studio': currentPath === '/estudio'}"
+            :class="{'is-studio': fromStudio}"
             ref="containerRef"
             :loop="false"
             :slides-per-view="1"

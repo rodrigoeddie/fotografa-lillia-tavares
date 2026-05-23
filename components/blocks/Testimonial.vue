@@ -43,7 +43,7 @@ const props = defineProps({
         <div class="text-testimonial">
             <NuxtLink :to="testimonial.link" target="_blank" rel="noopener noreferrer">                
                 <span class="stars" v-if="testimonial.rating">
-                    <template v-for="n in testimonial.rating" :key="n">★</template> - <span class="review-card__date">{{ testimonial.date }}</span>
+                    <template v-for="n in Math.min(Math.max(Number(testimonial.rating) || 5, 1), 5)" :key="n">★</template> - <span class="review-card__date">{{ testimonial.date }}</span>
                 </span>
             </NuxtLink>
 

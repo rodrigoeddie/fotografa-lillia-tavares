@@ -24,7 +24,7 @@
 
       <h2>Estúdio</h2>
       <ul>
-        <li><NuxtLink to="/estudio">Locação para outros fotógrafos</NuxtLink></li>
+        <li><NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes/aluguel">Locação para outros fotógrafos</NuxtLink></li>
       </ul>
     </div>
 

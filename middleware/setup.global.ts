@@ -29,5 +29,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/ensaio-fotografico/corporativo/sheila-lima', { redirectCode: 301 })
     } else if (to.path === '/ensaio-fotografico/corporativo/06-marcella-castelucci') {
         return navigateTo('/ensaio-fotografico/corporativo/marcella-castelucci', { redirectCode: 301 })
+    } else if (to.path === '/estudio') {
+        return navigateTo('/estudio-fotografico-em-mogi-das-cruzes', { redirectCode: 301 })
+    } else if (to.path === '/estudio/cenarios') {
+        return navigateTo('/estudio-fotografico-em-mogi-das-cruzes/cenarios', { redirectCode: 301 })
+    } else if (to.path === '/estudio/cenarios/dia-das-maes-2025') {
+        return navigateTo('/estudio-fotografico-em-mogi-das-cruzes/cenarios/dia-das-maes-2025', { redirectCode: 301 })
     }
 })

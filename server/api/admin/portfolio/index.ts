@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const {
       slug, categoria, titulo, descricao, artigo, data, local,
-      depoimento_texto, depoimento_avatar, depoimento_link,
+      depoimento_id, depoimento_texto, depoimento_avatar, depoimento_link,
       cor_destaque, home, home_order, video,
       instagram_uri, instagram_title, site,
       ativo, ordem, seo_keywords,
@@ -37,6 +37,7 @@ export default defineEventHandler(async (event) => {
       artigo: artigo ?? 'a',
       data: data ?? null,
       local: local ?? null,
+      depoimento_id: depoimento_id ?? null,
       depoimento_texto: depoimento_texto ?? null,
       depoimento_avatar: depoimento_avatar ?? null,
       depoimento_link: depoimento_link ?? null,

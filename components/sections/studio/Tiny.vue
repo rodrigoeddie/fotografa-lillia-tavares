@@ -7,8 +7,6 @@
     }
   });
 
-  const $route      = useRoute();
-  const currentPath = $route.path;
   const configPublic = useRuntimeConfig().public;
 </script>
 
@@ -30,7 +28,7 @@
         </p>
 
         <NuxtLink
-          :to="currentPath === '/estudio' ? '/agende-seu-ensaio' : '/estudio'"
+          :to="'/estudio-fotografico-em-mogi-das-cruzes'"
           class="btn btn-green">
             <span>Sobre o estúdio</span>
         </NuxtLink>

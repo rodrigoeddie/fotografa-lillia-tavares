@@ -61,13 +61,13 @@ export function adaptPortfolioWork(w: any) {
       slug: w.categoria,
       title: PORTFOLIO_CATEGORIAS[w.categoria] ?? w.categoria,
     },
-    testimonial: w.depoimento_texto
+    testimonial: (w.depoimento?.texto ?? w.depoimento_texto)
       ? {
-          text: w.depoimento_texto,
-          avatar: w.depoimento_avatar ?? '',
-          link: w.depoimento_link ?? '',
-          date: w.depoimento_date ?? '',
-          rating: w.depoimento_rating ?? 5,
+          text: w.depoimento?.texto ?? w.depoimento_texto,
+          avatar: w.depoimento?.foto_cf_id ?? w.depoimento_avatar ?? '',
+          link: w.depoimento?.link ?? w.depoimento_link ?? '',
+          date: w.depoimento?.data ?? '',
+          rating: Number(w.depoimento?.rating ?? 5),
           source: 'Google',
         }
       : null,
@@ -139,7 +139,8 @@ export function adaptDepoimento(d: any) {
     name: d.nome,
     text: d.texto,
     photo: d.foto_cf_id ?? '',
+    date: d.data ?? '',
     source: 'Google',
-    rating: d.rating ?? 5,
+    rating: Number(d.rating ?? 5),
   };
 }

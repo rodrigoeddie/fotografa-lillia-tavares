@@ -71,6 +71,7 @@ function onDepSelect(val: string) {
   const id = val ? Number(val) : null;
   selectedDepId.value = id;
   if (!id) {
+    form.depoimento_id = null;
     form.depoimento_texto = '';
     form.depoimento_avatar = '';
     form.depoimento_link = '';
@@ -78,6 +79,7 @@ function onDepSelect(val: string) {
   }
   const dep = depoimentos.value.find(d => d.id === id);
   if (!dep) return;
+  form.depoimento_id = dep.id;
   form.depoimento_texto = dep.texto ?? '';
   form.depoimento_avatar = dep.foto_cf_id ?? '';
   form.depoimento_link = dep.link ?? '';
