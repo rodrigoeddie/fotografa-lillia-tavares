@@ -62,7 +62,7 @@ const image = {
 
       <!-- Serviços -->
       <section class="sobre-servicos">
-        <h2 class="sobre-servicos__titulo">O que eu ofereço</h2>
+        <h2 class="title">O que eu ofereço</h2>
 
         <div class="servicos-grid">
 
@@ -103,7 +103,7 @@ const image = {
             <h3 class="servico-card__titulo">Consultoria de Imagem</h3>
             <p class="servico-card__desc">
               Análise e reposicionamento de imagem pessoal, disponível de forma independente ou
-              como parte do pacote <strong>Completo Premium</strong>, que une consultoria ao
+              como parte do pacote <strong>Do Tom ao Clique</strong>, que une consultoria ao
               ensaio fotográfico em uma experiência única.
             </p>
             <NuxtLink
@@ -116,62 +116,61 @@ const image = {
 
         </div>
       </section>
-
-      <!-- CTA Final -->
-      <section class="sobre-cta">
-        <h2>Pronta para o seu ensaio?</h2>
-        <p>Veja os pacotes disponíveis e agende o seu horário.</p>
-        <NuxtLink
-          to="/precos-ensaios-fotograficos"
-          class="sobre-cta__button"
-          data-track-event="cta-ver-pacotes-sobre"
-        >
-          <span>Ver Pacotes e Preços</span>
-        </NuxtLink>
-      </section>
-
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-// ── Bio ───────────────────────────────────────────────────────
+.sobre-page {
+  font-size: 19rem;
+}
+
+.title {
+  color: v.$green;
+  display: block;
+  text-align: center;
+  padding-bottom: 0;
+}
+
 .sobre-bio {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   margin-bottom: v.$bigSpace;
   border: 1px solid v.$green;
   background: white;
 
   @include m.max(md) {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
-}
-
-.sobre-bio__image {
-  position: relative;
-
-  @include m.max(md) {
-    height: 80dvw;
+  
+  .sobre-bio__image {
+    position: relative;
+    width: 400rem;
+    flex-shrink: 0;
+  
+    @include m.max(md) {
+      height: 80dvw;
+      width: 100%;
+    }
+  
+    .img-sobre {
+      position: absolute;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
   }
-
-  .img-sobre {
-    position: absolute;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.sobre-bio__text {
-  padding: v.$bigSpace;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-
-  p {
-    line-height: 1.7;
-    color: #444;
+  
+  .sobre-bio__text {
+    flex-direction: column;
+    padding: v.$bigSpace;
+    font-size: 19rem;
+    display: flex;
+    gap: 20rem;
+  
+    p {
+      line-height: 1.7;
+      color: #444;
+    }
   }
 }
 
@@ -180,22 +179,10 @@ const image = {
   margin-bottom: v.$bigSpace;
 }
 
-.sobre-servicos__titulo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: v.$green;
-  margin-bottom: 2rem;
-  text-align: center;
-
-  @include m.max(sm) {
-    font-size: 1.5rem;
-  }
-}
-
 .servicos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 24rem;
 
   @include m.max(sm) {
     grid-template-columns: 1fr;
@@ -205,7 +192,7 @@ const image = {
 .servico-card {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 32rem;
   border: 1px solid #e0e0e0;
   background: #fff;
   border-radius: 4rem;
@@ -215,7 +202,7 @@ const image = {
 
   &:hover {
     box-shadow: 0 4rem 20rem rgba(0, 0, 0, 0.1);
-    transform: translateY(-2rem);
+    transform: translateY(-32rem);
   }
 
   // Card principal ocupa a largura toda
@@ -227,11 +214,11 @@ const image = {
 
     .servico-card__titulo {
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 30rem;
     }
 
     .servico-card__desc {
-      color: rgba(255, 255, 255, 0.88);
+      color: white;
     }
 
     .servico-card__cta {
@@ -247,48 +234,47 @@ const image = {
 
 .servico-card__tag {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 12rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 2rem;
-  margin-bottom: 1rem;
+  padding: 5rem 8rem;
+  border-radius: 32rem;
+  margin-bottom: 16rem;
   width: fit-content;
 }
 
 .servico-card__titulo {
-  font-size: 1.25rem;
+  font-size: 27rem;
   font-weight: 700;
   color: v.$green;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8rem;
 }
 
 .servico-card__subtitulo {
-  font-size: 0.875rem;
+  font-size: 19rem;
   color: #888;
-  margin-bottom: 0.75rem;
+  margin-bottom: 14rem;
 }
 
 .servico-card__desc {
-  font-size: 0.95rem;
   line-height: 1.65;
   color: #555;
   flex: 1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24rem;
 }
 
 .servico-card__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.875rem;
+  gap: 8rem;
+  font-size: 19rem;
   font-weight: 600;
   color: v.$green;
   border-bottom: 1px solid v.$green;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.32rem;
   width: fit-content;
   margin-top: auto;
 
@@ -300,8 +286,8 @@ const image = {
 .servico-card__sub-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.875rem;
+  gap: 8rem;
+  font-size: 19rem;
   font-weight: 600;
   color: v.$red;
   text-decoration: none;
@@ -320,26 +306,26 @@ const image = {
 // ── CTA Final ─────────────────────────────────────────────────
 .sobre-cta {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 3rem 32rem;
   background: #f9f9f9;
   border-radius: 8rem;
   margin-bottom: v.$bigSpace;
 
   h2 {
-    font-size: 2rem;
+    font-size: 32rem;
     font-weight: 600;
     color: v.$green;
     margin-bottom: 1rem;
 
     @include m.max(sm) {
-      font-size: 1.5rem;
+      font-size: 24rem;
     }
   }
 
   p {
     font-size: 1.125rem;
     color: #666;
-    margin-bottom: 2rem;
+    margin-bottom: 32rem;
 
     @include m.max(sm) {
       font-size: 1rem;
@@ -358,8 +344,8 @@ const image = {
 
     &:hover {
       background: v.$dark-red;
-      transform: translateY(-2rem);
-      box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.2);
+      transform: translateY(-32rem);
+      box-shadow: 0 4rem 132rem rgba(0, 0, 0, 0.2);
     }
   }
 }
