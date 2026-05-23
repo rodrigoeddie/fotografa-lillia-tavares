@@ -239,14 +239,6 @@ export default defineNuxtConfig({
     }
   },
 
-  content: {
-    highlight: false,
-    database: {
-      type: 'd1',
-      bindingName: 'DB'
-    },
-  },
-
   nitro: {
     preset: 'cloudflare-pages',
     minify: true,
