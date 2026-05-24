@@ -1,12 +1,35 @@
-import { eq, asc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import { depoimentos, type DepoimentoInsert } from '~/server/db/schema';
 
-export class DepoimentoService {
-  constructor(private db: ORM) {}
+const LIST_SQL = `
+  SELECT
+    d.id, d.nome, d.foto_cf_id, d.rating, d.data, d.texto, d.link,
+    d.featured, d.portfolio_link, d.ordem,
+    pw.slug      AS portfolio_slug,
+    pw.categoria AS portfolio_categoria,
+    pw.titulo    AS portfolio_titulo,
+    (
+      SELECT pf.cf_image_id
+      FROM portfolio_fotos pf
+      WHERE pf.work_id = pw.id
+      ORDER BY pf.highlight DESC, pf.can_be_thumb DESC, pf.ordem ASC
+      LIMIT 1
+    ) AS portfolio_foto_cf_id
+  FROM depoimentos d
+  LEFT JOIN portfolio_works pw
+    ON pw.slug = d.portfolio_link
+    AND d.portfolio_link IS NOT NULL
+    AND d.portfolio_link != ''
+  ORDER BY d.ordem ASC
+`;
 
-  list() {
-    return this.db.select().from(depoimentos).orderBy(asc(depoimentos.ordem));
+export class DepoimentoService {
+  constructor(private db: ORM, private d1?: D1Database) {}
+
+  list(): Promise<Record<string, unknown>[]> {
+    if (!this.d1) throw new Error('D1 binding required for DepoimentoService.list()');
+    return this.d1.prepare(LIST_SQL).all().then(r => r.results as Record<string, unknown>[]);
   }
 
   async getById(id: number) {

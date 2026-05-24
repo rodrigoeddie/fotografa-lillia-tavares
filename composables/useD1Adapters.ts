@@ -134,6 +134,10 @@ export function adaptFaqCategoria(c: any) {
 
 /** Adapta um depoimento do D1 ao formato de review */
 export function adaptDepoimento(d: any) {
+  const portfolioPath = d.portfolio_slug
+    ? `/ensaio-fotografico/${d.portfolio_slug}`
+    : null;
+
   return {
     ...d,
     name: d.nome,
@@ -141,5 +145,7 @@ export function adaptDepoimento(d: any) {
     photo: d.foto_cf_id ?? '',
     source: 'Google',
     rating: Number(d.rating ?? 5),
+    portfolioPath,
+    portfolioFotoCfId: d.portfolio_foto_cf_id ?? null,
   };
 }

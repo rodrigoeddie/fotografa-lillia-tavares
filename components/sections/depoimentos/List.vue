@@ -19,16 +19,36 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
 <template>
   <section class="depoimentos-page">
     <div class="container">
-      <header class="depoimentos-header" data-ani-type="fade">
-        <h1 class="big-title green centered">
-          O que dizem sobre mim
-        </h1>
-        <p class="depoimentos-header__description"></p>
-        <div class="depoimentos-header__badge">
-          <span class="stars">★★★★★</span>
-          <span class="count">{{ reviews.length }}+ avaliações no Google</span>
+      <section class="depo-pg-hero" data-ani-type="fade-up">
+        <div>
+          <span class="eyebrow">Depoimentos verificados</span>
+          <h1 class="big-title green">
+            Cada ensaio vira uma história.
+          </h1>
+
+          <p class="description">
+            Reuni aqui depoimentos reais, todos verificados publicamente no Google.
+            Cada um deles veio de uma sessão completa, clique em <b>"Acesse o ensaio"</b>
+            para ver as fotos do depoimento.
+          </p>
+          <div class="wrap-btns">
+            <a class="btn btn-primary" href="https://wa.me/5511911159795">Agendar meu ensaio</a>
+            <a class="btn btn-ghost" href="https://g.page/r/CU9H139Hyr99EBM/review" target="_blank">Deixar uma avaliação</a>
+          </div>
         </div>
-      </header>
+
+        <aside class="depo-pg-rating">
+          <span class="stars">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          </span>
+          <div class="score">5.0</div>
+          <div class="meta">média entre {{ reviews.length }}+ avaliações</div>
+        </aside>
+      </section>
 
       <div class="reviews-grid">
         <article
@@ -77,6 +97,24 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
           </NuxtLink>
 
           <blockquote class="review-card__text" v-html="review.text"></blockquote>
+
+          <div v-if="review.portfolioPath" class="review-card__portfolio">
+            <NuxtLink :to="review.portfolioPath" class="review-card__portfolio-thumb">
+              <nuxt-img
+                v-if="review.portfolioFotoCfId"
+                provider="cloudflare"
+                :src="`${CF_IMG_BASE}${review.portfolioFotoCfId}/public`"
+                :alt="`Ensaio de ${review.name}`"
+                class="review-card__portfolio-img"
+                width="350"
+                format="avif"
+                placeholder
+                loading="lazy" />
+            </NuxtLink>
+            <NuxtLink :to="review.portfolioPath" class="btn btn--outline review-card__portfolio-btn">
+              Ver ensaio
+            </NuxtLink>
+          </div>
         </article>
       </div>
     </div>
@@ -84,6 +122,118 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
 </template>
 
 <style scoped lang="scss">
+.wrap-btns {
+  padding-top: 20rem;
+  display: flex;
+  gap: 20rem;
+
+  @include m.max(sm) {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .btn {
+    @include m.max(sm) {
+      width: 390rem;
+    }
+  }
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #6b5f55;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    
+    @include m.max(sm) {
+      justify-content: center;
+      width: 100%;
+    }
+}
+
+  .depo-pg-hero {
+    padding: 60rem 0 40rem;
+    align-items: center;
+    display: flex;
+    gap: 50rem;
+
+    @include m.max(sm) {
+      flex-direction: column;
+    }
+  }
+  .depo-pg-hero h1 em { font-style: italic; color: v.$green; }
+
+  .depo-pg-rating {
+    box-shadow: 0 24px 38px -18px rgba(42, 37, 32, 0.30);
+    background: white;
+    border-radius: 2px;
+    text-align: center;
+    position: relative;
+    padding: 30rem;
+    width: 50%;
+
+    @include m.max(sm) {
+      width: 100%;
+    }
+  }
+  .depo-pg-rating::before {
+    content: "Avaliações públicas no Google";
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: v.$red;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .description {
+    padding-top: 0;
+    margin-top: 0;
+
+    @include m.max(sm) {
+      text-align: center;
+    }
+  }
+  .depo-pg-rating .score {
+    font-size: 92px;
+    line-height: 1;
+    color: v.$red;
+    font-weight: bold;
+    margin: 20rem 0 10rem;
+
+    @include m.max(sm) {
+      font-size: 50px;
+    }
+  }
+  .depo-pg-rating .stars { color: #F5B748; display: inline-flex; gap: 4px; margin-bottom: var(--s-3); }
+  .depo-pg-rating .meta { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.18em; text-transform: uppercase; }
+  .depo-pg-rating .breakdown {
+    margin-top: 30rem;
+    padding-top: 30rem;
+    border-top: 1px dashed 1px;
+    text-align: left;
+  }
+  .depo-pg-rating .breakdown .row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+    padding: 4px 0;
+    color: black;
+  }
+  .depo-pg-rating .breakdown .row strong {
+    color: v.$green;
+    font-weight: 600;
+    font-size: 17px;
+  }
+
+
 .review-card__google {
     .link-source {
         display: flex;
@@ -127,22 +277,27 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
 }
 
 .reviews-grid {
-  grid-template-columns: repeat(auto-fill, minmax(418rem, 1fr));
   margin-bottom: 64rem;
+  column-gap: 24rem;
   padding: 15rem;
-  display: grid;
-  gap: 24rem;
+  columns: 4;
+
+  @include m.max(sm) {
+    columns: 1;
+  }
 }
 
 .review-card {
-  background: #fff;
+  break-inside: avoid;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
   border: 1px solid #e8e8e8;
+  flex-direction: column;
+  margin-bottom: 24rem;
   border-radius: 12rem;
+  background: #fff;
   padding: 24rem;
   display: flex;
-  flex-direction: column;
   gap: 12rem;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
 
   &:hover {
     box-shadow: 0 6rem 20rem rgba(0, 0, 0, 0.08);
@@ -214,6 +369,43 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     color: #444;
     margin: 0;
     font-style: normal;
+  }
+
+  &__portfolio {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+    padding-top: 12rem;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 4rem;
+  }
+
+  &__portfolio-thumb {
+    overflow: hidden;
+    display: block;
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  &__portfolio-img {
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__portfolio-btn {
+    font-size: 14rem;
+    padding: 6rem 16rem;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: -15rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
