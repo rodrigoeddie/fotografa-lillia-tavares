@@ -16,6 +16,14 @@
             <p>Com <NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes">estúdio em Mogi das Cruzes</NuxtLink>, atendendo todo o Alto Tietê, é especializada em retratos e ensaios corporativos.</p>
             <p>Transforma cada sessão em uma experiência acolhedora, criando um ambiente onde os modelos se sentem à vontade.</p>
           </div>
+
+          <div class="ac pt20">
+            <NuxtLink
+              to="/sobre-fotografa-lillia-tavares"
+              class="btn tiny">
+                <span>Saber mais sobre</span>
+            </NuxtLink>
+          </div>
         </div>
 
         <div class="about-ctas">

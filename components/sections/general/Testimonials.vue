@@ -207,6 +207,7 @@ const isFewItems = computed(() => works.value.length <= 2);
             color: v.$lp-corporativo;
         }
 
+        &.wrap-testimonials,
         :deep(.wrap-testimonial) {
             .btn {
                 background: v.$lp-corporativo;
@@ -237,6 +238,7 @@ const isFewItems = computed(() => works.value.length <= 2);
             color: v.$lp-dia-das-maes;
         }
 
+        &.wrap-testimonials,
         :deep(.wrap-testimonial) {
             .btn {
                 background: v.$lp-dia-das-maes-dark;

@@ -80,6 +80,14 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
                     <span v-html="formatDate(item.date)"></span>
                 </li>
             </ul>
+
+            <div class="ac pt10">
+                <NuxtLink
+                  :to="item.path"
+                  class="btn tiny">
+                  Acessar Ensaio
+                </NuxtLink>
+            </div>
         </div>
     </div>
     </div>
@@ -222,26 +230,6 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
         
         @include m.max(sm) {
             width: 96%;
-        }
-    }
-
-    .btn {
-        background-color: v.$green;
-        text-transform: none;
-        position: absolute;
-        font-size: 18rem;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        
-        @include m.max(xs) {
-            font-size: 11px;
-        }
-  
-        &:hover {
-            border-left-color: transparent;
-            border-bottom-color: transparent;
-            border-right-color: transparent;
         }
     }
 }

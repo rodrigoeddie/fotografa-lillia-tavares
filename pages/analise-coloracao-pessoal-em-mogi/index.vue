@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
 
+const breadcrumbs = [
+  { label: 'Home', to: '/' },
+  { label: 'Análise de Coloração Pessoal' },
+];
+
 const seasons = [
   {
     name: 'Primavera',
@@ -73,74 +78,11 @@ const steps = [
 <template>
   <div class="coloracao-page">
     <div class="container">
-      <BlocksBreadcrumb :items="[
-        { label: 'Home', to: '/' },
-        { label: 'Análise de Coloração Pessoal' },
-      ]" />
+      <BlocksBreadcrumb :items="breadcrumbs" />
     </div>
-
-    <!-- Hero -->
-    <section class="c-hero" data-ani-type="fade-up">
-      <div class="container c-hero__inner">
-        <div class="c-hero__text">
-          <span class="c-eyebrow">Imagem & Cor · Mogi das Cruzes</span>
-          <h1 class="c-hero__title">As cores que<br><em>te valorizam</em>.</h1>
-          <p class="c-hero__desc">
-            Análise de coloração pessoal para revelar quais tons de roupa, maquiagem e acessórios
-            harmonizam com sua pele, cabelo e olhos — mais autoestima, escolhas certas e fotos incríveis.
-          </p>
-          <div class="c-hero__actions">
-            <a
-              class="btn c-hero__btn-primary"
-              href="https://wa.me/5511911159795?text=Olá, gostaria de saber mais sobre a análise de coloração pessoal (mensagem do site)"
-            >
-              <Icon name="icons:whatsapp" />
-              Agendar minha análise
-            </a>
-            <a class="btn c-hero__btn-ghost" href="#como-funciona">Ver como funciona</a>
-          </div>
-        </div>
-        <div class="c-hero__image">
-          <nuxt-img
-            provider="cloudflare"
-            src="https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
-            alt="Fotógrafa e consultora de imagem Lillia Tavares realizando análise de coloração pessoal em Mogi das Cruzes"
-            width="450"
-            height="600"
-            loading="eager"
-            fetchpriority="high"
-            sizes="100vw sm:50vw md:450px"
-            format="webp"
-            class="img"
-          />
-        </div>
-      </div>
-    </section>
 
     <!-- O que é -->
     <section class="c-intro container" data-ani-type="fade-up">
-      <div class="c-intro__text">
-        <span class="c-eyebrow c-eyebrow--muted">O que é</span>
-        <h2 class="title">Não é sobre estar<br>na moda. É sobre <em>ser vista</em>.</h2>
-        <p class="description">
-          A análise de coloração pessoal identifica a cartela de cores que harmoniza com seus tons
-          naturais — pele, cabelo e olhos. O resultado é uma paleta personalizada que ilumina o rosto,
-          valoriza a expressão e simplifica decisões diárias do guarda-roupa.
-        </p>
-        <p class="description">
-          Combinada com a consultoria de imagem, ela vira ferramenta de posicionamento: alinha visual
-          com mensagem, intenção com presença.
-        </p>
-        <div class="c-intro__actions">
-          <a
-            class="btn"
-            href="https://wa.me/5511911159795?text=Olá, gostaria de agendar uma análise de coloração pessoal (mensagem do site)"
-          >
-            Agendar análise
-          </a>
-          <a class="btn btn-white" href="#como-funciona">Ver o processo</a>
-        </div>
-      </div>
       <div class="c-intro__image">
         <nuxt-img
           provider="cloudflare"
@@ -153,11 +95,27 @@ const steps = [
           class="img"
         />
       </div>
+
+      <div class="c-intro__text">
+        <h2 class="big-title pt0">Análise de Coloração Pessoal</h2>
+        <h3 class="subtitle">Não é sobre estar na moda. É sobre <em>ser vista</em>.</h3>
+        <p class="description">
+          A análise de coloração pessoal identifica a cartela de cores que harmoniza com seus tons
+          naturais, pele, cabelo e olhos. O resultado é uma paleta personalizada que ilumina o rosto,
+          valoriza a expressão e simplifica decisões diárias do guarda-roupa.
+        </p>
+        <p class="description">
+          Combinada com a consultoria de imagem, ela vira ferramenta de posicionamento: alinha visual
+          com mensagem, intenção com presença.
+        </p>
+      </div>
     </section>
 
     <!-- Benefícios -->
-    <section class="c-benefits container" data-ani-type="fade-up">
-      <h2 class="title c-benefits__heading">Por que fazer uma análise de coloração pessoal?</h2>
+    <section class="c-benefits container" data-ani-type="fade-up" data-ani-delay="0.5">
+      <div class="ac">
+        <h2 class="big-title">Por que fazer uma análise de coloração pessoal?</h2>
+      </div>
       <p class="description c-benefits__subheading">
         Uma ferramenta prática que transforma seu dia a dia, suas compras e até suas fotos profissionais.
       </p>
@@ -166,8 +124,6 @@ const steps = [
           v-for="(benefit, i) in benefits"
           :key="i"
           class="c-benefits__card"
-          :data-ani-type="'fade-up'"
-          :data-ani-delay="`${0.08 * (i + 1)}s`"
         >
           <div class="c-benefits__num">{{ String(i + 1).padStart(2, '0') }}</div>
           <h3 class="card-title">{{ benefit.title }}</h3>
@@ -181,7 +137,7 @@ const steps = [
       <div class="container">
         <div class="c-seasons__header">
           <span class="c-eyebrow c-eyebrow--center">Sistema de 12 estações</span>
-          <h2 class="title">Quatro famílias, doze subtons.</h2>
+          <h2 class="big-title pt0">Quatro famílias, doze subtons.</h2>
           <p class="description">
             Cada estação tem três variações de profundidade, intensidade e temperatura. Sua cartela final é única.
           </p>
@@ -218,21 +174,21 @@ const steps = [
 
     <!-- Cross-sell -->
     <section class="c-crosssell container" data-ani-type="fade-up">
-      <h2 class="title c-crosssell__heading">Combine com um ensaio fotográfico</h2>
+      <h2 class="big-title green">Combine com um ensaio fotográfico</h2>
       <p class="description c-crosssell__desc">
         Muitas clientes aproveitam para fazer a análise junto com o ensaio fotográfico.
-        Assim, as fotos já são feitas com as cores que mais valorizam a sua beleza — uma combinação perfeita.
+        Assim, as fotos já são feitas com as cores que mais valorizam a sua beleza, uma combinação perfeita.
       </p>
       <div class="c-crosssell__actions">
-        <NuxtLink to="/ensaio-fotografico" class="btn">Ver ensaios fotográficos →</NuxtLink>
-        <NuxtLink to="/presente-ensaio-fotografico-mogi" class="btn btn-white">Presentear com ensaio + coloração →</NuxtLink>
+        <NuxtLink to="/ensaio-fotografico" class="btn">Ver ensaios fotográficos</NuxtLink>
+        <NuxtLink to="/presente-ensaio-fotografico-mogi" class="btn btn-white">Presentear com ensaio + coloração</NuxtLink>
       </div>
     </section>
 
     <!-- CTA Final -->
     <section class="c-cta" data-ani-type="fade-up">
       <div class="container c-cta__inner">
-        <h2 class="title c-cta__title">Pronta para descobrir suas cores?</h2>
+        <h2 class="big-title white pt0">Pronta para descobrir suas cores?</h2>
         <p class="c-cta__desc">Agende sua análise de coloração pessoal em Mogi das Cruzes e transforme sua relação com as cores.</p>
         <a
           class="btn c-cta__btn"
@@ -247,11 +203,34 @@ const steps = [
 </template>
 
 <style lang="scss" scoped>
+.c-intro__image {
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  height: 300rem;
+  width: 300rem;
+
+  .img {
+    object-position: center;
+    position: absolute;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+  }
+}
+
+.c-intro__text {
+  max-width: 600rem;
+}
+
 .coloracao-page {
   padding-bottom: 0;
 }
 
-// ── Eyebrow ────────────────────────────────────────────────────────
 .c-eyebrow {
   display: block;
   font-size: 13rem;
@@ -271,7 +250,6 @@ const steps = [
   }
 }
 
-// ── Hero ────────────────────────────────────────────────────────────
 .c-hero {
   background: v.$green;
   color: white;
@@ -357,43 +335,14 @@ const steps = [
       border-color: white !important;
     }
   }
-
-  &__image {
-    flex-shrink: 0;
-    width: 390rem;
-    align-self: flex-end;
-
-    @include m.max(md) {
-      width: 280rem;
-    }
-
-    @include m.max(sm) {
-      width: 180rem;
-    }
-
-    .img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  }
 }
 
-// ── Intro ───────────────────────────────────────────────────────────
 .c-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70rem;
-  align-items: center;
-  padding-top: 75rem;
+  justify-content: center;
   padding-bottom: 75rem;
-
-  @include m.max(md) {
-    grid-template-columns: 1fr;
-    gap: 30rem;
-    padding-top: 45rem;
-    padding-bottom: 45rem;
-  }
+  padding-top: 75rem;
+  display: flex;
+  gap: 40rem;
 
   .title em {
     font-style: italic;
@@ -407,22 +356,8 @@ const steps = [
     flex-wrap: wrap;
     margin-top: 30rem;
   }
-
-  &__image {
-    .img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 4rem;
-    }
-
-    @include m.max(md) {
-      display: none;
-    }
-  }
 }
 
-// ── Benefits ────────────────────────────────────────────────────────
 .c-benefits {
   padding-bottom: 70rem;
 
@@ -473,7 +408,6 @@ const steps = [
   }
 }
 
-// ── Seasons ─────────────────────────────────────────────────────────
 .c-seasons {
   background: v.$light-green;
   padding: 70rem 0;
@@ -539,13 +473,11 @@ const steps = [
   }
 }
 
-// ── Steps ────────────────────────────────────────────────────────────
 .c-steps {
   padding-top: 60rem;
   padding-bottom: 60rem;
 }
 
-// ── Cross-sell ────────────────────────────────────────────────────────
 .c-crosssell {
   padding: 70rem 0;
   text-align: center;
@@ -568,7 +500,6 @@ const steps = [
   }
 }
 
-// ── CTA ───────────────────────────────────────────────────────────────
 .c-cta {
   background: v.$green;
   padding: 75rem 0;

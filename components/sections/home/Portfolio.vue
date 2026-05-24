@@ -84,6 +84,16 @@ onMounted(() => {
       </template>
     </ClientOnly>
   </div>
+
+  <div class="ac pb50">
+    <NuxtLink
+      :to="'ensaio-fotografico/'"
+      :aria-label="'Ver todos os trabalhos'"
+      class="btn"
+    >
+      <span>Ver todos os trabalhos</span>
+    </NuxtLink>
+  </div>
 </template>
 
 <style scoped lang="scss">

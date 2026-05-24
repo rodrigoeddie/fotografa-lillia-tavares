@@ -154,18 +154,19 @@ const props = defineProps({
         }
 
         .wrap {
-            padding: 20rem;
-            display: flex;
+            justify-content: center;
             align-items: flex-start;
             flex-direction: column;
-            justify-content: center;
+            min-height: 185rem;
+            padding: 20rem;
+            display: flex;
 
             @include m.max(sm) {
                 padding: 20rem;
             }
             
             .subtitle {
-                font-size: 30rem;
+                font-size: 25rem;
                 line-height: 1em;
 
                 @include m.max(sm) {
