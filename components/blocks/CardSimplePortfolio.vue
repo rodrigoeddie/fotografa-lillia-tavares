@@ -10,76 +10,76 @@ const props = defineProps({
     required: true
   },
 });
+
+const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
 </script>
 
 <template>
-<div class="thumb thumb-vertical">
+<div class="thumb thumb-vertical" :class="{ hover: hovered }" :style="tiltStyle">
     <div class="inner-thumb">
     <div class="slider">
         <ClientOnly>
-    <NuxtLink
-    :to="item.path">
-    <swiper-container
-        class="swiper"
-        :slides-per-view="1"
-        :effect="'flip'"
-        :pagination="{
-        clickable: true,
-        }"
-        :navigation="true">
-        <swiper-slide
-        v-for="slide in item.photos['retrato']"
-        :key="slide.id"
-        :class="'wrap-img ' + slide.format">
-        <nuxt-img
-    provider="cloudflare"
-    :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
-    width="551"
-    height="646"
-    sizes="'100vw md:50vw lg:551px"
-    class="bg-thumb"
-    :alt="slide.alt"
-    format="webp"
-    placeholder
-    loading="lazy"/>
-        </swiper-slide>
-    </swiper-container>
-    </NuxtLink>
+            <NuxtLink
+              :to="item.path"
+              class="link-card"
+              @mousemove="onMouseMove"
+              @mouseenter="hovered = true"
+              @mouseleave="onMouseLeave">
+              <swiper-container
+                class="swiper"
+                :slides-per-view="1"
+                :effect="'flip'"
+                :pagination="{
+                clickable: true,
+                }"
+                :navigation="true">
+                <swiper-slide
+                  v-for="slide in item.photos['retrato']"
+                  :key="slide.id"
+                  :class="'wrap-img ' + slide.format">
+                    <nuxt-img
+                      provider="cloudflare"
+                      :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                      width="551"
+                      height="646"
+                      sizes="'100vw md:50vw lg:551px"
+                      class="bg-thumb"
+                      :alt="slide.alt"
+                      format="avif"
+                      placeholder
+                      loading="lazy"/>
+                </swiper-slide>
+              </swiper-container>
+            </NuxtLink>
         </ClientOnly>
     </div>
 
     <div class="wrap-info">
         <div class="wrap-text">
-    <h2 class="title">
-    {{ item.title }}
-    </h2>
+            <h2 class="title">
+            {{ item.title }}
+            </h2>
 
-    <ul class="info-list">
-    <li class="category" v-if="item.category && item.category.slug">
-        <NuxtLink
-        :to="'/ensaio-fotografico/' + item.category.slug">
-        <span>{{ item.category.title }}</span>
-        </NuxtLink>
-    </li>
-    <li class="place">
-        <Icon
-        name="icons:location-pin-solid"
-        class="icon icon-location-pin"/>
-        <span v-html="item.local"></span>
-    </li>
-    <li class="place" v-if="item.date">
-        <Icon
-        name="icons:location-pin-solid"
-        class="icon icon-location-pin"/>
-        <span v-html="formatDate(item.date)"></span>
-    </li>
-    </ul>
-
-    <NuxtLink
-    :to="item.path"
-    class="btn btn-green">
-        <span>Ver fotos do ensaio</span>
-    </NuxtLink>
+            <ul class="info-list">
+                <li class="category" v-if="item.category && item.category.slug">
+                    <NuxtLink
+                    :to="'/ensaio-fotografico/' + item.category.slug">
+                    <span>{{ item.category.title }}</span>
+                    </NuxtLink>
+                </li>
+                <li class="place">
+                    <Icon
+                    name="icons:location-pin-solid"
+                    class="icon icon-location-pin"/>
+                    <span v-html="item.local"></span>
+                </li>
+                <li class="place" v-if="item.date">
+                    <Icon
+                    name="icons:location-pin-solid"
+                    class="icon icon-location-pin"/>
+                    <span v-html="formatDate(item.date)"></span>
+                </li>
+            </ul>
         </div>
     </div>
     </div>
@@ -88,9 +88,21 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .thumb {
-    box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
-    background: white;
-    padding: 10rem;
+    transition: transform .15s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+    box-shadow:
+      0 1px 0 #ECE4D2,
+      0 14px 30px -12px rgba(42, 37, 32, 0.25),
+      0 4px 10px -4px rgba(42, 37, 32, 0.10);
+    transform-style: preserve-3d;
+    will-change: transform;
+    padding: 15rem;
+
+    &.hover {
+        box-shadow:
+            0 1px 0 #ECE4D2,
+            0 28px 50px -16px rgba(42, 37, 32, 0.35),
+            0 8px 18px -6px rgba(42, 37, 32, 0.15);
+    }
 
     .inner-thumb {
         flex-direction: column;
@@ -100,16 +112,11 @@ const props = defineProps({
     
     .wrap-info {
         color: v.$green;
-        padding: v.$space 0;
+        padding: v.$space 0 0;
         height: 100%;
         
         .wrap-text {
-            padding-bottom: 45rem;
             position: static;
-            
-            @include m.max(sm) {
-                padding-bottom: 30rem;
-            }
         }
         
         .title {
@@ -187,7 +194,7 @@ const props = defineProps({
     }
         
     &.lenght-items-5 {
-        width: calc(20% - 7rem);
+        width: calc(20% - 12rem);
         
         @include m.max(sm) {
             width: 48%;

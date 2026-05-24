@@ -50,13 +50,14 @@ function toggleMenu() {
             'hidden': !props.fromFooter && isMobile && !isOpen
           }">
             <NuxtLink
-                v-for="item in menu"
-                :key="item.path"
-                :to="item.path"
-                :target="item.blank ? '_blank' : undefined"
-                :rel="item.blank ? 'noopener noreferrer' : undefined"
-                class="link"
-                @click="isOpen = false">
+              v-for="item in menu"
+              :key="item.path"
+              :to="item.path"
+              :target="item.blank ? '_blank' : undefined"
+              :rel="item.blank ? 'noopener noreferrer' : undefined"
+              class="link"
+              :class="{ 'button': item.blank }"
+              @click="isOpen = false">
                 <span class="txt">{{ item.label }}</span>
                 <Icon
                     v-if="item.blank"
@@ -176,15 +177,12 @@ function toggleMenu() {
             @include m.max(sm) {
                 display: inline-block;
                 padding-right: 20px;
-                // padding-top: 11px;
                 line-height: 1em;
                 background: white;
                 padding: 15px 30px;
             }
 
             &.router-link-active {
-                // pointer-events: none;
-
                 &::before {
                     background: v.$green;
                 }
@@ -204,6 +202,31 @@ function toggleMenu() {
 
                 @include m.max(sm) {
                     display: none;
+                }
+            }
+
+            &.button {
+                transition: box-shadow .3s ease;
+                border: 1px solid v.$green;
+                background: #f4f2e9;
+                border-radius: 10rem;
+                display: inline-flex;
+                align-items: center;
+                overflow: hidden;
+                padding: 15px;
+                height: 27px;
+                left: 18rem;
+                
+                @include m.max(sm) {
+                    display: inline-table;
+                    height: 50px;
+                }
+
+                &:hover {
+                    box-shadow:
+                      0 1px 0 rgba(42, 37, 32, 0.9),
+                      0 14px 30px -12px rgba(42, 37, 32, 0.5),
+                      0 4px 10px -4px rgba(42, 37, 32, 0.5);
                 }
             }
         }
@@ -368,7 +391,6 @@ function toggleMenu() {
     }
 
     .icon-external {
-        margin-right: 15rem;
         margin-left: 4rem;
     }
 }
@@ -393,7 +415,7 @@ function toggleMenu() {
     }
 
     span {
-        background: v.$dark-green;
+        background: #bd9187;
         border-radius: 2px;
         transition: 0.3s;
         display: block;

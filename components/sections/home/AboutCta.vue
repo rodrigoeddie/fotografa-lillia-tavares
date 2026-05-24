@@ -50,20 +50,6 @@
           </NuxtLink>
         </div>
       </div>
-
-      <div class="col about-img">
-        <nuxt-img
-          provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"'
-          alt="Fotógrafa Lillia Tavares segurando sua câmera fotográfica"
-          width="935"
-          fetchpriority="high"
-          preload
-          sizes="100vw sm:50vw md:935px"
-          format="webp"
-          loading="eager"
-          class="img cover"/>
-      </div>
     </div>
 </template>
 
@@ -121,13 +107,16 @@
   }
 
   .wrap-about {
-    box-shadow: 0 0 10rem rgba(0, 0, 0, 0.1);
+    box-shadow:
+      0 1px 0 #ECE4D2,
+      0 14px 30px -12px rgba(42, 37, 32, 0.25),
+      0 4px 10px -4px rgba(42, 37, 32, 0.10);
     background: white;
     max-width: 860rem;
-    width: 50%;
+    width: 40%;
 
     @include m.max(xs) {
-      height: 345rem;
+      height: auto;
       width: 100%;
     }
 
@@ -136,11 +125,7 @@
       color: v.$green;
 
       @include m.max(xs) {
-        padding: 0 0 0 15px;
-        position: absolute;
-        width: 65%;
-        left: 0;
-        top: 0;
+        padding: 40px 15px 15px 15px;
       }
     }
 
@@ -195,7 +180,7 @@
     }
 
     .col-text {
-      width: 79%;
+      width: 100%;
       
       @include m.max(xs) {
         display: flex;
