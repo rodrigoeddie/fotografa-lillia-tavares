@@ -70,7 +70,7 @@ const props = defineProps({
         <div v-if="fromList && path" class="wrap-cta">
             <NuxtLink
               :to="path"
-              class="name btn btn-green"
+              class="name btn tiny"
               :target="props.externalLink ? '_blank' : '_self'"
               :rel="props.externalLink ? 'noopener noreferrer' : ''">
                 <span>Acesse o ensaio</span>
@@ -155,10 +155,6 @@ const props = defineProps({
 
             .btn {
                 margin-top: -10rem;
-                border-radius: 5rem;
-                text-transform: none;
-                padding: 6rem 12rem;
-                gap: 5rem;
             }
         }
     }

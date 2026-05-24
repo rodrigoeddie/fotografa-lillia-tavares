@@ -13,6 +13,7 @@
   font-size: 28rem;
   font-weight: 900;
 }
+
 .subtitle {
   font-family: v.$open;
   font-size: 25rem;
@@ -25,6 +26,7 @@
   font-size: 22rem;
   font-weight: 900;
 }
+
 .card-description {
   color: v.$green;
   margin-bottom: 20rem;
@@ -109,15 +111,23 @@
   }
 }
 
+.pt20 {
+  padding-top: 20rem;
+}
+
+.pt30 {
+  padding-top: 30rem;
+}
+
 .btn {
   transition: color .2s, background .2s, border .2s, box-shadow .2s;
   border: 1px solid transparent;
-  box-shadow: 2rem 2rem 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 4rem 4rem 0 rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   justify-content: center;
   display: inline-flex;
   padding: 14rem 24rem;
-  letter-spacing: 2px;
+  border-radius: 999px;
   background: v.$green;
   align-items: center;
   font-weight: 900;
@@ -135,9 +145,10 @@
   }
 
   &:hover {
-    box-shadow: 4rem 4rem 4rem rgba(0, 0, 0, 0.2);
+    box-shadow: 8rem 8rem 0 rgba(0, 0, 0, 0.2);
     background: white !important;
     border-color: v.$green;
+    color: v.$green;
   }
 
   &.btn-white {
@@ -151,7 +162,7 @@
 
     &:hover {
       border-color: v.$green;
-      color: v.$dark-green;
+      color: v.$green;
     }
   }
 
@@ -182,6 +193,14 @@
       border-color: v.$red;
       color: v.$red;
     }
+  }
+
+  &.tiny {
+    background: v.$light-green;
+    color: v.$green;
+    text-transform: none;
+    padding: 6rem 12rem;
+    gap: 5rem;
   }
 }
 

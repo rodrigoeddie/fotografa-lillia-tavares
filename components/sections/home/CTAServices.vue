@@ -13,7 +13,7 @@ const services = [
   {
     title: 'Análise de coloração pessoal',
     image: 'https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public',
-    to: '/coloracao-pessoal',
+    to: '/analise-coloracao-pessoal-em-mogi',
   },
 ];
 </script>

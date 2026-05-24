@@ -20,3 +20,14 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'The Girl Next Door';
+  src:
+    url('../fonts/TheGirlNextDoor.woff2') format('woff2'),
+    url('../fonts/TheGirlNextDoor.woff') format('woff'),
+    url('../fonts/TheGirlNextDoor.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

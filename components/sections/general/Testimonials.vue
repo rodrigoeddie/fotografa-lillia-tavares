@@ -66,19 +66,19 @@ const isFewItems = computed(() => works.value.length <= 2);
         </div>
         <swiper-container
             v-else
-            class="swiper-testimonials"
-            :auto-height="true"
-            :allow-touch-move="true"
-            :prevent-clicks="false"
-            :prevent-clicks-propagation="false"
-            :touch-release-on-edges="true"
-            :pagination="{
-                clickable: true,
-            }"
-            :slides-per-group="1"
-            :slides-per-view="1.20"
-            :space-between="8"
-            :breakpoints="{
+              class="swiper-testimonials"
+              :auto-height="true"
+              :allow-touch-move="true"
+              :prevent-clicks="false"
+              :prevent-clicks-propagation="false"
+              :touch-release-on-edges="true"
+              :pagination="{
+                  clickable: true,
+              }"
+              :slides-per-group="1"
+              :slides-per-view="1.20"
+              :space-between="8"
+              :breakpoints="{
                 500: {
                     slidesPerGroup: 2,
                     slidesPerView: 2.20,
@@ -104,6 +104,14 @@ const isFewItems = computed(() => works.value.length <= 2);
                 </swiper-slide>
         </swiper-container>
         </ClientOnly>
+
+        <div class="ac pt30">
+            <NuxtLink
+              to="/depoimentos"
+              class="btn">
+                Ver todas as avaliações
+            </NuxtLink>
+        </div>
     </div>
 </template>
 

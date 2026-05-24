@@ -26,7 +26,7 @@
 
         <NuxtLink
           :to="'/estudio-fotografico-em-mogi-das-cruzes'"
-          class="btn btn-green">
+          class="btn">
             <span>Sobre o estúdio</span>
         </NuxtLink>
       </div>
@@ -74,6 +74,8 @@
       flex-direction: column;
       padding-right: 30rem;
       display: flex;
+      text-align: right;
+      align-items: flex-end;
       width: 32%;
 
       @include m.max(lg) {
