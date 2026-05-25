@@ -1,11 +1,11 @@
 import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
-import { getOrm } from '~/server/utils/d1-client';
+import { getOrm, getDB } from '~/server/utils/d1-client';
 import { DepoimentoService } from '~/server/services/DepoimentoService';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
-  const svc = new DepoimentoService(getOrm(event));
+  const svc = new DepoimentoService(getOrm(event), getDB(event));
 
   if (getMethod(event) === 'GET') {
     return svc.list();
