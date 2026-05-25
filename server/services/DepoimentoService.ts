@@ -18,7 +18,7 @@ const LIST_SQL = `
     ) AS portfolio_foto_cf_id
   FROM depoimentos d
   LEFT JOIN portfolio_works pw
-    ON pw.slug = d.portfolio_link
+    ON pw.categoria || '/' || pw.slug = d.portfolio_link
     AND d.portfolio_link IS NOT NULL
     AND d.portfolio_link != ''
   ORDER BY d.ordem ASC

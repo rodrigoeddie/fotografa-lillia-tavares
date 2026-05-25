@@ -134,8 +134,8 @@ export function adaptFaqCategoria(c: any) {
 
 /** Adapta um depoimento do D1 ao formato de review */
 export function adaptDepoimento(d: any) {
-  const portfolioPath = d.portfolio_slug
-    ? `/ensaio-fotografico/${d.portfolio_slug}`
+  const portfolioPath = d.portfolio_categoria && d.portfolio_slug
+    ? `/ensaio-fotografico/${d.portfolio_categoria}/${d.portfolio_slug}`
     : null;
 
   return {
