@@ -237,9 +237,10 @@
 }
 
 .container {
+  padding: 0 15rem;
+  max-width: 100%;
   width: 1750rem;
   margin: 0 auto;
-  max-width: 98%;
 
   &.no-padding {
     padding: 0 !important;

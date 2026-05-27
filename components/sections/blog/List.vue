@@ -26,7 +26,10 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
         data-ani-type="polaroid"
         data-ani-batch="wrap-posts"
         data-ani-stagger="0.07">
-        <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
+        <NuxtLink
+          :to="post.path"
+          :aria-label="'Ver post: ' + post.title"
+          class="thumb-post">
           <nuxt-img
             v-if="post.image"
             provider="cloudflare"
@@ -39,32 +42,37 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
             placeholder
             loading="lazy"/>
         </NuxtLink>
-        <div class="text">
+
+        <div class="wrap-text">
           <h2 class="subtitle">
             <NuxtLink :to="post.path">{{ post.title }}</NuxtLink>
           </h2>
           <div class="description" v-if="post.description">
             {{ post.description }}
           </div>
-          <div class="post-meta">
-            <span
-              class="category-link">
-              <Icon
-                name="icons:calendar-regular"
-                class="icon icon-calendar"/>
-              <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
-            </span>
-            <NuxtLink
-              :to="'/blog/' + post.category.slug"
-              class="category-link">
-              <Icon
-                name="icons:category"
-                class="icon icon-category"/>
-              <span class="category">{{ post.category.title }}</span>
-            </NuxtLink>
-          </div>
+        </div>
+
+        <div class="post-meta">
+          <span
+            class="category-link">
+            <Icon
+              name="icons:calendar-regular"
+              class="icon icon-calendar"/>
+            <time :datetime="post.date" class="time">{{ formatDate(post.date) }}</time>
+          </span>
+          <NuxtLink
+            :to="'/blog/' + post.category.slug"
+            class="category-link">
+            <Icon
+              name="icons:category"
+              class="icon icon-category"/>
+            <span class="category">{{ post.category.title }}</span>
+          </NuxtLink>
         </div>
       </article>
+      <div class="post-item empty"></div>
+      <div class="post-item empty"></div>
+      <div class="post-item empty"></div>
     </div>
   </div>
 </template>
@@ -75,7 +83,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
   padding-bottom: v.$bigSpace;
   flex-wrap: wrap;
   display: flex;
-  gap: 15rem 0;
+  gap: 20rem 0;
 
   @include m.max(xs) {
     flex-direction: column;
@@ -83,11 +91,12 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
 }
 
 .post-item {
-  width: calc(25% - v.$space/2);
-  flex-direction: column;
+  box-shadow:
+      0 1px 0 #ECE4D2,
+      0 14px 30px -12px rgba(42, 37, 32, 0.25),
+      0 4px 10px -4px rgba(42, 37, 32, 0.10);
+  width: calc(25% - 15rem);
   background: white;
-  padding: 10rem;
-  display: flex;
 
   @include m.max(lg) {
     width: calc(33% - v.$space/2);
@@ -101,39 +110,45 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
     width: 100%;
   }
 
-  .text {
-    justify-content: space-between;
-    flex-direction: column;
-    padding: v.$space 0;
-    display: flex;
-    height: 100%;
-  }
-
-  .subtitle {
-    color: v.$green;
-
-    @include m.max(sm) {
-      min-height: auto;
-    }
-  }
-
-  .description {
-    padding-bottom: 20rem;
+  .thumb-post {
+    aspect-ratio: 2.8/2;
+    overflow: hidden;
     display: block;
-
-    @include m.max(sm) {
-      min-height: auto;
-    }
-  }
-
-  .img-thumb {
-    height: auto;
     width: 100%;
 
-    @include m.max(sm) {
-      aspect-ratio: 200 / 110;
+    .img-thumb {
+      position: absolute;
       object-fit: cover;
       height: 100%;
+      width: 100%;
+    }
+  }
+
+  .wrap-text {
+    justify-content: space-between;
+    padding: 15rem 15rem 40rem 15rem;
+    flex-direction: column;
+    display: flex;
+    
+    .subtitle {
+      border-bottom: 1px solid #ccc;
+      min-height: 100rem;
+      font-size: 24rem;
+      color: v.$green;
+      
+      @include m.max(sm) {
+        min-height: auto;
+        padding-bottom: 10rem;
+      }
+    }
+  
+    .description {
+      padding-bottom: 20rem;
+      display: block;
+  
+      @include m.max(sm) {
+        min-height: auto;
+      }
     }
   }
 
@@ -146,9 +161,13 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
   .post-meta {
     justify-content: space-between;
     align-items: center;
+    position: absolute;
     font-size: 18px;
     color: #666;
     display: flex;
+    bottom: 15rem;
+    right: 15rem;
+    left: 15rem;
 
     @include m.max(sm) {
       margin-bottom: 0;
@@ -157,7 +176,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
     .time,
     .category-link {
       padding-top: 2rem;
-      font-size: 13px;
+      font-size: 11px;
       color: #999;
     }
 
@@ -167,14 +186,15 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
       gap: 5px;
 
       .icon {
-        font-size: 22px;
+        font-size: 22rem;
         color: #666;
       }
     }
+  }
 
-    .icon {
-      font-size: 18px;
-    }
+  &.empty {
+    box-shadow: none;
+    background: transparent;
   }
 }
 </style>

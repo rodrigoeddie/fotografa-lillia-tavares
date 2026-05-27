@@ -45,15 +45,17 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
     0 14px 30px -12px rgba(42, 37, 32, 0.25),
     0 4px 10px -4px rgba(42, 37, 32, 0.10);
   transform-style: preserve-3d;
+  width: calc(33% -  8rem);
   will-change: transform;
+  flex-direction: column;
   background: white;
-  flex: 1 1 200rem;
-  min-width: 200rem;
+  display: flex;
   
   @include m.max(sm) {
-    flex: auto;
+    flex-direction: row;
     flex-shrink: 0;
     display: flex;
+    flex: auto;
     width: 100%;
   }
 
@@ -72,18 +74,24 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
 .wrap-img {
   aspect-ratio: 2/1.9;
   overflow: hidden;
+  flex-shrink: 0;
   width: 100%;
-    
-  @include m.max(sm) {
-    display: none;
+
+  @include m.max(md) {
+    aspect-ratio: 1.4 / 1;
   }
-  
+
+  @include m.max(sm) {
+    width: 25%;
+  }
+
   .cover {
     transition: opacity .2s, filter .2s;
-    padding: 15rem;
+    margin-bottom: 15rem;
     opacity: .6;
-    
+
     @include m.max(sm) {
+      margin-bottom: 0;
       padding: 0;
     }
   }
@@ -91,16 +99,21 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
 
 .card-title {
   text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  font-size: 18rem;
+  font-size: 20rem;
   font-weight: 600;
   line-height: 1.3;
-  padding: 0 15rem;
-  display: block;
+  padding: 15rem;
+  margin-bottom: 0;
+  display: flex;
+  height: 100%;
   width: 100%;
-    
-  @include m.max(sm) {
-    margin-top: 12rem;
+  
+  @include m.max(sm) {    
+    justify-content: left;
+    text-align: left;
   }
 }
 </style>

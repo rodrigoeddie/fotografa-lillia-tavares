@@ -31,12 +31,12 @@ const services = [
 
 <style scoped lang="scss">
 .wrap-services {
+  justify-content: space-between;
   flex-wrap: wrap;
   display: flex;
-  gap: 16rem;
   width: 59%;
   
-  @include m.max(sm) {
+  @include m.max(md) {
     padding: 8rem 0;
     width: 100%;
     gap: 8rem;

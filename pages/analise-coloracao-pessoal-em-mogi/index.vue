@@ -344,10 +344,23 @@ const steps = [
   display: flex;
   gap: 40rem;
 
+  @include m.max(sm) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include m.max(sm) {
+    text-align: center;
+  }
+
   .title em {
     font-style: italic;
     color: v.$beige;
     text-transform: none;
+
+    @include m.max(sm) {
+      text-align: center;
+    }
   }
 
   &__actions {

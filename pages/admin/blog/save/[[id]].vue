@@ -23,12 +23,7 @@ async function onSaved() {
   router.push('/admin/blog');
 }
 
-const categoriasOptions = [
-  'fotografia-corporativa',
-  'cenarios-tematicos',
-  'presentes',
-  'dicas',
-];
+const categoriasOptions = ref<{ slug: string; titulo: string }[]>([]);
 
 // ─── Page URL ────────────────────────────────────────────────────────────────
 const pageUrl = computed(() => {
@@ -86,7 +81,11 @@ function insertLink() {
 }
 
 onMounted(async () => {
-  await init();
+  const [cats] = await Promise.all([
+    adminFetch<{ slug: string; titulo: string }[]>('/api/admin/blog/categorias'),
+    init(),
+  ]);
+  categoriasOptions.value = cats ?? [];
   nextTick(() => {
     if (editor.value && form.conteudo) {
       editor.value.commands.setContent(form.conteudo);
@@ -133,7 +132,7 @@ onBeforeUnmount(() => {
             <label>Categoria</label>
             <select v-model="form.categoria">
               <option value="">Selecione...</option>
-              <option v-for="c in categoriasOptions" :key="c" :value="c">{{ c }}</option>
+              <option v-for="c in categoriasOptions" :key="c.slug" :value="c.slug">{{ c.titulo }}</option>
             </select>
           </div>
 

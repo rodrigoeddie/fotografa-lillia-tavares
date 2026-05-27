@@ -81,7 +81,7 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
                 </li>
             </ul>
 
-            <div class="ac pt10">
+            <div class="ac pt10 wrap-link">
                 <NuxtLink
                   :to="item.path"
                   class="btn tiny">
@@ -103,7 +103,6 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
       0 4px 10px -4px rgba(42, 37, 32, 0.10);
     transform-style: preserve-3d;
     will-change: transform;
-    padding: 15rem;
 
     &.hover {
         box-shadow:
@@ -120,7 +119,7 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
     
     .wrap-info {
         color: v.$green;
-        padding: v.$space 0 0;
+        padding: 15rem 15rem 0 15rem;
         height: 100%;
         
         .wrap-text {
@@ -183,6 +182,10 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
             padding-bottom: 40rem;
         }
     }
+
+    .wrap-link {
+        bottom: -16rem;
+    }
     
     .link {
         text-decoration: underline;
@@ -210,7 +213,7 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
     }
 
     &.lenght-items-4 {
-        width: calc(25% - 14rem);
+        width: calc(25% - 15rem);
         
         @include m.max(sm) {
             width: 49%;

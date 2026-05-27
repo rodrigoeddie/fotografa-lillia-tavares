@@ -121,12 +121,12 @@ onMounted(() => {
     display: flex;
 
     @include m.max(sm) {
-      gap: 10rem 0;
+      /* gap: 10rem 0; */
     }
-
+    
     &.swiper-portfolio {
-      display: block;
       padding-bottom: 40rem;
+      display: block;
 
       @include m.max(sm) {
         padding-bottom: 0;

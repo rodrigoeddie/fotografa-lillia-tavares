@@ -257,6 +257,15 @@ const processedContent = computed(() => {
         font-size: 19rem;
         padding: 10rem 8rem;
       }
+
+      p:first-child {
+        background: #f9f9f7;
+        line-height: 1.5em;
+        font-size: 23rem;
+        color: #6a674f;
+        padding: 20px;
+        border-left: 5px v.$green;
+      }
     }
   }
 

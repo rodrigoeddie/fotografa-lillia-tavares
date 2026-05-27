@@ -128,7 +128,7 @@ watch(() => $route.fullPath, () => refreshEnsaios(), { immediate: false });
   .wrap-portfolio {
     flex-wrap: wrap;
     display: flex;
-    gap: 18rem;
+    gap: 20rem;
 
     @include m.max(xs) {
       gap: 10rem;
@@ -144,13 +144,13 @@ watch(() => $route.fullPath, () => refreshEnsaios(), { immediate: false });
     margin-top: 30rem;
 
     .title {
-        text-align: center;
-        padding-bottom: 15rem;
+      text-align: center;
+      padding-bottom: 15rem;
     }
 
     .btn {
-        margin-bottom: 35rem;
-        margin-top: 15rem;
+      margin-bottom: 35rem;
+      margin-top: 15rem;
     }
   }
 </style>

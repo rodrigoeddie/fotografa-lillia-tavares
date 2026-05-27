@@ -101,7 +101,6 @@
     margin-top: 0;
     
     @include m.max(xs) {
-      margin-top: 10px;
       font-size: 13px;
     }
   }
@@ -122,8 +121,9 @@
     background: white;
     max-width: 860rem;
     width: 40%;
-
-    @include m.max(xs) {
+    
+    @include m.max(md) {
+      max-width: none;
       height: auto;
       width: 100%;
     }
@@ -133,7 +133,7 @@
       color: v.$green;
 
       @include m.max(xs) {
-        padding: 40px 15px 15px 15px;
+        padding: 15px;
       }
     }
 
@@ -144,7 +144,7 @@
       display: flex;
       padding: 5rem 0;
 
-      @include m.max(xs) {
+      @include m.max(md) {
         flex-direction: row;
         padding: 6px;
       }

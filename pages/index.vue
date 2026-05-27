@@ -18,7 +18,7 @@ usePageSeo('static', '/');
     margin-top: 15rem;
     display: flex;
 
-    @include m.max(xs) {
+    @include m.max(md) {
       flex-direction: column;
     }
   }

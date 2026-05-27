@@ -150,12 +150,9 @@ const props = defineProps({
         .wrap-cta {
             justify-content: center;
             padding-bottom: 20rem;
+            margin-top: -18rem;
             display: flex;
             width: 100%;
-
-            .btn {
-                margin-top: -10rem;
-            }
         }
     }
 </style>

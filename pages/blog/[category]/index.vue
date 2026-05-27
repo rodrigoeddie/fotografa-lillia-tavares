@@ -45,7 +45,10 @@ const formatDate = (date: string) =>
   
     <div class="wrap-posts">
       <article v-for="post in postsData" :key="post.id" class="post-item">
-        <NuxtLink :to="post.path" :aria-label="'Ver post: ' + post.title">
+        <NuxtLink
+          :to="post.path"
+          :aria-label="'Ver post: ' + post.title"
+          class="thumb-post">
           <nuxt-img
             v-if="post.image"
             provider="cloudflare"
@@ -114,13 +117,11 @@ const formatDate = (date: string) =>
 .post-item {
   border-bottom: 1px solid #eee;
   padding-bottom: 20rem;
-  flex-direction: column;
   padding-top: 10px;
   margin-top: 20px;
-  display: flex;
-  gap: 30rem 0;
+  display: block;
   width: 32%;
-  
+
   .subtitle {
     min-height: 63rem;
   }
@@ -130,10 +131,20 @@ const formatDate = (date: string) =>
     min-height: 172rem;
     display: block;
   }
-  
-  .img-thumb {
-    height: auto;
+
+  .thumb-post {
+    aspect-ratio: 3 / 2;
+    margin-bottom: 30rem;
+    overflow: hidden;
     width: 100%;
+    display: block;
+
+    .img-thumb {
+      position: absolute;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
   }
 
   &:last-child {
