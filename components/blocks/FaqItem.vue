@@ -48,15 +48,20 @@ const toggle = () => {
 
 <style scoped lang="scss">
 .faq-item {
-  box-shadow: 0 0 10rem rgba(55, 71, 34, 0.1);
-  border: 1rem solid #e5e5e5;
+  transition: transform .15s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
   margin-bottom: 16rem;
-  border-radius: 8rem;
   background: #fff;
   overflow: hidden;
+  box-shadow:
+    0 1px 0 #ECE4D2,
+    0 14px 30px -12px rgba(42, 37, 32, 0.25),
+    0 4px 10px -4px rgba(42, 37, 32, 0.10);
   
   &:hover {
-    border-color: #ccc;
+    box-shadow:
+        0 1px 0 #ECE4D2,
+        0 28px 50px -16px rgba(42, 37, 32, 0.35),
+        0 8px 18px -6px rgba(42, 37, 32, 0.15);
   }
   
   &--open {
@@ -77,7 +82,7 @@ const toggle = () => {
   width: 100%;
   
   &:hover {
-    background: #f9f9f9;
+    background: #f4f2e9;
   }
 }
 

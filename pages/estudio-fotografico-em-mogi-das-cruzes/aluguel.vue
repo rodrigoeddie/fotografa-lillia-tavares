@@ -51,15 +51,15 @@ const partners = [
 
     <!-- Hero -->
     <section class="hero container" data-ani-type="fade-up">
-      <h1 class="big-title green">
+      <h1 class="big-title">
         Aluguel de Estúdio Fotográfico em Mogi das Cruzes
       </h1>
-      <p class="hero__description">
+      <p class="description">
         Nosso estúdio fotográfico está disponível para locação por hora ou diária.
         Ideal para fotógrafos, marcas, e-commerce e produções criativas.
         7 cenários modernos, fundo infinito em 4 cores e equipamentos disponíveis.
-      </p>
-      <NuxtLink to="/agende-seu-ensaio" class="btn btn-green hero__cta">
+      </p><br><br>
+      <NuxtLink to="/agende-seu-ensaio" class="btn">
         <span>Solicitar orçamento</span>
       </NuxtLink>
     </section>
@@ -67,7 +67,7 @@ const partners = [
     <!-- Preços -->
     <section class="secao-precos" data-ani-type="fade-up">
       <div class="container">
-        <h2 class="secao-titulo green">Valores</h2>
+        <h2 class="big-title">Valores</h2>
         <div class="precos-grid">
           <div class="preco-card">
             <span class="preco-card__label">Por hora</span>
@@ -78,10 +78,10 @@ const partners = [
             <span class="preco-card__valor">R$ 800</span>
           </div>
         </div>
-        <p class="precos-obs">
+        <p class="description">
           Valores sujeitos a alteração. Entre em contato para confirmar disponibilidade e fechar sua reserva.
         </p>
-        <NuxtLink to="/agende-seu-ensaio" class="btn btn-green">
+        <NuxtLink to="/agende-seu-ensaio" class="btn">
           <span>Reservar minha data</span>
         </NuxtLink>
       </div>
@@ -90,8 +90,8 @@ const partners = [
     <!-- Cenários disponíveis (cards compactos) -->
     <section class="secao-cenarios" data-ani-type="fade-up">
       <div class="container">
-        <h2 class="secao-titulo green">Cenários disponíveis</h2>
-        <p class="secao-desc">
+        <h2 class="big-title">Cenários disponíveis</h2>
+        <p class="description">
           Todos os cenários estão incluídos na locação.
         </p>
         <SectionsStudioCenariosCards :cenarios="cenarioCards" />
@@ -101,10 +101,11 @@ const partners = [
     <!-- Parceiros -->
     <section class="secao-parceiros" data-ani-type="fade-up">
       <div class="container">
-        <h2 class="secao-titulo green">Parceiros</h2>
-        <p class="secao-desc">
+        <h2 class="big-title">Parceiros</h2>
+        <p class="description">
           Marcas que já utilizaram nosso espaço para campanhas e produções fotográficas.
         </p>
+        <br>
 
         <div class="parceiros-grid">
           <div v-for="partner in partners" :key="partner.name" class="parceiro-card">
@@ -198,7 +199,7 @@ const partners = [
 
 // Preços
 .secao-precos {
-  background: v.$beige;
+  background: #f7f4e8;
   padding: 50rem 0;
   text-align: center;
 
@@ -207,6 +208,10 @@ const partners = [
     flex-direction: column;
     align-items: center;
     gap: 20rem;
+  }
+
+  .big-title {
+    padding-top: 0;
   }
 }
 
@@ -219,14 +224,16 @@ const partners = [
 
 .preco-card {
   background: white;
-  border-radius: 12rem;
   padding: 30rem 50rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8rem;
-  box-shadow: 0 2rem 10rem rgba(0, 0, 0, 0.08);
   min-width: 200rem;
+  box-shadow:
+    0 1px 0 #ECE4D2,
+    0 14px 30px -12px rgba(42, 37, 32, 0.25),
+    0 4px 10px -4px rgba(42, 37, 32, 0.10);
 
   &--destaque {
     border: 2px solid v.$green;
@@ -278,8 +285,11 @@ const partners = [
 
 .parceiro-card {
   border: 1px solid #e8e4d8;
-  border-radius: 10rem;
   padding: 24rem;
+  box-shadow:
+    0 1px 0 #ECE4D2,
+    0 14px 30px -12px rgba(42, 37, 32, 0.25),
+    0 4px 10px -4px rgba(42, 37, 32, 0.10);
 
   &__nome {
     font-size: 22rem;

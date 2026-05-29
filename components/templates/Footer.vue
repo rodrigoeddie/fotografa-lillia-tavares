@@ -63,10 +63,6 @@
         display: flex;
         gap: v.$space;
 
-        // @media (prefers-color-scheme: dark) {
-        //     background: v.$dark-red;
-        // }
-
         @include m.max(md) {
             gap: 20rem;
         }
@@ -111,7 +107,7 @@
 
     footer {
         justify-content: center;
-        background: #d7d6cd;
+        background: #f7f4e8;
         align-items: center;
         text-align: center;
         flex-wrap: wrap;

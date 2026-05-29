@@ -18,6 +18,11 @@
   font-family: v.$open;
   font-size: 25rem;
   font-weight: 900;
+  color: v.$green;
+}
+
+.dif {
+  display: inline-flex;
 }
 
 .card-title {
@@ -187,15 +192,6 @@
     background: #eaeaea;
     border-color: v.$green;
     color: v.$green;
-  }
-
-  &.btn-green {
-    background: v.$dark-green;
-
-    &:hover {
-      border-color: v.$green;
-      color: v.$green;
-    }
   }
 
   &.btn-green-light {

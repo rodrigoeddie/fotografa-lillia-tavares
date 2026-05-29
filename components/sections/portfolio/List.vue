@@ -84,7 +84,7 @@ watch(() => $route.fullPath, () => refreshEnsaios(), { immediate: false });
                       data-ani-stagger="0.07" />
                 </div>
                 <div class="ac">
-                    <NuxtLink :to="group.path" class="btn btn-white" data-ani-type="fade" data-ani-delay="0.5">
+                    <NuxtLink :to="group.path" class="btn" data-ani-type="fade" data-ani-delay="0.5">
                         <span>Ver todos</span>
                     </NuxtLink>
                 </div>

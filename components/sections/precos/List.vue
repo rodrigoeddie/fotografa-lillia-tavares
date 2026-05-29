@@ -18,10 +18,10 @@ const categories = computed(() => {
       <header
         class="investment-header"
         data-ani-type="fade-up">
-        <h1 class="big-title green centered">
+        <h1 class="big-title">
           Pacotes dos Ensaios Fotográficos
         </h1>
-        <p class="investment-header__description">
+        <p class="description">
           Escolha o tipo de ensaio que melhor se encaixa no seu momento especial.
           Cada categoria foi cuidadosamente elaborada para atender suas necessidades.
         </p>
@@ -38,18 +38,21 @@ const categories = computed(() => {
           data-ani-stagger="0.07"
           data-track-event="cta-ver-categoria-precos"
           :data-track-params="JSON.stringify({ categoria: category.slug })">
-          <div class="category-card__icon" v-html="category.icon"></div>
-          <h2 class="category-card__title">{{ category.name }}</h2>
-          <p class="category-card__description">{{ category.description }}</p>
-          <span class="btn btn-green">Ver Pacotes</span>
+            <div class="category-card__icon" v-html="category.icon"></div>
+            <h2 class="category-card__title">{{ category.name }}</h2>
+            <p class="category-card__description">{{ category.description }}</p>
+            <span class="btn">Ver Pacotes</span>
         </NuxtLink>
       </div>
+    </div>
 
-      <section
-        class="investment-info"
-        data-ani-type="fade-up"
-        data-ani-delay="0.2">
-        <h2 class="investment-info__title">Por que investir em fotografia profissional?</h2>
+    <section
+      class="investment-info"
+      data-ani-type="fade-up"
+      data-ani-delay="0.2">
+      <div class="container">
+        <h2 class="subtitle">Por que investir em fotografia profissional?</h2>
+
         <div class="investment-info__grid">
           <div class="info-item">
             <h3 class="info-item__title">Memórias Eternas</h3>
@@ -70,25 +73,25 @@ const categories = computed(() => {
             </p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section
-        class="investment-cta"
-        data-ani-type="fade-up"
-        data-ani-delay="0.4">
-        <h2>Ainda tem dúvidas?</h2>
-        <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
-        <a
-          href="https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="investment-cta__button"
-          data-track-event="cta-whatsapp-precos"
-        >
-          Falar com a Fotógrafa
-        </a>
-      </section>
-    </div>
+    <section
+      class="investment-cta"
+      data-ani-type="fade-up"
+      data-ani-delay="0.4">
+      <h2>Ainda tem dúvidas?</h2>
+      <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
+      <a
+        href="https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="investment-cta__button"
+        data-track-event="cta-whatsapp-precos"
+      >
+        Falar com a Fotógrafa
+      </a>
+    </section>
   </div>
 </template>
 
@@ -108,18 +111,11 @@ const categories = computed(() => {
 
 .investment-header {
   text-align: center;
-  margin-bottom: v.$space;
+  margin-bottom: calc(v.$space * 2);
   max-width: 1200rem;
   margin-left: auto;
   margin-right: auto;
   color: v.$green;
-
-  &__description {
-    padding-top: 15rem;
-    font-size: 18rem;
-    color: v.$green;
-    line-height: 1.6;
-  }
 }
 
 .investment-categories {
@@ -134,21 +130,24 @@ const categories = computed(() => {
 }
 
 .category-card {
-  border: 1px solid v.$green;
-  background: #fff;
-  // border-radius: 8rem;
-  padding: v.$space;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: flex;
+  transition: transform .15s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+  padding: calc(v.$space * 2);
   flex-direction: column;
+  text-decoration: none;
   align-items: center;
   text-align: center;
+  background: #fff;
+  display: flex;
+  box-shadow:
+    0 1px 0 #ECE4D2,
+    0 14px 30px -12px rgba(42, 37, 32, 0.25),
+    0 4px 10px -4px rgba(42, 37, 32, 0.10);
 
   &:hover {
-    border-color: #333;
-    box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.1);
-    transform: translateY(-4rem);
+    box-shadow:
+        0 1px 0 #ECE4D2,
+        0 28px 50px -16px rgba(42, 37, 32, 0.35),
+        0 8px 18px -6px rgba(42, 37, 32, 0.15);
   }
 
   &__icon {
@@ -178,8 +177,7 @@ const categories = computed(() => {
 }
 
 .investment-info {
-  background: #f9f9f9;
-  border-radius: 8rem;
+  background: #f7f4e8;
   padding: 48rem 32rem;
   margin-bottom: 48rem;
 

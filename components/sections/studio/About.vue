@@ -45,7 +45,7 @@
   <div class="wrapper">
     <div class="wrap-inner row container">
       <div class="side side-text" data-ani-type="fade-right">
-        <h1 class="big-title green">
+        <h1 class="big-title">
           <span>Sobre o Estúdio</span>
         </h1>
         <p class="description green">
@@ -58,7 +58,7 @@
 
         <NuxtLink
           :to="fromStudio ? '/agende-seu-ensaio' : '/estudio-fotografico-em-mogi-das-cruzes'"
-          class="btn btn-green">
+          class="btn">
             <span>{{ fromStudio ? 'Agende Seu Ensaio' : 'Ver mais' }}</span>
         </NuxtLink>
       </div>
@@ -259,6 +259,7 @@
       padding: 6px 0 35rem 35rem;
       justify-content: flex-end;
       flex-direction: column;
+      align-items: flex-start;
       padding-right: 30rem;
       display: flex;
       width: 45%;

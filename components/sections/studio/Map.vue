@@ -6,7 +6,7 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
 
 <template>
     <div class="wrap-map">
-        <h2 class="title title-map">Estamos localizados em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light"><span>Mogi das cruzes, SP</span>. <Icon name="icons:external-link" class="icon"/></a></h2>
+        <h2 class="big-title title-map">Estamos localizados em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light"><span>Mogi das cruzes, SP</span>. <Icon name="icons:external-link" class="icon"/></a></h2>
 
         <!-- Facade: iframe só carrega quando o usuário clicar -->
         <div
@@ -29,7 +29,8 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
             <div v-else class="map-placeholder" aria-label="Clique para carregar o mapa">
                 <Icon name="mdi:map-marker" class="pin-icon" />
                 <span class="placeholder-label">Estúdio Lillia Tavares · Mogi das Cruzes, SP</span>
-                <span class="placeholder-cta">Clique para ver no mapa</span>
+                <br>
+                <span class="btn">Clique para ver no mapa</span>
                 <div class="map">
                     <nuxt-img
                         provider="cloudflare"

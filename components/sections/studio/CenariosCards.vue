@@ -36,7 +36,7 @@ const imgSrc = (imageId: string) => configPublic.cloudflareURI + imageId + '/pub
     </div>
 
     <div class="cards-cta">
-      <NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes/cenarios" class="btn btn-green">
+      <NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes/cenarios" class="btn">
         <span>Ver todos os cenários</span>
       </NuxtLink>
     </div>
@@ -66,18 +66,22 @@ const imgSrc = (imageId: string) => configPublic.cloudflareURI + imageId + '/pub
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 6rem;
-  overflow: hidden;
-  background: white;
-  box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-direction: column;
   text-decoration: none;
+  background: white;
+  overflow: hidden;
+  display: flex;
+  box-shadow:
+    0 1px 0 #ECE4D2,
+    0 14px 30px -12px rgba(42, 37, 32, 0.25),
+    0 4px 10px -4px rgba(42, 37, 32, 0.10);
 
   &:hover {
-    transform: translateY(-3rem);
-    box-shadow: 0 6rem 16rem rgba(0, 0, 0, 0.12);
+    box-shadow:
+        0 1px 0 #ECE4D2,
+        0 28px 50px -16px rgba(42, 37, 32, 0.35),
+        0 8px 18px -6px rgba(42, 37, 32, 0.15);
 
     .card__img {
       transform: scale(1.04);
