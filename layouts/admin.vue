@@ -5,7 +5,7 @@ useHead({
   link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block' }],
 });
 
-const { authenticated, loginEmail, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
+const { authenticated, isSuperAdmin, canAccess, loginEmail, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
 const { adminFetch } = useAdminFetch();
 
@@ -96,21 +96,27 @@ provide('showMessage', showMessage);
             <!-- Navegação DB -->
             <div class="fs-db-nav">
               <div class="fs-db-label">------</div>
-              <NuxtLink to="/admin/clientes" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">group</span> Clientes</NuxtLink>
-              <NuxtLink to="/admin/sessoes" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">photo_library</span> Ensaios</NuxtLink>
-              <NuxtLink to="/admin/entregas" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">folder_zip</span> Entregas</NuxtLink>
-              <div class="fs-db-label" style="margin-top:1rem">Site</div>
-              <NuxtLink to="/admin/hero-banners" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">panorama</span> Banners</NuxtLink>
-              <NuxtLink to="/admin/portfolio" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">camera_alt</span> Portfolio</NuxtLink>
-              <NuxtLink to="/admin/investimento" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">payments</span> Preços</NuxtLink>
-              <NuxtLink to="/admin/depoimentos" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">star</span> Avaliações</NuxtLink>
-              <NuxtLink to="/admin/faq" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
-              <NuxtLink to="/admin/blog" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
-              <NuxtLink to="/admin/cenarios" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
-              <NuxtLink to="/admin/landing-pages" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
-              <NuxtLink to="/admin/menu" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
-              <div class="fs-db-label" style="margin-top:1rem">ferramentas</div>
-              <NuxtLink to="/admin/seo" class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">search</span> SEO</NuxtLink>
+              <NuxtLink v-if="canAccess('clientes')"      to="/admin/clientes"      class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">group</span> Clientes</NuxtLink>
+              <NuxtLink v-if="canAccess('sessoes')"       to="/admin/sessoes"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">photo_library</span> Ensaios</NuxtLink>
+              <NuxtLink v-if="canAccess('entregas')"      to="/admin/entregas"      class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">folder_zip</span> Entregas</NuxtLink>
+              <template v-if="canAccess('hero-banners') || canAccess('portfolio')">
+                <div class="fs-db-label" style="margin-top:1rem">Site</div>
+                <NuxtLink v-if="canAccess('hero-banners')"   to="/admin/hero-banners"   class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">panorama</span> Banners</NuxtLink>
+                <NuxtLink v-if="canAccess('portfolio')"      to="/admin/portfolio"      class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">camera_alt</span> Portfolio</NuxtLink>
+                <NuxtLink v-if="canAccess('investimento')"   to="/admin/investimento"   class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">payments</span> Preços</NuxtLink>
+                <NuxtLink v-if="canAccess('depoimentos')"    to="/admin/depoimentos"    class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">star</span> Avaliações</NuxtLink>
+                <NuxtLink v-if="canAccess('faq')"            to="/admin/faq"            class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
+                <NuxtLink v-if="canAccess('blog')"           to="/admin/blog"           class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
+                <NuxtLink v-if="canAccess('cenarios')"       to="/admin/cenarios"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
+                <NuxtLink v-if="canAccess('landing-pages')"  to="/admin/landing-pages"  class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
+                <NuxtLink v-if="canAccess('menu')"           to="/admin/menu"           class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
+              </template>
+              <template v-if="canAccess('seo') || canAccess('cache') || isSuperAdmin">
+                <div class="fs-db-label" style="margin-top:1rem">Ferramentas</div>
+                <NuxtLink v-if="canAccess('seo')"    to="/admin/seo"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">search</span> SEO</NuxtLink>
+                <NuxtLink v-if="canAccess('cache')"  to="/admin/cache"     class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">cached</span> Cache</NuxtLink>
+                <NuxtLink v-if="isSuperAdmin"        to="/admin/usuarios"  class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">manage_accounts</span> Usuários</NuxtLink>
+              </template>
             </div>
           </div>
         </Transition>

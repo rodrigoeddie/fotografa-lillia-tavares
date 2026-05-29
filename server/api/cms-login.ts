@@ -27,6 +27,6 @@ export default defineEventHandler(async (event) => {
   const ok = await verifyPassword(password, admin.password_hash, admin.salt);
   if (!ok) throw invalid();
 
-  const token = await signAdminToken(admin.username, secret);
+  const token = await signAdminToken(admin.username, admin.role ?? 'super_admin', secret);
   return { success: true, token };
 });
