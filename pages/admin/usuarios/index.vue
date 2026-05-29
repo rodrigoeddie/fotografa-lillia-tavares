@@ -37,32 +37,41 @@ onMounted(load);
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="users.length === 0" class="list-empty">Nenhum usuário cadastrado.</p>
 
-    <div v-else class="item-list wrap">
-      <div v-for="u in users" :key="u.id" class="item-row item-300">
-        <div class="user-info">
-          <span class="material-symbols-outlined user-icon">account_circle</span>
-          <div class="item-info">
-            <span class="item-title">{{ u.username }}</span>
-            <span v-if="u.email" class="item-sub">{{ u.email }}</span>
-            <span class="role-badge" :class="`role-${u.role}`">{{ ROLE_LABELS[u.role as keyof typeof ROLE_LABELS] ?? u.role }}</span>
-          </div>
-        </div>
-        <div class="item-actions">
-          <button class="btn-icon" title="Editar" @click="openEdit(u)">
-            <span class="material-symbols-outlined">edit</span>
-            <span>Editar</span>
-          </button>
-          <button class="btn-icon btn-warning" title="Trocar senha" @click="openPassword(u)">
-            <span class="material-symbols-outlined">lock_reset</span>
-            <span>Senha</span>
-          </button>
-          <button class="btn-icon btn-danger" title="Excluir" @click="remove(u)">
-            <span class="material-symbols-outlined">delete</span>
-            <span>Deletar</span>
-          </button>
-        </div>
-      </div>
-    </div>
+    <table v-else class="users-table">
+      <thead>
+        <tr>
+          <th>Usuário</th>
+          <th>E-mail</th>
+          <th>Role</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="u in users" :key="u.id">
+          <td class="col-username">
+            <span class="material-symbols-outlined user-icon">account_circle</span>
+            {{ u.username }}
+          </td>
+          <td class="col-email">{{ u.email ?? '—' }}</td>
+          <td class="col-role">
+            <span class="role-badge" :class="`role-${u.role}`">
+              {{ ROLE_LABELS[u.role as keyof typeof ROLE_LABELS] ?? u.role }}
+            </span>
+          </td>
+          <td class="col-actions">
+            <button class="btn-icon" title="Editar" @click="openEdit(u)">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+            <button class="btn-icon btn-warning" title="Trocar senha" @click="openPassword(u)">
+              <span class="material-symbols-outlined">lock_reset</span>
+            </button>
+            <button class="btn-icon btn-danger" title="Excluir" @click="remove(u)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- Modal criar/editar -->
     <div v-if="modalOpen" class="modal-overlay" @click.self="modalOpen = false">
@@ -125,16 +134,51 @@ onMounted(load);
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
 
-.user-info {
+/* Tabela */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #555;
+    padding: 8px 14px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #1e1e1e;
+    vertical-align: middle;
+    color: #ccc;
+  }
+
+  tbody tr:hover td { background: #161616; }
+}
+
+.col-username {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
+  gap: 8px;
+  color: #eee;
+  font-weight: 500;
+}
+
+.col-email { color: #888; }
+
+.col-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
 }
 
 .user-icon {
-  font-size: 32px;
+  font-size: 22px;
   color: #555;
   flex-shrink: 0;
 }
