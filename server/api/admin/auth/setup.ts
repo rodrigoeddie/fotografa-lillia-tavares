@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { hash, salt } = await hashPassword(password);
-  await svc.create('admin', hash, salt);
+  await svc.create('admin', hash, salt, undefined, 'super_admin');
 
   return { success: true, message: 'Usuário admin criado. Você já pode remover KEYCMS do .env.' };
 });

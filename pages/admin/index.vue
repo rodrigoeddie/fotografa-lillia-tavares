@@ -1,26 +1,35 @@
 <script lang="ts" setup>
 definePageMeta({ layout: 'admin' });
 
-const sections = {
+const { canAccess, isSuperAdmin } = useAdminAuth();
+
+const ALL_SECTIONS = {
   site: [
-    { label: 'Portfolio', description: 'Ensaios fotográficos', icon: '<span class="material-symbols-outlined"> photo_camera </span>', path: '/admin/portfolio' },
-    { label: 'Depoimentos', description: 'Avaliações de clientes', icon: '<span class="material-symbols-outlined"> star </span>', path: '/admin/depoimentos' },
-    { label: 'Investimento', description: 'Pacotes e preços', icon: '<span class="material-symbols-outlined"> finance_chip </span>', path: '/admin/investimento' },
-    { label: 'Blog', description: 'Posts do blog', icon: '<span class="material-symbols-outlined"> article </span>', path: '/admin/blog' },
-    { label: 'FAQ', description: 'Perguntas frequentes', icon: '<span class="material-symbols-outlined"> quiz </span>', path: '/admin/faq' },
-    { label: 'Hero Banners', description: 'Banners de destaque por página', icon: '<span class="material-symbols-outlined"> image </span>', path: '/admin/hero-banners' },
-    { label: 'Menu', description: 'Menu de navegação', icon: '<span class="material-symbols-outlined"> menu </span>', path: '/admin/menu' },
+    { label: 'Portfolio',     description: 'Ensaios fotográficos',            icon: '<span class="material-symbols-outlined"> photo_camera </span>',  slug: 'portfolio' },
+    { label: 'Depoimentos',   description: 'Avaliações de clientes',           icon: '<span class="material-symbols-outlined"> star </span>',           slug: 'depoimentos' },
+    { label: 'Investimento',  description: 'Pacotes e preços',                 icon: '<span class="material-symbols-outlined"> finance_chip </span>',   slug: 'investimento' },
+    { label: 'Blog',          description: 'Posts do blog',                    icon: '<span class="material-symbols-outlined"> article </span>',        slug: 'blog' },
+    { label: 'FAQ',           description: 'Perguntas frequentes',             icon: '<span class="material-symbols-outlined"> quiz </span>',           slug: 'faq' },
+    { label: 'Hero Banners',  description: 'Banners de destaque por página',   icon: '<span class="material-symbols-outlined"> image </span>',          slug: 'hero-banners' },
+    { label: 'Menu',          description: 'Menu de navegação',                icon: '<span class="material-symbols-outlined"> menu </span>',           slug: 'menu' },
   ],
   sistema: [
-    { label: 'Clientes', description: 'Clientes da área restrita', icon: '<span class="material-symbols-outlined"> person_3 </span>', path: '/admin/clientes' },
-    { label: 'Ensaios', description: 'Sessões e envio de fotos', icon: '<span class="material-symbols-outlined"> photo_library </span>', path: '/admin/sessoes' },
-    { label: 'Entregas', description: 'Entrega de ensaios finalizados', icon: '<span class="material-symbols-outlined"> folder_zip </span>', path: '/admin/entregas' },
+    { label: 'Clientes',  description: 'Clientes da área restrita',         icon: '<span class="material-symbols-outlined"> person_3 </span>',      slug: 'clientes' },
+    { label: 'Ensaios',   description: 'Sessões e envio de fotos',          icon: '<span class="material-symbols-outlined"> photo_library </span>', slug: 'sessoes' },
+    { label: 'Entregas',  description: 'Entrega de ensaios finalizados',    icon: '<span class="material-symbols-outlined"> folder_zip </span>',    slug: 'entregas' },
   ],
   ferramentas: [
-    { label: 'SEO', description: 'Otimização para motores de busca', icon: '<span class="material-symbols-outlined"> search </span>', path: '/admin/seo' },
-    { label: 'Cache', description: 'Limpar cache do Cloudflare', icon: '<span class="material-symbols-outlined"> refresh </span>', path: '/admin/cache' },
+    { label: 'SEO',       description: 'Otimização para motores de busca',  icon: '<span class="material-symbols-outlined"> search </span>',         slug: 'seo' },
+    { label: 'Cache',     description: 'Limpar cache do Cloudflare',        icon: '<span class="material-symbols-outlined"> refresh </span>',        slug: 'cache' },
+    { label: 'Usuários',  description: 'Gerenciar admins e permissões',     icon: '<span class="material-symbols-outlined"> manage_accounts </span>', slug: 'usuarios' },
   ],
 };
+
+const sections = computed(() => ({
+  site:        ALL_SECTIONS.site.filter(s => canAccess(s.slug)),
+  sistema:     ALL_SECTIONS.sistema.filter(s => canAccess(s.slug)),
+  ferramentas: ALL_SECTIONS.ferramentas.filter(s => s.slug !== 'usuarios' ? canAccess(s.slug) : isSuperAdmin.value),
+}));
 </script>
 
 <template>
@@ -28,61 +37,49 @@ const sections = {
     <h2>Painel</h2>
     <p class="subtitle">Selecione uma seção para editar ou use a barra lateral de arquivos.</p>
 
-    <h3>Sistema</h3>
-    <br>
+    <template v-if="sections.sistema.length">
+      <h3>Sistema</h3>
+      <br>
+      <div class="dashboard-grid">
+        <NuxtLink v-for="s in sections.sistema" :key="s.slug" :to="`/admin/${s.slug}`" class="dashboard-card">
+          <span class="card-icon" v-html="s.icon"></span>
+          <div>
+            <h3>{{ s.label }}</h3>
+            <p>{{ s.description }}</p>
+          </div>
+        </NuxtLink>
+      </div>
+      <br><br>
+    </template>
 
-    <div class="dashboard-grid">
-      <NuxtLink
-        v-for="s in sections.sistema"
-        :key="s.path"
-        :to="s.path"
-        class="dashboard-card"
-      >
-        <span class="card-icon" v-html="s.icon"></span>
-        <div>
-          <h3>{{ s.label }}</h3>
-          <p>{{ s.description }}</p>
-        </div>
-      </NuxtLink>
-    </div>
+    <template v-if="sections.site.length">
+      <h3>Site</h3>
+      <br>
+      <div class="dashboard-grid">
+        <NuxtLink v-for="s in sections.site" :key="s.slug" :to="`/admin/${s.slug}`" class="dashboard-card">
+          <span class="card-icon" v-html="s.icon"></span>
+          <div>
+            <h3>{{ s.label }}</h3>
+            <p>{{ s.description }}</p>
+          </div>
+        </NuxtLink>
+      </div>
+      <br><br>
+    </template>
 
-    <br><br>
-    <h3>Site</h3>
-    <br>
-
-    <div class="dashboard-grid">
-      <NuxtLink
-        v-for="s in sections.site"
-        :key="s.path"
-        :to="s.path"
-        class="dashboard-card"
-      >
-        <span class="card-icon" v-html="s.icon"></span>
-        <div>
-          <h3>{{ s.label }}</h3>
-          <p>{{ s.description }}</p>
-        </div>
-      </NuxtLink>
-    </div>
-
-    <br><br>
-    <h3>Ferramentas</h3>
-    <br>
-
-    <div class="dashboard-grid">
-      <NuxtLink
-        v-for="s in sections.ferramentas"
-        :key="s.path"
-        :to="s.path"
-        class="dashboard-card"
-      >
-        <span class="card-icon" v-html="s.icon"></span>
-        <div>
-          <h3>{{ s.label }}</h3>
-          <p>{{ s.description }}</p>
-        </div>
-      </NuxtLink>
-    </div>
+    <template v-if="sections.ferramentas.length">
+      <h3>Ferramentas</h3>
+      <br>
+      <div class="dashboard-grid">
+        <NuxtLink v-for="s in sections.ferramentas" :key="s.slug" :to="`/admin/${s.slug}`" class="dashboard-card">
+          <span class="card-icon" v-html="s.icon"></span>
+          <div>
+            <h3>{{ s.label }}</h3>
+            <p>{{ s.description }}</p>
+          </div>
+        </NuxtLink>
+      </div>
+    </template>
   </div>
 </template>
 

@@ -7,6 +7,15 @@ useHead({
 
 const { authenticated, isSuperAdmin, canAccess, loginEmail, loginPassword, loginError, loginLoading, doLogin, logout } = useAdminAuth();
 const { message, messageType, showMessage } = useAdminNotification();
+
+const route = useRoute();
+watchEffect(() => {
+  if (!authenticated.value) return;
+  const section = route.path.replace(/^\/admin\/?/, '').split('/')[0];
+  if (section && !canAccess(section)) {
+    navigateTo('/admin');
+  }
+});
 const { adminFetch } = useAdminFetch();
 
 const {
