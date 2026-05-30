@@ -110,9 +110,11 @@ onMounted(evaluate);
           :key="`${item.type}-${item.id}`"
           class="item-row seo-row"
         >
-          <span :class="['type-badge', `type-${item.type}`]">{{ item.type }}</span>
-          <span class="item-title">{{ item.title }}</span>
+        <div class="wrap-data">
+          <span :class="['type-badge', `type-${item.type}`]">{{ item.type }}</span><br>
+          <span class="item-title">{{ item.title }}</span><br>
           <span class="item-route">{{ item.route }}</span>
+        </div>
           <span :class="['score-badge', scoreClass(item.score)]">{{ item.score }}</span>
           <ul class="issues-list">
             <li
@@ -187,7 +189,7 @@ onMounted(evaluate);
 
 .score-badge {
   display: inline-block;
-  min-width: 34px;
+  width: 34px;
   text-align: center;
   padding: 2px 8px;
   border-radius: 4px;
@@ -216,8 +218,8 @@ onMounted(evaluate);
 }
 
 .seo-row {
-  align-items: flex-start;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
   gap: 8px;
 }
 
@@ -228,7 +230,12 @@ onMounted(evaluate);
   flex-shrink: 0;
 }
 
+.wrap-data {
+  width: 63%;
+}
+
 .issues-list {
+  width: 22%;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -236,8 +243,6 @@ onMounted(evaluate);
   display: flex;
   flex-direction: column;
   gap: 3px;
-  flex: 1;
-  min-width: 180px;
 }
 
 .issue-error   { color: #f87171; &::before { content: '✗ '; } }

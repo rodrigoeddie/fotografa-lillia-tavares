@@ -4,6 +4,7 @@ export interface SeoItem {
   id:        number | string;
   type:      'lp' | 'blog' | 'portfolio' | 'static';
   title:     string;
+  route:     string;
   editUrl:   string;
   score:     number;
   issues:    PageSeoIssue[];
@@ -81,6 +82,7 @@ export function useSeoEvaluator() {
           id: post.id,
           type: 'blog',
           title: post.titulo || post.slug || `Post #${post.id}`,
+          route: post.categoria && post.slug ? `/blog/${post.categoria}/${post.slug}` : `/blog`,
           editUrl: `/admin/blog/save/${post.id}`,
           score,
           issues,
@@ -109,6 +111,7 @@ export function useSeoEvaluator() {
           id: work.id,
           type: 'portfolio',
           title: work.titulo || work.slug || `Work #${work.id}`,
+          route: work.categoria && work.slug ? `/ensaio-fotografico/${work.categoria}/${work.slug}` : `/ensaio-fotografico`,
           editUrl: `/admin/portfolio/save/${work.id}`,
           score,
           issues,
@@ -138,6 +141,7 @@ export function useSeoEvaluator() {
           id: lp.id,
           type: 'lp',
           title: lp.titulo || lp.slug || `LP #${lp.id}`,
+          route: lp.slug ? `/${lp.slug}` : `/landing-pages`,
           editUrl: `/admin/landing-pages/save/${lp.id}`,
           score,
           issues,
@@ -157,6 +161,7 @@ export function useSeoEvaluator() {
           id: s.route,
           type: 'static',
           title: s.meta_title || s.route,
+          route: s.route,
           editUrl: `/admin/seo/static-pages/save/${s.id}`,
           score,
           issues,
@@ -177,6 +182,7 @@ export function useSeoEvaluator() {
           id: pageSeo ? pageSeo.id : `cat-blog-${cat.slug}`,
           type: 'static',
           title: pageSeo?.meta_title || `${cat.titulo} | BLOG`,
+          route,
           editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/save?route=${encodeURIComponent(route)}`,
           score,
           issues,
@@ -192,6 +198,7 @@ export function useSeoEvaluator() {
           id: pageSeo ? pageSeo.id : `cat-portfolio-${cat.slug}`,
           type: 'static',
           title: pageSeo?.meta_title || `${cat.titulo} | Ensaios fotográficos profissionais`,
+          route,
           editUrl: pageSeo ? `/admin/seo/static-pages/save/${pageSeo.id}` : `/admin/seo/static-pages/save?route=${encodeURIComponent(route)}`,
           score,
           issues,
