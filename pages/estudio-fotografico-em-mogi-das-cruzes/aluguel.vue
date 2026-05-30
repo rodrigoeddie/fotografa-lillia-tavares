@@ -18,23 +18,48 @@ const cenarioCards = computed(() => {
     }));
 });
 
+type CampaignImage = { imageId: string; alt: string; orientation: 'landscape' | 'portrait' };
+type Campaign = { name: string; images: CampaignImage[] };
+
 const partners = [
   {
     name: "Shoebiz",
     site: "https://www.shoebiz.com.br/",
     instagram: "https://www.instagram.com/shoebiz_official/",
     instagramHandle: "@shoebiz_official",
-    // TODO: adicionar CF image IDs das campanhas fotografadas no estúdio
-    campaignImages: [] as Array<{ imageId: string; alt: string }>,
+    campaigns: [
+      {
+        name: 'Campanha Dia dos Pais',
+        images: [
+          { imageId: '347bcde0-d1ad-4d22-5834-83a000119900', alt: 'pai e filho sentados olhando para a câmera', orientation: 'landscape' },
+          { imageId: 'd82d77c0-1b65-4e10-4cb0-067f0c879d00', alt: 'pai e filho sentados no sofá se entre-olhando', orientation: 'portrait' },
+          { imageId: 'fc45b48b-c975-49a4-9e76-e875c1d26e00', alt: 'pai e filho correndo para a câmera, vestindo blusa fina em tons de azul e calça jeans', orientation: 'portrait' },
+          { imageId: '7e0940da-69d3-48e3-476b-f84bf95b6500', alt: 'pai de jaqueta marrom sentado em um banquinho preto, filho de jaqueta preta em pé ao lado', orientation: 'portrait' },
+        ] as CampaignImage[],
+      },
+      {
+        name: 'Campanha Dia dos Namorados',
+        images: [
+          { imageId: '3670746a-2471-4e27-a9c4-1acaca48c700', alt: 'Namorado e Namorada se entre-olhando sentados no sofá', orientation: 'landscape' },
+          { imageId: '72aaa2f6-cf61-4766-6727-abf9964fd500', alt: 'Namorado e Namorada se abraçando', orientation: 'portrait' },
+          { imageId: 'c210f5e0-31b3-4d72-530a-299e71d4ae00', alt: 'Namorado servindo café para a namorada sentada no sofá lendo um livro', orientation: 'portrait' },
+          { imageId: '8780619f-d1ae-4be8-c82e-c19990871e00', alt: 'Namorado deitado no colo da namorada', orientation: 'portrait' },
+        ] as CampaignImage[],
+      },
+    ] as Campaign[],
   },
   {
     name: "LA'S CLOTHING®",
     site: "https://www.lasclothing.com.br",
     instagram: "https://www.instagram.com/las.clothing",
     instagramHandle: "@las.clothing",
-    campaignImages: [] as Array<{ imageId: string; alt: string }>,
+    campaigns: [] as Campaign[],
   },
 ];
+
+function firstLandscapeIndex(images: CampaignImage[]) {
+  return images.findIndex(img => img.orientation === 'landscape');
+}
 </script>
 
 <template>
@@ -59,7 +84,12 @@ const partners = [
         Ideal para fotógrafos, marcas, e-commerce e produções criativas.
         7 cenários modernos, fundo infinito em 4 cores e equipamentos disponíveis.
       </p><br><br>
-      <NuxtLink to="/agende-seu-ensaio" class="btn">
+      <NuxtLink
+          to="https://wa.me/5511911159795?text=Olá, vim pelo seu site e queria mais informações sobre aluguel do estúdio..."
+          class="btn"
+          target="_blank"
+          aria-label="Entrar em contato via WhatsApp"
+          rel="noopener noreferrer">
         <span>Solicitar orçamento</span>
       </NuxtLink>
     </section>
@@ -70,18 +100,23 @@ const partners = [
         <h2 class="big-title">Valores</h2>
         <div class="precos-grid">
           <div class="preco-card">
-            <span class="preco-card__label">Por hora</span>
-            <span class="preco-card__valor">R$ 130</span>
+            <span class="label">Por hora</span>
+            <span class="valor">R$ 130</span>
           </div>
-          <div class="preco-card preco-card--destaque">
-            <span class="preco-card__label">Diária</span>
-            <span class="preco-card__valor">R$ 800</span>
+          <div class="preco-card destaque">
+            <span class="label">Diária</span>
+            <span class="valor">R$ 800</span>
           </div>
         </div>
         <p class="description">
           Valores sujeitos a alteração. Entre em contato para confirmar disponibilidade e fechar sua reserva.
         </p>
-        <NuxtLink to="/agende-seu-ensaio" class="btn">
+        <NuxtLink
+          to="https://wa.me/5511911159795?text=Olá, vim pelo seu site e queria mais informações sobre aluguel do estúdio..."
+          class="btn"
+          target="_blank"
+          aria-label="Entrar em contato via WhatsApp"
+          rel="noopener noreferrer">
           <span>Reservar minha data</span>
         </NuxtLink>
       </div>
@@ -109,8 +144,8 @@ const partners = [
 
         <div class="parceiros-grid">
           <div v-for="partner in partners" :key="partner.name" class="parceiro-card">
-            <h3 class="parceiro-card__nome">{{ partner.name }}</h3>
-            <div class="parceiro-card__links">
+            <h3 class="partner-name">{{ partner.name }}</h3>
+            <div class="links">
               <a :href="partner.site" target="_blank" rel="noopener noreferrer" class="parceiro-link">
                 <Icon name="icons:external" class="icon" />
                 <span>Site oficial</span>
@@ -121,19 +156,28 @@ const partners = [
               </a>
             </div>
 
-            <!-- Galeria de campanhas (preencher CF image IDs no script) -->
-            <div v-if="partner.campaignImages.length" class="parceiro-card__galeria">
-              <nuxt-img
-                v-for="(img, i) in partner.campaignImages"
-                :key="i"
-                :src="configPublic.cloudflareURI + img.imageId + '/public'"
-                :alt="img.alt"
-                width="400"
-                height="300"
-                loading="lazy"
-                class="parceiro-card__img"
-              />
-            </div>
+            <!-- Campanhas (preencher CF image IDs no script) -->
+            <template v-if="partner.campaigns.length">
+              <div
+                v-for="campaign in partner.campaigns"
+                :key="campaign.name"
+                class="parceiro-campanha"
+              >
+                <h4 class="nome">{{ campaign.name }}</h4>
+                <div class="parceiros-galeria">
+                  <nuxt-img
+                    v-for="(img, i) in campaign.images"
+                    :key="i"
+                    provider="cloudflare"
+                    :src="'https://images.fotografalilliatavares.com.br/images/' + img.imageId + '/public'"
+                    :alt="img.alt"
+                    width="img.orientation == 'landscape' ? '1400' : '500'"
+                    loading="lazy"
+                    :class="['parceiro-card-img', { 'campain-hero': i === firstLandscapeIndex(campaign.images) }]"
+                  />
+                </div>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -159,18 +203,6 @@ const partners = [
 
   .big-title {
     padding-bottom: 20rem;
-  }
-
-  &__description {
-    font-size: 20rem;
-    line-height: 1.6;
-    color: v.$green;
-    max-width: 680rem;
-    padding-bottom: 30rem;
-
-    @include m.max(sm) {
-      font-size: 16rem;
-    }
   }
 }
 
@@ -235,11 +267,11 @@ const partners = [
     0 14px 30px -12px rgba(42, 37, 32, 0.25),
     0 4px 10px -4px rgba(42, 37, 32, 0.10);
 
-  &--destaque {
+  &.destaque {
     border: 2px solid v.$green;
   }
 
-  &__label {
+  .label {
     font-size: 14rem;
     text-transform: uppercase;
     font-weight: 700;
@@ -247,7 +279,7 @@ const partners = [
     letter-spacing: 1px;
   }
 
-  &__valor {
+  .valor {
     font-size: 42rem;
     font-weight: 900;
     color: v.$green;
@@ -269,73 +301,73 @@ const partners = [
 
 // Parceiros
 .secao-parceiros {
-  padding: 50rem 0;
   background: white;
 }
 
-.parceiros-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320rem, 1fr));
-  gap: 30rem;
-
-  @include m.max(sm) {
-    grid-template-columns: 1fr;
-  }
-}
-
 .parceiro-card {
-  border: 1px solid #e8e4d8;
+  margin-bottom: 30rem;
   padding: 24rem;
   box-shadow:
     0 1px 0 #ECE4D2,
     0 14px 30px -12px rgba(42, 37, 32, 0.25),
     0 4px 10px -4px rgba(42, 37, 32, 0.10);
 
-  &__nome {
-    font-size: 22rem;
-    font-weight: 900;
-    color: v.$green;
-    font-family: v.$lato;
-    padding-bottom: 12rem;
+  .partner-name {
+    font-weight: bold;
+    font-size: 29rem;
+    color: v.$red;
   }
 
-  &__links {
+  .links {
+    margin-bottom: 4rem;
+    padding-top: 15rem;
+    flex-wrap: wrap;
     display: flex;
-    flex-direction: column;
-    gap: 8rem;
-    padding-bottom: 16rem;
+    gap: 16rem;
   }
 
-  &__galeria {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180rem, 1fr));
-    gap: 8rem;
-    padding-top: 12rem;
+  .parceiro-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6rem;
+    font-size: 19rem;
+    color: v.$green;
+    text-decoration: underline;
+
+    .icon {
+      font-size: 16rem;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      opacity: 0.75;
+    }
   }
 
-  &__img {
-    width: 100%;
-    height: auto;
-    border-radius: 4rem;
+  .parceiro-campanha {
+    margin-top: 25rem;
+
+    .nome {
+      margin-bottom: 10rem;
+      font-weight: bold;
+      font-size: 20rem;
+      color: #999;
+    }
+
+    .parceiros-galeria {
+      columns: 3;
+      gap: 6rem;
+    }
+  }
+
+  .parceiro-card-img {
     display: block;
-  }
-}
+    width: 100%;
+    margin-bottom: 6rem;
 
-.parceiro-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6rem;
-  font-size: 15rem;
-  color: v.$green;
-  text-decoration: underline;
-
-  .icon {
-    font-size: 16rem;
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    opacity: 0.75;
+    &.campain-hero {
+      column-span: all;
+    }
   }
 }
 

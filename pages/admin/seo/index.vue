@@ -112,6 +112,7 @@ onMounted(evaluate);
         >
           <span :class="['type-badge', `type-${item.type}`]">{{ item.type }}</span>
           <span class="item-title">{{ item.title }}</span>
+          <span class="item-route">{{ item.route }}</span>
           <span :class="['score-badge', scoreClass(item.score)]">{{ item.score }}</span>
           <ul class="issues-list">
             <li
@@ -218,6 +219,13 @@ onMounted(evaluate);
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.item-route {
+  font-size: 12px;
+  color: #64748b;
+  font-family: monospace;
+  flex-shrink: 0;
 }
 
 .issues-list {
