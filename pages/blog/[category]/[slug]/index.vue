@@ -4,6 +4,9 @@ const path = $route.path;
 const category = $route.params.category as string;
 const slug = $route.params.slug as string;
 
+// Deve ser chamado antes de qualquer await para preservar o contexto Nuxt no SSR.
+usePageSeo('blog', slug);
+
 const { data: rawPost } = await useFetch(`/api/public/blog/${category}/${slug}`);
 const post = computed(() => rawPost.value ? adaptBlogPost(rawPost.value) : null);
 
@@ -15,9 +18,6 @@ const breadcrumbs = computed(() => post.value ? [
   { label: post.value.category?.title ?? category, to: '/blog/' + category },
   { label: post.value.title },
 ] : []);
-
-// Meta tags + canonical via DB (page_seo)
-usePageSeo('blog', slug);
 
 // JSON-LD do post: campos dinâmicos (headline, image, datePublished) que dependem
 // da entidade — não cabem em jsonld_data estático no DB. Mantido localmente.

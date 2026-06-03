@@ -4,6 +4,10 @@ const category = route.params.category as string;
 const slugParam = route.params.slug as string;
 const path = route.path;
 
+// Deve ser chamado antes de qualquer await para preservar o contexto Nuxt no SSR.
+// O slug no DB é apenas o slugParam (sem category).
+usePageSeo('portfolio', slugParam);
+
 const { data: rawWork } = await useFetch(`/api/public/portfolio/${category}/${slugParam}`);
 
 if (!rawWork.value) {
@@ -27,9 +31,6 @@ const breadcrumbs = computed(() => [
   { label: work.value?.category?.title ?? category, to: '/ensaio-fotografico/' + category },
   { label: work.value?.title ?? slugParam },
 ]);
-
-// Meta tags + canonical via DB (page_seo). Slug do portfolio inclui "categoria/work".
-usePageSeo('portfolio', `${category}/${slugParam}`);
 
 // JSON-LD com ImageObject contendo a galeria (dinâmico, não cabe no DB)
 useSchemaOrg([

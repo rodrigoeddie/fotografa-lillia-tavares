@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { data: rawFaq } = await useFetch('/api/public/faq');
-
 usePageSeo('static', '/perguntas-frequentes');
+
+const { data: rawFaq } = await useFetch('/api/public/faq');
 
 const allQuestions = computed(() =>
   (rawFaq.value ?? []).flatMap((cat: any) =>
