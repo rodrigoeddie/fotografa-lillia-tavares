@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 const isMobile = ref(false);
+const isMounted = ref(false);
 
 onMounted(() => {
+  isMounted.value = true;
   if (process.client) {
     const checkMobile = () => {
       return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -102,7 +104,7 @@ onUnmounted(() => {
   <div
     ref="headerRef"
     class="header"
-    :class="{'mobile': isMobile, 'desktop': !isMobile}">
+    :class="isMounted ? {'mobile': isMobile, 'desktop': !isMobile} : {}">
     <div class="container">
       <h1 class="logo">
         <NuxtLink
@@ -116,10 +118,10 @@ onUnmounted(() => {
             width="390"
             height="107"
             class="logo-black"
-            format="webp"
+            format="avif"
             fetchpriority="high"
             preload
-            placeholder />
+            />
         </NuxtLink>
       </h1>
 

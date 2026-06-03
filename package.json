@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "NODE_OPTIONS=--max-old-space-size=3072 nuxt build",
-    "dev": "nuxt dev",
+    "dev": "TMPDIR=/tmp nuxt dev",
     "generate": "NODE_OPTIONS=--max-old-space-size=3072 nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",

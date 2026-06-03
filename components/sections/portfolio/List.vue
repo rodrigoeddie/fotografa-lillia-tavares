@@ -69,15 +69,16 @@ watch(() => $route.fullPath, () => refreshEnsaios(), { immediate: false });
 
         <template v-if="ensaiosByCategory">
             <div
-              v-for="group in ensaiosByCategory"
+              v-for="(group, groupIndex) in ensaiosByCategory"
               :key="group.path"
               class="portfolio-category-group">
                 <h2 class="title" data-ani-type="fade">{{ group.title }}</h2>
                 <div class="wrap-portfolio">
                     <BlocksCardSimplePortfolio
-                      v-for="item in group.items"
+                      v-for="(item, itemIndex) in group.items"
                       :key="item.path"
                       :item="item"
+                      :eager="groupIndex === 0"
                       class="lenght-items-4"
                       data-ani-type="polaroid"
                       data-ani-batch="wrap-portfolio"

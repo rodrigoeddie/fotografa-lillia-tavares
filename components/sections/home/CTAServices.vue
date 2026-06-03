@@ -21,9 +21,10 @@ const services = [
 <template>
   <div class="wrap-services">
     <BlocksCardService
-      v-for="service in services"
+      v-for="(service, index) in services"
       :key="service.title"
       :service="service"
+      :eager="true"
       data-ani-type="fade-up"
     />
   </div>

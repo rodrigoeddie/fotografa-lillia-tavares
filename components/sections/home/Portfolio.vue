@@ -61,7 +61,9 @@ onMounted(() => {
           <swiper-slide
             v-for="item in ensaiosData"
             :key="item.id">
-              <BlocksCardSimplePortfolio :item="item" />
+              <BlocksCardSimplePortfolio
+                :item="item"
+                :eager="true" />
           </swiper-slide>
       </swiper-container>
 
@@ -70,6 +72,7 @@ onMounted(() => {
           v-for="item in ensaiosData"
           :key="item.id"
           :item="item"
+          :eager="true"
           :class="'lenght-items-' + ensaiosData.length" />
       </div>
 
@@ -79,6 +82,7 @@ onMounted(() => {
             v-for="item in ensaiosData"
             :key="item.id"
             :item="item"
+            :eager="true"
             :class="'lenght-items-' + ensaiosData.length" />
         </div>
       </template>

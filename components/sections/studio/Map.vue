@@ -40,6 +40,7 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
                         class="img-map"
                         :alt="'mapa de localização do estúdio em Mogi das Cruzes'"
                         format="webp"
+                        loading="lazy"
                         placeholder />
                 </div>
             </div>

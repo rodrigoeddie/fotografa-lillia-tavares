@@ -38,6 +38,8 @@
               height="408"
               class="img-studio"
               alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
+              format="avif"
+              placeholder
               loading="lazy" />
           <nuxt-img
               :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
@@ -45,6 +47,8 @@
               height="408"
               class="img-studio"
               alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
+              format="avif"
+              placeholder
               loading="lazy" />
       </div>
 

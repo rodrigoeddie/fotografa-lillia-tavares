@@ -18,7 +18,9 @@
           height="559"
           class="img-fundo"
           alt="Exemplos de cenário"
-          loading="lazy" />
+          format="webp"
+          loading="lazy"
+          placeholder />
     </NuxtLink>
 </template>
 

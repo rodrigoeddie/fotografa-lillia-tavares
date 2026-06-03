@@ -9,6 +9,10 @@ const props = defineProps({
     type: Object,
     required: true
   },
+  eager: {
+    type: Boolean,
+    default: false
+  },
 });
 
 const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
@@ -46,8 +50,9 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
                       class="bg-thumb"
                       :alt="slide.alt"
                       format="avif"
-                      placeholder
-                      loading="lazy"/>
+                      :fetchpriority="props.eager ? 'high' : 'low'"
+                      :preload="props.eager"
+                      :loading="props.eager ? 'eager' : 'lazy'" />
                 </swiper-slide>
               </swiper-container>
             </NuxtLink>

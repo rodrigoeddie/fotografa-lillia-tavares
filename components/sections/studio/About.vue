@@ -91,7 +91,9 @@
                     @click="() => showImg(0)"
                     class="img-studio"
                     alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um sofá"
-                    loading="lazy" />
+                    :fetchpriority="'high'"
+                    :preload="true"
+                    :loading="'eager'" />
               </swiper-slide>
 
               <swiper-slide class="item">

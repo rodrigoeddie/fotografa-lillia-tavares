@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-    const configPublic = useRuntimeConfig().public;
     const { trackEvent } = useTracking();
 
     const clickLogo = () => trackEvent('click-logo', { screen_name: 'Footer' });
@@ -31,7 +30,7 @@
                     width="390"
                     height="107"
                     class="logo-black"
-                    format="webp"
+                    format="avif"
                     fetchpriority="high"
                     preload
                     placeholder />  

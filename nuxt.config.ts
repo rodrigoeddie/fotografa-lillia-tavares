@@ -74,6 +74,7 @@ export default defineNuxtConfig({
           src: '/assets/es-module-shims.js',
           tagPosition: 'head',
           tagPriority: -3,
+          async: true,
         }
       ],
     },

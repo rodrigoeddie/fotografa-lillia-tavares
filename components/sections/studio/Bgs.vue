@@ -73,7 +73,9 @@
                   class="img-fundo"
                   alt="Exemplo de fundo fotográfico na cor branca"
                   @click="() => showImg(0)"
-                  loading="lazy" />
+                  loading="lazy"
+                  placeholder
+                  format="avif" />
             </swiper-slide>
             <swiper-slide class="item bg-beige">
                 <nuxt-img
@@ -83,7 +85,9 @@
                   class="img-fundo"
                   alt="Exemplo de fundo fotográfico na cor branca"
                   @click="() => showImg(1)"
-                  loading="lazy" />
+                  loading="lazy"
+                  placeholder
+                  format="avif" />
             </swiper-slide>
             <swiper-slide class="item bg-gray">
                 <nuxt-img
@@ -93,7 +97,9 @@
                   class="img-fundo"
                   alt="Exemplo de fundo fotográfico na cor branca"
                   @click="() => showImg(2)"
-                  loading="lazy" />
+                  loading="lazy"
+                  placeholder
+                  format="avif" />
             </swiper-slide>
             <swiper-slide class="item bg-white">
                 <nuxt-img
@@ -103,7 +109,9 @@
                   class="img-fundo"
                   alt="Exemplo de fundo fotográfico na cor branca"
                   @click="() => showImg(3)"
-                  loading="lazy" />
+                  loading="lazy"
+                  placeholder
+                  format="avif" />
             </swiper-slide>
         </swiper-container>
     </ClientOnly>

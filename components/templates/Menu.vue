@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 const isMobile = ref(false);
+const isMounted = ref(false);
 
 const { data: menu } = await useFetch<{ label: string; path: string; blank: boolean }[]>('/api/public/menu', {
   key: 'menu',
 });
 
 onMounted(() => {
+  isMounted.value = true;
   if (process.client) {
     const checkMobile = () => {
       return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -47,7 +49,7 @@ function toggleMenu() {
           :class="{
             'opened': isOpen, 
             'not-opened': !isOpen,
-            'hidden': !props.fromFooter && isMobile && !isOpen
+            'hidden': !props.fromFooter && isMounted && isMobile && !isOpen
           }">
             <NuxtLink
               v-for="item in menu"

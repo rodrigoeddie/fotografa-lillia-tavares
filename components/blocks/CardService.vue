@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-defineProps<{
+const props = defineProps<{
   service: {
     title: string
     image: string
     to: string
   }
+  eager?: boolean
 }>();
 
 const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
@@ -23,12 +24,12 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
         provider="cloudflare"
         :src="service.image"
         alt="Fotógrafa Lillia Tavares segurando sua câmera fotográfica"
-        width="935"
-        fetchpriority="high"
-        preload
-        sizes="100vw sm:50vw md:935px"
-        format="webp"
-        loading="eager"
+        width="400"
+        sizes="xs:25vw sm:33vw lg:260px"
+        format="avif"
+        :fetchpriority="props.eager ? 'high' : 'low'"
+        :preload="props.eager"
+        :loading="props.eager ? 'eager' : 'lazy'"
         class="img cover"
       />
     </div>

@@ -39,6 +39,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
             :sizes="'100vw md:50vw lg:822px'"
             class="img-thumb"
             :alt="'Imagem do post ' + post.title"
+            format="webp"
             placeholder
             loading="lazy"/>
         </NuxtLink>
