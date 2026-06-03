@@ -10,4 +10,5 @@ usePageSeo('static', '/sobre-fotografa-lillia-tavares');
     ]" />
   </div>
   <SectionsSobreContent />
+  <SectionsSobreTimeline />
 </template>
