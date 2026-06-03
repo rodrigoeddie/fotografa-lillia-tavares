@@ -196,7 +196,8 @@ async function save(): Promise<number | null> {
     emit('saved', result.id);
     return result.id;
   } catch (e: any) {
-    showMessage('Erro ao salvar SEO: ' + (e.statusMessage || e.message), 'error');
+    const detail = e.data?.statusMessage || e.data?.message || e.statusMessage || e.message;
+    showMessage('Erro ao salvar SEO: ' + detail, 'error');
     return null;
   } finally {
     saving.value = false;

@@ -8,13 +8,13 @@
           <h1 class="title">
             <NuxtLink
             to="/sobre-fotografa-lillia-tavares">
-              <span>Fotógrafa Lillia Tavares</span>
+              <span>Fotógrafa em Mogi das Cruzes</span>
             </NuxtLink>
           </h1>
 
           <div class="description">
-            <p>Com <NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes">estúdio em Mogi das Cruzes</NuxtLink>, atendendo todo o Alto Tietê, é especializada em retratos e ensaios corporativos.</p>
-            <p>Transforma cada sessão em uma experiência acolhedora, criando um ambiente onde os modelos se sentem à vontade.</p>
+            <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que comunicam autenticidade, confiança e profissionalismo.</p>
+            <p><NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio e atendimento para todo o Alto Tietê.</NuxtLink></p>
           </div>
 
           <div class="ac pt20">

@@ -32,6 +32,7 @@ export default defineNuxtConfig({
         lang: 'pt-BR',
       },
       title: siteConfig.title,
+      titleTemplate: '%s', // sem sufixo nenhum
       meta: [
         {
           name: 'description',

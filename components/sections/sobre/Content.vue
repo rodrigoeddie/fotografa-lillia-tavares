@@ -33,12 +33,9 @@ const image = {
           />
         </div>
 
-        <div class="sobre-bio__text">
+        <div class="description">
           <p>
-            Sou fotógrafa e consultora de imagem, formada pela Etec de Artes e pelo Senac.
-            Especialista em retratos femininos e reposicionamento de imagem, capturo fotografias
-            com intenção, presença e identidade. Meu trabalho vai além da estética: ele comunica
-            essência, posicionamento e verdade.
+            Sou fotógrafa em Mogi das Cruzes e consultora de imagem, formada pela Etec de Artes e pelo Senac. Sou especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem, capturando fotografias com intenção, presença e identidade.
           </p>
           <p>
             Cresci cercada pela fotografia, em uma família que sempre fez questão de registrar e
@@ -48,9 +45,7 @@ const image = {
           </p>
           <p>
             Atuo profissionalmente desde 2019, transformando a fotografia em uma ferramenta de
-            fortalecimento da autoestima e construção de imagem. Em junho de 2024, inaugurei meu
-            primeiro estúdio na cidade de Mogi das Cruzes, SP, criando um espaço pensado para
-            acolher, direcionar e revelar o melhor de cada pessoa que passa por aqui.
+            fortalecimento da autoestima e construção de imagem. Em junho de 2024, inaugurei meu primeiro estúdio fotográfico em Mogi das Cruzes, criando um espaço pensado para acolher, direcionar e revelar o melhor de cada pessoa.
           </p>
           <p>
             Cada ensaio é uma experiência guiada. Eu direciono poses, expressões e postura de
@@ -79,6 +74,9 @@ const image = {
               conduzida com direção de poses, expressão e postura — tudo para revelar sua melhor
               versão com autenticidade.
             </p>
+
+            <p>Como fotógrafa em Mogi das Cruzes, meu propósito é criar retratos que fortaleçam a autoestima, comuniquem identidade e gerem conexão verdadeira.</p>
+            <br>
             <span class="servico-card__cta">Ver tipos de ensaio</span>
           </NuxtLink>
 
@@ -133,10 +131,13 @@ const image = {
 }
 
 .sobre-bio {
-  display: flex;
   margin-bottom: v.$bigSpace;
-  border: 1px solid v.$green;
-  background: white;
+  background: #fcfaf1;
+  display: flex;
+    box-shadow:
+      0 1px 0 #ECE4D2,
+      0 14px 30px -12px rgba(42, 37, 32, 0.15),
+      0 4px 10px -4px rgba(42, 37, 32, 0.5);
 
   @include m.max(md) {
     flex-direction: column;
@@ -155,22 +156,17 @@ const image = {
     .img-sobre {
       position: absolute;
       object-fit: cover;
-      width: 100%;
+      display: block;
       height: 100%;
+      width: 100%;
     }
   }
   
-  .sobre-bio__text {
+  .description {
     flex-direction: column;
     padding: v.$bigSpace;
-    font-size: 19rem;
     display: flex;
     gap: 20rem;
-  
-    p {
-      line-height: 1.7;
-      color: #444;
-    }
   }
 }
 
