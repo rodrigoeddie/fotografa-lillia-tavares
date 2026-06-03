@@ -6,7 +6,7 @@ const path = route.path;
 
 // Deve ser chamado antes de qualquer await para preservar o contexto Nuxt no SSR.
 // O slug no DB é apenas o slugParam (sem category).
-usePageSeo('portfolio', slugParam);
+usePageSeo('portfolio', `${category}/${slugParam}`);
 
 const { data: rawWork } = await useFetch(`/api/public/portfolio/${category}/${slugParam}`);
 

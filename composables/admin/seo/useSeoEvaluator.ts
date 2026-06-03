@@ -111,7 +111,7 @@ export function useSeoEvaluator() {
           id: work.id,
           type: 'portfolio',
           title: work.titulo || work.slug || `Work #${work.id}`,
-          route: work.categoria && work.slug ? `/ensaio-fotografico/${work.categoria}/${work.slug}` : `/ensaio-fotografico`,
+          route: work.slug ? `/ensaio-fotografico/${work.slug}` : `/ensaio-fotografico`,
           editUrl: `/admin/portfolio/save/${work.id}`,
           score,
           issues,
