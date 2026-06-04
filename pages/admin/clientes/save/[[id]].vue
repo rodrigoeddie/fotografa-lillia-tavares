@@ -5,10 +5,18 @@ const router = useRouter();
 
 const idParam = computed(() => {
   const id = route.params.id as string;
+
   return id ? Number(id) : undefined;
 });
 
-const { isEdit, loading, saving, form, init, save } = useClienteForm(idParam);
+const {
+  isEdit,
+  loading,
+  saving,
+  form,
+  init,
+  save
+} = useClienteForm(idParam);
 
 const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
 const uploading = ref(false);
@@ -54,7 +62,7 @@ onMounted(init);
         </div>
         <div class="form-field">
           <label>{{ isEdit ? 'Nova senha' : 'Senha' }} <small v-if="isEdit">(deixe em branco para manter)</small></label>
-          <input v-model="form.senha" type="password" :placeholder="isEdit ? 'Nova senha' : 'Senha de acesso'" autocomplete="new-password" />
+          <input v-model="form.senha" type="text" :placeholder="isEdit ? 'Nova senha' : 'Senha de acesso'" autocomplete="new-password" />
         </div>
         <div class="form-field">
           <label>Celular <small>(opcional — sem DDD, ex: 95980-1065)</small></label>
@@ -64,7 +72,7 @@ onMounted(init);
 
       <!-- Background image -->
       <div class="form-section">
-        <h3 class="form-section-title">Imagem de fundo da área do cliente</h3>
+        <h3 class="form-section-title">Imagem de fundo da área do cliente (opcional)</h3>
         <div class="bg-image-editor">
           <div v-if="form.bg_image" class="bg-preview">
             <nuxt-img

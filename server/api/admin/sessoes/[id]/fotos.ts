@@ -59,5 +59,12 @@ export default defineEventHandler(async (event) => {
     return { success: true };
   }
 
+  if (getMethod(event) === 'PATCH') {
+    const body = await readBody(event);
+    const capa_foto_id = body?.capa_foto_id ?? null;
+    await svc.setCapa(sessaoId, capa_foto_id);
+    return { success: true };
+  }
+
   throw createError({ statusCode: 405, statusMessage: 'Method not allowed' });
 });

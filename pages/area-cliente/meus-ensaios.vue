@@ -16,6 +16,7 @@ interface Sessao {
   fotos_incluidas: number;
   status: string;
   criado_em: string;
+  capa_foto_id: string | null;
   primeira_foto_id: string | null;
 }
 
@@ -71,6 +72,7 @@ onMounted(async () => {
 
   if (sessoesList === null) {
     loading.value = false;
+
     return;
   }
 
@@ -115,8 +117,9 @@ onMounted(async () => {
         :to="statusInfo[s.status]?.route ? statusInfo[s.status]!.route!(s.id) : undefined">
         <div class="shoot-thumb">
           <nuxt-img
-            v-if="s.primeira_foto_id"
-            :src="`${CF_IMG_BASE}${s.primeira_foto_id}/public`"
+            v-if="s.capa_foto_id ?? s.primeira_foto_id"
+            provider="cloudflare"
+            :src="`${CF_IMG_BASE}${s.capa_foto_id ?? s.primeira_foto_id}/public`"
             format="webp"
             width="400"
             placeholder

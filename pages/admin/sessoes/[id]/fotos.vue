@@ -11,10 +11,13 @@ interface Foto { id: number; sessao_id: number; cloudflare_image_id: string; ord
 interface Sessao {
   id: number; nome_sessao: string; status: string; cliente_nome: string;
   fotos_incluidas: number; pacote_index: number; preco_foto_extra: number; produto_tipo: string;
+  capa_foto_id: string | null;
 }
 
 const sessao = ref<Sessao | null>(null);
 const fotos = ref<Foto[]>([]);
+const capaFotoId = ref<string | null>(null);
+const settingCapa = ref(false);
 const uploadQueue = ref<{ file: File; status: 'pending' | 'processing' | 'done' | 'error'; progress: number; name: string; preview: string; }[]>([]);
 const isUploading = ref(false);
 const fileInputRef = ref<HTMLInputElement | null>(null);
@@ -33,6 +36,24 @@ async function load() {
   ]);
   sessao.value = sessoes.find((s) => s.id === sessaoId.value) ?? null;
   fotos.value = fotosData;
+  capaFotoId.value = sessao.value?.capa_foto_id ?? null;
+}
+
+async function setCapa(cfImageId: string | null) {
+  if (settingCapa.value) return;
+  settingCapa.value = true;
+  try {
+    const newCapa = capaFotoId.value === cfImageId ? null : cfImageId;
+    await adminFetch(`/api/admin/sessoes/${sessaoId.value}/fotos`, {
+      method: 'PATCH',
+      body: { capa_foto_id: newCapa },
+    });
+    capaFotoId.value = newCapa;
+  } catch (e: any) {
+    showMessage('Erro ao definir capa: ' + (e.statusMessage || e.message), 'error');
+  } finally {
+    settingCapa.value = false;
+  }
 }
 
 async function updateStatus(status: string) {
@@ -220,7 +241,7 @@ onMounted(load);
       <h3>Fotos da sessão <span class="count-badge">{{ fotos.length }}</span></h3>
       <div v-if="fotos.length === 0" class="empty-hint">Nenhuma foto adicionada ainda.</div>
       <div v-else class="fotos-grid">
-        <div v-for="foto in fotos" :key="foto.id" class="foto-card">
+        <div v-for="foto in fotos" :key="foto.id" class="foto-card" :class="{ 'is-capa': capaFotoId === foto.cloudflare_image_id }">
           <nuxt-img
             provider="cloudflare"
             :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
@@ -230,6 +251,17 @@ onMounted(load);
             format="webp"
             placeholder
             loading="lazy"/>
+          <div v-if="capaFotoId === foto.cloudflare_image_id" class="capa-badge">
+            <span class="material-symbols-outlined">star</span> Capa
+          </div>
+          <button
+            class="btn-capa"
+            :title="capaFotoId === foto.cloudflare_image_id ? 'Remover como capa' : 'Definir como capa'"
+            :class="{ active: capaFotoId === foto.cloudflare_image_id }"
+            :disabled="settingCapa"
+            @click="setCapa(foto.cloudflare_image_id)">
+            <span class="material-symbols-outlined">{{ capaFotoId === foto.cloudflare_image_id ? 'star' : 'star_outline' }}</span>
+          </button>
           <button class="foto-remove" title="Remover foto" @click="removePhoto(foto)">✕</button>
         </div>
       </div>
@@ -286,5 +318,31 @@ onMounted(load);
   border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer;
   font-size: 10px; display: flex; align-items: center; justify-content: center;
   &:hover { background: rgba(220,38,38,0.85); }
+}
+
+.btn-capa {
+  position: absolute; top: 4px; left: 4px;
+  background: rgba(0,0,0,0.55); color: #d1d5db;
+  border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  .material-symbols-outlined { font-size: 16px; }
+  &:hover { background: rgba(0,0,0,0.8); color: #fbbf24; }
+  &.active { color: #fbbf24; background: rgba(0,0,0,0.75); }
+  &:disabled { opacity: 0.5; cursor: default; }
+}
+
+.capa-badge {
+  position: absolute; bottom: 6px; left: 6px;
+  background: rgba(251,191,36,0.9); color: #1c1917;
+  border-radius: 4px; padding: 2px 6px;
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; gap: 2px;
+  .material-symbols-outlined { font-size: 12px; }
+}
+
+.foto-card.is-capa {
+  outline: 2px solid #fbbf24;
+  outline-offset: 2px;
 }
 </style>

@@ -36,6 +36,7 @@ export class SessaoService {
         criado_em:         sessoes.criado_em,
         produto_id:        sessoes.produto_id,
         prazo_selecao:     sessoes.prazo_selecao,
+        capa_foto_id:      sessoes.capa_foto_id,
         cliente_nome:      clientes.nome,
         cliente_email:     clientes.email,
         primeira_foto_id:  subFoto,
@@ -59,6 +60,7 @@ export class SessaoService {
         criado_em:         sessoes.criado_em,
         produto_id:        sessoes.produto_id,
         prazo_selecao:     sessoes.prazo_selecao,
+        capa_foto_id:      sessoes.capa_foto_id,
         cliente_nome:      clientes.nome,
         cliente_email:     clientes.email,
       })
@@ -97,6 +99,7 @@ export class SessaoService {
         criado_em:         sessoes.criado_em,
         produto_id:        sessoes.produto_id,
         prazo_selecao:     sessoes.prazo_selecao,
+        capa_foto_id:      sessoes.capa_foto_id,
         primeira_foto_id:  subFoto,
       })
       .from(sessoes)
@@ -149,6 +152,10 @@ export class SessaoService {
 
   delete(id: number) {
     return this.db.delete(sessoes).where(eq(sessoes.id, id));
+  }
+
+  setCapa(id: number, capaFotoId: string | null) {
+    return this.db.update(sessoes).set({ capa_foto_id: capaFotoId }).where(eq(sessoes.id, id));
   }
 
   // ── Fotos da sessão ───────────────────────────────────────
