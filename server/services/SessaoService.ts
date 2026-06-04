@@ -1,4 +1,4 @@
-import { eq, and, asc, desc, sql, count } from 'drizzle-orm';
+import { eq, and, asc, desc, sql, count, inArray } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import {
   sessoes,
@@ -75,36 +75,51 @@ export class SessaoService {
    * houver uma entrega ativa associada à sessão (compat com área do cliente).
    */
   async listByCliente(clienteId: number) {
-    const subFoto = sql<string | null>`(
-      SELECT cloudflare_image_id FROM sessao_fotos
-      WHERE sessao_id = ${sessoes.id}
-      ORDER BY ordem ASC, id ASC LIMIT 1
-    )`;
-    const subEntregue = sql<string>`(
-      CASE WHEN EXISTS (
-        SELECT 1 FROM entregas e
-        WHERE e.sessao_id = ${sessoes.id} AND e.ativo = 1
-      ) THEN 'entregue' ELSE ${sessoes.status} END
-    )`;
-    return this.db
+    const rows = await this.db
       .select({
-        id:                sessoes.id,
-        cliente_id:        sessoes.cliente_id,
-        nome_sessao:       sessoes.nome_sessao,
-        produto_tipo:      sessoes.produto_tipo,
-        pacote_index:      sessoes.pacote_index,
-        fotos_incluidas:   sessoes.fotos_incluidas,
-        preco_foto_extra:  sessoes.preco_foto_extra,
-        status:            subEntregue,
-        criado_em:         sessoes.criado_em,
-        produto_id:        sessoes.produto_id,
-        prazo_selecao:     sessoes.prazo_selecao,
-        capa_foto_id:      sessoes.capa_foto_id,
-        primeira_foto_id:  subFoto,
+        id:               sessoes.id,
+        cliente_id:       sessoes.cliente_id,
+        nome_sessao:      sessoes.nome_sessao,
+        produto_tipo:     sessoes.produto_tipo,
+        pacote_index:     sessoes.pacote_index,
+        fotos_incluidas:  sessoes.fotos_incluidas,
+        preco_foto_extra: sessoes.preco_foto_extra,
+        status:           sessoes.status,
+        criado_em:        sessoes.criado_em,
+        produto_id:       sessoes.produto_id,
+        prazo_selecao:    sessoes.prazo_selecao,
+        capa_foto_id:     sessoes.capa_foto_id,
+        entregue_ativo: sql<number>`(
+          SELECT COUNT(*) FROM entregas e
+          WHERE e.sessao_id = sessoes.id AND e.ativo = 1
+        )`,
       })
       .from(sessoes)
       .where(eq(sessoes.cliente_id, clienteId))
       .orderBy(desc(sessoes.criado_em));
+
+    if (rows.length === 0) return [];
+
+    // Busca a primeira foto de cada sessão — evita subquery correlacionada que
+    // pode retornar null incorretamente no D1.
+    const ids = rows.map((r) => r.id);
+    const fotos = await this.db
+      .select({ sessao_id: sessao_fotos.sessao_id, cloudflare_image_id: sessao_fotos.cloudflare_image_id })
+      .from(sessao_fotos)
+      .where(inArray(sessao_fotos.sessao_id, ids))
+      .orderBy(asc(sessao_fotos.ordem), asc(sessao_fotos.id));
+
+    const fotosMap = new Map<number, string>();
+    for (const f of fotos) {
+      if (!fotosMap.has(f.sessao_id)) fotosMap.set(f.sessao_id, f.cloudflare_image_id);
+    }
+
+    return rows.map((r) => ({
+      ...r,
+      status: r.entregue_ativo > 0 ? ('entregue' as const) : r.status,
+      entregue_ativo: undefined,
+      primeira_foto_id: fotosMap.get(r.id) ?? null,
+    }));
   }
 
   create(
