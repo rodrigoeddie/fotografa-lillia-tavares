@@ -14,6 +14,13 @@ const {
 } = useSessaoForm(idParam);
 
 onMounted(init);
+
+const modalClienteOpen = ref(false);
+
+function onClienteCriado(cliente: { id: number; nome: string; email: string }) {
+  clientes.value.push(cliente);
+  form.cliente_id = cliente.id as any;
+}
 </script>
 
 <template>
@@ -27,13 +34,24 @@ onMounted(init);
     <div v-else class="form-card">
       <div class="form-grid">
 
-        <!-- Cliente: select em criação, texto informativo em edição -->
+        <!-- Cliente: searchable select em criação, texto informativo em edição -->
         <div v-if="!isEdit" class="form-field">
           <label>Cliente</label>
-          <select v-model="form.cliente_id">
-            <option value="">Selecione um cliente</option>
-            <option v-for="c in clientes" :key="c.id" :value="c.id">{{ c.nome }} ({{ c.email }})</option>
-          </select>
+          <div class="cliente-row">
+            <AdminClienteSearchSelect
+              v-model="form.cliente_id"
+              :options="clientes"
+              class="cliente-select"
+            />
+            <button
+              type="button"
+              class="btn-add-cliente"
+              title="Adicionar novo cliente"
+              @click="modalClienteOpen = true"
+            >
+              <span class="material-symbols-outlined">person_add</span>
+            </button>
+          </div>
         </div>
         <div v-else class="form-field">
           <label>Cliente</label>
@@ -89,9 +107,44 @@ onMounted(init);
       </div>
     </div>
   </div>
+
+  <AdminClienteModal
+    :open="modalClienteOpen"
+    @close="modalClienteOpen = false"
+    @created="onClienteCriado"
+  />
 </template>
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
 .field-hint { font-size: 11px; color: #6b7280; &.warn { color: #b45309; } }
+
+.cliente-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.cliente-select {
+  flex: 1;
+  min-width: 0;
+}
+
+.btn-add-cliente {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 48px;
+  background: #1e2d3d;
+  border: 1px solid #2d4a6a;
+  border-radius: 6px;
+  color: #60a5fa;
+  cursor: pointer;
+
+  .material-symbols-outlined { font-size: 20px; }
+
+  &:hover { background: #253d55; }
+}
 </style>

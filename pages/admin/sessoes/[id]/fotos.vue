@@ -252,7 +252,7 @@ onMounted(load);
             placeholder
             loading="lazy"/>
           <div v-if="capaFotoId === foto.cloudflare_image_id" class="capa-badge">
-            <span class="material-symbols-outlined">star</span> Capa
+            <span class="material-symbols-outlined">art_track</span> Capa
           </div>
           <button
             class="btn-capa"

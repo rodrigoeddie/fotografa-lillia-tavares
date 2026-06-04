@@ -28,7 +28,7 @@ export function useClienteForm(idParam: Ref<number | undefined>) {
     }
   }
 
-  async function save(onSuccess: () => void) {
+  async function save(onSuccess: (id?: number) => void) {
     if (!form.nome || !form.email) {
       showMessage('Nome e e-mail são obrigatórios', 'error');
       return;
@@ -45,14 +45,15 @@ export function useClienteForm(idParam: Ref<number | undefined>) {
           body: { nome: form.nome, email: form.email, celular: form.celular || null, bg_image: form.bg_image || null, ...(form.senha ? { senha: form.senha } : {}) },
         });
         showMessage('Cliente atualizado!', 'success');
+        onSuccess();
       } else {
-        await adminFetch('/api/admin/clientes', {
+        const res = await adminFetch<{ success: true; id: number }>('/api/admin/clientes', {
           method: 'POST',
           body: { nome: form.nome, email: form.email, celular: form.celular || null, senha: form.senha, bg_image: form.bg_image || null },
         });
         showMessage('Cliente criado!', 'success');
+        onSuccess(res.id);
       }
-      onSuccess();
     } catch (e: any) {
       showMessage('Erro: ' + (e.statusMessage || e.message), 'error');
     } finally {

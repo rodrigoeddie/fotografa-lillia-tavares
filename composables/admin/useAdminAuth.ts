@@ -11,8 +11,8 @@ export const ROLE_LABELS: Record<AdminRole, string> = {
 
 const ROLE_SECTIONS: Record<AdminRole, string[] | ['*']> = {
   super_admin: ['*'],
-  editor:      ['hero-banners', 'portfolio', 'investimento', 'depoimentos', 'faq', 'page-faq', 'blog', 'cenarios', 'landing-pages', 'menu', 'seo', 'cache'],
-  sessions:    ['clientes', 'sessoes', 'entregas'],
+  editor:      ['hero-banners', 'portfolio', 'depoimentos', 'faq', 'page-faq', 'blog', 'cenarios', 'landing-pages', 'menu', 'seo', 'cache'],
+  sessions:    ['clientes', 'sessoes', 'entregas', 'investimento'],
 };
 
 function parseToken(token: string): { username: string; adminRole: AdminRole } | null {

@@ -48,8 +48,16 @@ provide('showMessage', showMessage);
   <div v-if="!authenticated" class="login-screen">
     <form class="login-box" @submit.prevent="handleLogin">
       <h1>Administração</h1>
-      <input v-model="loginEmail" type="email" placeholder="Email" autofocus autocomplete="email" />
-      <input v-model="loginPassword" type="password" placeholder="Senha" autocomplete="current-password" />
+      <label>
+        <span>E-mail</span>
+        <input v-model="loginEmail" type="email" placeholder="email@gmail.com" autofocus autocomplete="email" />
+      </label>
+      
+      <label>
+        <span>Senha</span>
+        <input v-model="loginPassword" type="password" placeholder="*****" autocomplete="current-password" />
+      </label>
+
       <button type="submit" :disabled="loginLoading">{{ loginLoading ? 'Verificando...' : 'Entrar' }}</button>
       <p v-if="loginError" class="login-error">{{ loginError }}</p>
     </form>
@@ -142,6 +150,15 @@ provide('showMessage', showMessage);
 <style lang="scss" scoped>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+label {
+  span {
+    padding-bottom: 10rem;
+    text-align: left;
+    color: white;
+    display: block;
+  }
+}
+
 .container {
   margin: 0 auto;
   width: 1800rem;
@@ -164,7 +181,12 @@ provide('showMessage', showMessage);
   width: 360px;
   text-align: center;
 
-  h1 { color: #eee; font-size: 22px; margin-bottom: 24px; }
+  h1 {
+    margin-bottom: 24px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #eee;
+  }
 
   input {
     width: 100%;
@@ -174,8 +196,12 @@ provide('showMessage', showMessage);
     color: #eee;
     border-radius: 6px;
     font-size: 16px;
-    margin-bottom: 16px;
-    &:focus { outline: none; border-color: #2563eb; }
+    margin-bottom: 20px;
+
+    &:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
   }
 
   button {
@@ -188,11 +214,21 @@ provide('showMessage', showMessage);
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    &:hover { background: #1d4ed8; }
-    &:disabled { opacity: 0.5; }
+
+    &:hover {
+      background: #1d4ed8;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 
-  .login-error { color: #f87171; margin-top: 12px; font-size: 14px; }
+  .login-error {
+    color: #f87171;
+    margin-top: 12px;
+    font-size: 14px;
+  }
 }
 
 .admin-cms {
