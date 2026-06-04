@@ -222,16 +222,25 @@ onMounted(load);
             {{ isUploading ? '⏳ Processando...' : '▶ Iniciar upload' }}
           </button>
         </div>
-        <div v-for="(item, i) in uploadQueue" :key="i" class="queue-item">
-          <img class="queue-thumb" :src="item.preview" :alt="item.name" />
-          <span class="queue-status" :class="item.status">
-            {{ item.status === 'done' ? '✅' : item.status === 'error' ? '❌' : item.status === 'processing' ? '⏳' : '⬜' }}
-          </span>
-          <span class="queue-name">{{ item.name }}</span>
-          <div v-if="item.status === 'processing'" class="queue-progress">
-            <div class="queue-fill" :style="{ width: item.progress + '%' }"></div>
+
+        <div class="wrap-columns">
+          <div v-for="(item, i) in uploadQueue" :key="i" class="queue-item" :class="{ 'is-done': item.status === 'done', 'is-error': item.status === 'error', 'is-processing': item.status === 'processing', 'is-pending': item.status === 'pending' }">
+            <img class="queue-thumb" :src="item.preview" :alt="item.name" />
+            <span class="queue-status" :class="item.status">
+              {{ item.status === 'done' ? '<span class="material-symbols-outlined"> check_box </span>' : item.status === 'error' ? '<span class="material-symbols-outlined"> error </span>' : item.status === 'processing' ? '<span class="material-symbols-outlined"> arrow_upload_progress </span>' : '' }}
+            </span>
+            <span class="queue-name">{{ item.name }}</span>
+            <div v-if="item.status === 'processing'" class="queue-progress">
+              <div class="queue-fill" :style="{ width: item.progress + '%' }"></div>
+            </div>
+            <button
+              v-if="item.status === 'pending'"
+              class="queue-remove"
+              title="Remover"
+              @click="removeFromQueue(i)">
+                <span class="material-symbols-outlined"> delete </span>
+            </button>
           </div>
-          <button v-if="item.status === 'pending'" class="queue-remove" title="Remover" @click="removeFromQueue(i)">✕</button>
         </div>
       </div>
     </div>
@@ -287,17 +296,87 @@ onMounted(load);
 .upload-section { margin-bottom: 32px; }
 .upload-queue { margin-top: 16px; }
 .upload-queue-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 14px; }
-.queue-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
-.queue-thumb { width: 100px; height: auto; border-radius: 4px; object-fit: contain; flex-shrink: 0; display: block; }
-.queue-status { font-size: 16px; width: 24px; text-align: center; }
-.queue-name { flex: 1; color: #374151; }
-.queue-progress { width: 80px; height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
-.queue-fill { height: 100%; background: #1f2937; transition: width 0.2s; }
-.queue-remove {
-  margin-left: auto; background: none; border: none; color: #9ca3af; cursor: pointer;
-  font-size: 12px; padding: 2px 4px; border-radius: 3px;
-  &:hover { color: #dc2626; background: #fee2e2; }
+
+.wrap-columns {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 20rem;
+
+  .queue-item {
+    background-color: black;
+    width: calc(20% - 15rem);
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 13px;
+    display: flex;
+    padding: 15px;
+    gap: 8px;
+
+    &.done {
+      background: rgb(0, 63, 0);
+    }
+    &.error {
+      background: rgb(80, 0, 0);
+    }
+    &.processing {
+      background: rgb(121, 79, 0);
+    }
+  }
 }
+
+.queue-thumb {
+  width: 100px;
+  height: 85%;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.queue-status {
+  position: absolute;
+  text-align: center;
+  font-size: 12px;
+  padding: 5rem;
+  left: 10rem;
+  top: 10rem;
+}
+
+.queue-remove {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  &:hover {
+    color: #dc2626;
+    background: #fee2e2;
+  }
+}
+
+.queue-name { flex: 1; color: whitesmoke; }
+
+.queue-progress {
+  width: 80px;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.queue-fill {
+  height: 100%;
+  background: #1f2937;
+  transition: width 0.2s;
+}
+
 .fotos-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .fotos-grid {
   column-gap: 12px;

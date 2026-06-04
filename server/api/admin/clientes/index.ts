@@ -2,6 +2,7 @@ import { defineEventHandler, readBody, createError, getMethod } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { ClienteService } from '~/server/services/ClienteService';
+import { encryptField } from '~/server/utils/encrypt-field';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -27,7 +28,9 @@ export default defineEventHandler(async (event) => {
     const hashBuffer = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(senha));
     const senhaHash = Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
 
-    const result = await svc.create(nome, email, senhaHash);
+    const fieldKey = process.env.FIELD_ENCRYPT_KEY;
+    const senhaAcesso = fieldKey ? await encryptField(senha, fieldKey) : null;
+    const result = await svc.create(nome, email, senhaHash, senhaAcesso ?? undefined);
     const newId = result.meta.last_row_id as number;
 
     if (bg_image || celular) {

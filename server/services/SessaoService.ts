@@ -39,6 +39,8 @@ export class SessaoService {
         capa_foto_id:      sessoes.capa_foto_id,
         cliente_nome:      clientes.nome,
         cliente_email:     clientes.email,
+        cliente_celular:   clientes.celular,
+        cliente_senha:     clientes.senha_acesso,
         primeira_foto_id:  subFoto,
       })
       .from(sessoes)

@@ -19,19 +19,20 @@ export class ClienteService {
   list() {
     return this.db
       .select({
-        id:        clientes.id,
-        nome:      clientes.nome,
-        email:     clientes.email,
-        celular:   clientes.celular,
-        bg_image:  clientes.bg_image,
-        criado_em: clientes.criado_em,
+        id:           clientes.id,
+        nome:         clientes.nome,
+        email:        clientes.email,
+        celular:      clientes.celular,
+        bg_image:     clientes.bg_image,
+        criado_em:    clientes.criado_em,
+        senha_acesso: clientes.senha_acesso,
       })
       .from(clientes)
       .orderBy(asc(clientes.nome));
   }
 
-  create(nome: string, email: string, senhaHash: string) {
-    return this.db.insert(clientes).values({ nome, email, senha_hash: senhaHash });
+  create(nome: string, email: string, senhaHash: string, senhaAcesso?: string) {
+    return this.db.insert(clientes).values({ nome, email, senha_hash: senhaHash, senha_acesso: senhaAcesso ?? null });
   }
 
   update(id: number, nome: string, email: string, bgImage?: string | null, celular?: string | null) {
@@ -41,8 +42,11 @@ export class ClienteService {
       .where(eq(clientes.id, id));
   }
 
-  updateSenha(id: number, senhaHash: string) {
-    return this.db.update(clientes).set({ senha_hash: senhaHash }).where(eq(clientes.id, id));
+  updateSenha(id: number, senhaHash: string, senhaAcesso?: string) {
+    return this.db
+      .update(clientes)
+      .set({ senha_hash: senhaHash, ...(senhaAcesso !== undefined ? { senha_acesso: senhaAcesso } : {}) })
+      .where(eq(clientes.id, id));
   }
 
   delete(id: number) {

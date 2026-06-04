@@ -3,6 +3,7 @@ import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { ClienteService } from '~/server/services/ClienteService';
 import { purgeCache } from '~/server/utils/purge-cache';
+import { encryptField } from '~/server/utils/encrypt-field';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -30,7 +31,9 @@ export default defineEventHandler(async (event) => {
     if (senha) {
       const hashBuffer = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(senha));
       const senhaHash = Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
-      await svc.updateSenha(id, senhaHash);
+      const fieldKey = process.env.FIELD_ENCRYPT_KEY;
+      const senhaAcesso = fieldKey ? await encryptField(senha, fieldKey) : null;
+      await svc.updateSenha(id, senhaHash, senhaAcesso ?? undefined);
     }
 
     await purgeCache(event, ['/api/cliente/sessoes']);

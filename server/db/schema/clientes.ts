@@ -7,8 +7,9 @@ export const clientes = sqliteTable('clientes', {
   email:      text().notNull().unique(),
   senha_hash: text().notNull(),
   criado_em:  text().notNull().default(sql`(datetime('now'))`),
-  bg_image:   text(),
-  celular:    text(),
+  bg_image:      text(),
+  celular:       text(),
+  senha_acesso:  text(),
 });
 
 export type Cliente       = typeof clientes.$inferSelect;

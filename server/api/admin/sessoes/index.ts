@@ -5,6 +5,7 @@ import { sendPushNotifications } from '~/server/utils/send-push';
 import { NotificacaoService } from '~/server/services/NotificacaoService';
 import { ClienteService } from '~/server/services/ClienteService';
 import { SessaoService } from '~/server/services/SessaoService';
+import { decryptField } from '~/server/utils/encrypt-field';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -12,7 +13,15 @@ export default defineEventHandler(async (event) => {
   const svc = new SessaoService(orm);
 
   if (getMethod(event) === 'GET') {
-    return svc.listAll();
+    const rows = await svc.listAll();
+    const fieldKey = process.env.FIELD_ENCRYPT_KEY;
+    if (!fieldKey) return rows;
+    return Promise.all(
+      rows.map(async (r) => ({
+        ...r,
+        cliente_senha: r.cliente_senha ? await decryptField(r.cliente_senha, fieldKey) : null,
+      })),
+    );
   }
 
   if (getMethod(event) === 'POST') {

@@ -17,6 +17,8 @@ interface Sessao {
   criado_em: string;
   cliente_nome: string;
   cliente_email: string;
+  cliente_celular: string | null;
+  cliente_senha: string | null;
   primeira_foto_id: string | null;
 }
 
@@ -98,6 +100,28 @@ async function deleteSessao(s: Sessao) {
   }
 }
 
+const shareModal = ref<Sessao | null>(null);
+const LINK_AREA_CLIENTE = 'https://fotografalilliatavares.com.br/area-cliente';
+
+function openShare(s: Sessao) { shareModal.value = s; }
+function closeShare() { shareModal.value = null; }
+
+function shareText(s: Sessao) {
+  return `Olá ${s.cliente_nome}! Suas fotos estão prontas para seleção 🎉\n\nAcesse a sua área do cliente:\n🔗 ${LINK_AREA_CLIENTE}\n📧 E-mail: ${s.cliente_email}\n🔑 Senha: ${s.cliente_senha ?? '(não cadastrada)'}`;
+}
+
+async function copyShare(s: Sessao) {
+  await navigator.clipboard.writeText(shareText(s));
+  showMessage('Copiado!', 'success');
+}
+
+function whatsappShare(s: Sessao) {
+  const celular = s.cliente_celular?.replace(/\D/g, '');
+  if (!celular) { showMessage('Cliente sem celular cadastrado', 'error'); return; }
+  const url = `https://wa.me/55${celular}?text=${encodeURIComponent(shareText(s))}`;
+  window.open(url, '_blank');
+}
+
 onMounted(load);
 </script>
 
@@ -167,6 +191,14 @@ onMounted(load);
               >
                 <span class="material-symbols-outlined">upload_file</span> <span>Cadastrar entrega</span>
               </NuxtLink>
+              <button
+                v-if="s.status === 'aguardando_selecao'"
+                class="card-action card-action--share"
+                title="Compartilhar acesso"
+                @click="openShare(s)"
+              >
+                <span class="material-symbols-outlined">share</span> <span>Compartilhar</span>
+              </button>
               <button class="card-action card-action--danger" title="Excluir" @click="deleteSessao(s)">
                 <span class="material-symbols-outlined">delete</span> <span>Deletar</span>
               </button>
@@ -177,6 +209,41 @@ onMounted(load);
       </div>
     </div>
   </div>
+
+  <!-- Modal Compartilhar -->
+  <Teleport to="body">
+    <div v-if="shareModal" class="share-overlay" @click.self="closeShare">
+      <div class="share-modal">
+        <div class="share-modal-header">
+          <span class="material-symbols-outlined">share</span>
+          <h3>Compartilhar acesso</h3>
+          <button class="share-close" @click="closeShare">✕</button>
+        </div>
+        <div class="share-modal-body">
+          <div class="share-field">
+            <label>Link</label>
+            <span>{{ LINK_AREA_CLIENTE }}</span>
+          </div>
+          <div class="share-field">
+            <label>E-mail</label>
+            <span>{{ shareModal.cliente_email }}</span>
+          </div>
+          <div class="share-field">
+            <label>Senha</label>
+            <span>{{ shareModal.cliente_senha ?? '(não cadastrada)' }}</span>
+          </div>
+        </div>
+        <div class="share-modal-actions">
+          <button class="btn-share-copy" @click="copyShare(shareModal)">
+            <span class="material-symbols-outlined">content_copy</span> Copiar
+          </button>
+          <button class="btn-share-whats" @click="whatsappShare(shareModal)">
+            <span class="material-symbols-outlined">chat</span> WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <style lang="scss" scoped>
@@ -383,5 +450,119 @@ onMounted(load);
   padding: 20px 0;
   margin: 0;
   user-select: none;
+}
+
+.card-action--share {
+  color: #6b9fd4;
+  &:hover {
+    border-bottom-color: #6b9fd4;
+    color: #93c5fd;
+  }
+}
+
+.share-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.share-modal {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.share-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  h3 { flex: 1; font-size: 16px; font-weight: 600; margin: 0; color: #e5e7eb; }
+
+  .material-symbols-outlined { color: #6b9fd4; font-size: 20px; }
+
+  .share-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    &:hover { color: #e5e7eb; }
+  }
+}
+
+.share-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.share-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+  }
+
+  span {
+    font-size: 14px;
+    color: #e5e7eb;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 8px 12px;
+    word-break: break-all;
+  }
+}
+
+.share-modal-actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: opacity 0.15s;
+
+    &:hover { opacity: 0.85; }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+}
+
+.btn-share-copy {
+  background: #2a2a2a;
+  color: #e5e7eb;
+}
+
+.btn-share-whats {
+  background: #25d366;
+  color: #fff;
 }
 </style>
