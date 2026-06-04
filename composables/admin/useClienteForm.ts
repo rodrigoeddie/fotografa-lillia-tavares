@@ -33,6 +33,14 @@ export function useClienteForm(idParam: Ref<number | undefined>) {
       showMessage('Nome e e-mail são obrigatórios', 'error');
       return;
     }
+    if (!form.celular) {
+      showMessage('Celular é obrigatório', 'error');
+      return;
+    }
+    if ((form.celular.replace(/\D/g, '')).length < 10) {
+      showMessage('Celular deve incluir DDD (mínimo 10 dígitos)', 'error');
+      return;
+    }
     if (!isEdit.value && !form.senha) {
       showMessage('Senha é obrigatória para novo cliente', 'error');
       return;

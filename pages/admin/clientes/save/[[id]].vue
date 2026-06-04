@@ -65,8 +65,8 @@ onMounted(init);
           <input v-model="form.senha" type="text" :placeholder="isEdit ? 'Nova senha' : 'Senha de acesso'" autocomplete="new-password" />
         </div>
         <div class="form-field">
-          <label>Celular <small>(opcional — sem DDD, ex: 95980-1065)</small></label>
-          <input v-model="form.celular" type="tel" placeholder="95980-1065" maxlength="10" />
+          <label>Celular <small>(com DDD, ex: 11 95980-1065)</small></label>
+          <input v-model="form.celular" type="tel" placeholder="11 95980-1065" maxlength="15" />
         </div>
       </div>
 
