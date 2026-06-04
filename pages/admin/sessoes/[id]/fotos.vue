@@ -227,7 +227,9 @@ onMounted(load);
           <div v-for="(item, i) in uploadQueue" :key="i" class="queue-item" :class="{ 'is-done': item.status === 'done', 'is-error': item.status === 'error', 'is-processing': item.status === 'processing', 'is-pending': item.status === 'pending' }">
             <img class="queue-thumb" :src="item.preview" :alt="item.name" />
             <span class="queue-status" :class="item.status">
-              {{ item.status === 'done' ? '<span class="material-symbols-outlined"> check_box </span>' : item.status === 'error' ? '<span class="material-symbols-outlined"> error </span>' : item.status === 'processing' ? '<span class="material-symbols-outlined"> arrow_upload_progress </span>' : '' }}
+              <span v-if="item.status === 'done'" class="material-symbols-outlined">check_box</span>
+              <span v-else-if="item.status === 'error'" class="material-symbols-outlined">error</span>
+              <span v-else-if="item.status === 'processing'" class="material-symbols-outlined">arrow_upload_progress</span>
             </span>
             <span class="queue-name">{{ item.name }}</span>
             <div v-if="item.status === 'processing'" class="queue-progress">
@@ -313,13 +315,13 @@ onMounted(load);
     padding: 15px;
     gap: 8px;
 
-    &.done {
+    &.is-done {
       background: rgb(0, 63, 0);
     }
-    &.error {
+    &.is-error {
       background: rgb(80, 0, 0);
     }
-    &.processing {
+    &.is-processing {
       background: rgb(121, 79, 0);
     }
   }
