@@ -375,6 +375,7 @@ onMounted(load);
 <style lang="scss" scoped>
 .selecao-page {
   padding-bottom: 100px;
+  padding-right: 350px;
 }
 
 .loading-state,
@@ -457,11 +458,12 @@ onMounted(load);
 }
 
 .fotos-grid {
-  columns: 2;
   column-gap: 12px;
+  columns: 2;
 
   @media (min-width: 640px)  { columns: 3; }
-  @media (min-width: 1024px) { columns: 5; }
+  @media (min-width: 1024px) { columns: 4; }
+  @media (min-width: 1280px) { columns: 5; }
   @media (min-width: 1450px) { columns: 6; }
   @media (min-width: 1700px) { columns: 7; }
 }
@@ -550,7 +552,7 @@ onMounted(load);
 
 .sticky-bar {
   background: #fff;
-  box-shadow: -4px 0 20px rgba(0,0,0,0.08);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.12);
   border-left: 1px solid #f0ede8;
   position: fixed;
   width: 350px;
@@ -560,6 +562,10 @@ onMounted(load);
   top: 0;
   display: flex;
   flex-direction: column;
+
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
 
   .sticky-bar-inner {
     display: flex;

@@ -92,7 +92,7 @@ onMounted(async () => {
   background: white;
   align-items: center;
   padding: 0 25rem;
-  height: 90rem;
+  height: 55rem;
   display: flex;
   z-index: 2;
 
@@ -104,8 +104,9 @@ onMounted(async () => {
 }
 
 .logo {
-  margin-top: -35rem;
+  margin-top: -15rem;
   width: 390rem;
+  max-width: 245px;
 
   @include m.max(md) {
     margin-top: -20rem;
