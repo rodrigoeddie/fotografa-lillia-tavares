@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({ layout: 'admin' });
 const route = useRoute();
-const router = useRouter();
 
 const idParam = computed(() => {
   const id = route.params.id as string;
@@ -50,6 +49,26 @@ function addAndExpand() {
   addPacote();
   nextTick(() => {
     collapsed.value = new Set(Array.from({ length: prevLen }, (_, i) => i));
+  });
+}
+
+// ─── Focus on new feature input ───────────────────────────────────────────────
+const includesList = ref<HTMLElement | null>(null);
+const featuresLists = ref<Record<number, HTMLElement>>({});
+
+function addInclude() {
+  form.value.includes.push('');
+  nextTick(() => {
+    const inputs = includesList.value?.querySelectorAll<HTMLInputElement>('input');
+    inputs?.[inputs.length - 1]?.focus();
+  });
+}
+
+function addFeature(arr: string[], pi: number) {
+  arr.push('');
+  nextTick(() => {
+    const inputs = featuresLists.value[pi]?.querySelectorAll<HTMLInputElement>('input');
+    inputs?.[inputs.length - 1]?.focus();
   });
 }
 
@@ -132,7 +151,7 @@ onMounted(init);
       <!-- ── O que está incluso ──────────────────────────────────────────── -->
       <div class="form-card">
         <h3 class="form-section-title">O que está incluso</h3>
-        <div class="features-list">
+        <div class="features-list" ref="includesList">
           <div
             v-for="(_, i) in form.includes" :key="i" class="feature-row"
             draggable="true"
@@ -149,7 +168,7 @@ onMounted(init);
           </div>
           <p v-if="form.includes.length === 0" class="empty-hint">Nenhum item.</p>
         </div>
-        <button class="btn-add-dashed" @click="form.includes.push('')">+ Adicionar item</button>
+        <button class="btn-add-dashed" @click="addInclude">+ Adicionar item</button>
       </div>
 
       <!-- ── Pacotes ─────────────────────────────────────────────────────── -->
@@ -231,9 +250,9 @@ onMounted(init);
               <div class="pkg-features">
                 <div class="pkg-features-header">
                   <label>Itens incluídos</label>
-                  <button class="btn-add-small" @click="pacote.features.push('')">+ item</button>
+                  <button class="btn-add-small" @click="addFeature(pacote.features, pi)">+ item</button>
                 </div>
-                <div class="features-list">
+                <div class="features-list" :ref="(el) => { if (el) featuresLists[pi] = el as HTMLElement }">
                   <div
                     v-for="(_, fi) in pacote.features" :key="fi" class="feature-row"
                     draggable="true"
@@ -260,7 +279,7 @@ onMounted(init);
 
       <div class="form-actions">
         <NuxtLink to="/admin/investimento" class="btn-secondary">Cancelar</NuxtLink>
-        <button class="btn-primary" :disabled="saving" @click="save(() => router.push('/admin/investimento'))">
+        <button class="btn-primary" :disabled="saving" @click="save()">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar alterações' : '💾 Criar produto') }}
         </button>
       </div>
