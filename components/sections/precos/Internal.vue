@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   data: {
     type: Object,
@@ -6,12 +6,20 @@ const props = defineProps({
   }
 });
 
+const slug = (useRoute().params.slug as string) ?? '';
+
 const titleParts = computed(() => {
   if (!props.data?.title) return { box: '', big: '' };
   const words = props.data.title.split(' ');
   const big = words.pop();
   const box = words.join(' ');
   return { box, big };
+});
+
+const { data: rawPortfolio } = useFetch(`/api/public/portfolio?categoria=${slug}`);
+const portfolioItems = computed(() => {
+  const works = (rawPortfolio.value as any[] | null) ?? [];
+  return works.map(adaptPortfolioWork).slice(0, 4);
 });
 </script>
 
@@ -34,6 +42,29 @@ const titleParts = computed(() => {
           <li v-for="(item, index) in data.includes" :key="index" v-html="item"></li>
         </ul>
       </section>
+
+      <div v-if="portfolioItems.length > 0" class="portfolio-section">
+        <div class="container">
+          <h2 class="big-title centered" data-ani-type="fade">Conheça meus trabalhos</h2>
+          <div class="wrap-portfolio">
+            <BlocksCardSimplePortfolio
+              v-for="(item, index) in portfolioItems"
+              :key="item.path"
+              :item="item"
+              :eager="index === 0"
+              class="lenght-items-4"
+              data-ani-type="polaroid"
+              data-ani-batch="wrap-portfolio"
+              data-ani-stagger="0.07"
+            />
+          </div>
+          <div class="ac">
+            <NuxtLink :to="`/ensaio-fotografico/${slug}`" class="btn" data-ani-type="fade">
+              <span>Ver todos os trabalhos</span>
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
 
       <SectionsGeneralCtaContact :data="data.cta" :class="`lp-${data.lp}`" />
     </div>
@@ -88,5 +119,21 @@ const titleParts = computed(() => {
       }
     }
   }
+}
+
+.wrap-portfolio {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 20rem;
+
+  @include m.max(xs) {
+    gap: 10rem;
+  }
+}
+
+.ac {
+  padding-bottom: 50rem;
+  text-align: center;
+  margin-top: 30rem;
 }
 </style>
