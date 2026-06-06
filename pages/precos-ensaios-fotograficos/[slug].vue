@@ -7,6 +7,12 @@ const pageUrl = `https://fotografalilliatavares.com.br/precos-ensaios-fotografic
 // Os valores reativos virão de `pageData` depois que o useFetch resolver.
 const produtos = useFetch('/api/public/investimento').data;
 
+const { data: rawPortfolio } = useFetch(`/api/public/portfolio?categoria=${slug}`);
+const portfolioItems = computed(() => {
+  const works = (rawPortfolio.value as any[] | null) ?? [];
+  return works.map(adaptPortfolioWork).slice(0, 4);
+});
+
 const pageData = computed(() => {
   const list = produtos.value as any[] | null;
   const found = list?.find((p: any) => p.slug === slug);
@@ -83,5 +89,55 @@ useSchemaOrg([
       ]" />
     </div>
     <SectionsPrecosInternal :data="pageData" />
+
+    <div v-if="portfolioItems.length > 0" class="portfolio-section">
+      <div class="container">
+        <h2 class="portfolio-title" data-ani-type="fade">Conheça meus trabalhos</h2>
+        <div class="wrap-portfolio">
+          <BlocksCardSimplePortfolio
+            v-for="(item, index) in portfolioItems"
+            :key="item.path"
+            :item="item"
+            :eager="index === 0"
+            class="lenght-items-4"
+            data-ani-type="polaroid"
+            data-ani-batch="wrap-portfolio"
+            data-ani-stagger="0.07"
+          />
+        </div>
+        <div class="ac">
+          <NuxtLink :to="`/ensaio-fotografico/${slug}`" class="btn" data-ani-type="fade">
+            <span>Ver todos os trabalhos</span>
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.portfolio-section {
+  padding: 60rem 0 80rem;
+}
+
+.portfolio-title {
+  color: v.$green;
+  text-align: center;
+  margin-bottom: 30rem;
+}
+
+.wrap-portfolio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rem;
+
+  @include m.max(xs) {
+    gap: 10rem;
+  }
+}
+
+.ac {
+  text-align: center;
+  margin-top: 30rem;
+}
+</style>
