@@ -31,6 +31,20 @@ function onDragEnd() {
   dragIdx.value = null; dragOverIdx.value = null;
 }
 
+// ─── Drag to reorder feature rows ────────────────────────────────────────────
+const featureDrag = ref<{ arr: string[]; from: number; over: number } | null>(null);
+function fDragStart(arr: string[], i: number) { featureDrag.value = { arr, from: i, over: i }; }
+function fDragOver(e: DragEvent, i: number) { e.preventDefault(); if (featureDrag.value) featureDrag.value.over = i; }
+function fDragEnd() {
+  const s = featureDrag.value;
+  if (s && s.from !== s.over) {
+    const [moved] = s.arr.splice(s.from, 1);
+    if (moved !== undefined) s.arr.splice(s.over, 0, moved);
+  }
+  featureDrag.value = null;
+}
+function fIsOver(arr: string[], i: number) { return featureDrag.value?.arr === arr && featureDrag.value?.over === i; }
+
 function addAndExpand() {
   const prevLen = pacotes.value.length;
   addPacote();
@@ -119,10 +133,19 @@ onMounted(init);
       <div class="form-card">
         <h3 class="form-section-title">O que está incluso</h3>
         <div class="features-list">
-          <div v-for="(_, i) in form.includes" :key="i" class="feature-row">
-            <span class="bullet">•</span>
+          <div
+            v-for="(_, i) in form.includes" :key="i" class="feature-row"
+            draggable="true"
+            :class="{ 'drag-over': fIsOver(form.includes, i) }"
+            @dragstart="fDragStart(form.includes, i)"
+            @dragover="(e) => fDragOver(e, i)"
+            @dragend="fDragEnd"
+          >
+            <span class="drag-handle-sm">⠿</span>
             <input v-model="form.includes[i]" type="text" placeholder="Ex: 5 fotos editadas" />
-            <button class="btn-remove-sm" @click="form.includes.splice(i, 1)" title="Remover">✕</button>
+            <button class="btn-remove-sm" @click="form.includes.splice(i, 1)" title="Remover">
+              <span class="material-symbols-outlined">delete_forever</span>
+            </button>
           </div>
           <p v-if="form.includes.length === 0" class="empty-hint">Nenhum item.</p>
         </div>
@@ -155,7 +178,11 @@ onMounted(init);
               <span class="pkg-title">{{ pacote.title || 'Sem título' }}</span>
               <span class="pkg-price">R$ {{ pacote.preco }}</span>
               <span v-if="pacote.is_recommended" class="pkg-badge">★ Recomendado</span>
-              <button class="btn-remove-sm" type="button" @click.stop="removePacote(pi)" title="Remover">✕</button>
+              <button class="btn-remove-sm" type="button" @click.stop="removePacote(pi)" title="Remover">
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+              </button>
             </div>
 
             <!-- Body -->
@@ -207,10 +234,19 @@ onMounted(init);
                   <button class="btn-add-small" @click="pacote.features.push('')">+ item</button>
                 </div>
                 <div class="features-list">
-                  <div v-for="(_, fi) in pacote.features" :key="fi" class="feature-row">
-                    <span class="bullet">•</span>
+                  <div
+                    v-for="(_, fi) in pacote.features" :key="fi" class="feature-row"
+                    draggable="true"
+                    :class="{ 'drag-over': fIsOver(pacote.features, fi) }"
+                    @dragstart="fDragStart(pacote.features, fi)"
+                    @dragover="(e) => fDragOver(e, fi)"
+                    @dragend="fDragEnd"
+                  >
+                    <span class="drag-handle-sm">⠿</span>
                     <input v-model="pacote.features[fi]" type="text" placeholder="Ex: 5 fotos editadas" />
-                    <button class="btn-remove-sm" @click="pacote.features.splice(fi, 1)" title="Remover">✕</button>
+                    <button class="btn-remove-sm" @click="pacote.features.splice(fi, 1)" title="Remover">
+                      <span class="material-symbols-outlined">delete_forever</span>
+                    </button>
                   </div>
                   <p v-if="pacote.features.length === 0" class="empty-hint">Nenhum item.</p>
                 </div>
@@ -267,8 +303,21 @@ onMounted(init);
 
 // Features list
 .features-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
-.feature-row { display: flex; align-items: center; gap: 6px; input { flex: 1; } }
+.feature-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  
+  input {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 5px;
+    flex: 1;
+  }
+}
 .bullet { color: #9ca3af; font-size: 16px; flex-shrink: 0; }
+.drag-handle-sm { font-size: 14px; color: #444; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
+.feature-row.drag-over { outline: 1px dashed #60a5fa; border-radius: 4px; }
 .btn-remove-sm {
   background: none; border: none; color: #555; font-size: 13px; cursor: pointer;
   padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
