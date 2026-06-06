@@ -279,7 +279,7 @@ onMounted(init);
 
       <div class="form-actions">
         <NuxtLink to="/admin/investimento" class="btn-secondary">Cancelar</NuxtLink>
-        <button class="btn-primary" :disabled="saving" @click="save()">
+        <button class="btn-primary" :disabled="saving" @click="save(() => {})">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar alterações' : '💾 Criar produto') }}
         </button>
       </div>
