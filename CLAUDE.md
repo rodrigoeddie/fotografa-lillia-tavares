@@ -19,6 +19,7 @@ Site institucional + admin CMS + área do cliente para sessões fotográficas. D
 - [shared/CLAUDE.md](shared/CLAUDE.md) — Schemas Zod compartilhados
 - [docs/sitemap.md](docs/sitemap.md) — Mapa de páginas (público + admin + cliente)
 - [docs/data-flow.md](docs/data-flow.md) — Fluxo D1 → service → API → adapter → componente
+- [docs/frontend-standards.md](docs/frontend-standards.md) — **Padrões obrigatórios de SCSS e componentes** (sem BEM, nested SCSS, rem, _objects.scss, limites de tamanho)
 
 ## Organização do repositório
 
@@ -59,9 +60,12 @@ Site institucional + admin CMS + área do cliente para sessões fotográficas. D
 - Blocos de LP em `components/landings/<TipoBloco>.vue` (renderizados via `BlockRenderer`)
 
 ### SCSS
+- **Sem BEM** — usar nested SCSS com classes simples (ver [docs/frontend-standards.md](docs/frontend-standards.md))
+- **Sem comentários `//`** dentro de `<style lang="scss">` — use `/* */` (o plugin Vite/Vue rejeita `//`)
 - Todo arquivo já tem `v.$...` (cores, espaçamentos rem) e `m.max(sm)` / `m.min(md)` (breakpoints) auto-injetados
 - Breakpoints: `xs:600`, `sm:900`, `md:1024`, `lg:1280`, `xlg:1600`
 - Unidade preferida: `rem` (1rem = 16px) — não usar `px` em dimensões
+- CSS repetido em 3+ componentes vai para `assets/styles/_objects.scss`
 - Temas de LP via classe na raiz da página (`.lp-corporativo`, `.lp-dia-das-maes`, `.lp-presentes`)
 
 ### Animações

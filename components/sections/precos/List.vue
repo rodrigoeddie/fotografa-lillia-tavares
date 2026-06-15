@@ -138,16 +138,10 @@ const categories = computed(() => {
   text-align: center;
   background: #fff;
   display: flex;
-  box-shadow:
-    0 1px 0 #ECE4D2,
-    0 14px 30px -12px rgba(42, 37, 32, 0.25),
-    0 4px 10px -4px rgba(42, 37, 32, 0.10);
+  @include m.card-shadow;
 
   &:hover {
-    box-shadow:
-        0 1px 0 #ECE4D2,
-        0 28px 50px -16px rgba(42, 37, 32, 0.35),
-        0 8px 18px -6px rgba(42, 37, 32, 0.15);
+    @include m.card-shadow-hover;
   }
 
   &__icon {

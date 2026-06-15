@@ -29,7 +29,6 @@ async function copyLink() {
     copied.value = true;
     setTimeout(() => (copied.value = false), 2000);
   } catch {
-    // fallback for older browsers
     const el = document.createElement('textarea');
     el.value = currentUrl.value;
     document.body.appendChild(el);
@@ -43,14 +42,14 @@ async function copyLink() {
 </script>
 
 <template>
-  <div class="share-buttons" :class="`share-buttons--${variant ?? 'default'}`">
-    <span class="share-buttons__label">Compartilhar:</span>
+  <div class="share-buttons" :class="{ dark: variant === 'dark' }">
+    <span class="label">Compartilhar:</span>
 
     <a
       :href="waHref"
       target="_blank"
       rel="noopener noreferrer"
-      class="share-buttons__btn share-buttons__btn--wa"
+      class="share-btn wa"
       aria-label="Compartilhar no WhatsApp"
       title="Compartilhar no WhatsApp"
     >
@@ -61,7 +60,7 @@ async function copyLink() {
       :href="fbHref"
       target="_blank"
       rel="noopener noreferrer"
-      class="share-buttons__btn share-buttons__btn--fb"
+      class="share-btn fb"
       aria-label="Compartilhar no Facebook"
       title="Compartilhar no Facebook"
     >
@@ -69,14 +68,14 @@ async function copyLink() {
     </a>
 
     <button
-      class="share-buttons__btn share-buttons__btn--copy"
+      class="share-btn copy"
       :aria-label="copied ? 'Link copiado!' : 'Copiar link'"
       :title="copied ? 'Link copiado!' : 'Copiar link'"
       @click="copyLink"
     >
       <Icon v-if="copied" name="mdi:check" />
       <Icon v-else name="mdi:link-variant" />
-      <span v-if="copied" class="share-buttons__copied">Copiado!</span>
+      <span v-if="copied" class="copied-label">Copiado!</span>
     </button>
   </div>
 </template>
@@ -88,72 +87,71 @@ async function copyLink() {
   gap: 10rem;
   flex-wrap: wrap;
 
-  &__label {
+  .label {
     font-size: 14rem;
     color: #888;
     margin-right: 4rem;
   }
 
-  &__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5rem;
-    width: 40rem;
-    height: 40rem;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    font-size: 20rem;
-    justify-content: center;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    text-decoration: none;
-
-    &:hover {
-      transform: scale(1.1);
-      opacity: 0.85;
-    }
-
-    &--wa {
-      background: #25D366;
-      color: white;
-    }
-
-    &--fb {
-      background: #1877F2;
-      color: white;
-    }
-
-    &--copy {
-      background: #e9e5d8;
-      color: #555;
-      position: relative;
-    }
-  }
-
-  &__copied {
-    position: absolute;
-    top: calc(100% + 6rem);
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: white;
-    font-size: 11rem;
-    padding: 3rem 7rem;
-    border-radius: 4rem;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-
-  // Dark variant (for use on dark backgrounds)
-  &--dark {
-    .share-buttons__label {
+  &.dark {
+    .label {
       color: rgba(255, 255, 255, 0.7);
     }
 
-    .share-buttons__btn--copy {
+    .share-btn.copy {
       background: rgba(255, 255, 255, 0.2);
       color: white;
     }
   }
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5rem;
+  width: 40rem;
+  height: 40rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 20rem;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
+  }
+
+  &.wa {
+    background: #25D366;
+    color: white;
+  }
+
+  &.fb {
+    background: #1877F2;
+    color: white;
+  }
+
+  &.copy {
+    background: #e9e5d8;
+    color: #555;
+    position: relative;
+  }
+}
+
+.copied-label {
+  position: absolute;
+  top: calc(100% + 6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  font-size: 11rem;
+  padding: 3rem 7rem;
+  border-radius: 4rem;
+  white-space: nowrap;
+  pointer-events: none;
 }
 </style>

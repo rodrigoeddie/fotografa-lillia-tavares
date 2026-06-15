@@ -12,15 +12,15 @@ defineProps<{
   <section class="deliverables lp-presentes container" data-ani-type="fade-up">
     <h2 class="title-lp">{{ data.title }}</h2>
     <p class="description-lp">{{ data.description }}</p>
-    <div class="deliverables__grid">
+    <div class="grid">
       <div
         v-for="(item, index) in data.items"
         :key="index"
-        class="deliverables__card"
+        class="card"
         :data-ani-type="'fade-up'"
         :data-ani-delay="`${0.1 * (index + 1)}s`"
       >
-        <span class="deliverables__icon">{{ item.icon }}</span>
+        <span class="icon">{{ item.icon }}</span>
         <h3 class="card-title">{{ item.title }}</h3>
         <p class="card-description">{{ item.description }}</p>
       </div>
@@ -35,7 +35,7 @@ defineProps<{
   .title-lp { text-align: center; margin-bottom: 15rem; }
   .description-lp { text-align: center; margin: 0 auto 50rem; }
 
-  &__grid {
+  .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25rem;
@@ -44,7 +44,7 @@ defineProps<{
     @include m.max(sm) { grid-template-columns: repeat(2, 1fr); gap: 15rem; }
   }
 
-  &__card {
+  .card {
     background: white;
     border-radius: 8rem;
     padding: 20rem 10rem;
@@ -53,7 +53,7 @@ defineProps<{
     .card-description { margin-bottom: 0; }
   }
 
-  &__icon { font-size: 45rem; display: block; margin-bottom: 15rem; }
+  .icon { font-size: 45rem; display: block; margin-bottom: 15rem; }
 }
 
 .lp-presentes {

@@ -13,7 +13,6 @@ const preferences = ref({
 onMounted(() => {
   const stored = localStorage.getItem(COOKIE_KEY)
   if (!stored) {
-    // Pequeno delay para não competir com animações da página
     setTimeout(() => { visible.value = true }, 1200)
   }
 })
@@ -39,20 +38,20 @@ function save(prefs: typeof preferences.value) {
 <template>
   <Transition name="consent">
     <div v-if="visible" class="cookie-consent" role="dialog" aria-modal="true" aria-labelledby="cookie-title">
-      <div class="cookie-consent__inner">
+      <div class="inner">
 
-        <div class="cookie-consent__text">
+        <div class="text">
           <p id="cookie-title">
             <strong>Sua privacidade importa.</strong>
             Utilizamos cookies para melhorar sua experiência, analisar o tráfego e personalizar anúncios.
             Ao continuar navegando, você concorda com nossa
-            <NuxtLink to="/privacidade-e-termos" class="link">Política de Privacidade</NuxtLink>.
+            <NuxtLink to="/privacidade-e-termos" class="privacy-link">Política de Privacidade</NuxtLink>.
           </p>
 
-          <div v-if="showDetails" class="cookie-consent__details">
+          <div v-if="showDetails" class="details">
             <div class="cookie-option">
-              <span class="toggle toggle--disabled">
-                <span class="toggle__thumb" />
+              <span class="toggle disabled">
+                <span class="thumb" />
               </span>
               <span>
                 <strong>Essenciais</strong>: necessários para o funcionamento do site. Sempre ativos.
@@ -60,8 +59,8 @@ function save(prefs: typeof preferences.value) {
             </div>
             <label class="cookie-option">
               <input type="checkbox" class="toggle-input" v-model="preferences.analytics" />
-              <span class="toggle" :class="{ 'toggle--on': preferences.analytics }">
-                <span class="toggle__thumb" />
+              <span class="toggle" :class="{ on: preferences.analytics }">
+                <span class="thumb" />
               </span>
               <span>
                 <strong>Analíticos</strong>: Google Analytics (GA4). Ajudam a entender como o site é usado.
@@ -69,8 +68,8 @@ function save(prefs: typeof preferences.value) {
             </label>
             <label class="cookie-option">
               <input type="checkbox" class="toggle-input" v-model="preferences.marketing" />
-              <span class="toggle" :class="{ 'toggle--on': preferences.marketing }">
-                <span class="toggle__thumb" />
+              <span class="toggle" :class="{ on: preferences.marketing }">
+                <span class="thumb" />
               </span>
               <span>
                 <strong>Marketing</strong>: Meta Pixel. Usados para mensurar e personalizar anúncios.
@@ -78,8 +77,8 @@ function save(prefs: typeof preferences.value) {
             </label>
             <label class="cookie-option">
               <input type="checkbox" class="toggle-input" v-model="preferences.recording" />
-              <span class="toggle" :class="{ 'toggle--on': preferences.recording }">
-                <span class="toggle__thumb" />
+              <span class="toggle" :class="{ on: preferences.recording }">
+                <span class="thumb" />
               </span>
               <span>
                 <strong>Gravação de sessão</strong>: Smartlook. Identificação de problemas de usabilidade.
@@ -88,21 +87,21 @@ function save(prefs: typeof preferences.value) {
           </div>
         </div>
 
-        <div class="cookie-consent__actions">
-          <button class="btn btn--accept" @click="acceptAll">Aceitar todos</button>
+        <div class="actions">
+          <button class="consent-btn accept" @click="acceptAll">Aceitar todos</button>
           <button
             v-if="!showDetails"
-            class="btn btn--manage"
+            class="consent-btn manage"
             @click="showDetails = true">
             Gerenciar
           </button>
           <button
             v-if="showDetails"
-            class="btn btn--save"
+            class="consent-btn save"
             @click="savePreferences">
             Salvar preferências
           </button>
-          <button class="btn btn--reject" @click="rejectAll">Rejeitar</button>
+          <button class="consent-btn reject" @click="rejectAll">Rejeitar</button>
         </div>
 
       </div>
@@ -134,7 +133,7 @@ function save(prefs: typeof preferences.value) {
     border-radius: 10rem 10rem 0 0;
   }
 
-  &__inner {
+  .inner {
     display: flex;
     gap: 24rem;
     align-items: flex-start;
@@ -145,24 +144,22 @@ function save(prefs: typeof preferences.value) {
     }
   }
 
-  &__text {
+  .text {
     flex: 1;
     font-size: 14rem;
     line-height: 1.6;
 
-    p {
-      margin: 0;
-    }
+    p { margin: 0; }
   }
 
-  &__details {
+  .details {
     margin-top: 14rem;
     display: flex;
     flex-direction: column;
     gap: 10rem;
   }
 
-  &__actions {
+  .actions {
     display: flex;
     flex-direction: column;
     gap: 8rem;
@@ -205,17 +202,17 @@ function save(prefs: typeof preferences.value) {
   transition: background 0.25s ease;
   cursor: pointer;
 
-  &--on {
+  &.on {
     background: v.$beige;
   }
 
-  &--disabled {
+  &.disabled {
     background: v.$beige;
     opacity: 0.45;
     cursor: not-allowed;
   }
 
-  &__thumb {
+  .thumb {
     width: 16rem;
     height: 16rem;
     border-radius: 50%;
@@ -223,14 +220,14 @@ function save(prefs: typeof preferences.value) {
     transition: transform 0.25s ease;
     transform: translateX(0);
   }
+
+  &.on .thumb,
+  &.disabled .thumb {
+    transform: translateX(16rem);
+  }
 }
 
-.toggle--on .toggle__thumb,
-.toggle--disabled .toggle__thumb {
-  transform: translateX(16rem);
-}
-
-.link {
+.privacy-link {
   color: v.$beige;
   text-decoration: underline;
 
@@ -239,7 +236,7 @@ function save(prefs: typeof preferences.value) {
   }
 }
 
-.btn {
+.consent-btn {
   padding: 9rem 16rem;
   border-radius: 6rem;
   font-size: 13rem;
@@ -249,7 +246,7 @@ function save(prefs: typeof preferences.value) {
   transition: background 0.2s, color 0.2s;
   text-align: center;
 
-  &--accept {
+  &.accept {
     background: v.$beige;
     color: v.$dark-green;
 
@@ -258,8 +255,8 @@ function save(prefs: typeof preferences.value) {
     }
   }
 
-  &--manage,
-  &--save {
+  &.manage,
+  &.save {
     background: transparent;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -269,18 +266,18 @@ function save(prefs: typeof preferences.value) {
     }
   }
 
-  &--reject {
+  &.reject {
     background: transparent;
     color: rgba(255, 255, 255, 0.55);
     font-weight: 400;
     font-size: 12rem;
   }
 
-  &--reject,
-  &--manage,
-  &--save {
+  &.reject,
+  &.manage,
+  &.save {
     &:hover {
-        color: v.$green
+      color: v.$green;
     }
   }
 }

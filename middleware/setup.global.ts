@@ -35,5 +35,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/estudio-fotografico-em-mogi-das-cruzes/cenarios', { redirectCode: 301 })
     } else if (to.path === '/estudio/cenarios/dia-das-maes-2025') {
         return navigateTo('/estudio-fotografico-em-mogi-das-cruzes/cenarios/dia-das-maes-2025', { redirectCode: 301 })
+    } else if (to.path === '/investimento/casual-intimista') {
+        return navigateTo('/precos-ensaios-fotograficos/sensual-intimista', { redirectCode: 301 })
     }
 })

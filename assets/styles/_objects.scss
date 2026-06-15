@@ -378,6 +378,10 @@
   display: flex;
 }
 
+.card-shadow {
+  @include m.card-shadow;
+}
+
 .ar {
   justify-content: flex-end;
   display: flex;

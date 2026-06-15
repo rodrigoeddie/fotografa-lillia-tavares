@@ -114,10 +114,7 @@
   }
 
   .wrap-about {
-    box-shadow:
-      0 1px 0 #ECE4D2,
-      0 14px 30px -12px rgba(42, 37, 32, 0.25),
-      0 4px 10px -4px rgba(42, 37, 32, 0.10);
+    @include m.card-shadow;
     background: white;
     max-width: 860rem;
     width: 40%;

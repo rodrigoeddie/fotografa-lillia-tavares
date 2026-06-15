@@ -31,6 +31,7 @@ interface Milestone {
   title: string;
   description: string;
   image?: string;
+  format?: string;
 }
 
 const milestones: Milestone[] = [
@@ -38,17 +39,28 @@ const milestones: Milestone[] = [
     year: 2019,
     title: 'Espetáculo da Lola',
     description: 'Primeiros registros profissionais em cobertura de espetáculo teatral — o clique que confirmou a vocação.',
+    image: '4f6db13c-469a-4636-b6b0-5f3f8dd71100',
   },
   {
-    year: 2020,
+    year: 2019,
     title: 'Ensaio na praia',
     description: 'Primeiros ensaios externos com luz natural, descobrindo o retrato feminino como linguagem.',
+    image: 'dfef0926-9e7f-4292-3515-f61e93a55600',
   },
   {
     year: 2021,
     month: 'Formação',
     title: 'Etec de Artes',
     description: 'Formação técnica em fotografia pela Etec, construindo a base técnica e artística.',
+    image: 'cad71dbd-ff03-467e-b1d6-08d299ce5f00',
+  },
+  {
+    year: 2021,
+    month: 'Prêmio',
+    title: 'Prêmio Mogi Revela 2021',
+    description: 'Ganhadora do 11º Prêmio Mogi Revela de Fotografia — mostra exibida no Centro Cultural de Mogi das Cruzes, um marco no reconhecimento da carreira.',
+    image: '67da3987-5e01-4fc9-2417-2c5e2f61ad00',
+    format: 'portrait',
   },
   {
     year: 2022,
@@ -144,12 +156,13 @@ const milestones: Milestone[] = [
             <nuxt-img
               v-if="item.image"
               provider="cloudflare"
-              :src="item.image"
+              :src="'https://images.fotografalilliatavares.com.br/images/' + item.image + '/public'"
               :alt="item.title"
-              width="240"
-              height="160"
-              format="webp"
+              :width="item.format === 'portrait' ? 160 : 240"
+              :height="item.format === 'portrait' ? 280 : 160"
+              format="avif"
               class="timeline-img"
+              :class="{ 'timeline-img-portrait': item.format === 'portrait' }"
             />
             <span class="timeline-date">
               <strong>{{ item.year }}</strong>
@@ -272,6 +285,10 @@ const milestones: Milestone[] = [
   object-fit: cover;
   border-radius: 4rem;
   margin-bottom: 12rem;
+
+  &.timeline-img-portrait {
+    height: 245rem;
+  }
 }
 
 .timeline-date {
