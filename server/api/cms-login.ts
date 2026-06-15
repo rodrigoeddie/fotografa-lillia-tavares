@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Email e senha obrigatórios' });
   }
 
-  const secret = process.env.CLIENT_JWT_SECRET;
+  const secret = process.env.ADMIN_JWT_SECRET ?? process.env.CLIENT_JWT_SECRET;
   if (!secret) {
     throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
   }

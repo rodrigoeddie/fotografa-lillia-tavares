@@ -8,9 +8,9 @@ const path = route.path;
 // O slug no DB é apenas o slugParam (sem category).
 usePageSeo('portfolio', `${category}/${slugParam}`);
 
-const { data: rawWork } = await useFetch(`/api/public/portfolio/${category}/${slugParam}`);
+const { data: rawWork, error: workError } = await useFetch(`/api/public/portfolio/${category}/${slugParam}`);
 
-if (!rawWork.value) {
+if (workError.value || !rawWork.value) {
   throw createError({ statusCode: 404, statusMessage: 'Ensaio não encontrado' });
 }
 

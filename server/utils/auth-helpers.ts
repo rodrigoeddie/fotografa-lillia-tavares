@@ -4,7 +4,7 @@ import { verifyAdminToken } from './admin-jwt';
 
 async function resolveAdminPayload(event: H3Event) {
   const token  = getHeader(event, 'x-cms-token');
-  const secret = process.env.CLIENT_JWT_SECRET;
+  const secret = process.env.ADMIN_JWT_SECRET ?? process.env.CLIENT_JWT_SECRET;
 
   if (!secret) throw createError({ statusCode: 500, statusMessage: 'JWT secret não configurado' });
   if (!token)  throw createError({ statusCode: 401, statusMessage: 'Não autorizado' });

@@ -15,6 +15,7 @@ const formData = ref<FormData>({
 });
 
 const errors = ref<{ [key: string]: string }>({});
+const isLoading = ref(false);
 
 const formatDateToBR = (date: string) => {
   const [year, month, day] = date.split('-').map(Number);
@@ -45,13 +46,16 @@ const enviar = async () => {
   validateField('sessionType');
 
   if (Object.keys(errors.value).length === 0) {
+    isLoading.value = true;
+
     const whatsappNumber = '5511911159795';
     const message        = `Olá, gostaria de ver a disponibilidade de um ensaio para a data ${ formatDateToBR(formData.value.date) } com o tipo de ensaio ${ formData.value.sessionType }. (mensagem do site)`;
     const whatsappUrl    = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, '_blank');
-
     trackEvent('envio-form', { screen_name: 'Agende seu ensaio' });
+
+    setTimeout(() => { isLoading.value = false; }, 2000);
   }
 };
 </script>
@@ -139,9 +143,9 @@ const enviar = async () => {
               <span class="error-msg" :class="{ show: errors.sessionType }">{{ errors.sessionType }}</span>
             </div>
 
-            <button class="btn-send">
+            <button class="btn-send" :disabled="isLoading" :aria-busy="isLoading">
               <Icon name="icons:whatsapp" class="icon"/>
-              <span>Enviar usando o whatsapp</span>
+              <span>{{ isLoading ? 'Abrindo WhatsApp...' : 'Enviar usando o whatsapp' }}</span>
             </button>
           </form>
         </div>
@@ -270,16 +274,13 @@ const enviar = async () => {
           margin-top: 0;
         }
 
-        &:hover {
+        &:hover:not(:disabled) {
           background-color: v.$dark-green;
+        }
 
-          // @media (prefers-color-scheme: dark) {
-          //   background: v.$light-green;
-
-          //   span {
-          //     color: black
-          //   }
-          // }
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
         }
       }
     }

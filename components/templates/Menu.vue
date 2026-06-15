@@ -45,9 +45,11 @@ function toggleMenu() {
 <template>
     <div>
         <nav
+          id="main-nav"
           class="menu"
+          aria-label="Navegação principal"
           :class="{
-            'opened': isOpen, 
+            'opened': isOpen,
             'not-opened': !isOpen,
             'hidden': !props.fromFooter && isMounted && isMobile && !isOpen
           }">
@@ -72,7 +74,8 @@ function toggleMenu() {
           v-if="!props.fromFooter"
           class="hamburger"
           :aria-expanded="isOpen"
-          aria-label="Abrir menu"
+          :aria-label="isOpen ? 'Fechar menu' : 'Abrir menu'"
+          aria-controls="main-nav"
           @click="toggleMenu"
         >
             <span :class="{ open: isOpen }"></span>

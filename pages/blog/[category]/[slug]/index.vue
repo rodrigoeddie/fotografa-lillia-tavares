@@ -7,7 +7,10 @@ const slug = $route.params.slug as string;
 // Deve ser chamado antes de qualquer await para preservar o contexto Nuxt no SSR.
 usePageSeo('blog', slug);
 
-const { data: rawPost } = await useFetch(`/api/public/blog/${category}/${slug}`);
+const { data: rawPost, error: blogError } = await useFetch(`/api/public/blog/${category}/${slug}`);
+if (blogError.value || !rawPost.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Post não encontrado' });
+}
 const post = computed(() => rawPost.value ? adaptBlogPost(rawPost.value) : null);
 
 const siteURI = 'https://fotografalilliatavares.com.br';
