@@ -1,6 +1,17 @@
 
 # ToDo
+Env vars a configurar no Wrangler
 
+SUMUP_API_KEY       = Bearer token da API SumUp
+SUMUP_MERCHANT_CODE = Código do estabelecimento SumUp
+SUMUP_WEBHOOK_SECRET= Segredo para validar HMAC dos webhooks
+SITE_URL            = https://fotografalilliatavares.com.br
+Configurar no painel SumUp
+Webhook URL: https://fotografalilliatavares.com.br/api/webhooks/sumup
+
+Rodar a migration
+
+wrangler d1 execute DB --remote --file=server/db/migrations/023_pagamentos.sql
 -----
 
 Usando o gateway de pagamento da sumup (previamente pesquisado) crie um sistema de pagamentos para:

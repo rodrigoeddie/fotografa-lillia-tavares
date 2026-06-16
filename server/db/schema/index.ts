@@ -20,3 +20,4 @@ export * from './page-seo';
 export * from './categorias';
 export * from './page-faq';
 export * from './hero-banners';
+export * from './pagamentos';

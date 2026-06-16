@@ -15,7 +15,8 @@ export const sessoes = sqliteTable('sessoes', {
   criado_em:         text().notNull().default(sql`(datetime('now'))`),
   produto_id:        integer().references(() => produtos.id),
   prazo_selecao:     text(),
-  capa_foto_id:      text(),
+  capa_foto_id:             text(),
+  valor_restante_pacote:    real().notNull().default(0),
 }, (t) => ({
   clienteIdx: index('idx_sessoes_cliente').on(t.cliente_id),
 }));

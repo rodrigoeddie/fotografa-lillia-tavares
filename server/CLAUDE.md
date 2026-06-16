@@ -151,28 +151,37 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 | `R2_SECRET_ACCESS_KEY` | secret | presign R2 |
 | `R2_BUCKET_NAME` | var | nome do bucket |
 
-## SumUp (futuro)
+## SumUp (implementado)
 
-Plano de integração quando o gateway for adicionado:
+Integração de pagamentos ativa:
 
 ```
 server/
 ├── api/
-│   ├── public/checkout/
-│   │   ├── create.ts            # cria sessão SumUp, retorna URL de pagamento
-│   │   └── status/[id].ts       # consulta status (opcional, usar webhook)
+│   ├── cliente/
+│   │   ├── sessoes/[id]/checkout.ts  # GET: info do pagamento do lote | POST: cria checkout SumUp
+│   │   └── pagamento/retorno.ts      # GET: verifica status após redirect SumUp
 │   └── webhooks/
-│       └── sumup.ts             # callback, valida HMAC, atualiza ProdutoPedido
+│       └── sumup.ts                  # POST: callback SumUp, valida HMAC, atualiza status
 ├── services/
-│   └── PagamentoService.ts      # encapsula chamadas à API SumUp + persistência
+│   └── PagamentoService.ts           # chamadas à API SumUp + CRUD pagamentos
 └── db/
     └── schema/
-        └── pagamentos.ts        # tabela pedidos: id, produto_id, cliente_id?, status, sumup_checkout_id, sumup_transaction_id, valor_cents, created_at
+        └── pagamentos.ts             # sessao_id, lote_id, sumup_checkout_id (UNIQUE), status, valor_cents
 ```
 
+Campos adicionados às tabelas existentes (migration 023):
+- `sessoes.valor_restante_pacote REAL` — saldo do pacote após entrada, definido pelo admin
+- `selecao_lotes.numero_lote INTEGER` — 1 para o lote inicial, 2+ para seleções adicionais
+
+Lógica de cálculo:
+- **Lote 1**: total = fotos extras (com desconto progressivo) + valor_restante_pacote
+- **Lote 2+**: total = somente fotos extras
+- Pagamento online é **opcional** — cliente pode pagar no SumUp ou combinar diretamente com a Lillia
+
 Pontos de atenção:
-- Validar webhook por assinatura (HMAC) — nunca confiar só no `transaction_id`
-- Idempotência: chave `sumup_checkout_id` UNIQUE na tabela
-- Reconciliação periódica via cron (Cloudflare Triggers) consultando status SumUp para pedidos `pending` > 1h
-- Secrets em wrangler: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`
+- Validar webhook por assinatura HMAC (`X-Signature` header) usando `SUMUP_WEBHOOK_SECRET`
+- Idempotência: `sumup_checkout_id` UNIQUE na tabela
+- Secrets em wrangler: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`, `SITE_URL`
 - Não armazenar dados de cartão nem PAN — SumUp Checkout cuida disso
+- URL do webhook a configurar no painel SumUp: `https://fotografalilliatavares.com.br/api/webhooks/sumup`

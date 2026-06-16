@@ -6,7 +6,8 @@ export const selecao_lotes = sqliteTable('selecao_lotes', {
   id:        integer().primaryKey({ autoIncrement: true }),
   sessao_id: integer().notNull().references(() => sessoes.id, { onDelete: 'cascade' }),
   criado_em: text().notNull().default(sql`(datetime('now'))`),
-  status:    text().notNull().default('aguardando_selecao'),
+  status:       text().notNull().default('aguardando_selecao'),
+  numero_lote:  integer().notNull().default(1),
 }, (t) => ({
   sessaoIdx: index('idx_selecao_lotes_sessao').on(t.sessao_id),
 }));

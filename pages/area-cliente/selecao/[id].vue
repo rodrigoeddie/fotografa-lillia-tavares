@@ -8,12 +8,20 @@ const route = useRoute();
 const sessaoId = Number(route.params.id);
 const cfURI = useRuntimeConfig().public.cloudflareURI;
 
+interface LoteInfo {
+  id: number;
+  sessao_id: number;
+  criado_em: string;
+  status: string;
+  numero_lote: number;
+}
+
 interface FotoComSelecao {
   id: number;
   sessao_id: number;
   cloudflare_image_id: string;
   ordem: number;
-  selecionada: number | null;  // 0, 1, ou null (LEFT JOIN)
+  selecionada: number | null;
   comentario: string | null;
 }
 
@@ -33,10 +41,26 @@ interface ApiResponse {
     status: string;
     prazo_selecao: string | null;
   };
+  lote: LoteInfo | null;
   fotos: FotoComSelecao[];
   selecionadas: number;
   extras: number;
   valor_extras: number;
+}
+
+interface CheckoutInfo {
+  lote_id: number;
+  numero_lote: number;
+  selecionadas: number;
+  extras: number;
+  preco_foto_extra: number;
+  desconto_percent: number;
+  valor_extras_bruto: number;
+  valor_extras: number;
+  valor_restante_pacote: number;
+  valor_total: number;
+  num_parcelas: number;
+  pagamento: { status: string; criado_em: string } | null;
 }
 
 const state = ref<ApiResponse | null>(null);
@@ -46,11 +70,18 @@ const saving = ref(false);
 const finalizing = ref(false);
 const error = ref('');
 
+/* ── Checkout ────────────────────────────────────────────────── */
+type Step = 'selecao' | 'checkout';
+const step = ref<Step>('selecao');
+const checkoutInfo = ref<CheckoutInfo | null>(null);
+const checkoutLoading = ref(false);
+const checkoutPaying = ref(false);
+
+/* ── Computed: fotos extras ──────────────────────────────────── */
 const totalSelecionadas = computed(() => Object.values(selecoes.value).filter(s => s.selecionada).length);
 const fotos_incluidas = computed(() => state.value?.sessao.fotos_incluidas ?? 0);
 const extras = computed(() => Math.max(0, totalSelecionadas.value - fotos_incluidas.value));
 
-// Desconto progressivo: a cada 5 fotos extras, 5% de desconto
 const descontoPercent = computed(() => Math.floor(extras.value / 5) * 5);
 const valorExtrasBruto = computed(() => extras.value * (state.value?.sessao.preco_foto_extra ?? 0));
 const valorExtras = computed(() => valorExtrasBruto.value * (1 - descontoPercent.value / 100));
@@ -75,14 +106,13 @@ const prazoInfo = computed(() => {
   return { label: `Prazo: ${dias} dias (${prazoDate.toLocaleDateString('pt-BR')})`, urgente: dias <= 3, encerrado: false };
 });
 
-function cfUrl(id: string) { return `${cfURI}${id}/public`; }
+function fmt(v: number) { return `R$ ${v.toFixed(2).replace('.', ',')}` }
 
 async function load() {
   await checkSession();
   try {
     const data = await $fetch<ApiResponse>(`/api/cliente/sessoes/${sessaoId}/selecao`);
     state.value = data;
-    // Inicializa estado local com valores salvos no banco
     for (const foto of data.fotos) {
       selecoes.value[foto.id] = {
         selecionada: foto.selecionada === 1,
@@ -90,7 +120,6 @@ async function load() {
       };
     }
   } catch (e: any) {
-    console.error('[selecao] load error:', e);
     error.value = e.statusMessage || e.message || 'Erro ao carregar fotos';
   } finally {
     loading.value = false;
@@ -99,19 +128,16 @@ async function load() {
 
 async function autosave(fotoId: number) {
   try {
-    const body = {
-      selecoes: Object.entries(selecoes.value).map(([id, s]) => ({
-        foto_id: Number(id),
-        selecionada: s.selecionada,
-        comentario: s.comentario,
-      })),
-    };
-    console.log('[autosave] body:', JSON.stringify(body));
-    const result = await $fetch(`/api/cliente/sessoes/${sessaoId}/selecao`, {
+    await $fetch(`/api/cliente/sessoes/${sessaoId}/selecao`, {
       method: 'POST',
-      body,
+      body: {
+        selecoes: Object.entries(selecoes.value).map(([id, s]) => ({
+          foto_id: Number(id),
+          selecionada: s.selecionada,
+          comentario: s.comentario,
+        })),
+      },
     });
-    console.log('[autosave] result:', result);
   } catch (e: any) {
     console.error('[autosave] error:', e);
   }
@@ -135,7 +161,6 @@ async function finalizar() {
     );
     return;
   }
-
   if (totalSelecionadas.value === 0) {
     await showAlert('Selecione pelo menos uma foto antes de finalizar.', 'warning');
     return;
@@ -143,8 +168,8 @@ async function finalizar() {
 
   const msg = extras.value > 0
     ? descontoPercent.value > 0
-      ? `Você selecionou ${extras.value} foto(s) extra(s) com ${descontoPercent.value}% de desconto! Total extras: R$ ${valorExtras.value.toFixed(2).replace('.', ',')} (economia de R$ ${economiaTotalExtras.value.toFixed(2).replace('.', ',')}). Confirmar seleção?`
-      : `Você selecionou ${extras.value} foto(s) extra(s), totalizando R$ ${valorExtras.value.toFixed(2).replace('.', ',')} a mais. Confirmar seleção?`
+      ? `Você selecionou ${extras.value} foto(s) extra(s) com ${descontoPercent.value}% de desconto! Total extras: ${fmt(valorExtras.value)} (economia de ${fmt(economiaTotalExtras.value)}). Confirmar seleção?`
+      : `Você selecionou ${extras.value} foto(s) extra(s), totalizando ${fmt(valorExtras.value)} a mais. Confirmar seleção?`
     : `Você selecionou ${totalSelecionadas.value} foto(s). Confirmar seleção?`;
 
   const confirmed = await showConfirm(msg, 'Finalizar seleção', 'Confirmar', 'Cancelar');
@@ -163,12 +188,57 @@ async function finalizar() {
         finalizar: true,
       },
     });
-    await router.push('/area-cliente/meus-ensaios');
+
+    const loteId = state.value?.lote?.id;
+    if (!loteId) {
+      await router.push('/area-cliente/meus-ensaios');
+      return;
+    }
+
+    /* Busca info de checkout */
+    checkoutLoading.value = true;
+    step.value = 'checkout';
+    try {
+      const info = await $fetch<CheckoutInfo>(`/api/cliente/sessoes/${sessaoId}/checkout?lote_id=${loteId}`);
+      checkoutInfo.value = info;
+      if (info.valor_total <= 0) {
+        await router.push('/area-cliente/meus-ensaios');
+      }
+    } catch {
+      await router.push('/area-cliente/meus-ensaios');
+    } finally {
+      checkoutLoading.value = false;
+    }
   } catch (e: any) {
+    const { showAlert } = useDialog();
     await showAlert('Erro ao finalizar: ' + (e.statusMessage || e.message), 'error');
   } finally {
     finalizing.value = false;
   }
+}
+
+async function pagarOnline() {
+  if (!checkoutInfo.value) return;
+  checkoutPaying.value = true;
+  try {
+    const res = await $fetch<{ checkout_url: string | null; valor_total: number }>(`/api/cliente/sessoes/${sessaoId}/checkout`, {
+      method: 'POST',
+      body: { lote_id: checkoutInfo.value.lote_id },
+    });
+    if (res.checkout_url) {
+      window.location.href = res.checkout_url;
+    } else {
+      await router.push('/area-cliente/meus-ensaios');
+    }
+  } catch (e: any) {
+    const { showAlert } = useDialog();
+    await showAlert('Erro ao iniciar pagamento: ' + (e.statusMessage || e.message), 'error');
+    checkoutPaying.value = false;
+  }
+}
+
+function combinarComLillia() {
+  router.push('/area-cliente/meus-ensaios');
 }
 
 onMounted(load);
@@ -195,8 +265,8 @@ onMounted(load);
         {{ prazoInfo.label }}
       </div>
 
-      <!-- Se já finalizado -->
-      <div v-if="state.sessao.status === 'selecao_concluida'" class="status-banner done">
+      <!-- Status banners -->
+      <div v-if="step === 'selecao' && state.sessao.status === 'selecao_concluida'" class="status-banner done">
         ✅ Seleção enviada! Aguarde a Lillia preparar seu ensaio.
       </div>
       <div v-else-if="state.sessao.status === 'entregue'" class="status-banner done">
@@ -240,131 +310,210 @@ onMounted(load);
         </div>
       </div>
 
-      <!-- Carrinho -->
-      <div v-if="state.sessao.status === 'aguardando_selecao'" class="sticky-bar">
+      <!-- ── Painel lateral ──────────────────────────────────── -->
+      <div v-if="state.sessao.status === 'aguardando_selecao' || step === 'checkout'" class="sticky-bar">
         <div class="sticky-bar-inner">
 
-          <!-- Cabeçalho do carrinho -->
-          <div class="cart-header">
-            <div class="cart-header-left">
-              <span class="material-symbols-outlined">shopping_cart</span>
-              <span class="cart-title">Seu carrinho</span>
-            </div>
-            <span v-if="totalSelecionadas > 0" class="cart-badge">{{ totalSelecionadas }}</span>
-          </div>
-
-          <!-- Estado vazio -->
-          <div v-if="totalSelecionadas === 0" class="cart-empty">
-            <span class="material-symbols-outlined">add_photo_alternate</span>
-            <p>Toque nas fotos para adicioná-las ao carrinho</p>
-          </div>
-
-          <template v-else>
-            <!-- Itens do carrinho -->
-            <div class="cart-items">
-              <!-- Pacote base -->
-              <div class="cart-item">
-                <div class="cart-item-icon">
-                  <span class="material-symbols-outlined">photo_library</span>
-                </div>
-                <div class="cart-item-details">
-                  <span class="cart-item-name">{{ state.sessao.produto_tipo }}</span>
-                  <span class="cart-item-sub">{{ state.sessao.pacote_titulo }}</span>
-                  <span class="cart-item-qty">{{ Math.min(totalSelecionadas, fotos_incluidas) }} / {{ fotos_incluidas }} fotos incluídas</span>
-                </div>
-                <span class="cart-item-price cart-item-price--free">Incluso</span>
+          <!-- ── Step: Seleção (carrinho) ───────────────────── -->
+          <template v-if="step === 'selecao'">
+            <div class="cart-header">
+              <div class="cart-header-left">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span class="cart-title">Seu carrinho</span>
               </div>
-
-              <!-- Fotos extras -->
-              <div v-if="extras > 0" class="cart-item cart-item--extras">
-                <div class="cart-item-icon">
-                  <span class="material-symbols-outlined">add_circle</span>
-                </div>
-                <div class="cart-item-details">
-                  <span class="cart-item-name">{{ extras }} foto{{ extras > 1 ? 's' : '' }} extra{{ extras > 1 ? 's' : '' }}</span>
-                  <span class="cart-item-sub">R$ {{ state.sessao.preco_foto_extra.toFixed(2).replace('.', ',') }} / foto</span>
-                </div>
-                <div class="cart-item-price-wrap">
-                  <span v-if="descontoPercent > 0" class="cart-item-price-old">R$ {{ valorExtrasBruto.toFixed(2).replace('.', ',') }}</span>
-                  <span class="cart-item-price">R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</span>
-                </div>
-              </div>
-
-              <!-- Linha de desconto -->
-              <div v-if="descontoPercent > 0 && extras > 0" class="cart-discount-row">
-                <span class="cart-discount-tag">
-                  <span class="material-symbols-outlined">local_offer</span>
-                  {{ descontoPercent }}% OFF aplicado
-                </span>
-                <span class="cart-discount-saving">–R$ {{ economiaTotalExtras.toFixed(2).replace('.', ',') }}</span>
-              </div>
+              <span v-if="totalSelecionadas > 0" class="cart-badge">{{ totalSelecionadas }}</span>
             </div>
 
-            <!-- Teaser: incentivo antes do primeiro extra -->
-            <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
-              <span class="material-symbols-outlined">local_offer</span>
-              <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
+            <div v-if="totalSelecionadas === 0" class="cart-empty">
+              <span class="material-symbols-outlined">add_photo_alternate</span>
+              <p>Toque nas fotos para adicioná-las ao carrinho</p>
             </div>
 
-            <!-- Meter: progresso ao próximo desconto -->
-            <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
-              <div class="desconto-meter-texto">
-                <template v-if="descontoPercent === 0">
-                  <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
-                </template>
-                <template v-else>
-                  <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
-                </template>
-              </div>
-              <div class="desconto-barra-wrap">
-                <div class="desconto-segmentos">
-                  <div
-                    v-for="i in 5"
-                    :key="i"
-                    class="segmento"
-                    :class="{ filled: (extras % 5) >= i }"
-                  ></div>
+            <template v-else>
+              <div class="cart-items">
+                <div class="cart-item">
+                  <div class="cart-item-icon">
+                    <span class="material-symbols-outlined">photo_library</span>
+                  </div>
+                  <div class="cart-item-details">
+                    <span class="cart-item-name">{{ state.sessao.produto_tipo }}</span>
+                    <span class="cart-item-sub">{{ state.sessao.pacote_titulo }}</span>
+                    <span class="cart-item-qty">{{ Math.min(totalSelecionadas, fotos_incluidas) }} / {{ fotos_incluidas }} fotos incluídas</span>
+                  </div>
+                  <span class="cart-item-price cart-item-price--free">Incluso</span>
                 </div>
-                <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
-              </div>
-              <div class="desconto-tiers">
-                <span
-                  v-for="tier in [5, 10, 15, 20, 25, 30, 35]"
-                  :key="tier"
-                  class="tier-badge"
-                  :class="{ ativo: descontoPercent >= tier }"
-                >
-                  <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
-                  {{ tier }}%
-                </span>
-              </div>
-            </div>
 
-            <!-- Total do carrinho -->
-            <div v-if="extras > 0" class="cart-total">
-              <div v-if="descontoPercent > 0" class="cart-total-savings">
-                🎉 Você economizou <strong>R$ {{ economiaTotalExtras.toFixed(2).replace('.', ',') }}</strong>
+                <div v-if="extras > 0" class="cart-item cart-item--extras">
+                  <div class="cart-item-icon">
+                    <span class="material-symbols-outlined">add_circle</span>
+                  </div>
+                  <div class="cart-item-details">
+                    <span class="cart-item-name">{{ extras }} foto{{ extras > 1 ? 's' : '' }} extra{{ extras > 1 ? 's' : '' }}</span>
+                    <span class="cart-item-sub">{{ fmt(state.sessao.preco_foto_extra) }} / foto</span>
+                  </div>
+                  <div class="cart-item-price-wrap">
+                    <span v-if="descontoPercent > 0" class="cart-item-price-old">{{ fmt(valorExtrasBruto) }}</span>
+                    <span class="cart-item-price">{{ fmt(valorExtras) }}</span>
+                  </div>
+                </div>
+
+                <div v-if="descontoPercent > 0 && extras > 0" class="cart-discount-row">
+                  <span class="cart-discount-tag">
+                    <span class="material-symbols-outlined">local_offer</span>
+                    {{ descontoPercent }}% OFF aplicado
+                  </span>
+                  <span class="cart-discount-saving">–{{ fmt(economiaTotalExtras) }}</span>
+                </div>
               </div>
-              <div class="cart-total-row">
-                <span>Total extras</span>
-                <strong>R$ {{ valorExtras.toFixed(2).replace('.', ',') }}</strong>
+
+              <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
+                <span class="material-symbols-outlined">local_offer</span>
+                <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
               </div>
+
+              <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
+                <div class="desconto-meter-texto">
+                  <template v-if="descontoPercent === 0">
+                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
+                  </template>
+                  <template v-else>
+                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
+                  </template>
+                </div>
+                <div class="desconto-barra-wrap">
+                  <div class="desconto-segmentos">
+                    <div v-for="i in 5" :key="i" class="segmento" :class="{ filled: (extras % 5) >= i }"></div>
+                  </div>
+                  <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
+                </div>
+                <div class="desconto-tiers">
+                  <span v-for="tier in [5, 10, 15, 20, 25, 30, 35]" :key="tier" class="tier-badge" :class="{ ativo: descontoPercent >= tier }">
+                    <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                    {{ tier }}%
+                  </span>
+                </div>
+              </div>
+
+              <div v-if="extras > 0" class="cart-total">
+                <div v-if="descontoPercent > 0" class="cart-total-savings">
+                  🎉 Você economizou <strong>{{ fmt(economiaTotalExtras) }}</strong>
+                </div>
+                <div class="cart-total-row">
+                  <span>Total extras</span>
+                  <strong>{{ fmt(valorExtras) }}</strong>
+                </div>
+              </div>
+            </template>
+
+            <div class="finalizar-wrap">
+              <button
+                class="finalizar-btn"
+                :disabled="finalizing || (fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas)"
+                @click="finalizar">
+                <span class="material-symbols-outlined">check_circle</span>
+                {{ finalizing ? 'Finalizando...' : 'Finalizar seleção' }}
+              </button>
+              <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas && totalSelecionadas > 0" class="finalizar-hint">
+                Selecione mais {{ fotos_incluidas - totalSelecionadas }} foto{{ (fotos_incluidas - totalSelecionadas) > 1 ? 's' : '' }}
+              </span>
             </div>
           </template>
 
-          <!-- Finalizar -->
-          <div class="finalizar-wrap">
-            <button
-              class="finalizar-btn"
-              :disabled="finalizing || (fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas)"
-              @click="finalizar">
-              <span class="material-symbols-outlined">check_circle</span>
-              {{ finalizing ? 'Finalizando...' : 'Finalizar seleção' }}
-            </button>
-            <span v-if="fotos_incluidas > 0 && totalSelecionadas < fotos_incluidas && totalSelecionadas > 0" class="finalizar-hint">
-              Selecione mais {{ fotos_incluidas - totalSelecionadas }} foto{{ (fotos_incluidas - totalSelecionadas) > 1 ? 's' : '' }}
-            </span>
-          </div>
+          <!-- ── Step: Checkout ──────────────────────────────── -->
+          <template v-else-if="step === 'checkout'">
+            <div class="cart-header">
+              <div class="cart-header-left">
+                <span class="material-symbols-outlined">payments</span>
+                <span class="cart-title">Pagamento</span>
+              </div>
+              <span class="cart-badge success-badge">✓ Seleção enviada</span>
+            </div>
+
+            <div v-if="checkoutLoading" class="cart-empty">
+              <span class="material-symbols-outlined spin">autorenew</span>
+              <p>Carregando resumo...</p>
+            </div>
+
+            <template v-else-if="checkoutInfo">
+              <div class="checkout-success-msg">
+                <span class="material-symbols-outlined">check_circle</span>
+                Suas fotos foram selecionadas! A Lillia já foi notificada.
+              </div>
+
+              <div class="cart-items">
+                <!-- Fotos extras -->
+                <div v-if="checkoutInfo.extras > 0" class="cart-item cart-item--extras">
+                  <div class="cart-item-icon">
+                    <span class="material-symbols-outlined">add_circle</span>
+                  </div>
+                  <div class="cart-item-details">
+                    <span class="cart-item-name">{{ checkoutInfo.extras }} foto{{ checkoutInfo.extras > 1 ? 's' : '' }} extra{{ checkoutInfo.extras > 1 ? 's' : '' }}</span>
+                    <span v-if="checkoutInfo.desconto_percent > 0" class="cart-item-sub">{{ checkoutInfo.desconto_percent }}% OFF aplicado</span>
+                  </div>
+                  <div class="cart-item-price-wrap">
+                    <span v-if="checkoutInfo.desconto_percent > 0" class="cart-item-price-old">{{ fmt(checkoutInfo.valor_extras_bruto) }}</span>
+                    <span class="cart-item-price">{{ fmt(checkoutInfo.valor_extras) }}</span>
+                  </div>
+                </div>
+
+                <!-- Saldo do pacote (apenas lote 1) -->
+                <div v-if="checkoutInfo.valor_restante_pacote > 0" class="cart-item">
+                  <div class="cart-item-icon">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                  </div>
+                  <div class="cart-item-details">
+                    <span class="cart-item-name">Saldo do pacote</span>
+                    <span class="cart-item-sub">Valor restante após a entrada</span>
+                  </div>
+                  <span class="cart-item-price">{{ fmt(checkoutInfo.valor_restante_pacote) }}</span>
+                </div>
+
+                <!-- Nenhum extra / saldo -->
+                <div v-if="checkoutInfo.extras === 0 && checkoutInfo.valor_restante_pacote === 0" class="cart-item">
+                  <div class="cart-item-details">
+                    <span class="cart-item-name">Nenhum valor adicional</span>
+                    <span class="cart-item-sub">Tudo incluso no seu pacote!</span>
+                  </div>
+                  <span class="cart-item-price cart-item-price--free">Pago</span>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div v-if="checkoutInfo.valor_total > 0" class="cart-total">
+                <div class="cart-total-row">
+                  <span>Total</span>
+                  <strong>{{ fmt(checkoutInfo.valor_total) }}</strong>
+                </div>
+                <div v-if="checkoutInfo.num_parcelas > 1" class="parcelas-hint">
+                  Parcele em até {{ checkoutInfo.num_parcelas }}x no cartão
+                </div>
+              </div>
+
+              <!-- Botões de pagamento -->
+              <div class="finalizar-wrap checkout-actions">
+                <template v-if="checkoutInfo.valor_total > 0">
+                  <button class="finalizar-btn" :disabled="checkoutPaying" @click="pagarOnline">
+                    <span class="material-symbols-outlined">credit_card</span>
+                    {{ checkoutPaying ? 'Aguarde...' : 'Pagar agora (cartão ou PIX)' }}
+                  </button>
+                  <div class="ou-separator"><span>ou</span></div>
+                  <button class="btn-pagar-depois" @click="combinarComLillia">
+                    <span class="material-symbols-outlined">chat</span>
+                    Combinar com a Lillia
+                  </button>
+                  <p class="checkout-info-txt">
+                    Você pode pagar online de forma segura ou combinar o pagamento diretamente com a fotógrafa.
+                  </p>
+                </template>
+                <template v-else>
+                  <button class="finalizar-btn" @click="combinarComLillia">
+                    <span class="material-symbols-outlined">home</span>
+                    Ir para meus ensaios
+                  </button>
+                </template>
+              </div>
+            </template>
+          </template>
 
         </div>
       </div>
@@ -389,7 +538,7 @@ onMounted(load);
   margin-bottom: 24px;
   text-align: center;
   padding-top: 10px;
-  
+
   .back-link {
     text-decoration: none;
     align-items: center;
@@ -401,27 +550,12 @@ onMounted(load);
     top: 25px;
     left: 0;
 
-    span {
-      font-size: 17px;
-    }
+    span { font-size: 17px; }
+    &:hover { color: #5e2012; }
+  }
 
-    &:hover {
-      color: #5e2012;
-    }
-  }
-  
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1f2937;
-    margin-top: 8px;
-    margin-bottom: 4px;
-  }
-  
-  .selecao-sub {
-    font-size: 14px;
-    color: #6b7280;
-  }
+  h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-bottom: 4px; }
+  .selecao-sub { font-size: 14px; color: #6b7280; }
 }
 
 .status-banner {
@@ -431,30 +565,11 @@ onMounted(load);
 }
 
 .prazo-banner {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 20px;
-  background: #fef9c3;
-  color: #854d0e;
-
-  .material-symbols-outlined {
-    font-size: 18px;
-  }
-  
-  &.urgente {
-    background: #fee2e2;
-    color: #991b1b;
-  }
-  
-  &.encerrado {
-    background: #fce7f3;
-    color: #9d174d;
-  }
+  display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; margin-bottom: 20px; background: #fef9c3; color: #854d0e;
+  .material-symbols-outlined { font-size: 18px; }
+  &.urgente { background: #fee2e2; color: #991b1b; }
+  &.encerrado { background: #fce7f3; color: #9d174d; }
 }
 
 .fotos-grid {
@@ -469,432 +584,139 @@ onMounted(load);
 }
 
 .foto-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  break-inside: avoid;
-  margin-bottom: 12px;
-
-  &.selected {
-    border-color: #5e2012;
-    box-shadow: 0 0 0 3px rgba(94,32,18,0.12);
-  }
+  background: #fff; border-radius: 12px; overflow: hidden; border: 2px solid transparent;
+  transition: border-color 0.15s, box-shadow 0.15s; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  break-inside: avoid; margin-bottom: 12px;
+  &.selected { border-color: #5e2012; box-shadow: 0 0 0 3px rgba(94,32,18,0.12); }
 }
 
 .foto-img-wrap {
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-
+  position: relative; cursor: pointer; overflow: hidden;
   img { width: 100%; height: auto; display: block; transition: transform 0.2s; }
   &:hover img { transform: scale(1.02); }
 }
 
-.foto-overlay {
-  justify-content: flex-end;
-  align-items: flex-start;
-  position: absolute;
-  display: flex;
-  padding: 8px;
-  inset: 0;
-}
+.foto-overlay { justify-content: flex-end; align-items: flex-start; position: absolute; display: flex; padding: 8px; inset: 0; }
 
 .foto-check {
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
-  font-size: 20px;
-  
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); font-size: 20px;
   span {
-    background: #5e2012;
-    border-radius: 7rem;
-    line-height: 1em;
-    color: white;
-    display: none;
-    
-    &.selected {
-      display: inline-block;
-    }
-
-    &.unselected {
-      background: rgb(94 32 18 / 40%);
-    }
+    background: #5e2012; border-radius: 7rem; line-height: 1em; color: white; display: none;
+    &.selected { display: inline-block; }
+    &.unselected { background: rgb(94 32 18 / 40%); }
   }
 }
 
 .foto-comment {
-  position: absolute;
-  padding: 8px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255,255,255,0.45);
-
+  position: absolute; padding: 8px; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.45);
   textarea {
-    background: rgba(255,255,255,0.60);
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 13px;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    padding: 6px 8px;
-    resize: none;
-    font-family: inherit;
-    color: #374151;
-
-    &:focus-visible {
-      outline: 2px solid #5e2012;
-      outline-offset: 2px;
-      border-color: #5e2012;
-    }
+    background: rgba(255,255,255,0.60); width: 100%; box-sizing: border-box; font-size: 13px;
+    border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; resize: none; font-family: inherit; color: #374151;
+    &:focus-visible { outline: 2px solid #5e2012; outline-offset: 2px; border-color: #5e2012; }
   }
 }
 
 .sticky-bar {
-  background: #fff;
-  box-shadow: -4px 0 20px rgba(0,0,0,0.12);
-  border-left: 1px solid #f0ede8;
-  position: fixed;
-  width: 350px;
-  z-index: 50;
-  bottom: 0;
-  right: 0;
-  top: 0;
-  display: flex;
-  flex-direction: column;
+  background: #fff; box-shadow: -4px 0 20px rgba(0,0,0,0.12); border-left: 1px solid #f0ede8;
+  position: fixed; width: 350px; z-index: 50; bottom: 0; right: 0; top: 0;
+  display: flex; flex-direction: column; border-top-left-radius: 10px; border-bottom-left-radius: 10px; overflow: hidden;
 
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  overflow: hidden;
-
-  .sticky-bar-inner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow-y: auto;
-  }
+  .sticky-bar-inner { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
 }
 
 .cart-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 20px 16px;
-  border-bottom: 1px solid #f0ede8;
-  background: #fdf8f5;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 20px 16px; border-bottom: 1px solid #f0ede8; background: #fdf8f5; flex-shrink: 0;
 
-  .cart-header-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    .material-symbols-outlined {
-      font-size: 22px;
-      color: #5e2012;
-    }
-  }
-
-  .cart-title {
-    font-size: 17px;
-    font-weight: 700;
-    color: #1f2937;
-  }
-
+  .cart-header-left { display: flex; align-items: center; gap: 8px; .material-symbols-outlined { font-size: 22px; color: #5e2012; } }
+  .cart-title { font-size: 17px; font-weight: 700; color: #1f2937; }
   .cart-badge {
-    background: #5e2012;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 99px;
-    padding: 2px 10px;
-    line-height: 1.6;
+    background: #5e2012; color: #fff; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 2px 10px; line-height: 1.6;
+    &.success-badge { background: #15803d; }
   }
 }
 
 .cart-empty {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 40px 24px;
-  color: #9ca3af;
-  text-align: center;
-
-  .material-symbols-outlined {
-    font-size: 48px;
-    opacity: 0.4;
-  }
-
-  p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0;
-  }
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 40px 24px; color: #9ca3af; text-align: center;
+  .material-symbols-outlined { font-size: 48px; opacity: 0.4; &.spin { animation: spin 1s linear infinite; } }
+  p { font-size: 14px; line-height: 1.5; margin: 0; }
 }
 
+@keyframes spin { to { transform: rotate(360deg); } }
+
 .cart-items {
-  padding: 8px 16px;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #f0ede8;
+  padding: 8px 16px; display: flex; flex-direction: column; border-bottom: 1px solid #f0ede8;
 }
 
 .cart-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 0;
-  border-bottom: 1px dashed #f0ede8;
-
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 1px dashed #f0ede8;
   &:last-child { border-bottom: none; }
-
   &.cart-item--extras .cart-item-icon .material-symbols-outlined { color: #9b3a22; }
 
   .cart-item-icon {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: #f5ede8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .material-symbols-outlined {
-      font-size: 17px;
-      color: #5e2012;
-    }
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px; background: #f5ede8;
+    display: flex; align-items: center; justify-content: center;
+    .material-symbols-outlined { font-size: 17px; color: #5e2012; }
   }
 
   .cart-item-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-
-    .cart-item-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1f2937;
-    }
-
-    .cart-item-sub {
-      font-size: 12px;
-      color: #6b7280;
-    }
-
-    .cart-item-qty {
-      font-size: 11px;
-      color: #9b3a22;
-      font-weight: 500;
-    }
+    flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;
+    .cart-item-name { font-size: 13px; font-weight: 600; color: #1f2937; }
+    .cart-item-sub { font-size: 12px; color: #6b7280; }
+    .cart-item-qty { font-size: 11px; color: #9b3a22; font-weight: 500; }
   }
 
   .cart-item-price {
-    font-size: 13px;
-    font-weight: 700;
-    color: #1f2937;
-    white-space: nowrap;
-
-    &.cart-item-price--free {
-      color: #15803d;
-      font-size: 11px;
-      background: #dcfce7;
-      border-radius: 6px;
-      padding: 2px 8px;
-      align-self: flex-start;
-      font-weight: 600;
-    }
+    font-size: 13px; font-weight: 700; color: #1f2937; white-space: nowrap;
+    &.cart-item-price--free { color: #15803d; font-size: 11px; background: #dcfce7; border-radius: 6px; padding: 2px 8px; align-self: flex-start; font-weight: 600; }
   }
 
   .cart-item-price-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1px;
-
-    .cart-item-price-old {
-      font-size: 11px;
-      color: #9ca3af;
-      text-decoration: line-through;
-    }
-
-    .cart-item-price {
-      font-size: 13px;
-      font-weight: 700;
-      color: #9b3a22;
-    }
+    display: flex; flex-direction: column; align-items: flex-end; gap: 1px;
+    .cart-item-price-old { font-size: 11px; color: #9ca3af; text-decoration: line-through; }
+    .cart-item-price { font-size: 13px; font-weight: 700; color: #9b3a22; }
   }
 }
 
 .cart-discount-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  background: #fef3c7;
-  border-radius: 8px;
-  border: 1px solid #fde68a;
-  margin: 4px 0 8px;
-
-  .cart-discount-tag {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #92400e;
-
-    .material-symbols-outlined { font-size: 14px; }
-  }
-
-  .cart-discount-saving {
-    font-size: 13px;
-    font-weight: 700;
-    color: #15803d;
-  }
+  display: flex; align-items: center; justify-content: space-between; padding: 8px 10px;
+  background: #fef3c7; border-radius: 8px; border: 1px solid #fde68a; margin: 4px 0 8px;
+  .cart-discount-tag { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: #92400e; .material-symbols-outlined { font-size: 14px; } }
+  .cart-discount-saving { font-size: 13px; font-weight: 700; color: #15803d; }
 }
 
 .cart-total {
-  padding: 14px 16px;
-  border-top: 2px solid #f0ede8;
-  background: #fdf8f5;
-  flex-shrink: 0;
-
-  .cart-total-savings {
-    font-size: 12px;
-    color: #92400e;
-    font-weight: 600;
-    margin-bottom: 8px;
-    padding: 5px 10px;
-    background: #fef3c7;
-    border-radius: 6px;
-    border: 1px solid #fde68a;
-    animation: desconto-pop 0.4s ease;
-  }
-
-  .cart-total-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: #4b5563;
-
-    strong {
-      font-size: 18px;
-      font-weight: 800;
-      color: #5e2012;
-    }
-  }
+  padding: 14px 16px; border-top: 2px solid #f0ede8; background: #fdf8f5; flex-shrink: 0;
+  .cart-total-savings { font-size: 12px; color: #92400e; font-weight: 600; margin-bottom: 8px; padding: 5px 10px; background: #fef3c7; border-radius: 6px; border: 1px solid #fde68a; animation: desconto-pop 0.4s ease; }
+  .cart-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #4b5563; strong { font-size: 18px; font-weight: 800; color: #5e2012; } }
+  .parcelas-hint { font-size: 11px; color: #6b7280; margin-top: 4px; text-align: right; }
 }
 
 .desconto-teaser {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #5e2012;
-  background: linear-gradient(135deg, #fdf8f5, #f5ede8);
-  border: 1px solid #d4b0a6;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin: 8px 16px;
-
-  .material-symbols-outlined {
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-
+  display: flex; align-items: center; gap: 6px; font-size: 12px; color: #5e2012;
+  background: linear-gradient(135deg, #fdf8f5, #f5ede8); border: 1px solid #d4b0a6;
+  border-radius: 8px; padding: 10px 14px; margin: 8px 16px;
+  .material-symbols-outlined { font-size: 15px; flex-shrink: 0; }
   .desconto-destaque { color: #7a2d1a; }
 }
 
 .desconto-meter {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin: 4px 16px 8px;
-  padding: 10px 14px;
-  background: linear-gradient(135deg, #fdf8f5, #f5ede8);
-  border-radius: 10px;
-  border: 1px solid #d4b0a6;
-
-  .desconto-meter-texto {
-    font-size: 12px;
-    color: #5e2012;
-    line-height: 1.4;
-  }
-
-  .desconto-destaque {
-    color: #7a2d1a;
-    font-size: 13px;
-  }
-
+  display: flex; flex-direction: column; gap: 6px; margin: 4px 16px 8px; padding: 10px 14px;
+  background: linear-gradient(135deg, #fdf8f5, #f5ede8); border-radius: 10px; border: 1px solid #d4b0a6;
+  .desconto-meter-texto { font-size: 12px; color: #5e2012; line-height: 1.4; }
+  .desconto-destaque { color: #7a2d1a; font-size: 13px; }
   .desconto-barra-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    .desconto-segmentos {
-      display: flex;
-      flex: 1;
-      gap: 4px;
-
-      .segmento {
-        flex: 1;
-        height: 8px;
-        border-radius: 4px;
-        background: #e8c4b8;
-        transition: background 0.35s, transform 0.2s;
-
-        &.filled {
-          background: linear-gradient(90deg, #5e2012, #9b3a22);
-          transform: scaleY(1.25);
-        }
-      }
+    display: flex; align-items: center; gap: 8px;
+    .desconto-segmentos { display: flex; flex: 1; gap: 4px;
+      .segmento { flex: 1; height: 8px; border-radius: 4px; background: #e8c4b8; transition: background 0.35s, transform 0.2s; &.filled { background: linear-gradient(90deg, #5e2012, #9b3a22); transform: scaleY(1.25); } }
     }
-
-    .desconto-barra-label {
-      font-size: 11px;
-      color: #7a2d1a;
-      font-weight: 700;
-      white-space: nowrap;
-    }
+    .desconto-barra-label { font-size: 11px; color: #7a2d1a; font-weight: 700; white-space: nowrap; }
   }
-
   .desconto-tiers {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-
-    .tier-badge {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #d4b0a6;
-      transition: all 0.3s;
-
-      .material-symbols-outlined {
-        font-size: 13px;
-      }
-
-      &.ativo {
-        color: #5e2012;
-        animation: desconto-pop 0.4s ease;
-      }
-    }
+    display: flex; gap: 6px; flex-wrap: wrap;
+    .tier-badge { display: flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; color: #d4b0a6; transition: all 0.3s; .material-symbols-outlined { font-size: 13px; } &.ativo { color: #5e2012; animation: desconto-pop 0.4s ease; } }
   }
-}
-
-@keyframes pulse-hint {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
 }
 
 @keyframes desconto-pop {
@@ -904,37 +726,48 @@ onMounted(load);
 }
 
 .finalizar-wrap {
-  padding: 16px;
-  border-top: 1px solid #f0ede8;
-  background: #fff;
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
-  flex-shrink: 0;
+  padding: 16px; border-top: 1px solid #f0ede8; background: #fff; margin-top: auto;
+  display: flex; flex-direction: column; align-items: stretch; gap: 8px; flex-shrink: 0;
 }
 
-.finalizar-hint {
-  font-size: 12px;
-  color: #9b3a22;
-  font-weight: 600;
-  text-align: center;
-}
+.finalizar-hint { font-size: 12px; color: #9b3a22; font-weight: 600; text-align: center; }
 
 .finalizar-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
   background: #5e2012; color: #fff; border: none; border-radius: 10px;
   padding: 14px 32px; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap;
   transition: background 0.15s;
-
   .material-symbols-outlined { font-size: 20px; }
-
   &:hover:not(:disabled) { background: #4a1a0f; }
   &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+/* ── Checkout styles ── */
+.checkout-success-msg {
+  display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; margin: 12px 16px 0;
+  background: #dcfce7; border-radius: 10px; border: 1px solid #bbf7d0; color: #15803d;
+  font-size: 13px; font-weight: 500; line-height: 1.4;
+  .material-symbols-outlined { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+}
+
+.checkout-actions { gap: 10px; }
+
+.ou-separator {
+  position: relative; text-align: center; color: #9ca3af; font-size: 12px;
+  &::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #f0ede8; }
+  span { position: relative; background: #fff; padding: 0 10px; }
+}
+
+.btn-pagar-depois {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  background: transparent; color: #5e2012; border: 2px solid #5e2012; border-radius: 10px;
+  padding: 12px 24px; font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  .material-symbols-outlined { font-size: 18px; }
+  &:hover { background: #fdf8f5; }
+}
+
+.checkout-info-txt {
+  font-size: 11px; color: #9ca3af; text-align: center; line-height: 1.5; margin: 0;
 }
 </style>

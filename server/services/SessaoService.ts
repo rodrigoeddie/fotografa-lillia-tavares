@@ -1,4 +1,4 @@
-import { eq, and, asc, desc, sql, count, inArray } from 'drizzle-orm';
+import { eq, and, asc, desc, sql, count, inArray, gt } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import {
   sessoes,
@@ -155,6 +155,7 @@ export class SessaoService {
     precoFotoExtra: number,
     status: Sessao['status'],
     prazoSelecao: string | null,
+    valorRestantePacote?: number,
   ) {
     return this.db.update(sessoes).set({
       nome_sessao: nomeSessao,
@@ -164,6 +165,7 @@ export class SessaoService {
       preco_foto_extra: precoFotoExtra,
       status,
       prazo_selecao: prazoSelecao,
+      ...(valorRestantePacote !== undefined && { valor_restante_pacote: valorRestantePacote }),
     }).where(eq(sessoes.id, id));
   }
 
@@ -229,8 +231,13 @@ export class SessaoService {
     return row ?? null;
   }
 
-  createLote(sessaoId: number) {
-    return this.db.insert(selecao_lotes).values({ sessao_id: sessaoId });
+  async createLote(sessaoId: number) {
+    const [{ total }] = await this.db
+      .select({ total: count() })
+      .from(selecao_lotes)
+      .where(eq(selecao_lotes.sessao_id, sessaoId));
+    const numeroDaVez = (total ?? 0) + 1;
+    return this.db.insert(selecao_lotes).values({ sessao_id: sessaoId, numero_lote: numeroDaVez });
   }
 
   updateLoteStatus(loteId: number, status: SelecaoLote['status']) {

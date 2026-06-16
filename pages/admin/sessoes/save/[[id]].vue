@@ -93,6 +93,11 @@ function onClienteCriado(cliente: { id: number; nome: string; email: string }) {
           <input v-model="form.prazo_selecao" type="date" />
           <small class="field-hint">Deixe em branco para sem prazo</small>
         </div>
+        <div v-if="isEdit" class="form-field">
+          <label>Saldo do pacote a pagar (R$) <small>(valor restante após entrada)</small></label>
+          <input v-model.number="form.valor_restante_pacote" type="number" min="0" step="0.01" placeholder="0,00" />
+          <small class="field-hint">Incluído no checkout do lote 1. Deixe 0 se não houver saldo pendente.</small>
+        </div>
       </div>
 
       <div class="form-actions">

@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
   if (getMethod(event) === 'PUT') {
     const body = await readBody(event);
-    const { nome_sessao, produto_tipo, pacote_index, fotos_incluidas, preco_foto_extra, status, prazo_selecao } = body ?? {};
+    const { nome_sessao, produto_tipo, pacote_index, fotos_incluidas, preco_foto_extra, status, prazo_selecao, valor_restante_pacote } = body ?? {};
 
     if (!nome_sessao || !produto_tipo || !status) {
       throw createError({ statusCode: 400, statusMessage: 'nome_sessao, produto_tipo e status são obrigatórios' });
@@ -36,6 +36,7 @@ export default defineEventHandler(async (event) => {
       Number(preco_foto_extra ?? 0),
       status as Sessao['status'],
       prazo_selecao ?? null,
+      valor_restante_pacote !== undefined ? Number(valor_restante_pacote) : undefined,
     );
 
     return { success: true };
