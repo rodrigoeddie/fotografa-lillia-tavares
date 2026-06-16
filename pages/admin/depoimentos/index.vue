@@ -7,6 +7,7 @@ interface Depoimento { id: number; nome: string; rating: number; featured: numbe
 
 const depoimentos = ref<Depoimento[]>([]);
 const loading = ref(false);
+const saving = ref(false);
 
 async function load() {
   loading.value = true;
@@ -41,6 +42,53 @@ async function toggleFeatured(d: Depoimento) {
   }
 }
 
+/* ── drag & drop ── */
+const dragIndex = ref<number | null>(null);
+const overIndex = ref<number | null>(null);
+
+function onDragStart(index: number, e: DragEvent) {
+  dragIndex.value = index;
+  if (e.dataTransfer) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', String(index));
+  }
+}
+
+function onDragOver(index: number, e: DragEvent) {
+  e.preventDefault();
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  overIndex.value = index;
+}
+
+function onDrop(index: number) {
+  if (dragIndex.value === null || dragIndex.value === index) return;
+  const list = [...depoimentos.value];
+  const [moved] = list.splice(dragIndex.value, 1);
+  list.splice(index, 0, moved);
+  depoimentos.value = list;
+  dragIndex.value = null;
+  overIndex.value = null;
+  persistOrder();
+}
+
+function onDragEnd() {
+  dragIndex.value = null;
+  overIndex.value = null;
+}
+
+async function persistOrder() {
+  saving.value = true;
+  try {
+    const items = depoimentos.value.map((d, i) => ({ id: d.id, ordem: i }));
+    await adminFetch('/api/admin/depoimentos/reorder', { method: 'POST', body: { items } });
+    showMessage('Ordem salva', 'success');
+  } catch (e: any) {
+    showMessage('Erro ao salvar ordem: ' + (e.statusMessage || e.message), 'error');
+  } finally {
+    saving.value = false;
+  }
+}
+
 onMounted(load);
 </script>
 
@@ -56,7 +104,21 @@ onMounted(load);
     <div v-if="loading" class="loading-hint">Carregando...</div>
     <p v-else-if="depoimentos.length === 0" class="list-empty">Nenhum depoimento cadastrado.</p>
     <div v-else class="item-list">
-      <div v-for="d in depoimentos" :key="d.id" class="item-row">
+      <div
+        v-for="(d, i) in depoimentos"
+        :key="d.id"
+        class="item-row"
+        :class="{
+          'is-dragging': dragIndex === i,
+          'is-over': overIndex === i && dragIndex !== i,
+        }"
+        draggable="true"
+        @dragstart="onDragStart(i, $event)"
+        @dragover="onDragOver(i, $event)"
+        @drop="onDrop(i)"
+        @dragend="onDragEnd"
+      >
+        <span class="drag-handle" title="Arrastar para reordenar">⠿</span>
         <NuxtLink :to="`/admin/depoimentos/save/${d.id}`" class="link-row">
           <span class="item-title">{{ d.nome }}</span>
         </NuxtLink>
@@ -72,9 +134,43 @@ onMounted(load);
         </div>
       </div>
     </div>
+    <p v-if="saving" class="saving-hint">Salvando ordem...</p>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
+
+.drag-handle {
+  cursor: grab;
+  color: #aaa;
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
+  user-select: none;
+  flex-shrink: 0;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.item-row {
+  transition: opacity 0.15s, background 0.15s;
+
+  &.is-dragging {
+    opacity: 0.4;
+  }
+
+  &.is-over {
+    background: color-mix(in srgb, var(--color-accent, #b08a6e) 12%, transparent);
+    outline: 2px dashed var(--color-accent, #b08a6e);
+    outline-offset: -2px;
+  }
+}
+
+.saving-hint {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
 </style>

@@ -20,14 +20,14 @@ const props = defineProps({
         <div class="text">
           <h2 class="title">{{ props.data.title }}</h2>
           <p class="description">{{ props.data.description }}</p>
-          <ul>
+          <ul v-if="props.data.features">
             <li v-for="feature in props.data.features" :key="feature">{{ feature }}</li>
           </ul>
           <a 
             :href="`https://wa.me/5511911159795?text=${encodeURIComponent(props.data.whatsappMessage)}`"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-cta"
+            class="btn"
             data-track-event="cta-whatsapp-contato"
           >
             {{ props.data.buttonText ? props.data.buttonText : 'Agendar Ensaio pelo WhatsApp' }}
@@ -76,35 +76,6 @@ const props = defineProps({
         font-size: 18rem;
       }
     }
-  }
-
-  .btn-cta {
-      transition: box-shadow .3s ease, background .3s ease;
-      box-shadow: 5rem 5rem 0 white;
-      border-radius: 8rem;
-      font-size: 25rem;
-      border: 3rem solid white;
-      padding: 20rem 30rem;
-      align-items: center;
-      font-weight: bold;
-      display: inline-flex;
-      color: white;
-      gap: 15rem;
-      
-      @include m.max(sm) {
-          padding: 15rem 21rem;
-          font-size: 22rem;
-          margin-top: 0;
-      }
-
-      .icon {
-          font-size: 40rem;
-      }
-      
-      &:hover {
-          box-shadow: 10rem 10rem 0 white;
-          background: black;
-      }
   }
 }
 

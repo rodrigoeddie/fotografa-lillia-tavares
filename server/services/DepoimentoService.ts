@@ -52,4 +52,12 @@ export class DepoimentoService {
   setFeatured(id: number, featured: boolean) {
     return this.db.update(depoimentos).set({ featured: featured ? 1 : 0 }).where(eq(depoimentos.id, id));
   }
+
+  async reorder(items: { id: number; ordem: number }[]) {
+    await Promise.all(
+      items.map(({ id, ordem }) =>
+        this.db.update(depoimentos).set({ ordem }).where(eq(depoimentos.id, id))
+      )
+    );
+  }
 }

@@ -43,6 +43,12 @@ html {
     }
 }
 
+:focus-visible {
+    outline: 2px solid v.$red;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
 $bg-image: url('/assets/images/bg.webp');
 $offset-x: 275rem;
 $offset-y: 125rem;

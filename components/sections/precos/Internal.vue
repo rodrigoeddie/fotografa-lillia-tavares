@@ -66,7 +66,7 @@ const portfolioItems = computed(() => {
         </div>
       </div>
 
-      <SectionsGeneralCtaContact :data="data.cta" :class="`lp-${data.lp}`" />
+      <SectionsGeneralCtaContact :data="data.cta" />
     </div>
   </div>
   <div v-else class="pricing-page">
