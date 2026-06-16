@@ -9,6 +9,8 @@ usePageSeo('static', '/depoimentos');
       { label: 'Depoimentos' },
     ]" />
   </div>
+  <SectionsDepoimentosHero />
+  <SectionsDepoimentosHighlights />
   <SectionsDepoimentosList />
   <ClientOnly>
     <SectionsScheduleTinyform :formType="'noType'" />

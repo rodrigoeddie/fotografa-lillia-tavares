@@ -43,40 +43,42 @@ async function copyLink() {
 
 <template>
   <div class="share-buttons" :class="{ dark: variant === 'dark' }">
-    <span class="label">Compartilhar:</span>
+    <span class="label">Compartilhar</span>
 
-    <a
-      :href="waHref"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="share-btn wa"
-      aria-label="Compartilhar no WhatsApp"
-      title="Compartilhar no WhatsApp"
-    >
-      <Icon name="icons:whatsapp" />
-    </a>
+    <div class="share-actions">
+      <a
+        :href="waHref"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-btn"
+        aria-label="Compartilhar no WhatsApp"
+        data-tooltip="WhatsApp"
+      >
+        <Icon name="icons:whatsapp" />
+      </a>
 
-    <a
-      :href="fbHref"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="share-btn fb"
-      aria-label="Compartilhar no Facebook"
-      title="Compartilhar no Facebook"
-    >
-      <Icon name="mdi:facebook" />
-    </a>
+      <a
+        :href="fbHref"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-btn"
+        aria-label="Compartilhar no Facebook"
+        data-tooltip="Facebook"
+      >
+        <Icon name="mdi:facebook" />
+      </a>
 
-    <button
-      class="share-btn copy"
-      :aria-label="copied ? 'Link copiado!' : 'Copiar link'"
-      :title="copied ? 'Link copiado!' : 'Copiar link'"
-      @click="copyLink"
-    >
-      <Icon v-if="copied" name="mdi:check" />
-      <Icon v-else name="mdi:link-variant" />
-      <span v-if="copied" class="copied-label">Copiado!</span>
-    </button>
+      <button
+        class="share-btn"
+        :class="{ copied }"
+        :aria-label="copied ? 'Link copiado!' : 'Copiar link'"
+        :data-tooltip="copied ? 'Copiado!' : 'Copiar link'"
+        @click="copyLink"
+      >
+        <Icon v-if="copied" name="mdi:check" />
+        <Icon v-else name="mdi:link-variant" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -84,74 +86,80 @@ async function copyLink() {
 .share-buttons {
   display: flex;
   align-items: center;
-  gap: 10rem;
-  flex-wrap: wrap;
 
   .label {
-    font-size: 14rem;
-    color: #888;
-    margin-right: 4rem;
+    font-size: 15.6rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding-right: 5rem;
+    color: #aaa;
   }
 
-  &.dark {
-    .label {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .share-btn.copy {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
+  &.dark .label {
+    color: rgba(255, 255, 255, 0.45);
   }
+}
+
+.share-actions {
+  display: flex;
+  align-items: center;
 }
 
 .share-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5rem;
-  width: 40rem;
-  height: 40rem;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  font-size: 20rem;
   justify-content: center;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 60rem;
+  height: 60rem;
+  border-radius: 50%;
+  border: 2rem solid transparent;
+  background: transparent;
+  color: #999;
+  font-size: 36rem;
+  cursor: pointer;
   text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  position: relative;
 
-  &:hover {
-    transform: scale(1.1);
-    opacity: 0.85;
+  &:hover,
+  &.copied {
+    color: #444;
+    border-color: #ddd;
+    background: #f5f5f5;
   }
 
-  &.wa {
-    background: #25D366;
-    color: white;
+  /* tooltip via ::after, posicionado acima para evitar overflow inferior */
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 16rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    font-size: 22rem;
+    line-height: 1;
+    padding: 8rem 16rem;
+    border-radius: 8rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
   }
 
-  &.fb {
-    background: #1877F2;
-    color: white;
+  &:hover::after {
+    opacity: 1;
   }
 
-  &.copy {
-    background: #e9e5d8;
-    color: #555;
-    position: relative;
-  }
-}
+  .dark & {
+    color: rgba(255, 255, 255, 0.5);
 
-.copied-label {
-  position: absolute;
-  top: calc(100% + 6rem);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #333;
-  color: white;
-  font-size: 11rem;
-  padding: 3rem 7rem;
-  border-radius: 4rem;
-  white-space: nowrap;
-  pointer-events: none;
+    &:hover,
+    &.copied {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
 }
 </style>

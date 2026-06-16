@@ -1,11 +1,41 @@
 <script setup lang="ts">
 const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
 
+const PAGE_SIZE = 20;
+
 const { data: rawDepoimentos } = await useFetch('/api/public/depoimentos');
 
-const reviews = computed(() =>
-  (rawDepoimentos.value ?? []).map(adaptDepoimento)
+const allReviews = computed(() =>
+  (rawDepoimentos.value ?? [])
+    .filter((d: any) => !d.featured)
+    .map(adaptDepoimento)
 );
+
+const visibleCount = ref(PAGE_SIZE);
+const reviews = computed(() => allReviews.value.slice(0, visibleCount.value));
+const hasMore = computed(() => visibleCount.value < allReviews.value.length);
+
+const gridRef = ref<HTMLElement | null>(null);
+const sentinelRef = ref<HTMLElement | null>(null);
+const { init: initAnimations } = useScrollAnimations();
+
+async function loadMore() {
+  visibleCount.value += PAGE_SIZE;
+  await nextTick();
+  if (gridRef.value) initAnimations(gridRef.value);
+}
+
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    ([entry]) => { if (entry.isIntersecting && hasMore.value) loadMore(); },
+    { rootMargin: '200px' }
+  );
+  if (sentinelRef.value) observer.observe(sentinelRef.value);
+});
+
+onUnmounted(() => observer?.disconnect());
 
 function reviewAvatarUrl(review: { id: number; photo?: string }): string {
   if (review.photo && !review.photo.startsWith('http')) {
@@ -19,38 +49,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
 <template>
   <section class="depoimentos-page">
     <div class="container">
-      <section class="depo-pg-hero" data-ani-type="fade-up">
-        <div>
-          <span class="eyebrow">Depoimentos verificados</span>
-          <h1 class="big-title green">
-            Cada ensaio vira uma história.
-          </h1>
-
-          <p class="description">
-            Reuni aqui depoimentos reais, todos verificados publicamente no Google.
-            Cada um deles veio de uma sessão completa, clique em <b>"Acesse o ensaio"</b>
-            para ver as fotos do depoimento.
-          </p>
-          <div class="wrap-btns">
-            <a class="btn btn-primary" href="https://wa.me/5511911159795">Agendar meu ensaio</a>
-            <a class="btn btn-ghost" href="https://g.page/r/CU9H139Hyr99EBM/review" target="_blank">Deixar uma avaliação</a>
-          </div>
-        </div>
-
-        <aside class="depo-pg-rating">
-          <span class="stars">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
-          </span>
-          <div class="score">5.0</div>
-          <div class="meta">média entre {{ reviews.length }}+ avaliações</div>
-        </aside>
-      </section>
-
-      <div class="reviews-grid">
+      <div ref="gridRef" class="reviews-grid">
         <article
           v-for="(review, index) in reviews"
           :key="review.id"
@@ -60,21 +59,21 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
           data-ani-stagger="0.07"
           data-ani-batch-max="3"
         >
-          <div class="review-card__header">
-            <div class="review-card__avatar">
+          <div class="header">
+            <div class="avatar">
               <img
                 :src="reviewAvatarUrl(review)"
                 :alt="review.name"
-                class="review-card__photo"
+                class="photo"
                 loading="lazy"
               />
             </div>
-            <div class="review-card__meta">
-              <strong class="review-card__name">{{ review.name }}</strong>
-              <span class="review-card__date">{{ review.data }}</span>
+            <div class="meta">
+              <strong class="name">{{ review.name }}</strong>
+              <span class="date">{{ review.data }}</span>
             </div>
 
-            <div class="review-card__google">
+            <div class="google">
               <NuxtLink
                 :to="review.link"
                 target="_blank"
@@ -93,159 +92,42 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
           </div>
 
           <NuxtLink :to="review.link" target="_blank" rel="noopener noreferrer">
-            <span class="review-card__stars">★★★★★</span>
+            <span class="stars">★★★★★</span>
           </NuxtLink>
 
-          <blockquote class="review-card__text" v-html="review.text"></blockquote>
+          <blockquote class="text" v-html="review.text"></blockquote>
 
-          <div v-if="review.portfolioPath" class="review-card__portfolio">
-            <NuxtLink :to="review.portfolioPath" class="review-card__portfolio-thumb">
+          <div v-if="review.portfolioPath" class="portfolio">
+            <NuxtLink :to="review.portfolioPath" class="thumb">
               <nuxt-img
                 v-if="review.portfolioFotoCfId"
                 provider="cloudflare"
                 :src="`${CF_IMG_BASE}${review.portfolioFotoCfId}/public`"
                 :alt="`Ensaio de ${review.name}`"
-                class="review-card__portfolio-img"
+                class="img"
                 width="350"
                 format="avif"
                 placeholder
                 loading="lazy" />
             </NuxtLink>
-            <NuxtLink :to="review.portfolioPath" class="btn btn--outline review-card__portfolio-btn">
+            <NuxtLink :to="review.portfolioPath" class="btn btn--outline portfolio-btn">
               Ver ensaio
             </NuxtLink>
           </div>
         </article>
       </div>
+
+      <div v-if="hasMore" ref="sentinelRef" class="load-sentinel" aria-hidden="true" />
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-.wrap-btns {
-  padding-top: 20rem;
-  display: flex;
-  gap: 20rem;
-
-  @include m.max(sm) {
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .btn {
-    @include m.max(sm) {
-      width: 390rem;
-    }
-  }
-}
-
-.eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #6b5f55;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    
-    @include m.max(sm) {
-      justify-content: center;
-      width: 100%;
-    }
-}
-
-  .depo-pg-hero {
-    padding: 60rem 0 40rem;
-    align-items: center;
-    display: flex;
-    gap: 50rem;
-
-    @include m.max(sm) {
-      flex-direction: column;
-    }
-  }
-  .depo-pg-hero h1 em { font-style: italic; color: v.$green; }
-
-  .depo-pg-rating {
-    box-shadow: 0 24px 38px -18px rgba(42, 37, 32, 0.30);
-    background: white;
-    border-radius: 2px;
-    text-align: center;
-    position: relative;
-    padding: 30rem;
-    width: 50%;
-
-    @include m.max(sm) {
-      width: 100%;
-    }
-  }
-  .depo-pg-rating::before {
-    content: "Avaliações públicas no Google";
-    position: absolute;
-    top: -12px; left: 50%;
-    transform: translateX(-50%);
-    background: v.$red;
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-  .description {
-    padding-top: 0;
-    margin-top: 0;
-
-    @include m.max(sm) {
-      text-align: center;
-    }
-  }
-  .depo-pg-rating .score {
-    font-size: 92px;
-    line-height: 1;
-    color: v.$red;
-    font-weight: bold;
-    margin: 20rem 0 10rem;
-
-    @include m.max(sm) {
-      font-size: 50px;
-    }
-  }
-  .depo-pg-rating .stars { color: #F5B748; display: inline-flex; gap: 4px; margin-bottom: var(--s-3); }
-  .depo-pg-rating .meta { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.18em; text-transform: uppercase; }
-  .depo-pg-rating .breakdown {
-    margin-top: 30rem;
-    padding-top: 30rem;
-    border-top: 1px dashed 1px;
-    text-align: left;
-  }
-  .depo-pg-rating .breakdown .row {
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 13px;
-    padding: 4px 0;
-    color: black;
-  }
-  .depo-pg-rating .breakdown .row strong {
-    color: v.$green;
-    font-weight: 600;
-    font-size: 17px;
-  }
-
-
-.review-card__google {
-    .link-source {
-        display: flex;
-        gap: 4px;
-    }
-}
-
 .depoimentos-header {
   text-align: center;
   margin-bottom: v.$space;
 
-  &__description {
+  .description {
     font-size: 18rem;
     color: #555;
     line-height: 1.6;
@@ -253,7 +135,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     margin: 10px auto 24rem;
   }
 
-  &__badge {
+  .badge {
     display: inline-flex;
     align-items: center;
     gap: 10rem;
@@ -272,6 +154,18 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
       font-size: 14rem;
       font-weight: 600;
       color: #555;
+    }
+  }
+
+  @include m.max(sm) {
+    margin-bottom: 40rem;
+
+    .title {
+      font-size: 28rem;
+    }
+
+    .description {
+      font-size: 16rem;
     }
   }
 }
@@ -304,13 +198,13 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     transform: translateY(-2rem);
   }
 
-  &__header {
+  .header {
     display: flex;
     align-items: center;
     gap: 12rem;
   }
 
-  &__avatar {
+  .avatar {
     flex-shrink: 0;
     width: 44rem;
     height: 44rem;
@@ -322,48 +216,53 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     justify-content: center;
   }
 
-  &__photo {
+  .photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  &__initials {
+  .initials {
     color: #fff;
     font-size: 16rem;
     font-weight: 700;
     line-height: 1;
   }
 
-  &__meta {
+  .meta {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
 
-  &__name {
+  .name {
     font-size: 18rem;
     font-weight: 600;
     color: #222;
   }
 
-  &__date {
+  .date {
     font-size: 15rem;
     color: #999;
   }
 
-  &__google {
+  .google {
     flex-shrink: 0;
+
+    .link-source {
+      display: flex;
+      gap: 4px;
+    }
   }
 
-  &__stars {
+  .stars {
     color: #f9a825;
     font-size: 16rem;
     letter-spacing: 2px;
   }
 
-  &__text {
+  .text {
     font-size: 18rem;
     line-height: 1.7;
     color: #444;
@@ -371,7 +270,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     font-style: normal;
   }
 
-  &__portfolio {
+  .portfolio {
     display: flex;
     align-items: center;
     gap: 12rem;
@@ -380,14 +279,14 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     margin-top: 4rem;
   }
 
-  &__portfolio-thumb {
+  .thumb {
     overflow: hidden;
     display: block;
     flex-shrink: 0;
     width: 100%;
   }
 
-  &__portfolio-img {
+  .img {
     transition: transform 0.3s ease;
     object-fit: cover;
     height: 100%;
@@ -398,7 +297,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
     }
   }
 
-  &__portfolio-btn {
+  .portfolio-btn {
     font-size: 14rem;
     padding: 6rem 16rem;
     flex-shrink: 0;
@@ -421,21 +320,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
   }
 }
 
-@include m.max(sm) {
-  .depoimentos-header {
-    margin-bottom: 40rem;
-
-    &__title {
-      font-size: 28rem;
-    }
-
-    &__description {
-      font-size: 16rem;
-    }
-  }
-
-  .reviews-grid {
-    grid-template-columns: 1fr;
-  }
+.load-sentinel {
+  height: 1px;
 }
 </style>
