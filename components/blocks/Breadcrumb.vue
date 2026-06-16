@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const siteURI = 'https://fotografalilliatavares.com.br';
+const siteUrl = useSiteUrl();
 
 interface BreadcrumbItem {
   label: string;
@@ -19,7 +19,7 @@ if (props.schema !== false) {
         position: index + 1,
         name: item.label,
         item: item.to
-          ? (item.to.startsWith('http') ? item.to : siteURI + item.to)
+          ? (item.to.startsWith('http') ? item.to : siteUrl + item.to)
           : undefined,
       })),
     }),

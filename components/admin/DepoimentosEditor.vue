@@ -22,7 +22,7 @@ const props = defineProps<{
   portfolioWorks: { label: string; value: string }[];
 }>();
 
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 const DEP_PATH = 'depoimentos/index.json';
 
 const depData = ref<DepoimentosData | null>(null);
@@ -37,7 +37,7 @@ const avatarUploading = ref<number | null>(null);
 
 function reviewAvatarUrl(review: { id: number; photo?: string }): string {
   if (review.photo && !review.photo.startsWith('http')) {
-    return CF_IMG_BASE + review.photo + '/public';
+    return cfImg(review.photo);
   }
   return `/assets/images/depoimentos/reviewer-${review.id}.jpg`;
 }

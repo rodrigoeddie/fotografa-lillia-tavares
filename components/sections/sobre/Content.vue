@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const cfImg = useCfImg()
+
 const image = {
   id: "5aaf1433-aaa7-42ed-7198-15626f964000",
   alt: "Fotógrafa Lillia Tavares segurando sua câmera fotográfica",
@@ -22,7 +24,7 @@ const image = {
         <div class="sobre-bio__image">
           <nuxt-img
             provider="cloudflare"
-            :src="`https://images.fotografalilliatavares.com.br/images/${image?.id || '5aaf1433-aaa7-42ed-7198-15626f964000'}/public`"
+            :src="cfImg(image?.id || '5aaf1433-aaa7-42ed-7198-15626f964000')"
             :alt="image?.alt || 'Fotógrafa Lillia Tavares'"
             :width="image?.width || 935"
             :height="image?.height || 935"

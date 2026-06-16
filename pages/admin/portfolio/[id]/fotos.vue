@@ -5,7 +5,7 @@ const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('sh
 const { adminFetch } = useAdminFetch();
 
 const id = computed(() => Number(route.params.id));
-const CF_IMG = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
+const cfImg = useCfImg();
 
 interface PortfolioFoto {
   id?: number;
@@ -378,7 +378,7 @@ onMounted(load);
                 <span class="drag-handle">⠿</span>
                 <span class="image-idx">#{{ idx + 1 }}</span>
                 <div v-if="foto.cf_image_id" class="img-thumb">
-                  <img :src="`${CF_IMG}${foto.cf_image_id}/w=80`" :alt="foto.alt || ''" />
+                  <img :src="cfImg(foto.cf_image_id, 'w=80')" :alt="foto.alt || ''" />
                 </div>
                 <button class="btn-small" @click="openCfBrowser(idx)">
                   {{ foto.cf_image_id ? 'Trocar' : 'Selecionar' }}
@@ -386,7 +386,7 @@ onMounted(load);
                 <button class="btn-small danger" @click="removeFoto(idx)">✕</button>
               </div>
               <div class="mc-photo">
-                <img v-if="foto.cf_image_id" :src="`${CF_IMG}${foto.cf_image_id}/w=600`" :alt="foto.alt || ''" loading="lazy" />
+                <img v-if="foto.cf_image_id" :src="cfImg(foto.cf_image_id, 'w=600')" :alt="foto.alt || ''" loading="lazy" />
                 <div
                   v-else
                   class="mc-photo-empty"
@@ -574,7 +574,7 @@ onMounted(load);
               class="cf-thumb"
               @click="selectCfImage(img.id)"
             >
-              <img :src="`${CF_IMG}${img.id}/w=120`" loading="lazy" />
+              <img :src="cfImg(img.id, 'w=120')" loading="lazy" />
               <span class="cf-filename">{{ img.filename }}</span>
             </div>
           </div>

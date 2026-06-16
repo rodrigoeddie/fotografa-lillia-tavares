@@ -2,8 +2,7 @@
 definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
-
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 
 interface Banner {
   id: number;
@@ -74,7 +73,7 @@ onMounted(load);
           <nuxt-img
             v-if="b.bg_image"
             provider="cloudflare"
-            :src="`${CF_IMG_BASE}${b.bg_image}/public`"
+            :src="cfImg(b.bg_image)"
             width="220"
             height="46"
             fit="cover"

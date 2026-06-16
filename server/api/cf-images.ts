@@ -1,6 +1,9 @@
 import { defineEventHandler, getQuery, createError } from 'h3';
+import { validateAdminToken } from '~/server/utils/auth-helpers';
 
 export default defineEventHandler(async (event) => {
+  await validateAdminToken(event);
+
   const query = getQuery(event);
   const page = parseInt(query.page as string) || 1;
   const perPage = parseInt(query.per_page as string) || 50;

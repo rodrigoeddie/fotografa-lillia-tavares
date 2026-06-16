@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 
+const cfImg = useCfImg()
+
 const props = defineProps({
   error: Object as () => NuxtError
 })
@@ -22,7 +24,7 @@ const message = computed(() => is404.value
       <NuxtLink to="/" class="error-logo-link" @click="handleError">
         <NuxtImg
           provider="cloudflare"
-          src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"
+          :src="cfImg('19bd6c18-a153-4e79-c6bd-4293145da400')"
           alt="Lillia Tavares Fotografia"
           width="280"
           height="77"

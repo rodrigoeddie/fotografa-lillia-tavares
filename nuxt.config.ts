@@ -251,6 +251,11 @@ export default defineNuxtConfig({
     r2BucketName: process.env.R2_BUCKET_NAME,
     public: {
       cloudflareURI: 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/',
+      /* Base pública do Cloudflare Images via domínio custom (mesma conta do cloudflareURI).
+         Consumir via useCfImg() — ver composables/useCfImg.ts. Sem barra final. */
+      cfImageBase: 'https://images.fotografalilliatavares.com.br/images',
+      /* URL canônica do site — fonte única em siteConfig.url. */
+      siteUrl: siteConfig.url,
     }
   },
 

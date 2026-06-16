@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 
 const route = useRoute();
 
@@ -60,11 +60,11 @@ const swiper    = useSwiper(swiperRef, {
                     <picture v-if="banner.bg_image" class="hero-picture">
                         <source
                             v-if="banner.bg_image_mobile"
-                            :srcset="`${CF_IMG_BASE}${banner.bg_image_mobile}/public`"
+                            :srcset="cfImg(banner.bg_image_mobile)"
                             media="(max-width: 768px)"
                         />
                         <img
-                            :src="`${CF_IMG_BASE}${banner.bg_image}/public`"
+                            :src="cfImg(banner.bg_image)"
                             :alt="banner.titulo ?? ''"
                             class="img-hero"
                             loading="eager"

@@ -1,5 +1,7 @@
 
 <script setup lang="ts">
+const cfImg = useCfImg()
+
 const props = defineProps({
   lp: {
     type: String,
@@ -15,7 +17,7 @@ const props = defineProps({
                 <div class="image">
                     <nuxt-img
                         provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/d3d60550-3e27-4c92-77a4-c6b28c596000/public"'
+                        :src="cfImg('d3d60550-3e27-4c92-77a4-c6b28c596000')"
                         :width="'263'"
                         :height="'460'"
                         :alt="'Mulher de terno azul e cabelo cacheado sorrindo, olhando para o lado, com fundo azul'"
@@ -30,7 +32,7 @@ const props = defineProps({
                       data-track-screen="LP Corporativo">
                         <nuxt-img
                             provider="cloudflare"
-                            :src='"https://images.fotografalilliatavares.com.br/images/de7d6be6-8fed-43b0-e2ca-7b5643bd9d00/public"'
+                            :src="cfImg('de7d6be6-8fed-43b0-e2ca-7b5643bd9d00')"
                             :width="'320'"
                             :height="'87'"
                             :alt="'Logotipo Fotografa Lillia Tavares'"
@@ -64,7 +66,7 @@ const props = defineProps({
                 <div class="image">
                     <nuxt-img
                         provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/4b44edc8-39bf-46ba-9a6e-1257badcd700/public"'
+                        :src="cfImg('4b44edc8-39bf-46ba-9a6e-1257badcd700')"
                         :width="'2000'"
                         :height="'1333'"
                         :alt="'Menino de costas para sua mãe, ambos sorrindo, com fundo bege, eles estão sentados no chão, a mãe tem um vestido vermelho e o menino uma camisa marrom'"
@@ -80,7 +82,7 @@ const props = defineProps({
                       data-track-screen="LP Dia das Mães">
                         <nuxt-img
                             provider="cloudflare"
-                            :src='"https://images.fotografalilliatavares.com.br/images/4cb733c9-64af-48fd-2578-c43f3a26d800/public"'
+                            :src="cfImg('4cb733c9-64af-48fd-2578-c43f3a26d800')"
                             :width="'320'"
                             :height="'87'"
                             :alt="'Logotipo Fotografa Lillia Tavares'"

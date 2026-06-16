@@ -22,11 +22,17 @@ export default defineEventHandler(async (event) => {
 
   const admin = await new AdminUserService(getOrm(event)).getByEmail(email);
 
-  if (!admin) throw invalid();
+  // Sempre executa o PBKDF2 (mesmo sem usuário) para evitar enumeração por timing.
+  // Hash/salt dummy gerados com os mesmos parâmetros de password.ts.
+  const DUMMY_HASH = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+  const DUMMY_SALT = 'AAAAAAAAAAAAAAAAAAAAAAA';
+  const ok = await verifyPassword(
+    password,
+    admin?.password_hash ?? DUMMY_HASH,
+    admin?.salt ?? DUMMY_SALT,
+  );
+  if (!admin || !ok) throw invalid();
 
-  const ok = await verifyPassword(password, admin.password_hash, admin.salt);
-  if (!ok) throw invalid();
-
-  const token = await signAdminToken(admin.username, admin.role ?? 'super_admin', secret);
+  const token = await signAdminToken(admin.username, admin.role ?? 'editor', secret);
   return { success: true, token };
 });

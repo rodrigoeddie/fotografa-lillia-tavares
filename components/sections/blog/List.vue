@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const cfImg = useCfImg()
+
 const { data: rawPosts } = await useFetch('/api/public/blog');
 
 const posts = computed(() =>
@@ -33,7 +35,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
           <nuxt-img
             v-if="post.image"
             provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
+            :src="cfImg(post.image.imageId)"
             :width="822"
             :height="548"
             :sizes="'100vw md:50vw lg:822px'"

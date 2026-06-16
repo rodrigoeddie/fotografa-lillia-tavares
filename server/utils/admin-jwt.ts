@@ -59,7 +59,7 @@ export async function verifyAdminToken(token: string, secret: string): Promise<{
     if (payload.role !== 'admin') return null;
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return null;
 
-    return { username: payload.sub as string, adminRole: (payload.adminRole as string) ?? 'super_admin' };
+    return { username: payload.sub as string, adminRole: (payload.adminRole as string) ?? 'editor' };
   } catch {
     return null;
   }

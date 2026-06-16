@@ -7,6 +7,7 @@ const router = useRouter();
 const route = useRoute();
 const sessaoId = Number(route.params.id);
 const cfURI = useRuntimeConfig().public.cloudflareURI;
+const cfImg = useCfImg();
 
 interface LoteInfo {
   id: number;
@@ -221,11 +222,13 @@ async function pagarOnline() {
   if (!checkoutInfo.value) return;
   checkoutPaying.value = true;
   try {
-    const res = await $fetch<{ checkout_url: string | null; valor_total: number }>(`/api/cliente/sessoes/${sessaoId}/checkout`, {
+    const res = await $fetch<{ checkout_id?: string; checkout_url: string | null; valor_total: number }>(`/api/cliente/sessoes/${sessaoId}/checkout`, {
       method: 'POST',
       body: { lote_id: checkoutInfo.value.lote_id },
     });
     if (res.checkout_url) {
+      /* A SumUp não devolve o checkout_id no return_url — guardamos para o fallback. */
+      if (res.checkout_id) sessionStorage.setItem('sumup_checkout_id', res.checkout_id);
       window.location.href = res.checkout_url;
     } else {
       await router.push('/area-cliente/meus-ensaios');
@@ -285,7 +288,7 @@ onMounted(load);
           <div class="foto-img-wrap" @click="() => { selecoes[foto.id].selecionada = !selecoes[foto.id].selecionada; onToggle(foto.id); }">
             <nuxt-img
               provider="cloudflare"
-              :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
+              :src="cfImg(foto.cloudflare_image_id)"
               width="400"
               class="image"
               :alt="`Foto ${foto.id}`"

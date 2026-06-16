@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const cfImg = useCfImg()
+
 const $route = useRoute();
 
 const props = defineProps({
@@ -141,7 +143,7 @@ const formatDate = (dateString: string) => {
                       :class="'wrap-img ' + slide.format">
                       <nuxt-img
                         provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                        :src="cfImg(slide.imageId)"
                         :width="classes[index % classes.length]?.image.width || 823"
                         :height="classes[index % classes.length]?.image.height || 548"
                         :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 823) + 'px'"
@@ -152,7 +154,7 @@ const formatDate = (dateString: string) => {
                       <nuxt-img
                         provider="cloudflare"
                         v-if="slide.format=='retrato'"
-                        :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                        :src="cfImg(slide.imageId)"
                         :width="classes[index % classes.length]?.image.width || 823"
                         :height="classes[index % classes.length]?.image.height || 548"
                         :sizes="'100vw md:50vw lg:' + (classes[index % classes.length]?.image.width || 823) + 'px'"

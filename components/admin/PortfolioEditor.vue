@@ -67,8 +67,8 @@ const props = defineProps<{
   showMessage: (msg: string, type: 'success' | 'error') => void;
 }>();
 
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
-const ESTUDIO_LINK = `<a href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>`;
+const cfImg = useCfImg();
+const ESTUDIO_LINK = `< href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>`;
 const DEP_PATH = 'depoimentos/index.json';
 
 const IMAGE_PRESETS: Record<string, { width: number; height: number; format: string; customClass?: string; label: string }> = {
@@ -525,7 +525,7 @@ defineExpose({ openWork, selectedWork });
           >{{ r.name }}</option>
         </select>
         <div v-if="workData.testimonial" class="testimonial-preview">
-          <img v-if="workData.testimonial.avatar" :src="CF_IMG_BASE + workData.testimonial.avatar + '/public'" :alt="depData?.reviews.find(r => r.id === workData!.testimonialId)?.name" />
+          <img v-if="workData.testimonial.avatar" :src="cfImg(workData.testimonial.avatar)" :alt="depData?.reviews.find(r => r.id === workData!.testimonialId)?.name" />
           <div class="testimonial-preview-body">
             <span class="testimonial-stars">{{ '★'.repeat(workData.testimonial.rating) }}</span>
             <p class="testimonial-text">{{ workData.testimonial.text.slice(0, 100) }}{{ workData.testimonial.text.length > 100 ? '…' : '' }}</p>
@@ -551,7 +551,7 @@ defineExpose({ openWork, selectedWork });
       <div v-if="highlightItems.length > 0" class="album-grid-preview highlight-zone">
         <div v-for="hi in highlightItems" :key="hi._origIndex" :class="['album-item is-highlight', getGridClass(hi)]">
           <div class="image-zone">
-            <img v-if="hi.imageId" :src="CF_IMG_BASE + hi.imageId + '/public'" :alt="hi.alt" loading="lazy" />
+            <img v-if="hi.imageId" :src="cfImg(hi.imageId)" :alt="hi.alt" loading="lazy" />
             <div v-else class="empty-slot"><span>Sem imagem</span></div>
           </div>
         </div>
@@ -574,7 +574,7 @@ defineExpose({ openWork, selectedWork });
           @dragend="onDragEnd">
           <div class="image-zone" @drop.prevent.stop="(e) => onFileDrop(e, index)" @dragover.prevent>
             <div v-if="item._uploading" class="uploading">Enviando...</div>
-            <img v-else-if="item.imageId" :src="CF_IMG_BASE + item.imageId + '/public'" :alt="item.alt" loading="lazy" />
+            <img v-else-if="item.imageId" :src="cfImg(item.imageId)" :alt="item.alt" loading="lazy" />
             <div v-else class="empty-slot">
               <span>Arraste uma imagem aqui</span>
               <span class="or">ou</span>
@@ -638,7 +638,7 @@ defineExpose({ openWork, selectedWork });
         </div>
         <div v-else class="cf-grid">
           <div v-for="img in cfImages" :key="img.id" class="cf-item" @click="selectCfImage(img.id)">
-            <img :src="CF_IMG_BASE + img.id + '/public'" loading="lazy" />
+            <img :src="cfImg(img.id)" loading="lazy" />
             <span class="cf-filename">{{ img.filename || img.id.slice(0, 8) }}</span>
           </div>
         </div>

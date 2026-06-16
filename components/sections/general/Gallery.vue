@@ -1,5 +1,7 @@
 
 <script setup lang="ts">
+const cfImg = useCfImg();
+
 const props = defineProps({
   album: {
     type: Object,
@@ -14,7 +16,7 @@ const imgs = ref([]);
 
 props.album.map(item => {
   imgs.value.push({
-    src: `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${item.imageId}/${item.format}`,
+    src: cfImg(item.imageId, item.format),
     title: "",
   });
 });
@@ -39,7 +41,7 @@ const onHide = () => (visibleRef.value = false);
           data-ani-stagger="0.07">
           <nuxt-img
               provider="cloudflare"
-              :src='"https://images.fotografalilliatavares.com.br/images/" + item.imageId + "/public"'
+              :src="cfImg(item.imageId)"
               :sizes="'100vw md:50vw lg:' + item.width + 'px'"
               :width="item.width"
               :height="item.height"

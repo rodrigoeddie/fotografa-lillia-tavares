@@ -8,7 +8,7 @@ const idParam = computed(() => {
   return id ? Number(id) : undefined;
 });
 
-const cfUrl = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
+const cfImg = useCfImg();
 const { isEdit, loading, saving, form, init, save } = useDepoimentoForm(idParam);
 const { adminFetch } = useAdminFetch();
 
@@ -104,7 +104,7 @@ onMounted(async () => {
               <div class="avatar-thumb">
                 <img
                   v-if="form.foto_cf_id && !avatarUploading"
-                  :src="`${cfUrl}${form.foto_cf_id}/public`"
+                  :src="cfImg(form.foto_cf_id)"
                   alt=""
                 />
                 <div v-else-if="avatarUploading" class="avatar-loading">⏳</div>

@@ -5,17 +5,19 @@ useHead({ title: 'Confirmação de Pagamento — Lillia Tavares' });
 const route = useRoute();
 const router = useRouter();
 
-const checkoutId = route.query.checkout_id as string;
 const sessaoId = route.query.sessao_id as string;
 
 type StatusPag = 'verificando' | 'pago' | 'cancelado' | 'pendente' | 'erro';
 const status = ref<StatusPag>('verificando');
 
 onMounted(async () => {
+  /* A SumUp não anexa o checkout_id no retorno; usamos o id guardado no checkout. */
+  const checkoutId = (route.query.checkout_id as string) || sessionStorage.getItem('sumup_checkout_id') || '';
   if (!checkoutId) {
     status.value = 'erro';
     return;
   }
+  sessionStorage.removeItem('sumup_checkout_id');
   try {
     const res = await $fetch<{ status: string; sessao_id: number }>(`/api/cliente/pagamento/retorno?checkout_id=${checkoutId}`);
     if (res.status === 'pago') {

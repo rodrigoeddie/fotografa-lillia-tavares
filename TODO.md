@@ -12,6 +12,39 @@ Webhook URL: https://fotografalilliatavares.com.br/api/webhooks/sumup
 Rodar a migration
 
 wrangler d1 execute DB --remote --file=server/db/migrations/023_pagamentos.sql
+
+------Dois pontos que você precisa validar em sandbox antes de produção
+Campos amount/currency da resposta SumUp — o código assume amount em reais (ex.: 150.00) e currency = 'BRL'. Se os nomes/unidades forem diferentes, a verificação rejeitará pagamentos legítimos. (A checagem de amount só roda se o campo existir; a de moeda só bloqueia se vier ≠ BRL — então é tolerante, mas confirme.)
+Esquema do HMAC do webhook — confirmar que a SumUp assina HMAC-SHA256 do corpo cru no header X-Signature.
+Nova dependência: o webhook agora exige SUMUP_API_KEY (além do SUMUP_WEBHOOK_SECRET) para confirmar pagamentos. Documentei isso, atualizei a tabela de secrets e a checklist em docs/pagamentos-seguranca.md.
+
+Pendências restantes (não-bloqueantes, documentadas): idempotência do POST de checkout e a regra explícita de liberação de entrega vs pagamento.
+
+Não rodei build/typecheck (não há script dedicado e vue-tsc não está instalado). Se quiser, posso rodar um bun run build para validar a compilação completa.
+
+
+Resumo das correções
+🔴 Críticas
+
+fs/raw.ts, fs/action.ts, fs/tree.ts — adicionado validateAdminToken(event) no topo dos três handlers. Também corrigido o bug de prefixo no safeResolve (startsWith(contentDir + path.sep)) e o re-path.resolve nos checks de rename/create.
+upload.ts — exige validateAdminToken; adicionado limite de 15 MB e whitelist de tipos de imagem.
+cf-images.ts — exige validateAdminToken.
+🟠 Altas
+
+server/middleware/admin-rbac.ts (novo) — autorização por role server-side em /api/admin/**, espelhando ROLE_SECTIONS da UI. editor/sessions só acessam suas seções; usuarios/* é exclusivo de super_admin; infra compartilhada (upload, r2, notificacoes, cron) liberada a qualquer admin. Fecha o broken function-level authorization.
+server/api/auth.ts — removido (login legado com SHA1 + token estático).
+🟡 Médias
+
+admin-jwt.ts + useAdminAuth.ts — default de role sem claim mudou de super_admin → editor (fail-closed, menor privilégio).
+cms-login.ts — agora roda PBKDF2 mesmo quando o e-mail não existe (hash/salt dummy), eliminando a enumeração de usuários por timing.
+Docs atualizados em server/CLAUDE.md (middleware de RBAC + correção do hash de senha PBKDF2).
+
+------
+
+Não coberto (precisa de decisão/infra sua)
+Rate limiting no login (#7, parte 2): brute force ainda é possível. Precisa de um binding KV ou Durable Object para contar tentativas por IP — não dá pra fazer confiável só em memória nos Workers. Posso implementar se você criar/apontar um namespace KV.
+Caveat dos fs/*: no runtime Cloudflare o fs/promises provavelmente falha (FS read-only); o guard agora protege o uso em dev/preview de qualquer forma.
+Não rodei build/typecheck (não há script de typecheck no projeto; não há auth.ts referenciado em lugar nenhum). Quer que eu rode bun run build para validar a compilação?
 -----
 
 Usando o gateway de pagamento da sumup (previamente pesquisado) crie um sistema de pagamentos para:

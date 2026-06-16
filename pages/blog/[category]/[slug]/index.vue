@@ -13,7 +13,8 @@ if (blogError.value || !rawPost.value) {
 }
 const post = computed(() => rawPost.value ? adaptBlogPost(rawPost.value) : null);
 
-const siteURI = 'https://fotografalilliatavares.com.br';
+const siteUrl = useSiteUrl();
+const cfImg = useCfImg();
 
 const breadcrumbs = computed(() => post.value ? [
   { label: 'Home', to: '/' },
@@ -30,11 +31,11 @@ useSchemaOrg([
     headline: computed(() => post.value?.title),
     description: computed(() => post.value?.description),
     image: computed(() => post.value?.image
-      ? `https://images.fotografalilliatavares.com.br/images/${post.value.image.imageId}/public`
+      ? cfImg(post.value.image.imageId)
       : undefined),
     datePublished: computed(() => post.value?.date),
-    author: { '@type': 'Person', name: 'Lillia Tavares', url: siteURI + '/sobre-fotografa-lillia-tavares' },
-    url: siteURI + path,
+    author: { '@type': 'Person', name: 'Lillia Tavares', url: siteUrl + '/sobre-fotografa-lillia-tavares' },
+    url: siteUrl + path,
   }),
 ]);
 
@@ -97,7 +98,7 @@ const processedContent = computed(() => {
           <nuxt-img
             v-if="item.data?.imageId"
             provider="cloudflare"
-            :src="`https://images.fotografalilliatavares.com.br/images/${item.data.imageId}/public`"
+            :src="cfImg(item.data.imageId)"
             :width="item.data.width"
             :height="item.data.height"
             :alt="item.data.alt || post?.title"
@@ -123,11 +124,11 @@ const processedContent = computed(() => {
         <source
           v-if="image.mobileImageId"
           media="(max-width: 768px)"
-          :srcset="`https://images.fotografalilliatavares.com.br/images/${image.mobileImageId}/public`"
+          :srcset="cfImg(image.mobileImageId)"
         />
         <nuxt-img
           provider="cloudflare"
-          :src="`https://images.fotografalilliatavares.com.br/images/${image.imageId}/public`"
+          :src="cfImg(image.imageId)"
           :width="image.width"
           :height="image.height"
           :alt="image.alt || post?.title"

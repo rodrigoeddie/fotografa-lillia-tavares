@@ -3,8 +3,7 @@ definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
 const { showConfirm } = useDialog();
-
-const CF_IMG = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
+const cfImg = useCfImg();
 
 interface ThumbPhoto { id: number; cf_image_id: string; width?: number | null; height?: number | null; }
 interface PortfolioWork { id: number; slug: string; titulo: string; categoria: string; ativo: number; home: number; ordem: number; thumb_photos: ThumbPhoto[]; }
@@ -154,7 +153,7 @@ onMounted(load);
           <span v-if="w.thumb_photos?.length" class="item-thumbs">
             <span v-for="foto in w.thumb_photos" :key="foto.id" class="item-thumb-wrap">
               <img
-                :src="`${CF_IMG}${foto.cf_image_id}/w=200`"
+                :src="cfImg(foto.cf_image_id, 'w=200')"
                 class="item-thumb"
                 :class="foto.width && foto.height ? (foto.height > foto.width ? 'portrait' : 'landscape') : ''"
                 :style="foto.width && foto.height ? { aspectRatio: `${foto.width}/${foto.height}` } : {}"

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const cfImg = useCfImg();
+
 const props = defineProps({
   data: {
     type: Object,
@@ -158,7 +160,7 @@ const formatDate = (dateString: string) => {
       <nuxt-img
         v-if="highlight[0]"
         provider="cloudflare"
-        :src='"https://images.fotografalilliatavares.com.br/images/" + highlight[0].imageId + "/public"'
+        :src="cfImg(highlight[0].imageId)"
         :width="highlight[0].width"
         :height="highlight[0].height"
         :alt="highlight[0].alt"
@@ -168,7 +170,7 @@ const formatDate = (dateString: string) => {
       <nuxt-img
         v-if="highlight[1]"
         provider="cloudflare"
-        :src='"https://images.fotografalilliatavares.com.br/images/" + highlight[1].imageId + "/public"'
+        :src="cfImg(highlight[1].imageId)"
         :width="highlight[1].width"
         :height="highlight[1].height"
         :alt="highlight[1].alt"

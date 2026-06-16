@@ -2,6 +2,8 @@
 definePageMeta({ layout: 'cliente' });
 useHead({ title: 'Área do Cliente — Lillia Tavares' });
 
+const cfImg = useCfImg();
+
 const { login } = useClientAuth();
 const router = useRouter();
 
@@ -35,7 +37,7 @@ async function handleLogin() {
         <span class="login-brand-name">
           <nuxt-img
             provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+            :src="cfImg('19bd6c18-a153-4e79-c6bd-4293145da400')"
             alt="Logotipo Lillia Tavares Fotografia"
             width="390"
             height="107"

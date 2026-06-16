@@ -19,7 +19,7 @@ function parseToken(token: string): { username: string; adminRole: AdminRole } |
   try {
     const payload = JSON.parse(atob(token.split('.')[1]!.replace(/-/g, '+').replace(/_/g, '/')));
     if (!payload.sub) return null;
-    return { username: payload.sub, adminRole: (payload.adminRole as AdminRole) ?? 'super_admin' };
+    return { username: payload.sub, adminRole: (payload.adminRole as AdminRole) ?? 'editor' };
   } catch {
     return null;
   }
@@ -40,7 +40,7 @@ export function useAdminAuth() {
 
   const userRole = computed<AdminRole>(() => {
     if (!tokenCookie.value) return 'editor';
-    return parseToken(tokenCookie.value)?.adminRole ?? 'super_admin';
+    return parseToken(tokenCookie.value)?.adminRole ?? 'editor';
   });
 
   const isSuperAdmin = computed(() => userRole.value === 'super_admin');

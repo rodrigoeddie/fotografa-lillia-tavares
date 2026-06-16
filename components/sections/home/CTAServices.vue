@@ -1,18 +1,20 @@
 <script lang="ts" setup>
+const cfImg = useCfImg()
+
 const services = [
   {
     title: 'Ensaios fotográficos',
-    image: 'https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public',
+    image: cfImg('2214a3b9-fa58-43d3-95d7-e9e981cfef00'),
     to: '/ensaio-fotografico',
   },
   {
     title: 'Aluguel do estúdio',
-    image: 'https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public',
+    image: cfImg('b6dc36df-86b3-4485-52de-8b91ba144f00'),
     to: '/estudio-fotografico-em-mogi-das-cruzes/aluguel',
   },
   {
     title: 'Análise de coloração pessoal',
-    image: 'https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public',
+    image: cfImg('5aaf1433-aaa7-42ed-7198-15626f964000'),
     to: '/analise-coloracao-pessoal-em-mogi',
   },
 ];

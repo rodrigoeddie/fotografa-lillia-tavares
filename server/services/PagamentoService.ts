@@ -1,4 +1,4 @@
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and, ne } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import { pagamentos } from '~/server/db/schema';
 
@@ -52,12 +52,21 @@ export class PagamentoService {
     });
   }
 
+  /**
+   * Atualiza o status do pagamento. `pago` é um estado TERMINAL: uma vez pago,
+   * eventos posteriores (cancelado/pendente) — que podem chegar fora de ordem —
+   * não rebaixam o status. Isso evita que um webhook tardio "destranque" ou
+   * trave indevidamente um pagamento já confirmado.
+   */
   async updateStatus(checkoutId: string, status: string, transactionId?: string) {
     return this.db.update(pagamentos).set({
       status,
       atualizado_em: new Date().toISOString(),
       ...(transactionId ? { sumup_transaction_id: transactionId } : {}),
-    }).where(eq(pagamentos.sumup_checkout_id, checkoutId));
+    }).where(and(
+      eq(pagamentos.sumup_checkout_id, checkoutId),
+      ne(pagamentos.status, 'pago'),
+    ));
   }
 
   /** Cria um checkout na SumUp e retorna o objeto com o `id` gerado. */
@@ -99,6 +108,6 @@ export class PagamentoService {
       headers: { 'Authorization': `Bearer ${apiKey}` },
     });
     if (!res.ok) throw new Error(`SumUp ${res.status}`);
-    return res.json() as Promise<{ id: string; status: string; transactions?: any[] }>;
+    return res.json() as Promise<{ id: string; status: string; amount?: number; currency?: string; transactions?: any[] }>;
   }
 }

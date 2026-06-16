@@ -8,7 +8,7 @@ const idParam = computed(() => {
   return id ? Number(id) : undefined;
 });
 
-const cfUrl = 'https://imagedelivery.net/O6nFDZdJNNmAV7RmVd-_zw/';
+const cfImg = useCfImg();
 const { isEdit, loading, saving, form, cenarios, addCenario, removeCenario, init, save } = useCenarioForm(idParam);
 
 onMounted(init);
@@ -71,7 +71,7 @@ onMounted(init);
             <div class="form-field">
               <label>Imagem BG (CF ID)</label>
               <input v-model="c.imagem_bg_cf_id" type="text" />
-              <img v-if="c.imagem_bg_cf_id" :src="`${cfUrl}${c.imagem_bg_cf_id}/public`" class="preview-img" alt="" />
+              <img v-if="c.imagem_bg_cf_id" :src="cfImg(c.imagem_bg_cf_id)" class="preview-img" alt="" />
             </div>
             <div class="form-field">
               <label>Alt imagem BG</label>
@@ -80,7 +80,7 @@ onMounted(init);
             <div class="form-field">
               <label>Imagem Exemplo (CF ID)</label>
               <input v-model="c.imagem_exemplo_cf_id" type="text" />
-              <img v-if="c.imagem_exemplo_cf_id" :src="`${cfUrl}${c.imagem_exemplo_cf_id}/public`" class="preview-img" alt="" />
+              <img v-if="c.imagem_exemplo_cf_id" :src="cfImg(c.imagem_exemplo_cf_id)" class="preview-img" alt="" />
             </div>
             <div class="form-field">
               <label>Alt imagem exemplo</label>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const cfImg = useCfImg()
+
 const scrollRef = ref<HTMLElement | null>(null);
 
 let isDragging = false;
@@ -156,7 +158,7 @@ const milestones: Milestone[] = [
             <nuxt-img
               v-if="item.image"
               provider="cloudflare"
-              :src="'https://images.fotografalilliatavares.com.br/images/' + item.image + '/public'"
+              :src="cfImg(item.image)"
               :alt="item.title"
               :width="item.format === 'portrait' ? 160 : 240"
               :height="item.format === 'portrait' ? 280 : 160"

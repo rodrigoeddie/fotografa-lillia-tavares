@@ -5,10 +5,11 @@ definePageMeta({
 
 usePageSeo('static', '/orcamentos/dia-das-maes');
 
-const imgSrc = 'https://images.fotografalilliatavares.com.br/images/f7c0628e-d30e-4b09-9033-16fc0815b600/w=500,fit=scale-down';
+const cfImg = useCfImg();
+const imgSrc = cfImg('f7c0628e-d30e-4b09-9033-16fc0815b600', 'w=500,fit=scale-down');
 const imgSrcset = [
-  'https://images.fotografalilliatavares.com.br/images/f7c0628e-d30e-4b09-9033-16fc0815b600/w=500,fit=scale-down 1x',
-  'https://images.fotografalilliatavares.com.br/images/f7c0628e-d30e-4b09-9033-16fc0815b600/w=1000,fit=scale-down 2x',
+  `${cfImg('f7c0628e-d30e-4b09-9033-16fc0815b600', 'w=500,fit=scale-down')} 1x`,
+  `${cfImg('f7c0628e-d30e-4b09-9033-16fc0815b600', 'w=1000,fit=scale-down')} 2x`,
 ].join(', ');
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 
 const PAGE_SIZE = 20;
 
@@ -39,7 +39,7 @@ onUnmounted(() => observer?.disconnect());
 
 function reviewAvatarUrl(review: { id: number; photo?: string }): string {
   if (review.photo && !review.photo.startsWith('http')) {
-    return CF_IMG_BASE + review.photo + '/public';
+    return cfImg(review.photo);
   }
 
   return `${review.photo}`;
@@ -102,7 +102,7 @@ function reviewAvatarUrl(review: { id: number; photo?: string }): string {
               <nuxt-img
                 v-if="review.portfolioFotoCfId"
                 provider="cloudflare"
-                :src="`${CF_IMG_BASE}${review.portfolioFotoCfId}/public`"
+                :src="cfImg(review.portfolioFotoCfId)"
                 :alt="`Ensaio de ${review.name}`"
                 class="img"
                 width="350"

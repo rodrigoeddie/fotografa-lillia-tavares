@@ -12,7 +12,7 @@ const idParam = computed(() => {
   return id ? Number(id) : undefined;
 });
 
-const cfUrl = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
+const cfImg = useCfImg();
 const { isEdit, loading, saving, form, init, save } = useBlogPostForm(idParam);
 const { adminFetch } = useAdminFetch();
 
@@ -167,7 +167,7 @@ onBeforeUnmount(() => {
           <div class="cover-preview-wrap">
             <img
               v-if="form.imagem_cf_id && !coverUploading"
-              :src="`${cfUrl}${form.imagem_cf_id}/public`"
+              :src="cfImg(form.imagem_cf_id)"
               class="cover-preview"
               alt=""
             />

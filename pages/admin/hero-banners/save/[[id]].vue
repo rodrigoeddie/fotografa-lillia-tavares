@@ -22,7 +22,7 @@ const {
   save,
 } = useHeroBannerForm(idParam);
 
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 
 onMounted(init);
 </script>
@@ -49,7 +49,7 @@ onMounted(init);
           <div v-if="form.bg_image" class="banner-preview">
             <nuxt-img
               provider="cloudflare"
-              :src="`${CF_IMG_BASE}${form.bg_image}/public`"
+              :src="cfImg(form.bg_image)"
               width="720"
               height="150"
               fit="cover"
@@ -85,7 +85,7 @@ onMounted(init);
           <div v-if="form.bg_image_mobile" class="banner-preview mobile-preview">
             <nuxt-img
               provider="cloudflare"
-              :src="`${CF_IMG_BASE}${form.bg_image_mobile}/public`"
+              :src="cfImg(form.bg_image_mobile)"
               width="300"
               height="300"
               fit="cover"

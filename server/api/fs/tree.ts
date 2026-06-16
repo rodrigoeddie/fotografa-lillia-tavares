@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { defineEventHandler, createError, setResponseHeaders } from 'h3';
+import { validateAdminToken } from '~/server/utils/auth-helpers';
 
 const contentDir = path.resolve(process.cwd(), 'content');
 
@@ -33,6 +34,8 @@ async function buildTree(dirPath: string, relPath = ''): Promise<TreeNode[]> {
 }
 
 export default defineEventHandler(async (event) => {
+  await validateAdminToken(event);
+
   setResponseHeaders(event, {
     'Cache-Control': 'no-store, no-cache, must-revalidate',
     'Pragma': 'no-cache',

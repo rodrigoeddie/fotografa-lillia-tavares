@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const cfImg = useCfImg()
 </script>
 
 <template>
@@ -7,7 +8,7 @@
       class="wrap-banner">
         <nuxt-img
           provider="cloudflare"
-          :src='"https://images.fotografalilliatavares.com.br/images/5a652dab-c42b-4672-3810-2aaef0d0ce00/public"'
+          :src="cfImg('5a652dab-c42b-4672-3810-2aaef0d0ce00')"
           sizes="100vw md:50vw lg:860px"
           alt="Mãe e filho"
           width="860"

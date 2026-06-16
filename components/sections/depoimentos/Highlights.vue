@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 
 const { data: rawDepoimentos } = await useFetch('/api/public/depoimentos');
 
@@ -13,7 +13,7 @@ const swiperRef = ref<HTMLElement | null>(null);
 
 function avatarUrl(review: { photo?: string }): string {
   if (review.photo && !review.photo.startsWith('http')) {
-    return CF_IMG_BASE + review.photo + '/public';
+    return cfImg(review.photo);
   }
   return review.photo ?? '';
 }
@@ -44,7 +44,7 @@ function avatarUrl(review: { photo?: string }): string {
               <NuxtLink :to="review.portfolioPath" class="img-link">
                 <nuxt-img
                   provider="cloudflare"
-                  :src="`${CF_IMG_BASE}${review.portfolioFotoCfId}/public`"
+                  :src="cfImg(review.portfolioFotoCfId)"
                   :alt="`Ensaio de ${review.name}`"
                   class="img"
                   width="400"

@@ -23,7 +23,8 @@ const album = computed(() => {
     .filter((item: any) => !item.highlight);
 });
 
-const siteURI = 'https://fotografalilliatavares.com.br';
+const siteUrl = useSiteUrl();
+const cfImg = useCfImg();
 
 const breadcrumbs = computed(() => [
   { label: 'Home', to: '/' },
@@ -36,16 +37,16 @@ const breadcrumbs = computed(() => [
 useSchemaOrg([
   defineWebPage({
     '@type': 'ItemPage',
-    url: siteURI + path,
+    url: siteUrl + path,
   }),
   defineImage({
     '@type': 'ImageObject',
     name: computed(() => work.value?.title),
     description: computed(() => work.value?.description),
-    author: { '@type': 'Person', name: 'Fotógrafa Lillia Tavares', url: siteURI + '/sobre-fotografa-lillia-tavares' },
+    author: { '@type': 'Person', name: 'Fotógrafa Lillia Tavares', url: siteUrl + '/sobre-fotografa-lillia-tavares' },
     datePublished: computed(() => work.value?.data),
-    contentUrl: computed(() => album.value?.map((item: any) => `https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${item.imageId}/public`)),
-    url: siteURI + path,
+    contentUrl: computed(() => album.value?.map((item: any) => cfImg(item.imageId))),
+    url: siteUrl + path,
   }),
 ]);
 </script>

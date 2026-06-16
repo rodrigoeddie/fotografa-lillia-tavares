@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const cfImg = useCfImg()
+
 const mapLoaded = ref(false)
 
 const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.106001989638!2d-46.1804627!3d-23.5135586!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cdd92db136d28b%3A0x7dbfca477fd7474f!2sEst%C3%BAdio%20fotogr%C3%A1fico%20Lillia%20Tavares%20em%20Mogi%20das%20Cruzes!5e0!3m2!1spt-BR!2sbr!4v1724005767992!5m2!1spt-BR!2sbr'
@@ -34,7 +36,7 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
                 <div class="map">
                     <nuxt-img
                         provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/73237b0c-51ef-4c36-99d1-787235393900/public"'
+                        :src="cfImg('73237b0c-51ef-4c36-99d1-787235393900')"
                         width="1579"
                         height="494"
                         class="img-map"

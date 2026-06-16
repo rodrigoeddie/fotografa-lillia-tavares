@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const cfImg = useCfImg();
 const $route = useRoute();
 const category = $route.params.category as string;
 
@@ -52,7 +53,7 @@ const formatDate = (date: string) =>
           <nuxt-img
             v-if="post.image"
             provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + post.image.imageId + "/public"'
+            :src="cfImg(post.image.imageId)"
             :width="690"
             :height="460"
             :sizes="'100vw md:50vw lg:690px'"

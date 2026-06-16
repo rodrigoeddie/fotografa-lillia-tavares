@@ -4,7 +4,7 @@ useHead({ title: 'Meus Ensaios — Lillia Tavares' });
 
 const { checkSession, clienteData } = useClientAuth();
 
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 const MAPS_URL = 'https://g.page/r/CcJKsXVkfFvXEBM/review';
 
 interface Sessao {
@@ -26,7 +26,7 @@ const NuxtLinkComponent = resolveComponent('NuxtLink');
 
 const bgImageUrl = computed(() => {
   const id = clienteData.value?.bg_image;
-  return id ? `${CF_IMG_BASE}${id}/public` : null;
+  return id ? cfImg(id) : null;
 });
 
 const statusInfo: Record<string, {
@@ -119,7 +119,7 @@ onMounted(async () => {
           <nuxt-img
             v-if="s.capa_foto_id ?? s.primeira_foto_id"
             provider="cloudflare"
-            :src="`${CF_IMG_BASE}${s.capa_foto_id ?? s.primeira_foto_id}/public`"
+            :src="cfImg(s.capa_foto_id ?? s.primeira_foto_id)"
             format="webp"
             width="400"
             placeholder

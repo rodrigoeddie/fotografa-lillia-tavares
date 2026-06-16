@@ -49,7 +49,7 @@ const props = defineProps<{
   showMessage: (msg: string, type: 'success' | 'error') => void;
 }>();
 
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 
 const currentPath = ref('');
 const data = ref<BlogData | null>(null);
@@ -444,7 +444,7 @@ defineExpose({ openFile });
             <div v-if="data.image.imageId" class="img-preview">
               <nuxt-img
                 provider="cloudflare"
-                :src="CF_IMG_BASE + data.image.imageId + '/public'"
+                :src="cfImg(data.image.imageId)"
                 :width="200"
                 :alt="data.image.alt" />
             </div>
@@ -523,7 +523,7 @@ defineExpose({ openFile });
             <div v-if="img.imageId" class="img-thumb">
               <nuxt-img
                 provider="cloudflare"
-                :src="CF_IMG_BASE + img.imageId + '/public'"
+                :src="cfImg(img.imageId)"
                 :width="80" />
             </div>
             <button class="btn-small" @click="openCfBrowser({ type: 'contentImage', index: idx })">{{ img.imageId ? 'Trocar' : 'Selecionar' }}</button>
@@ -571,7 +571,7 @@ defineExpose({ openFile });
             <div v-if="img.imageId" class="img-thumb">
               <nuxt-img
                 provider="cloudflare"
-                :src="CF_IMG_BASE + img.imageId + '/public'"
+                :src="cfImg(img.imageId)"
                 :width="80"
               />
             </div>
@@ -614,7 +614,7 @@ defineExpose({ openFile });
               class="cf-thumb"
               @click="selectCfImage(img.id)"
             >
-              <img :src="CF_IMG_BASE + img.id + '/w=120'" loading="lazy" />
+              <img :src="cfImg(img.id, 'w=120')" loading="lazy" />
               <span class="cf-filename">{{ img.filename }}</span>
             </div>
           </div>

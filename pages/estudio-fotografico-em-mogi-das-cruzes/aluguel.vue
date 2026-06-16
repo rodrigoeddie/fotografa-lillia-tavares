@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 usePageSeo('static', '/estudio-fotografico-em-mogi-das-cruzes/aluguel');
 
+const cfImg = useCfImg();
 const configPublic = useRuntimeConfig().public;
 
 const { data: rawData } = await useFetch('/api/public/cenarios?slug=estudio');
@@ -169,7 +170,7 @@ function firstLandscapeIndex(images: CampaignImage[]) {
                     v-for="(img, i) in campaign.images"
                     :key="i"
                     provider="cloudflare"
-                    :src="'https://images.fotografalilliatavares.com.br/images/' + img.imageId + '/public'"
+                    :src="cfImg(img.imageId)"
                     :alt="img.alt"
                     width="img.orientation == 'landscape' ? '1400' : '500'"
                     loading="lazy"

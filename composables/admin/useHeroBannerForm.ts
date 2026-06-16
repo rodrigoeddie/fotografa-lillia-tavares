@@ -9,7 +9,7 @@ export function useHeroBannerForm(idParam: Ref<number | undefined>) {
   const saving  = ref(false);
   const uploading = ref(false);
 
-  const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+  const cfImg = useCfImg();
 
   const form = reactive({
     titulo:          '',
@@ -50,7 +50,7 @@ export function useHeroBannerForm(idParam: Ref<number | undefined>) {
   function uploadBgImageMobile(e: Event)  { return _uploadImage(e, 'bg_image_mobile', 'uploading_mobile'); }
 
   function bgImageUrl(id: string) {
-    return `${CF_IMG_BASE}${id}/public`;
+    return cfImg(id);
   }
 
   async function init() {

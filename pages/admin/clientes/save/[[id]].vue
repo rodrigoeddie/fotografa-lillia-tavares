@@ -18,7 +18,7 @@ const {
   save
 } = useClienteForm(idParam);
 
-const CF_IMG_BASE = 'https://images.fotografalilliatavares.com.br/images/';
+const cfImg = useCfImg();
 const uploading = ref(false);
 
 async function uploadBgImage(e: Event) {
@@ -77,7 +77,7 @@ onMounted(init);
           <div v-if="form.bg_image" class="bg-preview">
             <nuxt-img
               provider="cloudflare"
-              :src="`${CF_IMG_BASE}${form.bg_image}/public`"
+              :src="cfImg(form.bg_image)"
               width="300"
               class="image"
               format="webp"

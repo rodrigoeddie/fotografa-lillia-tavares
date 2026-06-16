@@ -37,6 +37,18 @@ export default defineEventHandler(async (event) => {
       const status = sumup.status?.toUpperCase();
 
       if (status === 'PAID') {
+        /* Defesa em profundidade: confere se o valor pago bate com o esperado.
+           Se houver divergência (config de preço/moeda errada), NÃO marca como pago —
+           deixa pendente para revisão manual. Só checa quando a SumUp informa amount. */
+        const pagoCents = sumup.amount != null ? Math.round(sumup.amount * 100) : null;
+        const moedaOk = !sumup.currency || sumup.currency.toUpperCase() === 'BRL';
+        if ((pagoCents != null && pagoCents !== pagamento.valor_cents) || !moedaOk) {
+          console.error(
+            `[pagamento] divergência de valor checkout=${checkout_id} ` +
+            `esperado=${pagamento.valor_cents} pago=${pagoCents} moeda=${sumup.currency}`,
+          );
+          return { status: 'pendente', sessao_id: pagamento.sessao_id };
+        }
         const txId = sumup.transactions?.[0]?.id;
         await pagSvc.updateStatus(checkout_id, 'pago', txId);
         return { status: 'pago', sessao_id: pagamento.sessao_id };

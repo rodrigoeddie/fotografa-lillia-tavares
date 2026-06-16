@@ -1,18 +1,21 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { defineEventHandler, getQuery, readBody, createError } from 'h3';
+import { validateAdminToken } from '~/server/utils/auth-helpers';
 
 const contentDir = path.resolve(process.cwd(), 'content');
 
 function safeResolve(filePath: string) {
   const resolved = path.resolve(path.join(contentDir, filePath));
-  if (!resolved.startsWith(contentDir)) {
+  if (resolved !== contentDir && !resolved.startsWith(contentDir + path.sep)) {
     throw createError({ statusCode: 403, statusMessage: 'Access denied' });
   }
   return resolved;
 }
 
 export default defineEventHandler(async (event) => {
+  await validateAdminToken(event);
+
   if (event.node.req.method === 'GET') {
     const query = getQuery(event);
     const filePath = query.path as string;

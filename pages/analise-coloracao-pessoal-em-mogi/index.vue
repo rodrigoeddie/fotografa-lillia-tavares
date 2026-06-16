@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const cfImg = useCfImg();
+
 usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
 
 const breadcrumbs = [
@@ -86,7 +88,7 @@ const steps = [
       <div class="c-intro__image">
         <nuxt-img
           provider="cloudflare"
-          src="https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+          :src="cfImg('5aaf1433-aaa7-42ed-7198-15626f964000')"
           alt="Análise de coloração pessoal em Mogi das Cruzes"
           width="400"
           height="520"

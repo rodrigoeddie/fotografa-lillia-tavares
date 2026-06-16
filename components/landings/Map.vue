@@ -1,5 +1,7 @@
 
 <script setup>
+const cfImg = useCfImg()
+
 const props = defineProps({
   lp: {
     type: String,
@@ -28,7 +30,7 @@ const props = defineProps({
                   data-track-event="click-mapa">
                     <nuxt-img
                         provider="cloudflare"
-                        :src='"https://images.fotografalilliatavares.com.br/images/11cdaead-933f-4b58-cb28-68e29ed44900/public"'
+                        :src="cfImg('11cdaead-933f-4b58-cb28-68e29ed44900')"
                         width="380"
                         height="342"
                         class="map"

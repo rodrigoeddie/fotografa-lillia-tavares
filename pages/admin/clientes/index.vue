@@ -5,7 +5,7 @@ const { adminFetch } = useAdminFetch();
 
 interface Cliente { id: number; nome: string; email: string; celular: string | null; bg_image: string | null; criado_em: string; }
 
-const CF_URL = 'https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/';
+const cfImg = useCfImg();
 
 const clientes = ref<Cliente[]>([]);
 const loading = ref(false);
@@ -58,7 +58,7 @@ onMounted(load);
           <nuxt-img
             v-if="c.bg_image"
             class="item-thumb"
-            :src="`${CF_URL}${c.bg_image}/public`"
+            :src="cfImg(c.bg_image)"
             format="webp"
             width="70"
             placeholder

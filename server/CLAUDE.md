@@ -18,7 +18,7 @@ server/
 │   ├── migrations/     # SQL versionado NNN_descricao.sql
 │   └── drizzle/        # snapshots gerados pelo drizzle-kit
 ├── utils/              # d1-client (getOrm/getDB), auth-helpers, r2-presign, etc.
-└── middleware/         # vazio — auth é inline nos handlers
+└── middleware/         # admin-rbac.ts: autorização por role em /api/admin/** (auth de token continua inline nos handlers)
 ```
 
 ## Padrão Service + Handler
@@ -83,7 +83,8 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 - Token retornado por `/api/admin/auth/login` → cliente armazena em localStorage
 - Enviado em **header** `x-cms-token` em todas as chamadas admin
 - Validado por `validateAdminToken(event)` em [server/utils/auth-helpers.ts](utils/auth-helpers.ts)
-- Senha armazenada SHA-512 + salt; setup inicial em `/api/admin/auth/setup` protegido por env `KEYCMS`
+- Autorização por role: middleware `server/middleware/admin-rbac.ts` aplica `ROLE_SECTIONS` server-side em `/api/admin/**` (não confiar só na UI). `usuarios/*` exige super_admin.
+- Senha armazenada PBKDF2-SHA256 (100k it.) + salt; setup inicial em `/api/admin/auth/setup` protegido por env `KEYCMS` (SHA-512)
 
 ### Cliente (área de fotos)
 - Token em **cookie httpOnly** `cliente_session` (SameSite=Lax, 30d)
@@ -152,6 +153,8 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 | `R2_BUCKET_NAME` | var | nome do bucket |
 
 ## SumUp (implementado)
+
+> 🔒 **Antes de mexer aqui ou configurar keys, ler [docs/pagamentos-seguranca.md](../docs/pagamentos-seguranca.md)** — revisão de segurança, regras invioláveis e checklist de produção.
 
 Integração de pagamentos ativa:
 

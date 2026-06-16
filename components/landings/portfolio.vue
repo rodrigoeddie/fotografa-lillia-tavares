@@ -1,5 +1,7 @@
 
 <script setup lang="ts">
+const cfImg = useCfImg()
+
 const props = defineProps({
   lp: {
     type: String,
@@ -44,7 +46,7 @@ const images = computed(() => {
             <nuxt-img
                 v-for="(img, i) in images" :key="img.imageId + i"
                 provider="cloudflare"
-                :src='"https://images.fotografalilliatavares.com.br/images/" + img.imageId + "/public"'
+                :src="cfImg(img.imageId)"
                 width="551"
                 height="646"
                 sizes="'100vw md:50vw lg:551px"

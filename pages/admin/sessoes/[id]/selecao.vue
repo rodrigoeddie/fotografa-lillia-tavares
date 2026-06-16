@@ -3,6 +3,7 @@ definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
 const cfURI = useRuntimeConfig().public.cloudflareURI;
+const cfImg = useCfImg();
 const route = useRoute();
 
 const sessaoId = computed(() => Number(route.params.id));
@@ -67,7 +68,7 @@ onMounted(load);
           <div class="selecao-img-wrap">
             <nuxt-img
               provider="cloudflare"
-              :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
+              :src="cfImg(foto.cloudflare_image_id)"
               width="200"
               class="image"
               :alt="`Foto ${foto.id}`"

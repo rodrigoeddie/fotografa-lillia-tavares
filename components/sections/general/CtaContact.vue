@@ -1,4 +1,6 @@
 <script setup>
+const cfImg = useCfImg()
+
 const props = defineProps({
   data: {
     type: Object,
@@ -13,7 +15,7 @@ const props = defineProps({
           v-if="props.data.image"
           class="image-cta"
           provider="cloudflare"
-          :src="`https://images.fotografalilliatavares.com.br/images/${props.data.image}/public`"
+          :src="cfImg(props.data.image)"
           :width="props.data.imageWidth ? props.data.imageWidth : '395'"
           :alt="props.data.imageAlt ? props.data.imageAlt : 'Imagem de chamada para ação'"
           placeholder />

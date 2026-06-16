@@ -3,6 +3,7 @@ definePageMeta({ layout: 'admin' });
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
 const { adminFetch } = useAdminFetch();
 const cfURI = useRuntimeConfig().public.cloudflareURI;
+const cfImg = useCfImg();
 const route = useRoute();
 
 const sessaoId = computed(() => Number(route.params.id));
@@ -255,7 +256,7 @@ onMounted(load);
         <div v-for="foto in fotos" :key="foto.id" class="foto-card" :class="{ 'is-capa': capaFotoId === foto.cloudflare_image_id }">
           <nuxt-img
             provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/" + foto.cloudflare_image_id + "/public"'
+            :src="cfImg(foto.cloudflare_image_id)"
             width="200"
             class="image"
             :alt="`Foto ${foto.id}`"

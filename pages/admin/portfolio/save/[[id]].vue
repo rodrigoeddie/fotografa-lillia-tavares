@@ -11,6 +11,7 @@ const idParam = computed(() => {
 const categoriasOptions = ['corporativo', 'dia-das-maes', 'sensual-intimista', 'aniversario', 'gestante', 'casal'];
 const { isEdit, loading, saving, form, init, save } = usePortfolioWorkForm(idParam);
 const { adminFetch } = useAdminFetch();
+const cfImg = useCfImg();
 
 const seoEditorRef = ref<{ save: () => Promise<number | null> } | null>(null);
 
@@ -261,7 +262,7 @@ onMounted(async () => {
             <div v-if="selectedDep" class="dep-preview">
               <img
                 v-if="selectedDep.foto_cf_id"
-                :src="`https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/${selectedDep.foto_cf_id}/public`"
+                :src="cfImg(selectedDep.foto_cf_id)"
                 class="dep-avatar"
                 alt=""
               />

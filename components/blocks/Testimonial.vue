@@ -1,5 +1,7 @@
 
 <script setup lang="ts">
+const cfImg = useCfImg();
+
 const props = defineProps({
   testimonial: {
     type: Object,
@@ -33,7 +35,7 @@ const props = defineProps({
     <div class="wrap-testimonial">
         <nuxt-img
             :provider="testimonial.avatar ? 'cloudflare' : undefined"
-            :src="testimonial.customAvatar || 'https://images.fotografalilliatavares.com.br/images/' + testimonial.avatar + '/public'"
+            :src="testimonial.customAvatar || cfImg(testimonial.avatar)"
             :width="'100'"
             :height="'100'"
             :alt="'' + name"

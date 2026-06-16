@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const cfImg = useCfImg();
 const route = useRoute();
 const slug = route.params.slug as string;
 const pageUrl = `https://fotografalilliatavares.com.br/precos-ensaios-fotograficos/${slug}`;
@@ -17,11 +18,11 @@ useSeoMeta({
   ogTitle:            () => pageData.value ? `${pageData.value.title} | Ensaio Fotográfico em Mogi das Cruzes` : 'Preços de Ensaios',
   ogDescription:      () => pageData.value?.description ?? undefined,
   ogUrl:              pageUrl,
-  ogImage:            'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
+  ogImage:            cfImg('a0839ccd-c1b8-4142-e44f-77c07c62c800'),
   twitterCard:        'summary_large_image',
   twitterTitle:       () => pageData.value?.title,
   twitterDescription: () => pageData.value?.description ?? undefined,
-  twitterImage:       'https://images.fotografalilliatavares.com.br/images/a0839ccd-c1b8-4142-e44f-77c07c62c800/public',
+  twitterImage:       cfImg('a0839ccd-c1b8-4142-e44f-77c07c62c800'),
 });
 
 useHead({

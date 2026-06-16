@@ -1,7 +1,13 @@
 
 import { defineEventHandler, readMultipartFormData, createError } from 'h3';
+import { validateAdminToken } from '~/server/utils/auth-helpers';
+
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024; // 15 MB
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'];
 
 export default defineEventHandler(async (event) => {
+  await validateAdminToken(event);
+
   const parts = await readMultipartFormData(event);
 
   if (!parts || parts.length === 0) {
@@ -11,6 +17,13 @@ export default defineEventHandler(async (event) => {
   const filePart = parts.find(p => p.name === 'file');
   if (!filePart || !filePart.data) {
     throw createError({ statusCode: 400, statusMessage: 'File field is required' });
+  }
+
+  if (filePart.data.length > MAX_UPLOAD_BYTES) {
+    throw createError({ statusCode: 413, statusMessage: 'Arquivo excede o limite de 15 MB' });
+  }
+  if (filePart.type && !ALLOWED_TYPES.includes(filePart.type)) {
+    throw createError({ statusCode: 415, statusMessage: 'Tipo de arquivo não permitido' });
   }
 
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;

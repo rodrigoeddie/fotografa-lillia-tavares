@@ -1,5 +1,7 @@
 
 <script setup>
+const cfImg = useCfImg()
+
 const props = defineProps({
   data: {
     type: Object,
@@ -26,7 +28,7 @@ const props = defineProps({
         <div class="wrap-image">
             <nuxt-img
               provider="cloudflare"
-              :src='"https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"'
+              :src="cfImg('5aaf1433-aaa7-42ed-7198-15626f964000')"
               alt="Fotógrafa Lillia Tavares segurando sua câmera fotográfica"
               width="400"
               lazyload="true"

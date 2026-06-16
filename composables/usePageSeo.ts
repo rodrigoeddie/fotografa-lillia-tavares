@@ -11,12 +11,7 @@ interface PageSeoData {
   jsonld_data: string | null;
 }
 
-const CF_BASE = 'https://images.fotografalilliatavares.com.br/images';
 const DEFAULT_OG_IMAGE_CF_ID = 'a0839ccd-c1b8-4142-e44f-77c07c62c800';
-
-function cfUrl(id: string | null | undefined): string | null {
-  return id ? `${CF_BASE}/${id}/public` : null;
-}
 
 type SeoSource = PageSeoData | null | undefined | (() => PageSeoData | null | undefined);
 
@@ -31,18 +26,20 @@ export function applyPageSeo(source: SeoSource) {
   const get = (): PageSeoData | null | undefined =>
     typeof source === 'function' ? (source as () => PageSeoData | null | undefined)() : source;
 
+  const cfImg = useCfImg();
+
   useSeoMeta({
     title:              () => get()?.meta_title ?? undefined,
     description:        () => get()?.meta_description ?? undefined,
     ogTitle:            () => get()?.meta_title ?? undefined,
     ogDescription:      () => get()?.meta_description ?? undefined,
     ogUrl:              () => get()?.canonical ?? undefined,
-    ogImage:            () => cfUrl(get()?.og_image_cf_id ?? DEFAULT_OG_IMAGE_CF_ID) ?? undefined,
+    ogImage:            () => cfImg(get()?.og_image_cf_id ?? DEFAULT_OG_IMAGE_CF_ID) ?? undefined,
     ogImageAlt:         () => get()?.og_image_alt ?? undefined,
     twitterCard:        () => 'summary_large_image',
     twitterTitle:       () => get()?.meta_title ?? undefined,
     twitterDescription: () => get()?.meta_description ?? undefined,
-    twitterImage:       () => cfUrl(get()?.twitter_image_cf_id ?? get()?.og_image_cf_id ?? DEFAULT_OG_IMAGE_CF_ID) ?? undefined,
+    twitterImage:       () => cfImg(get()?.twitter_image_cf_id ?? get()?.og_image_cf_id ?? DEFAULT_OG_IMAGE_CF_ID) ?? undefined,
   });
 
   useHead({

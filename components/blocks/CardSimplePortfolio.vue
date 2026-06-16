@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const cfImg = useCfImg();
+
 const formatDate = (dateString: string) => {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return new Date(dateString).toLocaleDateString('pt-BR', options);
@@ -43,7 +45,7 @@ const { hovered, tiltStyle, onMouseMove, onMouseLeave } = useTiltEffect();
                   :class="'wrap-img ' + slide.format">
                     <nuxt-img
                       provider="cloudflare"
-                      :src='"https://images.fotografalilliatavares.com.br/images/" + slide.imageId + "/public"'
+                      :src="cfImg(slide.imageId)"
                       width="551"
                       height="646"
                       sizes="'100vw md:50vw lg:551px"

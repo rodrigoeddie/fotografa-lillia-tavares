@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const cfImg = useCfImg()
+
 useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
   link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block' }],
@@ -36,7 +38,7 @@ onMounted(async () => {
         <NuxtLink to="/area-cliente/meus-ensaios" class="logo">
           <nuxt-img
             provider="cloudflare"
-            :src='"https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public"'
+            :src="cfImg('19bd6c18-a153-4e79-c6bd-4293145da400')"
             alt="Logotipo Lillia Tavares Fotografia"
             width="390"
             height="107"

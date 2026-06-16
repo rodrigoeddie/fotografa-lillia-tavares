@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+    const cfImg = useCfImg()
+
     const { trackEvent } = useTracking();
 
     const clickLogo = () => trackEvent('click-logo', { screen_name: 'Footer' });
@@ -25,7 +27,7 @@
               aria-label="Voltar para a página inicial">
                 <nuxt-img
                     provider="cloudflare"
-                    :src='"https://images.fotografalilliatavares.com.br/images/" + props.logo + "/public"'
+                    :src="cfImg(props.logo)"
                     alt="Logotipo Lillia Tavares Fotografia"
                     width="390"
                     height="107"

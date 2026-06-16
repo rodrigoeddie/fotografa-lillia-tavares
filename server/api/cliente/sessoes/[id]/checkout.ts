@@ -95,14 +95,18 @@ export default defineEventHandler(async (event) => {
     const selecionadas = fotos.filter((f) => f.selecionada === 1).length;
     const { valorExtras } = calcExtras(selecionadas, sessao.fotos_incluidas, sessao.preco_foto_extra);
     const valorRestante = lote.numero_lote === 1 ? (sessao.valor_restante_pacote ?? 0) : 0;
-    const valorTotal = valorExtras + valorRestante;
+    /* Arredonda a 2 casas: a SumUp aceita no máximo 2 decimais e o cálculo de
+       desconto com floats pode gerar resíduos (ex.: 451.2500000001). */
+    const valorTotal = Math.round((valorExtras + valorRestante) * 100) / 100;
 
     if (valorTotal <= 0) {
       return { checkout_url: null, valor_total: 0, message: 'Nenhum valor a pagar para este lote.' };
     }
 
     const reference = `sessao-${sessaoId}-lote-${loteId}-${Date.now()}`;
-    const returnUrl = `${siteUrl}/area-cliente/pagamento/retorno?checkout_id=__CHECKOUT_ID__&sessao_id=${sessaoId}`;
+    /* A SumUp não anexa o checkout_id no retorno; o front guarda o id (devolvido
+       abaixo) no sessionStorage e o usa como fallback na página de retorno. */
+    const returnUrl = `${siteUrl}/area-cliente/pagamento/retorno?sessao_id=${sessaoId}`;
 
     const descricao = lote.numero_lote === 1
       ? `Seleção ${sessao.nome_sessao} — extras + saldo do pacote`
@@ -114,7 +118,7 @@ export default defineEventHandler(async (event) => {
       amount: valorTotal,
       reference,
       description: descricao,
-      returnUrl: returnUrl.replace('__CHECKOUT_ID__', ''),
+      returnUrl,
     });
 
     await pagSvc.create({
