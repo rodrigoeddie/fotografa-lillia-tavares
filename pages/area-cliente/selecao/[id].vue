@@ -543,8 +543,9 @@ onMounted(load);
     font-family: inherit;
     color: #374151;
 
-    &:focus {
-      outline: none;
+    &:focus-visible {
+      outline: 2px solid #5e2012;
+      outline-offset: 2px;
       border-color: #5e2012;
     }
   }

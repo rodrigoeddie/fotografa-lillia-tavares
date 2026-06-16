@@ -154,9 +154,10 @@ const enviar = async () => {
       width: 100%;
     }
 
-    input:focus,
-    textarea:focus {
-      outline: dotted 1px v.$red;
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid v.$red;
+      outline-offset: 2px;
     }
 
     textarea {

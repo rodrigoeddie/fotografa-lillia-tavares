@@ -29,7 +29,7 @@ usePageSeo('static', '/ensaio-fotografico');
       background: color.scale(v.$light-beige, $lightness: 5%);
     }
 
-    &:focus {
+    &:focus-visible {
       background: color.scale(v.$light-beige, $lightness: 7%);
     }
   }

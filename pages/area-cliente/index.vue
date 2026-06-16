@@ -149,8 +149,9 @@ async function handleLogin() {
     font-size: 15px;
     transition: border-color 0.15s;
 
-    &:focus {
-      outline: none;
+    &:focus-visible {
+      outline: 2px solid #5e2012;
+      outline-offset: 2px;
       border-color: #5e2012;
     }
   }
