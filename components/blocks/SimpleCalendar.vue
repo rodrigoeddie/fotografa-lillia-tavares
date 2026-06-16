@@ -52,24 +52,27 @@ const next = () => {
 </script>
 
 <template>
-  <div class="simple-cal">
-    <div class="simple-cal__header">
-      <button type="button" class="simple-cal__nav" :disabled="!canGoPrev" @click="prev">‹</button>
-      <span class="simple-cal__title">{{ MONTHS[viewMonth] }} {{ viewYear }}</span>
-      <button type="button" class="simple-cal__nav" @click="next">›</button>
+  <div class="cal">
+    <div class="header">
+      <button type="button" class="nav" :disabled="!canGoPrev" @click="prev">‹</button>
+      <span class="title">
+        <span class="month">{{ MONTHS[viewMonth] }}</span>
+        <span class="year">{{ viewYear }}</span>
+      </span>
+      <button type="button" class="nav" @click="next">›</button>
     </div>
 
-    <div class="simple-cal__grid">
-      <span class="simple-cal__dow" v-for="d in DAYS" :key="d">{{ d }}</span>
+    <div class="grid">
+      <span class="dow" v-for="d in DAYS" :key="d">{{ d }}</span>
       <button
         v-for="(day, i) in days"
         :key="i"
         type="button"
-        class="simple-cal__day"
+        class="day"
         :class="{
-          'simple-cal__day--empty':    !day,
-          'simple-cal__day--past':     day && isPast(day),
-          'simple-cal__day--selected': day && isSelected(day),
+          empty:    !day,
+          past:     day && isPast(day),
+          selected: day && isSelected(day),
         }"
         :disabled="!day || isPast(day)"
         @click="select(day)"
@@ -79,7 +82,7 @@ const next = () => {
 </template>
 
 <style lang="scss" scoped>
-.simple-cal {
+.cal {
   width: 100%;
   max-width: 360rem;
   margin: 0 auto;
@@ -88,73 +91,118 @@ const next = () => {
   border-radius: 8px;
   overflow: hidden;
 
-  &__header {
+  @include m.min(md) {
+    display: flex;
+    max-width: 560rem;
+  }
+
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: v.$green;
     padding: 14rem 16rem;
+    
+    @include m.min(md) {
+      flex-direction: row;
+      padding: 24rem 0;
+      min-width: 140rem;
+      gap: 15rem;
+    }
+
+    .title {
+      color: white;
+      font-size: 22rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      display: flex;
+      gap: 0.25em;
+
+      @include m.min(md) {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+        gap: 15rem;
+      }
+
+      .month {
+        @include m.min(md) {
+          font-size: 25rem;
+        }
+      }
+
+      .year {
+        @include m.min(md) {
+          font-size: 20rem;
+          opacity: 0.8;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .nav {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 34rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 8rem;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+
+      &:hover:not(:disabled) { opacity: 1; }
+      &:disabled { opacity: 0.3; cursor: default; }
+
+      @include m.min(md) {
+        padding: 20rem;
+        font-size: 60rem;
+      }
+    }
   }
 
-  &__title {
-    color: white;
-    font-size: 22rem;
-    font-weight: 600;
-    text-transform: capitalize;
-  }
-
-  &__nav {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 34rem;
-    line-height: 1;
-    cursor: pointer;
-    padding: 0 8rem;
-    opacity: 0.85;
-    transition: opacity 0.2s;
-
-    &:hover:not(:disabled) { opacity: 1; }
-    &:disabled { opacity: 0.3; cursor: default; }
-  }
-
-  &__grid {
+  .grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4rem;
     padding: 12rem;
-  }
 
-  &__dow {
-    text-align: center;
-    font-size: 16rem;
-    font-weight: 700;
-    color: v.$green;
-    padding-bottom: 6rem;
-  }
-
-  &__day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18rem;
-    border: none;
-    border-radius: 50%;
-    background: none;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-
-    &:hover:not(:disabled):not(&--selected) {
-      background: color-mix(in srgb, v.$green 15%, transparent);
+    @include m.min(md) {
+      padding: 8rem 16rem 4rem;
+      flex: 1;
     }
 
-    &--empty   { pointer-events: none; }
-    &--past    { color: #ccc; cursor: default; }
-    &--selected {
-      background: v.$green;
-      color: white;
+    .dow {
+      text-align: center;
+      font-size: 16rem;
       font-weight: 700;
+      color: v.$green;
+      padding-bottom: 6rem;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18rem;
+      border: none;
+      border-radius: 50%;
+      background: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+
+      &:hover:not(:disabled):not(.selected) {
+        background: color-mix(in srgb, v.$green 15%, transparent);
+      }
+
+      &.empty    { pointer-events: none; }
+      &.past     { color: #ccc; cursor: default; }
+      &.selected {
+        background: v.$green;
+        color: white;
+        font-weight: 700;
+      }
     }
   }
 }
