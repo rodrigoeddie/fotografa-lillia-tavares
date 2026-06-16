@@ -1,7 +1,4 @@
 
-# notas
-- depoimentos.featured ainda em desuso (na home, uso o vínculo de portfolio + depoimentos), mas pode ser muito útil para listar os melhores depoimentos na pagina de depoimentos, ou como destaque em outras paginas
-
 # ToDo
 
 -----
