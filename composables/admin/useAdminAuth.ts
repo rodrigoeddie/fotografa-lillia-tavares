@@ -11,7 +11,7 @@ export const ROLE_LABELS: Record<AdminRole, string> = {
 
 const ROLE_SECTIONS: Record<AdminRole, string[] | ['*']> = {
   super_admin: ['*'],
-  editor:      ['hero-banners', 'portfolio', 'depoimentos', 'faq', 'page-faq', 'blog', 'cenarios', 'landing-pages', 'menu', 'seo', 'cache'],
+  editor:      ['hero-banners', 'portfolio', 'depoimentos', 'faq', 'page-faq', 'blog', 'cenarios', 'landing-pages', 'menu', 'linktree', 'seo', 'cache'],
   sessions:    ['clientes', 'sessoes', 'entregas', 'investimento'],
 };
 

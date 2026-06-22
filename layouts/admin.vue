@@ -127,6 +127,7 @@ provide('showMessage', showMessage);
                 <NuxtLink v-if="canAccess('cenarios')"       to="/admin/cenarios"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
                 <NuxtLink v-if="canAccess('landing-pages')"  to="/admin/landing-pages"  class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
                 <NuxtLink v-if="canAccess('menu')"           to="/admin/menu"           class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
+                <NuxtLink v-if="canAccess('linktree')"       to="/admin/linktree"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">link</span> Linktree</NuxtLink>
               </template>
               <template v-if="canAccess('seo') || canAccess('cache') || isSuperAdmin">
                 <div class="fs-db-label" style="margin-top:1rem">Ferramentas</div>

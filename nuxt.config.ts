@@ -134,7 +134,7 @@ export default defineNuxtConfig({
   ],
 
   robots: {
-    disallow: ['/admin/'],
+    disallow: ['/admin/', '/links'],
   },
 
   sitemap: {
@@ -294,6 +294,9 @@ export default defineNuxtConfig({
         }
       },
       '/admin/**': {
+        robots: 'noindex, nofollow',
+      },
+      '/links': {
         robots: 'noindex, nofollow',
       },
       '/area-cliente/**': {
