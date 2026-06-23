@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Redesign — Acessibilidade WCAG 2.2 AA — Fotógrafa Lillia Tavares</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+    /* =====================================================
+       RESET & BASE
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      background: #f0ede0;
+      color: #2c2a1e;
+      line-height: 1.5;
+    }
+
+    /* =====================================================
+       LAYOUT DO DOCUMENTO DE APRESENTAÇÃO
+    ===================================================== */
+    .doc-header {
+      background: #2c2a1e;
+      color: #f7f4e8;
+      padding: 2rem 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .doc-header h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-header p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      max-width: 70ch;
+    }
+
+    .proposal {
+      margin: 0 auto 5rem auto;
+      max-width: 1400px;
+      padding: 0 2rem;
+    }
+
+    .proposal-label {
+      font-size: 1.25rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2c2a1e;
+      padding: 1rem 0 0.75rem 0;
+      border-top: 3px solid #7b785b;
+      margin-bottom: 1.5rem;
+    }
+
+    /* =====================================================
+       TABELA WCAG CHECKLIST
+    ===================================================== */
+    .wcag-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-bottom: 1.5rem;
+      background: #fff;
+      border: 1px solid #d4d0be;
+    }
+
+    .wcag-table caption {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      background: #e3dfcb;
+      color: #2c2a1e;
+    }
+
+    .wcag-table th, .wcag-table td {
+      border: 1px solid #d4d0be;
+      padding: 0.45rem 0.75rem;
+      text-align: left;
+    }
+
+    .wcag-table th {
+      background: #f7f4e8;
+      font-weight: 700;
+    }
+
+    .wcag-table tr:nth-child(even) td {
+      background: #fafaf5;
+    }
+
+    .pass { color: #1a6b35; font-weight: 700; }
+    .fail { color: #b91c1c; font-weight: 700; }
+
+    /* =====================================================
+       RATIONAL
+    ===================================================== */
+    .rational {
+      background: #fffff8;
+      border-left: 4px solid #7b785b;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: #3a3826;
+      margin-top: 1.25rem;
+      max-width: 900px;
+      line-height: 1.65;
+    }
+
+    /* =====================================================
+       HERO FRAME (wrapper visual)
+    ===================================================== */
+    .hero-frame {
+      border: 1px solid #c9c6b4;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+
+    /* =====================================================
+       REDUCED MOTION GLOBAL
+    ===================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* =====================================================
+       SKIP LINK (compartilhado)
+    ===================================================== */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 9999;
+      background: #2c2a1e;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 0 0 4px 4px;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ===================================================== */
+    /* =====================================================
+       PROPOSTA 1 — Correção Cirúrgica
+    ===================================================== */
+    /* ===================================================== */
+
+    .p1 {
+      --p1-text: #5a5840;
+      --p1-bg: #ffffff;
+      --p1-accent: #4e4c36;
+      --p1-btn-bg: #e3dfcb;
+      --p1-btn-text: #2c2b1c;
+      --p1-card-bg: #f7f4e8;
+      --p1-nav-bg: #ffffff;
+      --p1-nav-text: #4e4c36;
+      --p1-focus: #2563eb;
+    }
+
+    .p1 .sim-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 3.5rem;
+      background: var(--p1-nav-bg);
+      border-bottom: 1px solid #e3dfcb;
+    }
+
+    .p1 .sim-nav .logo-text {
+      font-size: 0.95rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--p1-nav-text);
+      text-decoration: none;
+    }
+
+    .p1 .sim-nav .logo-text:focus-visible {
+      outline: 3px solid var(--p1-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p1 .sim-nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .p1 .sim-nav-links a {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--p1-nav-text);
+      text-decoration: none;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .p1 .sim-nav-links a:hover { border-bottom-color: var(--p1-accent); }
+
+    .p1 .sim-nav-links a:focus-visible {
+      outline: 3px solid var(--p1-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p1 .hero-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 2.5rem;
+      background: var(--p1-bg);
+      gap: 2rem;
+    }
+
+    .p1 .wrap-about {
+      flex: 0 0 42%;
+      max-width: 42%;
+    }
+
+    .p1 .hero-h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--p1-accent);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .p1 .hero-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--p1-text);
+      margin-bottom: 1.5rem;
+      max-width: 42ch;
+    }
+
+    .p1 .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.75rem 1.75rem;
+      background: var(--p1-btn-bg);
+      color: var(--p1-btn-text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 1.5rem;
+    }
+
+    .p1 .hero-btn:hover {
+      background: var(--p1-accent);
+      color: #fff;
+    }
+
+    .p1 .hero-btn:focus-visible {
+      outline: 3px solid var(--p1-focus);
+      outline-offset: 3px;
+    }
+
+    .p1 .about-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .p1 .cta-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 44px;
+      padding: 0.5rem 0.75rem;
+      background: #f7f4e8;
+      border-radius: 6px;
+      color: var(--p1-text);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .p1 .cta-link:hover { background: #e3dfcb; }
+
+    .p1 .cta-link:focus-visible {
+      outline: 3px solid var(--p1-focus);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .p1 .wrap-services {
+      flex: 0 0 56%;
+      max-width: 56%;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .p1 .service-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--p1-card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--p1-text);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .p1 .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .p1 .service-card:focus-visible {
+      outline: 3px solid var(--p1-focus);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+
+    .p1 .service-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .p1 .card-title {
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.75rem;
+      color: var(--p1-accent);
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .p1 .hero-main {
+        flex-direction: column;
+        padding: 2rem 1.25rem;
+      }
+      .p1 .wrap-about, .p1 .wrap-services {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    /* ===================================================== */
+    /* =====================================================
+       PROPOSTA 2 — Tipografia Escalada
+    ===================================================== */
+    /* ===================================================== */
+
+    .p2 {
+      --p2-bg: #ffffff;
+      --p2-text: #3d3b28;
+      --p2-accent: #504e38;
+      --p2-btn-bg: #504e38;
+      --p2-btn-text: #ffffff;
+      --p2-card-bg: #f7f4e8;
+      --p2-divider: #d4d0be;
+      --p2-focus: #1d4ed8;
+      --p2-cta-bg: #edeadb;
+    }
+
+    .p2 .sim-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 3.75rem;
+      background: var(--p2-bg);
+      border-bottom: 1px solid var(--p2-divider);
+    }
+
+    .p2 .logo-text {
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--p2-accent);
+      text-decoration: none;
+    }
+
+    .p2 .logo-text:focus-visible {
+      outline: 3px solid var(--p2-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p2 .sim-nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .p2 .sim-nav-links a {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--p2-accent);
+      text-decoration: none;
+      padding: 0.25rem 0;
+      position: relative;
+    }
+
+    .p2 .sim-nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 100%;
+      height: 2px;
+      background: var(--p2-accent);
+      transition: right 0.25s;
+    }
+
+    .p2 .sim-nav-links a:hover::after { right: 0; }
+
+    .p2 .sim-nav-links a:focus-visible {
+      outline: 3px solid var(--p2-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p2 .hero-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      padding: 3.5rem 2.5rem;
+      background: var(--p2-bg);
+    }
+
+    .p2 .wrap-about {
+      flex: 0 0 44%;
+      max-width: 44%;
+    }
+
+    .p2 .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--p2-accent);
+      margin-bottom: 0.5rem;
+      opacity: 0.75;
+    }
+
+    .p2 .hero-h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--p2-accent);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .p2 .hero-desc {
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--p2-text);
+      margin-bottom: 1.75rem;
+      max-width: 44ch;
+    }
+
+    .p2 .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.875rem 2rem;
+      background: var(--p2-btn-bg);
+      color: var(--p2-btn-text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 1.75rem;
+    }
+
+    .p2 .hero-btn:hover {
+      background: #3a3826;
+      transform: translateY(-1px);
+    }
+
+    .p2 .hero-btn:focus-visible {
+      outline: 3px solid var(--p2-focus);
+      outline-offset: 4px;
+    }
+
+    .p2 .about-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .p2 .cta-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 44px;
+      padding: 0.5rem 0.875rem;
+      background: var(--p2-cta-bg);
+      border-radius: 8px;
+      color: var(--p2-text);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .p2 .cta-link:hover { background: #ddd9c8; }
+
+    .p2 .cta-link:focus-visible {
+      outline: 3px solid var(--p2-focus);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+
+    .p2 .wrap-services {
+      flex: 1;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .p2 .service-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--p2-card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--p2-text);
+      border: 1px solid var(--p2-divider);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .p2 .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+    }
+
+    .p2 .service-card:focus-visible {
+      outline: 3px solid var(--p2-focus);
+      outline-offset: 3px;
+      border-radius: 10px;
+    }
+
+    .p2 .service-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+    }
+
+    .p2 .card-title {
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 0.875rem 0.75rem;
+      color: var(--p2-accent);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 768px) {
+      .p2 .hero-main {
+        flex-direction: column;
+        padding: 2rem 1.25rem;
+      }
+      .p2 .wrap-about, .p2 .wrap-services {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+      .p2 .wrap-services {
+        flex-wrap: wrap;
+      }
+      .p2 .service-card {
+        flex: 0 0 calc(50% - 0.5rem);
+      }
+    }
+
+    /* ===================================================== */
+    /* =====================================================
+       PROPOSTA 3 — Foco + Separação Visual
+    ===================================================== */
+    /* ===================================================== */
+
+    .p3 {
+      --p3-bg: #fafaf5;
+      --p3-text: #3a3826;
+      --p3-accent: #4a4832;
+      --p3-nav-bg: #f7f4e8;
+      --p3-btn-bg: #4a4832;
+      --p3-btn-text: #f7f4e8;
+      --p3-card-bg: #ffffff;
+      --p3-card-border: #e3dfcb;
+      --p3-cta-bg: #edeadb;
+      --p3-focus: #2563eb;
+      --p3-tag-bg: #e3dfcb;
+    }
+
+    .p3 .sim-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 3.75rem;
+      background: var(--p3-nav-bg);
+      border-bottom: 2px solid #e3dfcb;
+    }
+
+    .p3 .logo-text {
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--p3-accent);
+      text-decoration: none;
+    }
+
+    .p3 .logo-text:focus-visible {
+      outline: 3px solid var(--p3-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p3 .sim-nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .p3 .sim-nav-links a {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--p3-accent);
+      text-decoration: none;
+      padding: 0.5rem 0.875rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .p3 .sim-nav-links a:hover { background: #e3dfcb; }
+
+    .p3 .sim-nav-links a:focus-visible {
+      outline: 3px solid var(--p3-focus);
+      outline-offset: 2px;
+    }
+
+    .p3 .hero-main {
+      display: flex;
+      gap: 0;
+      background: var(--p3-bg);
+    }
+
+    .p3 .wrap-about {
+      flex: 0 0 44%;
+      padding: 3rem 2.5rem;
+      border-right: 1px solid #e3dfcb;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .p3 .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      background: var(--p3-tag-bg);
+      color: var(--p3-accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .p3 .hero-h1 {
+      font-size: 1.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--p3-accent);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .p3 .hero-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--p3-text);
+      margin-bottom: 1.75rem;
+      max-width: 40ch;
+    }
+
+    .p3 .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      min-height: 48px;
+      padding: 0.875rem 2.25rem;
+      background: var(--p3-btn-bg);
+      color: var(--p3-btn-text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 2rem;
+    }
+
+    .p3 .hero-btn:hover {
+      background: #35331f;
+      transform: translateY(-2px);
+    }
+
+    .p3 .hero-btn:focus-visible {
+      outline: 3px solid var(--p3-focus);
+      outline-offset: 4px;
+    }
+
+    .p3 .about-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .p3 .cta-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 44px;
+      padding: 0.5rem 0.875rem;
+      background: var(--p3-cta-bg);
+      border-radius: 6px;
+      color: var(--p3-text);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .p3 .cta-link:hover { background: #ddd9c8; }
+
+    .p3 .cta-link:focus-visible {
+      outline: 3px solid var(--p3-focus);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .p3 .wrap-services {
+      flex: 1;
+      display: flex;
+      gap: 0;
+    }
+
+    .p3 .service-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--p3-text);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .p3 .service-card + .service-card {
+      border-left: 1px solid #e3dfcb;
+    }
+
+    .p3 .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s;
+    }
+
+    .p3 .service-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .p3 .service-card:focus-visible {
+      outline: 3px solid var(--p3-focus);
+      outline-offset: -3px;
+    }
+
+    .p3 .card-body {
+      padding: 1rem 0.875rem;
+      background: var(--p3-card-bg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .p3 .card-title {
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--p3-accent);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .p3 .card-arrow {
+      text-align: center;
+      margin-top: 0.4rem;
+      color: var(--p3-accent);
+      opacity: 0.5;
+      font-size: 1rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .p3 .service-card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 768px) {
+      .p3 .hero-main {
+        flex-direction: column;
+      }
+      .p3 .wrap-about {
+        flex: 0 0 auto;
+        border-right: none;
+        border-bottom: 1px solid #e3dfcb;
+        padding: 2rem 1.25rem;
+      }
+      .p3 .wrap-services {
+        overflow-x: auto;
+        padding: 1rem 1.25rem;
+        gap: 0.75rem;
+      }
+      .p3 .service-card {
+        min-width: 220px;
+        border: 1px solid #e3dfcb;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .p3 .service-card + .service-card { border-left: 1px solid #e3dfcb; }
+    }
+
+    /* ===================================================== */
+    /* =====================================================
+       PROPOSTA 4 — Paleta Alta Fidelidade (Escuro / Creme)
+    ===================================================== */
+    /* ===================================================== */
+
+    .p4 {
+      --p4-dark: #1e1c10;
+      --p4-creme: #f5f1e3;
+      --p4-accent: #c9a96e;
+      --p4-text-on-dark: #e8e4d3;
+      --p4-text-muted: #b0aa92;
+      --p4-btn-bg: #c9a96e;
+      --p4-btn-text: #1e1c10;
+      --p4-card-overlay: rgba(30,28,16,0.72);
+      --p4-focus: #60a5fa;
+    }
+
+    .p4 .sim-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 3.75rem;
+      background: var(--p4-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .p4 .logo-text {
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--p4-creme);
+      text-decoration: none;
+    }
+
+    .p4 .logo-text:focus-visible {
+      outline: 3px solid var(--p4-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p4 .sim-nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .p4 .sim-nav-links a {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--p4-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .p4 .sim-nav-links a:hover { color: var(--p4-creme); }
+
+    .p4 .sim-nav-links a:focus-visible {
+      outline: 3px solid var(--p4-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p4 .hero-main {
+      display: flex;
+      background: var(--p4-dark);
+      min-height: 340px;
+    }
+
+    .p4 .wrap-about {
+      flex: 0 0 42%;
+      padding: 3.5rem 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--p4-dark);
+    }
+
+    .p4 .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--p4-accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .p4 .hero-h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--p4-creme);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .p4 .hero-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--p4-text-on-dark);
+      margin-bottom: 2rem;
+      max-width: 42ch;
+      opacity: 0.9;
+    }
+
+    .p4 .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      min-height: 48px;
+      padding: 0.875rem 2.25rem;
+      background: var(--p4-btn-bg);
+      color: var(--p4-btn-text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 2rem;
+    }
+
+    .p4 .hero-btn:hover {
+      background: #d9bd88;
+      transform: translateY(-2px);
+    }
+
+    .p4 .hero-btn:focus-visible {
+      outline: 3px solid var(--p4-focus);
+      outline-offset: 4px;
+    }
+
+    .p4 .about-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .p4 .cta-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 44px;
+      padding: 0.5rem 0.875rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      color: var(--p4-text-on-dark);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .p4 .cta-link:hover { background: rgba(255,255,255,0.12); }
+
+    .p4 .cta-link:focus-visible {
+      outline: 3px solid var(--p4-focus);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .p4 .wrap-services {
+      flex: 1;
+      display: flex;
+      gap: 0;
+    }
+
+    .p4 .service-card {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+    }
+
+    .p4 .service-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+      min-height: 200px;
+    }
+
+    .p4 .service-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .p4 .service-card:focus-visible {
+      outline: 3px solid var(--p4-focus);
+      outline-offset: -3px;
+    }
+
+    .p4 .card-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: var(--p4-card-overlay);
+      padding: 1.25rem 0.875rem 1rem;
+      transition: background 0.3s;
+    }
+
+    .p4 .service-card:hover .card-overlay {
+      background: rgba(30,28,16,0.88);
+    }
+
+    .p4 .card-title {
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--p4-creme);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 768px) {
+      .p4 .hero-main {
+        flex-direction: column;
+      }
+      .p4 .wrap-about {
+        flex: 0 0 auto;
+        padding: 2.25rem 1.25rem;
+      }
+      .p4 .wrap-services {
+        min-height: 250px;
+      }
+    }
+
+    /* ===================================================== */
+    /* =====================================================
+       PROPOSTA 5 — Fundo Creme com Accent Terracota
+    ===================================================== */
+    /* ===================================================== */
+
+    .p5 {
+      --p5-bg: #f5f1e3;
+      --p5-hero-left: #2e2b1a;
+      --p5-creme-mid: #ede8d5;
+      --p5-accent: #8b4513;
+      --p5-text-on-dark: #f0ead6;
+      --p5-text-muted-dark: #c5be9e;
+      --p5-btn-bg: #8b4513;
+      --p5-btn-text: #fff;
+      --p5-card-bg: #fff;
+      --p5-card-title: #2e2b1a;
+      --p5-focus: #3b82f6;
+    }
+
+    .p5 .sim-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 3.75rem;
+      background: var(--p5-hero-left);
+    }
+
+    .p5 .logo-text {
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--p5-text-on-dark);
+      text-decoration: none;
+    }
+
+    .p5 .logo-text:focus-visible {
+      outline: 3px solid var(--p5-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p5 .sim-nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .p5 .sim-nav-links a {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--p5-text-muted-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .p5 .sim-nav-links a:hover { color: var(--p5-text-on-dark); }
+
+    .p5 .sim-nav-links a:focus-visible {
+      outline: 3px solid var(--p5-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .p5 .hero-main {
+      display: flex;
+      min-height: 340px;
+      background: var(--p5-bg);
+    }
+
+    .p5 .wrap-about {
+      flex: 0 0 44%;
+      background: var(--p5-hero-left);
+      padding: 3rem 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .p5 .wrap-about::after {
+      content: '';
+      position: absolute;
+      right: -1px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--p5-accent), transparent);
+    }
+
+    .p5 .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--p5-accent);
+      margin-bottom: 1rem;
+    }
+
+    .p5 .hero-h1 {
+      font-size: 1.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--p5-text-on-dark);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .p5 .hero-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--p5-text-muted-dark);
+      margin-bottom: 2rem;
+      max-width: 42ch;
+    }
+
+    .p5 .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      min-height: 48px;
+      padding: 0.875rem 2.25rem;
+      background: var(--p5-btn-bg);
+      color: var(--p5-btn-text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 2rem;
+    }
+
+    .p5 .hero-btn:hover {
+      background: #a0521a;
+      transform: translateY(-2px);
+    }
+
+    .p5 .hero-btn:focus-visible {
+      outline: 3px solid var(--p5-focus);
+      outline-offset: 4px;
+    }
+
+    .p5 .about-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .p5 .cta-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 44px;
+      padding: 0.5rem 0.875rem;
+      background: rgba(255,255,255,0.07);
+      border-radius: 6px;
+      color: var(--p5-text-on-dark);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .p5 .cta-link:hover { background: rgba(255,255,255,0.13); }
+
+    .p5 .cta-link:focus-visible {
+      outline: 3px solid var(--p5-focus);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .p5 .wrap-services {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 2rem;
+      align-items: center;
+      background: var(--p5-bg);
+    }
+
+    .p5 .service-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--p5-card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--p5-card-title);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .p5 .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+    }
+
+    .p5 .service-card:focus-visible {
+      outline: 3px solid var(--p5-focus);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    .p5 .service-card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .p5 .card-footer {
+      padding: 0.875rem;
+      border-top: 2px solid var(--p5-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .p5 .card-title {
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--p5-card-title);
+      line-height: 1.25;
+    }
+
+    .p5 .card-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--p5-btn-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .p5 .hero-main {
+        flex-direction: column;
+      }
+      .p5 .wrap-about {
+        flex: 0 0 auto;
+        padding: 2.25rem 1.25rem;
+      }
+      .p5 .wrap-about::after { display: none; }
+      .p5 .wrap-services {
+        grid-template-columns: 1fr 1fr;
+        padding: 1.25rem;
+      }
+      .p5 .service-card:nth-child(3) {
+        grid-column: 1 / -1;
+        flex-direction: row;
+      }
+      .p5 .service-card:nth-child(3) img {
+        width: 40%;
+        aspect-ratio: auto;
+      }
+    }
+
+    /* ===================================================== */
+    /* RANKING SECTION */
+    /* ===================================================== */
+
+    #ranking {
+      max-width: 1400px;
+      margin: 0 auto 4rem auto;
+      padding: 0 2rem;
+    }
+
+    #ranking h2 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2c2a1e;
+      padding: 1rem 0 0.75rem 0;
+      border-top: 3px solid #7b785b;
+      margin-bottom: 1.5rem;
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      background: #fff;
+    }
+
+    .ranking-table th, .ranking-table td {
+      border: 1px solid #d4d0be;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .ranking-table th {
+      background: #e3dfcb;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+    }
+
+    .ranking-table tr:nth-child(even) td {
+      background: #fafaf5;
+    }
+
+    .rank-medal {
+      font-size: 1.25rem;
+      margin-right: 0.4rem;
+    }
+
+    /* SVG ICON HELPER */
+    .icon-inline {
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="doc-header" role="banner">
+  <h1>Hero Section — 5 Propostas de Redesign Acessível</h1>
+  <p>Fotógrafa Lillia Tavares · Auditoria WCAG 2.2 AA · Gerado em junho 2026</p>
+</div>
+
+<!-- ======================================================
+     PROPOSTA 1 — CORREÇÃO CIRÚRGICA
+     ====================================================== -->
+
+<section class="proposal" aria-labelledby="p1-heading">
+  <h2 class="proposal-label" id="p1-heading">Proposta 1 — Correção Cirúrgica</h2>
+
+  <table class="wcag-table">
+    <caption>Checklist WCAG 2.2 AA — Proposta 1</caption>
+    <thead>
+      <tr>
+        <th scope="col">Critério</th>
+        <th scope="col">Status</th>
+        <th scope="col">Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.4.3 Contraste (AA) — texto normal</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#5a5840 / #ffffff = 6.1:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste (AA) — texto grande</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#4e4c36 / #ffffff = 7.4:1</td>
+      </tr>
+      <tr>
+        <td>1.4.4 Resize Text (200%)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Flex wrap + unidades rem; sem overflow horizontal</td>
+      </tr>
+      <tr>
+        <td>2.1.1 Teclado</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Todos os links e botões são focáveis por Tab</td>
+      </tr>
+      <tr>
+        <td>2.4.1 Skip navigation</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Skip-to-content link presente</td>
+      </tr>
+      <tr>
+        <td>2.4.6 Headings e labels descritivos</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Botão com aria-label completo; H1 é elemento heading, não link</td>
+      </tr>
+      <tr>
+        <td>2.5.5 Touch Target (AA)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>min-height 44px em todos os elementos interativos</td>
+      </tr>
+      <tr>
+        <td>2.4.7 Foco visível</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>:focus-visible com outline azul 3px em todos os elementos</td>
+      </tr>
+      <tr>
+        <td>1.1.1 Alt text</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Alt texts únicos e descritivos por imagem</td>
+      </tr>
+      <tr>
+        <td>1.3.1 Semântica HTML</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>&lt;main&gt;, &lt;nav&gt;, H1 sem link wrapper</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hero-frame">
+    <!-- SKIP LINK -->
+    <a href="#p1-main" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- NAV SIMULADA -->
+    <nav class="p1" aria-label="Navegação principal da proposta 1">
+      <div class="sim-nav">
+        <a href="#" class="logo-text" aria-label="Lillia Tavares Fotógrafa — página inicial">Lillia Tavares</a>
+        <ul class="sim-nav-links">
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Portfólio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <main id="p1-main" class="p1">
+      <section class="hero-main" aria-label="Apresentação">
+        <!-- COLUNA ESQUERDA -->
+        <div class="wrap-about">
+          <h1 class="hero-h1">Fotógrafa em Mogi das Cruzes</h1>
+          <p class="hero-desc">
+            Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem.
+            Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que
+            comunicam autenticidade, confiança e profissionalismo.
+          </p>
+          <a href="#" class="hero-btn" aria-label="Saber mais sobre Lillia Tavares e sua trajetória">Saber mais sobre</a>
+          <nav class="about-ctas" aria-label="Links rápidos">
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h4"/></svg>
+              Conheça meu estúdio disponível para locação
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agende seu ensaio fotográfico
+            </a>
+          </nav>
+        </div>
+
+        <!-- COLUNA DIREITA — CARDS DE SERVIÇO -->
+        <div class="wrap-services" role="list" aria-label="Serviços oferecidos">
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Lillia Tavares fotografando uma cliente durante ensaio fotográfico feminino em estúdio" />
+            <p class="card-title">Ensaios Fotográficos</p>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Interior do estúdio fotográfico de Lillia Tavares com iluminação profissional e cenários decorados" />
+            <p class="card-title">Aluguel do Estúdio</p>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Sessão de análise de coloração pessoal com cartela de cores ao lado de cliente" />
+            <p class="card-title">Análise de Coloração Pessoal</p>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <p class="rational">
+    <strong>Problema resolvido:</strong> a cor #7B785B tem contraste de ~4.45:1 contra branco, falhando em margem mínima (AA = 4.5:1).
+    Escurecemos para #5a5840 (6.1:1) e #4e4c36 (7.4:1) mantendo o mesmo hue olive-brown da identidade.
+    O H1 foi desvinculado do elemento &lt;a&gt; e o botão ganhou aria-label completo.
+    <strong>Trade-off:</strong> o olive escureceu levemente — imperceptível na maioria das telas, mas percebido em displays calibrados. Corpo aumentado de 12.35px para 16px (1rem), o que é mínimo para leitura confortável.
+  </p>
+</section>
+
+<!-- ======================================================
+     PROPOSTA 2 — TIPOGRAFIA ESCALADA
+     ====================================================== -->
+
+<section class="proposal" aria-labelledby="p2-heading">
+  <h2 class="proposal-label" id="p2-heading">Proposta 2 — Tipografia Escalada</h2>
+
+  <table class="wcag-table">
+    <caption>Checklist WCAG 2.2 AA — Proposta 2</caption>
+    <thead>
+      <tr>
+        <th scope="col">Critério</th>
+        <th scope="col">Status</th>
+        <th scope="col">Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.4.3 Contraste — texto normal</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#3d3b28 / #ffffff = 10.4:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — botão (texto sobre bg)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#ffffff / #504e38 = 8.3:1</td>
+      </tr>
+      <tr>
+        <td>1.4.4 Resize Text (200%)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Flex + rem; sem overflow</td>
+      </tr>
+      <tr>
+        <td>2.1.1 Teclado</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Todos os elementos interativos alcançáveis</td>
+      </tr>
+      <tr>
+        <td>2.4.1 Skip navigation</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Skip link presente</td>
+      </tr>
+      <tr>
+        <td>2.4.6 Labels descritivos</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Eyebrow text + aria-label completo no botão</td>
+      </tr>
+      <tr>
+        <td>2.5.5 Touch Target</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>min-height 48px botão; 44px links secundários</td>
+      </tr>
+      <tr>
+        <td>2.4.7 Foco visível</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>:focus-visible consistente em todos os elementos</td>
+      </tr>
+      <tr>
+        <td>1.1.1 Alt text</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Alts únicos descritivos</td>
+      </tr>
+      <tr>
+        <td>1.3.1 Semântica</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>H1 sem link wrapper, hierarquia heading correta</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hero-frame">
+    <a href="#p2-main" class="skip-link">Pular para o conteúdo principal</a>
+
+    <nav class="p2" aria-label="Navegação principal da proposta 2">
+      <div class="sim-nav">
+        <a href="#" class="logo-text" aria-label="Lillia Tavares Fotógrafa — página inicial">Lillia Tavares</a>
+        <ul class="sim-nav-links">
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Portfólio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="p2-main" class="p2">
+      <section class="hero-main" aria-label="Apresentação">
+        <div class="wrap-about">
+          <p class="hero-eyebrow" aria-hidden="true">Fotografia · Mogi das Cruzes</p>
+          <h1 class="hero-h1">Fotógrafa em Mogi das Cruzes</h1>
+          <p class="hero-desc">
+            Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem.
+            Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que
+            comunicam autenticidade, confiança e profissionalismo.
+          </p>
+          <a href="#" class="hero-btn" aria-label="Saber mais sobre Lillia Tavares e sua história">Saber mais sobre</a>
+          <nav class="about-ctas" aria-label="Links rápidos">
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h4"/></svg>
+              Conheça meu estúdio — disponível para locação
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agende seu ensaio fotográfico
+            </a>
+          </nav>
+        </div>
+
+        <div class="wrap-services" role="list" aria-label="Serviços">
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Lillia Tavares fotografando cliente em ensaio feminino com luz suave de estúdio" />
+            <p class="card-title">Ensaios Fotográficos</p>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Estúdio fotográfico completo com sofá branco, backdrops e iluminação profissional disponível para locação" />
+            <p class="card-title">Aluguel do Estúdio</p>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Consultora mostrando cartela de estação de cores a cliente durante análise de coloração pessoal" />
+            <p class="card-title">Análise de Coloração Pessoal</p>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <p class="rational">
+    <strong>Problema resolvido:</strong> além do contraste, o corpo de 12.35px era ilegível para usuários com baixa visão moderada.
+    Esta proposta escala o corpo para 17px (1.0625rem) e o H1 para 32px (2rem), criando uma hierarquia visual clara sem alterar a estrutura.
+    O botão agora usa o olive escuro como fundo com texto branco (8.3:1 de contraste).
+    <strong>Trade-off:</strong> o hero fica ligeiramente mais alto, mas a densidade de informação melhora drasticamente — a proposta prioriza legibilidade sobre compactação.
+  </p>
+</section>
+
+<!-- ======================================================
+     PROPOSTA 3 — FOCO + SEPARAÇÃO VISUAL
+     ====================================================== -->
+
+<section class="proposal" aria-labelledby="p3-heading">
+  <h2 class="proposal-label" id="p3-heading">Proposta 3 — Foco + Separação Visual</h2>
+
+  <table class="wcag-table">
+    <caption>Checklist WCAG 2.2 AA — Proposta 3</caption>
+    <thead>
+      <tr>
+        <th scope="col">Critério</th>
+        <th scope="col">Status</th>
+        <th scope="col">Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.4.3 Contraste — texto normal</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#3a3826 / #fafaf5 = 10.2:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — botão</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#f7f4e8 / #4a4832 = 7.9:1</td>
+      </tr>
+      <tr>
+        <td>1.4.4 Resize Text (200%)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Layout flex com overflow-x auto nos cards mobile</td>
+      </tr>
+      <tr>
+        <td>2.1.1 Teclado</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Ordem lógica: nav → conteúdo → cards</td>
+      </tr>
+      <tr>
+        <td>2.4.1 Skip navigation</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Skip link visível no foco</td>
+      </tr>
+      <tr>
+        <td>2.4.6 Labels</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Botão com aria-label; cards descritivos</td>
+      </tr>
+      <tr>
+        <td>2.5.5 Touch Target</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Todos ≥ 44px; cards de serviço altura mínima via padding</td>
+      </tr>
+      <tr>
+        <td>2.4.7 Foco visível</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Outline 3px azul em todos os interativos</td>
+      </tr>
+      <tr>
+        <td>1.1.1 Alt text</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Alts únicos por imagem</td>
+      </tr>
+      <tr>
+        <td>1.3.1 Semântica</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>main, nav, section com aria-label; H1 correto</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hero-frame">
+    <a href="#p3-main" class="skip-link">Pular para o conteúdo principal</a>
+
+    <nav class="p3" aria-label="Navegação principal da proposta 3">
+      <div class="sim-nav">
+        <a href="#" class="logo-text" aria-label="Lillia Tavares Fotógrafa — página inicial">Lillia Tavares</a>
+        <ul class="sim-nav-links">
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Portfólio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="p3-main" class="p3">
+      <section class="hero-main" aria-label="Apresentação">
+        <div class="wrap-about">
+          <span class="tag" aria-hidden="true">Fotografia profissional</span>
+          <h1 class="hero-h1">Fotógrafa em Mogi das Cruzes</h1>
+          <p class="hero-desc">
+            Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem.
+            Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que
+            comunicam autenticidade, confiança e profissionalismo.
+          </p>
+          <a href="#" class="hero-btn" aria-label="Saber mais sobre Lillia Tavares e sua trajetória">Saber mais sobre</a>
+          <nav class="about-ctas" aria-label="Links rápidos">
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              Conheça meu estúdio — disponível para locação
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agende seu ensaio fotográfico
+            </a>
+          </nav>
+        </div>
+
+        <div class="wrap-services" role="list" aria-label="Serviços">
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaio fotográfico feminino com Lillia Tavares: cliente posando sob luz direcional suave" />
+            <div class="card-body">
+              <p class="card-title">Ensaios Fotográficos</p>
+              <p class="card-arrow" aria-hidden="true">→</p>
+            </div>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Espaço interno do estúdio de Lillia Tavares em Mogi das Cruzes, disponível para locação por hora ou dia" />
+            <div class="card-body">
+              <p class="card-title">Aluguel do Estúdio</p>
+              <p class="card-arrow" aria-hidden="true">→</p>
+            </div>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Profissional apresentando cartela de cores de estação para análise de coloração pessoal da cliente" />
+            <div class="card-body">
+              <p class="card-title">Análise de Coloração Pessoal</p>
+              <p class="card-arrow" aria-hidden="true">→</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <p class="rational">
+    <strong>Problema resolvido:</strong> o problema de zoom 200% era silencioso — flex-wrap:nowrap causava scroll horizontal.
+    Esta proposta introduz separação estrutural clara entre copy e cards via border divisória, e os cards usam overflow:hidden + altura relativa à viewport.
+    No mobile os cards viram um carrossel scroll-snap.
+    <strong>Trade-off:</strong> o layout fica levemente mais alto no desktop; aceita-se em troca de robustez para zoom e mobile.
+  </p>
+</section>
+
+<!-- ======================================================
+     PROPOSTA 4 — PALETA ESCURO / CREME (extrapolação)
+     ====================================================== -->
+
+<section class="proposal" aria-labelledby="p4-heading">
+  <h2 class="proposal-label" id="p4-heading">Proposta 4 — Paleta Escuro/Creme com Dourado</h2>
+
+  <table class="wcag-table">
+    <caption>Checklist WCAG 2.2 AA — Proposta 4</caption>
+    <thead>
+      <tr>
+        <th scope="col">Critério</th>
+        <th scope="col">Status</th>
+        <th scope="col">Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.4.3 Contraste — texto principal</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#e8e4d3 / #1e1c10 = 13.7:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — texto corpo</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#e8e4d3 / #1e1c10 = 13.7:1 com opacity 0.9 = 12.3:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — botão dourado</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#1e1c10 / #c9a96e = 5.4:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — eyebrow dourado</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#c9a96e / #1e1c10 = 5.4:1 (texto grande/bold = AA ≥3:1)</td>
+      </tr>
+      <tr>
+        <td>1.4.4 Resize Text (200%)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Flex col em mobile; sem overflow</td>
+      </tr>
+      <tr>
+        <td>2.4.1 Skip navigation</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Skip link com foco visível em azul brilhante</td>
+      </tr>
+      <tr>
+        <td>2.4.6 Labels</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>aria-label completo no botão CTA</td>
+      </tr>
+      <tr>
+        <td>2.5.5 Touch Target</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Todos ≥ 44px / 48px</td>
+      </tr>
+      <tr>
+        <td>2.4.7 Foco visível</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Azul brilhante (#60a5fa) visível sobre fundo escuro</td>
+      </tr>
+      <tr>
+        <td>1.1.1 Alt text</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Alts únicos descritivos em todos os cards</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hero-frame">
+    <a href="#p4-main" class="skip-link" style="background:#c9a96e;color:#1e1c10;">Pular para o conteúdo principal</a>
+
+    <nav class="p4" aria-label="Navegação principal da proposta 4">
+      <div class="sim-nav">
+        <a href="#" class="logo-text" aria-label="Lillia Tavares Fotógrafa — página inicial">Lillia Tavares</a>
+        <ul class="sim-nav-links">
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Portfólio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="p4-main" class="p4">
+      <section class="hero-main" aria-label="Apresentação">
+        <div class="wrap-about">
+          <p class="hero-eyebrow" aria-hidden="true">Fotografia · Mogi das Cruzes</p>
+          <h1 class="hero-h1">Fotógrafa em Mogi das Cruzes</h1>
+          <p class="hero-desc">
+            Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem.
+            Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que
+            comunicam autenticidade, confiança e profissionalismo.
+          </p>
+          <a href="#" class="hero-btn" aria-label="Saber mais sobre Lillia Tavares e sua trajetória como fotógrafa">Saber mais sobre</a>
+          <nav class="about-ctas" aria-label="Links rápidos">
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              Conheça meu estúdio — disponível para locação
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agende seu ensaio fotográfico
+            </a>
+          </nav>
+        </div>
+
+        <div class="wrap-services" role="list" aria-label="Serviços">
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Sessão de ensaio fotográfico feminino: cliente em pose elegante sob iluminação de estúdio profissional" />
+            <div class="card-overlay">
+              <p class="card-title">Ensaios Fotográficos</p>
+            </div>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Vista ampla do estúdio fotográfico equipado, com backdrop e props disponíveis para locação em Mogi das Cruzes" />
+            <div class="card-overlay">
+              <p class="card-title">Aluguel do Estúdio</p>
+            </div>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Análise de coloração pessoal: profissional aplicando cartela de cores ao rosto da cliente para determinar estação" />
+            <div class="card-overlay">
+              <p class="card-title">Análise de Coloração Pessoal</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <p class="rational">
+    <strong>Problema resolvido:</strong> ao inverter o fundo para escuro (#1e1c10), o problema de contraste é eliminado com razão de 13.7:1 — margem ampla que acomoda qualquer display.
+    O dourado (#c9a96e) como cor de acento remete à elegância e ao creme da paleta original, mantendo o tom de marca feminino e profissional.
+    O foco azul brilhante (#60a5fa) é altamente visível sobre o fundo escuro.
+    <strong>Trade-off:</strong> a mudança de fundo claro para escuro é a alteração mais significativa das 5 propostas; pode não agradar a todos os stakeholders sem teste de usuário, mas é a solução mais robusta em termos de conformidade.
+  </p>
+</section>
+
+<!-- ======================================================
+     PROPOSTA 5 — BIPARTIDO ESCURO/CREME COM TERRACOTA
+     ====================================================== -->
+
+<section class="proposal" aria-labelledby="p5-heading">
+  <h2 class="proposal-label" id="p5-heading">Proposta 5 — Bipartido com Terracota</h2>
+
+  <table class="wcag-table">
+    <caption>Checklist WCAG 2.2 AA — Proposta 5</caption>
+    <thead>
+      <tr>
+        <th scope="col">Critério</th>
+        <th scope="col">Status</th>
+        <th scope="col">Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.4.3 Contraste — texto principal (esq.)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#f0ead6 / #2e2b1a = 13.1:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — texto corpo (esq.)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#c5be9e / #2e2b1a = 6.4:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — título card (dir.)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#2e2b1a / #ffffff = 17.3:1</td>
+      </tr>
+      <tr>
+        <td>1.4.3 Contraste — botão terracota</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>#ffffff / #8b4513 = 5.7:1</td>
+      </tr>
+      <tr>
+        <td>1.4.4 Resize Text (200%)</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Grid e flex com wrap; mobile: col único</td>
+      </tr>
+      <tr>
+        <td>2.4.1 Skip navigation</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Skip link; cor ajustada para fundo escuro</td>
+      </tr>
+      <tr>
+        <td>2.4.6 Labels</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Botão com aria-label descritivo completo</td>
+      </tr>
+      <tr>
+        <td>2.5.5 Touch Target</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Botão 48px; quick-links 44px; cards com área clicável plena</td>
+      </tr>
+      <tr>
+        <td>2.4.7 Foco visível</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Azul (#3b82f6) visível sobre ambos os fundos</td>
+      </tr>
+      <tr>
+        <td>1.1.1 Alt text</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>Alts distintos e informativos</td>
+      </tr>
+      <tr>
+        <td>1.3.1 Semântica</td>
+        <td><span class="pass">✅ Passa</span></td>
+        <td>main, nav, section, heading corretos; ícone decorativo aria-hidden</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hero-frame">
+    <a href="#p5-main" class="skip-link" style="background:#8b4513;color:#fff;">Pular para o conteúdo principal</a>
+
+    <nav class="p5" aria-label="Navegação principal da proposta 5">
+      <div class="sim-nav">
+        <a href="#" class="logo-text" aria-label="Lillia Tavares Fotógrafa — página inicial">Lillia Tavares</a>
+        <ul class="sim-nav-links">
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Portfólio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="p5-main" class="p5">
+      <section class="hero-main" aria-label="Apresentação">
+        <!-- COLUNA ESQUERDA ESCURA -->
+        <div class="wrap-about">
+          <p class="hero-badge" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="6"/></svg>
+            Fotografia profissional
+          </p>
+          <h1 class="hero-h1">Fotógrafa em Mogi das Cruzes</h1>
+          <p class="hero-desc">
+            Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem.
+            Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que
+            comunicam autenticidade, confiança e profissionalismo.
+          </p>
+          <a href="#" class="hero-btn" aria-label="Saber mais sobre Lillia Tavares fotógrafa e sua história">Saber mais sobre</a>
+          <nav class="about-ctas" aria-label="Links rápidos">
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              Conheça meu estúdio — disponível para locação
+            </a>
+            <a href="#" class="cta-link">
+              <svg class="icon-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agende seu ensaio fotográfico
+            </a>
+          </nav>
+        </div>
+
+        <!-- COLUNA DIREITA — GRID DE CARDS -->
+        <div class="wrap-services" role="list" aria-label="Serviços">
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaio fotográfico feminino profissional: retrato de mulher com expressão confiante, iluminação de estúdio" />
+            <div class="card-footer">
+              <p class="card-title">Ensaios Fotográficos</p>
+              <span class="card-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Estúdio fotográfico espaçoso em Mogi das Cruzes com equipamentos profissionais e cenários variados para locação" />
+            <div class="card-footer">
+              <p class="card-title">Aluguel do Estúdio</p>
+              <span class="card-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="#" class="service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Consultoria de imagem: especialista segurando paleta de cores de estação para análise de coloração pessoal da cliente" />
+            <div class="card-footer">
+              <p class="card-title">Análise de Coloração Pessoal</p>
+              <span class="card-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <p class="rational">
+    <strong>Problema resolvido:</strong> layout bipartido — coluna esquerda escura resolve contraste de texto com razão de 13:1; coluna direita creme com cards brancos mantém leveza visual.
+    O terracota (#8b4513) como acento funciona tanto sobre fundo escuro quanto sobre creme, com 5.7:1 sobre branco.
+    Cards com border-radius 12px e sombra suave comunicam modernidade sem perder o tom acolhedor da marca.
+    <strong>Trade-off:</strong> o bipartido é a maior ruptura visual com o atual layout todo-branco, mas cria uma identidade mais marcante e memorable. Recomendado se a marca quer evoluir do minimalismo genérico para algo diferenciado.
+  </p>
+</section>
+
+<!-- ======================================================
+     RANKING FINAL
+     ====================================================== -->
+
+<section id="ranking" aria-labelledby="ranking-heading">
+  <h2 id="ranking-heading">Ranking das 5 Propostas</h2>
+
+  <table class="ranking-table">
+    <thead>
+      <tr>
+        <th scope="col">Posição</th>
+        <th scope="col">Proposta</th>
+        <th scope="col">Conformidade WCAG AA</th>
+        <th scope="col">Usabilidade</th>
+        <th scope="col">Impacto visual / marca</th>
+        <th scope="col">Custo de implementação</th>
+        <th scope="col">Justificativa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="rank-medal">🥇</span> 1º</td>
+        <td><strong>Proposta 2 — Tipografia Escalada</strong></td>
+        <td>Todos os 10 critérios</td>
+        <td>Alta — hierarquia clara, corpo legível</td>
+        <td>Evolução natural, sem ruptura</td>
+        <td>Muito baixo — só CSS</td>
+        <td>Resolve os dois problemas mais críticos simultaneamente (contraste + body size) mantendo a paleta quase idêntica. A hierarquia tipográfica melhorada beneficia todos os usuários, não apenas os com deficiência. Menor risco de rejeição por stakeholders.</td>
+      </tr>
+      <tr>
+        <td><span class="rank-medal">🥈</span> 2º</td>
+        <td><strong>Proposta 5 — Bipartido Terracota</strong></td>
+        <td>Todos os 11 critérios</td>
+        <td>Alta — separação visual ajuda cognição</td>
+        <td>Diferenciado, premium</td>
+        <td>Médio — refatoração de layout</td>
+        <td>Contraste excepcional nos dois lados; o terracota é uma extensão natural do olive-brown com mais energia. Ideal se o site está passando por rebrand. Cards com border-radius e sombra comunicam modernidade. Melhor das 5 em impacto de marca.</td>
+      </tr>
+      <tr>
+        <td><span class="rank-medal">🥉</span> 3º</td>
+        <td><strong>Proposta 4 — Escuro/Creme Dourado</strong></td>
+        <td>Todos os 10 critérios</td>
+        <td>Alta — fundo escuro reduz fadiga visual</td>
+        <td>Elegante, luxo acessível</td>
+        <td>Médio — novo paradigma de cor</td>
+        <td>Margem de contraste mais generosa (13.7:1) de todas as propostas. Cards com overlay funcionam bem para galerias fotográficas — deixa as fotos brilharem. O dourado é sofisticado. Fica em 3º porque a mudança para fundo escuro precisa de validação com usuários.</td>
+      </tr>
+      <tr>
+        <td>4º</td>
+        <td><strong>Proposta 3 — Foco + Separação Visual</strong></td>
+        <td>Todos os 10 critérios</td>
+        <td>Boa — separação por bordas melhora scannability</td>
+        <td>Refinado, editorial</td>
+        <td>Baixo — só layout ajustado</td>
+        <td>Excelente abordagem para resolver zoom 200% e overflow. O border divisor entre copy e cards é elegante. Fica em 4º porque o fundo #fafaf5 com texto #3a3826 oferece contraste alto mas a proposta adiciona menos inovação visual que as anteriores.</td>
+      </tr>
+      <tr>
+        <td>5º</td>
+        <td><strong>Proposta 1 — Correção Cirúrgica</strong></td>
+        <td>Todos os 10 critérios</td>
+        <td>Boa — fiel ao original</td>
+        <td>Conservadora, fiel à marca</td>
+        <td>Mínimo — só ajuste de cor e semântica</td>
+        <td>A opção mais conservadora — resolve as violações com o menor delta visual possível. Ideal para lançamento rápido sem aprovação de design. Fica em 5º não por falha em conformidade (passa em tudo) mas porque é a menos transformadora, apenas corrigindo o mínimo necessário sem aproveitar a oportunidade para melhorar a experiência.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>

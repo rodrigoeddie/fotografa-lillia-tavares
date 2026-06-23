@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Redesign — Lillia Tavares Fotógrafa — 5 Propostas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+  /* =============================================
+     RESET & BASE
+  ============================================= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --olive: #7B785B;
+    --olive-light: #9A9778;
+    --olive-dark: #5A5844;
+    --olive-pale: #C4C1A4;
+    --cream-deep: #E3DFCB;
+    --cream-mid: #F4F2E9;
+    --cream-light: #F7F4E8;
+    --cream-ultra: #FDFCF7;
+    --white: #FFFFFF;
+    --text-body: #5A5844;
+    --text-muted: #8A8770;
+
+    /* Propostas 4-5 extras */
+    --charcoal: #2C2B26;
+    --sand: #D4C9A8;
+    --blush: #E8D5C4;
+    --rust: #A0795A;
+  }
+
+  body {
+    font-family: 'Lato', Arial, sans-serif;
+    background: #EDEBE0;
+    color: var(--olive-dark);
+  }
+
+  /* =============================================
+     LAYOUT DO DOCUMENTO
+  ============================================= */
+  .doc-header {
+    background: var(--olive-dark);
+    color: var(--cream-light);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .doc-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 2.25rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+  .doc-header p {
+    font-size: 0.875rem;
+    font-weight: 300;
+    opacity: 0.7;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .proposal-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+
+  .proposal {
+    margin-bottom: 96px;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(44,43,38,0.12);
+  }
+
+  .proposal-label {
+    background: var(--olive);
+    color: var(--cream-light);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .proposal-label h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .proposal-label .tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    padding: 2px 8px;
+    border: 1px solid rgba(247,244,232,0.4);
+    border-radius: 1px;
+  }
+
+  .rational {
+    background: var(--cream-light);
+    border-left: 3px solid var(--olive);
+    padding: 16px 24px;
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--olive-dark);
+    font-style: italic;
+  }
+
+  /* Divider visual entre propostas */
+  .proposal-wrapper > .divider {
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.5;
+    padding: 8px 0 32px;
+  }
+
+  /* =============================================
+     NAV SIMULADA (compartilhada)
+  ============================================= */
+  .sim-nav {
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    border-bottom: 1px solid rgba(123,120,91,0.12);
+  }
+  .sim-nav .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.375rem;
+    color: var(--olive);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sim-nav .logo-text svg {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .sim-nav .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .sim-nav .nav-links a {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--olive);
+    text-decoration: none;
+    font-weight: 700;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .sim-nav .nav-links a:hover { opacity: 1; }
+  .sim-nav .nav-cta {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 20px;
+    background: var(--cream-deep);
+    color: var(--olive-dark);
+    text-decoration: none;
+    border-radius: 40px;
+    transition: background 0.2s;
+  }
+  .sim-nav .nav-cta:hover { background: var(--olive-pale); }
+
+  /* SVG inline logo (árvore estilizada) */
+  .logo-svg { display: inline-block; }
+
+  /* =============================================
+     PROPOSTA 1 — EDITORIAL SERENO
+     Evolução segura: hierarquia tipográfica,
+     mais respiro, mesma paleta
+  ============================================= */
+  .p1-hero {
+    background: var(--cream-ultra);
+    padding: 72px 64px 80px;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    min-height: 480px;
+    position: relative;
+    overflow: hidden;
+  }
+  .p1-hero::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(227,223,203,0.5) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .p1-left {
+    flex: 0 0 420px;
+    max-width: 420px;
+    position: relative;
+    z-index: 1;
+  }
+  .p1-eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.75;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .p1-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--olive);
+    opacity: 0.5;
+  }
+  .p1-h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.75rem;
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--olive-dark);
+    margin-bottom: 24px;
+  }
+  .p1-h1 em {
+    display: block;
+    font-style: normal;
+    color: var(--olive);
+    opacity: 0.6;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .p1-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-body);
+    opacity: 0.85;
+    margin-bottom: 8px;
+  }
+  .p1-body a {
+    color: var(--olive);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(123,120,91,0.3);
+    transition: border-color 0.2s;
+  }
+  .p1-body a:hover { border-color: var(--olive); }
+  .p1-actions {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .p1-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--olive);
+    color: var(--cream-light);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .p1-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+  .p1-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .p1-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--olive);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.75;
+    transition: opacity 0.2s, gap 0.2s;
+  }
+  .p1-links a:hover { opacity: 1; gap: 12px; }
+  .p1-links a svg { width: 14px; height: 14px; }
+  .p1-right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+  }
+  .p1-card {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--cream-mid);
+    cursor: pointer;
+  }
+  .p1-card:nth-child(1) { height: 280px; margin-top: 40px; }
+  .p1-card:nth-child(2) { height: 240px; }
+  .p1-card:nth-child(3) { height: 220px; margin-top: 20px; }
+  .p1-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.85) brightness(0.96);
+  }
+  .p1-card:hover img { transform: scale(1.04); filter: saturate(1) brightness(1); }
+  .p1-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 16px 16px;
+    background: linear-gradient(to top, rgba(44,43,38,0.72) 0%, transparent 100%);
+    transition: padding 0.3s;
+  }
+  .p1-card-title {
+    color: #F7F4E8;
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  /* =============================================
+     PROPOSTA 2 — ESPAÇO EDITORIAL ASSIMÉTRICO
+     Evolução segura: grid assimétrico 40/60,
+     hierarquia clara, cremes trabalhados
+  ============================================= */
+  .p2-hero {
+    background: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    min-height: 540px;
+  }
+  .p2-left {
+    background: var(--cream-mid);
+    padding: 64px 56px 64px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .p2-left::after {
+    content: '';
+    position: absolute;
+    bottom: 40px;
+    right: -24px;
+    width: 1px;
+    height: 80px;
+    background: var(--olive-pale);
+    opacity: 0.4;
+  }
+  .p2-overline {
+    font-size: 0.625rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.6;
+    margin-bottom: 20px;
+  }
+  .p2-h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 3.25rem;
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--olive-dark);
+    margin-bottom: 24px;
+  }
+  .p2-h1 .break { display: block; }
+  .p2-h1 .em {
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--olive);
+    opacity: 0.7;
+    display: block;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  .p2-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--olive);
+    opacity: 0.4;
+    margin-bottom: 20px;
+  }
+  .p2-body {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--text-body);
+    opacity: 0.8;
+    margin-bottom: 4px;
+    max-width: 340px;
+  }
+  .p2-body a {
+    color: var(--olive);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(123,120,91,0.25);
+  }
+  .p2-body a:hover { border-color: var(--olive); }
+  .p2-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding: 14px 28px;
+    border: 1.5px solid var(--olive);
+    color: var(--olive-dark);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.25s, color 0.25s;
+    align-self: flex-start;
+  }
+  .p2-btn:hover { background: var(--olive); color: var(--cream-light); }
+  .p2-btn svg { width: 14px; height: 14px; transition: transform 0.25s; }
+  .p2-btn:hover svg { transform: translateX(4px); }
+  .p2-quick {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(123,120,91,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .p2-quick a {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--olive);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .p2-quick a:hover { opacity: 1; }
+  .p2-quick a svg { width: 13px; height: 13px; }
+
+  .p2-right {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .p2-img-main {
+    grid-row: 1 / 3;
+    grid-column: 1 / 2;
+    overflow: hidden;
+    position: relative;
+  }
+  .p2-img-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.8);
+  }
+  .p2-img-main:hover img { transform: scale(1.05); filter: saturate(1); }
+  .p2-img-card {
+    overflow: hidden;
+    position: relative;
+    background: var(--cream-deep);
+  }
+  .p2-img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .p2-img-card:hover img { transform: scale(1.05); }
+  .p2-card-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 32px 20px 16px;
+    background: linear-gradient(to top, rgba(90,88,68,0.8), transparent);
+  }
+  .p2-card-label span {
+    color: var(--cream-light);
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* =============================================
+     PROPOSTA 3 — LINHA DO TEMPO VERTICAL
+     Evolução segura: fundo creme escuro,
+     layout stack com linha decorativa
+  ============================================= */
+  .p3-hero {
+    background: var(--cream-mid);
+    padding: 80px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .p3-hero::after {
+    content: 'LILLIA';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 7rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: rgba(123,120,91,0.06);
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+  }
+  .p3-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+  }
+  .p3-left {
+    flex: 0 0 380px;
+    position: relative;
+  }
+  .p3-left::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--olive-pale), transparent);
+  }
+  .p3-num {
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    color: var(--olive);
+    opacity: 0.5;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .p3-h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--olive-dark);
+    margin-bottom: 8px;
+  }
+  .p3-location {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.6;
+    margin-bottom: 28px;
+  }
+  .p3-body {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--text-body);
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  .p3-body a { color: var(--olive); text-decoration: none; border-bottom: 1px solid rgba(123,120,91,0.3); }
+  .p3-body a:hover { border-color: var(--olive); }
+  .p3-btn {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 13px 32px;
+    background: var(--olive-dark);
+    color: var(--cream-light);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .p3-btn:hover { background: var(--olive); transform: translateY(-1px); }
+  .p3-quick {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .p3-quick a {
+    font-size: 0.75rem;
+    letter-spacing: 0.07em;
+    color: var(--olive);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--cream-light);
+    border-radius: 2px;
+    opacity: 0.85;
+    transition: opacity 0.2s, background 0.2s, transform 0.2s;
+  }
+  .p3-quick a:hover { opacity: 1; background: var(--cream-deep); transform: translateX(4px); }
+  .p3-quick a svg { width: 14px; height: 14px; }
+
+  .p3-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .p3-cards-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .p3-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream-deep);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .p3-card:nth-child(1) { flex: 0 0 200px; height: 300px; }
+  .p3-card:nth-child(2) { flex: 0 0 170px; height: 260px; margin-bottom: 20px; }
+  .p3-card:nth-child(3) { flex: 1; height: 240px; margin-bottom: 40px; }
+  .p3-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.75) sepia(0.15);
+  }
+  .p3-card:hover img { transform: scale(1.05); filter: saturate(0.95) sepia(0.05); }
+  .p3-card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 48px 14px 14px;
+    background: linear-gradient(to top, rgba(44,43,38,0.75), transparent);
+  }
+  .p3-card-overlay span {
+    color: var(--cream-light);
+    font-size: 0.5625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /* =============================================
+     PROPOSTA 4 — TIPOGRAFIA GRANDE / FULL BLEED
+     Ousada: Cormorant Garamond para headline,
+     imagem de fundo, sobreposição de texto
+  ============================================= */
+  .p4-hero {
+    position: relative;
+    min-height: 600px;
+    background: var(--olive-dark);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .p4-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .p4-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: saturate(0.6) brightness(0.55);
+    display: block;
+  }
+  .p4-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(44,43,38,0.85) 0%,
+      rgba(90,88,68,0.5) 50%,
+      rgba(44,43,38,0.4) 100%
+    );
+  }
+  .p4-content {
+    position: relative;
+    z-index: 1;
+    padding: 64px 72px 72px;
+    display: flex;
+    align-items: flex-end;
+    min-height: 600px;
+  }
+  .p4-text {
+    max-width: 640px;
+  }
+  .p4-eyebrow {
+    font-size: 0.625rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-deep);
+    opacity: 0.7;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .p4-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--cream-deep);
+    opacity: 0.6;
+  }
+  .p4-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 0.95;
+    color: var(--cream-ultra);
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+  }
+  .p4-h1 strong {
+    font-weight: 600;
+    font-style: normal;
+    display: block;
+    font-size: 3.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    color: var(--cream-deep);
+    font-size: 1.5rem;
+    margin-top: 4px;
+    opacity: 0.85;
+  }
+  .p4-body {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: rgba(247,244,232,0.75);
+    max-width: 480px;
+    margin-bottom: 8px;
+  }
+  .p4-body a { color: var(--cream-deep); opacity: 0.85; text-decoration: none; border-bottom: 1px solid rgba(227,223,203,0.35); }
+  .p4-body a:hover { opacity: 1; border-color: var(--cream-deep); }
+  .p4-actions {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .p4-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--cream-deep);
+    color: var(--olive-dark);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .p4-btn:hover { background: var(--cream-ultra); transform: translateY(-1px); }
+  .p4-quick {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .p4-quick a {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(247,244,232,0.65);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s, gap 0.2s;
+  }
+  .p4-quick a:hover { color: var(--cream-light); gap: 12px; }
+  .p4-quick a svg { width: 13px; height: 13px; }
+
+  /* Cards flutuando à direita */
+  .p4-cards {
+    position: absolute;
+    right: 64px;
+    bottom: 64px;
+    top: 64px;
+    width: 340px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .p4-card {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: pointer;
+    background: var(--olive-dark);
+  }
+  .p4-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.65) brightness(0.8);
+    opacity: 0.9;
+  }
+  .p4-card:hover img { transform: scale(1.04); filter: saturate(0.85) brightness(0.9); opacity: 1; }
+  .p4-card-label {
+    position: absolute;
+    bottom: 12px; left: 14px;
+  }
+  .p4-card-label span {
+    color: var(--cream-light);
+    font-size: 0.5625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /* =============================================
+     PROPOSTA 5 — MOSAICO EDITORIAL
+     Ousada: grid assimétrico tipo editorial
+     de moda, Playfair Display, espaço negativo intencional
+  ============================================= */
+  .p5-hero {
+    background: var(--cream-ultra);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 64px 1fr 1fr 1fr 64px;
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Faixa lateral decorativa */
+  .p5-stripe {
+    grid-column: 1 / 2;
+    grid-row: 1 / 6;
+    background: var(--olive);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .p5-stripe-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 0.5625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-light);
+    font-weight: 700;
+    opacity: 0.7;
+  }
+
+  /* Bloco headline: cols 2-7, rows 2-3 */
+  .p5-headline-block {
+    grid-column: 2 / 8;
+    grid-row: 2 / 4;
+    padding: 48px 40px 32px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: var(--cream-ultra);
+  }
+  .p5-overline {
+    font-size: 0.625rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.6;
+    margin-bottom: 16px;
+  }
+  .p5-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.25rem;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 0.95;
+    color: var(--olive-dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 0;
+  }
+  .p5-h1 .location {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+
+  /* Bloco corpo: cols 2-7, rows 4-4 */
+  .p5-body-block {
+    grid-column: 2 / 7;
+    grid-row: 4 / 5;
+    padding: 0 40px 40px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+    background: var(--cream-ultra);
+  }
+  .p5-body {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--text-body);
+    opacity: 0.8;
+    max-width: 420px;
+  }
+  .p5-body a { color: var(--olive); text-decoration: none; border-bottom: 1px solid rgba(123,120,91,0.3); }
+  .p5-body a:hover { border-color: var(--olive); }
+  .p5-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .p5-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--olive);
+    color: var(--cream-light);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .p5-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+  .p5-quick-inline {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .p5-quick-inline a {
+    font-size: 0.6875rem;
+    letter-spacing: 0.07em;
+    color: var(--olive);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.65;
+    transition: opacity 0.2s;
+  }
+  .p5-quick-inline a:hover { opacity: 1; }
+  .p5-quick-inline a svg { width: 12px; height: 12px; }
+
+  /* Imagem principal: cols 7-10, rows 1-4 */
+  .p5-img-main {
+    grid-column: 7 / 11;
+    grid-row: 1 / 5;
+    overflow: hidden;
+    position: relative;
+  }
+  .p5-img-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.8);
+  }
+  .p5-img-main:hover img { transform: scale(1.03); filter: saturate(1); }
+
+  /* Cards secundários: cols 11-13 */
+  .p5-img-sec1 {
+    grid-column: 11 / 13;
+    grid-row: 1 / 3;
+    overflow: hidden;
+    position: relative;
+    background: var(--cream-deep);
+  }
+  .p5-img-sec1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.7);
+  }
+  .p5-img-sec1:hover img { transform: scale(1.05); filter: saturate(0.9); }
+  .p5-img-sec2 {
+    grid-column: 11 / 13;
+    grid-row: 3 / 5;
+    overflow: hidden;
+    position: relative;
+    background: var(--olive);
+  }
+  .p5-img-sec2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    filter: saturate(0.7);
+  }
+  .p5-img-sec2:hover img { transform: scale(1.05); filter: saturate(0.9); }
+
+  /* Etiquetas das imagens */
+  .p5-img-label {
+    position: absolute;
+    bottom: 12px; left: 12px;
+    background: rgba(44,43,38,0.7);
+    backdrop-filter: blur(4px);
+    padding: 6px 10px;
+    border-radius: 1px;
+  }
+  .p5-img-label span {
+    color: var(--cream-light);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* Rodapé da faixa inferior cols 2-7 row 5 */
+  .p5-bottom {
+    grid-column: 2 / 13;
+    grid-row: 5 / 6;
+    background: var(--cream-mid);
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+    gap: 32px;
+    border-top: 1px solid rgba(123,120,91,0.12);
+  }
+  .p5-bottom-tag {
+    font-size: 0.5625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.6;
+  }
+  .p5-bottom-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--olive-pale);
+    flex-shrink: 0;
+  }
+
+  /* =============================================
+     SECTION RANKING
+  ============================================= */
+  #ranking {
+    background: var(--olive-dark);
+    color: var(--cream-light);
+    padding: 72px 64px;
+    margin: 0 -24px;
+  }
+  #ranking h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cream-deep);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  #ranking .ranking-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 48px;
+  }
+  .ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .ranking-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(247,244,232,0.1);
+  }
+  .ranking-item:last-child { border-bottom: none; }
+  .ranking-pos {
+    flex: 0 0 48px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--olive-pale);
+    line-height: 1;
+    opacity: 0.6;
+  }
+  .ranking-body {}
+  .ranking-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-deep);
+    margin-bottom: 8px;
+  }
+  .ranking-reason {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: rgba(247,244,232,0.65);
+    max-width: 720px;
+  }
+  .ranking-score {
+    margin-left: auto;
+    flex: 0 0 80px;
+    text-align: right;
+  }
+  .ranking-score .score {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--olive-pale);
+  }
+  .ranking-score .label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    display: block;
+  }
+
+  /* =============================================
+     RESPONSIVIDADE BÁSICA
+  ============================================= */
+  @media (max-width: 900px) {
+    .sim-nav .nav-links { display: none; }
+    .sim-nav .nav-cta { display: none; }
+
+    /* P1 */
+    .p1-hero { flex-direction: column; padding: 40px 24px 48px; gap: 40px; min-height: auto; }
+    .p1-left { flex: none; max-width: 100%; }
+    .p1-right { grid-template-columns: 1fr 1fr 1fr; }
+    .p1-card:nth-child(1), .p1-card:nth-child(2), .p1-card:nth-child(3) { height: 180px; margin: 0; }
+
+    /* P2 */
+    .p2-hero { grid-template-columns: 1fr; }
+    .p2-right { grid-template-rows: 220px; grid-template-columns: 1fr 1fr; height: 220px; }
+    .p2-img-main { grid-row: 1; grid-column: 1 / 2; }
+    .p2-img-card:first-of-type { grid-row: 1; grid-column: 2; }
+    .p2-img-card:last-of-type { display: none; }
+    .p2-left { padding: 40px 32px; }
+    .p2-left::after { display: none; }
+
+    /* P3 */
+    .p3-hero { padding: 48px 24px; }
+    .p3-inner { flex-direction: column; gap: 40px; }
+    .p3-left { flex: none; }
+    .p3-left::before { display: none; }
+    .p3-cards-row { gap: 8px; }
+    .p3-card:nth-child(1) { flex: 1; height: 200px; }
+    .p3-card:nth-child(2) { flex: 1; height: 200px; margin-bottom: 0; }
+    .p3-card:nth-child(3) { flex: 1; height: 200px; margin-bottom: 0; }
+
+    /* P4 */
+    .p4-cards { display: none; }
+    .p4-content { padding: 40px 32px; min-height: 500px; }
+    .p4-h1 { font-size: 3.5rem; }
+
+    /* P5 */
+    .p5-hero {
+      display: flex;
+      flex-direction: column;
+    }
+    .p5-stripe { display: none; }
+    .p5-headline-block { padding: 40px 24px 16px; order: 0; }
+    .p5-h1 { font-size: 2.75rem; }
+    .p5-img-main { order: 1; height: 280px; }
+    .p5-img-sec1, .p5-img-sec2 { display: none; }
+    .p5-body-block { padding: 16px 24px 32px; order: 2; }
+    .p5-bottom { display: none; }
+
+    /* Ranking */
+    #ranking { padding: 48px 24px; margin: 0 -24px; }
+    .ranking-score { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER DO DOCUMENTO
+============================================================ -->
+<div class="doc-header">
+  <h1>Hero Redesign — Fotógrafa Lillia Tavares</h1>
+  <p>5 Propostas · Direção de Arte · Nível Awwwards/Behance</p>
+</div>
+
+<div class="proposal-wrapper">
+
+<!-- ============================================================
+     PROPOSTA 1 — EDITORIAL SERENO
+============================================================ -->
+<section class="proposal">
+  <div class="proposal-label">
+    <h2>Proposta 1 — Editorial Sereno</h2>
+    <span class="tag">Evolução segura</span>
+  </div>
+
+  <!-- NAV SIMULADA -->
+  <nav class="sim-nav">
+    <div class="logo-text">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="14" cy="22" rx="8" ry="3" fill="#E3DFCB"/>
+        <path d="M14 20 C14 20 8 14 8 9 C8 5 11 3 14 3 C17 3 20 5 20 9 C20 14 14 20 14 20Z" fill="none" stroke="#7B785B" stroke-width="1.2"/>
+        <path d="M14 8 C12 6 9 7 9 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 8 C16 6 19 7 19 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C12 9 10 10 10 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C16 9 18 10 18 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="14" y1="3" x2="14" y2="20" stroke="#7B785B" stroke-width="1"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Estúdio</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="p1-hero">
+    <div class="p1-left">
+      <div class="p1-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p1-h1">
+        Fotógrafa
+        <em>em Mogi das Cruzes</em>
+      </h1>
+      <p class="p1-body">
+        Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que comunicam autenticidade, confiança e profissionalismo.
+      </p>
+      <p class="p1-body">
+        <a href="#">Estúdio próprio e atendimento para todo o Alto Tietê.</a>
+      </p>
+      <div class="p1-actions">
+        <a href="#" class="p1-btn">Saber mais</a>
+        <div class="p1-links">
+          <a href="#">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/>
+            </svg>
+            Acompanhe meus trabalhos
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M1 11 L3 9 L5 10 L9 6 L13 3"/><path d="M1 3 H13 V11 H1 Z"/>
+            </svg>
+            Conheça meu estúdio
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="1" y="2" width="12" height="11" rx="1"/><path d="M1 6 H13"/><path d="M5 1 V4"/><path d="M9 1 V4"/>
+            </svg>
+            Agende seu ensaio fotográfico
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="p1-right">
+      <div class="p1-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios Fotográficos" loading="lazy">
+        <div class="p1-card-overlay">
+          <div class="p1-card-title">Ensaios<br>Fotográficos</div>
+        </div>
+      </div>
+      <div class="p1-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do Estúdio" loading="lazy">
+        <div class="p1-card-overlay">
+          <div class="p1-card-title">Aluguel<br>do Estúdio</div>
+        </div>
+      </div>
+      <div class="p1-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Análise de Coloração Pessoal" loading="lazy">
+        <div class="p1-card-overlay">
+          <div class="p1-card-title">Análise de<br>Coloração Pessoal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational">
+    <strong>Princípio:</strong> Hierarquia tipográfica por escala e contraste de peso — o H1 em 2.75rem/900 + suíte de corpo em 1rem criam presença sem mudar paleta. Os cards com alturas escalonadas (280/240/220px) introduzem ritmo vertical orgânico. O hover suave em saturação + escala reforça o caráter refinado sem agressividade.
+  </p>
+</section>
+
+<div class="divider">· · ·</div>
+
+<!-- ============================================================
+     PROPOSTA 2 — SPLIT EDITORIAL
+============================================================ -->
+<section class="proposal">
+  <div class="proposal-label">
+    <h2>Proposta 2 — Split Editorial</h2>
+    <span class="tag">Evolução segura</span>
+  </div>
+
+  <nav class="sim-nav">
+    <div class="logo-text">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="14" cy="22" rx="8" ry="3" fill="#E3DFCB"/>
+        <path d="M14 20 C14 20 8 14 8 9 C8 5 11 3 14 3 C17 3 20 5 20 9 C20 14 14 20 14 20Z" fill="none" stroke="#7B785B" stroke-width="1.2"/>
+        <path d="M14 8 C12 6 9 7 9 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 8 C16 6 19 7 19 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C12 9 10 10 10 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C16 9 18 10 18 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="14" y1="3" x2="14" y2="20" stroke="#7B785B" stroke-width="1"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Estúdio</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+
+  <div class="p2-hero">
+    <div class="p2-left">
+      <div class="p2-overline">Fotógrafa · Mogi das Cruzes</div>
+      <h1 class="p2-h1">
+        <span class="break">Fotógrafa</span>
+        <span class="break">em Mogi</span>
+        <span class="em">das Cruzes</span>
+      </h1>
+      <div class="p2-divider"></div>
+      <p class="p2-body">
+        Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora — imagens que comunicam autenticidade e profissionalismo.
+      </p>
+      <p class="p2-body">
+        <a href="#">Estúdio próprio e atendimento para todo o Alto Tietê.</a>
+      </p>
+      <a href="#" class="p2-btn">
+        Saber mais
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 7 H12 M8 3 L12 7 L8 11"/>
+        </svg>
+      </a>
+      <div class="p2-quick">
+        <a href="#">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/>
+          </svg>
+          Acompanhe meus trabalhos
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M1 11 L3 9 L5 10 L9 6 L13 3"/><path d="M1 3 H13 V11 H1 Z"/>
+          </svg>
+          Conheça meu estúdio
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="1" y="2" width="12" height="11" rx="1"/><path d="M1 6 H13"/><path d="M5 1 V4"/><path d="M9 1 V4"/>
+          </svg>
+          Agende seu ensaio fotográfico
+        </a>
+      </div>
+    </div>
+
+    <div class="p2-right">
+      <div class="p2-img-main">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios Fotográficos" loading="lazy">
+        <div class="p2-card-label">
+          <span>Ensaios Fotográficos</span>
+        </div>
+      </div>
+      <div class="p2-img-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do Estúdio" loading="lazy">
+        <div class="p2-card-label">
+          <span>Aluguel do Estúdio</span>
+        </div>
+      </div>
+      <div class="p2-img-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Análise de Coloração Pessoal" loading="lazy">
+        <div class="p2-card-label">
+          <span>Coloração Pessoal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational">
+    <strong>Princípio:</strong> Tensão visual por bipartição — dois fundos contrastantes (creme/imagens) criam um território de fala claro para o texto e um de ver para as imagens, sem competição. O H1 empilhado em 3.25rem/900 usa a quebra de linha como ritmo intencional. O botão com borda (outline) sugere sofisticação sem a peso do preenchimento total.
+  </p>
+</section>
+
+<div class="divider">· · ·</div>
+
+<!-- ============================================================
+     PROPOSTA 3 — LINHA DO TEMPO VERTICAL
+============================================================ -->
+<section class="proposal">
+  <div class="proposal-label">
+    <h2>Proposta 3 — Craft Estacional</h2>
+    <span class="tag">Evolução segura</span>
+  </div>
+
+  <nav class="sim-nav" style="background: var(--cream-mid); border-bottom-color: rgba(123,120,91,0.15);">
+    <div class="logo-text">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="14" cy="22" rx="8" ry="3" fill="#E3DFCB"/>
+        <path d="M14 20 C14 20 8 14 8 9 C8 5 11 3 14 3 C17 3 20 5 20 9 C20 14 14 20 14 20Z" fill="none" stroke="#7B785B" stroke-width="1.2"/>
+        <path d="M14 8 C12 6 9 7 9 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 8 C16 6 19 7 19 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C12 9 10 10 10 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C16 9 18 10 18 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="14" y1="3" x2="14" y2="20" stroke="#7B785B" stroke-width="1"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Estúdio</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+
+  <div class="p3-hero">
+    <div class="p3-inner">
+      <div class="p3-left">
+        <div class="p3-num">01 / Hero</div>
+        <h1 class="p3-h1">Fotógrafa</h1>
+        <div class="p3-location">em Mogi das Cruzes</div>
+        <p class="p3-body">
+          Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que comunicam autenticidade, confiança e profissionalismo.
+        </p>
+        <p class="p3-body">
+          <a href="#">Estúdio próprio e atendimento para todo o Alto Tietê.</a>
+        </p>
+        <a href="#" class="p3-btn">Saber mais sobre</a>
+        <div class="p3-quick">
+          <a href="#">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/>
+            </svg>
+            Acompanhe meus trabalhos
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M1 11 L3 9 L5 10 L9 6 L13 3"/><path d="M1 3 H13 V11 H1 Z"/>
+            </svg>
+            Conheça meu estúdio
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="1" y="2" width="12" height="11" rx="1"/><path d="M1 6 H13"/><path d="M5 1 V4"/><path d="M9 1 V4"/>
+            </svg>
+            Agende seu ensaio fotográfico
+          </a>
+        </div>
+      </div>
+
+      <div class="p3-right">
+        <div class="p3-cards-row">
+          <div class="p3-card">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios Fotográficos" loading="lazy">
+            <div class="p3-card-overlay"><span>Ensaios<br>Fotográficos</span></div>
+          </div>
+          <div class="p3-card">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do Estúdio" loading="lazy">
+            <div class="p3-card-overlay"><span>Aluguel<br>do Estúdio</span></div>
+          </div>
+          <div class="p3-card">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Análise de Coloração Pessoal" loading="lazy">
+            <div class="p3-card-overlay"><span>Coloração<br>Pessoal</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational">
+    <strong>Princípio:</strong> Movimento diagonal implícito — as três imagens com alturas e offsets verticais diferentes criam uma linha imaginária descendente que guia o olhar da esquerda para direita. O tratamento de imagem em sepia suave (saturate + sepia) traz coesão tonal sem trair o caráter fotográfico. A linha lateral esquerda e o watermark ghostado em tipografia grande funcionam como elementos de craft editorial sem custo de implementação.
+  </p>
+</section>
+
+<div class="divider">· · ·</div>
+
+<!-- ============================================================
+     PROPOSTA 4 — FULL BLEED CINEMATOGRÁFICO
+============================================================ -->
+<section class="proposal">
+  <div class="proposal-label">
+    <h2>Proposta 4 — Full Bleed Cinematográfico</h2>
+    <span class="tag">Extrapolação ousada</span>
+    <span class="tag">Cormorant Garamond</span>
+  </div>
+
+  <nav class="sim-nav" style="background: rgba(44,43,38,0.95); border-bottom-color: rgba(247,244,232,0.08); position: relative; z-index: 10;">
+    <div class="logo-text" style="color: var(--cream-light);">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="14" cy="22" rx="8" ry="3" fill="rgba(227,223,203,0.3)"/>
+        <path d="M14 20 C14 20 8 14 8 9 C8 5 11 3 14 3 C17 3 20 5 20 9 C20 14 14 20 14 20Z" fill="none" stroke="#E3DFCB" stroke-width="1.2"/>
+        <path d="M14 8 C12 6 9 7 9 9" stroke="#E3DFCB" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 8 C16 6 19 7 19 9" stroke="#E3DFCB" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C12 9 10 10 10 12" stroke="#E3DFCB" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C16 9 18 10 18 12" stroke="#E3DFCB" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="14" y1="3" x2="14" y2="20" stroke="#E3DFCB" stroke-width="1"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" style="color: var(--cream-light);">Portfolio</a></li>
+      <li><a href="#" style="color: var(--cream-light);">Estúdio</a></li>
+      <li><a href="#" style="color: var(--cream-light);">Blog</a></li>
+      <li><a href="#" style="color: var(--cream-light);">Preços</a></li>
+      <li><a href="#" style="color: var(--cream-light);">Contato</a></li>
+    </ul>
+    <a href="#" class="nav-cta" style="background: rgba(227,223,203,0.2); color: var(--cream-light);">Agendar Ensaio</a>
+  </nav>
+
+  <div class="p4-hero">
+    <div class="p4-bg">
+      <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="" loading="lazy">
+    </div>
+
+    <div class="p4-content">
+      <div class="p4-text">
+        <div class="p4-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+        <h1 class="p4-h1">
+          Fotografia<br>que transforma
+          <strong>Lillia Tavares · Fotógrafa</strong>
+        </h1>
+        <p class="p4-body">
+          Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Cada ensaio fotográfico é uma experiência acolhedora que comunica autenticidade, confiança e profissionalismo.
+        </p>
+        <p class="p4-body">
+          <a href="#">Estúdio próprio e atendimento para todo o Alto Tietê.</a>
+        </p>
+        <div class="p4-actions">
+          <a href="#" class="p4-btn">Saber mais sobre</a>
+          <div class="p4-quick">
+            <a href="#">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/>
+              </svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M1 11 L3 9 L5 10 L9 6 L13 3"/><path d="M1 3 H13 V11 H1 Z"/>
+              </svg>
+              Conheça meu estúdio
+            </a>
+            <a href="#">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect x="1" y="2" width="12" height="11" rx="1"/><path d="M1 6 H13"/><path d="M5 1 V4"/><path d="M9 1 V4"/>
+              </svg>
+              Agende seu ensaio fotográfico
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p4-cards">
+      <div class="p4-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios Fotográficos" loading="lazy">
+        <div class="p4-card-label"><span>Ensaios Fotográficos</span></div>
+      </div>
+      <div class="p4-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do Estúdio" loading="lazy">
+        <div class="p4-card-label"><span>Aluguel do Estúdio</span></div>
+      </div>
+      <div class="p4-card">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Coloração Pessoal" loading="lazy">
+        <div class="p4-card-label"><span>Coloração Pessoal</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational">
+    <strong>Princípio:</strong> Contraste tonal extremo como instrumento de presença — o fundo escurecido pela camada overlay cria o "estágio" para a tipografia. O Cormorant Garamond em 5rem/300/itálico serve como headline poética (não informativa), enquanto o subtítulo em Lato/uppercase ancora o funcional. Os cards flutuantes laterais funcionam como moldura editorial e evitam o "layout de portfólio genérico". Proposta de maior impacto emocional imediato.
+  </p>
+</section>
+
+<div class="divider">· · ·</div>
+
+<!-- ============================================================
+     PROPOSTA 5 — MOSAICO EDITORIAL
+============================================================ -->
+<section class="proposal">
+  <div class="proposal-label">
+    <h2>Proposta 5 — Mosaico Editorial</h2>
+    <span class="tag">Extrapolação ousada</span>
+    <span class="tag">Playfair Display · Grid Assimétrico</span>
+  </div>
+
+  <nav class="sim-nav" style="background: var(--cream-ultra); border-bottom-color: rgba(123,120,91,0.1);">
+    <div class="logo-text">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="14" cy="22" rx="8" ry="3" fill="#E3DFCB"/>
+        <path d="M14 20 C14 20 8 14 8 9 C8 5 11 3 14 3 C17 3 20 5 20 9 C20 14 14 20 14 20Z" fill="none" stroke="#7B785B" stroke-width="1.2"/>
+        <path d="M14 8 C12 6 9 7 9 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 8 C16 6 19 7 19 9" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C12 9 10 10 10 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M14 11 C16 9 18 10 18 12" stroke="#7B785B" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="14" y1="3" x2="14" y2="20" stroke="#7B785B" stroke-width="1"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Estúdio</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+
+  <div class="p5-hero">
+    <!-- Faixa lateral -->
+    <div class="p5-stripe">
+      <span class="p5-stripe-text">Fotógrafa Lillia Tavares · Mogi das Cruzes</span>
+    </div>
+
+    <!-- Headline block -->
+    <div class="p5-headline-block">
+      <div class="p5-overline">Fotógrafa Especialista em Retratos Femininos</div>
+      <h1 class="p5-h1">
+        Fotógrafa
+        <br>em Mogi
+        <span class="location">das Cruzes</span>
+      </h1>
+    </div>
+
+    <!-- Imagem principal -->
+    <div class="p5-img-main">
+      <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios Fotográficos" loading="lazy">
+      <div class="p5-img-label"><span>Ensaios Fotográficos</span></div>
+    </div>
+
+    <!-- Imagens secundárias -->
+    <div class="p5-img-sec1">
+      <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do Estúdio" loading="lazy">
+      <div class="p5-img-label"><span>Aluguel do Estúdio</span></div>
+    </div>
+    <div class="p5-img-sec2">
+      <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Coloração Pessoal" loading="lazy">
+      <div class="p5-img-label"><span>Coloração Pessoal</span></div>
+    </div>
+
+    <!-- Corpo e CTAs -->
+    <div class="p5-body-block">
+      <p class="p5-body">
+        Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora — criando imagens que comunicam autenticidade, confiança e profissionalismo.
+      </p>
+      <p class="p5-body"><a href="#">Estúdio próprio e atendimento para todo o Alto Tietê.</a></p>
+      <div class="p5-cta-row">
+        <a href="#" class="p5-btn">Saber mais sobre</a>
+        <div class="p5-quick-inline">
+          <a href="#">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="1" y="2.5" width="10" height="7.5" rx="1"/><circle cx="6" cy="6.25" r="1.75"/>
+            </svg>
+            Trabalhos
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M1 9.5 L2.5 7.5 L4 8.5 L7.5 5 L11 2.5"/><path d="M1 2.5 H11 V9.5 H1 Z"/>
+            </svg>
+            Estúdio
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="1" y="1.5" width="10" height="9" rx="1"/><path d="M1 5 H11"/><path d="M4 0.5 V3"/><path d="M8 0.5 V3"/>
+            </svg>
+            Agendar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé da grade -->
+    <div class="p5-bottom">
+      <span class="p5-bottom-tag">Retratos Femininos</span>
+      <span class="p5-bottom-dot"></span>
+      <span class="p5-bottom-tag">Fotografia Corporativa</span>
+      <span class="p5-bottom-dot"></span>
+      <span class="p5-bottom-tag">Reposicionamento de Imagem</span>
+      <span class="p5-bottom-dot"></span>
+      <span class="p5-bottom-tag">Análise de Coloração Pessoal</span>
+    </div>
+  </div>
+
+  <p class="rational">
+    <strong>Princípio:</strong> Grid editorial de 12 colunas com subdivisão intencional — inspirado em spreads de revista de moda, onde texto e imagem coexistem em territórios não-competitivos. O Playfair Display em itálico para o H1 dialoga com o espírito de "assinatura" do logo sem perder a legibilidade. A faixa olive lateral funciona como "lombada" editorial e ancora o ritmo vertical. A barra de tags no rodapé introduz uma camada de informação com custo visual mínimo.
+  </p>
+</section>
+
+<div class="divider">· · ·</div>
+
+<!-- ============================================================
+     RANKING
+============================================================ -->
+<section id="ranking">
+  <h2>Ranking das Propostas</h2>
+  <p class="ranking-sub">Critério: impacto visual imediato · coerência com identidade · funcionalidade · originalidade artística</p>
+
+  <div class="ranking-list">
+
+    <div class="ranking-item">
+      <div class="ranking-pos">1°</div>
+      <div class="ranking-body">
+        <div class="ranking-name">Proposta 5 — Mosaico Editorial</div>
+        <p class="ranking-reason">
+          O grid de 12 colunas com subdivisão orgânica é a escolha mais sofisticada do conjunto — combina o Playfair Display como headline de personalidade com as três imagens distribuídas em proporções intencionais, criando uma composição que se lê tanto como layout quanto como portfólio. A faixa lateral olive e a barra de tags no rodapé são elementos de identidade editorial que separam o site de qualquer concorrente da região. Alta ambição, totalmente funcional.
+        </p>
+      </div>
+      <div class="ranking-score">
+        <span class="score">9.4</span>
+        <span class="label">/ 10</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">2°</div>
+      <div class="ranking-body">
+        <div class="ranking-name">Proposta 4 — Full Bleed Cinematográfico</div>
+        <p class="ranking-reason">
+          O maior impacto emocional imediato do conjunto. A decisão de usar Cormorant Garamond em 5rem/itálico como headline poética quebra qualquer expectativa de "site de fotógrafo padrão" e ancora a identidade em território de moda/editorial de alto padrão. O único risco é a legibilidade em conexões lentas (fundo depende de imagem externa); nas propostas de produção, recomenda-se placeholder de cor sólida. Os cards laterais flutuantes são o melhor uso dos serviços no conjunto inteiro.
+        </p>
+      </div>
+      <div class="ranking-score">
+        <span class="score">9.1</span>
+        <span class="label">/ 10</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">3°</div>
+      <div class="ranking-body">
+        <div class="ranking-name">Proposta 2 — Split Editorial</div>
+        <p class="ranking-reason">
+          A bipartição fundo-creme / imagens é a solução mais limpa e implementável do grupo de "evolução segura". O H1 empilhado cria ritmo tipográfico com zero assets adicionais. O botão outline é o mais sofisticado dos três primeiros. Ponto de atenção: em mobile, o grid 2 colunas precisa de tratamento específico para não achatar as imagens. Entre as propostas 1-3, esta é a que melhor transpõe para código Nuxt sem surpresas.
+        </p>
+      </div>
+      <div class="ranking-score">
+        <span class="score">8.6</span>
+        <span class="label">/ 10</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">4°</div>
+      <div class="ranking-body">
+        <div class="ranking-name">Proposta 1 — Editorial Sereno</div>
+        <p class="ranking-reason">
+          A proposta de menor fricção com o design atual — mantém o layout flex row, adiciona hierarquia tipográfica e respiro. Os cards escalonados por altura são a evolução mais direta dos cards mecânicos do original. É a proposta recomendada se o brief fosse "menor risco de rejeição do cliente", pois o antes/depois é imediatamente legível. Ligeiramente penalizada pelo círculo decorativo sutil que poderia soar como "design para encher espaço" sem contexto sistêmico.
+        </p>
+      </div>
+      <div class="ranking-score">
+        <span class="score">8.2</span>
+        <span class="label">/ 10</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">5°</div>
+      <div class="ranking-body">
+        <div class="ranking-name">Proposta 3 — Craft Estacional</div>
+        <p class="ranking-reason">
+          A proposta de maior coerência artesanal — o tratamento sepia nas imagens, a linha lateral e o watermark ghostado criam um sistema visual consistente. Penalizada no ranking por ter a solução de grid de imagens menos original do conjunto (embora as alturas escalonadas sejam funcionais) e porque o texto-watermark "LILLIA" em background pode conflitar com SEO em alguns CMS. Para um briefing de "marca artesanal, estilo zine", subiria para segundo lugar.
+        </p>
+      </div>
+      <div class="ranking-score">
+        <span class="score">7.9</span>
+        <span class="label">/ 10</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(247,244,232,0.1);">
+    <p style="font-size: 0.75rem; letter-spacing: 0.08em; opacity: 0.4; text-transform: uppercase; line-height: 1.6;">
+      Gerado por Direção de Arte via Claude · Projeto fotografalilliatavares.com.br · 2026<br>
+      Todas as imagens são propriedade de Lillia Tavares Fotografia · Fontes: Lato, Cormorant Garamond, Playfair Display (Google Fonts)
+    </p>
+  </div>
+</section>
+
+</div><!-- /proposal-wrapper -->
+
+</body>
+</html>

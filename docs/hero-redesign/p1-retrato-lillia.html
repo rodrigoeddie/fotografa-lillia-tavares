@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P1 Editorial Sereno — Retrato Lillia · 5 variações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=The+Girl+Next+Door&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   FOTO — substitua pela URL real quando disponível
+   Características da foto: retrato vertical, fundo sage green
+   ~#6B7B6A, camisa branca, sorriso caloroso, cabelo cacheado
+============================================================ */
+:root {
+  --photo: url('https://images.fotografalilliatavares.com.br/images/29312476-e688-4fbe-f905-e7adafc52500/public');
+
+  /* Paleta site */
+  --olive:        #7B785B;
+  --olive-dark:   #5a5840;
+  --olive-light:  #9c9878;
+  --cream-btn:    #E3DFCB;
+  --cream-bg:     #F7F4E8;
+  --cream-mid:    #F4F2E9;
+  --cream-pale:   #FDFCF7;
+  --white:        #FFFFFF;
+  --ink:          #2c2a1e;
+
+  /* Sage green extraído da foto — funde com a paleta */
+  --sage:         #6B7B6A;
+  --sage-light:   #8a9989;
+  --sage-pale:    #c4cec3;
+
+  --hand: 'The Girl Next Door', cursive;
+  --sans: 'Lato', arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--sans);
+  background: var(--cream-pale);
+  color: var(--olive);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   PLACEHOLDER DA FOTO
+   Quando a foto real não estiver disponível, mostra o
+   placeholder sage green com a silhueta indicativa
+============================================================ */
+.photo-placeholder {
+  width: 100%; height: 100%;
+  background: var(--sage);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  padding-bottom: 1rem;
+  position: relative; overflow: hidden;
+}
+/* silhueta indicativa */
+.photo-placeholder::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 55%; height: 90%;
+  background: rgba(255,255,255,.12);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+}
+.photo-placeholder::after {
+  content: '';
+  position: absolute;
+  bottom: 50%; left: 50%; transform: translate(-50%, 50%);
+  width: 28%; height: 28%;
+  background: rgba(255,255,255,.18);
+  border-radius: 50%;
+}
+.placeholder-label {
+  font-family: var(--hand); font-size: .9rem; color: rgba(255,255,255,.7);
+  position: relative; z-index: 1; text-align: center; line-height: 1.4;
+}
+
+/* Para usar a foto real: */
+.has-photo .photo-placeholder {
+  background-image: var(--photo);
+  background-size: cover;
+  background-position: center top;
+}
+.has-photo .photo-placeholder::before,
+.has-photo .photo-placeholder::after,
+.has-photo .placeholder-label { display: none; }
+
+/* ============================================================
+   PÁGINA
+============================================================ */
+.page-header {
+  background: var(--sage);
+  color: var(--white);
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+.page-header h1 {
+  font-family: var(--hand);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400; letter-spacing: .02em; margin-bottom: .5rem;
+}
+.page-header p { font-size: .8rem; opacity: .72; letter-spacing: .1em; text-transform: uppercase; }
+.page-header .photo-hint {
+  display: inline-block; margin-top: 1rem;
+  font-size: .78rem; background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 999px; padding: .4rem 1rem; letter-spacing: .05em;
+  opacity: .9;
+}
+
+.proposal-wrap { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+.proposal-block { margin-bottom: 5rem; }
+.proposal-block + .proposal-block { border-top: 1px solid rgba(123,120,91,.18); padding-top: 4rem; }
+
+.prop-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.prop-label h2 {
+  font-size: .7rem; font-weight: 900; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--olive-light);
+}
+.tag {
+  font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: .25rem .65rem; border: 1px solid var(--olive-light); border-radius: 999px;
+  color: var(--olive-light);
+}
+.tag.sage { background: var(--sage); color: var(--white); border-color: var(--sage); }
+
+.rational {
+  margin-top: 1.5rem; padding: 1rem 1.25rem;
+  background: var(--cream-bg); border-left: 3px solid var(--sage-light);
+  font-size: .82rem; line-height: 1.65; color: var(--olive);
+  border-radius: 0 6px 6px 0;
+}
+.rational strong { color: var(--sage); }
+
+/* ============================================================
+   NAV SIMULADA
+============================================================ */
+.sim-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 1.5rem;
+  background: var(--white);
+  border-bottom: 1px solid rgba(123,120,91,.1);
+  position: relative; z-index: 10;
+}
+.logo-text {
+  display: flex; align-items: center; gap: .5rem;
+}
+.logo-img { height: 50px; }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a {
+  font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--olive); transition: color .2s;
+}
+.nav-links a:hover { color: var(--olive-dark); }
+.nav-cta {
+  font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .55rem 1.1rem; border: 1.5px solid var(--olive);
+  border-radius: 999px; color: var(--olive); transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: var(--olive); color: var(--white); }
+
+/* ============================================================
+   LADO ESQUERDO (idêntico ao P1 original)
+============================================================ */
+.hero-shell {
+  display: flex; align-items: stretch; min-height: 400px;
+  justify-content: space-between;
+  background: var(--white); overflow: hidden;
+}
+.p-left {
+  flex: 0 0 50%; padding: 2.25rem 2rem;
+  display: flex; flex-direction: column; justify-content: center; gap: .85rem;
+}
+.p-eyebrow {
+  font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--olive-light); display: flex; align-items: center; gap: .5rem;
+}
+.p-eyebrow::before { content:''; width:2rem; height:1px; background:var(--olive-light); }
+.p-h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 900; line-height: 1.08;
+  color: var(--olive-dark); letter-spacing: -.01em;
+}
+.p-h1 em { font-style:normal; font-weight:300; color:var(--olive-light); display:block; font-size:clamp(1.35rem,2.8vw,1.9rem); }
+.p-body { font-size: .94rem; line-height: 1.7; color: var(--olive);  }
+.p-body a { border-bottom: 1px solid var(--olive-light); transition: border-color .2s; }
+.p-body a:hover { border-color: var(--olive); }
+.p-actions { display: flex; flex-direction: column; gap: .5rem; margin-top: .25rem; }
+.p-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .8rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .85rem 1.5rem; background: var(--olive); color: var(--white);
+  border-radius: 999px; width: fit-content; transition: background .2s, transform .15s;
+}
+.p-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+.p-btn svg { width: 12px; height: 12px; }
+.p-links { display: flex; flex-direction: column; gap: .15rem; margin-top: .35rem; }
+.p-links a {
+  display: flex; align-items: center; gap: .6rem; font-size: .8rem; color: var(--olive);
+  padding: .4rem 0; border-bottom: 1px solid transparent; transition: border-color .2s;
+}
+.p-links a:hover { border-color: var(--olive-light); }
+.p-links svg { width:14px; height:14px; flex-shrink:0; opacity:.65; }
+
+/* ============================================================
+   VARIAÇÃO 6 — RETRATO FULL + NOTA FLUTUANTE
+   O retrato vertical da Lillia preenche toda a direita.
+   Uma nota manuscrita em creme flutua no canto inferior,
+   ligeiramente sobre a borda esquerda da foto (overlap).
+============================================================ */
+.v6-right {
+  flex: 1; position: relative; overflow: visible;
+}
+.v6-right .photo-placeholder {
+  position: absolute; inset: 0; background-position: center top;
+}
+/* overlap: a nota "sai" da foto em direção ao texto */
+.v6-note {
+  position: absolute; bottom: 2rem; left: -2.5rem; z-index: 20;
+  background: var(--cream-btn);
+  padding: 1.1rem 1.3rem 1.3rem;
+  width: 200px;
+  transform: rotate(-2deg);
+  box-shadow: 0 6px 24px rgba(44,42,30,.22), 0 1px 4px rgba(44,42,30,.1);
+  border-radius: 1px;
+}
+.v6-note::before {
+  content: '';
+  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--olive-light); box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+.v6-note p {
+  font-family: var(--hand); font-size: 1.05rem; line-height: 1.55; color: var(--ink);
+  margin-bottom: .5rem;
+}
+.v6-note .sig {
+  font-family: var(--hand); font-size: .9rem; color: var(--olive);
+  text-align: right;
+}
+/* sage tag no topo da foto */
+.v6-tag {
+  position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;
+  font-family: var(--hand); font-size: .9rem; color: var(--white);
+  background: rgba(107,123,106,.75); backdrop-filter: blur(6px);
+  padding: .4rem .9rem; border-radius: 999px;
+  transform: rotate(1.5deg);
+}
+
+/* ============================================================
+   VARIAÇÃO 7 — FUNDO SAGE EXPANDIDO + RETRATO CLIPADO
+   O sage green da foto "vaza" como cor de fundo para o
+   lado direito todo. O retrato é clipado num recorte
+   assimétrico (polygon) que cria movimento.
+============================================================ */
+.v7-right {
+  flex: 1; position: relative; overflow: hidden;
+  background: var(--sage);
+}
+.v7-photo-wrap {
+  position: absolute; inset: 0;
+  clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+  overflow: hidden;
+}
+.v7-photo-wrap .photo-placeholder {
+  background-position: center top;
+}
+/* rótulo manuscrito na faixa sage exposta */
+.v7-label-block {
+  position: absolute; left: 1.75rem; top: 50%; transform: translateY(-50%) rotate(-2deg);
+  z-index: 5;
+}
+.v7-label-block .v7-service {
+  font-family: var(--hand); font-size: 1.25rem; color: rgba(255,255,255,.9);
+  line-height: 1.6; display: block;
+}
+.v7-label-block .v7-line {
+  width: 2.5rem; height: 1.5px; background: rgba(255,255,255,.4);
+  margin: .5rem 0; transform: rotate(1deg);
+}
+
+/* ============================================================
+   VARIAÇÃO 8 — RETRATO + TATUAGEM COMO ASSINATURA
+   A tatuagem "Poesia também é silêncio" da Lillia vira
+   um elemento de design: citada em manuscrita grande,
+   como assinatura da marca. A foto é a âncora visual.
+============================================================ */
+.v8-right {
+  flex: 1; position: relative; overflow: hidden;
+}
+.v8-right .photo-placeholder {
+  position: absolute; inset: 0;
+  background-position: center top;
+}
+/* gradiente para legibilidade da citação */
+.v8-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(247,244,232,.85) 0%,
+    rgba(247,244,232,.5) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+.v8-quote-block {
+  position: absolute; z-index: 2;
+  bottom: 2rem; left: 1.5rem;
+  max-width: 55%;
+}
+.v8-quote-text {
+  font-family: var(--hand); font-size: 1.6rem; line-height: 1.35;
+  color: var(--olive-dark); transform: rotate(-1.5deg); display: block;
+  margin-bottom: .4rem;
+}
+.v8-quote-attr {
+  font-family: var(--hand); font-size: .85rem; color: var(--olive-light);
+  padding-left: .25rem;
+}
+/* micro-linha decorativa */
+.v8-quote-block::before {
+  content: '"';
+  font-family: var(--hand); font-size: 5rem; color: var(--sage-pale);
+  position: absolute; top: -2.5rem; left: -.5rem; line-height: 1; z-index: -1;
+}
+
+/* ============================================================
+   VARIAÇÃO 9 — DÍPTICO: SAGE + RETRATO
+   Divide o lado direito em dois painéis verticais:
+   — esquerda: fundo sage com copy manuscrito
+   — direita: retrato da Lillia
+   O sage do painel espelha o fundo da foto = seamless.
+============================================================ */
+.v9-right {
+  flex: 0 0 50%; display: flex; overflow: hidden;
+}
+.v9-sage-panel {
+  flex: 0 0 40%; background: var(--sage);
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center;
+  padding: 2rem 1.5rem;
+  position: relative; overflow: hidden;
+}
+/* textura pontilhada sutil */
+.v9-sage-panel::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+.v9-services { position: relative; z-index: 1; }
+.v9-service-item {
+  display: flex; align-items: flex-start; gap: .5rem;
+  margin-bottom: .85rem;
+}
+.v9-service-item .v9-num {
+  font-family: var(--hand); font-size: .85rem; color: rgba(255,255,255,.5);
+  line-height: 1.4; flex-shrink: 0; padding-top: .1rem;
+}
+.v9-service-item .v9-name {
+  font-family: var(--hand); font-size: 1.15rem; color: var(--white);
+  line-height: 1.3;
+  transform: rotate(-1deg); display: block;
+}
+.v9-service-item.highlight .v9-name {
+  font-size: 1.3rem; color: var(--cream-btn);
+}
+.v9-sage-cta {
+  display: inline-block; margin-top: 1.25rem;
+  font-family: var(--hand); font-size: 1rem;
+  color: var(--cream-btn); position: relative; z-index: 1;
+  transform: rotate(1deg);
+  border-bottom: 1px solid rgba(227,223,203,.4);
+  padding-bottom: .15rem;
+  transition: border-color .2s;
+}
+.v9-sage-cta:hover { border-color: rgba(227,223,203,.9); }
+/* seta manual */
+.v9-sage-cta::after {
+  content: ' →'; font-family: var(--sans); font-size: .8rem;
+}
+
+.v9-photo-panel {
+  flex: 0 0 60%; position: relative; overflow: hidden;
+}
+.v9-photo-panel .photo-placeholder {
+  background-position: center top;
+}
+
+/* ============================================================
+   VARIAÇÃO 10 — HERO INTEGRADO: SAGE TOTAL
+   O fundo sage da foto vira a cor de toda a hero section.
+   Texto esquerdo em sage escuro, foto à direita sem borda.
+   A hero parece uma única peça fotográfica integrada.
+============================================================ */
+
+/* override: hero-shell background integrado */
+.v10-shell {
+  display: flex; align-items: stretch; min-height: 400px;
+  background: var(--sage); /* ← toda a hero em sage */
+  overflow: hidden;
+}
+.v10-left {
+  flex: 0 0 42%; padding: 2.25rem 2.5rem;
+  display: flex; flex-direction: column; justify-content: center; gap: .85rem;
+}
+.v10-eyebrow {
+  font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); display: flex; align-items: center; gap: .5rem;
+}
+.v10-eyebrow::before { content:''; width:2rem; height:1px; background:rgba(255,255,255,.3); }
+
+.v10-h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 900; line-height: 1.08;
+  color: var(--white); letter-spacing: -.01em;
+}
+.v10-h1 em { font-style:normal; font-weight:300; color:rgba(255,255,255,.65); display:block; font-size:clamp(1.35rem,2.8vw,1.9rem); }
+
+.v10-body { font-size: .94rem; line-height: 1.7; color: rgba(255,255,255,.85); max-width: 36ch; }
+.v10-body a { color: var(--cream-btn); border-bottom: 1px solid rgba(227,223,203,.35); }
+.v10-body a:hover { border-color: var(--cream-btn); }
+
+.v10-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .8rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .85rem 1.5rem; background: var(--white); color: var(--sage);
+  border-radius: 999px; width: fit-content; transition: background .2s, transform .15s;
+}
+.v10-btn:hover { background: var(--cream-btn); transform: translateY(-1px); }
+.v10-btn svg { width:12px; height:12px; }
+
+.v10-links { display:flex; flex-direction:column; gap:.15rem; margin-top:.35rem; }
+.v10-links a {
+  display:flex; align-items:center; gap:.6rem; font-size:.8rem;
+  color:rgba(255,255,255,.75); padding:.4rem 0;
+  border-bottom:1px solid transparent; transition:border-color .2s, color .2s;
+}
+.v10-links a:hover { color:var(--white); border-color:rgba(255,255,255,.3); }
+.v10-links svg { width:14px; height:14px; flex-shrink:0; opacity:.6; }
+
+.v10-right {
+  flex: 1; position: relative; overflow: hidden;
+}
+.v10-right .photo-placeholder {
+  background-position: center top;
+  /* foto com mesmo bg sage = borda invisível, foto "nasce" da hero */
+}
+/* linha de fade no lado esquerdo para integrar com o fundo sage */
+.v10-right::before {
+  content: '';
+  position: absolute; top:0; left:0; bottom:0; width: 80px; z-index: 2;
+  background: linear-gradient(to right, var(--sage), transparent);
+  pointer-events: none;
+}
+/* nota manuscrita no canto superior */
+.v10-handnote {
+  position: absolute; top: 1.5rem; right: 1.75rem; z-index: 5;
+  font-family: var(--hand); font-size: 1rem; color: var(--white);
+  transform: rotate(-2deg); text-align: right;
+  text-shadow: 0 1px 4px rgba(0,0,0,.2);
+  line-height: 1.45;
+}
+
+/* ============================================================
+   MOBILE
+============================================================ */
+@media (max-width: 768px) {
+  .hero-shell, .v10-shell { flex-direction: column; min-height: auto; }
+  .p-left, .v10-left { flex: none; padding: 1.75rem 1.25rem; }
+  .p-h1, .v10-h1 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+
+  .v6-right,
+  .v7-right,
+  .v8-right,
+  .v9-photo-panel,
+  .v10-right { height: 300px; flex: none; }
+  .v9-right { flex-direction: column; }
+  .v9-sage-panel { flex: none; padding: 1.25rem; flex-direction: row; flex-wrap: wrap; gap: .5rem; }
+  .v9-service-item { margin-bottom: .35rem; }
+  .v6-note { left: .5rem; bottom: 1rem; }
+
+  .v7-photo-wrap { clip-path: none; }
+  .v7-label-block { display: none; }
+  .nav-links { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Retrato da Lillia — 5 variações</h1>
+  <p>P1 Editorial Sereno · foto retrato · TheGirlNextDoor · sage green integrado</p>
+  <div class="photo-hint">📷 Substitua --photo em :root pela URL da foto para ver o resultado real</div>
+</header>
+
+<div class="proposal-wrap">
+
+<!-- ============================================================
+     VARIAÇÃO 6 — RETRATO FULL + NOTA OVERLAP
+============================================================ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>Variação 6 — Nota sobre o retrato</h2>
+    <span class="tag">Evolução segura</span>
+  </div>
+  <nav class="sim-nav">
+    <div class="logo-text">
+      <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li><li><a href="#">Estúdio</a></li>
+      <li><a href="#">Preços</a></li><li><a href="#">Blog</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+  <div class="hero-shell" style="overflow:visible;">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="#">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="#" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v6-right" data-photo>
+      <div class="photo-placeholder">
+        <div class="placeholder-label">foto da<br>Lillia aqui</div>
+      </div>
+      <div class="v6-tag">ensaios ✿</div>
+      <div class="v6-note">
+        <p>cada foto é um pedacinho de você que vai durar para sempre</p>
+        <div class="sig">— Lillia ♡</div>
+      </div>
+    </div>
+  </div>
+  <p class="rational"><strong>Conceito:</strong> O retrato da Lillia preenche toda a direita — rosto visível, sorriso caloroso — e a nota rotacionada emerge do lado esquerdo da foto com overlap sobre o texto, criando uma ponte visual entre os dois lados. O sage green do fundo da foto e o olive do site harmonizam naturalmente. <strong>Trade-off:</strong> o overlap pode cobrir parte do corpo; a foto precisa ter espaço livre no canto inferior esquerdo.</p>
+</div>
+
+<!-- ============================================================
+     VARIAÇÃO 7 — SAGE EXPANDIDO + RETRATO CLIPADO
+============================================================ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>Variação 7 — Sage expandido + clip diagonal</h2>
+    <span class="tag">Evolução segura</span>
+  </div>
+  <nav class="sim-nav">
+    <div class="logo-text">
+      <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li><li><a href="#">Estúdio</a></li>
+      <li><a href="#">Preços</a></li><li><a href="#">Blog</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="#">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="#" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v7-right">
+      <div class="v7-photo-wrap" data-photo>
+        <div class="photo-placeholder">
+          <div class="placeholder-label">foto da<br>Lillia aqui</div>
+        </div>
+      </div>
+      <div class="v7-label-block">
+        <span class="v7-service">ensaios</span>
+        <div class="v7-line"></div>
+        <span class="v7-service">estúdio</span>
+        <div class="v7-line"></div>
+        <span class="v7-service">coloração</span>
+      </div>
+    </div>
+  </div>
+  <p class="rational"><strong>Conceito:</strong> O sage green da foto da Lillia "vaza" para o fundo do painel direito inteiro. A foto é clipada num polígono diagonal que cria movimento — como se o retrato emergisse de trás de uma cortina de cor. A faixa sage exposta à esquerda recebe os serviços em manuscrita branca. <strong>Trade-off:</strong> quando a foto real estiver disponível, o fundo sage do clip e da foto serão idênticos — efeito seamless. Sem a foto real, o visual é mais fragmentado.</p>
+</div>
+
+<!-- ============================================================
+     VARIAÇÃO 8 — TATUAGEM COMO CITAÇÃO
+============================================================ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>Variação 8 — "Poesia também é silêncio"</h2>
+    <span class="tag sage">Flair autoral</span>
+  </div>
+  <nav class="sim-nav">
+    <div class="logo-text">
+      <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li><li><a href="#">Estúdio</a></li>
+      <li><a href="#">Preços</a></li><li><a href="#">Blog</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="#">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="#" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v8-right" data-photo>
+      <div class="photo-placeholder" style="background-position:center top;">
+        <div class="placeholder-label">foto da<br>Lillia aqui</div>
+      </div>
+      <div class="v8-overlay"></div>
+      <div class="v8-quote-block">
+        <span class="v8-quote-text">poesia também<br>é silêncio</span>
+        <span class="v8-quote-attr">— tatuagem da Lillia</span>
+      </div>
+    </div>
+  </div>
+  <p class="rational"><strong>Conceito:</strong> A tatuagem "Poesia também é silêncio" no braço da Lillia vira o elemento textual do lado direito — uma citação manuscrita que emerge da foto como se a própria Lillia "falasse" pela pele. Único e completamente autoral: nenhum outro fotógrafo pode ter esse hero. <strong>Trade-off:</strong> pressupõe que o visitante entende a citação como parte da identidade da marca; pode gerar curiosidade positiva ou desconexão com quem busca apenas serviços diretos.</p>
+</div>
+
+<!-- ============================================================
+     VARIAÇÃO 9 — DÍPTICO SAGE + RETRATO
+============================================================ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>Variação 9 — Díptico sage + retrato</h2>
+    <span class="tag">Evolução segura</span>
+  </div>
+  <nav class="sim-nav">
+    <div class="logo-text">
+      <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li><li><a href="#">Estúdio</a></li>
+      <li><a href="#">Preços</a></li><li><a href="#">Blog</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="#">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="#" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v9-right">
+      <div class="v9-sage-panel">
+        <div class="v9-services">
+          <div class="v9-service-item highlight">
+            <span class="v9-num">01</span>
+            <span class="v9-name">Ensaios fotográficos</span>
+          </div>
+          <div class="v9-service-item">
+            <span class="v9-num">02</span>
+            <span class="v9-name">Aluguel do estúdio</span>
+          </div>
+          <div class="v9-service-item">
+            <span class="v9-num">03</span>
+            <span class="v9-name">Coloração pessoal</span>
+          </div>
+          <a href="#" class="v9-sage-cta">agendar agora</a>
+        </div>
+      </div>
+      <div class="v9-photo-panel" data-photo>
+        <div class="photo-placeholder">
+          <div class="placeholder-label">foto da<br>Lillia aqui</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="rational"><strong>Conceito:</strong> Divide o lado direito em dois: um painel sage com os serviços em manuscrita numerada (o sage espelha o fundo da foto = transição fluida), e a foto da Lillia preenchendo o restante. A numeração manuscrita dá ritmo e intenção editorial. <strong>Trade-off:</strong> o painel sage com os serviços pode parecer repetitivo se os quick-links do lado esquerdo já listarem os mesmos; recomenda-se simplificar o esquerdo nesse caso.</p>
+</div>
+
+<!-- ============================================================
+     VARIAÇÃO 10 — SAGE TOTAL: HERO INTEGRADO
+============================================================ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>Variação 10 — Sage total · hero integrado</h2>
+    <span class="tag sage">Ousada</span>
+  </div>
+  <nav class="sim-nav" style="background: var(--sage); border-color: rgba(255,255,255,.1);">
+    <div class="logo-text" style="color:var(--white);">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none">
+        <ellipse cx="14" cy="22" rx="8" ry="3" fill="rgba(255,255,255,.2)"/>
+        <path d="M14 20 C14 20 8 14 8 9 C8 5 11 3 14 3 C17 3 20 5 20 9 C20 14 14 20 14 20Z" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.2"/>
+        <line x1="14" y1="3" x2="14" y2="20" stroke="rgba(255,255,255,.8)" stroke-width="1"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" style="color:rgba(255,255,255,.8);">Portfolio</a></li>
+      <li><a href="#" style="color:rgba(255,255,255,.8);">Estúdio</a></li>
+      <li><a href="#" style="color:rgba(255,255,255,.8);">Preços</a></li>
+      <li><a href="#" style="color:rgba(255,255,255,.8);">Blog</a></li>
+    </ul>
+    <a href="#" class="nav-cta" style="color:var(--white); border-color:rgba(255,255,255,.5);">Agendar Ensaio</a>
+  </nav>
+  <div class="v10-shell">
+    <div class="v10-left">
+      <div class="v10-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="v10-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="v10-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="v10-body"><a href="#">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions" style="margin-top:.5rem;">
+        <a href="#" class="v10-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="v10-links">
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="#"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v10-right" data-photo>
+      <div class="photo-placeholder" style="background-position:center top;">
+        <div class="placeholder-label">foto da<br>Lillia aqui</div>
+      </div>
+      <div class="v10-handnote">
+        cada ensaio é<br>uma história ✿
+      </div>
+    </div>
+  </div>
+  <p class="rational"><strong>Conceito:</strong> Toda a hero — nav incluída — vira sage green. O fundo da foto da Lillia e o fundo da hero são a mesma cor: a foto emerge organicamente, sem borda, sem moldura. A nota manuscrita no canto superior direito em branco completa o gesto pessoal. Nav branca não existe mais: o site e a fotógrafa são uma coisa só. <strong>Trade-off:</strong> a maior ruptura visual de todas as 10 variações — exige convicção de marca. Funciona se a Lillia quiser se posicionar como marca premium/editorial, não apenas como serviço local.</p>
+</div>
+
+<!-- RANKING -->
+<div class="proposal-block" style="border-top:2px solid var(--sage-light); padding-top:3rem;">
+  <div class="prop-label"><h2>Ranking das 5 variações com a foto da Lillia</h2></div>
+  <div style="display:flex;flex-direction:column;gap:1rem;max-width:720px;">
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--sage);border-radius:8px;color:var(--white);">
+      <span style="font-family:var(--hand);font-size:2.5rem;line-height:1;flex-shrink:0;">1</span>
+      <div><strong style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.3rem;">Variação 10 — Sage Total</strong><span style="font-size:.82rem;line-height:1.6;opacity:.9;">A mais ousada e a mais coerente: quando o fundo da foto e o da hero são idênticos, cria-se uma peça única. A Lillia e o site viram uma identidade visual só. Nível de marca premium sem nenhum artifício — só a foto certa com a cor certa.</span></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--cream-bg);border-radius:8px;">
+      <span style="font-family:var(--hand);font-size:2.5rem;color:var(--olive-dark);line-height:1;flex-shrink:0;">2</span>
+      <div><strong style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;">Variação 8 — Tatuagem como citação</strong><br><span style="font-size:.82rem;line-height:1.6;">Único e irrepetível. Nenhum outro fotógrafo vai ter esse hero. A tatuagem da Lillia como elemento de design é a definição de brand storytelling autoral — conta quem ela é sem precisar de copy extra.</span></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--cream-bg);border-radius:8px;">
+      <span style="font-family:var(--hand);font-size:2.5rem;color:var(--olive-dark);line-height:1;flex-shrink:0;">3</span>
+      <div><strong style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;">Variação 9 — Díptico sage + retrato</strong><br><span style="font-size:.82rem;line-height:1.6;">O painel sage com serviços manuscritos numerados é editorial e funcional. Resolve o problema dos 3 CTAs originais de forma elegante: os serviços são visíveis mas hierarquizados, não três iguais.</span></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--cream-bg);border-radius:8px;">
+      <span style="font-family:var(--hand);font-size:2.5rem;color:var(--olive-dark);line-height:1;flex-shrink:0;">4</span>
+      <div><strong style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;">Variação 6 — Nota overlap</strong><br><span style="font-size:.82rem;line-height:1.6;">A mais próxima da V1 original mas com o retrato da Lillia. O overlap da nota cria uma ponte orgânica entre os dois lados do hero. Mais segura para conversão pois a Lillia visível gera conexão imediata.</span></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--cream-bg);border-radius:8px;">
+      <span style="font-family:var(--hand);font-size:2.5rem;color:var(--olive-dark);line-height:1;flex-shrink:0;">5</span>
+      <div><strong style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;">Variação 7 — Sage clip diagonal</strong><br><span style="font-size:.82rem;line-height:1.6;">O conceito visual é forte — foto emergindo de detrás de uma cortina sage — mas depende criticamente de ter a foto real para validar. Com placeholder fica abstrato; com a foto real pode subir no ranking.</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /proposal-wrap -->
+<script>
+document.querySelectorAll('[data-photo]').forEach(el => el.classList.add('has-photo'));
+</script>
+</body>
+</html>

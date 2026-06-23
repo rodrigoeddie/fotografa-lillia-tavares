@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hero-redesign-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "4321", "docs/hero-redesign"],
+      "port": 4321
+    }
+  ]
+}

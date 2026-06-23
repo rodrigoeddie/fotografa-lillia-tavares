@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Redesign — 5 Propostas — Fotógrafa Lillia Tavares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   TOKENS GLOBAIS
+   ============================================= */
+:root {
+  --c-olive:       #7B785B;
+  --c-olive-dark:  #5c5a43;
+  --c-olive-light: #9a9880;
+  --c-white:       #FFFFFF;
+  --c-cream-btn:   #E3DFCB;
+  --c-cream-cta:   #F7F4E8;
+  --c-cream-mid:   #F4F2E9;
+  --c-cream-soft:  #FAF8F2;
+  --c-text:        #3a3828;
+  --c-text-muted:  #6b6957;
+  --c-border:      #dedad0;
+
+  --r-sm:  0.375rem;
+  --r-md:  0.75rem;
+  --r-lg:  1.5rem;
+  --r-xl:  2rem;
+  --r-pill: 9999px;
+
+  --shadow-card: 0 2px 12px rgba(123,120,91,0.10);
+  --shadow-hover: 0 6px 24px rgba(123,120,91,0.18);
+
+  --transition: 0.22s cubic-bezier(.4,0,.2,1);
+
+  --font: 'Lato', Arial, sans-serif;
+
+  --img-ensaios: url('https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public');
+  --img-estudio: url('https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public');
+  --img-coloracao: url('https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public');
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: #e8e5d8;
+  color: var(--c-text);
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* =============================================
+   ESTRUTURA DO DOCUMENTO
+   ============================================= */
+.doc-header {
+  background: var(--c-olive-dark);
+  color: #fff;
+  padding: 2rem 2rem 1.5rem;
+  text-align: center;
+}
+.doc-header h1 { font-size: 1.5rem; font-weight: 900; letter-spacing: 0.04em; }
+.doc-header p { margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8; }
+
+.proposal {
+  margin: 2.5rem auto;
+  max-width: 1400px;
+  background: var(--c-white);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+}
+
+.proposal-meta {
+  background: var(--c-cream-soft);
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--c-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.proposal-meta h2 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--c-olive-dark);
+  letter-spacing: 0.03em;
+}
+.proposal-meta .rational {
+  font-size: 0.82rem;
+  color: var(--c-text-muted);
+  line-height: 1.55;
+  max-width: 55ch;
+}
+.toggle-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.toggle-btn {
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.85rem;
+  border: 1.5px solid var(--c-olive);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--c-olive-dark);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+.toggle-btn:hover { background: var(--c-olive); color: #fff; }
+.toggle-btn.active { background: var(--c-olive); color: #fff; }
+
+.proposal-preview {
+  overflow-x: auto;
+}
+
+/* =============================================
+   NAV SIMULADA (compartilhada entre propostas)
+   ============================================= */
+.sim-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 3.25rem;
+  background: var(--c-white);
+  border-bottom: 1px solid var(--c-border);
+  gap: 1rem;
+}
+.sim-nav .brand {
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+  white-space: nowrap;
+}
+.sim-nav .nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  align-items: center;
+}
+.sim-nav .nav-links li a {
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-olive);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.sim-nav .nav-links li a:hover { color: var(--c-olive-dark); }
+.sim-nav .nav-cta {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--c-olive);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+}
+.sim-nav .nav-cta:hover { background: var(--c-olive-dark); }
+.sim-nav .nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .sim-nav .nav-links { display: none; }
+  .sim-nav .nav-hamburger { display: block; }
+}
+@media (max-width: 480px) {
+  .sim-nav .nav-cta span.label { display: none; }
+  .sim-nav { padding: 0 1rem; }
+}
+
+/* =============================================
+   FALLBACK DE IMAGEM
+   ============================================= */
+.img-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: var(--c-cream-mid);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--c-olive-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1rem;
+}
+.img-fallback svg { opacity: 0.45; }
+
+img.broken + .img-fallback,
+img[src=""] + .img-fallback { display: flex; }
+
+/* Quando img falha: hide img, show fallback */
+.card-img-wrap { position: relative; overflow: hidden; }
+.card-img-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.card-img-wrap .img-fallback {
+  position: absolute; inset: 0;
+}
+/* no-img mode via JS class */
+.no-img .card-img-wrap img { opacity: 0; }
+.no-img .card-img-wrap .img-fallback { display: flex; }
+
+/* =============================================
+   SKELETON LOADER
+   ============================================= */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--c-cream-mid) 25%, var(--c-cream-btn) 50%, var(--c-cream-mid) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--r-sm);
+}
+
+/* =============================================
+   ÍCONE SVG INLINE helpers
+   ============================================= */
+.icon { display: inline-flex; align-items: center; flex-shrink: 0; }
+
+/* ====================================================
+   PROPOSTA 1 — Consolidação Robusta
+   Evolução segura: mesma estrutura, corrige todos os
+   problemas de robustez (overflow, CLS, touch targets,
+   legibilidade) sem mudar identidade visual.
+   ==================================================== */
+#p1 .hero {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 2.5rem;
+  padding: 2.5rem 2rem;
+  background: var(--c-white);
+  min-height: 22rem;
+  align-items: center;
+}
+
+#p1 .about {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#p1 .about h1 {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+}
+
+#p1 .about p {
+  font-size: clamp(0.875rem, 1.1vw, 0.95rem);
+  line-height: 1.65;
+  color: var(--c-text-muted);
+  max-width: 42ch;
+}
+
+#p1 .btn-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--c-cream-btn);
+  color: var(--c-olive-dark);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.75rem 1.5rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+#p1 .btn-main:hover {
+  background: var(--c-olive);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+#p1 .about-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--c-cream-cta);
+  border-radius: var(--r-md);
+  padding: 0.75rem 1rem;
+}
+#p1 .cta-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--c-olive);
+  text-decoration: none;
+  min-height: 2.5rem;
+  padding: 0.25rem 0;
+  transition: color var(--transition);
+  border-bottom: 1px solid var(--c-border);
+}
+#p1 .cta-link:last-child { border-bottom: none; }
+#p1 .cta-link:hover { color: var(--c-olive-dark); }
+#p1 .cta-link.primary { color: var(--c-olive-dark); font-weight: 900; font-size: 0.85rem; }
+
+#p1 .services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+#p1 .service-card {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--c-cream-soft);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+#p1 .service-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+#p1 .card-img-wrap {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+#p1 .card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+#p1 .service-card:hover .card-img-wrap img {
+  transform: scale(1.04);
+}
+#p1 .card-title {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+  padding: 0.65rem 0.75rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+@media (max-width: 900px) {
+  #p1 .hero { grid-template-columns: 1fr; gap: 2rem; min-height: auto; }
+  #p1 .services { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  #p1 .hero { padding: 1.5rem 1rem; }
+  #p1 .services { grid-template-columns: 1fr; gap: 0.75rem; }
+  #p1 .card-img-wrap { aspect-ratio: 16 / 7; }
+}
+
+/* ====================================================
+   PROPOSTA 2 — Cards Verticais com Aspect-Ratio
+   Evolução segura: converte cards para aspect-ratio
+   vertical (2:3), resolve corte de rostos, adiciona
+   overlay gradient com título dentro do card.
+   ==================================================== */
+#p2 .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 2rem;
+  padding: 2rem 2rem 2.5rem;
+  background: var(--c-white);
+  align-items: start;
+}
+
+#p2 .about {
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#p2 .about h1 {
+  font-size: clamp(1.2rem, 2.4vw, 1.9rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  color: var(--c-olive-dark);
+}
+#p2 .about h1 em {
+  font-style: normal;
+  display: block;
+  font-size: 0.55em;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--c-olive-light);
+  margin-bottom: 0.15em;
+}
+
+#p2 .about p {
+  font-size: clamp(0.875rem, 1vw, 0.95rem);
+  line-height: 1.7;
+  color: var(--c-text-muted);
+}
+
+#p2 .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--c-olive);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.8rem 1.6rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 8px rgba(123,120,91,0.3);
+}
+#p2 .btn-primary:hover {
+  background: var(--c-olive-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(123,120,91,0.35);
+}
+
+#p2 .about-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--c-border);
+}
+#p2 .cta-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--c-olive);
+  text-decoration: none;
+  min-height: 2.75rem;
+  padding: 0.5rem 0;
+  transition: color var(--transition), gap var(--transition);
+  border-bottom: 1px solid var(--c-border);
+}
+#p2 .cta-link:last-child { color: var(--c-olive-dark); font-weight: 900; }
+#p2 .cta-link:hover { color: var(--c-olive-dark); gap: 0.85rem; }
+
+#p2 .services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.875rem;
+  align-items: start;
+}
+
+#p2 .service-card {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+#p2 .card-img-wrap {
+  aspect-ratio: 2 / 3;
+  position: relative;
+  overflow: hidden;
+}
+#p2 .card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+#p2 .service-card:hover .card-img-wrap img { transform: scale(1.05); }
+#p2 .card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(58,56,40,0.85) 0%, rgba(58,56,40,0.1) 50%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 0.85rem 0.75rem;
+}
+#p2 .card-title {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  #p2 .hero { grid-template-columns: 1fr; }
+  #p2 .services { grid-template-columns: repeat(3, 1fr); }
+  #p2 .card-img-wrap { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 600px) {
+  #p2 .hero { padding: 1.5rem 1rem; }
+  #p2 .services { grid-template-columns: 1fr; }
+  #p2 .card-img-wrap { aspect-ratio: 16 / 7; }
+}
+
+/* ====================================================
+   PROPOSTA 3 — Grid Modular com Stats
+   Evolução segura: adiciona linha de micro-stats sob o
+   título para construir autoridade. Grid mais fluido.
+   Corrige UX copy e touch targets completamente.
+   ==================================================== */
+#p3 .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  align-items: center;
+  gap: 3rem;
+  padding: 2.5rem 2.5rem;
+  background: linear-gradient(to right, var(--c-white) 55%, var(--c-cream-soft) 100%);
+}
+
+#p3 .about { display: flex; flex-direction: column; gap: 1.1rem; }
+
+#p3 .eyebrow {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-olive-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+#p3 .eyebrow::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1.5px;
+  background: var(--c-olive-light);
+}
+
+#p3 .about h1 {
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: var(--c-olive-dark);
+}
+
+#p3 .stats-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+#p3 .stat {
+  display: flex;
+  flex-direction: column;
+}
+#p3 .stat-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--c-olive);
+  line-height: 1;
+}
+#p3 .stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--c-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#p3 .about p {
+  font-size: clamp(0.875rem, 1vw, 0.95rem);
+  line-height: 1.7;
+  color: var(--c-text-muted);
+  max-width: 42ch;
+}
+
+#p3 .btn-wrap {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+#p3 .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--c-olive);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.8rem 1.6rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+}
+#p3 .btn-primary:hover { background: var(--c-olive-dark); transform: translateY(-1px); }
+
+#p3 .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--c-olive);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1.5px solid var(--c-cream-btn);
+  border-radius: var(--r-pill);
+  padding: 0.8rem 1.4rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition), background var(--transition);
+}
+#p3 .btn-ghost:hover { border-color: var(--c-olive); background: var(--c-cream-cta); }
+
+#p3 .about-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+#p3 .cta-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-olive);
+  text-decoration: none;
+  min-height: 2.75rem;
+  border-bottom: 1px solid var(--c-cream-btn);
+  transition: color var(--transition), padding-left var(--transition);
+}
+#p3 .cta-link:hover { color: var(--c-olive-dark); padding-left: 0.3rem; }
+#p3 .cta-link.highlight { color: var(--c-olive-dark); font-weight: 900; font-size: 0.82rem; }
+
+#p3 .services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+#p3 .service-card {
+  background: var(--c-white);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+#p3 .service-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+
+#p3 .card-img-wrap { aspect-ratio: 1 / 1.1; position: relative; overflow: hidden; }
+#p3 .card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 20%;
+  display: block;
+  transition: transform 0.45s ease;
+}
+#p3 .service-card:hover .card-img-wrap img { transform: scale(1.05); }
+
+#p3 .card-body { padding: 0.7rem 0.8rem 0.8rem; }
+#p3 .card-title {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  #p3 .hero { grid-template-columns: 1fr; gap: 2rem; }
+  #p3 .services { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  #p3 .hero { padding: 1.5rem 1rem; }
+  #p3 .services { grid-template-columns: 1fr; gap: 0.75rem; }
+  #p3 .stats-row { gap: 1rem; }
+}
+
+/* ====================================================
+   PROPOSTA 4 — Full-Width Editorial
+   Extrapolação: hero full-width com imagem de fundo
+   (card principal) + texto sobreposto. Cards secundários
+   empilhados na borda direita. Layout editorial de
+   portfólio de fotografia.
+   ==================================================== */
+#p4 .hero {
+  position: relative;
+  background: var(--c-cream-soft);
+  overflow: hidden;
+}
+
+#p4 .hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 28rem;
+}
+
+#p4 .hero-main {
+  position: relative;
+  overflow: hidden;
+}
+#p4 .hero-main .card-img-wrap {
+  position: absolute;
+  inset: 0;
+}
+#p4 .hero-main .card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+#p4 .hero-main .card-img-wrap .img-fallback {
+  font-size: 0.8rem;
+}
+#p4 .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(40,38,28,0.78) 0%,
+    rgba(40,38,28,0.55) 40%,
+    rgba(40,38,28,0.12) 100%
+  );
+}
+#p4 .hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem 2.5rem;
+  height: 100%;
+}
+#p4 .eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.6rem;
+}
+#p4 .hero-content h1 {
+  font-size: clamp(1.5rem, 3vw, 2.6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+}
+#p4 .hero-content p {
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.88);
+  max-width: 46ch;
+  margin-bottom: 1.25rem;
+}
+#p4 .btn-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+#p4 .btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: var(--c-olive-dark);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.8rem 1.6rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+#p4 .btn-white:hover { background: var(--c-cream-btn); transform: translateY(-1px); }
+#p4 .btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: var(--r-pill);
+  padding: 0.8rem 1.4rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition), background var(--transition);
+}
+#p4 .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.12); }
+
+#p4 .hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--c-cream-soft);
+  border-left: 1px solid var(--c-border);
+}
+#p4 .side-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--c-border);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+#p4 .side-card:last-child { border-bottom: none; }
+#p4 .side-card .card-img-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+#p4 .side-card .card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+#p4 .side-card:hover .card-img-wrap img { transform: scale(1.06); }
+#p4 .side-card .card-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(40,38,28,0.75) 0%, transparent 100%);
+  padding: 0.8rem 0.75rem 0.6rem;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.3;
+}
+
+#p4 .hero-bottom {
+  background: var(--c-cream-cta);
+  padding: 0.85rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border-top: 1px solid var(--c-border);
+  flex-wrap: wrap;
+}
+#p4 .hero-bottom .quick-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-olive);
+  text-decoration: none;
+  min-height: 2.5rem;
+  transition: color var(--transition);
+  white-space: nowrap;
+}
+#p4 .hero-bottom .quick-link:hover { color: var(--c-olive-dark); }
+#p4 .hero-bottom .quick-link.cta { color: var(--c-olive-dark); font-weight: 900; }
+#p4 .hero-bottom .sep { color: var(--c-border); font-size: 1rem; }
+
+@media (max-width: 900px) {
+  #p4 .hero-inner { grid-template-columns: 1fr; }
+  #p4 .hero-main { min-height: 22rem; }
+  #p4 .hero-sidebar { flex-direction: row; border-left: none; border-top: 1px solid var(--c-border); }
+  #p4 .side-card { border-bottom: none; border-right: 1px solid var(--c-border); }
+  #p4 .side-card:last-child { border-right: none; }
+  #p4 .side-card .card-img-wrap { min-height: 9rem; }
+  #p4 .hero-bottom { padding: 0.75rem 1.5rem; gap: 1rem; }
+}
+@media (max-width: 600px) {
+  #p4 .hero-content { padding: 1.5rem 1.25rem; }
+  #p4 .hero-bottom { flex-direction: column; align-items: flex-start; gap: 0.4rem; padding: 1rem; }
+  #p4 .hero-bottom .sep { display: none; }
+  #p4 .hero-sidebar { flex-direction: column; }
+  #p4 .side-card { border-right: none; border-bottom: 1px solid var(--c-border); min-height: 7rem; }
+  #p4 .side-card .card-img-wrap { min-height: 7rem; }
+}
+
+/* ====================================================
+   PROPOSTA 5 — Bento Grid Imersivo
+   Extrapolação radical: layout bento asymétrico com
+   imagens grandes, hierarquia clara de CTA, e área
+   de texto compacta mas impactante. Mobile-first.
+   ==================================================== */
+#p5 .hero {
+  padding: 1.5rem;
+  background: var(--c-cream-soft);
+}
+#p5 .bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 0.75rem;
+  max-width: 100%;
+}
+/* Cell A: Texto + CTA (span 1 col, 2 rows implicitly) */
+#p5 .cell-text {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  background: var(--c-olive-dark);
+  border-radius: var(--r-lg);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  color: #fff;
+  min-height: 28rem;
+}
+#p5 .cell-text .eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+#p5 .cell-text h1 {
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: #fff;
+  margin-top: 0.5rem;
+}
+#p5 .cell-text p {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.78);
+  flex: 1;
+  margin-top: 0.75rem;
+}
+#p5 .cell-text .cta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+#p5 .btn-cream {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--c-cream-btn);
+  color: var(--c-olive-dark);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.85rem 1.5rem;
+  min-height: 3rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+}
+#p5 .btn-cream:hover { background: #fff; transform: translateY(-1px); }
+
+#p5 .btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  padding: 0.75rem 1.25rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition);
+}
+#p5 .btn-link:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* Cell B: Ensaios — large */
+#p5 .cell-b {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+  min-height: 14rem;
+  cursor: pointer;
+}
+/* Cell C: Estúdio */
+#p5 .cell-c {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+  min-height: 14rem;
+  cursor: pointer;
+}
+/* Cell D: Coloração — wide */
+#p5 .cell-d {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+  min-height: 12rem;
+  cursor: pointer;
+}
+
+#p5 .cell-b .card-img-wrap,
+#p5 .cell-c .card-img-wrap,
+#p5 .cell-d .card-img-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+#p5 .cell-b .card-img-wrap img,
+#p5 .cell-c .card-img-wrap img,
+#p5 .cell-d .card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.5s ease;
+}
+#p5 .cell-b:hover img,
+#p5 .cell-c:hover img,
+#p5 .cell-d:hover img { transform: scale(1.05); }
+
+#p5 .bento-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(40,38,28,0.72) 0%, transparent 55%);
+}
+#p5 .bento-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 1rem 1rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+#p5 .bento-label .name {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.3;
+}
+#p5 .bento-label .arrow {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  transition: background var(--transition);
+}
+#p5 .cell-b:hover .arrow,
+#p5 .cell-c:hover .arrow,
+#p5 .cell-d:hover .arrow { background: rgba(255,255,255,0.35); }
+
+#p5 .hero-footer {
+  margin-top: 0.75rem;
+  background: var(--c-cream-cta);
+  border-radius: var(--r-md);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+#p5 .quick-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-olive);
+  text-decoration: none;
+  min-height: 2.5rem;
+  transition: color var(--transition);
+}
+#p5 .quick-link:hover { color: var(--c-olive-dark); }
+
+@media (max-width: 900px) {
+  #p5 .bento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  #p5 .cell-text { grid-column: 1 / 3; grid-row: 1; min-height: auto; }
+  #p5 .cell-b { grid-column: 1 / 2; grid-row: 2; }
+  #p5 .cell-c { grid-column: 2 / 3; grid-row: 2; }
+  #p5 .cell-d { grid-column: 1 / 3; grid-row: 3; }
+}
+@media (max-width: 600px) {
+  #p5 .hero { padding: 1rem; }
+  #p5 .bento { grid-template-columns: 1fr; gap: 0.6rem; }
+  #p5 .cell-text { grid-column: 1; grid-row: 1; }
+  #p5 .cell-b { grid-column: 1; grid-row: 2; min-height: 12rem; }
+  #p5 .cell-c { grid-column: 1; grid-row: 3; min-height: 10rem; }
+  #p5 .cell-d { grid-column: 1; grid-row: 4; min-height: 10rem; }
+  #p5 .hero-footer { gap: 0.5rem; }
+}
+
+/* ====================================================
+   RANKING
+   ==================================================== */
+#ranking {
+  max-width: 1400px;
+  margin: 2.5rem auto 4rem;
+  background: var(--c-white);
+  border-radius: var(--r-lg);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+#ranking .rank-header {
+  background: var(--c-olive-dark);
+  color: #fff;
+  padding: 1.5rem 2rem;
+}
+#ranking .rank-header h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+#ranking .rank-list {
+  list-style: none;
+  padding: 0;
+}
+#ranking .rank-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr 2.5fr;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--c-border);
+  align-items: start;
+}
+#ranking .rank-item:last-child { border-bottom: none; }
+#ranking .rank-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--c-olive-light);
+  line-height: 1;
+}
+#ranking .rank-name {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--c-olive-dark);
+  letter-spacing: 0.03em;
+}
+#ranking .rank-score {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  flex-wrap: wrap;
+}
+#ranking .badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--r-pill);
+}
+.badge-green { background: #e8f5e9; color: #2e7d32; }
+.badge-blue  { background: #e3f2fd; color: #1565c0; }
+.badge-amber { background: #fff8e1; color: #f57f17; }
+.badge-red   { background: #ffebee; color: #c62828; }
+#ranking .rank-justification {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+@media (max-width: 600px) {
+  #ranking .rank-item { grid-template-columns: 2.5rem 1fr; }
+  #ranking .rank-justification { grid-column: 1 / 3; }
+}
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <h1>Hero Section — 5 Propostas de Redesign</h1>
+  <p>Fotógrafa Lillia Tavares · Gerado em Jun/2026 · Todas as propostas são responsivas (375px → 1280px+)</p>
+</header>
+
+<!-- ====================================================
+     PROPOSTA 1
+     ==================================================== -->
+<section class="proposal" id="p1">
+  <div class="proposal-meta">
+    <div>
+      <h2>Proposta 1 — Consolidação Robusta</h2>
+      <p class="rational">
+        <strong>Problema resolvido:</strong> Converte o flex fixo de 286px para CSS Grid fluido com <code>clamp()</code> no H1, corrige touch targets (min 2.75rem), eleva corpo para 0.875–0.95rem, adiciona <code>aspect-ratio: 1/1</code> nos cards para evitar CLS e corte de rosto. Copy do CTA corrigida para "Conheça o meu trabalho".<br>
+        <strong>Trade-off:</strong> Layout muito próximo do atual — risco mínimo de regressão, ideal como sprint único de QA antes de mudanças maiores.
+      </p>
+    </div>
+    <div class="toggle-group">
+      <button class="toggle-btn" onclick="toggleLongText('p1')">Texto longo</button>
+      <button class="toggle-btn" onclick="toggleNoImg('p1')">Sem imagem</button>
+    </div>
+  </div>
+  <div class="proposal-preview">
+    <!-- NAV -->
+    <nav class="sim-nav">
+      <span class="brand">Lillia Tavares</span>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <button class="nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11 19.79 19.79 0 0 1 1.9 2.22 2 2 0 0 1 3.88.01h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+        <span class="label">Falar no WhatsApp</span>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B785B" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="about">
+        <h1 class="h1-text">FOTÓGRAFA EM MOGI DAS CRUZES</h1>
+        <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que comunicam autenticidade, confiança e profissionalismo.</p>
+        <a href="#" class="btn-main">
+          Conheça o meu trabalho
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="about-ctas">
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Acompanhe meus trabalhos
+          </a>
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Conheça meu estúdio (disponível para locação)
+          </a>
+          <a href="#" class="cta-link primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agende seu ensaio fotográfico
+          </a>
+        </div>
+      </div>
+      <div class="services">
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaios fotográficos femininos e corporativos em Mogi das Cruzes"
+                 loading="lazy" width="212" height="212">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ensaios
+            </div>
+          </div>
+          <div class="card-title">Ensaios Fotográficos</div>
+        </article>
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Estúdio fotográfico disponível para locação em Mogi das Cruzes"
+                 loading="lazy" width="212" height="212">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Estúdio
+            </div>
+          </div>
+          <div class="card-title">Aluguel do Estúdio</div>
+        </article>
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Análise de coloração pessoal em Mogi das Cruzes"
+                 loading="lazy" width="212" height="212">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+              Coloração
+            </div>
+          </div>
+          <div class="card-title">Análise de Coloração Pessoal</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     PROPOSTA 2
+     ==================================================== -->
+<section class="proposal" id="p2">
+  <div class="proposal-meta">
+    <div>
+      <h2>Proposta 2 — Cards Verticais com Overlay</h2>
+      <p class="rational">
+        <strong>Problema resolvido:</strong> <code>aspect-ratio: 2/3</code> com <code>object-position: center top</code> elimina o corte de rostos que o formato 1:1 causava. Título migra para dentro do card via overlay escuro, liberando espaço visual. H1 recebe linha fina de sub-cidade acima para quebrar a densidade.<br>
+        <strong>Trade-off:</strong> Cards mais altos aumentam a altura total do hero em ~30%; ideal a partir de viewport de 1024px. Em mobile o card retorna a 4:3 para não alongar demais.
+      </p>
+    </div>
+    <div class="toggle-group">
+      <button class="toggle-btn" onclick="toggleLongText('p2')">Texto longo</button>
+      <button class="toggle-btn" onclick="toggleNoImg('p2')">Sem imagem</button>
+    </div>
+  </div>
+  <div class="proposal-preview">
+    <nav class="sim-nav">
+      <span class="brand">Lillia Tavares</span>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <button class="nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11 19.79 19.79 0 0 1 1.9 2.22 2 2 0 0 1 3.88.01h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+        <span class="label">Falar no WhatsApp</span>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B785B" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+    <div class="hero">
+      <div class="about">
+        <h1 class="h1-text">
+          <em>Fotógrafa em</em>
+          MOGI DAS CRUZES
+        </h1>
+        <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade, confiança e profissionalismo.</p>
+        <a href="#" class="btn-primary">
+          Agende seu ensaio
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="about-ctas">
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Acompanhe meus trabalhos
+          </a>
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Conheça meu estúdio (locação)
+          </a>
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Saiba mais sobre mim
+          </a>
+        </div>
+      </div>
+      <div class="services">
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaios fotográficos femininos e corporativos — Lillia Tavares"
+                 loading="lazy" width="212" height="318">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ensaios
+            </div>
+            <div class="card-overlay">
+              <div class="card-title">Ensaios Fotográficos</div>
+            </div>
+          </div>
+        </article>
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Estúdio fotográfico disponível para locação — Mogi das Cruzes"
+                 loading="lazy" width="212" height="318">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Estúdio
+            </div>
+            <div class="card-overlay">
+              <div class="card-title">Aluguel do Estúdio</div>
+            </div>
+          </div>
+        </article>
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Análise de coloração pessoal com Lillia Tavares"
+                 loading="lazy" width="212" height="318">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+              Coloração
+            </div>
+            <div class="card-overlay">
+              <div class="card-title">Análise de Coloração Pessoal</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     PROPOSTA 3
+     ==================================================== -->
+<section class="proposal" id="p3">
+  <div class="proposal-meta">
+    <div>
+      <h2>Proposta 3 — Grid Modular com Micro-Stats</h2>
+      <p class="rational">
+        <strong>Problema resolvido:</strong> Micro-stats (anos, ensaios, etc.) constroem prova social diretamente no hero sem precisar de seção extra — reduz o bounce rate. Duplo CTA (primário "Agende" + ghost "Veja trabalhos") resolve a ambiguidade do CTA único. Fundo com gradiente suave separa visualmente o bloco de texto dos cards sem border.<br>
+        <strong>Trade-off:</strong> Stats são conteúdo editorial — precisam ser mantidos atualizados. Adiciona ~12 tokens de DOM por stat; impacto em CLS nulo pois são texto puro.
+      </p>
+    </div>
+    <div class="toggle-group">
+      <button class="toggle-btn" onclick="toggleLongText('p3')">Texto longo</button>
+      <button class="toggle-btn" onclick="toggleNoImg('p3')">Sem imagem</button>
+    </div>
+  </div>
+  <div class="proposal-preview">
+    <nav class="sim-nav">
+      <span class="brand">Lillia Tavares</span>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <button class="nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11 19.79 19.79 0 0 1 1.9 2.22 2 2 0 0 1 3.88.01h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+        <span class="label">Falar no WhatsApp</span>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B785B" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+    <div class="hero">
+      <div class="about">
+        <div class="eyebrow">Fotografia · Mogi das Cruzes</div>
+        <h1 class="h1-text">FOTÓGRAFA EM MOGI DAS CRUZES</h1>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Anos</span></div>
+          <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Ensaios</span></div>
+          <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Avaliação</span></div>
+        </div>
+        <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+        <div class="btn-wrap">
+          <a href="#" class="btn-primary">
+            Agende seu ensaio
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="btn-ghost">Ver trabalhos</a>
+        </div>
+        <div class="about-ctas">
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Acompanhe meus trabalhos
+          </a>
+          <a href="#" class="cta-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Estúdio disponível para locação
+          </a>
+          <a href="#" class="cta-link highlight">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agende seu ensaio fotográfico →
+          </a>
+        </div>
+      </div>
+      <div class="services">
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaios fotográficos femininos e corporativos em Mogi das Cruzes"
+                 loading="lazy" width="212" height="233">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ensaios
+            </div>
+          </div>
+          <div class="card-body"><div class="card-title">Ensaios Fotográficos</div></div>
+        </article>
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Estúdio fotográfico para locação em Mogi das Cruzes — Lillia Tavares"
+                 loading="lazy" width="212" height="233">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Estúdio
+            </div>
+          </div>
+          <div class="card-body"><div class="card-title">Aluguel do Estúdio</div></div>
+        </article>
+        <article class="service-card">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Análise de coloração pessoal com Lillia Tavares — consultoria de imagem"
+                 loading="lazy" width="212" height="233">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+              Coloração
+            </div>
+          </div>
+          <div class="card-body"><div class="card-title">Análise de Coloração Pessoal</div></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     PROPOSTA 4
+     ==================================================== -->
+<section class="proposal" id="p4">
+  <div class="proposal-meta">
+    <div>
+      <h2>Proposta 4 — Full-Width Editorial</h2>
+      <p class="rational">
+        <strong>Problema resolvido:</strong> O serviço principal (ensaios) assume o palco completo como hero image, criando impacto emocional imediato — o que o layout original nunca conseguiu com card 212px. Texto sobreposto com contraste WCAG AA. Sidebar vertical com cards dos outros serviços aproveita o espaço direito sem perder escaneabilidade.<br>
+        <strong>Trade-off:</strong> LCP depende diretamente da imagem hero — deve ser pré-carregada com <code>fetchpriority="high"</code> e <code>loading="eager"</code> em produção. Implica reorganização do DOM (estrutura diferente do atual).
+      </p>
+    </div>
+    <div class="toggle-group">
+      <button class="toggle-btn" onclick="toggleLongText('p4')">Texto longo</button>
+      <button class="toggle-btn" onclick="toggleNoImg('p4')">Sem imagem</button>
+    </div>
+  </div>
+  <div class="proposal-preview">
+    <nav class="sim-nav">
+      <span class="brand">Lillia Tavares</span>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <button class="nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11 19.79 19.79 0 0 1 1.9 2.22 2 2 0 0 1 3.88.01h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+        <span class="label">Falar no WhatsApp</span>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B785B" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+    <div class="hero">
+      <div class="hero-inner">
+        <!-- Main hero -->
+        <div class="hero-main">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaios fotográficos femininos e corporativos — Lillia Tavares, Mogi das Cruzes"
+                 loading="eager" width="820" height="480">
+            <div class="img-fallback">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Imagem do serviço principal
+            </div>
+          </div>
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <p class="eyebrow">Fotógrafa · Mogi das Cruzes e região</p>
+            <h1 class="h1-text">FOTÓGRAFA EM MOGI DAS CRUZES</h1>
+            <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora.</p>
+            <div class="btn-row">
+              <a href="#" class="btn-white">
+                Agende seu ensaio
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-outline-white">Ver portfólio</a>
+            </div>
+          </div>
+        </div>
+        <!-- Sidebar -->
+        <aside class="hero-sidebar">
+          <div class="side-card">
+            <div class="card-img-wrap">
+              <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                   alt="Estúdio fotográfico para locação — Lillia Tavares"
+                   loading="lazy" width="300" height="200">
+              <div class="img-fallback">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Estúdio
+              </div>
+            </div>
+            <div class="card-label">Aluguel do Estúdio</div>
+          </div>
+          <div class="side-card">
+            <div class="card-img-wrap">
+              <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                   alt="Análise de coloração pessoal — consultoria de imagem"
+                   loading="lazy" width="300" height="200">
+              <div class="img-fallback">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+                Coloração
+              </div>
+            </div>
+            <div class="card-label">Análise de Coloração Pessoal</div>
+          </div>
+        </aside>
+      </div>
+      <!-- Bottom strip -->
+      <div class="hero-bottom">
+        <a href="#" class="quick-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Acompanhe meus trabalhos
+        </a>
+        <span class="sep">·</span>
+        <a href="#" class="quick-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Conheça meu estúdio (disponível para locação)
+        </a>
+        <span class="sep">·</span>
+        <a href="#" class="quick-link cta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agende seu ensaio fotográfico →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     PROPOSTA 5
+     ==================================================== -->
+<section class="proposal" id="p5">
+  <div class="proposal-meta">
+    <div>
+      <h2>Proposta 5 — Bento Grid Imersivo</h2>
+      <p class="rational">
+        <strong>Problema resolvido:</strong> Bento asymétrico elimina a frieza de 3 cards idênticos e cria uma experiência visual que reflete o portfólio de uma fotógrafa. Célula de texto com fundo escuro garante contraste total e hierarquia clara. Cell-D (coloração) em span duplo captura atenção como elemento surpresa. Layout converte visitante em explorador.<br>
+        <strong>Trade-off:</strong> Maior esforço de implementação (requer CSS Grid area ou template literal). Em mobile o bento lineariza para coluna única — testar com usuários se o scroll longo é aceitável vs. alternar para swiper horizontal em viewport &lt; 600px.
+      </p>
+    </div>
+    <div class="toggle-group">
+      <button class="toggle-btn" onclick="toggleLongText('p5')">Texto longo</button>
+      <button class="toggle-btn" onclick="toggleNoImg('p5')">Sem imagem</button>
+    </div>
+  </div>
+  <div class="proposal-preview">
+    <nav class="sim-nav">
+      <span class="brand">Lillia Tavares</span>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <button class="nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11 19.79 19.79 0 0 1 1.9 2.22 2 2 0 0 1 3.88.01h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+        <span class="label">Falar no WhatsApp</span>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B785B" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+    <div class="hero">
+      <div class="bento">
+        <!-- CÉLULA TEXTO -->
+        <div class="cell-text">
+          <div>
+            <div class="eyebrow">Fotografia · Mogi das Cruzes</div>
+            <h1 class="h1-text">FOTÓGRAFA EM MOGI DAS CRUZES</h1>
+            <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade.</p>
+          </div>
+          <div class="cta-block">
+            <a href="#" class="btn-cream">
+              Agende seu ensaio
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn-link">Conheça o meu trabalho</a>
+          </div>
+        </div>
+        <!-- CÉLULA B: ENSAIOS -->
+        <div class="cell-b">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public"
+                 alt="Ensaios fotográficos femininos e corporativos — Lillia Tavares, Mogi das Cruzes"
+                 loading="eager" width="400" height="400">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ensaios
+            </div>
+          </div>
+          <div class="bento-overlay"></div>
+          <div class="bento-label">
+            <span class="name">Ensaios<br>Fotográficos</span>
+            <span class="arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+        <!-- CÉLULA C: ESTÚDIO -->
+        <div class="cell-c">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public"
+                 alt="Estúdio fotográfico para locação — Lillia Tavares, Mogi das Cruzes"
+                 loading="lazy" width="400" height="400">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Estúdio
+            </div>
+          </div>
+          <div class="bento-overlay"></div>
+          <div class="bento-label">
+            <span class="name">Aluguel<br>do Estúdio</span>
+            <span class="arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+        <!-- CÉLULA D: COLORAÇÃO (wide) -->
+        <div class="cell-d">
+          <div class="card-img-wrap">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public"
+                 alt="Análise de coloração pessoal — consultoria de imagem com Lillia Tavares"
+                 loading="lazy" width="800" height="300">
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+              Coloração Pessoal
+            </div>
+          </div>
+          <div class="bento-overlay"></div>
+          <div class="bento-label">
+            <span class="name">Análise de Coloração Pessoal</span>
+            <span class="arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Footer row -->
+      <div class="hero-footer">
+        <a href="#" class="quick-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Acompanhe meus trabalhos
+        </a>
+        <a href="#" class="quick-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Conheça meu estúdio (disponível para locação)
+        </a>
+        <a href="#" class="quick-link" style="color: var(--c-olive-dark); font-weight: 900;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agende seu ensaio fotográfico →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     RANKING
+     ==================================================== -->
+<section id="ranking">
+  <div class="rank-header">
+    <h2>Ranking das 5 Propostas</h2>
+  </div>
+  <ul class="rank-list">
+    <li class="rank-item">
+      <div class="rank-num">1º</div>
+      <div>
+        <div class="rank-name">Proposta 5 — Bento Grid Imersivo</div>
+        <div class="rank-score">
+          <span class="badge badge-green">Impacto visual máximo</span>
+          <span class="badge badge-green">Hierarquia de CTA clara</span>
+          <span class="badge badge-blue">Mobile-first</span>
+          <span class="badge badge-amber">Maior esforço de dev</span>
+        </div>
+      </div>
+      <div class="rank-justification">
+        O bento comunica portfólio de fotógrafa muito melhor do que qualquer grid de 3 colunas iguais. A célula de texto escura garante contraste absoluto com tipografia legível em qualquer tamanho. É a única proposta que transforma o visitante em explorador sem adicionar uma seção extra na página. Risco: requer validação de UX em mobile para o scroll longo (ou swiper horizontal em &lt;600px).
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-num">2º</div>
+      <div>
+        <div class="rank-name">Proposta 4 — Full-Width Editorial</div>
+        <div class="rank-score">
+          <span class="badge badge-green">LCP imagem hero</span>
+          <span class="badge badge-green">Hierarquia editorial forte</span>
+          <span class="badge badge-blue">Contraste WCAG AA</span>
+          <span class="badge badge-amber">LCP depende de imagem rápida</span>
+        </div>
+      </div>
+      <div class="rank-justification">
+        Hero fotográfico full-width cria impacto emocional imediato — essencial para um portfólio. O texto sobre imagem com overlay resolve a hierarquia e o problema do CTA fraco simultaneamente. O strip de bottom strip preserva os quick-links sem poluir o hero. Segundo por pouco: em caso de imagem lenta, o LCP piora drasticamente; exige <code>fetchpriority="high"</code> + preload em produção.
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-num">3º</div>
+      <div>
+        <div class="rank-name">Proposta 3 — Grid Modular com Micro-Stats</div>
+        <div class="rank-score">
+          <span class="badge badge-green">Prova social embutida</span>
+          <span class="badge badge-green">Duplo CTA</span>
+          <span class="badge badge-blue">Evolução segura</span>
+          <span class="badge badge-amber">Stats precisam de manutenção</span>
+        </div>
+      </div>
+      <div class="rank-justification">
+        Melhor proposta entre as "evolutivas" porque adiciona valor de produto concreto: prova social no hero sem seção extra. O duplo CTA (primário/ghost) resolve a ambiguidade do CTA atual. Ótimo candidato para um sprint único de QA + deploy em produção com risco mínimo de regressão visual.
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-num">4º</div>
+      <div>
+        <div class="rank-name">Proposta 2 — Cards Verticais com Overlay</div>
+        <div class="rank-score">
+          <span class="badge badge-green">Resolve corte de rostos</span>
+          <span class="badge badge-green">Overlay elegante</span>
+          <span class="badge badge-blue">CLS próximo de zero</span>
+          <span class="badge badge-amber">Hero mais alto em desktop</span>
+        </div>
+      </div>
+      <div class="rank-justification">
+        A mudança de aspect-ratio de 1:1 para 2:3 é a correção mais importante para fotografia de pessoas e deveria ter sido feita no MVP. O overlay com título remove o rodapé de texto dos cards e dá mais respiro visual. Quarta porque a altura extra do hero em desktop precisa de validação com a equipe antes de ir para produção.
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-num">5º</div>
+      <div>
+        <div class="rank-name">Proposta 1 — Consolidação Robusta</div>
+        <div class="rank-score">
+          <span class="badge badge-green">Risco zero</span>
+          <span class="badge badge-green">Deploy imediato</span>
+          <span class="badge badge-blue">Todos os bugs de robustez corrigidos</span>
+          <span class="badge badge-amber">Sem ganho de impacto visual</span>
+        </div>
+      </div>
+      <div class="rank-justification">
+        Quinta em impacto visual, mas primeira em segurança de deploy. Corrige todos os 12 problemas identificados (overflow, CLS, touch targets, legibilidade, alt texts únicos, copy de CTA) sem alterar a identidade do layout. Recomendada como hotfix imediato antes de qualquer proposta mais radical entrar em sprint.
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- ====================================================
+     SCRIPTS DE TOGGLE
+     ==================================================== -->
+<script>
+const LONG_H1 = "FOTÓGRAFA EM MOGI DAS CRUZES E REGIÃO DO ALTO TIETÊ";
+const SHORT_H1 = "FOTÓGRAFA EM MOGI DAS CRUZES";
+
+const longTextState = {};
+const noImgState = {};
+
+function toggleLongText(propId) {
+  const section = document.getElementById(propId);
+  const h1s = section.querySelectorAll('.h1-text');
+  const btn = section.querySelector('.toggle-group .toggle-btn:first-child');
+  longTextState[propId] = !longTextState[propId];
+  h1s.forEach(h1 => {
+    if (h1.tagName === 'H1') {
+      // P2 has em inside — update only the text node after em
+      const em = h1.querySelector('em');
+      if (em) {
+        // Remove text nodes after em
+        Array.from(h1.childNodes).forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) node.remove();
+        });
+        h1.appendChild(document.createTextNode(longTextState[propId] ? ' MOGI DAS CRUZES E REGIÃO DO ALTO TIETÊ' : ' MOGI DAS CRUZES'));
+      } else {
+        h1.textContent = longTextState[propId] ? LONG_H1 : SHORT_H1;
+      }
+    }
+  });
+  btn.classList.toggle('active', longTextState[propId]);
+}
+
+function toggleNoImg(propId) {
+  const section = document.getElementById(propId);
+  const imgs = section.querySelectorAll('.card-img-wrap img');
+  const btn = section.querySelector('.toggle-group .toggle-btn:last-child');
+  noImgState[propId] = !noImgState[propId];
+
+  imgs.forEach(img => {
+    if (noImgState[propId]) {
+      img.dataset.origSrc = img.src;
+      img.src = '';
+      img.style.opacity = '0';
+      const fallback = img.nextElementSibling;
+      if (fallback && fallback.classList.contains('img-fallback')) {
+        fallback.style.display = 'flex';
+      }
+    } else {
+      img.src = img.dataset.origSrc || '';
+      img.style.opacity = '';
+      const fallback = img.nextElementSibling;
+      if (fallback && fallback.classList.contains('img-fallback')) {
+        fallback.style.display = '';
+      }
+    }
+  });
+  btn.classList.toggle('active', noImgState[propId]);
+}
+</script>
+
+</body>
+</html>

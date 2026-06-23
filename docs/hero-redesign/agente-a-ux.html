@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Redesign — Fotógrafa Lillia Tavares — Agente A (UX)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* ─── Reset & base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  background: #f0ede0;
+  color: #7B785B;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ─── Page chrome ─── */
+.page-title {
+  text-align: center;
+  padding: 3rem 1rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #7B785B;
+}
+.page-subtitle {
+  text-align: center;
+  font-size: .9rem;
+  color: #9a9781;
+  margin-bottom: 3rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.page-divider {
+  border: none;
+  border-top: 1px solid #d6d3be;
+  margin: 4rem auto;
+  max-width: 960px;
+}
+
+/* ─── Proposal wrapper ─── */
+.proposal {
+  max-width: 1200px;
+  margin: 0 auto 5rem;
+}
+.proposal h2 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #7B785B;
+  margin-bottom: .5rem;
+  padding-left: .25rem;
+}
+.rational {
+  background: #fff;
+  border-left: 3px solid #7B785B;
+  padding: .75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: #7B785B;
+  opacity: .85;
+  border-radius: 0 4px 4px 0;
+}
+.rational strong { font-weight: 700; }
+
+/* ─── Mock browser frame ─── */
+.browser-frame {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(123,120,91,.12), 0 1px 4px rgba(123,120,91,.08);
+}
+.browser-bar {
+  background: #f0ede0;
+  padding: .5rem .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  border-bottom: 1px solid #d6d3be;
+}
+.browser-dots { display: flex; gap: .3rem; }
+.browser-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #c5c2ae;
+  display: block;
+}
+.browser-url {
+  flex: 1;
+  background: #fff;
+  border-radius: 4px;
+  padding: .2rem .6rem;
+  font-size: .7rem;
+  color: #9a9781;
+  border: 1px solid #d6d3be;
+}
+
+/* ─── Shared nav sim ─── */
+.sim-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .9rem 2.5rem;
+  background: #fff;
+  border-bottom: 1px solid #E3DFCB;
+}
+.sim-nav .logo {
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #7B785B;
+  text-decoration: none;
+}
+.sim-nav .nav-links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+}
+.sim-nav .nav-links a {
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #7B785B;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.sim-nav .nav-links a:hover { opacity: .6; }
+
+/* ═══════════════════════════════════════════════
+   PROPOSTA 1 — Tipografia Respirando
+   ═══════════════════════════════════════════════ */
+.p1-hero {
+  padding: 4rem 2.5rem 3rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.p1-left {
+  flex: 0 0 420px;
+  max-width: 420px;
+}
+.p1-eyebrow {
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #7B785B;
+  opacity: .55;
+  margin-bottom: .75rem;
+}
+.p1-h1 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: #7B785B;
+  margin-bottom: 1.25rem;
+}
+.p1-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #7B785B;
+  opacity: .8;
+  margin-bottom: 1.5rem;
+}
+.p1-studio-note {
+  font-size: .8rem;
+  color: #7B785B;
+  opacity: .6;
+  text-decoration: underline;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 2rem;
+}
+.p1-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: #7B785B;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .85rem 2rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+  width: fit-content;
+  min-height: 48px;
+}
+.btn-primary:hover { background: #5f5d45; transform: translateY(-1px); }
+.btn-primary:focus-visible { outline: 2px solid #7B785B; outline-offset: 3px; }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: #7B785B;
+  font-family: 'Lato', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: .4rem 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: opacity .2s;
+  width: fit-content;
+}
+.btn-secondary:hover { opacity: .55; }
+.p1-quick-links {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.p1-quick-link {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .75rem;
+  color: #7B785B;
+  text-decoration: none;
+  opacity: .65;
+  transition: opacity .2s;
+  padding: .3rem 0;
+}
+.p1-quick-link:hover { opacity: 1; }
+.p1-quick-link svg { flex-shrink: 0; }
+.p1-right {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.p1-card {
+  background: #F7F4E8;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s, box-shadow .25s;
+}
+.p1-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(123,120,91,.15); }
+.p1-card:focus-visible { outline: 2px solid #7B785B; outline-offset: 2px; }
+.p1-card img {
+  width: 100%;
+  aspect-ratio: 1 / .95;
+  object-fit: cover;
+  display: block;
+}
+.p1-card-label {
+  padding: .75rem .75rem .85rem;
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #7B785B;
+}
+
+@media (max-width: 900px) {
+  .p1-hero { flex-direction: column; gap: 2.5rem; padding: 2.5rem 1.25rem 2rem; }
+  .p1-left { flex: 1 1 auto; max-width: 100%; }
+  .p1-h1 { font-size: 1.6rem; }
+  .p1-right { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .p1-right { grid-template-columns: 1fr; max-width: 280px; }
+  .sim-nav .nav-links { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   PROPOSTA 2 — CTA em Destaque + Hierarquia de Serviços
+   ═══════════════════════════════════════════════ */
+.p2-hero {
+  background: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+.p2-left {
+  padding: 3.5rem 3rem 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid #E3DFCB;
+}
+.p2-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: #F7F4E8;
+  color: #7B785B;
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: .35rem .75rem;
+  border-radius: 2rem;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+}
+.p2-h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: #7B785B;
+  margin-bottom: 1.25rem;
+}
+.p2-h1 em {
+  font-style: normal;
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: .06em;
+  opacity: .55;
+  margin-top: .25rem;
+}
+.p2-body {
+  font-size: .95rem;
+  line-height: 1.75;
+  color: #7B785B;
+  opacity: .75;
+  margin-bottom: 2rem;
+  max-width: 380px;
+}
+.p2-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.btn-p2-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: #7B785B;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 1rem 2.25rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+  min-height: 52px;
+}
+.btn-p2-primary:hover { background: #5f5d45; transform: translateY(-1px); }
+.btn-p2-primary:focus-visible { outline: 2px solid #7B785B; outline-offset: 3px; }
+.btn-p2-ghost {
+  font-family: 'Lato', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #7B785B;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .2s;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-p2-ghost:hover { opacity: .55; }
+.p2-trust {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1.5rem;
+}
+.p2-trust-item {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+.p2-trust-item .number {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #7B785B;
+  line-height: 1;
+}
+.p2-trust-item .label {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .55;
+}
+.p2-right {
+  display: flex;
+  flex-direction: column;
+}
+.p2-card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #E3DFCB;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  text-decoration: none;
+  transition: flex .35s ease;
+  min-height: 120px;
+}
+.p2-card:last-child { border-bottom: none; }
+.p2-card:hover { flex: 2; }
+.p2-card:focus-visible { outline: 2px solid #7B785B; }
+.p2-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .45;
+  transition: opacity .35s;
+}
+.p2-card:hover img { opacity: .6; }
+.p2-card-content {
+  position: relative;
+  z-index: 1;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: linear-gradient(to top, rgba(255,255,255,.95) 60%, transparent);
+}
+.p2-card-title {
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #7B785B;
+}
+.p2-card-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #7B785B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s, color .2s;
+}
+.p2-card:hover .p2-card-arrow {
+  background: #7B785B;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .p2-hero { grid-template-columns: 1fr; min-height: auto; }
+  .p2-left { padding: 2.5rem 1.25rem 2rem; border-right: none; border-bottom: 1px solid #E3DFCB; }
+  .p2-h1 { font-size: 1.75rem; }
+  .p2-right { flex-direction: row; }
+  .p2-card { min-height: 140px; border-bottom: none; border-right: 1px solid #E3DFCB; }
+  .p2-card:last-child { border-right: none; }
+  .p2-card:hover { flex: 2; }
+}
+@media (max-width: 600px) {
+  .p2-right { flex-direction: column; }
+  .p2-card { border-right: none; border-bottom: 1px solid #E3DFCB; min-height: 100px; }
+  .sim-nav .nav-links { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   PROPOSTA 3 — Foto Grande + Copy Conciso
+   ═══════════════════════════════════════════════ */
+.p3-hero {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  align-items: stretch;
+}
+.p3-image-col {
+  flex: 0 0 55%;
+  position: relative;
+  overflow: hidden;
+}
+.p3-image-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform .6s ease;
+}
+.p3-hero:hover .p3-image-col img { transform: scale(1.03); }
+.p3-content-col {
+  flex: 1;
+  padding: 3.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+}
+.p3-line {
+  width: 2.5rem;
+  height: 2px;
+  background: #7B785B;
+  opacity: .35;
+  margin-bottom: 1.5rem;
+}
+.p3-h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #7B785B;
+  margin-bottom: 1rem;
+}
+.p3-body {
+  font-size: .9rem;
+  line-height: 1.75;
+  color: #7B785B;
+  opacity: .75;
+  margin-bottom: 2rem;
+}
+.p3-cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  margin-bottom: 2.5rem;
+}
+.btn-p3-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #7B785B;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .9rem 1.25rem .9rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 50px;
+  transition: background .2s;
+}
+.btn-p3-main:hover { background: #5f5d45; }
+.btn-p3-main:focus-visible { outline: 2px solid #7B785B; outline-offset: 3px; }
+.btn-p3-outline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  color: #7B785B;
+  font-family: 'Lato', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .9rem 1.25rem .9rem 1.5rem;
+  border-radius: 4px;
+  border: 1px solid #d6d3be;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 50px;
+  transition: border-color .2s, background .2s;
+}
+.btn-p3-outline:hover { border-color: #7B785B; background: #F7F4E8; }
+.btn-p3-outline:focus-visible { outline: 2px solid #7B785B; outline-offset: 3px; }
+.p3-services-strip {
+  border-top: 1px solid #E3DFCB;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.p3-service-link {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #7B785B;
+  opacity: .55;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: opacity .2s;
+  padding: .15rem 0;
+}
+.p3-service-link:hover { opacity: 1; }
+
+@media (max-width: 900px) {
+  .p3-hero { flex-direction: column; min-height: auto; }
+  .p3-image-col { flex: 0 0 260px; }
+  .p3-content-col { padding: 2rem 1.25rem; }
+  .p3-h1 { font-size: 1.35rem; }
+}
+@media (max-width: 600px) {
+  .p3-image-col { flex: 0 0 220px; }
+  .sim-nav .nav-links { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   PROPOSTA 4 — Fullbleed Editorial
+   ═══════════════════════════════════════════════ */
+.p4-hero {
+  position: relative;
+  min-height: 580px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.p4-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+.p4-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 20%,
+    rgba(247,244,232,.92) 75%,
+    rgba(247,244,232,1) 100%
+  );
+}
+.p4-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 2.5rem 2.5rem 3rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.p4-text-block { max-width: 480px; }
+.p4-eyebrow {
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #7B785B;
+  opacity: .6;
+  margin-bottom: .75rem;
+}
+.p4-h1 {
+  font-size: 2.75rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: #7B785B;
+  margin-bottom: 1rem;
+}
+.p4-body {
+  font-size: .9rem;
+  line-height: 1.7;
+  color: #7B785B;
+  opacity: .78;
+  max-width: 400px;
+  margin-bottom: 1.75rem;
+}
+.p4-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn-p4-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: #7B785B;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .9rem 2rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+  min-height: 50px;
+}
+.btn-p4-cta:hover { background: #5f5d45; transform: translateY(-1px); }
+.btn-p4-cta:focus-visible { outline: 2px solid #7B785B; outline-offset: 3px; }
+.btn-p4-link {
+  font-family: 'Lato', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #7B785B;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  transition: opacity .2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-p4-link:hover { opacity: .55; }
+.p4-services-col {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.p4-service-pill {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  background: rgba(255,255,255,.85);
+  border: 1px solid #E3DFCB;
+  border-radius: 2rem;
+  padding: .55rem 1rem .55rem .55rem;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+  min-height: 48px;
+  backdrop-filter: blur(4px);
+}
+.p4-service-pill:hover { background: #fff; transform: translateX(-3px); }
+.p4-service-pill:focus-visible { outline: 2px solid #7B785B; outline-offset: 2px; }
+.p4-pill-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.p4-pill-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #7B785B;
+}
+
+.p4-nav-override {
+  background: transparent;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 2;
+  border-bottom: none;
+}
+.p4-nav-override .logo { color: #7B785B; }
+.p4-nav-override .nav-links a { color: #7B785B; }
+.p4-browser { position: relative; }
+
+@media (max-width: 900px) {
+  .p4-h1 { font-size: 2rem; }
+  .p4-content { flex-direction: column; align-items: flex-start; }
+  .p4-services-col { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .p4-hero { min-height: 500px; }
+  .p4-h1 { font-size: 1.5rem; }
+  .p4-content { padding: 2rem 1.25rem; }
+  .p4-services-col { flex-direction: column; }
+  .sim-nav .nav-links { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   PROPOSTA 5 — Coluna + Imersão Visual Tipográfica
+   ═══════════════════════════════════════════════ */
+.p5-outer { background: #fff; }
+.p5-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 560px;
+}
+.p5-col-1 {
+  background: #F7F4E8;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #E3DFCB;
+}
+.p5-brand-block {}
+.p5-brand-eyebrow {
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #7B785B;
+  opacity: .5;
+  margin-bottom: .6rem;
+}
+.p5-h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #7B785B;
+  margin-bottom: 1rem;
+}
+.p5-body {
+  font-size: .85rem;
+  line-height: 1.75;
+  color: #7B785B;
+  opacity: .75;
+  margin-bottom: 1.5rem;
+}
+.btn-p5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #7B785B;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .9rem 1rem .9rem 1.25rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 50px;
+  transition: background .2s;
+  margin-bottom: .75rem;
+}
+.btn-p5:hover { background: #5f5d45; }
+.btn-p5:focus-visible { outline: 2px solid #7B785B; outline-offset: 3px; }
+.btn-p5-text {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #7B785B;
+  text-decoration: none;
+  opacity: .6;
+  transition: opacity .2s;
+  min-height: 44px;
+}
+.btn-p5-text:hover { opacity: 1; }
+.p5-foot-links {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.p5-foot-link {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #7B785B;
+  text-decoration: none;
+  opacity: .5;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: opacity .2s;
+  padding: .25rem 0;
+}
+.p5-foot-link:hover { opacity: 1; }
+.p5-col-2 {
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid #E3DFCB;
+}
+.p5-col-2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+.p5-col-2:hover img { transform: scale(1.04); }
+.p5-col-3 {
+  display: flex;
+  flex-direction: column;
+  border-left: none;
+}
+.p5-service-card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px solid #E3DFCB;
+  transition: flex .3s ease;
+  min-height: 140px;
+}
+.p5-service-card:last-child { border-bottom: none; }
+.p5-service-card:hover { flex: 2; }
+.p5-service-card:focus-visible { outline: 2px solid #7B785B; }
+.p5-service-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .35s;
+}
+.p5-service-card:hover img { opacity: .35; }
+.p5-service-card-inner {
+  position: relative;
+  z-index: 1;
+  padding: .9rem 1rem;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #E3DFCB;
+  transition: background .3s;
+}
+.p5-service-card:hover .p5-service-card-inner { background: #F7F4E8; }
+.p5-service-num {
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  color: #7B785B;
+  opacity: .35;
+  display: block;
+  margin-bottom: .2rem;
+}
+.p5-service-title {
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #7B785B;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .p5-hero { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+  .p5-col-1 { grid-column: 1 / -1; border-right: none; border-bottom: 1px solid #E3DFCB; }
+  .p5-col-2 { min-height: 220px; }
+  .p5-col-3 { flex-direction: row; }
+  .p5-service-card { border-bottom: none; border-right: 1px solid #E3DFCB; min-height: 100px; }
+  .p5-service-card:last-child { border-right: none; }
+}
+@media (max-width: 600px) {
+  .p5-hero { grid-template-columns: 1fr; }
+  .p5-col-2 { min-height: 200px; }
+  .p5-col-3 { flex-direction: column; }
+  .p5-service-card { border-right: none; border-bottom: 1px solid #E3DFCB; }
+  .sim-nav .nav-links { display: none; }
+}
+
+/* ─── Ranking section ─── */
+#ranking {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(123,120,91,.08);
+}
+#ranking h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #7B785B;
+  margin-bottom: 2rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid #E3DFCB;
+}
+.rank-list { display: flex; flex-direction: column; gap: .75rem; }
+.rank-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  border: 1px solid #E3DFCB;
+  border-radius: 6px;
+  background: #F7F4E8;
+  transition: background .2s;
+}
+.rank-item:hover { background: #f0ede0; }
+.rank-pos {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #7B785B;
+  opacity: .25;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 2rem;
+  text-align: center;
+}
+.rank-content { flex: 1; }
+.rank-name {
+  font-size: .85rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #7B785B;
+  margin-bottom: .4rem;
+}
+.rank-reason {
+  font-size: .8rem;
+  line-height: 1.6;
+  color: #7B785B;
+  opacity: .72;
+}
+
+/* ─── Icon helper (lucide fallback inline) ─── */
+.icon-inline {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+</style>
+</head>
+<body>
+
+<p class="page-title">Hero Redesign — 5 Propostas UX</p>
+<p class="page-subtitle">Fotógrafa Lillia Tavares · fotografalilliatavares.com.br · Agente A — UX/IA<br>Paleta restrita: #7B785B / cremes / branco · Fonte: Lato · Aberto com duplo-clique</p>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════
+     PROPOSTA 1 — Tipografia Respirando
+     ═══════════════════════════════════════════ -->
+<section class="proposal">
+  <h2>Proposta 1 — Tipografia Respirando</h2>
+  <p class="rational">
+    <strong>Problemas resolvidos:</strong> H1 cresceu de 18px para 36px (hierarquia visual correta), corpo legível em 16px, botão primário com 48px de touch target, quick-link de agendamento destacado como CTA de maior valor.
+    <strong>Trade-off:</strong> Layout permanece familiar (duas colunas) — menor risco de impacto; a altura do hero cresce ~60%, o que pode exigir ajuste de scroll em mobile.
+  </p>
+  <div class="browser-frame">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">fotografalilliatavares.com.br</div>
+    </div>
+    <!-- Nav -->
+    <nav class="sim-nav">
+      <a href="#" class="logo">Lillia Tavares</a>
+      <ul class="nav-links">
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Serviços</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </nav>
+    <!-- Hero -->
+    <div class="p1-hero">
+      <div class="p1-left">
+        <p class="p1-eyebrow">Fotógrafa — Mogi das Cruzes &amp; Alto Tietê</p>
+        <h1 class="p1-h1">Retratos que<br>comunicam<br>quem você é</h1>
+        <p class="p1-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Cada ensaio é uma experiência acolhedora que transforma a forma como o mundo te vê.</p>
+        <a href="#" class="p1-studio-note">Estúdio próprio · atendimento em todo o Alto Tietê</a>
+        <div class="p1-ctas">
+          <a href="#" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar meu ensaio fotográfico
+          </a>
+          <a href="#" class="btn-secondary">
+            Conhecer os serviços
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <nav class="p1-quick-links" aria-label="Atalhos">
+          <a href="#" class="p1-quick-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Acompanhe meus trabalhos
+          </a>
+          <a href="#" class="p1-quick-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Conheça o estúdio (disponível para locação)
+          </a>
+        </nav>
+      </div>
+      <div class="p1-right">
+        <a href="#" class="p1-card" aria-label="Ensaios Fotográficos">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios fotográficos" loading="lazy">
+          <p class="p1-card-label">Ensaios Fotográficos</p>
+        </a>
+        <a href="#" class="p1-card" aria-label="Aluguel do Estúdio">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do estúdio" loading="lazy">
+          <p class="p1-card-label">Aluguel do Estúdio</p>
+        </a>
+        <a href="#" class="p1-card" aria-label="Análise de Coloração Pessoal">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Análise de coloração pessoal" loading="lazy">
+          <p class="p1-card-label">Coloração Pessoal</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════
+     PROPOSTA 2 — CTA em Destaque + Hierarquia de Serviços
+     ═══════════════════════════════════════════ -->
+<section class="proposal">
+  <h2>Proposta 2 — CTA Prioritário + Serviços Interativos</h2>
+  <p class="rational">
+    <strong>Problemas resolvidos:</strong> Único CTA primário ("Agendar ensaio") domina visualmente; serviços se expandem ao hover revelando a imagem — cria curiosidade sem sobrecarregar o espaço. Trust numbers (8 anos, 500+ ensaios) reforçam credibilidade.
+    <strong>Trade-off:</strong> A coluna direita com cards expansivos depende de hover — em touch a experiência é degradada; cards precisarão de lógica tap para mobile.
+  </p>
+  <div class="browser-frame">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">fotografalilliatavares.com.br</div>
+    </div>
+    <nav class="sim-nav">
+      <a href="#" class="logo">Lillia Tavares</a>
+      <ul class="nav-links">
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Serviços</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="p2-hero">
+      <div class="p2-left">
+        <span class="p2-tag">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Mogi das Cruzes &amp; Alto Tietê
+        </span>
+        <h1 class="p2-h1">
+          Fotógrafa<br>Especialista
+          <em>em retratos femininos</em>
+        </h1>
+        <p class="p2-body">Transformo cada ensaio em uma experiência acolhedora — criando imagens que comunicam autenticidade, confiança e profissionalismo. Estúdio próprio disponível para locação.</p>
+        <div class="p2-cta-group">
+          <a href="#" class="btn-p2-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar meu ensaio
+          </a>
+          <a href="#" class="btn-p2-ghost">Ver o portfolio</a>
+        </div>
+        <div class="p2-trust">
+          <div class="p2-trust-item">
+            <span class="number">8+</span>
+            <span class="label">Anos de<br>experiência</span>
+          </div>
+          <div class="p2-trust-item">
+            <span class="number">500+</span>
+            <span class="label">Ensaios<br>realizados</span>
+          </div>
+          <div class="p2-trust-item">
+            <span class="number">1</span>
+            <span class="label">Estúdio<br>próprio</span>
+          </div>
+        </div>
+      </div>
+      <div class="p2-right" role="list" aria-label="Serviços">
+        <a href="#" class="p2-card" role="listitem" aria-label="Ensaios Fotográficos">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios fotográficos" loading="lazy">
+          <div class="p2-card-content">
+            <span class="p2-card-title">Ensaios Fotográficos</span>
+            <span class="p2-card-arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+        <a href="#" class="p2-card" role="listitem" aria-label="Aluguel do Estúdio">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do estúdio" loading="lazy">
+          <div class="p2-card-content">
+            <span class="p2-card-title">Aluguel do Estúdio</span>
+            <span class="p2-card-arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+        <a href="#" class="p2-card" role="listitem" aria-label="Análise de Coloração Pessoal">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Análise de coloração pessoal" loading="lazy">
+          <div class="p2-card-content">
+            <span class="p2-card-title">Coloração Pessoal</span>
+            <span class="p2-card-arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════
+     PROPOSTA 3 — Foto Grande + Copy Conciso
+     ═══════════════════════════════════════════ -->
+<section class="proposal">
+  <h2>Proposta 3 — Foto Grande + Copy Direto</h2>
+  <p class="rational">
+    <strong>Problemas resolvidos:</strong> A imagem ocupa 55% do hero — cria impacto emocional imediato de portfólio; dois CTAs com peso diferenciado (primário cheio + secundário outline); copy reduzido a 1 frase + locação; serviços como links discretos abaixo do CTA.
+    <strong>Trade-off:</strong> Menos espaço para copy — exige que a foto carregue a mensagem emocional; fotografia de capa precisa ser cuidadosamente curada para ser representativa.
+  </p>
+  <div class="browser-frame">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">fotografalilliatavares.com.br</div>
+    </div>
+    <nav class="sim-nav">
+      <a href="#" class="logo">Lillia Tavares</a>
+      <ul class="nav-links">
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Serviços</a></li>
+        <li><a href="#">Estúdio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="p3-hero">
+      <div class="p3-image-col" aria-hidden="true">
+        <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaio fotográfico Lillia Tavares" loading="eager">
+      </div>
+      <div class="p3-content-col">
+        <div class="p3-line" aria-hidden="true"></div>
+        <h1 class="p3-h1">Fotógrafa em<br>Mogi das Cruzes</h1>
+        <p class="p3-body">Retratos femininos, fotografia corporativa e reposicionamento de imagem. Estúdio próprio · atendimento em todo o Alto Tietê.</p>
+        <div class="p3-cta-stack">
+          <a href="#" class="btn-p3-main">
+            <span>Agendar meu ensaio</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#" class="btn-p3-outline">
+            <span>Ver o portfolio</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </a>
+        </div>
+        <nav class="p3-services-strip" aria-label="Serviços">
+          <a href="#" class="p3-service-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            Ensaios Fotográficos
+          </a>
+          <a href="#" class="p3-service-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            Aluguel do Estúdio
+          </a>
+          <a href="#" class="p3-service-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            Análise de Coloração Pessoal
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════
+     PROPOSTA 4 — Fullbleed Editorial
+     ═══════════════════════════════════════════ -->
+<section class="proposal">
+  <h2>Proposta 4 — Fullbleed Editorial</h2>
+  <p class="rational">
+    <strong>Problemas resolvidos:</strong> Reestrutura o hero como editorial de revista — foto ocupa 100% do espaço com overlay creme; H1 grande cria presença de marca; serviços como pills flutuantes mantém hierarquia sem competir com o CTA principal.
+    <strong>Trade-off:</strong> Depende de uma foto hero de alta qualidade com área escura no topo (onde vai a nav). Se o acervo não tiver uma imagem assim, precisa de uma sessão específica para isso.
+  </p>
+  <div class="browser-frame p4-browser">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">fotografalilliatavares.com.br</div>
+    </div>
+    <div style="position:relative">
+      <nav class="sim-nav p4-nav-override" aria-label="Navegação principal">
+        <a href="#" class="logo">Lillia Tavares</a>
+        <ul class="nav-links">
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Estúdio</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="p4-hero" role="region" aria-label="Hero">
+        <img class="p4-bg-img" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaio fotográfico — Lillia Tavares" loading="eager">
+        <div class="p4-overlay" aria-hidden="true"></div>
+        <div class="p4-content">
+          <div class="p4-text-block">
+            <p class="p4-eyebrow">Fotógrafa · Mogi das Cruzes &amp; Alto Tietê</p>
+            <h1 class="p4-h1">Retratos<br>que revelam<br>quem você é</h1>
+            <p class="p4-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem — cada ensaio é uma experiência acolhedora e transformadora.</p>
+            <div class="p4-cta-row">
+              <a href="#" class="btn-p4-cta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Agendar meu ensaio
+              </a>
+              <a href="#" class="btn-p4-link">Ver portfolio</a>
+            </div>
+          </div>
+          <div class="p4-services-col">
+            <a href="#" class="p4-service-pill" aria-label="Ensaios Fotográficos">
+              <img class="p4-pill-img" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="" loading="lazy">
+              <span class="p4-pill-label">Ensaios Fotográficos</span>
+            </a>
+            <a href="#" class="p4-service-pill" aria-label="Aluguel do Estúdio">
+              <img class="p4-pill-img" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="" loading="lazy">
+              <span class="p4-pill-label">Aluguel do Estúdio</span>
+            </a>
+            <a href="#" class="p4-service-pill" aria-label="Análise de Coloração Pessoal">
+              <img class="p4-pill-img" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="" loading="lazy">
+              <span class="p4-pill-label">Coloração Pessoal</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════
+     PROPOSTA 5 — Grade Tripla com Imersão Visual
+     ═══════════════════════════════════════════ -->
+<section class="proposal">
+  <h2>Proposta 5 — Grade Tripla Imersiva</h2>
+  <p class="rational">
+    <strong>Problemas resolvidos:</strong> Três colunas distintas separam claramente as camadas de informação: copy + CTAs / foto central emocional / serviços interativos. Elimina a competição entre texto e cards; o serviço primário pode ganhar mais espaço via hover.
+    <strong>Trade-off:</strong> Layout mais complexo — maior esforço de implementação responsiva; em mobile as 3 colunas empilham, o que pode deixar o hero muito longo (ponderar accordion para serviços em mobile).
+  </p>
+  <div class="browser-frame">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">fotografalilliatavares.com.br</div>
+    </div>
+    <div class="p5-outer">
+      <nav class="sim-nav">
+        <a href="#" class="logo">Lillia Tavares</a>
+        <ul class="nav-links">
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="#">Estúdio</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="p5-hero">
+        <!-- Coluna 1: Copy + CTAs -->
+        <div class="p5-col-1">
+          <div class="p5-brand-block">
+            <p class="p5-brand-eyebrow">Fotógrafa · Mogi das Cruzes</p>
+            <h1 class="p5-h1">Retratos que comunicam autenticidade</h1>
+            <p class="p5-body">Especialista em retratos femininos e fotografia corporativa. Estúdio próprio, atendimento acolhedor, imagens que transformam.</p>
+            <a href="#" class="btn-p5">
+              <span>Agendar meu ensaio</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#" class="btn-p5-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Ver o portfolio
+            </a>
+          </div>
+          <nav class="p5-foot-links" aria-label="Atalhos rápidos">
+            <a href="#" class="p5-foot-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              Acompanhe meus trabalhos
+            </a>
+            <a href="#" class="p5-foot-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              Conheça o estúdio
+            </a>
+          </nav>
+        </div>
+        <!-- Coluna 2: Foto central -->
+        <div class="p5-col-2" aria-hidden="true">
+          <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaio fotográfico" loading="eager">
+        </div>
+        <!-- Coluna 3: Serviços -->
+        <div class="p5-col-3" role="list" aria-label="Serviços">
+          <a href="#" class="p5-service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/2214a3b9-fa58-43d3-95d7-e9e981cfef00/public" alt="Ensaios fotográficos" loading="lazy">
+            <div class="p5-service-card-inner">
+              <span class="p5-service-num">01</span>
+              <span class="p5-service-title">
+                Ensaios Fotográficos
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="#" class="p5-service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/b6dc36df-86b3-4485-52de-8b91ba144f00/public" alt="Aluguel do estúdio" loading="lazy">
+            <div class="p5-service-card-inner">
+              <span class="p5-service-num">02</span>
+              <span class="p5-service-title">
+                Aluguel do Estúdio
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="#" class="p5-service-card" role="listitem">
+            <img src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=520,f=avif,q=90/https://images.fotografalilliatavares.com.br/images/5aaf1433-aaa7-42ed-7198-15626f964000/public" alt="Coloração pessoal" loading="lazy">
+            <div class="p5-service-card-inner">
+              <span class="p5-service-num">03</span>
+              <span class="p5-service-title">
+                Coloração Pessoal
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════
+     RANKING
+     ═══════════════════════════════════════════ -->
+<section id="ranking">
+  <h2>Ranking das Propostas — 1º ao 5º</h2>
+  <ol class="rank-list" aria-label="Ranking das propostas">
+    <li class="rank-item">
+      <div class="rank-pos">1</div>
+      <div class="rank-content">
+        <p class="rank-name">Proposta 2 — CTA Prioritário + Serviços Interativos</p>
+        <p class="rank-reason">
+          Hierarquia de informação mais clara: um único CTA primário ("Agendar meu ensaio") domina a leitura sem competição. Os trust numbers constroem credibilidade de forma eficiente e os cards expansivos transformam a escolha de serviço em uma micro-interação prazerosa. Layout em duas colunas é mobile-friendly com mínimo ajuste. Melhor equilíbrio entre conversão e descoberta de serviços.
+        </p>
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-pos">2</div>
+      <div class="rank-content">
+        <p class="rank-name">Proposta 4 — Fullbleed Editorial</p>
+        <p class="rank-reason">
+          Impacto emocional imediato — a foto fullbleed posiciona o site como portfólio premium antes de qualquer palavra. As pills flutuantes de serviço são elegantes e mantêm a hierarquia. Perde pontos por depender criticamente de uma fotografia específica de alto impacto; sem ela, o conceito desmorona. Melhor opção para quem quer posicionamento de marca antes de conversão direta.
+        </p>
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-pos">3</div>
+      <div class="rank-content">
+        <p class="rank-name">Proposta 3 — Foto Grande + Copy Direto</p>
+        <p class="rank-reason">
+          Resolve todos os problemas críticos com o menor esforço de implementação: tipografia legível, dois CTAs com hierarquia clara, foto como primeiro elemento emocional. O copy reduzido funciona bem para usuários que já chegam pelo Google. Fica em 3º por deixar menos espaço para storytelling — usuários frios podem precisar de mais contexto.
+        </p>
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-pos">4</div>
+      <div class="rank-content">
+        <p class="rank-name">Proposta 1 — Tipografia Respirando</p>
+        <p class="rank-reason">
+          Evolução segura e de menor risco — mantém a estrutura existente mas corrige todos os pecados de tipografia (H1 2.25rem, corpo 1rem, botão 48px). É a proposta de menor fricção para aprovação de cliente. Fica em 4º porque, apesar de corrigir os problemas, o resultado é "correto mas não memorável" — não cria diferenciação de marca.
+        </p>
+      </div>
+    </li>
+    <li class="rank-item">
+      <div class="rank-pos">5</div>
+      <div class="rank-content">
+        <p class="rank-name">Proposta 5 — Grade Tripla Imersiva</p>
+        <p class="rank-reason">
+          Conceitualmente a mais sofisticada — separa claramente as três camadas de informação em colunas com propósitos distintos. Fica em 5º não por qualidade, mas por risco de execução: a grade tripla exige atenção redobrada em responsividade e o hero empilhado em mobile pode ficar excessivamente longo. Indicada como aspiração para uma v2 do redesign após validação de conversão com uma proposta mais simples.
+        </p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<script>
+/* Lucide icons init — fallback seguro */
+if (typeof lucide !== 'undefined') {
+  lucide.createIcons();
+}
+</script>
+</body>
+</html>
