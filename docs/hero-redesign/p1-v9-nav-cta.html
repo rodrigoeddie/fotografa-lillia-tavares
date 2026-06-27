@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V9 Díptico — 5 propostas de menu e CTA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=The+Girl+Next+Door&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --photo: url('https://images.fotografalilliatavares.com.br/images/29312476-e688-4fbe-f905-e7adafc52500/public');
+  --olive:       #7B785B;
+  --olive-dark:  #5a5840;
+  --olive-light: #9c9878;
+  --cream-btn:   #E3DFCB;
+  --cream-bg:    #F7F4E8;
+  --cream-pale:  #FDFCF7;
+  --white:       #FFFFFF;
+  --ink:         #2c2a1e;
+  --sage:        #6B7B6A;
+  --sage-light:  #8a9989;
+  --sage-pale:   #c4cec3;
+  --hand:        'The Girl Next Door', cursive;
+  --sans:        'Lato', arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { font-family: var(--sans); background: var(--cream-pale); color: var(--olive); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+/* Photo placeholder */
+.photo-placeholder {
+  width: 100%; height: 100%; background: var(--sage);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding-bottom: 1rem; position: relative; overflow: hidden;
+}
+.photo-placeholder::before {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 55%; height: 90%; background: rgba(255,255,255,.12);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+}
+.photo-placeholder::after {
+  content: ''; position: absolute; bottom: 50%; left: 50%; transform: translate(-50%,50%);
+  width: 28%; height: 28%; background: rgba(255,255,255,.18); border-radius: 50%;
+}
+.placeholder-label {
+  font-family: var(--hand); font-size: .9rem; color: rgba(255,255,255,.7);
+  position: relative; z-index: 1; text-align: center; line-height: 1.4;
+}
+.has-photo .photo-placeholder { background-image: var(--photo); background-size: cover; background-position: center top; }
+.has-photo .photo-placeholder::before,
+.has-photo .photo-placeholder::after,
+.has-photo .placeholder-label { display: none; }
+
+/* Page header */
+.page-header { background: var(--sage); color: var(--white); text-align: center; padding: 2.5rem 1.5rem; }
+.page-header h1 { font-family: var(--hand); font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 400; margin-bottom: .4rem; }
+.page-header p { font-size: .78rem; opacity: .72; letter-spacing: .1em; text-transform: uppercase; }
+
+/* Proposal wrap */
+.proposal-wrap { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+.proposal-block { margin-bottom: 5rem; }
+.proposal-block + .proposal-block { border-top: 1px solid rgba(123,120,91,.18); padding-top: 4rem; }
+.prop-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.prop-label h2 { font-size: .7rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: var(--olive-light); }
+.tag { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .25rem .65rem; border: 1px solid var(--olive-light); border-radius: 999px; color: var(--olive-light); }
+.tag.sage { background: var(--sage); color: var(--white); border-color: var(--sage); }
+.tag.gold { background: #c8a84b; color: var(--white); border-color: #c8a84b; }
+.rational { margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--cream-bg); border-left: 3px solid var(--sage-light); font-size: .82rem; line-height: 1.65; color: var(--olive); border-radius: 0 6px 6px 0; }
+.rational strong { color: var(--sage); }
+
+/* ── Base nav ── */
+.sim-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 1.5rem; background: var(--white);
+  border-bottom: 1px solid rgba(123,120,91,.1); position: relative; z-index: 30;
+}
+.logo-img { height: 50px; }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+.nav-links li { position: relative; }
+.nav-links a { font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); transition: color .2s; }
+.nav-links a:hover { color: var(--olive-dark); }
+.nav-cta {
+  font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .55rem 1.1rem; border: 1.5px solid var(--olive); border-radius: 999px;
+  color: var(--olive); transition: background .2s, color .2s; white-space: nowrap;
+}
+.nav-cta:hover { background: var(--olive); color: var(--white); }
+
+/* ── Base hero (left + V9 right, shared) ── */
+.hero-shell { display: flex; align-items: stretch; min-height: 420px; background: var(--white); overflow: hidden; }
+.p-left { flex: 0 0 50%; padding: 2.25rem 2rem; display: flex; flex-direction: column; justify-content: center; gap: .85rem; }
+.p-eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--olive-light); display: flex; align-items: center; gap: .5rem; }
+.p-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--olive-light); }
+.p-h1 { font-size: clamp(2rem,3.5vw,2.75rem); font-weight: 900; line-height: 1.08; color: var(--olive-dark); letter-spacing: -.01em; }
+.p-h1 em { font-style: normal; font-weight: 300; color: var(--olive-light); display: block; font-size: clamp(1.3rem,2.5vw,1.85rem); }
+.p-body { font-size: .92rem; line-height: 1.7; color: var(--olive); }
+.p-body a { border-bottom: 1px solid var(--olive-light); transition: border-color .2s; }
+.p-body a:hover { border-color: var(--olive); }
+.p-actions { display: flex; flex-direction: column; gap: .5rem; margin-top: .25rem; }
+.p-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .8rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .85rem 1.5rem; background: var(--olive); color: var(--white);
+  border-radius: 999px; width: fit-content; transition: background .2s, transform .15s;
+}
+.p-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+.p-btn svg { width: 12px; height: 12px; }
+.p-links { display: flex; flex-direction: column; gap: .15rem; margin-top: .35rem; }
+.p-links a { display: flex; align-items: center; gap: .6rem; font-size: .8rem; color: var(--olive); padding: .4rem 0; border-bottom: 1px solid transparent; transition: border-color .2s; }
+.p-links a:hover { border-color: var(--olive-light); }
+.p-links svg { width: 14px; height: 14px; flex-shrink: 0; opacity: .65; }
+
+/* V9 right */
+.v9-right { flex: 0 0 50%; display: flex; overflow: hidden; }
+.v9-sage-panel {
+  flex: 0 0 40%; background: var(--sage);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 2rem 1.5rem; position: relative; overflow: hidden;
+}
+.v9-sage-panel::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 16px 16px; pointer-events: none;
+}
+.v9-services { position: relative; z-index: 1; }
+.v9-service-item { display: flex; align-items: flex-start; gap: .5rem; margin-bottom: .85rem; }
+.v9-num { font-family: var(--hand); font-size: .85rem; color: rgba(255,255,255,.5); line-height: 1.4; flex-shrink: 0; padding-top: .1rem; }
+.v9-name { font-family: var(--hand); font-size: 1.15rem; color: var(--white); line-height: 1.3; transform: rotate(-1deg); display: block; }
+.v9-service-item.highlight .v9-name { font-size: 1.3rem; color: var(--cream-btn); }
+.v9-sage-cta {
+  display: inline-block; margin-top: 1.25rem;
+  font-family: var(--hand); font-size: 1rem; color: var(--cream-btn);
+  position: relative; z-index: 1; transform: rotate(1deg);
+  border-bottom: 1px solid rgba(227,223,203,.4); padding-bottom: .15rem;
+  transition: border-color .2s;
+}
+.v9-sage-cta:hover { border-color: rgba(227,223,203,.9); }
+.v9-sage-cta::after { content: ' →'; font-family: var(--sans); font-size: .8rem; }
+.v9-photo-panel { flex: 1; position: relative; overflow: hidden; }
+.v9-photo-panel .photo-placeholder { background-position: center top; }
+
+/* ════════════════════════════════════════════════════════
+   N1 — DROPDOWN DE ENSAIOS
+════════════════════════════════════════════════════════ */
+.n1-drop { position: relative; }
+.n1-menu {
+  position: absolute; top: calc(100% + .75rem); left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--white); min-width: 240px;
+  border: 1px solid rgba(123,120,91,.12); border-radius: 10px; padding: .5rem 0;
+  box-shadow: 0 12px 32px rgba(44,42,30,.12), 0 2px 6px rgba(44,42,30,.06);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s, transform .18s; z-index: 100;
+}
+.n1-drop:hover .n1-menu,
+.n1-drop:focus-within .n1-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.n1-menu a { display: block; padding: .55rem 1.1rem; font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--olive); transition: background .15s; }
+.n1-menu a:hover { background: var(--cream-bg); color: var(--olive-dark); }
+.n1-sep { height: 1px; background: rgba(123,120,91,.1); margin: .3rem .75rem; }
+.n1-cat { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--olive-light); padding: .5rem 1.1rem .2rem; }
+.n1-chevron { font-size: .6rem; margin-left: .25rem; display: inline-block; transition: transform .2s; vertical-align: middle; }
+.n1-drop:hover .n1-chevron { transform: rotate(180deg); }
+
+/* ════════════════════════════════════════════════════════
+   N2 — SOBRE + SOCIAL PROOF NO CTA
+════════════════════════════════════════════════════════ */
+.n2-cta {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .7rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .45rem .9rem .45rem .6rem; border: 1.5px solid var(--olive);
+  border-radius: 999px; color: var(--olive); transition: background .2s, color .2s; white-space: nowrap;
+}
+.n2-cta:hover { background: var(--olive); color: var(--white); }
+.n2-badge {
+  display: inline-flex; align-items: center; gap: .2rem;
+  background: rgba(200,168,75,.14); border: 1px solid rgba(200,168,75,.4);
+  border-radius: 999px; padding: .18rem .45rem; line-height: 1;
+}
+.n2-stars { font-size: .62rem; letter-spacing: -.04em; color: #c8a84b; }
+.n2-score { font-size: .62rem; font-weight: 900; color: #a07a20; }
+.n2-cta:hover .n2-badge { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4); }
+.n2-cta:hover .n2-stars, .n2-cta:hover .n2-score { color: var(--white); }
+
+/* ════════════════════════════════════════════════════════
+   N3 — CTA DUPLO
+════════════════════════════════════════════════════════ */
+.n3-group { display: flex; align-items: center; gap: .65rem; }
+.n3-ghost {
+  font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--olive); border-bottom: 1.5px solid var(--olive-light);
+  padding-bottom: .1rem; white-space: nowrap; transition: color .2s, border-color .2s;
+}
+.n3-ghost:hover { color: var(--olive-dark); border-color: var(--olive); }
+.n3-filled {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .55rem 1.1rem; background: var(--olive); color: var(--white);
+  border-radius: 999px; white-space: nowrap; transition: background .2s, transform .15s;
+}
+.n3-filled:hover { background: var(--olive-dark); transform: translateY(-1px); }
+.n3-filled svg { width: 10px; height: 10px; }
+
+/* ════════════════════════════════════════════════════════
+   N4 — SERVIÇOS UNIFICADO + COLORAÇÃO EM DESTAQUE
+════════════════════════════════════════════════════════ */
+.n4-drop { position: relative; }
+.n4-menu {
+  position: absolute; top: calc(100% + .75rem); left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--white); min-width: 270px;
+  border: 1px solid rgba(123,120,91,.12); border-radius: 10px; padding: .5rem 0;
+  box-shadow: 0 12px 32px rgba(44,42,30,.12);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s, transform .18s; z-index: 100;
+}
+.n4-drop:hover .n4-menu,
+.n4-drop:focus-within .n4-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.n4-menu a { display: block; padding: .55rem 1.1rem; font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--olive); transition: background .15s; }
+.n4-menu a:hover { background: var(--cream-bg); }
+.n4-menu a.accent {
+  color: var(--sage); margin: .3rem .4rem 0;
+  background: rgba(107,123,106,.08); border-radius: 6px; padding: .6rem .7rem;
+}
+.n4-menu a.accent::before { content: '✦  '; font-size: .7rem; }
+.n4-menu a.accent:hover { background: rgba(107,123,106,.16); }
+.n4-sep { height: 1px; background: rgba(123,120,91,.1); margin: .35rem .75rem; }
+.n4-chevron { font-size: .6rem; margin-left: .25rem; display: inline-block; transition: transform .2s; vertical-align: middle; }
+.n4-drop:hover .n4-chevron { transform: rotate(180deg); }
+
+/* ════════════════════════════════════════════════════════
+   N5 — NAV SAGE INTEGRADA
+════════════════════════════════════════════════════════ */
+.n5-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 1.5rem; background: var(--sage); border-bottom: none;
+  position: relative; z-index: 30;
+}
+.n5-nav .logo-img { filter: brightness(0) invert(1); }
+.n5-nav .nav-links a { color: rgba(255,255,255,.82); }
+.n5-nav .nav-links a:hover { color: var(--white); }
+.n5-cta {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  padding: .5rem 1.1rem; background: rgba(255,255,255,.15); color: var(--white);
+  border: 1.5px solid rgba(255,255,255,.45); border-radius: 999px;
+  transition: background .2s; white-space: nowrap;
+}
+.n5-cta:hover { background: rgba(255,255,255,.28); }
+.n5-cta svg { width: 10px; height: 10px; opacity: .8; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-shell { flex-direction: column; min-height: auto; }
+  .p-left { flex: none; padding: 1.75rem 1.25rem; }
+  .p-h1 { font-size: clamp(1.8rem,7vw,2.4rem); }
+  .v9-right { flex-direction: column; }
+  .v9-photo-panel { height: 260px; flex: none; }
+  .v9-sage-panel { flex: none; padding: 1.25rem; }
+  .nav-links { display: none; }
+  .n3-ghost { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>V9 Díptico — 5 propostas de menu e CTA</h1>
+  <p>mesmo hero · 5 tratamentos de navegação e call-to-action</p>
+</header>
+
+<div class="proposal-wrap">
+
+<!-- ════════════════════════════════════════════════════════
+     N1 — DROPDOWN DE ENSAIOS + LABELS CORRETOS
+════════════════════════════════════════════════════════ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>N1 — "Ensaios" com dropdown + hrefs alinhados ao sitemap</h2>
+    <span class="tag">Navegação precisa</span>
+  </div>
+
+  <nav class="sim-nav">
+    <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    <ul class="nav-links">
+      <li class="n1-drop">
+        <a href="/ensaio-fotografico" tabindex="0">Ensaios <span class="n1-chevron">▾</span></a>
+        <div class="n1-menu" role="menu">
+          <a href="/ensaio-fotografico/corporativo">Corporativo</a>
+          <a href="/ensaio-fotografico/sensual-intimista">Feminino · Sensual</a>
+          <a href="/ensaio-fotografico/dia-das-maes">Dia das Mães</a>
+          <div class="n1-sep"></div>
+          <div class="n1-cat">Estúdio</div>
+          <a href="/estudio-fotografico-em-mogi-das-cruzes/cenarios">Ver cenários</a>
+          <a href="/estudio-fotografico-em-mogi-das-cruzes/aluguel">Alugar espaço</a>
+        </div>
+      </li>
+      <li><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio</a></li>
+      <li><a href="/precos-ensaios-fotograficos">Preços</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <a href="/agende-seu-ensaio" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="/agende-seu-ensaio" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="/ensaio-fotografico"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="/estudio-fotografico-em-mogi-das-cruzes"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v9-right">
+      <div class="v9-sage-panel">
+        <div class="v9-services">
+          <div class="v9-service-item highlight"><span class="v9-num">01</span><span class="v9-name">Ensaios fotográficos</span></div>
+          <div class="v9-service-item"><span class="v9-num">02</span><span class="v9-name">Aluguel do estúdio</span></div>
+          <div class="v9-service-item"><span class="v9-num">03</span><span class="v9-name">Coloração pessoal</span></div>
+          <a href="/agende-seu-ensaio" class="v9-sage-cta">agendar agora</a>
+        </div>
+      </div>
+      <div class="v9-photo-panel has-photo" data-photo>
+        <div class="photo-placeholder"><div class="placeholder-label">foto da<br>Lillia aqui</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational"><strong>Mudança:</strong> "Portfolio" vira "Ensaios" (nome real + URL /ensaio-fotografico), com dropdown ao hover expondo os 3 tipos de ensaio e atalhos do estúdio. Todos os hrefs apontam para páginas reais do sitemap. <strong>Por que importa:</strong> visitante vindo de busca por "ensaio corporativo Mogi" chega direto — elimina um clique e reduz abandono. O estúdio continua como link direto, mas também aparece no dropdown para quem está explorando.</p>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     N2 — "SOBRE" NO NAV + SOCIAL PROOF NO CTA
+════════════════════════════════════════════════════════ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>N2 — "Sobre" substitui "Blog" + avaliação no CTA</h2>
+    <span class="tag gold">Trust building</span>
+  </div>
+
+  <nav class="sim-nav">
+    <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    <ul class="nav-links">
+      <li><a href="/ensaio-fotografico">Ensaios</a></li>
+      <li><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio</a></li>
+      <li><a href="/precos-ensaios-fotograficos">Preços</a></li>
+      <li><a href="/sobre-fotografa-lillia-tavares">Sobre</a></li>
+      <li><a href="/depoimentos">Depoimentos</a></li>
+    </ul>
+    <a href="/agende-seu-ensaio" class="n2-cta">
+      <span class="n2-badge">
+        <span class="n2-stars">★★★★★</span>
+        <span class="n2-score">5.0</span>
+      </span>
+      Agendar Ensaio
+    </a>
+  </nav>
+
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="/agende-seu-ensaio" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="/ensaio-fotografico"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="/depoimentos"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Ler depoimentos</a>
+        </div>
+      </div>
+    </div>
+    <div class="v9-right">
+      <div class="v9-sage-panel">
+        <div class="v9-services">
+          <div class="v9-service-item highlight"><span class="v9-num">01</span><span class="v9-name">Ensaios fotográficos</span></div>
+          <div class="v9-service-item"><span class="v9-num">02</span><span class="v9-name">Aluguel do estúdio</span></div>
+          <div class="v9-service-item"><span class="v9-num">03</span><span class="v9-name">Coloração pessoal</span></div>
+          <a href="/agende-seu-ensaio" class="v9-sage-cta">agendar agora</a>
+        </div>
+      </div>
+      <div class="v9-photo-panel has-photo" data-photo>
+        <div class="photo-placeholder"><div class="placeholder-label">foto da<br>Lillia aqui</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational"><strong>Mudanças:</strong> (1) "Blog" sai — baixa intenção de compra para visita fria; "Sobre" e "Depoimentos" entram — ambas constroem confiança antes do agendamento. (2) O CTA ganha um badge dourado com avaliação: o clique já comunica reputação antes de abrir a página. (3) O quick-link "Ler depoimentos" substitui "Conhecer o estúdio" — prova social direto do hero. <strong>Trade-off:</strong> o badge de nota pressupõe avaliações publicadas e um número real (usar dado real ou remover).</p>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     N3 — CTA DUPLO HIERÁRQUICO
+════════════════════════════════════════════════════════ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>N3 — CTA duplo: "Ver preços" + "Agendar Ensaio"</h2>
+    <span class="tag">Captura indecisos</span>
+  </div>
+
+  <nav class="sim-nav">
+    <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    <ul class="nav-links">
+      <li><a href="/ensaio-fotografico">Ensaios</a></li>
+      <li><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio</a></li>
+      <li><a href="/sobre-fotografa-lillia-tavares">Sobre</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <div class="n3-group">
+      <a href="/precos-ensaios-fotograficos" class="n3-ghost">Ver preços</a>
+      <a href="/agende-seu-ensaio" class="n3-filled">
+        Agendar Ensaio
+        <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5H8.5M6 2.5L8.5 5L6 7.5"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="/agende-seu-ensaio" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="/ensaio-fotografico"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="/estudio-fotografico-em-mogi-das-cruzes"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v9-right">
+      <div class="v9-sage-panel">
+        <div class="v9-services">
+          <div class="v9-service-item highlight"><span class="v9-num">01</span><span class="v9-name">Ensaios fotográficos</span></div>
+          <div class="v9-service-item"><span class="v9-num">02</span><span class="v9-name">Aluguel do estúdio</span></div>
+          <div class="v9-service-item"><span class="v9-num">03</span><span class="v9-name">Coloração pessoal</span></div>
+          <a href="/agende-seu-ensaio" class="v9-sage-cta">agendar agora</a>
+        </div>
+      </div>
+      <div class="v9-photo-panel has-photo" data-photo>
+        <div class="photo-placeholder"><div class="placeholder-label">foto da<br>Lillia aqui</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational"><strong>Mudança:</strong> o CTA único vira dois: "Ver preços" (underline, peso médio) + "Agendar Ensaio →" (pill filled). A hierarquia é clara — quem ainda está decidindo clica em preços; quem já sabe clica em agendar. <strong>Por que importa:</strong> o sitemap tem /precos-ensaios-fotograficos como página dedicada mas nenhum caminho direto no topo da home. Colocar preços ao lado do CTA principal elimina a objeção mais comum antes de pedir o contato. <strong>Trade-off:</strong> a área de CTA fica ligeiramente mais larga — testar em mobile se o layout quebra (esconder n3-ghost em telas menores, como já está no CSS).</p>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     N4 — "SERVIÇOS" UNIFICADO + COLORAÇÃO EM DESTAQUE
+════════════════════════════════════════════════════════ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>N4 — Dropdown "Serviços" com coloração em destaque</h2>
+    <span class="tag sage">Diferenciador</span>
+  </div>
+
+  <nav class="sim-nav">
+    <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    <ul class="nav-links">
+      <li class="n4-drop">
+        <a href="/ensaio-fotografico" tabindex="0">Serviços <span class="n4-chevron">▾</span></a>
+        <div class="n4-menu" role="menu">
+          <a href="/ensaio-fotografico">Ensaios fotográficos</a>
+          <a href="/estudio-fotografico-em-mogi-das-cruzes/aluguel">Aluguel do estúdio</a>
+          <div class="n4-sep"></div>
+          <a href="/analise-coloracao-pessoal-em-mogi" class="accent">Coloração pessoal</a>
+        </div>
+      </li>
+      <li><a href="/ensaio-fotografico">Portfólio</a></li>
+      <li><a href="/sobre-fotografa-lillia-tavares">Sobre</a></li>
+      <li><a href="/precos-ensaios-fotograficos">Preços</a></li>
+    </ul>
+    <a href="/agende-seu-ensaio" class="nav-cta">Agendar Ensaio</a>
+  </nav>
+
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="/agende-seu-ensaio" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="/ensaio-fotografico"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="/analise-coloracao-pessoal-em-mogi"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M4.5 7c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5"/></svg>Análise de coloração</a>
+        </div>
+      </div>
+    </div>
+    <div class="v9-right">
+      <div class="v9-sage-panel">
+        <div class="v9-services">
+          <div class="v9-service-item highlight"><span class="v9-num">01</span><span class="v9-name">Ensaios fotográficos</span></div>
+          <div class="v9-service-item"><span class="v9-num">02</span><span class="v9-name">Aluguel do estúdio</span></div>
+          <div class="v9-service-item" style="margin-bottom:0"><span class="v9-num">03</span><span class="v9-name" style="color:var(--cream-btn)">✦ Coloração pessoal</span></div>
+          <a href="/agende-seu-ensaio" class="v9-sage-cta">agendar agora</a>
+        </div>
+      </div>
+      <div class="v9-photo-panel has-photo" data-photo>
+        <div class="photo-placeholder"><div class="placeholder-label">foto da<br>Lillia aqui</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational"><strong>Mudança:</strong> os serviços são agrupados num único dropdown "Serviços" com coloração pessoal em destaque sage — o ✦ sinaliza que é um serviço diferente, não mais fotografia. O sage panel da direita também marca coloração com ✦ e cream, reforçando a consistência visual. <strong>Por que importa:</strong> /analise-coloracao-pessoal-em-mogi está no sitemap mas completamente invisível na navegação atual — é o único serviço da Lillia que diferencia dela de todo o mercado fotográfico local. Expor no dropdown garante descoberta. <strong>Trade-off:</strong> "Serviços" como label é menos escaneável que "Ensaios"; compensado pelo dropdown claro.</p>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     N5 — NAV SAGE INTEGRADA
+════════════════════════════════════════════════════════ -->
+<div class="proposal-block">
+  <div class="prop-label">
+    <h2>N5 — Nav sage integrada ao hero</h2>
+    <span class="tag sage">Integração visual</span>
+  </div>
+
+  <nav class="n5-nav">
+    <img class="logo-img" src="https://images.fotografalilliatavares.com.br/images/19bd6c18-a153-4e79-c6bd-4293145da400/public" alt="Lillia Tavares">
+    <ul class="nav-links">
+      <li><a href="/ensaio-fotografico">Ensaios</a></li>
+      <li><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio</a></li>
+      <li><a href="/precos-ensaios-fotograficos">Preços</a></li>
+      <li><a href="/sobre-fotografa-lillia-tavares">Sobre</a></li>
+    </ul>
+    <a href="/agende-seu-ensaio" class="n5-cta">
+      Agendar Ensaio
+      <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5H8.5M6 2.5L8.5 5L6 7.5"/></svg>
+    </a>
+  </nav>
+
+  <div class="hero-shell">
+    <div class="p-left">
+      <div class="p-eyebrow">Mogi das Cruzes · Alto Tietê</div>
+      <h1 class="p-h1">Fotógrafa<em>em Mogi das Cruzes</em></h1>
+      <p class="p-body">Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio em uma experiência acolhedora, criando imagens que comunicam autenticidade e profissionalismo.</p>
+      <p class="p-body"><a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio · atendimento para todo o Alto Tietê.</a></p>
+      <div class="p-actions">
+        <a href="/agende-seu-ensaio" class="p-btn">
+          Agendar meu ensaio
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6H10M7 3L10 6L7 9"/></svg>
+        </a>
+        <div class="p-links">
+          <a href="/ensaio-fotografico"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="12" height="9" rx="1"/><circle cx="7" cy="7.5" r="2"/></svg>Ver meus trabalhos</a>
+          <a href="/estudio-fotografico-em-mogi-das-cruzes"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 2h12v10H1z"/><path d="M1 6h12M5 2v4M9 2v4"/></svg>Conhecer o estúdio</a>
+        </div>
+      </div>
+    </div>
+    <div class="v9-right">
+      <div class="v9-sage-panel">
+        <div class="v9-services">
+          <div class="v9-service-item highlight"><span class="v9-num">01</span><span class="v9-name">Ensaios fotográficos</span></div>
+          <div class="v9-service-item"><span class="v9-num">02</span><span class="v9-name">Aluguel do estúdio</span></div>
+          <div class="v9-service-item"><span class="v9-num">03</span><span class="v9-name">Coloração pessoal</span></div>
+          <a href="/agende-seu-ensaio" class="v9-sage-cta">agendar agora</a>
+        </div>
+      </div>
+      <div class="v9-photo-panel has-photo" data-photo>
+        <div class="photo-placeholder"><div class="placeholder-label">foto da<br>Lillia aqui</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="rational"><strong>Mudança:</strong> a nav vira sage — mesma cor do painel direito do hero. O resultado é um "L invertido" de sage: faixa horizontal no topo + bloco vertical à direita. A hero deixa de ter dois pedaços (nav + hero) e passa a ser uma peça visual coesa. O CTA em ghost branco sobre sage ecoa o botão "agendar agora" do painel. <strong>Por que importa:</strong> em V9 a nav branca "flutua" desconectada do conceito sage do hero — é uma inconsistência visual que quebra a intenção editorial. Com N5 a cor de marca da Lillia (sage = cor da foto) domina o topo da página. <strong>Trade-off:</strong> nav sage pode reduzir contraste dos links no scroll — garantir que a nav fique sage somente quando no topo (JS de scroll adicionar classe .scrolled que reverte para branco).</p>
+</div>
+
+
+<!-- RANKING -->
+<div class="proposal-block" style="border-top: 2px solid var(--sage-light); padding-top: 3rem;">
+  <div class="prop-label"><h2>Ranking das 5 propostas</h2></div>
+  <div style="display:flex; flex-direction:column; gap:.85rem; max-width:720px;">
+
+    <div style="display:flex; gap:1rem; align-items:flex-start; padding:1rem; background:var(--sage); border-radius:8px; color:var(--white);">
+      <span style="font-family:var(--hand); font-size:2.2rem; line-height:1; flex-shrink:0;">1</span>
+      <div><strong style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:.3rem;">N3 — CTA duplo</strong><span style="font-size:.82rem; line-height:1.6; opacity:.9;">Maior impacto na conversão imediata. Serve dois perfis de visita com um único gesto — sem adicionar links, sem mudar a estrutura. A pergunta mais frequente (quanto custa?) ganha resposta antes de qualquer clique.</span></div>
+    </div>
+
+    <div style="display:flex; gap:1rem; align-items:flex-start; padding:1rem; background:var(--cream-bg); border-radius:8px;">
+      <span style="font-family:var(--hand); font-size:2.2rem; color:var(--olive-dark); line-height:1; flex-shrink:0;">2</span>
+      <div><strong style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:.3rem;">N5 — Nav sage integrada</strong><span style="font-size:.82rem; line-height:1.6;">Resolve a inconsistência visual mais óbvia do V9. Custo zero de conteúdo — só CSS. O efeito "L sage" é imediatamente mais premium que a nav branca padrão.</span></div>
+    </div>
+
+    <div style="display:flex; gap:1rem; align-items:flex-start; padding:1rem; background:var(--cream-bg); border-radius:8px;">
+      <span style="font-family:var(--hand); font-size:2.2rem; color:var(--olive-dark); line-height:1; flex-shrink:0;">3</span>
+      <div><strong style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:.3rem;">N1 — Dropdown de ensaios</strong><span style="font-size:.82rem; line-height:1.6;">Essencial a longo prazo: o site tem 3 tipos de ensaio no sitemap e a nav atual não expõe nenhum. Qualquer crescimento de conteúdo vai exigir isso de qualquer forma.</span></div>
+    </div>
+
+    <div style="display:flex; gap:1rem; align-items:flex-start; padding:1rem; background:var(--cream-bg); border-radius:8px;">
+      <span style="font-family:var(--hand); font-size:2.2rem; color:var(--olive-dark); line-height:1; flex-shrink:0;">4</span>
+      <div><strong style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:.3rem;">N4 — Coloração em destaque</strong><span style="font-size:.82rem; line-height:1.6;">O maior diferenciador competitivo do site está invisível na navegação atual. Expor coloração pessoal via dropdown + sage panel cria uma segunda linha de conversão que nenhum fotógrafo local tem.</span></div>
+    </div>
+
+    <div style="display:flex; gap:1rem; align-items:flex-start; padding:1rem; background:var(--cream-bg); border-radius:8px;">
+      <span style="font-family:var(--hand); font-size:2.2rem; color:var(--olive-dark); line-height:1; flex-shrink:0;">5</span>
+      <div><strong style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:.3rem;">N2 — Sobre + social proof</strong><span style="font-size:.82rem; line-height:1.6;">A nota no CTA é o elemento mais condicional — depende de avaliações reais publicadas. Quando esse dado existir, sobe no ranking. A substituição de "Blog" por "Sobre" + "Depoimentos" é uma melhoria imediata sem riscos.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /proposal-wrap -->
+
+<script>
+/* Ativa foto real nos painéis */
+document.querySelectorAll('.has-photo').forEach(el => {
+  const ph = el.querySelector('.photo-placeholder');
+  if (ph) {
+    ph.style.backgroundImage = 'var(--photo)';
+    ph.style.backgroundSize = 'cover';
+    ph.style.backgroundPosition = 'center top';
+    const label = ph.querySelector('.placeholder-label');
+    const before = ph.querySelector('::before');
+    if (label) label.style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>

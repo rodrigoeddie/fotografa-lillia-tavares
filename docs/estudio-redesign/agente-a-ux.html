@@ -1,0 +1,3243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estúdio Redesign — 5 Propostas UX · Lillia Tavares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS GLOBAIS ─── */
+:root {
+  --olive:          #7B785B;
+  --olive-dark:     #5a5840;
+  --olive-hover:    #6a6749;
+  --cream-light:    #F4F2E9;
+  --cream-footer:   #F7F4E8;
+  --neutral-mid:    #D7D6CD;
+  --backdrop-navy:  #111D2C;
+  --backdrop-tan:   #B99879;
+  --backdrop-black: #241F21;
+  --backdrop-grey:  #E4E1E5;
+  --rose:           #BD9187;
+  --white:          #FFFFFF;
+  --sans:           'Lato', Arial, sans-serif;
+  --radius-pill:    999px;
+  --radius-sm:      6px;
+  --trans:          0.18s ease;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--sans); background: #f0ede4; color: var(--olive); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ─── LAYOUT WRAPPER ─── */
+.proposal-wrapper {
+  background: var(--white);
+  margin: 3rem auto;
+  max-width: 1440px;
+  box-shadow: 0 4px 40px rgba(0,0,0,.12);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.proposal-label {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--backdrop-navy);
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: .55rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.proposal-label .badge {
+  background: var(--olive);
+  padding: .15rem .55rem;
+  border-radius: var(--radius-sm);
+  font-size: .68rem;
+}
+.proposal-label .rationale {
+  font-weight: 400;
+  opacity: .72;
+  font-size: .7rem;
+  letter-spacing: .04em;
+  margin-left: auto;
+  max-width: 60ch;
+  text-align: right;
+}
+
+/* ─── ÍNDICE LATERAL ─── */
+#toc {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  z-index: 9999;
+}
+#toc a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--neutral-mid);
+  border: 2px solid var(--white);
+  transition: background var(--trans), transform var(--trans);
+  position: relative;
+}
+#toc a:hover,
+#toc a.active { background: var(--olive); transform: scale(1.4); }
+#toc a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + .6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: .65rem;
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--olive);
+  background: var(--white);
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+#toc a:hover::after { opacity: 1; }
+
+/* ─── SEPARADOR ─── */
+.section-divider {
+  border: none;
+  border-top: 3px solid var(--cream-light);
+  margin: 0;
+}
+
+/* ─── RANKING FINAL ─── */
+.ranking {
+  background: var(--backdrop-navy);
+  color: var(--white);
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+.ranking h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--neutral-mid);
+  margin-bottom: 2.5rem;
+}
+.ranking-list { display: flex; flex-direction: column; gap: 1rem; max-width: 700px; margin: 0 auto; }
+.rank-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: start;
+  gap: 1rem;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+  text-align: left;
+}
+.rank-item .pos {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--olive);
+  line-height: 1;
+}
+.rank-item h3 { font-size: .88rem; font-weight: 900; letter-spacing: .06em; margin-bottom: .25rem; }
+.rank-item p { font-size: .78rem; opacity: .68; line-height: 1.5; }
+.rank-item .score {
+  font-size: .72rem;
+  font-weight: 900;
+  color: var(--backdrop-tan);
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  #toc { display: none; }
+  .proposal-label .rationale { display: none; }
+  .rank-item { grid-template-columns: 2rem 1fr; }
+  .rank-item .score { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ÍNDICE DE PONTOS -->
+<nav id="toc" aria-label="Navegação entre propostas">
+  <a href="#p1" data-label="P1 · Refinada"></a>
+  <a href="#p2" data-label="P2 · Focada"></a>
+  <a href="#p3" data-label="P3 · Guiada"></a>
+  <a href="#p4" data-label="P4 · Imersiva"></a>
+  <a href="#p5" data-label="P5 · Radical"></a>
+  <a href="#ranking" data-label="Ranking"></a>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     PROPOSTA 1 — REFINADA
+     Melhoria incremental: hierarquia corrigida, nav sticky sólida,
+     CTA com peso real, breadcrumb acessível.
+     ════════════════════════════════════════════════ -->
+<section id="p1" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P1</span>
+    Refinada — Evolução Segura
+    <span class="rationale">Resolve hierarquia, nav, breadcrumb e CTA sem quebrar identidade. Trade-off: muda menos, surpresa menor.</span>
+  </div>
+
+  <style>
+  /* ── P1 ESTILOS ── */
+  .p1-nav {
+    position: sticky;
+    top: 2.2rem; /* abaixo da label */
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--neutral-mid);
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem;
+    height: 3.5rem;
+    gap: 0;
+    transition: box-shadow var(--trans);
+  }
+  .p1-nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,.08); }
+  .p1-logo {
+    font-size: .95rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .p1-logo svg { flex-shrink: 0; }
+  .p1-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+  }
+  .p1-nav-links li a {
+    display: block;
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    padding: 0 .9rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    position: relative;
+    transition: color var(--trans);
+    white-space: nowrap;
+  }
+  .p1-nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: .9rem;
+    right: .9rem;
+    height: 2px;
+    background: var(--olive);
+    transform: scaleX(0);
+    transition: transform var(--trans);
+    transform-origin: left;
+  }
+  .p1-nav-links li a:hover { color: var(--olive-dark); }
+  .p1-nav-links li a:hover::after { transform: scaleX(1); }
+  .p1-nav-links li a[aria-current="page"] { color: var(--olive-dark); }
+  .p1-nav-links li a[aria-current="page"]::after { transform: scaleX(1); }
+  .p1-nav-cta {
+    margin-left: 1.25rem;
+    background: var(--olive);
+    color: var(--white) !important;
+    font-size: .78rem !important;
+    font-weight: 900 !important;
+    letter-spacing: .1em !important;
+    text-transform: uppercase !important;
+    padding: .55rem 1.1rem !important;
+    border-radius: var(--radius-pill) !important;
+    height: auto !important;
+    line-height: 1 !important;
+    transition: background var(--trans) !important;
+    white-space: nowrap;
+  }
+  .p1-nav-cta::after { display: none !important; }
+  .p1-nav-cta:hover { background: var(--olive-dark) !important; color: var(--white) !important; }
+
+  /* breadcrumb */
+  .p1-breadcrumb {
+    background: var(--cream-light);
+    padding: .55rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .78rem;
+    font-weight: 400;
+    color: var(--olive);
+  }
+  .p1-breadcrumb a {
+    color: var(--olive);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 2px;
+    transition: text-decoration-color var(--trans);
+    border-radius: 2px;
+  }
+  .p1-breadcrumb a:hover { text-decoration-color: var(--olive); }
+  .p1-breadcrumb a:focus-visible {
+    outline: 2px solid var(--olive);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .p1-breadcrumb .sep { opacity: .4; }
+  .p1-breadcrumb [aria-current="page"] { font-weight: 700; cursor: default; }
+
+  /* hero */
+  .p1-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+  .p1-hero-copy {
+    padding: 4rem 3rem 4rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .p1-kicker {
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: .75rem;
+  }
+  .p1-hero h1 {
+    font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 1.25rem;
+    letter-spacing: .04em;
+  }
+  .p1-hero p {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--olive);
+    max-width: 48ch;
+    margin-bottom: .9rem;
+  }
+  .p1-hero p:last-of-type { margin-bottom: 2rem; }
+  .p1-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .p1-cta-primary {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transition: background var(--trans), transform .12s;
+    border: none;
+    cursor: pointer;
+  }
+  .p1-cta-primary:hover { background: var(--olive-dark); transform: translateY(-1px); }
+  .p1-cta-primary:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+  .p1-cta-primary:active { transform: translateY(0); }
+  .p1-cta-secondary {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--olive);
+    text-decoration: underline;
+    text-decoration-color: var(--neutral-mid);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--trans);
+  }
+  .p1-cta-secondary:hover { text-decoration-color: var(--olive); }
+
+  /* tags de atributos */
+  .p1-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-bottom: 1.5rem;
+  }
+  .p1-tag {
+    background: var(--cream-light);
+    color: var(--olive);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: .3rem .7rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--neutral-mid);
+  }
+
+  /* swiper hero */
+  .p1-hero-media {
+    position: relative;
+    overflow: hidden;
+    background: var(--backdrop-grey);
+  }
+  .p1-swiper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .p1-slides {
+    display: flex;
+    height: 100%;
+    transition: transform .5s cubic-bezier(.4,0,.2,1);
+  }
+  .p1-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+  .p1-swiper-prev,
+  .p1-swiper-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,.85);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--trans), transform .12s;
+    backdrop-filter: blur(4px);
+  }
+  .p1-swiper-prev { left: .75rem; }
+  .p1-swiper-next { right: .75rem; }
+  .p1-swiper-prev:hover,
+  .p1-swiper-next:hover { background: var(--white); transform: translateY(-50%) scale(1.08); }
+  .p1-swiper-prev:focus-visible,
+  .p1-swiper-next:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p1-swiper-dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: .4rem;
+    z-index: 10;
+  }
+  .p1-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.5);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background var(--trans), transform var(--trans);
+  }
+  .p1-dot.active { background: var(--white); transform: scale(1.3); }
+
+  /* cenários */
+  .p1-scenarios {
+    padding: 4rem 2.5rem;
+    background: var(--cream-light);
+  }
+  .p1-section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .p1-section-head h2 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .p1-section-head p {
+    font-size: .82rem;
+    color: var(--olive);
+    opacity: .7;
+    max-width: 40ch;
+    text-align: right;
+  }
+  .p1-mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 280px 200px;
+    gap: .5rem;
+  }
+  .p1-mosaic-item {
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .p1-mosaic-item:first-child { grid-row: 1 / 3; }
+  .p1-mosaic-item:nth-child(4) { grid-column: 2 / 4; }
+  .p1-mosaic-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17,29,44,.0);
+    transition: background var(--trans);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+  .p1-mosaic-item:hover .p1-mosaic-overlay { background: rgba(17,29,44,.45); }
+  .p1-mosaic-overlay span {
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(.4rem);
+    transition: opacity var(--trans), transform var(--trans);
+  }
+  .p1-mosaic-item:hover .p1-mosaic-overlay span { opacity: 1; transform: translateY(0); }
+  .p1-mosaic-item:focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; }
+  .p1-mosaic-cta {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* localização */
+  .p1-location {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+  }
+  .p1-map-area {
+    position: relative;
+    background: var(--backdrop-grey);
+    overflow: hidden;
+  }
+  .p1-map-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, var(--neutral-mid) 39px, var(--neutral-mid) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, var(--neutral-mid) 39px, var(--neutral-mid) 40px);
+    background-color: #e8e5dc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  .p1-map-btn {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .85rem 1.75rem;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    transition: background var(--trans), transform .12s;
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  }
+  .p1-map-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+  .p1-map-btn:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+  .p1-map-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .6;
+  }
+  .p1-location-info {
+    background: var(--backdrop-navy);
+    color: var(--white);
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .p1-location-info h2 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .p1-location-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .p1-location-row {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    font-size: .92rem;
+    line-height: 1.5;
+    opacity: .85;
+  }
+  .p1-location-row .icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    opacity: .6;
+    margin-top: .1rem;
+  }
+  .p1-location-cta {
+    background: var(--rose);
+    color: var(--white);
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    align-self: flex-start;
+    transition: background var(--trans), transform .12s;
+  }
+  .p1-location-cta:hover { background: #a67a71; transform: translateY(-1px); }
+  .p1-location-cta:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+
+  /* footer */
+  .p1-footer {
+    background: var(--cream-footer);
+    padding: 3rem 2.5rem 2rem;
+    text-align: center;
+  }
+  .p1-footer-logo {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 1.5rem;
+  }
+  .p1-footer-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .p1-footer-contacts a {
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    transition: opacity var(--trans);
+    padding: .3rem 0;
+    border-radius: 2px;
+  }
+  .p1-footer-contacts a:hover { opacity: .65; }
+  .p1-footer-contacts a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; border-radius: 2px; }
+  .p1-footer-copy {
+    font-size: .72rem;
+    color: var(--olive);
+    opacity: .5;
+    letter-spacing: .04em;
+    border-top: 1px solid var(--neutral-mid);
+    padding-top: 1.25rem;
+    margin-top: .5rem;
+  }
+
+  @media (max-width: 900px) {
+    .p1-hero { grid-template-columns: 1fr; }
+    .p1-hero-media { min-height: 320px; }
+    .p1-hero-copy { padding: 2.5rem 1.5rem; }
+    .p1-nav-links { display: none; }
+    .p1-nav { padding: 0 1.25rem; }
+    .p1-location { grid-template-columns: 1fr; }
+    .p1-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .p1-mosaic-item:first-child { grid-row: auto; }
+    .p1-mosaic-item:nth-child(4) { grid-column: auto; }
+    .p1-scenarios { padding: 2.5rem 1.25rem; }
+    .p1-location-info { padding: 2.5rem 1.5rem; }
+    .p1-breadcrumb { padding: .55rem 1.25rem; }
+    .p1-section-head p { display: none; }
+  }
+  </style>
+
+  <!-- NAV P1 -->
+  <nav class="p1-nav" id="p1-nav" role="navigation" aria-label="Menu principal">
+    <div class="p1-logo" aria-label="Lillia Tavares Fotografia">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M11 2C11 2 6 7 6 12a5 5 0 0010 0c0-5-5-10-5-10z" fill="#7B785B" opacity=".5"/>
+        <path d="M11 6C11 6 8 10 8 13a3 3 0 006 0c0-3-3-7-3-7z" fill="#7B785B"/>
+        <rect x="10.5" y="15" width="1" height="5" rx=".5" fill="#7B785B"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="p1-nav-links" role="list">
+      <li><a href="#" tabindex="0">Home</a></li>
+      <li><a href="#" tabindex="0">Trabalhos</a></li>
+      <li><a href="#" aria-current="page" tabindex="0">Estúdio</a></li>
+      <li><a href="#" tabindex="0">Preços</a></li>
+      <li><a href="#" tabindex="0">Blog</a></li>
+      <li><a href="#" tabindex="0">FAQ</a></li>
+      <li><a href="#" class="p1-nav-cta" tabindex="0">Falar no WhatsApp</a></li>
+    </ul>
+  </nav>
+
+  <!-- BREADCRUMB P1 -->
+  <nav class="p1-breadcrumb" aria-label="Localização na página">
+    <a href="#">Home</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span aria-current="page">Estúdio Fotográfico em Mogi das Cruzes</span>
+  </nav>
+
+  <!-- HERO P1 -->
+  <section class="p1-hero" aria-labelledby="p1-h1">
+    <div class="p1-hero-copy">
+      <p class="p1-kicker">Estúdio Fotográfico em Mogi das Cruzes</p>
+      <h1 id="p1-h1">Um espaço feito para revelar quem você é</h1>
+      <div class="p1-tags" aria-label="Características do estúdio">
+        <span class="p1-tag">7 cenários</span>
+        <span class="p1-tag">Várias cores de fundo</span>
+        <span class="p1-tag">Luz natural + artificial</span>
+        <span class="p1-tag">Particular</span>
+      </div>
+      <p>O estúdio fica localizado no centro de Mogi das Cruzes, com agendamento exclusivo — você não divide o espaço com ninguém.</p>
+      <p>Cada cenário foi pensado para diferentes estilos de ensaio: do romântico ao editorial, do íntimo ao vibrante.</p>
+      <div class="p1-cta-group">
+        <a href="#" class="p1-cta-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8S12.42 0 8 0zm.5 12h-1V7h1v5zm0-6.5h-1v-1h1v1z"/></svg>
+          Agendar meu ensaio
+        </a>
+        <a href="#p1-scenarios" class="p1-cta-secondary">Ver os cenários</a>
+      </div>
+    </div>
+    <div class="p1-hero-media" role="img" aria-label="Fotos do estúdio fotográfico">
+      <div class="p1-swiper" id="p1-swiper">
+        <div class="p1-slides" id="p1-slides">
+          <div class="p1-slide" style="background-image:url('https://images.unsplash.com/photo-1554151228-14d9def656e4?w=800&q=80')"></div>
+          <div class="p1-slide" style="background-image:url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80')"></div>
+          <div class="p1-slide" style="background-image:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80')"></div>
+          <div class="p1-slide" style="background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80')"></div>
+        </div>
+        <button class="p1-swiper-prev" id="p1-prev" aria-label="Foto anterior">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2L3.5 6l4 4" stroke="#7B785B" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="p1-swiper-next" id="p1-next" aria-label="Próxima foto">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2L8.5 6l-4 4" stroke="#7B785B" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="p1-swiper-dots" role="tablist" aria-label="Selecionar foto">
+          <button class="p1-dot active" role="tab" aria-selected="true" aria-label="Foto 1" data-idx="0"></button>
+          <button class="p1-dot" role="tab" aria-selected="false" aria-label="Foto 2" data-idx="1"></button>
+          <button class="p1-dot" role="tab" aria-selected="false" aria-label="Foto 3" data-idx="2"></button>
+          <button class="p1-dot" role="tab" aria-selected="false" aria-label="Foto 4" data-idx="3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENÁRIOS P1 -->
+  <section id="p1-scenarios" class="p1-scenarios" aria-labelledby="p1-cenarios-h2">
+    <div class="p1-section-head">
+      <h2 id="p1-cenarios-h2">Conheça os Cenários</h2>
+      <p>Clique em qualquer cenário para ver detalhes e disponibilidade</p>
+    </div>
+    <div class="p1-mosaic" role="list">
+      <div class="p1-mosaic-item" role="listitem" tabindex="0" aria-label="Cenário Fundo Infinito — clique para detalhes"
+           style="background-image:url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&q=80')">
+        <div class="p1-mosaic-overlay"><span>Fundo Infinito</span></div>
+      </div>
+      <div class="p1-mosaic-item" role="listitem" tabindex="0" aria-label="Cenário Romântico — clique para detalhes"
+           style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80')">
+        <div class="p1-mosaic-overlay"><span>Romântico</span></div>
+      </div>
+      <div class="p1-mosaic-item" role="listitem" tabindex="0" aria-label="Cenário Editorial — clique para detalhes"
+           style="background-image:url('https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?w=800&q=80')">
+        <div class="p1-mosaic-overlay"><span>Editorial</span></div>
+      </div>
+      <div class="p1-mosaic-item" role="listitem" tabindex="0" aria-label="Cenário Natural — clique para detalhes"
+           style="background-image:url('https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=800&q=80')">
+        <div class="p1-mosaic-overlay"><span>Natural</span></div>
+      </div>
+      <div class="p1-mosaic-item" role="listitem" tabindex="0" aria-label="Cenário Íntimo — clique para detalhes"
+           style="background-image:url('https://images.unsplash.com/photo-1502980426475-b83966705988?w=800&q=80')">
+        <div class="p1-mosaic-overlay"><span>Íntimo</span></div>
+      </div>
+    </div>
+    <div class="p1-mosaic-cta">
+      <a href="#" class="p1-cta-primary">Ver todos os cenários e disponibilidade</a>
+    </div>
+  </section>
+
+  <!-- LOCALIZAÇÃO P1 -->
+  <section class="p1-location" aria-labelledby="p1-loc-h2">
+    <div class="p1-map-area">
+      <div class="p1-map-placeholder" role="img" aria-label="Mapa de localização do estúdio">
+        <p class="p1-map-label">Mogi das Cruzes, SP</p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="p1-map-btn" aria-label="Abrir localização no Google Maps">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 7.5A2.5 2.5 0 115.5 5 2.5 2.5 0 018 7.5z"/></svg>
+          Ver no Google Maps
+        </a>
+      </div>
+    </div>
+    <div class="p1-location-info">
+      <h2 id="p1-loc-h2">Como chegar ao estúdio</h2>
+      <div class="p1-location-detail">
+        <div class="p1-location-row">
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 0C6.48 0 4 2.48 4 5c0 4.67 6 15 6 15s6-10.33 6-15c0-2.52-2.48-5-6-5zm0 8a3 3 0 110-6 3 3 0 010 6z"/></svg>
+          <div>
+            <strong>Rua Exemplo, 123 — Centro</strong><br>
+            Mogi das Cruzes, SP · 08700-000
+          </div>
+        </div>
+        <div class="p1-location-row">
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9V9h2v6zm0-8H9V5h2v2z"/></svg>
+          <div>
+            <strong>Funcionamento:</strong><br>
+            Seg — Sáb, 8h às 20h · Exclusivo por agendamento
+          </div>
+        </div>
+        <div class="p1-location-row">
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm5.293 1.293L7 7.586 4.707 5.293 3.293 6.707l4 4 1.414-1.414L6.414 7l1.879-1.879z"/></svg>
+          <div>
+            <strong>Estacionamento:</strong><br>
+            Estacionamento público a 50m do estúdio
+          </div>
+        </div>
+      </div>
+      <a href="#" class="p1-location-cta">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.854.146a.5.5 0 00-.707 0l-1 1 1.707 1.707 1-1a.5.5 0 000-.707l-1-1zM11.54 2.56L2 12.1V14h1.9l9.54-9.54L11.54 2.56z"/></svg>
+        Agendar meu ensaio agora
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER P1 -->
+  <footer class="p1-footer">
+    <div class="p1-footer-logo">Lillia Tavares — Fotografia</div>
+    <div class="p1-footer-contacts">
+      <a href="#" aria-label="Instagram @fotografalilliatavares">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="11.5" cy="4.5" r="1" fill="currentColor"/></svg>
+        @fotografalilliatavares
+      </a>
+      <a href="mailto:contato@fotografalilliatavares.com.br" aria-label="E-mail de contato">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M1 3h14v10H1V3zm1 1l6 5 6-5H2zm0 8h12V5.4L8 10 2 5.4V12z"/></svg>
+        contato@fotografalilliatavares.com.br
+      </a>
+      <a href="#" aria-label="WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 1.41.37 2.73 1.01 3.89L0 16l4.21-1.01A7.95 7.95 0 008 16c4.42 0 8-3.58 8-8S12.42 0 8 0zm4.14 11.38c-.17.49-.99.95-1.36 1.01-.35.06-.79.08-1.27-.08-.29-.1-.67-.23-1.14-.45-2-.89-3.31-2.91-3.41-3.04-.1-.13-.82-1.09-.82-2.09 0-1 .52-1.49.71-1.69.17-.19.38-.23.51-.23.13 0 .25.001.36.006.12.006.28-.046.44.33.17.39.57 1.38.62 1.48.05.1.08.21.02.34-.07.13-.1.21-.2.32-.1.11-.21.24-.3.33-.1.09-.2.19-.09.38.11.18.5.83 1.07 1.34.73.66 1.35.86 1.54.96.19.1.3.08.41-.05.11-.14.47-.55.59-.74.13-.19.25-.16.42-.1.17.07 1.1.52 1.29.61.19.09.31.14.35.22.05.09.05.5-.12.99z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <p class="p1-footer-copy">© 2024 Lillia Tavares Fotografia · Mogi das Cruzes, SP · Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+  (function() {
+    var idx = 0;
+    var slides = document.getElementById('p1-slides');
+    var dots = document.querySelectorAll('#p1 .p1-dot');
+    var total = 4;
+    function goTo(n) {
+      idx = (n + total) % total;
+      slides.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === idx);
+        d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+    }
+    document.getElementById('p1-prev').addEventListener('click', function() { goTo(idx - 1); });
+    document.getElementById('p1-next').addEventListener('click', function() { goTo(idx + 1); });
+    dots.forEach(function(d) { d.addEventListener('click', function() { goTo(parseInt(d.dataset.idx)); }); });
+    setInterval(function() { goTo(idx + 1); }, 4000);
+
+    /* sticky nav shadow */
+    var nav = document.getElementById('p1-nav');
+    var wrapper = document.getElementById('p1');
+    wrapper.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', wrapper.scrollTop > 10);
+    });
+  })();
+  </script>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     PROPOSTA 2 — FOCADA
+     Converte com menos ruído: nav minimal, hero com prova social
+     inline, CTA persistente em barra inferior (mobile-first),
+     seção de cenários como cards filtráveis.
+     ════════════════════════════════════════════════ -->
+<section id="p2" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P2</span>
+    Focada — Menos Ruído, Mais Conversão
+    <span class="rationale">Remove atrito eliminando itens de nav redundantes e ancorando prova social no hero. Trade-off: menos links visíveis podem reduzir exploração.</span>
+  </div>
+
+  <style>
+  /* ── P2 NAV ── */
+  .p2-nav {
+    position: sticky;
+    top: 2.2rem;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--neutral-mid);
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem;
+    height: 3.25rem;
+    gap: 1.5rem;
+  }
+  .p2-logo {
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+  }
+  .p2-nav-pill {
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    padding: .4rem .9rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--neutral-mid);
+    transition: border-color var(--trans), background var(--trans);
+    white-space: nowrap;
+  }
+  .p2-nav-pill:hover { border-color: var(--olive); background: var(--cream-light); }
+  .p2-nav-pill[aria-current="page"] {
+    background: var(--olive);
+    color: var(--white);
+    border-color: var(--olive);
+  }
+  .p2-nav-cta {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .55rem 1.25rem;
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    transition: background var(--trans);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .p2-nav-cta:hover { background: var(--olive-dark); }
+  .p2-nav-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ── P2 HERO ── */
+  .p2-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+  }
+  .p2-hero-media {
+    position: relative;
+    overflow: hidden;
+    background: var(--backdrop-grey);
+  }
+  .p2-hero-img {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80');
+    background-size: cover;
+    background-position: center top;
+  }
+  .p2-hero-badge {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    background: rgba(17,29,44,.82);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    padding: .75rem 1rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    max-width: 200px;
+  }
+  .p2-hero-badge .stars {
+    color: var(--backdrop-tan);
+    font-size: .85rem;
+    letter-spacing: .05em;
+  }
+  .p2-hero-badge .review-text {
+    font-size: .72rem;
+    line-height: 1.45;
+    opacity: .85;
+  }
+  .p2-hero-badge .reviewer {
+    font-size: .68rem;
+    font-weight: 700;
+    opacity: .6;
+    letter-spacing: .06em;
+  }
+  .p2-hero-copy {
+    padding: 4.5rem 3rem 4.5rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .p2-eyebrow {
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+  .p2-hero-copy h1 {
+    font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+    font-weight: 900;
+    line-height: 1.12;
+    text-transform: uppercase;
+    color: var(--olive);
+    letter-spacing: .04em;
+  }
+  .p2-hero-copy p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--olive);
+    max-width: 46ch;
+  }
+  .p2-proof {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    background: var(--cream-light);
+    padding: .7rem 1rem;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--rose);
+  }
+  .p2-proof-icon { font-size: 1.2rem; }
+  .p2-proof-text { font-size: .8rem; line-height: 1.45; color: var(--olive); }
+  .p2-proof-text strong { font-weight: 900; display: block; }
+  .p2-cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    align-items: flex-start;
+  }
+  .p2-cta-main {
+    background: var(--olive);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 1.1rem 2.25rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    transition: background var(--trans), transform .12s, box-shadow var(--trans);
+    box-shadow: 0 4px 20px rgba(123,120,91,.25);
+  }
+  .p2-cta-main:hover { background: var(--olive-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(123,120,91,.32); }
+  .p2-cta-main:active { transform: translateY(0); }
+  .p2-cta-main:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+  .p2-cta-hint {
+    font-size: .75rem;
+    color: var(--olive);
+    opacity: .6;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .p2-cta-hint::before { content: ''; display: inline-block; width: 6px; height: 6px; background: #5cb85c; border-radius: 50%; }
+
+  /* ── P2 STATS BAR ── */
+  .p2-stats {
+    background: var(--olive);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+  }
+  .p2-stat {
+    padding: 1.5rem 1rem;
+    border-right: 1px solid rgba(255,255,255,.12);
+  }
+  .p2-stat:last-child { border-right: none; }
+  .p2-stat .num {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -.01em;
+    display: block;
+    margin-bottom: .2rem;
+  }
+  .p2-stat .label {
+    font-size: .68rem;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .7;
+  }
+
+  /* ── P2 CENÁRIOS CARDS ── */
+  .p2-scenarios {
+    padding: 4rem 2.5rem;
+    background: var(--white);
+  }
+  .p2-scenarios h2 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .5rem;
+  }
+  .p2-scenarios-sub {
+    font-size: .88rem;
+    color: var(--olive);
+    opacity: .65;
+    margin-bottom: 2rem;
+  }
+  .p2-filter-row {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+  .p2-filter-btn {
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    padding: .35rem .85rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--neutral-mid);
+    background: var(--white);
+    cursor: pointer;
+    transition: all var(--trans);
+  }
+  .p2-filter-btn:hover { border-color: var(--olive); background: var(--cream-light); }
+  .p2-filter-btn.active { background: var(--olive); color: var(--white); border-color: var(--olive); }
+  .p2-filter-btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p2-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .p2-card {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1.5px solid var(--neutral-mid);
+    background: var(--white);
+    transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+    cursor: pointer;
+  }
+  .p2-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); border-color: var(--olive); }
+  .p2-card:focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; }
+  .p2-card-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+  .p2-card-body { padding: 1rem 1.1rem 1.25rem; }
+  .p2-card-body h3 {
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .35rem;
+  }
+  .p2-card-body p {
+    font-size: .78rem;
+    line-height: 1.55;
+    color: var(--olive);
+    opacity: .75;
+    margin-bottom: .75rem;
+  }
+  .p2-card-tag {
+    display: inline-block;
+    background: var(--cream-light);
+    color: var(--olive);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 4px;
+  }
+
+  /* ── P2 LOCALIZAÇÃO ── */
+  .p2-location {
+    background: var(--backdrop-navy);
+    color: var(--white);
+    padding: 4rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .p2-location h2 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .p2-loc-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+  .p2-loc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    font-size: .9rem;
+    line-height: 1.5;
+    opacity: .82;
+  }
+  .p2-loc-item strong { font-weight: 700; }
+  .p2-loc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--backdrop-tan);
+    flex-shrink: 0;
+    margin-top: .45rem;
+  }
+  .p2-map-embed {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #1a2535;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid rgba(255,255,255,.08);
+    padding: 2rem;
+  }
+  .p2-map-embed p {
+    font-size: .78rem;
+    opacity: .5;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .p2-map-cta {
+    background: rgba(255,255,255,.12);
+    color: var(--white);
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid rgba(255,255,255,.2);
+    transition: background var(--trans), border-color var(--trans);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .p2-map-cta:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4); }
+  .p2-map-cta:focus-visible { outline: 2px solid rgba(255,255,255,.6); outline-offset: 3px; }
+
+  /* ── P2 FOOTER ── */
+  .p2-footer {
+    background: var(--cream-footer);
+    padding: 2.5rem 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    border-top: 1px solid var(--neutral-mid);
+  }
+  .p2-footer-logo {
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .p2-footer-links {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+    justify-content: center;
+  }
+  .p2-footer-links a {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .65;
+    transition: opacity var(--trans);
+    padding: .25rem;
+    border-radius: 2px;
+  }
+  .p2-footer-links a:hover { opacity: 1; }
+  .p2-footer-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p2-footer-copy {
+    font-size: .68rem;
+    color: var(--olive);
+    opacity: .45;
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .p2-hero { grid-template-columns: 1fr; }
+    .p2-hero-img { min-height: 320px; }
+    .p2-hero-copy { padding: 2.5rem 1.5rem; }
+    .p2-stats { grid-template-columns: repeat(2, 1fr); }
+    .p2-cards { grid-template-columns: 1fr 1fr; }
+    .p2-location { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+    .p2-footer { grid-template-columns: 1fr; text-align: center; }
+    .p2-footer-copy { text-align: center; }
+    .p2-nav { padding: 0 1.25rem; }
+    .p2-nav-pill { display: none; }
+  }
+  @media (max-width: 600px) {
+    .p2-cards { grid-template-columns: 1fr; }
+    .p2-scenarios { padding: 2.5rem 1.25rem; }
+  }
+  </style>
+
+  <!-- NAV P2 -->
+  <nav class="p2-nav" role="navigation" aria-label="Menu principal">
+    <div class="p2-logo">
+      <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M11 2C11 2 6 7 6 12a5 5 0 0010 0c0-5-5-10-5-10z" fill="#7B785B" opacity=".5"/>
+        <path d="M11 6C11 6 8 10 8 13a3 3 0 006 0c0-3-3-7-3-7z" fill="#7B785B"/>
+        <rect x="10.5" y="15" width="1" height="5" rx=".5" fill="#7B785B"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <a href="#" class="p2-nav-pill">Trabalhos</a>
+    <a href="#" class="p2-nav-pill" aria-current="page">Estúdio</a>
+    <a href="#" class="p2-nav-pill">Preços</a>
+    <a href="#" class="p2-nav-cta">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.854.146a.5.5 0 00-.707 0l-1 1 1.707 1.707 1-1a.5.5 0 000-.707l-1-1zM11.54 2.56L2 12.1V14h1.9l9.54-9.54L11.54 2.56z"/></svg>
+      Agendar Ensaio
+    </a>
+  </nav>
+
+  <!-- HERO P2 -->
+  <section class="p2-hero" aria-labelledby="p2-h1">
+    <div class="p2-hero-media">
+      <div class="p2-hero-img" role="img" aria-label="Ensaio fotográfico realizado no estúdio"></div>
+      <div class="p2-hero-badge" aria-label="Avaliação de cliente">
+        <span class="stars" aria-label="5 estrelas">★★★★★</span>
+        <span class="review-text">"Me senti completamente à vontade. As fotos ficaram incríveis."</span>
+        <span class="reviewer">— Ana Paula M., cliente</span>
+      </div>
+    </div>
+    <div class="p2-hero-copy">
+      <p class="p2-eyebrow">Mogi das Cruzes · SP</p>
+      <h1 id="p2-h1">Estúdio Fotográfico com 7 Cenários Exclusivos</h1>
+      <p>Agendamento exclusivo, sem compartilhamento. Cada sessão é preparada especialmente para você — do figurino à iluminação.</p>
+      <div class="p2-proof">
+        <span class="p2-proof-icon" aria-hidden="true">📸</span>
+        <div class="p2-proof-text">
+          <strong>+200 ensaios realizados em 2024</strong>
+          Clientes de Mogi das Cruzes, Suzano, Itaquaquecetuba e região
+        </div>
+      </div>
+      <div class="p2-cta-stack">
+        <a href="#" class="p2-cta-main">
+          Quero agendar meu ensaio
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M1 8a7 7 0 1014 0A7 7 0 001 8zm4.5-1h5a.5.5 0 010 1h-5a.5.5 0 010-1zm2-2.5a.5.5 0 011 0v5a.5.5 0 01-1 0v-5z"/></svg>
+        </a>
+        <span class="p2-cta-hint">Resposta em até 2 horas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR P2 -->
+  <div class="p2-stats" role="list" aria-label="Números do estúdio">
+    <div class="p2-stat" role="listitem"><span class="num">7</span><span class="label">Cenários</span></div>
+    <div class="p2-stat" role="listitem"><span class="num">100%</span><span class="label">Exclusivo</span></div>
+    <div class="p2-stat" role="listitem"><span class="num">+200</span><span class="label">Ensaios em 2024</span></div>
+    <div class="p2-stat" role="listitem"><span class="num">5★</span><span class="label">Avaliação média</span></div>
+  </div>
+
+  <!-- CENÁRIOS P2 -->
+  <section class="p2-scenarios" aria-labelledby="p2-cen-h2">
+    <h2 id="p2-cen-h2">Conheça os Cenários</h2>
+    <p class="p2-scenarios-sub">Cada cenário tem iluminação, mobiliário e mood próprio. Selecione para filtrar.</p>
+    <div class="p2-filter-row" role="group" aria-label="Filtrar cenários por estilo">
+      <button class="p2-filter-btn active" aria-pressed="true">Todos</button>
+      <button class="p2-filter-btn" aria-pressed="false">Romântico</button>
+      <button class="p2-filter-btn" aria-pressed="false">Editorial</button>
+      <button class="p2-filter-btn" aria-pressed="false">Família</button>
+      <button class="p2-filter-btn" aria-pressed="false">Fundo Infinito</button>
+    </div>
+    <div class="p2-cards">
+      <div class="p2-card" tabindex="0" role="button" aria-label="Cenário Fundo Infinito — ver detalhes">
+        <div class="p2-card-img" style="background-image:url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=600&q=80')"></div>
+        <div class="p2-card-body">
+          <h3>Fundo Infinito</h3>
+          <p>Disponível em navy, bege, preto e cinza claro. Perfeito para editoriais e books profissionais.</p>
+          <span class="p2-card-tag">4 cores de fundo</span>
+        </div>
+      </div>
+      <div class="p2-card" tabindex="0" role="button" aria-label="Cenário Romântico — ver detalhes">
+        <div class="p2-card-img" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80')"></div>
+        <div class="p2-card-body">
+          <h3>Romântico</h3>
+          <p>Detalhes florais, iluminação suave e tons rosados para ensaios íntimos e debutantes.</p>
+          <span class="p2-card-tag">Luz natural filtrada</span>
+        </div>
+      </div>
+      <div class="p2-card" tabindex="0" role="button" aria-label="Cenário Editorial — ver detalhes">
+        <div class="p2-card-img" style="background-image:url('https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?w=600&q=80')"></div>
+        <div class="p2-card-body">
+          <h3>Editorial</h3>
+          <p>Formas limpas, luz direcional e décor neutro para books profissionais e corporativos.</p>
+          <span class="p2-card-tag">Luz estroboscópica</span>
+        </div>
+      </div>
+      <div class="p2-card" tabindex="0" role="button" aria-label="Cenário Natural — ver detalhes">
+        <div class="p2-card-img" style="background-image:url('https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=600&q=80')"></div>
+        <div class="p2-card-body">
+          <h3>Natural</h3>
+          <p>Plantas, texturas orgânicas e luz difusa para retratos naturais e ensaios de maternidade.</p>
+          <span class="p2-card-tag">Luz natural</span>
+        </div>
+      </div>
+      <div class="p2-card" tabindex="0" role="button" aria-label="Cenário Família — ver detalhes">
+        <div class="p2-card-img" style="background-image:url('https://images.unsplash.com/photo-1502980426475-b83966705988?w=600&q=80')"></div>
+        <div class="p2-card-body">
+          <h3>Família</h3>
+          <p>Espaço amplo e confortável para grupos com crianças pequenas e ensaios de recém-nascido.</p>
+          <span class="p2-card-tag">Ideal para newborn</span>
+        </div>
+      </div>
+      <div class="p2-card" tabindex="0" role="button" aria-label="Cenário Íntimo — ver detalhes">
+        <div class="p2-card-img" style="background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80')"></div>
+        <div class="p2-card-body">
+          <h3>Íntimo</h3>
+          <p>Cama, velas e luz quente para ensaios sensuais e boudoir com total privacidade.</p>
+          <span class="p2-card-tag">Apenas adultos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCALIZAÇÃO P2 -->
+  <section class="p2-location" aria-labelledby="p2-loc-h2">
+    <div>
+      <h2 id="p2-loc-h2">Onde fica o estúdio</h2>
+      <div class="p2-loc-items">
+        <div class="p2-loc-item">
+          <span class="p2-loc-dot" aria-hidden="true"></span>
+          <div><strong>Rua Exemplo, 123 — Centro</strong><br>Mogi das Cruzes, SP · 08700-000</div>
+        </div>
+        <div class="p2-loc-item">
+          <span class="p2-loc-dot" aria-hidden="true"></span>
+          <div><strong>Seg — Sáb, 8h às 20h</strong><br>Atendimento exclusivo por agendamento</div>
+        </div>
+        <div class="p2-loc-item">
+          <span class="p2-loc-dot" aria-hidden="true"></span>
+          <div><strong>Estacionamento a 50m</strong><br>Acesso por transporte público (linha 11 — Coral)</div>
+        </div>
+      </div>
+      <a href="#" class="p2-cta-main" style="font-size:.85rem;padding:.9rem 1.75rem;">
+        Agendar meu ensaio
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.854.146a.5.5 0 00-.707 0l-1 1 1.707 1.707 1-1a.5.5 0 000-.707l-1-1zM11.54 2.56L2 12.1V14h1.9l9.54-9.54L11.54 2.56z"/></svg>
+      </a>
+    </div>
+    <div class="p2-map-embed" role="img" aria-label="Mapa estático do estúdio em Mogi das Cruzes">
+      <p>Mogi das Cruzes · SP</p>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="p2-map-cta">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 7.5A2.5 2.5 0 115.5 5 2.5 2.5 0 018 7.5z"/></svg>
+        Abrir no Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER P2 -->
+  <footer class="p2-footer">
+    <div class="p2-footer-logo">Lillia Tavares</div>
+    <ul class="p2-footer-links">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">E-mail</a></li>
+      <li><a href="#">WhatsApp</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+    <div class="p2-footer-copy">© 2024 Lillia Tavares Fotografia</div>
+  </footer>
+
+  <script>
+  (function() {
+    var btns = document.querySelectorAll('#p2 .p2-filter-btn');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        btns.forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed','true');
+      });
+    });
+  })();
+  </script>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     PROPOSTA 3 — GUIADA
+     Tour step-by-step: hero com âncoras de seção visíveis,
+     progressive disclosure no mosaico (lightbox inline),
+     sticky CTA contextual que muda de copy por scroll.
+     ════════════════════════════════════════════════ -->
+<section id="p3" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P3</span>
+    Guiada — Progressive Disclosure + Sticky CTA Contextual
+    <span class="rationale">Reduz sobrecarga cognitiva revelando info sob demanda. Sticky CTA muda copy conforme contexto. Trade-off: mais JS, mais complexidade de manutenção.</span>
+  </div>
+
+  <style>
+  /* ── P3 NAV ── */
+  .p3-nav {
+    position: sticky;
+    top: 2.2rem;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--neutral-mid);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 0 2.5rem;
+    height: 3.25rem;
+    gap: 1rem;
+  }
+  .p3-logo {
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+  }
+  .p3-page-anchors {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    list-style: none;
+  }
+  .p3-page-anchors a {
+    display: block;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .55;
+    padding: 0 1rem;
+    height: 3.25rem;
+    line-height: 3.25rem;
+    position: relative;
+    transition: opacity var(--trans);
+    white-space: nowrap;
+  }
+  .p3-page-anchors a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background: var(--olive);
+    transform: scaleX(0);
+    transition: transform var(--trans);
+    transform-origin: left;
+  }
+  .p3-page-anchors a:hover { opacity: .85; }
+  .p3-page-anchors a.p3-anchor-active { opacity: 1; }
+  .p3-page-anchors a.p3-anchor-active::after { transform: scaleX(1); }
+  .p3-nav-cta {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .5rem 1.1rem;
+    border-radius: var(--radius-pill);
+    transition: background var(--trans);
+    white-space: nowrap;
+  }
+  .p3-nav-cta:hover { background: var(--olive-dark); }
+  .p3-nav-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ── P3 HERO ── */
+  .p3-hero {
+    position: relative;
+    min-height: 580px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .p3-hero-media {
+    position: relative;
+    overflow: hidden;
+    background: var(--backdrop-grey);
+  }
+  .p3-hero-bg {
+    width: 100%;
+    height: 100%;
+    min-height: 580px;
+    background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656e4?w=900&q=80');
+    background-size: cover;
+    background-position: center top;
+  }
+  .p3-hero-copy {
+    background: var(--cream-light);
+    padding: 4rem 3rem 4rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .p3-kicker {
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .p3-kicker::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--rose);
+    border-radius: 1px;
+  }
+  .p3-hero-copy h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: var(--olive);
+    letter-spacing: .04em;
+  }
+  .p3-hero-copy p {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--olive);
+    max-width: 44ch;
+  }
+  /* scroll anchors visuais */
+  .p3-scroll-nav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border-top: 1px solid var(--neutral-mid);
+    padding-top: 1.25rem;
+  }
+  .p3-scroll-nav-label {
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .45;
+    margin-bottom: .25rem;
+  }
+  .p3-anchor-link {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--olive);
+    padding: .45rem 0;
+    border-radius: var(--radius-sm);
+    transition: opacity var(--trans);
+    opacity: .72;
+  }
+  .p3-anchor-link:hover { opacity: 1; }
+  .p3-anchor-link:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; border-radius: 2px; }
+  .p3-anchor-num {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--olive);
+    color: var(--white);
+    font-size: .62rem;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  /* CTA hero */
+  .p3-hero-cta {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .92rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    align-self: flex-start;
+    transition: background var(--trans), transform .12s, box-shadow var(--trans);
+    box-shadow: 0 4px 16px rgba(123,120,91,.22);
+  }
+  .p3-hero-cta:hover { background: var(--olive-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(123,120,91,.3); }
+  .p3-hero-cta:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+
+  /* ── P3 SEÇÃO CENÁRIOS ACCORDION ── */
+  .p3-scenarios {
+    padding: 4rem 2.5rem;
+    background: var(--white);
+  }
+  .p3-section-title {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .5rem;
+  }
+  .p3-section-sub {
+    font-size: .85rem;
+    color: var(--olive);
+    opacity: .65;
+    margin-bottom: 2rem;
+  }
+  .p3-scenario-list { display: flex; flex-direction: column; gap: .5rem; }
+  .p3-scenario-item {
+    border: 1.5px solid var(--neutral-mid);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--trans);
+  }
+  .p3-scenario-item.open { border-color: var(--olive); }
+  .p3-scenario-trigger {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: var(--sans);
+    transition: background var(--trans);
+  }
+  .p3-scenario-trigger:hover { background: var(--cream-light); }
+  .p3-scenario-trigger:focus-visible { outline: 2px solid var(--olive); outline-offset: -2px; }
+  .p3-scenario-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+  .p3-scenario-trigger-text { flex: 1; }
+  .p3-scenario-trigger-text strong {
+    display: block;
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .15rem;
+  }
+  .p3-scenario-trigger-text span {
+    font-size: .75rem;
+    color: var(--olive);
+    opacity: .6;
+  }
+  .p3-scenario-chevron {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--olive);
+    opacity: .5;
+    transition: transform var(--trans), opacity var(--trans);
+    flex-shrink: 0;
+  }
+  .p3-scenario-item.open .p3-scenario-chevron { transform: rotate(180deg); opacity: 1; }
+  .p3-scenario-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s cubic-bezier(.4,0,.2,1);
+  }
+  .p3-scenario-item.open .p3-scenario-body { max-height: 400px; }
+  .p3-scenario-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 1.25rem 1.5rem;
+    border-top: 1px solid var(--neutral-mid);
+  }
+  .p3-scenario-inner img,
+  .p3-scenario-inner .p3-scenario-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background-size: cover;
+    background-position: center;
+  }
+  .p3-scenario-detail { display: flex; flex-direction: column; gap: .75rem; justify-content: center; }
+  .p3-scenario-detail p { font-size: .85rem; line-height: 1.65; color: var(--olive); opacity: .82; }
+  .p3-scenario-tag-row { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .p3-stag {
+    background: var(--cream-light);
+    color: var(--olive);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .22rem .55rem;
+    border-radius: 4px;
+    border: 1px solid var(--neutral-mid);
+  }
+
+  /* ── P3 LOCALIZAÇÃO ── */
+  .p3-location {
+    background: var(--backdrop-navy);
+    color: var(--white);
+    padding: 4rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .p3-location h2 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .p3-loc-rows { display: flex; flex-direction: column; gap: .9rem; margin-bottom: 2rem; }
+  .p3-loc-row { display: flex; align-items: flex-start; gap: .75rem; font-size: .88rem; line-height: 1.5; opacity: .82; }
+  .p3-loc-icon { width: 16px; height: 16px; fill: var(--backdrop-tan); flex-shrink: 0; margin-top: .2rem; }
+  .p3-loc-cta {
+    background: var(--rose);
+    color: var(--white);
+    font-size: .85rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transition: background var(--trans), transform .12s;
+  }
+  .p3-loc-cta:hover { background: #a67a71; transform: translateY(-1px); }
+  .p3-loc-cta:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+  .p3-map-block {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #1a2535;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid rgba(255,255,255,.08);
+    padding: 2.5rem;
+  }
+  .p3-map-block p { font-size: .72rem; opacity: .45; letter-spacing: .1em; text-transform: uppercase; }
+  .p3-map-block a {
+    background: rgba(255,255,255,.1);
+    color: var(--white);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .7rem 1.4rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255,255,255,.18);
+    transition: background var(--trans);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .p3-map-block a:hover { background: rgba(255,255,255,.18); }
+  .p3-map-block a:focus-visible { outline: 2px solid rgba(255,255,255,.5); outline-offset: 3px; }
+
+  /* ── P3 STICKY BOTTOM CTA ── */
+  .p3-sticky-cta {
+    position: sticky;
+    bottom: 0;
+    z-index: 200;
+    background: var(--white);
+    border-top: 1px solid var(--neutral-mid);
+    padding: .85rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 -4px 20px rgba(0,0,0,.08);
+  }
+  .p3-sticky-context {
+    font-size: .8rem;
+    color: var(--olive);
+    opacity: .7;
+    max-width: 50ch;
+  }
+  .p3-sticky-context strong { font-weight: 900; opacity: 1; color: var(--olive); display: block; font-size: .82rem; }
+  .p3-sticky-btn {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .85rem 1.75rem;
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    transition: background var(--trans), transform .12s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .p3-sticky-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+  .p3-sticky-btn:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+
+  /* ── P3 FOOTER ── */
+  .p3-footer {
+    background: var(--cream-footer);
+    padding: 2.5rem;
+    text-align: center;
+  }
+  .p3-footer-logo {
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 1.25rem;
+  }
+  .p3-footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .p3-footer-links a {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .6;
+    transition: opacity var(--trans);
+    padding: .25rem;
+  }
+  .p3-footer-links a:hover { opacity: 1; }
+  .p3-footer-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p3-footer-copy { font-size: .7rem; color: var(--olive); opacity: .4; }
+
+  @media (max-width: 900px) {
+    .p3-hero { grid-template-columns: 1fr; }
+    .p3-hero-bg { min-height: 300px; }
+    .p3-hero-copy { padding: 2.5rem 1.5rem; }
+    .p3-page-anchors { display: none; }
+    .p3-location { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+    .p3-scenarios { padding: 2.5rem 1.25rem; }
+    .p3-scenario-inner { grid-template-columns: 1fr; }
+    .p3-sticky-cta { padding: .85rem 1.25rem; }
+    .p3-sticky-context { display: none; }
+  }
+  </style>
+
+  <!-- NAV P3 -->
+  <nav class="p3-nav" role="navigation" aria-label="Menu principal">
+    <div class="p3-logo">
+      <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M11 2C11 2 6 7 6 12a5 5 0 0010 0c0-5-5-10-5-10z" fill="#7B785B" opacity=".5"/>
+        <path d="M11 6C11 6 8 10 8 13a3 3 0 006 0c0-3-3-7-3-7z" fill="#7B785B"/>
+        <rect x="10.5" y="15" width="1" height="5" rx=".5" fill="#7B785B"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="p3-page-anchors">
+      <li><a href="#p3-hero-s" class="p3-anchor-active">Estúdio</a></li>
+      <li><a href="#p3-cen-s">Cenários</a></li>
+      <li><a href="#p3-loc-s">Localização</a></li>
+    </ul>
+    <a href="#" class="p3-nav-cta">Agendar</a>
+  </nav>
+
+  <!-- HERO P3 -->
+  <section id="p3-hero-s" class="p3-hero" aria-labelledby="p3-h1">
+    <div class="p3-hero-media">
+      <div class="p3-hero-bg" role="img" aria-label="Ensaio fotográfico no estúdio Lillia Tavares"></div>
+    </div>
+    <div class="p3-hero-copy">
+      <p class="p3-kicker">Estúdio · Mogi das Cruzes, SP</p>
+      <h1 id="p3-h1">Estúdio Fotográfico Exclusivo</h1>
+      <p>Um ambiente preparado só para você. Agendamento individual, 7 cenários distintos e toda atenção da Lillia durante a sessão.</p>
+      <div class="p3-scroll-nav" role="navigation" aria-label="Ir para seção">
+        <p class="p3-scroll-nav-label">Nesta página</p>
+        <a href="#p3-cen-s" class="p3-anchor-link">
+          <span class="p3-anchor-num">1</span>
+          Conhecer os 7 cenários
+        </a>
+        <a href="#p3-loc-s" class="p3-anchor-link">
+          <span class="p3-anchor-num">2</span>
+          Ver endereço e horários
+        </a>
+      </div>
+      <a href="#" class="p3-hero-cta">
+        Agendar agora
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8S12.42 0 8 0zm4.5 9h-3.5v3.5h-1V9H4.5V8h3.5V4.5h1V8H12.5v1z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- CENÁRIOS ACCORDION P3 -->
+  <section id="p3-cen-s" class="p3-scenarios" aria-labelledby="p3-cen-h2">
+    <h2 class="p3-section-title" id="p3-cen-h2">Os 7 Cenários do Estúdio</h2>
+    <p class="p3-section-sub">Clique em cada cenário para ver fotos e detalhes. Todos disponíveis para qualquer tipo de ensaio.</p>
+    <div class="p3-scenario-list" role="list">
+
+      <div class="p3-scenario-item open" role="listitem">
+        <button class="p3-scenario-trigger" aria-expanded="true" aria-controls="p3-acc-1">
+          <div class="p3-scenario-thumb" style="background-image:url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=200&q=80')"></div>
+          <div class="p3-scenario-trigger-text">
+            <strong>Fundo Infinito</strong>
+            <span>4 cores · Navy, Bege, Preto, Cinza</span>
+          </div>
+          <svg class="p3-scenario-chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.5L2 4.5l1.4-1.4L8 7.7l4.6-4.6L14 4.5z"/></svg>
+        </button>
+        <div class="p3-scenario-body" id="p3-acc-1" role="region">
+          <div class="p3-scenario-inner">
+            <div class="p3-scenario-img" style="background-image:url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=600&q=80')" role="img" aria-label="Cenário Fundo Infinito"></div>
+            <div class="p3-scenario-detail">
+              <p>O clássico de todo estúdio, mas com quatro opções de cor para o fundo, permitindo resultados completamente diferentes dentro da mesma sessão.</p>
+              <div class="p3-scenario-tag-row">
+                <span class="p3-stag">Navy #111D2C</span>
+                <span class="p3-stag">Bege #B99879</span>
+                <span class="p3-stag">Preto #241F21</span>
+                <span class="p3-stag">Cinza #E4E1E5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p3-scenario-item" role="listitem">
+        <button class="p3-scenario-trigger" aria-expanded="false" aria-controls="p3-acc-2">
+          <div class="p3-scenario-thumb" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&q=80')"></div>
+          <div class="p3-scenario-trigger-text">
+            <strong>Romântico</strong>
+            <span>Flores, tecidos e luz difusa</span>
+          </div>
+          <svg class="p3-scenario-chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.5L2 4.5l1.4-1.4L8 7.7l4.6-4.6L14 4.5z"/></svg>
+        </button>
+        <div class="p3-scenario-body" id="p3-acc-2" role="region">
+          <div class="p3-scenario-inner">
+            <div class="p3-scenario-img" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80')" role="img" aria-label="Cenário Romântico"></div>
+            <div class="p3-scenario-detail">
+              <p>Arranjos florais naturais, tecidos suaves e luz natural filtrada por voile. Ideal para debutantes, ensaios de casal e retratos femininos.</p>
+              <div class="p3-scenario-tag-row">
+                <span class="p3-stag">Debutante</span>
+                <span class="p3-stag">Casal</span>
+                <span class="p3-stag">Retratos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p3-scenario-item" role="listitem">
+        <button class="p3-scenario-trigger" aria-expanded="false" aria-controls="p3-acc-3">
+          <div class="p3-scenario-thumb" style="background-image:url('https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?w=200&q=80')"></div>
+          <div class="p3-scenario-trigger-text">
+            <strong>Editorial</strong>
+            <span>Formas limpas, alta moda</span>
+          </div>
+          <svg class="p3-scenario-chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.5L2 4.5l1.4-1.4L8 7.7l4.6-4.6L14 4.5z"/></svg>
+        </button>
+        <div class="p3-scenario-body" id="p3-acc-3" role="region">
+          <div class="p3-scenario-inner">
+            <div class="p3-scenario-img" style="background-image:url('https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?w=600&q=80')" role="img" aria-label="Cenário Editorial"></div>
+            <div class="p3-scenario-detail">
+              <p>Décor neutro com geometrias fortes, iluminação estroboscópica profissional e estrutura para poses verticais e horizontais.</p>
+              <div class="p3-scenario-tag-row">
+                <span class="p3-stag">Book profissional</span>
+                <span class="p3-stag">Alta moda</span>
+                <span class="p3-stag">Corporativo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p3-scenario-item" role="listitem">
+        <button class="p3-scenario-trigger" aria-expanded="false" aria-controls="p3-acc-4">
+          <div class="p3-scenario-thumb" style="background-image:url('https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=200&q=80')"></div>
+          <div class="p3-scenario-trigger-text">
+            <strong>Natural</strong>
+            <span>Plantas, madeira e luz orgânica</span>
+          </div>
+          <svg class="p3-scenario-chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.5L2 4.5l1.4-1.4L8 7.7l4.6-4.6L14 4.5z"/></svg>
+        </button>
+        <div class="p3-scenario-body" id="p3-acc-4" role="region">
+          <div class="p3-scenario-inner">
+            <div class="p3-scenario-img" style="background-image:url('https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=600&q=80')" role="img" aria-label="Cenário Natural"></div>
+            <div class="p3-scenario-detail">
+              <p>Plantas vivas, superfícies de madeira envelhecida e luz natural difusa. Perfeito para maternidade, recém-nascido e famílias.</p>
+              <div class="p3-scenario-tag-row">
+                <span class="p3-stag">Maternidade</span>
+                <span class="p3-stag">Newborn</span>
+                <span class="p3-stag">Família</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LOCALIZAÇÃO P3 -->
+  <section id="p3-loc-s" class="p3-location" aria-labelledby="p3-loc-h2">
+    <div>
+      <h2 id="p3-loc-h2">Como chegar ao estúdio</h2>
+      <div class="p3-loc-rows">
+        <div class="p3-loc-row">
+          <svg class="p3-loc-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 0C6.48 0 4 2.48 4 5c0 4.67 6 15 6 15s6-10.33 6-15c0-2.52-2.48-5-6-5zm0 8a3 3 0 110-6 3 3 0 010 6z"/></svg>
+          <span>Rua Exemplo, 123 — Centro · Mogi das Cruzes, SP</span>
+        </div>
+        <div class="p3-loc-row">
+          <svg class="p3-loc-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9V9h2v6zm0-8H9V5h2v2z"/></svg>
+          <span>Seg – Sáb, 8h às 20h · Somente por agendamento</span>
+        </div>
+        <div class="p3-loc-row">
+          <svg class="p3-loc-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M1 3h18v14H1V3zm9 7l8-5H2l7 5zm0 2L2 7v8h16V7l-8 5z"/></svg>
+          <span>Fácil acesso de transporte público (linha 11 — Coral)</span>
+        </div>
+      </div>
+      <a href="#" class="p3-loc-cta">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 7.5A2.5 2.5 0 115.5 5 2.5 2.5 0 018 7.5z"/></svg>
+        Agendar minha sessão
+      </a>
+    </div>
+    <div class="p3-map-block" role="img" aria-label="Localização do estúdio no mapa">
+      <p>Mogi das Cruzes · SP</p>
+      <a href="https://maps.google.com" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 7.5A2.5 2.5 0 115.5 5 2.5 2.5 0 018 7.5z"/></svg>
+        Ver no Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- STICKY CTA P3 -->
+  <div class="p3-sticky-cta" role="complementary" aria-label="Agendar ensaio">
+    <div class="p3-sticky-context" id="p3-sticky-context">
+      <strong id="p3-sticky-strong">Pronta para seu ensaio?</strong>
+      <span id="p3-sticky-sub">Estúdio disponível de segunda a sábado, 8h às 20h</span>
+    </div>
+    <button class="p3-sticky-btn" id="p3-sticky-btn">Agendar meu ensaio</button>
+  </div>
+
+  <!-- FOOTER P3 -->
+  <footer class="p3-footer">
+    <div class="p3-footer-logo">Lillia Tavares — Fotografia</div>
+    <ul class="p3-footer-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+    <p class="p3-footer-copy">© 2024 Lillia Tavares Fotografia · Mogi das Cruzes, SP</p>
+  </footer>
+
+  <script>
+  (function() {
+    /* ── Accordion cenários ── */
+    var items = document.querySelectorAll('#p3 .p3-scenario-item');
+    items.forEach(function(item) {
+      var btn = item.querySelector('.p3-scenario-trigger');
+      btn.addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+        items.forEach(function(i) { i.classList.remove('open'); i.querySelector('.p3-scenario-trigger').setAttribute('aria-expanded','false'); });
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+      });
+    });
+
+    /* ── Sticky CTA copy contextual ── */
+    var contexts = [
+      { id: 'p3-hero-s', strong: 'Pronta para seu ensaio?', sub: 'Estúdio disponível de segunda a sábado, 8h às 20h' },
+      { id: 'p3-cen-s',  strong: 'Gostou dos cenários?', sub: '7 ambientes exclusivos disponíveis para sua sessão' },
+      { id: 'p3-loc-s',  strong: 'Ficamos no centro de Mogi das Cruzes', sub: 'Fácil acesso e estacionamento próximo' }
+    ];
+    var strong = document.getElementById('p3-sticky-strong');
+    var sub = document.getElementById('p3-sticky-sub');
+    var wrapper = document.getElementById('p3');
+    wrapper.addEventListener('scroll', function() {
+      var scrollY = wrapper.scrollTop + 200;
+      var active = contexts[0];
+      contexts.forEach(function(c) {
+        var el = document.getElementById(c.id);
+        if (el && el.offsetTop <= scrollY) active = c;
+      });
+      if (strong.textContent !== active.strong) {
+        strong.textContent = active.strong;
+        sub.textContent = active.sub;
+      }
+    });
+
+    /* ── Nav anchor highlight ── */
+    var anchors = document.querySelectorAll('#p3 .p3-page-anchors a');
+    wrapper.addEventListener('scroll', function() {
+      var scrollY = wrapper.scrollTop + 100;
+      var current = anchors[0];
+      anchors.forEach(function(a) {
+        var target = document.querySelector(a.getAttribute('href').replace('#p3','#p3'));
+        if (target && target.offsetTop <= scrollY) current = a;
+      });
+      anchors.forEach(function(a) { a.classList.remove('p3-anchor-active'); });
+      if (current) current.classList.add('p3-anchor-active');
+    });
+  })();
+  </script>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     PROPOSTA 4 — IMERSIVA
+     Estrutura radicalmente diferente: hero full-viewport com
+     scroll horizontal de cenários, nav absoluta sobre foto,
+     CTA flutuante persistente com micro-animação de pulso.
+     Justificativa: público feminino responde a experiência
+     visual envolvente; a página compite com Instagram.
+     ════════════════════════════════════════════════ -->
+<section id="p4" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P4</span>
+    Imersiva — Full-Viewport + Scroll Horizontal de Cenários
+    <span class="rationale">Compete com Instagram: experiência visual antes de texto. Âncora emocional primeiro, informação depois. Trade-off: requer JS funcional e pode confundir usuários menos habituados.</span>
+  </div>
+
+  <style>
+  #p4 { background: var(--backdrop-black); }
+  .p4-nav {
+    position: absolute;
+    top: 2.2rem;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+  }
+  .p4-logo {
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .p4-nav-links {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    list-style: none;
+  }
+  .p4-nav-links a {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.72);
+    padding: .35rem .7rem;
+    border-radius: var(--radius-sm);
+    transition: color var(--trans), background var(--trans);
+    white-space: nowrap;
+  }
+  .p4-nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
+  .p4-nav-links a[aria-current="page"] { color: var(--white); background: rgba(255,255,255,.15); }
+  .p4-nav-links a:focus-visible { outline: 2px solid rgba(255,255,255,.6); outline-offset: 2px; }
+  .p4-nav-cta {
+    background: var(--white);
+    color: var(--olive);
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .55rem 1.2rem;
+    border-radius: var(--radius-pill);
+    transition: background var(--trans);
+    white-space: nowrap;
+  }
+  .p4-nav-cta:hover { background: var(--cream-light); }
+  .p4-nav-cta:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+
+  /* hero */
+  .p4-hero {
+    position: relative;
+    height: 90vh;
+    min-height: 560px;
+    max-height: 860px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .p4-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1400&q=85');
+    background-size: cover;
+    background-position: center 20%;
+  }
+  .p4-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,29,44,.88) 0%, rgba(17,29,44,.28) 55%, rgba(17,29,44,.08) 100%);
+  }
+  .p4-hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 0 2.5rem 3.5rem;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .p4-hero-left { max-width: 560px; }
+  .p4-hero-kicker {
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .p4-hero-kicker::before { content: ''; display: block; width: 28px; height: 1.5px; background: var(--backdrop-tan); }
+  .p4-hero-left h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.06;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: .03em;
+    margin-bottom: 1.1rem;
+  }
+  .p4-hero-left p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,.78);
+    max-width: 44ch;
+    margin-bottom: 1.75rem;
+  }
+  .p4-hero-cta {
+    background: var(--white);
+    color: var(--olive);
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1.05rem 2.1rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    transition: background var(--trans), transform .12s, box-shadow var(--trans);
+    box-shadow: 0 4px 20px rgba(0,0,0,.28);
+  }
+  .p4-hero-cta:hover { background: var(--cream-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.38); }
+  .p4-hero-cta:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+  .p4-hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+  .p4-hero-stat {
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    padding: .5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: .78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border: 1px solid rgba(255,255,255,.12);
+  }
+  .p4-hero-stat strong { font-weight: 900; }
+  .p4-scroll-hint {
+    position: absolute;
+    bottom: 1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+    color: rgba(255,255,255,.4);
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .p4-scroll-arrow { animation: p4-bounce 1.8s ease-in-out infinite; }
+  @keyframes p4-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+  /* cenários horizontal */
+  .p4-scenes-wrapper {
+    background: var(--backdrop-black);
+    padding: 3rem 0 3rem 2.5rem;
+  }
+  .p4-scenes-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-right: 2.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .p4-scenes-header h2 {
+    font-size: clamp(.9rem, 1.8vw, 1.2rem);
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .p4-scenes-nav { display: flex; gap: .4rem; }
+  .p4-scenes-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--trans);
+    color: var(--white);
+  }
+  .p4-scenes-btn:hover { background: rgba(255,255,255,.22); }
+  .p4-scenes-btn:focus-visible { outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
+  .p4-scenes-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-right: 2.5rem;
+  }
+  .p4-scenes-track::-webkit-scrollbar { display: none; }
+  .p4-scene-card {
+    flex-shrink: 0;
+    width: 280px;
+    height: 380px;
+    scroll-snap-align: start;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform var(--trans);
+  }
+  .p4-scene-card:hover { transform: scale(1.02); }
+  .p4-scene-card:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+  .p4-scene-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform .5s ease;
+  }
+  .p4-scene-card:hover .p4-scene-img { transform: scale(1.05); }
+  .p4-scene-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,29,44,.75) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem;
+  }
+  .p4-scene-overlay h3 {
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: .3rem;
+  }
+  .p4-scene-overlay p { font-size: .72rem; color: rgba(255,255,255,.72); line-height: 1.45; }
+  .p4-scene-tag {
+    display: inline-block;
+    background: rgba(185,152,121,.25);
+    border: 1px solid rgba(185,152,121,.4);
+    color: var(--backdrop-tan);
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .18rem .5rem;
+    border-radius: 4px;
+    margin-top: .4rem;
+    align-self: flex-start;
+  }
+
+  /* localização */
+  .p4-location {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .p4-loc-dark {
+    background: var(--backdrop-navy);
+    color: var(--white);
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .p4-loc-dark h2 {
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .p4-loc-items { display: flex; flex-direction: column; gap: .8rem; }
+  .p4-loc-item { display: flex; align-items: flex-start; gap: .7rem; font-size: .88rem; line-height: 1.5; opacity: .82; }
+  .p4-loc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--backdrop-tan); flex-shrink: 0; margin-top: .45rem; }
+  .p4-loc-cream {
+    background: var(--cream-light);
+    padding: 4rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .p4-loc-cream p { font-size: .78rem; color: var(--olive); opacity: .5; letter-spacing: .1em; text-transform: uppercase; text-align: center; }
+  .p4-loc-cta {
+    background: var(--olive);
+    color: var(--white);
+    font-size: .85rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transition: background var(--trans), transform .12s;
+  }
+  .p4-loc-cta:hover { background: var(--olive-dark); transform: translateY(-1px); }
+  .p4-loc-cta:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+
+  /* floating CTA */
+  .p4-float-cta {
+    position: sticky;
+    bottom: 1.5rem;
+    z-index: 500;
+    background: var(--olive);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .95rem 1.6rem;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    box-shadow: 0 4px 24px rgba(123,120,91,.4);
+    transition: background var(--trans), transform .12s;
+    margin: 0 auto -1.5rem;
+    animation: p4-pulse 3s ease-in-out infinite;
+  }
+  .p4-float-cta:hover { background: var(--olive-dark); transform: scale(1.04); animation: none; }
+  .p4-float-cta:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; animation: none; }
+  @keyframes p4-pulse {
+    0%,100% { box-shadow: 0 4px 24px rgba(123,120,91,.4); }
+    50% { box-shadow: 0 4px 40px rgba(123,120,91,.65), 0 0 0 8px rgba(123,120,91,.1); }
+  }
+
+  /* footer */
+  .p4-footer {
+    background: var(--backdrop-black);
+    color: rgba(255,255,255,.45);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .p4-footer-logo { font-size: .85rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+  .p4-footer-links { display: flex; gap: 1.25rem; list-style: none; }
+  .p4-footer-links a { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); transition: color var(--trans); padding: .25rem; }
+  .p4-footer-links a:hover { color: rgba(255,255,255,.8); }
+  .p4-footer-links a:focus-visible { outline: 2px solid rgba(255,255,255,.4); outline-offset: 2px; }
+  .p4-footer-copy { font-size: .68rem; opacity: .35; }
+
+  @media (max-width: 900px) {
+    .p4-nav-links { display: none; }
+    .p4-nav { padding: .75rem 1.25rem; }
+    .p4-hero-right { display: none; }
+    .p4-hero-content { padding: 0 1.25rem 2.5rem; }
+    .p4-location { grid-template-columns: 1fr; }
+    .p4-loc-dark, .p4-loc-cream { padding: 2.5rem 1.5rem; }
+    .p4-footer { flex-direction: column; text-align: center; }
+    .p4-footer-links { justify-content: center; flex-wrap: wrap; }
+  }
+  </style>
+
+  <!-- NAV P4 -->
+  <nav class="p4-nav" role="navigation" aria-label="Menu principal">
+    <div class="p4-logo">
+      <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M11 2C11 2 6 7 6 12a5 5 0 0010 0c0-5-5-10-5-10z" fill="rgba(255,255,255,.45)"/>
+        <path d="M11 6C11 6 8 10 8 13a3 3 0 006 0c0-3-3-7-3-7z" fill="white"/>
+        <rect x="10.5" y="15" width="1" height="5" rx=".5" fill="white"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <ul class="p4-nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#" aria-current="page">Estúdio</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+    <a href="#" class="p4-nav-cta">Agendar</a>
+  </nav>
+
+  <!-- HERO P4 -->
+  <section class="p4-hero" aria-labelledby="p4-h1">
+    <div class="p4-hero-bg" role="img" aria-label="Ensaio fotográfico realizado no estúdio"></div>
+    <div class="p4-hero-overlay" aria-hidden="true"></div>
+    <div class="p4-hero-content">
+      <div class="p4-hero-left">
+        <p class="p4-hero-kicker">Estúdio · Mogi das Cruzes, SP</p>
+        <h1 id="p4-h1">Um espaço feito para revelar quem você é</h1>
+        <p>7 cenários exclusivos, agendamento individual, luz e ambiente pensados para o seu ensaio.</p>
+        <a href="#" class="p4-hero-cta">
+          Agendar minha sessão
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8S12.42 0 8 0zm4.5 9h-3.5v3.5h-1V9H4.5V8h3.5V4.5h1V8H12.5v1z"/></svg>
+        </a>
+      </div>
+      <div class="p4-hero-right">
+        <div class="p4-hero-stat"><strong>7</strong> cenários disponíveis</div>
+        <div class="p4-hero-stat"><strong>100%</strong> exclusivo</div>
+        <div class="p4-hero-stat"><strong>+200</strong> ensaios em 2024</div>
+      </div>
+    </div>
+    <div class="p4-scroll-hint" aria-hidden="true">
+      <svg class="p4-scroll-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M4 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Explore os cenários
+    </div>
+  </section>
+
+  <!-- FLOAT CTA P4 -->
+  <button class="p4-float-cta" aria-label="Agendar ensaio fotográfico">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.854.146a.5.5 0 00-.707 0l-1 1 1.707 1.707 1-1a.5.5 0 000-.707l-1-1zM11.54 2.56L2 12.1V14h1.9l9.54-9.54L11.54 2.56z"/></svg>
+    Agendar Ensaio
+  </button>
+
+  <!-- CENÁRIOS P4 -->
+  <section class="p4-scenes-wrapper" aria-labelledby="p4-cen-h2">
+    <div class="p4-scenes-header">
+      <h2 id="p4-cen-h2">Os Cenários do Estúdio</h2>
+      <div class="p4-scenes-nav">
+        <button class="p4-scenes-btn" id="p4-prev-scene" aria-label="Cenários anteriores">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2L3.5 6l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="p4-scenes-btn" id="p4-next-scene" aria-label="Próximos cenários">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2L8.5 6l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="p4-scenes-track" id="p4-scenes-track" role="list">
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Fundo Infinito">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Fundo Infinito</h3><p>Navy, bege, preto ou cinza</p><span class="p4-scene-tag">4 cores</span></div>
+      </div>
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Romântico">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Romântico</h3><p>Flores, tecidos, luz suave</p><span class="p4-scene-tag">Debutante · Casal</span></div>
+      </div>
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Editorial">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Editorial</h3><p>Formas limpas, luz direcional</p><span class="p4-scene-tag">Book profissional</span></div>
+      </div>
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Natural">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Natural</h3><p>Plantas, madeira, luz orgânica</p><span class="p4-scene-tag">Maternidade · Família</span></div>
+      </div>
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Íntimo">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Íntimo</h3><p>Privacidade total, luz quente</p><span class="p4-scene-tag">Boudoir</span></div>
+      </div>
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Família">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1502980426475-b83966705988?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Família</h3><p>Espaço amplo para grupos</p><span class="p4-scene-tag">Newborn · Kids</span></div>
+      </div>
+      <div class="p4-scene-card" tabindex="0" role="listitem" aria-label="Debutante">
+        <div class="p4-scene-img" style="background-image:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80')"></div>
+        <div class="p4-scene-overlay"><h3>Debutante</h3><p>Decoração especial, vestido longo</p><span class="p4-scene-tag">15 anos · Formatura</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCALIZAÇÃO P4 -->
+  <section class="p4-location" aria-labelledby="p4-loc-h2">
+    <div class="p4-loc-dark">
+      <h2 id="p4-loc-h2">Onde nos encontrar</h2>
+      <div class="p4-loc-items">
+        <div class="p4-loc-item"><span class="p4-loc-dot" aria-hidden="true"></span><span>Rua Exemplo, 123 — Centro · Mogi das Cruzes, SP</span></div>
+        <div class="p4-loc-item"><span class="p4-loc-dot" aria-hidden="true"></span><span>Seg – Sáb · 8h às 20h · Exclusivo por agendamento</span></div>
+        <div class="p4-loc-item"><span class="p4-loc-dot" aria-hidden="true"></span><span>Fácil acesso pelo trem e ônibus municipais</span></div>
+      </div>
+    </div>
+    <div class="p4-loc-cream">
+      <p>Localização · Mogi das Cruzes, SP</p>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="p4-loc-cta">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 7.5A2.5 2.5 0 115.5 5 2.5 2.5 0 018 7.5z"/></svg>
+        Ver no Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER P4 -->
+  <footer class="p4-footer">
+    <div class="p4-footer-logo">Lillia Tavares</div>
+    <ul class="p4-footer-links">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">WhatsApp</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+    <div class="p4-footer-copy">© 2024 Lillia Tavares Fotografia</div>
+  </footer>
+
+  <script>
+  (function() {
+    var track = document.getElementById('p4-scenes-track');
+    document.getElementById('p4-next-scene').addEventListener('click', function() { track.scrollBy({ left: 300, behavior: 'smooth' }); });
+    document.getElementById('p4-prev-scene').addEventListener('click', function() { track.scrollBy({ left: -300, behavior: 'smooth' }); });
+  })();
+  </script>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     PROPOSTA 5 — RADICAL
+     Transforma a página em configurador: visitante monta
+     seu ensaio escolhendo estilo + cenário + nº de pessoas
+     antes de agendar. Foot-in-the-door cria comprometimento
+     incremental. Preview reativo ancra a decisão visualmente.
+     ════════════════════════════════════════════════ -->
+<section id="p5" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P5</span>
+    Radical — Configurador de Ensaio
+    <span class="rationale">Elimina "será que é para mim?" com engajamento ativo. Cada clique cria micro-comprometimento. Trade-off: mais complexo, pode frustrar quem quer ir direto ao ponto.</span>
+  </div>
+
+  <style>
+  .p5-nav {
+    position: sticky;
+    top: 2.2rem;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--neutral-mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 3.25rem;
+  }
+  .p5-logo { font-size: .88rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); display: flex; align-items: center; gap: .45rem; }
+  .p5-nav-back { font-size: .75rem; font-weight: 700; color: var(--olive); opacity: .6; display: flex; align-items: center; gap: .35rem; transition: opacity var(--trans); padding: .35rem; border-radius: 4px; }
+  .p5-nav-back:hover { opacity: 1; }
+  .p5-nav-back:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p5-nav-help { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--olive); opacity: .55; border: 1.5px solid var(--neutral-mid); padding: .35rem .85rem; border-radius: var(--radius-pill); transition: opacity var(--trans), border-color var(--trans); }
+  .p5-nav-help:hover { opacity: 1; border-color: var(--olive); }
+  .p5-nav-help:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+  .p5-configurador {
+    background: var(--cream-light);
+    padding: 3.5rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .p5-config-left { display: flex; flex-direction: column; gap: 2rem; }
+  .p5-config-kicker { font-size: .68rem; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); }
+  .p5-config-left h1 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 900; line-height: 1.18; text-transform: uppercase; color: var(--olive); letter-spacing: .04em; }
+  .p5-config-left > p { font-size: .95rem; line-height: 1.7; color: var(--olive); opacity: .8; max-width: 44ch; }
+  .p5-step { display: flex; flex-direction: column; gap: .75rem; }
+  .p5-step-label { display: flex; align-items: center; gap: .6rem; font-size: .72rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--olive); }
+  .p5-step-num { width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--olive); color: var(--white); font-size: .6rem; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .p5-options { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .p5-option {
+    font-family: var(--sans);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--olive);
+    padding: .55rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--neutral-mid);
+    background: var(--white);
+    cursor: pointer;
+    transition: all var(--trans);
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .p5-option:hover { border-color: var(--olive); background: var(--cream-light); }
+  .p5-option.selected { background: var(--olive); color: var(--white); border-color: var(--olive); }
+  .p5-option:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p5-option .odot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .p5-preview {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1.5px solid var(--neutral-mid);
+    position: sticky;
+    top: 6rem;
+  }
+  .p5-preview-header {
+    background: var(--olive);
+    color: var(--white);
+    padding: .85rem 1.25rem;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .p5-preview-img {
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: background-image .4s;
+  }
+  .p5-preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,29,44,.5) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem;
+  }
+  .p5-preview-scene-name { font-size: .82rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: .2rem; }
+  .p5-preview-style-tag { display: inline-block; background: rgba(185,152,121,.3); border: 1px solid rgba(185,152,121,.5); color: var(--backdrop-tan); font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .18rem .55rem; border-radius: 4px; }
+  .p5-preview-body { padding: 1.25rem 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .p5-preview-summary { display: flex; flex-direction: column; gap: .5rem; }
+  .p5-preview-row { display: flex; align-items: center; justify-content: space-between; font-size: .8rem; color: var(--olive); }
+  .p5-preview-row .key { opacity: .6; }
+  .p5-preview-row .val { font-weight: 700; }
+  .p5-preview-row .val.placeholder { opacity: .35; font-style: italic; font-weight: 400; }
+  .p5-progress { background: var(--neutral-mid); height: 3px; border-radius: 2px; overflow: hidden; margin-bottom: .25rem; }
+  .p5-progress-bar { height: 100%; background: var(--olive); border-radius: 2px; transition: width .35s cubic-bezier(.4,0,.2,1); width: 0%; }
+  .p5-progress-label { font-size: .68rem; color: var(--olive); opacity: .5; text-align: right; }
+  .p5-preview-cta {
+    background: var(--olive);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    transition: background var(--trans), transform .12s, opacity var(--trans);
+    box-shadow: 0 3px 14px rgba(123,120,91,.22);
+  }
+  .p5-preview-cta:hover:not(:disabled) { background: var(--olive-dark); transform: translateY(-1px); }
+  .p5-preview-cta:disabled { opacity: .42; cursor: not-allowed; }
+  .p5-preview-cta:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+
+  .p5-social { background: var(--white); padding: 4rem 2.5rem; border-top: 1px solid var(--neutral-mid); }
+  .p5-social h2 { font-size: clamp(1rem, 1.8vw, 1.3rem); font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--olive); margin-bottom: 1.75rem; }
+  .p5-testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .p5-testimonial { background: var(--cream-light); border-radius: var(--radius-sm); padding: 1.25rem 1.25rem 1.5rem; border: 1px solid var(--neutral-mid); }
+  .p5-stars { color: var(--backdrop-tan); font-size: .85rem; margin-bottom: .65rem; }
+  .p5-testimonial p { font-size: .82rem; line-height: 1.6; color: var(--olive); margin-bottom: .75rem; }
+  .p5-testimonial .reviewer { font-size: .72rem; font-weight: 700; color: var(--olive); opacity: .55; }
+
+  .p5-footer { background: var(--cream-footer); padding: 2.5rem; text-align: center; border-top: 1px solid var(--neutral-mid); }
+  .p5-footer-logo { font-size: .88rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); margin-bottom: 1rem; }
+  .p5-footer-links { display: flex; justify-content: center; gap: 1.5rem; list-style: none; flex-wrap: wrap; margin-bottom: 1rem; }
+  .p5-footer-links a { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--olive); opacity: .55; transition: opacity var(--trans); padding: .25rem; }
+  .p5-footer-links a:hover { opacity: 1; }
+  .p5-footer-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p5-footer-copy { font-size: .7rem; color: var(--olive); opacity: .4; }
+
+  @media (max-width: 900px) {
+    .p5-configurador { grid-template-columns: 1fr; padding: 2.5rem 1.25rem; }
+    .p5-preview { position: static; }
+    .p5-testimonials { grid-template-columns: 1fr; }
+    .p5-social { padding: 2.5rem 1.25rem; }
+    .p5-nav { padding: 0 1.25rem; }
+  }
+  </style>
+
+  <!-- NAV P5 -->
+  <nav class="p5-nav" role="navigation" aria-label="Menu principal">
+    <a href="#" class="p5-nav-back">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M7.5 2L3.5 6l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Voltar
+    </a>
+    <div class="p5-logo">
+      <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M11 2C11 2 6 7 6 12a5 5 0 0010 0c0-5-5-10-5-10z" fill="#7B785B" opacity=".5"/>
+        <path d="M11 6C11 6 8 10 8 13a3 3 0 006 0c0-3-3-7-3-7z" fill="#7B785B"/>
+        <rect x="10.5" y="15" width="1" height="5" rx=".5" fill="#7B785B"/>
+      </svg>
+      Lillia Tavares
+    </div>
+    <a href="#" class="p5-nav-help">Tirar dúvidas</a>
+  </nav>
+
+  <!-- CONFIGURADOR P5 -->
+  <div class="p5-configurador">
+    <div class="p5-config-left">
+      <div>
+        <p class="p5-config-kicker">Estúdio · Mogi das Cruzes, SP</p>
+        <h1 id="p5-h1">Monte seu ensaio fotográfico</h1>
+      </div>
+      <p>Escolha o estilo e o cenário que mais te representa. A Lillia prepara tudo antes da sua chegada.</p>
+
+      <div class="p5-step">
+        <div class="p5-step-label">
+          <span class="p5-step-num">1</span>
+          Qual é o estilo do seu ensaio?
+        </div>
+        <div class="p5-options" role="group" aria-label="Selecionar estilo">
+          <button class="p5-option" data-step="style" data-val="Romântico" aria-pressed="false">Romântico</button>
+          <button class="p5-option" data-step="style" data-val="Editorial" aria-pressed="false">Editorial</button>
+          <button class="p5-option" data-step="style" data-val="Natural" aria-pressed="false">Natural</button>
+          <button class="p5-option" data-step="style" data-val="Íntimo / Boudoir" aria-pressed="false">Íntimo / Boudoir</button>
+          <button class="p5-option" data-step="style" data-val="Família" aria-pressed="false">Família</button>
+          <button class="p5-option" data-step="style" data-val="Debutante / 15 anos" aria-pressed="false">Debutante / 15 anos</button>
+        </div>
+      </div>
+
+      <div class="p5-step">
+        <div class="p5-step-label">
+          <span class="p5-step-num">2</span>
+          Escolha o cenário principal
+        </div>
+        <div class="p5-options" role="group" aria-label="Selecionar cenário">
+          <button class="p5-option" data-step="scene" data-val="Fundo Infinito" aria-pressed="false"><span class="odot" style="background:#111D2C"></span>Fundo Infinito</button>
+          <button class="p5-option" data-step="scene" data-val="Romântico" aria-pressed="false"><span class="odot" style="background:#BD9187"></span>Romântico</button>
+          <button class="p5-option" data-step="scene" data-val="Editorial" aria-pressed="false"><span class="odot" style="background:#241F21"></span>Editorial</button>
+          <button class="p5-option" data-step="scene" data-val="Natural" aria-pressed="false"><span class="odot" style="background:#6B7B6A"></span>Natural</button>
+          <button class="p5-option" data-step="scene" data-val="Íntimo" aria-pressed="false"><span class="odot" style="background:#B99879"></span>Íntimo</button>
+          <button class="p5-option" data-step="scene" data-val="Família" aria-pressed="false"><span class="odot" style="background:#D7D6CD"></span>Família</button>
+        </div>
+      </div>
+
+      <div class="p5-step">
+        <div class="p5-step-label">
+          <span class="p5-step-num">3</span>
+          Quantas pessoas participam?
+        </div>
+        <div class="p5-options" role="group" aria-label="Número de pessoas">
+          <button class="p5-option" data-step="people" data-val="Só eu" aria-pressed="false">Só eu</button>
+          <button class="p5-option" data-step="people" data-val="2 pessoas" aria-pressed="false">2 pessoas</button>
+          <button class="p5-option" data-step="people" data-val="Família (3+)" aria-pressed="false">Família (3+)</button>
+          <button class="p5-option" data-step="people" data-val="Grupo maior" aria-pressed="false">Grupo maior</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="p5-preview" aria-live="polite" aria-label="Resumo do ensaio">
+      <div class="p5-preview-header">
+        <span>Seu ensaio</span>
+        <span id="p5-complete-label">0 de 3 escolhas</span>
+      </div>
+      <div class="p5-preview-img" id="p5-prev-img"
+           style="background-image:url('https://images.unsplash.com/photo-1554151228-14d9def656e4?w=600&q=80')"
+           role="img" aria-label="Pré-visualização do cenário">
+        <div class="p5-preview-overlay">
+          <span class="p5-preview-scene-name" id="p5-scene-name">Escolha um cenário</span>
+          <span class="p5-preview-style-tag" id="p5-style-tag">Estilo a definir</span>
+        </div>
+      </div>
+      <div class="p5-preview-body">
+        <div class="p5-progress"><div class="p5-progress-bar" id="p5-progress-bar"></div></div>
+        <p class="p5-progress-label" id="p5-progress-label">Faça suas escolhas acima</p>
+        <div class="p5-preview-summary">
+          <div class="p5-preview-row"><span class="key">Estilo</span><span class="val placeholder" id="p5-sum-style">Não selecionado</span></div>
+          <div class="p5-preview-row"><span class="key">Cenário</span><span class="val placeholder" id="p5-sum-scene">Não selecionado</span></div>
+          <div class="p5-preview-row"><span class="key">Pessoas</span><span class="val placeholder" id="p5-sum-people">Não selecionado</span></div>
+          <div class="p5-preview-row" style="border-top:1px solid var(--neutral-mid);padding-top:.5rem;margin-top:.25rem;"><span class="key">Local</span><span class="val">Estúdio · Mogi das Cruzes</span></div>
+        </div>
+        <button class="p5-preview-cta" id="p5-cta-btn" disabled>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.854.146a.5.5 0 00-.707 0l-1 1 1.707 1.707 1-1a.5.5 0 000-.707l-1-1zM11.54 2.56L2 12.1V14h1.9l9.54-9.54L11.54 2.56z"/></svg>
+          Confirmar e agendar
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- PROVA SOCIAL P5 -->
+  <section class="p5-social" aria-labelledby="p5-social-h2">
+    <h2 id="p5-social-h2">Quem já fez o ensaio conta</h2>
+    <div class="p5-testimonials">
+      <div class="p5-testimonial">
+        <div class="p5-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"Nunca imaginei que me sentiria tão à vontade em frente às câmeras. A Lillia é incrível em fazer você relaxar."</p>
+        <span class="reviewer">— Camila R., ensaio solo</span>
+      </div>
+      <div class="p5-testimonial">
+        <div class="p5-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"Fizemos ensaio de família com três crianças e deu certo! O espaço é enorme e acolhedor."</p>
+        <span class="reviewer">— Família Mendonça</span>
+      </div>
+      <div class="p5-testimonial">
+        <div class="p5-stars" aria-label="5 estrelas">★★★★★</div>
+        <p>"O cenário romântico foi perfeito para o ensaio de 15 anos da minha filha. Superou todas as expectativas."</p>
+        <span class="reviewer">— Patrícia S., mãe de debutante</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER P5 -->
+  <footer class="p5-footer">
+    <div class="p5-footer-logo">Lillia Tavares — Fotografia</div>
+    <ul class="p5-footer-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+    <p class="p5-footer-copy">© 2024 Lillia Tavares Fotografia · Mogi das Cruzes, SP</p>
+  </footer>
+
+  <script>
+  (function() {
+    var selections = { style: null, scene: null, people: null };
+    var imgs = {
+      'Fundo Infinito': 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=600&q=80',
+      'Romântico': 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80',
+      'Editorial': 'https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?w=600&q=80',
+      'Natural': 'https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=600&q=80',
+      'Íntimo': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80',
+      'Família': 'https://images.unsplash.com/photo-1502980426475-b83966705988?w=600&q=80'
+    };
+    function updatePreview() {
+      var done = ['style','scene','people'].filter(function(k){ return selections[k]; }).length;
+      document.getElementById('p5-complete-label').textContent = done + ' de 3 escolhas';
+      document.getElementById('p5-progress-bar').style.width = (done / 3 * 100) + '%';
+      var labels = ['Faça suas escolhas acima', 'Mais 2 para concluir...', 'Mais 1 para concluir...', 'Pronta para agendar!'];
+      document.getElementById('p5-progress-label').textContent = labels[done];
+      if (selections.scene) {
+        document.getElementById('p5-scene-name').textContent = selections.scene;
+        var url = imgs[selections.scene];
+        if (url) document.getElementById('p5-prev-img').style.backgroundImage = "url('" + url + "')";
+      }
+      if (selections.style) { document.getElementById('p5-style-tag').textContent = selections.style; }
+      ['style','scene','people'].forEach(function(k) {
+        var el = document.getElementById('p5-sum-' + k);
+        el.textContent = selections[k] || 'Não selecionado';
+        el.classList.toggle('placeholder', !selections[k]);
+      });
+      document.getElementById('p5-cta-btn').disabled = done < 3;
+    }
+    document.querySelectorAll('#p5 .p5-option').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var step = btn.dataset.step;
+        document.querySelectorAll('#p5 .p5-option[data-step="' + step + '"]').forEach(function(b) { b.classList.remove('selected'); b.setAttribute('aria-pressed','false'); });
+        btn.classList.add('selected');
+        btn.setAttribute('aria-pressed','true');
+        selections[step] = btn.dataset.val;
+        updatePreview();
+      });
+    });
+  })();
+  </script>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     RANKING FINAL
+     ════════════════════════════════════════════════ -->
+<section id="ranking" class="ranking">
+  <h2>Ranking das 5 Propostas — Melhor → Pior</h2>
+  <div class="ranking-list">
+    <div class="rank-item">
+      <span class="pos">1</span>
+      <div>
+        <h3>P3 — Guiada (Progressive Disclosure + Sticky CTA)</h3>
+        <p>Melhor equilíbrio entre UX e conversão. O accordion de cenários reduz sobrecarga cognitiva sem esconder informação. O sticky CTA contextual mantém a ação visível sem ser agressivo. Nav com âncoras de seção resolve a orientação sem alterar identidade visual. É defensável para a cliente e implementável no Nuxt sem risco.</p>
+      </div>
+      <span class="score">UX 9.5 · Risco 3</span>
+    </div>
+    <div class="rank-item">
+      <span class="pos">2</span>
+      <div>
+        <h3>P2 — Focada (Menos Ruído, Mais Conversão)</h3>
+        <p>Stats bar + prova social no hero resolvem diretamente a objeção "não sei se é para mim". Cards com filtros dão exploração sem mosaico ambíguo. Nav com 3 pills reduz paralisia de escolha. Simples de implementar e fácil de A/B testar. Perde para P3 por não ter indicadores de progresso contextual.</p>
+      </div>
+      <span class="score">UX 8.8 · Risco 2</span>
+    </div>
+    <div class="rank-item">
+      <span class="pos">3</span>
+      <div>
+        <h3>P5 — Radical (Configurador de Ensaio)</h3>
+        <p>Foot-in-the-door funciona bem para públicos indecisos — cada clique cria micro-comprometimento. O preview reativo é diferenciador forte no mercado fotográfico local. Cai para 3º porque requer mais JS confiável, pode intimidar usuários mais velhos, e o ganho depende de dados que ainda não existem. Recomendo testar como LP separada primeiro.</p>
+      </div>
+      <span class="score">UX 8.2 · Risco 6</span>
+    </div>
+    <div class="rank-item">
+      <span class="pos">4</span>
+      <div>
+        <h3>P1 — Refinada (Evolução Segura)</h3>
+        <p>Resolve todos os problemas listados no brief (hierarquia, breadcrumb, nav ativa, CTA com peso) sem surpresas. A proposta mais segura para uma cliente conservadora. Perde para P2 e P3 porque não adiciona diferenciação — corrige o que estava errado mas não melhora o que estava apenas médio.</p>
+      </div>
+      <span class="score">UX 7.8 · Risco 1</span>
+    </div>
+    <div class="rank-item">
+      <span class="pos">5</span>
+      <div>
+        <h3>P4 — Imersiva (Full-Viewport + Scroll Horizontal)</h3>
+        <p>A experiência visual é genuinamente diferenciada e compite com Instagram. Porém hero full-viewport atrasa o acesso à informação de conversão, scroll horizontal não é intuitivo em desktop, e o floating CTA com pulso pode irritar no uso prolongado. No mundo real funcionaria melhor com scroll behavior real — como protótipo standalone é a menos convincente.</p>
+      </div>
+      <span class="score">UX 7.2 · Risco 7</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var links = document.querySelectorAll('#toc a');
+  function update() {
+    links.forEach(function(a) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      var rect = target.getBoundingClientRect();
+      a.classList.toggle('active', rect.top <= window.innerHeight / 2 && rect.bottom > 0);
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5048 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estúdio Redesign — 5 Propostas Produto · Lillia Tavares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS GLOBAIS ─── */
+:root {
+  --olive:          #7B785B;
+  --olive-dark:     #5a5840;
+  --olive-hover:    #6a6749;
+  --cream-light:    #F4F2E9;
+  --cream-footer:   #F7F4E8;
+  --neutral-mid:    #D7D6CD;
+  --backdrop-navy:  #111D2C;
+  --backdrop-tan:   #B99879;
+  --backdrop-black: #241F21;
+  --backdrop-grey:  #E4E1E5;
+  --rose:           #BD9187;
+  --white:          #FFFFFF;
+  --sans:           'Lato', Arial, sans-serif;
+  --radius-pill:    999px;
+  --radius-sm:      6px;
+  --trans:          0.18s ease;
+  --shadow-sm:      0 1px 4px rgba(0,0,0,.08);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.11);
+  --shadow-lg:      0 8px 40px rgba(0,0,0,.13);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--sans); background: #EDEAE0; color: var(--olive); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+/* ─── LAYOUT WRAPPER ─── */
+.proposal-wrapper {
+  background: var(--white);
+  margin: 3rem auto;
+  max-width: 1440px;
+  box-shadow: var(--shadow-lg);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.proposal-label {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--backdrop-navy);
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: .55rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.proposal-label .badge {
+  background: var(--olive);
+  padding: .2rem .6rem;
+  border-radius: var(--radius-sm);
+  font-size: .68rem;
+  flex-shrink: 0;
+}
+.proposal-label .rationale {
+  font-weight: 400;
+  opacity: .72;
+  font-size: .7rem;
+  letter-spacing: .04em;
+  margin-left: auto;
+  max-width: 60ch;
+  text-align: right;
+  text-transform: none;
+}
+
+/* ─── ÍNDICE LATERAL ─── */
+#toc {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  z-index: 9999;
+}
+#toc a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--neutral-mid);
+  border: 2px solid var(--white);
+  transition: background var(--trans), transform var(--trans);
+  position: relative;
+}
+#toc a:hover,
+#toc a.active { background: var(--olive); transform: scale(1.4); }
+#toc a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + .6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: .65rem;
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--olive);
+  background: var(--white);
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+  box-shadow: var(--shadow-sm);
+}
+#toc a:hover::after { opacity: 1; }
+
+/* ─── SKELETON LOADER (shared) ─── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--neutral-mid) 25%, var(--cream-light) 50%, var(--neutral-mid) 75%);
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.4s infinite linear;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── WHATSAPP FLOAT (shared) ─── */
+.wa-float {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 1.75rem;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: #25D366;
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: .65rem 1.1rem .65rem .8rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 16px rgba(37,211,102,.35);
+  text-decoration: none;
+  transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+  max-width: 13rem;
+  overflow: hidden;
+}
+.wa-float:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(37,211,102,.45);
+}
+.wa-float svg {
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* ─── SEPARADOR ─── */
+.section-divider {
+  border: none;
+  border-top: 3px solid var(--cream-light);
+  margin: 0;
+}
+
+/* ─── SHARED BUTTON STYLES ─── */
+.btn-primary {
+  display: inline-block;
+  background: var(--olive);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .875rem 2rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--olive);
+  cursor: pointer;
+  transition: background var(--trans), color var(--trans), transform var(--trans), box-shadow var(--trans);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover {
+  background: var(--olive-dark);
+  border-color: var(--olive-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(91,88,64,.28);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--olive);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .875rem 2rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--olive);
+  cursor: pointer;
+  transition: background var(--trans), color var(--trans), transform var(--trans);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-secondary:hover {
+  background: var(--olive);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.btn-secondary:active { transform: translateY(0); }
+
+@media (max-width: 600px) {
+  #toc { display: none; }
+  .proposal-label .rationale { display: none; }
+  .wa-float span { display: none; }
+  .wa-float { padding: .75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- WHATSAPP FLOAT (rendered once, works across all proposals) -->
+<a href="https://wa.me/5511999999999?text=Oi%2C%20quero%20agendar%20uma%20sess%C3%A3o!" class="wa-float" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.554 4.1 1.523 5.82L.057 23.999l6.305-1.654A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-4.999-1.37l-.358-.213-3.742.981 1-3.643-.234-.373A9.818 9.818 0 1112 21.818z"/>
+  </svg>
+  <span>Agendar sessão</span>
+</a>
+
+<!-- ÍNDICE DE PONTOS -->
+<nav id="toc" aria-label="Navegação entre propostas">
+  <a href="#p1" data-label="P1 · Refinamento Cirúrgico"></a>
+  <a href="#p2" data-label="P2 · Hierarquia Clarificada"></a>
+  <a href="#p3" data-label="P3 · Próxima"></a>
+  <a href="#p4" data-label="P4 · Próxima"></a>
+  <a href="#p5" data-label="P5 · Próxima"></a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 1 — REFINAMENTO CIRÚRGICO
+     Resolve os 4 maiores falhas de UX com mínima mudança visual.
+     ══════════════════════════════════════════════════════════ -->
+<section id="p1" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P1</span>
+    Refinamento Cirúrgico — Evolução Segura
+    <span class="rationale">Resolve nav, CTA, layout mobile e mapa sem risco de regressão. Entrega rápida.</span>
+  </div>
+
+  <style>
+  /* ─── P1: NAV ─── */
+  .p1-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 0 2rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    transition: background var(--trans), box-shadow var(--trans);
+  }
+  .p1-nav.scrolled {
+    background: var(--white);
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  .p1-nav-logo {
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .p1-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    list-style: none;
+  }
+  .p1-nav-links li a {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    transition: opacity var(--trans);
+  }
+  .p1-nav-links li a:hover { opacity: .6; }
+  .p1-nav-cta {
+    background: var(--olive);
+    color: var(--white) !important;
+    padding: .5rem 1.25rem;
+    border-radius: var(--radius-pill);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transition: background var(--trans), transform var(--trans), opacity var(--trans) !important;
+  }
+  .p1-nav-cta:hover {
+    background: var(--olive-dark);
+    opacity: 1 !important;
+    transform: translateY(-1px);
+  }
+  .p1-nav-burger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: .25rem;
+    gap: 4px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .p1-nav-burger span {
+    display: block;
+    height: 2px;
+    background: var(--olive);
+    border-radius: 2px;
+    transition: width var(--trans);
+  }
+  .p1-nav-burger span:nth-child(1) { width: 22px; }
+  .p1-nav-burger span:nth-child(2) { width: 16px; }
+  .p1-nav-burger span:nth-child(3) { width: 22px; }
+  .p1-nav-burger:hover span { width: 22px !important; }
+
+  /* ─── P1: BREADCRUMB ─── */
+  .p1-breadcrumb {
+    padding: .6rem 2rem;
+    background: var(--cream-light);
+    font-size: .72rem;
+    letter-spacing: .04em;
+    color: var(--olive);
+    opacity: .75;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    align-items: center;
+  }
+  .p1-breadcrumb a {
+    transition: opacity var(--trans);
+  }
+  .p1-breadcrumb a:hover { opacity: .55; text-decoration: underline; }
+  .p1-breadcrumb .sep {
+    opacity: .4;
+    font-size: .65rem;
+  }
+  .p1-breadcrumb .current { font-weight: 700; opacity: 1; }
+
+  /* ─── P1: HERO ─── */
+  .p1-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+    background: var(--white);
+  }
+  .p1-hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 3rem 4rem 3rem;
+  }
+  .p1-hero-eyebrow {
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: 1rem;
+  }
+  .p1-hero h1 {
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--backdrop-black);
+    margin-bottom: 1.25rem;
+    letter-spacing: -.01em;
+  }
+  .p1-hero h1 em {
+    font-style: normal;
+    color: var(--olive);
+  }
+  .p1-hero-body {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--olive);
+    opacity: .85;
+    margin-bottom: .75rem;
+    max-width: 42ch;
+  }
+  .p1-hero-cta-group {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .p1-hero-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: .5rem;
+    padding: 1.5rem 1.5rem 1.5rem 0;
+  }
+  .p1-mosaic-cell {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--neutral-mid);
+  }
+  .p1-mosaic-cell:first-child {
+    grid-row: span 2;
+  }
+  .p1-mosaic-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .p1-mosaic-cell:hover img { transform: scale(1.04); }
+  .p1-mosaic-cell .skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    transition: opacity .4s;
+  }
+  .p1-mosaic-cell img.loaded + .skeleton,
+  .p1-mosaic-cell .skeleton.hidden { opacity: 0; pointer-events: none; }
+
+  /* ─── P1: BACKDROPS ─── */
+  .p1-backdrops {
+    background: var(--cream-light);
+    padding: 4rem 2rem;
+  }
+  .p1-section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .p1-section-eyebrow {
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: .6rem;
+  }
+  .p1-section-header h2 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 900;
+    color: var(--backdrop-black);
+    letter-spacing: -.01em;
+  }
+  .p1-section-header p {
+    margin-top: .65rem;
+    font-size: .9rem;
+    line-height: 1.65;
+    color: var(--olive);
+    opacity: .8;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .p1-backdrops-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .p1-backdrop-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
+  .p1-backdrop-card .skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+  }
+  .p1-backdrop-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .p1-backdrop-bg-navy  { background: var(--backdrop-navy); }
+  .p1-backdrop-bg-tan   { background: var(--backdrop-tan); }
+  .p1-backdrop-bg-black { background: var(--backdrop-black); }
+  .p1-backdrop-bg-grey  { background: var(--backdrop-grey); }
+  .p1-backdrop-model {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 52%;
+    height: 90%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform .45s ease;
+  }
+  .p1-backdrop-card:hover .p1-backdrop-model { transform: scale(1.03) translateY(-4px); }
+  .p1-backdrop-info {
+    position: relative;
+    z-index: 2;
+    padding: 1.25rem 1.25rem 1.4rem;
+  }
+  .p1-backdrop-label {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: .25rem .65rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: .5rem;
+  }
+  .p1-backdrop-label-light { background: rgba(255,255,255,.15); color: var(--white); }
+  .p1-backdrop-label-dark  { background: rgba(0,0,0,.12); color: var(--backdrop-black); }
+  .p1-backdrop-name {
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: .02em;
+  }
+  .p1-backdrop-name-light { color: var(--white); }
+  .p1-backdrop-name-dark  { color: var(--backdrop-black); }
+  .p1-backdrop-desc {
+    font-size: .78rem;
+    line-height: 1.5;
+    margin-top: .3rem;
+    opacity: .8;
+  }
+  .p1-backdrop-desc-light { color: var(--white); }
+  .p1-backdrop-desc-dark  { color: var(--backdrop-black); }
+
+  /* ─── P1: SCENARIOS ─── */
+  .p1-scenarios {
+    padding: 4rem 2rem;
+    background: var(--white);
+  }
+  .p1-scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .p1-scenario-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+    background: var(--neutral-mid);
+  }
+  .p1-scenario-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .p1-scenario-card:hover img { transform: scale(1.06); }
+  .p1-scenario-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,29,44,.75) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem;
+    transition: background var(--trans);
+  }
+  .p1-scenario-card:hover .p1-scenario-overlay {
+    background: linear-gradient(to top, rgba(17,29,44,.88) 0%, rgba(17,29,44,.2) 100%);
+  }
+  .p1-scenario-name {
+    font-size: .85rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: .35rem;
+  }
+  .p1-scenario-cta {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    transform: translateY(4px);
+    opacity: 0;
+    transition: opacity var(--trans), transform var(--trans);
+  }
+  .p1-scenario-card:hover .p1-scenario-cta { opacity: 1; transform: translateY(0); }
+  .p1-scenario-cta::after { content: '→'; }
+
+  /* ─── P1: LOCATION ─── */
+  .p1-location {
+    padding: 4rem 2rem;
+    background: var(--cream-light);
+  }
+  .p1-location-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .p1-location-text h2 {
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 900;
+    color: var(--backdrop-black);
+    margin-bottom: 1.5rem;
+    letter-spacing: -.01em;
+  }
+  .p1-address-block {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    margin-bottom: 1.5rem;
+  }
+  .p1-address-row {
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+    font-size: .88rem;
+    line-height: 1.55;
+    color: var(--olive);
+  }
+  .p1-address-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    margin-top: .1rem;
+    color: var(--backdrop-tan);
+  }
+  .p1-map-placeholder {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: var(--neutral-mid);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--white);
+    box-shadow: var(--shadow-md);
+  }
+  .p1-map-placeholder .skeleton { position: absolute; inset: 0; border-radius: 0; }
+  .p1-map-trigger {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .6rem;
+    text-align: center;
+    padding: 2rem;
+    transition: transform var(--trans);
+  }
+  .p1-map-placeholder:hover .p1-map-trigger { transform: scale(1.04); }
+  .p1-map-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .p1-map-icon svg { width: 1.25rem; height: 1.25rem; color: var(--olive); }
+  .p1-map-label {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .p1-map-sub {
+    font-size: .68rem;
+    color: var(--olive);
+    opacity: .6;
+  }
+
+  /* ─── P1: FOOTER ─── */
+  .p1-footer {
+    background: var(--backdrop-black);
+    color: var(--white);
+    padding: 3rem 2rem 2rem;
+  }
+  .p1-footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .p1-footer-brand {
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+  }
+  .p1-footer-tagline {
+    font-size: .78rem;
+    line-height: 1.65;
+    opacity: .6;
+    max-width: 32ch;
+  }
+  .p1-footer-col-title {
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: .9rem;
+  }
+  .p1-footer-links { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .p1-footer-links a {
+    font-size: .8rem;
+    opacity: .6;
+    transition: opacity var(--trans);
+  }
+  .p1-footer-links a:hover { opacity: 1; }
+  .p1-footer-bottom {
+    max-width: 1100px;
+    margin: 1.5rem auto 0;
+    font-size: .72rem;
+    opacity: .4;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  /* ─── P1 RESPONSIVE ─── */
+  @media (min-width: 1024px) {
+    .p1-backdrops-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .p1-hero { grid-template-columns: 1fr; }
+    .p1-hero-text { padding: 3rem 1.75rem 2rem; }
+    .p1-hero-mosaic { padding: 0 1.75rem 2.5rem; grid-template-columns: 1fr 1fr; }
+    .p1-location-inner { grid-template-columns: 1fr; }
+    .p1-footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .p1-nav { padding: 0 1.25rem; }
+    .p1-nav-links { display: none; }
+    .p1-nav-burger { display: flex; }
+    .p1-hero-text { padding: 2.5rem 1.25rem 1.5rem; }
+    .p1-hero-mosaic { padding: 0 1.25rem 2rem; }
+    .p1-hero-cta-group { flex-direction: column; align-items: flex-start; }
+    .p1-backdrops { padding: 3rem 1.25rem; }
+    .p1-scenarios { padding: 3rem 1.25rem; }
+    .p1-location { padding: 3rem 1.25rem; }
+    .p1-footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .p1-backdrop-card { min-height: 220px; }
+  }
+  </style>
+
+  <!-- P1: NAV -->
+  <nav class="p1-nav" id="p1-nav" aria-label="Navegação principal">
+    <a href="/" class="p1-nav-logo" aria-label="Lillia Tavares — Fotografa">Lillia Tavares</a>
+    <ul class="p1-nav-links" role="list">
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/estudio">Estúdio</a></li>
+      <li><a href="/precos">Preços</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/agendamento" class="p1-nav-cta">Agendar</a></li>
+    </ul>
+    <button class="p1-nav-burger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- P1: BREADCRUMB -->
+  <div class="p1-breadcrumb" aria-label="Localização na página">
+    <a href="/">Início</a>
+    <span class="sep" aria-hidden="true">/</span>
+    <span class="current">Estúdio Fotográfico</span>
+  </div>
+
+  <!-- P1: HERO -->
+  <div class="p1-hero">
+    <div class="p1-hero-text">
+      <p class="p1-hero-eyebrow">Estúdio em São Paulo · SP</p>
+      <h1>Um espaço criado para <em>revelar</em> quem você é</h1>
+      <p class="p1-hero-body">Fundos neutros, luz natural controlada e cenários exclusivos. Cada detalhe do nosso estúdio foi pensado para que você se sinta à vontade e saia com fotos que realmente representam você.</p>
+      <p class="p1-hero-body">Sessões individuais, de casal, corporativas e editoriais. Do ensaio à entrega digital, cuidamos de tudo.</p>
+      <div class="p1-hero-cta-group">
+        <a href="/agendamento" class="btn-primary">Agendar minha sessão</a>
+        <a href="#p1-scenarios" class="btn-secondary">Ver cenários</a>
+      </div>
+    </div>
+    <div class="p1-hero-mosaic" aria-hidden="true">
+      <div class="p1-mosaic-cell">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80" alt="Interior do estúdio" loading="lazy">
+      </div>
+      <div class="p1-mosaic-cell">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80" alt="Ensaio com fundo escuro" loading="lazy">
+      </div>
+      <div class="p1-mosaic-cell">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Ensaio com fundo claro" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- P1: BACKDROPS -->
+  <div class="p1-backdrops">
+    <div class="p1-section-header">
+      <p class="p1-section-eyebrow">Fundos disponíveis</p>
+      <h2>Escolha o ambiente que combina com você</h2>
+      <p>Quatro fundos profissionais, cada um com iluminação calibrada e acabamento impecável.</p>
+    </div>
+    <div class="p1-backdrops-grid" role="list">
+      <div class="p1-backdrop-card" role="listitem" tabindex="0" aria-label="Fundo Azul Marinho — sofisticado e atemporal">
+        <div class="p1-backdrop-bg p1-backdrop-bg-navy"></div>
+        <div class="skeleton" aria-hidden="true"></div>
+        <img class="p1-backdrop-model" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80" alt="" loading="lazy">
+        <div class="p1-backdrop-info">
+          <span class="p1-backdrop-label p1-backdrop-label-light">Fundo 01</span>
+          <p class="p1-backdrop-name p1-backdrop-name-light">Azul Marinho</p>
+          <p class="p1-backdrop-desc p1-backdrop-desc-light">Sofisticado e atemporal</p>
+        </div>
+      </div>
+      <div class="p1-backdrop-card" role="listitem" tabindex="0" aria-label="Fundo Terracota — quente e envolvente">
+        <div class="p1-backdrop-bg p1-backdrop-bg-tan"></div>
+        <div class="skeleton" aria-hidden="true"></div>
+        <img class="p1-backdrop-model" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="" loading="lazy">
+        <div class="p1-backdrop-info">
+          <span class="p1-backdrop-label p1-backdrop-label-dark">Fundo 02</span>
+          <p class="p1-backdrop-name p1-backdrop-name-dark">Terracota</p>
+          <p class="p1-backdrop-desc p1-backdrop-desc-dark">Quente e envolvente</p>
+        </div>
+      </div>
+      <div class="p1-backdrop-card" role="listitem" tabindex="0" aria-label="Fundo Carvão — dramático e elegante">
+        <div class="p1-backdrop-bg p1-backdrop-bg-black"></div>
+        <div class="skeleton" aria-hidden="true"></div>
+        <img class="p1-backdrop-model" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80" alt="" loading="lazy">
+        <div class="p1-backdrop-info">
+          <span class="p1-backdrop-label p1-backdrop-label-light">Fundo 03</span>
+          <p class="p1-backdrop-name p1-backdrop-name-light">Carvão</p>
+          <p class="p1-backdrop-desc p1-backdrop-desc-light">Dramático e elegante</p>
+        </div>
+      </div>
+      <div class="p1-backdrop-card" role="listitem" tabindex="0" aria-label="Fundo Névoa — neutro e versátil">
+        <div class="p1-backdrop-bg p1-backdrop-bg-grey"></div>
+        <div class="skeleton" aria-hidden="true"></div>
+        <img class="p1-backdrop-model" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="" loading="lazy">
+        <div class="p1-backdrop-info">
+          <span class="p1-backdrop-label p1-backdrop-label-dark">Fundo 04</span>
+          <p class="p1-backdrop-name p1-backdrop-name-dark">Névoa</p>
+          <p class="p1-backdrop-desc p1-backdrop-desc-dark">Neutro e versátil</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1: SCENARIOS -->
+  <div class="p1-scenarios" id="p1-scenarios">
+    <div class="p1-section-header">
+      <p class="p1-section-eyebrow">Ambientações</p>
+      <h2>Cenários que contam histórias</h2>
+      <p>Do minimalismo ao detalhamento. Cada cenário foi montado para criar retratos com personalidade.</p>
+    </div>
+    <div class="p1-scenarios-grid">
+      <div class="p1-scenario-card" tabindex="0" role="button" aria-label="Cenário Sala de Estar — ver detalhes">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Cenário sala de estar" loading="lazy">
+        <div class="p1-scenario-overlay">
+          <p class="p1-scenario-name">Sala de Estar</p>
+          <span class="p1-scenario-cta">Ver detalhes</span>
+        </div>
+      </div>
+      <div class="p1-scenario-card" tabindex="0" role="button" aria-label="Cenário Sofá Studio — ver detalhes">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Cenário sofá studio" loading="lazy">
+        <div class="p1-scenario-overlay">
+          <p class="p1-scenario-name">Sofá Studio</p>
+          <span class="p1-scenario-cta">Ver detalhes</span>
+        </div>
+      </div>
+      <div class="p1-scenario-card" tabindex="0" role="button" aria-label="Cenário Luz Natural — ver detalhes">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="Cenário com luz natural" loading="lazy">
+        <div class="p1-scenario-overlay">
+          <p class="p1-scenario-name">Luz Natural</p>
+          <span class="p1-scenario-cta">Ver detalhes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1: LOCATION -->
+  <div class="p1-location">
+    <div class="p1-location-inner">
+      <div class="p1-location-text">
+        <h2>Onde nos encontrar</h2>
+        <div class="p1-address-block">
+          <div class="p1-address-row">
+            <svg class="p1-address-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Rua das Fotografias, 142 — Pinheiros<br>São Paulo · SP · 01419-000</span>
+          </div>
+          <div class="p1-address-row">
+            <svg class="p1-address-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Seg a Sáb · 9h às 19h<br>Domingos com agendamento</span>
+          </div>
+          <div class="p1-address-row">
+            <svg class="p1-address-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18C.01.62.44.12 1 .07h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L5.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.01z"/></svg>
+            <span>(11) 9 9999-0000</span>
+          </div>
+        </div>
+        <a href="/agendamento" class="btn-primary" style="margin-top:.5rem;">Reservar horário</a>
+      </div>
+      <div>
+        <div class="p1-map-placeholder" role="button" tabindex="0" aria-label="Clique para carregar o mapa do Google Maps">
+          <div class="skeleton" aria-hidden="true"></div>
+          <div class="p1-map-trigger">
+            <div class="p1-map-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <p class="p1-map-label">Ver no mapa</p>
+            <p class="p1-map-sub">Clique para carregar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1: FOOTER -->
+  <footer class="p1-footer">
+    <div class="p1-footer-grid">
+      <div>
+        <p class="p1-footer-brand">Lillia Tavares</p>
+        <p class="p1-footer-tagline">Fotografando memórias com intenção. Estúdio especializado em retratos autorais, editoriais e corporativos.</p>
+      </div>
+      <div>
+        <p class="p1-footer-col-title">Navegação</p>
+        <ul class="p1-footer-links">
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/estudio">Estúdio</a></li>
+          <li><a href="/precos">Preços</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/agendamento">Agendamento</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="p1-footer-col-title">Contato</p>
+        <ul class="p1-footer-links">
+          <li><a href="mailto:contato@lilliatavares.com.br">contato@lilliatavares.com.br</a></li>
+          <li><a href="tel:+5511999990000">(11) 9 9999-0000</a></li>
+          <li><a href="https://instagram.com/lilliatavares" rel="noopener">@lilliatavares</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="p1-footer-bottom">
+      <span>&copy; 2025 Lillia Tavares Fotografia</span>
+      <span>Todos os direitos reservados</span>
+    </div>
+  </footer>
+
+</section>
+
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 2 — HIERARQUIA CLARIFICADA
+     Reconstrói a hierarquia visual para que o caminho de conversão
+     seja óbvio. Micro-interações e escala tipográfica intencional.
+     ══════════════════════════════════════════════════════════ -->
+<section id="p2" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P2</span>
+    Hierarquia Clarificada — Conversão Evidente
+    <span class="rationale">Hero→Diferenciais→Backdrops→CTA→Localização. Tipografia mixed-case. Micro-interações.</span>
+  </div>
+
+  <style>
+  /* ─── P2: NAV ─── */
+  .p2-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background: transparent;
+    transition: background var(--trans), box-shadow var(--trans);
+  }
+  .p2-nav.scrolled {
+    background: var(--white);
+    box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  }
+  .p2-nav-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .p2-nav-logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .p2-nav-logo-name {
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .p2-nav-logo-sub {
+    font-size: .62rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    font-weight: 400;
+  }
+  .p2-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .p2-nav-links li {
+    position: relative;
+  }
+  .p2-nav-links li a {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--olive);
+    padding-bottom: .25rem;
+    transition: color var(--trans);
+  }
+  .p2-nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--olive);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .22s ease;
+  }
+  .p2-nav-links li a:hover::after,
+  .p2-nav-links li a.active::after { transform: scaleX(1); }
+  .p2-nav-links li a:hover { color: var(--olive-dark); }
+  .p2-nav-cta-pill {
+    background: var(--olive);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .6rem 1.4rem;
+    border-radius: var(--radius-pill);
+    transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    display: inline-block;
+  }
+  .p2-nav-cta-pill:hover {
+    background: var(--olive-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(91,88,64,.3);
+  }
+  .p2-nav-burger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: .25rem;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-end;
+  }
+  .p2-nav-burger span {
+    display: block;
+    height: 2px;
+    background: var(--olive);
+    border-radius: 2px;
+    transition: width var(--trans);
+  }
+  .p2-nav-burger span:nth-child(1) { width: 22px; }
+  .p2-nav-burger span:nth-child(2) { width: 14px; }
+  .p2-nav-burger:hover span { width: 22px !important; }
+
+  /* ─── P2: HERO ─── */
+  .p2-hero {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    min-height: 88vh;
+    max-height: 780px;
+    background: var(--cream-light);
+    overflow: hidden;
+  }
+  .p2-hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3.5rem 5rem 3.5rem;
+  }
+  .p2-hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: 1.75rem;
+  }
+  .p2-hero-tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: var(--backdrop-tan);
+    flex-shrink: 0;
+  }
+  .p2-hero h1 {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--backdrop-black);
+    margin-bottom: 1.5rem;
+    max-width: 14ch;
+    letter-spacing: -.02em;
+  }
+  .p2-hero h1 .highlight {
+    color: var(--olive);
+    position: relative;
+    display: inline-block;
+  }
+  .p2-hero-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--olive);
+    max-width: 44ch;
+    margin-bottom: 2.25rem;
+  }
+  .p2-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .p2-link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--olive);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: border-color var(--trans), gap var(--trans);
+  }
+  .p2-link-arrow:hover {
+    border-color: var(--olive);
+    gap: .65rem;
+  }
+  .p2-link-arrow::after { content: '→'; }
+  .p2-hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--neutral-mid);
+  }
+  .p2-hero-right .skeleton { position: absolute; inset: 0; border-radius: 0; }
+  .p2-hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform .6s ease;
+  }
+  .p2-hero:hover .p2-hero-right img { transform: scale(1.03); }
+  .p2-hero-caption {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    background: rgba(17,29,44,.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: var(--radius-sm);
+    padding: .85rem 1rem;
+  }
+  .p2-hero-caption p {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .p2-hero-caption span {
+    font-size: .65rem;
+    font-weight: 400;
+    color: var(--backdrop-tan);
+    letter-spacing: .04em;
+    display: block;
+    margin-top: .15rem;
+  }
+
+  /* ─── P2: FEATURES STRIP ─── */
+  .p2-features {
+    background: var(--olive);
+    padding: 0 2.5rem;
+  }
+  .p2-features-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .p2-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    border-right: 1px solid rgba(255,255,255,.12);
+    transition: background var(--trans);
+  }
+  .p2-feature-item:last-child { border-right: none; }
+  .p2-feature-item:hover { background: rgba(255,255,255,.05); }
+  .p2-feature-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1.5px solid rgba(255,255,255,.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--white);
+    font-size: .9rem;
+    font-weight: 900;
+  }
+  .p2-feature-text {}
+  .p2-feature-title {
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: .3rem;
+  }
+  .p2-feature-desc {
+    font-size: .75rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,.65);
+  }
+
+  /* ─── P2: BACKDROPS ─── */
+  .p2-backdrops {}
+  .p2-backdrop-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+  .p2-backdrop-row.reverse { direction: rtl; }
+  .p2-backdrop-row.reverse > * { direction: ltr; }
+  .p2-backdrop-visual {
+    position: relative;
+    overflow: hidden;
+    background: var(--neutral-mid);
+  }
+  .p2-backdrop-visual .skeleton { position: absolute; inset: 0; border-radius: 0; }
+  .p2-backdrop-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform .6s ease;
+  }
+  .p2-backdrop-row:hover .p2-backdrop-visual img { transform: scale(1.04); }
+  .p2-backdrop-info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 3rem;
+  }
+  .p2-backdrop-number {
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: .65rem;
+  }
+  .p2-backdrop-title {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 900;
+    letter-spacing: -.01em;
+    margin-bottom: .85rem;
+    line-height: 1.15;
+  }
+  .p2-backdrop-body {
+    font-size: .88rem;
+    line-height: 1.7;
+    opacity: .78;
+    max-width: 38ch;
+    margin-bottom: 1.5rem;
+  }
+  .p2-backdrop-row-navy   .p2-backdrop-info-panel { background: var(--backdrop-navy); }
+  .p2-backdrop-row-navy   .p2-backdrop-title,
+  .p2-backdrop-row-navy   .p2-backdrop-body { color: var(--white); }
+  .p2-backdrop-row-tan    .p2-backdrop-info-panel { background: var(--backdrop-tan); }
+  .p2-backdrop-row-tan    .p2-backdrop-title { color: var(--backdrop-black); }
+  .p2-backdrop-row-tan    .p2-backdrop-body { color: var(--backdrop-black); }
+  .p2-backdrop-row-black  .p2-backdrop-info-panel { background: var(--backdrop-black); }
+  .p2-backdrop-row-black  .p2-backdrop-title,
+  .p2-backdrop-row-black  .p2-backdrop-body { color: var(--white); }
+  .p2-backdrop-row-grey   .p2-backdrop-info-panel { background: var(--backdrop-grey); }
+  .p2-backdrop-row-grey   .p2-backdrop-title { color: var(--backdrop-black); }
+  .p2-backdrop-row-grey   .p2-backdrop-body { color: var(--backdrop-black); }
+  .p2-backdrop-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: gap var(--trans), border-color var(--trans);
+  }
+  .p2-backdrop-link::after { content: '→'; }
+  .p2-backdrop-link:hover { gap: .65rem; }
+  .p2-backdrop-link-light { color: var(--backdrop-tan); }
+  .p2-backdrop-link-light:hover { border-color: var(--backdrop-tan); }
+  .p2-backdrop-link-dark  { color: var(--backdrop-black); opacity: .75; }
+  .p2-backdrop-link-dark:hover  { border-color: var(--backdrop-black); opacity: 1; }
+
+  /* ─── P2: SCENARIOS MASONRY ─── */
+  .p2-scenarios {
+    padding: 5rem 2.5rem;
+    background: var(--cream-light);
+  }
+  .p2-section-label {
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: .75rem;
+  }
+  .p2-section-label::before {
+    content: '';
+    display: block;
+    width: 1.75rem;
+    height: 1.5px;
+    background: var(--backdrop-tan);
+    flex-shrink: 0;
+  }
+  .p2-scenarios-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .p2-scenarios-title {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 900;
+    letter-spacing: -.01em;
+    color: var(--backdrop-black);
+    max-width: 18ch;
+    line-height: 1.15;
+  }
+  .p2-scenarios-aside {
+    font-size: .82rem;
+    line-height: 1.65;
+    color: var(--olive);
+    opacity: .8;
+    max-width: 38ch;
+  }
+  .p2-masonry {
+    columns: 3;
+    column-gap: .75rem;
+  }
+  .p2-masonry-item {
+    break-inside: avoid;
+    margin-bottom: .75rem;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--neutral-mid);
+  }
+  .p2-masonry-item img {
+    width: 100%;
+    display: block;
+    transition: transform .5s ease;
+  }
+  .p2-masonry-item:hover img { transform: scale(1.05); }
+  .p2-masonry-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,29,44,.78) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity .25s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+  .p2-masonry-item:hover .p2-masonry-overlay { opacity: 1; }
+  .p2-masonry-name {
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  /* ─── P2: SOCIAL PROOF + LOCATION ─── */
+  .p2-social-location {
+    padding: 5rem 2.5rem;
+    background: var(--white);
+  }
+  .p2-social-location-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .p2-location-left h2 {
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    font-weight: 900;
+    letter-spacing: -.01em;
+    color: var(--backdrop-black);
+    margin-bottom: 1.75rem;
+  }
+  .p2-address-item {
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    margin-bottom: .9rem;
+  }
+  .p2-address-dot {
+    width: .45rem;
+    height: .45rem;
+    background: var(--backdrop-tan);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: .45rem;
+  }
+  .p2-address-item-text {
+    font-size: .88rem;
+    line-height: 1.6;
+    color: var(--olive);
+  }
+  .p2-address-item-text strong {
+    display: block;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: .1rem;
+  }
+  .p2-cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+    margin-top: 2rem;
+  }
+  .p2-social-right {}
+  .p2-testimonials-label {
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: 1.25rem;
+  }
+  .p2-testimonial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .p2-testimonial {
+    border-left: 2.5px solid var(--neutral-mid);
+    padding: .75rem 0 .75rem 1.25rem;
+    transition: border-color var(--trans);
+  }
+  .p2-testimonial:hover { border-color: var(--olive); }
+  .p2-testimonial-quote {
+    font-size: .88rem;
+    line-height: 1.65;
+    color: var(--olive);
+    font-style: italic;
+    margin-bottom: .4rem;
+  }
+  .p2-testimonial-author {
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .07em;
+    color: var(--backdrop-tan);
+    text-transform: uppercase;
+  }
+
+  /* ─── P2: FOOTER ─── */
+  .p2-footer {
+    background: var(--cream-footer);
+    padding: 3.5rem 2.5rem 2rem;
+    border-top: 1px solid var(--neutral-mid);
+  }
+  .p2-footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .p2-footer-logo {
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .5rem;
+  }
+  .p2-footer-sub {
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: 2rem;
+  }
+  .p2-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem 2rem;
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+  .p2-footer-nav a {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .6;
+    transition: opacity var(--trans);
+  }
+  .p2-footer-nav a:hover { opacity: 1; }
+  .p2-footer-copy {
+    font-size: .7rem;
+    color: var(--olive);
+    opacity: .45;
+    border-top: 1px solid var(--neutral-mid);
+    padding-top: 1.5rem;
+    width: 100%;
+  }
+
+  /* ─── P2 RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .p2-hero { grid-template-columns: 1fr; min-height: auto; max-height: none; }
+    .p2-hero-right { min-height: 300px; }
+    .p2-hero-left { padding: 3rem 2rem; }
+    .p2-features-inner { grid-template-columns: 1fr; }
+    .p2-feature-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .p2-feature-item:last-child { border-bottom: none; }
+    .p2-backdrop-row { grid-template-columns: 1fr; }
+    .p2-backdrop-visual { min-height: 280px; }
+    .p2-backdrop-row.reverse { direction: ltr; }
+    .p2-masonry { columns: 2; }
+    .p2-social-location-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 600px) {
+    .p2-nav-inner { padding: 0 1.25rem; }
+    .p2-nav-links { display: none; }
+    .p2-nav-burger { display: flex; }
+    .p2-hero-left { padding: 2.5rem 1.25rem 2rem; }
+    .p2-scenarios { padding: 3rem 1.25rem; }
+    .p2-social-location { padding: 3rem 1.25rem; }
+    .p2-masonry { columns: 1; }
+    .p2-scenarios-header { flex-direction: column; align-items: flex-start; }
+    .p2-features { padding: 0 1.25rem; }
+  }
+  </style>
+
+  <!-- P2: NAV -->
+  <nav class="p2-nav" id="p2-nav" aria-label="Navegação principal">
+    <div class="p2-nav-inner">
+      <a href="/" class="p2-nav-logo" aria-label="Lillia Tavares Fotografia">
+        <span class="p2-nav-logo-name">Lillia Tavares</span>
+        <span class="p2-nav-logo-sub">Fotografia</span>
+      </a>
+      <ul class="p2-nav-links" role="list">
+        <li><a href="/portfolio">Portfolio</a></li>
+        <li><a href="/estudio" class="active">Estúdio</a></li>
+        <li><a href="/precos">Preços</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/agendamento" class="p2-nav-cta-pill">Agendar sessão</a></li>
+      </ul>
+      <button class="p2-nav-burger" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- P2: HERO -->
+  <div class="p2-hero">
+    <div class="p2-hero-left">
+      <p class="p2-hero-tag">Estúdio · São Paulo, SP</p>
+      <h1>Onde toda foto começa com <span class="highlight">intenção</span></h1>
+      <p class="p2-hero-body">Um estúdio criado com cuidado: fundos neutros, cenários exclusivos e luz controlada para que cada ensaio revele o melhor de quem está na frente da câmera.</p>
+      <div class="p2-hero-actions">
+        <a href="/agendamento" class="btn-primary">Agendar minha sessão</a>
+        <a href="#p2-scenarios" class="p2-link-arrow">Ver cenários</a>
+      </div>
+    </div>
+    <div class="p2-hero-right">
+      <div class="skeleton" aria-hidden="true"></div>
+      <img src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80" alt="Interior do estúdio Lillia Tavares" loading="lazy">
+      <div class="p2-hero-caption" aria-hidden="true">
+        <p>Estúdio Pinheiros</p>
+        <span>Disponível de segunda a sábado</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: FEATURES STRIP -->
+  <div class="p2-features" aria-label="Diferenciais do estúdio">
+    <div class="p2-features-inner">
+      <div class="p2-feature-item">
+        <div class="p2-feature-icon" aria-hidden="true">I</div>
+        <div class="p2-feature-text">
+          <p class="p2-feature-title">Iluminação profissional</p>
+          <p class="p2-feature-desc">Equipamentos de estúdio calibrados para cada tipo de ensaio, do retrato ao editorial.</p>
+        </div>
+      </div>
+      <div class="p2-feature-item">
+        <div class="p2-feature-icon" aria-hidden="true">F</div>
+        <div class="p2-feature-text">
+          <p class="p2-feature-title">4 fundos exclusivos</p>
+          <p class="p2-feature-desc">Marinho, terracota, carvão e névoa — cada um com acabamento e paleta únicos.</p>
+        </div>
+      </div>
+      <div class="p2-feature-item">
+        <div class="p2-feature-icon" aria-hidden="true">E</div>
+        <div class="p2-feature-text">
+          <p class="p2-feature-title">Entrega digital curada</p>
+          <p class="p2-feature-desc">Edição personalizada e entrega via galeria privada em até 15 dias úteis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: BACKDROPS (alternating full-bleed rows) -->
+  <div class="p2-backdrops" aria-label="Fundos disponíveis no estúdio">
+    <div class="p2-backdrop-row p2-backdrop-row-navy">
+      <div class="p2-backdrop-visual">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80" alt="Ensaio com fundo azul marinho" loading="lazy">
+      </div>
+      <div class="p2-backdrop-info-panel">
+        <p class="p2-backdrop-number">Fundo 01</p>
+        <h3 class="p2-backdrop-title">Azul Marinho</h3>
+        <p class="p2-backdrop-body">Um fundo que absorve a luz e concentra toda atenção no sujeito. Perfeito para retratos com peso visual, séries corporativas e editoriais de moda.</p>
+        <a href="/estudio/fundo-marinho" class="p2-backdrop-link p2-backdrop-link-light">Explorar ensaios</a>
+      </div>
+    </div>
+    <div class="p2-backdrop-row p2-backdrop-row-tan reverse">
+      <div class="p2-backdrop-visual">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Ensaio com fundo terracota" loading="lazy">
+      </div>
+      <div class="p2-backdrop-info-panel">
+        <p class="p2-backdrop-number">Fundo 02</p>
+        <h3 class="p2-backdrop-title">Terracota</h3>
+        <p class="p2-backdrop-body">Tons quentes que criam uma atmosfera envolvente. O fundo terracota aquece a pele e dá ao retrato um acabamento editorial e artesanal ao mesmo tempo.</p>
+        <a href="/estudio/fundo-terracota" class="p2-backdrop-link p2-backdrop-link-dark">Explorar ensaios</a>
+      </div>
+    </div>
+    <div class="p2-backdrop-row p2-backdrop-row-black">
+      <div class="p2-backdrop-visual">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="Estúdio com fundo carvão" loading="lazy">
+      </div>
+      <div class="p2-backdrop-info-panel">
+        <p class="p2-backdrop-number">Fundo 03</p>
+        <h3 class="p2-backdrop-title">Carvão</h3>
+        <p class="p2-backdrop-body">A escuridão controlada que transforma. Para ensaios de personalidade marcante, retratos dramáticos e campanhas com conceito definido.</p>
+        <a href="/estudio/fundo-carvao" class="p2-backdrop-link p2-backdrop-link-light">Explorar ensaios</a>
+      </div>
+    </div>
+    <div class="p2-backdrop-row p2-backdrop-row-grey reverse">
+      <div class="p2-backdrop-visual">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Ensaio com fundo névoa" loading="lazy">
+      </div>
+      <div class="p2-backdrop-info-panel">
+        <p class="p2-backdrop-number">Fundo 04</p>
+        <h3 class="p2-backdrop-title">Névoa</h3>
+        <p class="p2-backdrop-body">O fundo mais versátil do estúdio. Neutro o suficiente para adaptar-se a qualquer paleta, com textura fina que evita o aspecto esterilizado dos fundos brancos puros.</p>
+        <a href="/estudio/fundo-nevoa" class="p2-backdrop-link p2-backdrop-link-dark">Explorar ensaios</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: SCENARIOS -->
+  <div class="p2-scenarios" id="p2-scenarios">
+    <div class="p2-scenarios-header">
+      <div>
+        <p class="p2-section-label">Ambientações</p>
+        <h2 class="p2-scenarios-title">Cenários que revelam personalidade</h2>
+      </div>
+      <p class="p2-scenarios-aside">Cada cenário foi concebido para criar retratos com personalidade real. Confortáveis o suficiente para que você esqueça a câmera.</p>
+    </div>
+    <div class="p2-masonry" role="list">
+      <div class="p2-masonry-item" role="listitem" tabindex="0" aria-label="Cenário Sala de Estar">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Cenário sala de estar" loading="lazy" style="aspect-ratio:4/3; object-fit:cover; width:100%;">
+        <div class="p2-masonry-overlay">
+          <p class="p2-masonry-name">Sala de Estar</p>
+        </div>
+      </div>
+      <div class="p2-masonry-item" role="listitem" tabindex="0" aria-label="Cenário Sofá Studio">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Cenário sofá studio" loading="lazy" style="aspect-ratio:3/4; object-fit:cover; width:100%;">
+        <div class="p2-masonry-overlay">
+          <p class="p2-masonry-name">Sofá Studio</p>
+        </div>
+      </div>
+      <div class="p2-masonry-item" role="listitem" tabindex="0" aria-label="Cenário Luz Natural">
+        <div class="skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="Cenário com luz natural" loading="lazy" style="aspect-ratio:4/3; object-fit:cover; width:100%;">
+        <div class="p2-masonry-overlay">
+          <p class="p2-masonry-name">Luz Natural</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: SOCIAL PROOF + LOCATION -->
+  <div class="p2-social-location">
+    <div class="p2-social-location-inner">
+      <div class="p2-location-left">
+        <p class="p2-section-label" style="margin-bottom:.75rem;">Localização</p>
+        <h2>Venha conhecer o estúdio</h2>
+        <div>
+          <div class="p2-address-item">
+            <div class="p2-address-dot"></div>
+            <div class="p2-address-item-text">
+              <strong>Endereço</strong>
+              Rua das Fotografias, 142 — Pinheiros<br>São Paulo · SP · 01419-000
+            </div>
+          </div>
+          <div class="p2-address-item">
+            <div class="p2-address-dot"></div>
+            <div class="p2-address-item-text">
+              <strong>Horários</strong>
+              Segunda a Sábado, das 9h às 19h<br>Domingos mediante agendamento
+            </div>
+          </div>
+          <div class="p2-address-item">
+            <div class="p2-address-dot"></div>
+            <div class="p2-address-item-text">
+              <strong>Contato direto</strong>
+              (11) 9 9999-0000 · WhatsApp disponível
+            </div>
+          </div>
+        </div>
+        <div class="p2-cta-stack">
+          <a href="/agendamento" class="btn-primary">Quero agendar minha sessão</a>
+          <a href="/precos" class="btn-secondary">Ver tabela de preços</a>
+        </div>
+      </div>
+      <div class="p2-social-right">
+        <p class="p2-testimonials-label">O que dizem nossos clientes</p>
+        <div class="p2-testimonial-list">
+          <div class="p2-testimonial">
+            <p class="p2-testimonial-quote">"Nunca me senti tão confortável numa sessão. A Lillia sabe exatamente como fazer a pessoa se abrir para a câmera."</p>
+            <p class="p2-testimonial-author">Fernanda A. &mdash; Ensaio corporativo</p>
+          </div>
+          <div class="p2-testimonial">
+            <p class="p2-testimonial-quote">"As fotos do meu book ficaram incríveis. O estúdio tem uma qualidade que você nota logo que chega."</p>
+            <p class="p2-testimonial-author">Marcos R. &mdash; Book artístico</p>
+          </div>
+          <div class="p2-testimonial">
+            <p class="p2-testimonial-quote">"Fiz um ensaio de casal e as imagens trouxeram uma emoção que a gente não esperava. Recomendo muito."</p>
+            <p class="p2-testimonial-author">Carol e Bruno &mdash; Ensaio de casal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: FOOTER -->
+  <footer class="p2-footer">
+    <div class="p2-footer-inner">
+      <p class="p2-footer-logo">Lillia Tavares</p>
+      <p class="p2-footer-sub">Fotografia · São Paulo</p>
+      <ul class="p2-footer-nav" role="list">
+        <li><a href="/portfolio">Portfolio</a></li>
+        <li><a href="/estudio">Estúdio</a></li>
+        <li><a href="/precos">Preços</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/agendamento">Agendamento</a></li>
+        <li><a href="/contato">Contato</a></li>
+      </ul>
+      <p class="p2-footer-copy">&copy; 2025 Lillia Tavares Fotografia &mdash; Todos os direitos reservados</p>
+    </div>
+  </footer>
+
+</section>
+
+<!-- NAV SCROLL BEHAVIOR (works for all proposals via class p1-nav, p2-nav, etc.) -->
+<script>
+(function () {
+  var SCROLL_THRESHOLD = 60;
+  var navSelectors = ['p1-nav', 'p2-nav', 'p3-nav', 'p4-nav', 'p5-nav'];
+
+  /* For each proposal, track scroll inside its wrapper */
+  navSelectors.forEach(function (id) {
+    var nav = document.getElementById(id);
+    if (!nav) return;
+
+    var wrapper = nav.closest('.proposal-wrapper');
+    if (!wrapper) return;
+
+    /* Use IntersectionObserver on a sentinel element above the fold */
+    var sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:' + (SCROLL_THRESHOLD + 64) + 'px;left:0;height:1px;width:1px;pointer-events:none;';
+    wrapper.prepend(sentinel);
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        /* sentinel is no longer visible = user has scrolled past threshold */
+        nav.classList.toggle('scrolled', !entry.isIntersecting);
+      });
+    }, { root: null, threshold: 0 });
+
+    observer.observe(sentinel);
+  });
+
+  /* TOC active dot tracking */
+  var tocLinks = document.querySelectorAll('#toc a');
+  if (tocLinks.length) {
+    var sections = Array.from(tocLinks).map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var idx = sections.indexOf(entry.target);
+          tocLinks.forEach(function (a, i) {
+            a.classList.toggle('active', i === idx);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { if (s) io.observe(s); });
+  }
+
+  /* Skeleton → loaded transition for all lazy images */
+  document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+    if (img.complete) {
+      var sk = img.parentElement.querySelector('.skeleton');
+      if (sk) sk.style.opacity = '0';
+      return;
+    }
+    img.addEventListener('load', function () {
+      var sk = img.parentElement.querySelector('.skeleton');
+      if (sk) { sk.style.transition = 'opacity .35s'; sk.style.opacity = '0'; }
+    });
+  });
+
+  /* Map placeholder click → load iframe */
+  document.querySelectorAll('.p1-map-placeholder').forEach(function (el) {
+    el.addEventListener('click', function () {
+      el.innerHTML = '<iframe title="Mapa do estúdio" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975!2d-46.6833!3d-23.5612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDMzJzQwLjMiUyA0NsKwNDAnNTkuOSJX!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;display:block;" allowfullscreen loading="lazy"></iframe>';
+    });
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') el.click();
+    });
+  });
+}());
+</script>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 3 — FOCO NA CONVERSÃO
+     Cada decisão serve ao único objetivo: agendar uma sessão.
+     ══════════════════════════════════════════════════════════ -->
+<section id="p3" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P3</span>
+    Foco na Conversão — Evolução Segura
+    <span class="rationale">Remove ruído visual, adiciona prova social e cria funil claro. Levemente mais "sales-y".</span>
+  </div>
+
+  <style>
+  /* ─── P3: NAV ─── */
+  .p3-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 0 2rem;
+    height: 4.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    transition: background var(--trans), box-shadow var(--trans);
+    gap: 1rem;
+  }
+  .p3-nav.scrolled {
+    background: var(--white);
+    box-shadow: 0 2px 12px rgba(0,0,0,.09);
+  }
+  .p3-nav-logo {
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--white);
+    transition: color var(--trans);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .p3-nav.scrolled .p3-nav-logo { color: var(--olive); }
+  .p3-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .p3-nav-links a {
+    font-size: .73rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.88);
+    transition: color var(--trans);
+    white-space: nowrap;
+  }
+  .p3-nav.scrolled .p3-nav-links a { color: var(--olive); }
+  .p3-nav-links a:hover { color: var(--white); }
+  .p3-nav.scrolled .p3-nav-links a:hover { color: var(--olive-dark); }
+  .p3-nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: #25D366;
+    color: var(--white);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .65rem 1.25rem;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    flex-shrink: 0;
+  }
+  .p3-nav-cta:hover {
+    background: #1ebe5d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(37,211,102,.4);
+  }
+  .p3-nav-cta:focus-visible { outline: 2px solid #25D366; outline-offset: 3px; }
+
+  /* ─── P3: HERO ─── */
+  .p3-hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+  }
+  .p3-hero-bg {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  .p3-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17,29,44,.68) 0%, rgba(17,29,44,.82) 100%);
+    z-index: 1;
+  }
+  .p3-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+  }
+  .p3-hero-eyebrow {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+    margin-bottom: 1.25rem;
+  }
+  .p3-hero-h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    letter-spacing: -.01em;
+  }
+  .p3-hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 300;
+    color: rgba(255,255,255,.82);
+    max-width: 52ch;
+    margin: 0 auto 2.25rem;
+    line-height: 1.6;
+  }
+  .p3-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--olive);
+    color: var(--white);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 1.05rem 2.5rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--olive);
+    cursor: pointer;
+    transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    text-decoration: none;
+  }
+  .p3-hero-cta:hover {
+    background: var(--olive-dark);
+    border-color: var(--olive-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(91,88,64,.45);
+  }
+  .p3-hero-cta:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
+  .p3-trust-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem 2rem;
+    margin-top: 2rem;
+  }
+  .p3-trust-item {
+    font-size: .78rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.72);
+    letter-spacing: .08em;
+    white-space: nowrap;
+  }
+  .p3-trust-item .p3-stars {
+    color: var(--backdrop-tan);
+    font-size: .9rem;
+    margin-right: .3rem;
+    letter-spacing: .05em;
+  }
+
+  /* ─── P3: TESTIMONIALS STRIP ─── */
+  .p3-testimonials {
+    background: var(--cream-light);
+    padding: 4rem 0 4rem;
+    overflow: hidden;
+  }
+  .p3-testimonials-inner {
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .p3-section-eyebrow {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .7;
+    margin-bottom: .75rem;
+  }
+  .p3-section-title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+  .p3-testi-scroll {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--neutral-mid) transparent;
+  }
+  .p3-testi-card {
+    flex: 0 0 clamp(260px, 80vw, 360px);
+    scroll-snap-align: start;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--trans), transform var(--trans);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .p3-testi-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .p3-testi-stars {
+    color: var(--backdrop-tan);
+    font-size: 1rem;
+    letter-spacing: .1em;
+  }
+  .p3-testi-quote {
+    font-size: .92rem;
+    line-height: 1.65;
+    color: var(--backdrop-navy);
+    font-style: italic;
+    flex: 1;
+  }
+  .p3-testi-author {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+  }
+  .p3-testi-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .p3-testi-avatar-skeleton {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .p3-testi-name {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--olive);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .p3-testi-tag {
+    font-size: .72rem;
+    color: var(--neutral-mid);
+    margin-top: .15rem;
+  }
+
+  /* ─── P3: DIFERENCIAIS ─── */
+  .p3-diferenciais {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .p3-dif-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .p3-dif-img-wrap {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/5;
+  }
+  .p3-dif-img-skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+  }
+  .p3-dif-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+  }
+  .p3-dif-content {}
+  .p3-dif-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .p3-dif-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    font-size: .95rem;
+    line-height: 1.55;
+    color: var(--backdrop-navy);
+  }
+  .p3-dif-list li::before {
+    content: "\2713";
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--olive);
+    flex-shrink: 0;
+    margin-top: .05rem;
+  }
+
+  /* ─── P3: CENÁRIOS ─── */
+  .p3-cenarios {
+    background: var(--cream-light);
+    padding: 5rem 2rem;
+  }
+  .p3-cenarios-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .p3-cenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .p3-cenario-card {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--trans), transform var(--trans);
+    cursor: pointer;
+  }
+  .p3-cenario-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+  .p3-cenario-img-wrap {
+    position: relative;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+  }
+  .p3-cenario-img-skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+  }
+  .p3-cenario-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    transition: transform .4s ease;
+  }
+  .p3-cenario-card:hover .p3-cenario-img { transform: scale(1.04); }
+  .p3-cenario-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .p3-cenario-name {
+    font-size: .88rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--backdrop-navy);
+  }
+  .p3-cenario-link {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--trans);
+    white-space: nowrap;
+  }
+  .p3-cenario-link:hover { color: var(--olive-dark); }
+
+  /* ─── P3: CTA SECTION ─── */
+  .p3-cta-section {
+    background: var(--olive);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .p3-cta-h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+  .p3-cta-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,.82);
+    max-width: 48ch;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .p3-cta-btns {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .p3-cta-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: #25D366;
+    color: var(--white);
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: .95rem 2rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid #25D366;
+    cursor: pointer;
+    transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    text-decoration: none;
+  }
+  .p3-cta-wa:hover {
+    background: #1ebe5d;
+    border-color: #1ebe5d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37,211,102,.4);
+  }
+  .p3-cta-wa:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+  .p3-cta-prices {
+    display: inline-block;
+    background: transparent;
+    color: var(--white);
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: .95rem 2rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid rgba(255,255,255,.6);
+    cursor: pointer;
+    transition: background var(--trans), border-color var(--trans), transform var(--trans);
+    text-decoration: none;
+  }
+  .p3-cta-prices:hover {
+    background: rgba(255,255,255,.12);
+    border-color: var(--white);
+    transform: translateY(-1px);
+  }
+  .p3-cta-prices:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+
+  /* ─── P3: LOCATION ─── */
+  .p3-location {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .p3-loc-card {
+    background: var(--cream-light);
+    border-radius: var(--radius-sm);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+  }
+  .p3-loc-info {}
+  .p3-loc-label {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .7;
+    margin-bottom: .5rem;
+  }
+  .p3-loc-address {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--backdrop-navy);
+    line-height: 1.6;
+  }
+  .p3-loc-hours {
+    font-size: .85rem;
+    color: var(--olive);
+    margin-top: .4rem;
+  }
+  .p3-loc-map-btn {
+    display: inline-block;
+    background: var(--backdrop-navy);
+    color: var(--white);
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    padding: .8rem 1.6rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background var(--trans), transform var(--trans);
+    flex-shrink: 0;
+  }
+  .p3-loc-map-btn:hover {
+    background: var(--olive);
+    transform: translateY(-1px);
+  }
+  .p3-loc-map-btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ─── P3: FOOTER ─── */
+  .p3-footer {
+    background: var(--cream-footer);
+    border-top: 1px solid var(--neutral-mid);
+    padding: 2.5rem 2rem;
+  }
+  .p3-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .p3-footer-logo {
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .6rem;
+  }
+  .p3-footer-tagline {
+    font-size: .82rem;
+    color: var(--olive);
+    opacity: .65;
+    font-style: italic;
+  }
+  .p3-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    align-items: flex-end;
+  }
+  .p3-footer-links a {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .75;
+    transition: opacity var(--trans), color var(--trans);
+    text-decoration: none;
+  }
+  .p3-footer-links a:hover { opacity: 1; color: var(--olive-dark); text-decoration: underline; }
+  .p3-footer-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+  /* ─── P3: RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .p3-dif-grid { grid-template-columns: 1fr; }
+    .p3-dif-img-wrap { aspect-ratio: 16/9; max-height: 340px; }
+    .p3-cenarios-grid { grid-template-columns: repeat(2, 1fr); }
+    .p3-footer-inner { grid-template-columns: 1fr; }
+    .p3-footer-links { align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    .p3-hero { padding: 5rem 1.25rem 3rem; min-height: 85vh; }
+    .p3-nav { padding: 0 1.25rem; }
+    .p3-nav-links { display: none; }
+    .p3-testimonials, .p3-cenarios { padding: 3.5rem 1.25rem; }
+    .p3-diferenciais { padding: 3.5rem 1.25rem; }
+    .p3-cenarios-grid { grid-template-columns: 1fr; }
+    .p3-cta-section { padding: 3.5rem 1.25rem; }
+    .p3-location { padding: 2.5rem 1.25rem; }
+    .p3-loc-card { padding: 1.5rem; }
+    .p3-footer { padding: 2rem 1.25rem; }
+    .p3-hero-cta { font-size: .9rem; padding: .9rem 1.75rem; }
+  }
+  </style>
+
+  <!-- P3: NAV -->
+  <nav class="p3-nav" id="p3-nav" aria-label="Navegação principal">
+    <a href="#p3" class="p3-nav-logo" aria-label="Página inicial">Lillia Tavares</a>
+    <ul class="p3-nav-links">
+      <li><a href="#p3-cenarios">Trabalhos</a></li>
+      <li><a href="#p3-location">Preços</a></li>
+      <li><a href="#p3-location">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5511999999999" class="p3-nav-cta" aria-label="Agendar pelo WhatsApp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.554 4.1 1.523 5.82L.057 23.999l6.305-1.654A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-4.999-1.37l-.358-.213-3.742.981 1-3.643-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+      Agendar agora
+    </a>
+  </nav>
+
+  <!-- P3: HERO -->
+  <section class="p3-hero">
+    <div class="p3-hero-overlay" aria-hidden="true"></div>
+    <div class="p3-hero-bg skeleton" aria-hidden="true" style="z-index:0;border-radius:0;"></div>
+    <img src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80"
+         alt="Estúdio fotográfico iluminado com cenários elegantes"
+         class="p3-hero-bg" style="z-index:0;" loading="lazy"
+         onload="this.previousElementSibling.style.display='none'">
+    <div class="p3-hero-content">
+      <p class="p3-hero-eyebrow">Estúdio Fotográfico em Mogi das Cruzes</p>
+      <h1 class="p3-hero-h1">Fotos que contam<br>a sua história</h1>
+      <p class="p3-hero-sub">Do cenário à edição, cada detalhe pensado para você. Agende sua sessão e transforme momentos em arte.</p>
+      <a href="https://wa.me/5511999999999" class="p3-hero-cta">Quero agendar minha sessão</a>
+      <div class="p3-trust-row" aria-label="Indicadores de confiança">
+        <span class="p3-trust-item"><span class="p3-stars">★★★★★</span> 4.9 no Google</span>
+        <span class="p3-trust-item">500+ ensaios realizados</span>
+        <span class="p3-trust-item">Mogi das Cruzes, SP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- P3: TESTIMONIALS STRIP -->
+  <section class="p3-testimonials" aria-labelledby="p3-testi-heading">
+    <div class="p3-testimonials-inner">
+      <p class="p3-section-eyebrow">O que dizem as clientes</p>
+      <h2 class="p3-section-title" id="p3-testi-heading">Depoimentos reais</h2>
+      <div class="p3-testi-scroll" role="list">
+        <article class="p3-testi-card" role="listitem">
+          <div class="p3-testi-stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="p3-testi-quote">"Nunca me senti tão à vontade na frente de uma câmera. A Lillia tem uma habilidade incrível de capturar emoções genuínas. As fotos ficaram simplesmente perfeitas."</p>
+          <div class="p3-testi-author">
+            <div class="p3-testi-avatar-skeleton skeleton" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+                 alt="Retrato de Ana Beatriz, cliente" class="p3-testi-avatar"
+                 style="display:none" loading="lazy"
+                 onload="this.style.display='block';this.previousElementSibling.style.display='none'">
+            <div>
+              <p class="p3-testi-name">Ana Beatriz</p>
+              <p class="p3-testi-tag">Ensaio Feminino</p>
+            </div>
+          </div>
+        </article>
+        <article class="p3-testi-card" role="listitem">
+          <div class="p3-testi-stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="p3-testi-quote">"O estúdio é lindo, os cenários são apaixonantes. Fiz meu ensaio de 15 anos aqui e cada foto é uma obra de arte. Vale cada centavo!"</p>
+          <div class="p3-testi-author">
+            <div class="p3-testi-avatar-skeleton skeleton" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+                 alt="Retrato de Mariana Costa, cliente" class="p3-testi-avatar"
+                 style="display:none" loading="lazy"
+                 onload="this.style.display='block';this.previousElementSibling.style.display='none'">
+            <div>
+              <p class="p3-testi-name">Mariana Costa</p>
+              <p class="p3-testi-tag">Ensaio de 15 anos</p>
+            </div>
+          </div>
+        </article>
+        <article class="p3-testi-card" role="listitem">
+          <div class="p3-testi-stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="p3-testi-quote">"Profissionalismo e carinho em cada detalhe. A Lillia guia você durante toda a sessão e o resultado final superou todas as minhas expectativas."</p>
+          <div class="p3-testi-author">
+            <div class="p3-testi-avatar-skeleton skeleton" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+                 alt="Retrato de Camila Santos, cliente" class="p3-testi-avatar"
+                 style="display:none" loading="lazy"
+                 onload="this.style.display='block';this.previousElementSibling.style.display='none'">
+            <div>
+              <p class="p3-testi-name">Camila Santos</p>
+              <p class="p3-testi-tag">Ensaio Gestante</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- P3: DIFERENCIAIS -->
+  <section class="p3-diferenciais" aria-labelledby="p3-dif-heading">
+    <p class="p3-section-eyebrow">Por que escolher o estúdio</p>
+    <h2 class="p3-section-title" id="p3-dif-heading">Experiência completa,<br>do início ao fim</h2>
+    <div class="p3-dif-grid">
+      <div class="p3-dif-img-wrap">
+        <div class="p3-dif-img-skeleton skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
+             alt="Interior decorado do estúdio fotográfico"
+             class="p3-dif-img" loading="lazy"
+             onload="this.parentElement.querySelector('.p3-dif-img-skeleton').style.display='none'">
+      </div>
+      <div class="p3-dif-content">
+        <ul class="p3-dif-list">
+          <li>Estúdio climatizado com 8 cenários exclusivos para todos os estilos</li>
+          <li>Iluminação profissional e equipamentos de última geração</li>
+          <li>Sessão orientada: você não precisa saber posar</li>
+          <li>Entrega digital em alta resolução em até 7 dias úteis</li>
+          <li>Opções de impressão e álbuns sob encomenda</li>
+          <li>Agendamento flexível, incluindo fins de semana</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- P3: CENÁRIOS -->
+  <section class="p3-cenarios" id="p3-cenarios" aria-labelledby="p3-cen-heading">
+    <div class="p3-cenarios-inner">
+      <p class="p3-section-eyebrow">Ambientes disponíveis</p>
+      <h2 class="p3-section-title" id="p3-cen-heading">Escolha o seu cenário</h2>
+      <div class="p3-cenarios-grid">
+        <article class="p3-cenario-card" tabindex="0">
+          <div class="p3-cenario-img-wrap">
+            <div class="p3-cenario-img-skeleton skeleton" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80"
+                 alt="Cenário clássico com sofá e detalhes vintage"
+                 class="p3-cenario-img" loading="lazy"
+                 onload="this.parentElement.querySelector('.p3-cenario-img-skeleton').style.display='none'">
+          </div>
+          <div class="p3-cenario-body">
+            <span class="p3-cenario-name">Cenário Clássico</span>
+            <a href="#p3" class="p3-cenario-link">Ver fotos</a>
+          </div>
+        </article>
+        <article class="p3-cenario-card" tabindex="0">
+          <div class="p3-cenario-img-wrap">
+            <div class="p3-cenario-img-skeleton skeleton" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80"
+                 alt="Cenário moderno com sofá contemporâneo"
+                 class="p3-cenario-img" loading="lazy"
+                 onload="this.parentElement.querySelector('.p3-cenario-img-skeleton').style.display='none'">
+          </div>
+          <div class="p3-cenario-body">
+            <span class="p3-cenario-name">Cenário Moderno</span>
+            <a href="#p3" class="p3-cenario-link">Ver fotos</a>
+          </div>
+        </article>
+        <article class="p3-cenario-card" tabindex="0">
+          <div class="p3-cenario-img-wrap">
+            <div class="p3-cenario-img-skeleton skeleton" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80"
+                 alt="Cenário natural com luz difusa"
+                 class="p3-cenario-img" loading="lazy"
+                 onload="this.parentElement.querySelector('.p3-cenario-img-skeleton').style.display='none'">
+          </div>
+          <div class="p3-cenario-body">
+            <span class="p3-cenario-name">Luz Natural</span>
+            <a href="#p3" class="p3-cenario-link">Ver fotos</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- P3: BOOKING CTA -->
+  <section class="p3-cta-section" aria-labelledby="p3-cta-heading">
+    <h2 class="p3-cta-h2" id="p3-cta-heading">Pronta para seu ensaio?</h2>
+    <p class="p3-cta-sub">Datas com disponibilidade limitada. Garante o seu horário agora mesmo.</p>
+    <div class="p3-cta-btns">
+      <a href="https://wa.me/5511999999999" class="p3-cta-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.554 4.1 1.523 5.82L.057 23.999l6.305-1.654A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-4.999-1.37l-.358-.213-3.742.981 1-3.643-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+        Falar no WhatsApp
+      </a>
+      <a href="#p3-cenarios" class="p3-cta-prices">Ver preços e pacotes</a>
+    </div>
+  </section>
+
+  <!-- P3: LOCATION -->
+  <section class="p3-location" id="p3-location" aria-labelledby="p3-loc-heading">
+    <h2 class="p3-section-title" id="p3-loc-heading" style="margin-bottom:1.5rem;">Onde nos encontrar</h2>
+    <div class="p3-loc-card">
+      <div class="p3-loc-info">
+        <p class="p3-loc-label">Endereço</p>
+        <address class="p3-loc-address" style="font-style:normal;">
+          Rua das Orquídeas, 123 — Mogi das Cruzes, SP<br>CEP 08730-000
+        </address>
+        <p class="p3-loc-hours">Segunda a sábado, 9h às 19h</p>
+      </div>
+      <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="p3-loc-map-btn">
+        Ver no Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- P3: FOOTER -->
+  <footer class="p3-footer">
+    <div class="p3-footer-inner">
+      <div>
+        <p class="p3-footer-logo">Lillia Tavares</p>
+        <p class="p3-footer-tagline">Fotografia de retratos em Mogi das Cruzes</p>
+      </div>
+      <nav class="p3-footer-links" aria-label="Links do rodapé">
+        <a href="#p3">Trabalhos</a>
+        <a href="#p3">Preços</a>
+        <a href="#p3">Blog</a>
+        <a href="#p3">Contato</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    var nav = document.getElementById('p3-nav');
+    function onScroll(){
+      var rect = nav.closest('#p3').getBoundingClientRect();
+      var scrolled = window.scrollY - rect.top - nav.closest('#p3').offsetTop > 60;
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</section>
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 4 — GALERIA IMERSIVA
+     Lidera com fotografia, não texto. Impacto emocional primeiro.
+     ══════════════════════════════════════════════════════════ -->
+<section id="p4" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P4</span>
+    Galeria Imersiva — Extrapolação Estrutural
+    <span class="rationale">Portfólio como argumento principal. Depende da qualidade das fotos reais para funcionar.</span>
+  </div>
+
+  <style>
+  /* ─── P4: NAV (floating pill) ─── */
+  .p4-nav-wrap {
+    position: absolute;
+    top: 1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: calc(100% - 3rem);
+    max-width: 680px;
+    pointer-events: none;
+  }
+  .p4-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(17,29,44,.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: var(--radius-pill);
+    padding: .85rem 2rem;
+    pointer-events: all;
+    transition: background var(--trans), box-shadow var(--trans);
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .p4-nav.scrolled {
+    background: var(--backdrop-navy);
+    box-shadow: 0 4px 24px rgba(0,0,0,.22);
+  }
+  .p4-nav-link {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.82);
+    transition: color var(--trans);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .p4-nav-link:hover { color: var(--white); }
+  .p4-nav-link:focus-visible { outline: 2px solid var(--backdrop-tan); outline-offset: 4px; border-radius: 2px; }
+  .p4-nav-sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.3);
+    flex-shrink: 0;
+  }
+  .p4-nav-cta-pill {
+    display: inline-block;
+    background: var(--olive);
+    color: var(--white);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .5rem 1.1rem;
+    border-radius: var(--radius-pill);
+    transition: background var(--trans), transform var(--trans);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .p4-nav-cta-pill:hover { background: var(--olive-dark); transform: scale(1.03); }
+  .p4-nav-cta-pill:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+
+  /* ─── P4: HERO ─── */
+  .p4-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .p4-hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    z-index: 0;
+  }
+  .p4-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(17,29,44,.52) 0%, rgba(17,29,44,.72) 100%);
+    z-index: 1;
+  }
+  .p4-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+  }
+  .p4-hero-logo {
+    font-size: clamp(1.5rem, 5vw, 3.2rem);
+    font-weight: 300;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: .6rem;
+  }
+  .p4-hero-logo strong {
+    font-weight: 900;
+    display: block;
+    letter-spacing: .18em;
+    font-size: .62em;
+    opacity: .75;
+    margin-top: .4rem;
+  }
+  .p4-hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    color: rgba(255,255,255,.6);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    cursor: default;
+  }
+  @keyframes p4-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+  .p4-hero-scroll { animation: p4-bounce 2s ease-in-out infinite; }
+
+  /* ─── P4: STUDIO STRIP ─── */
+  .p4-studio {
+    padding: 5rem 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .p4-photo-strip {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -2rem 3rem;
+    padding: 0 2rem;
+  }
+  .p4-photo-strip::-webkit-scrollbar { display: none; }
+  .p4-strip-item {
+    flex: 0 0 clamp(180px, 35vw, 320px);
+    scroll-snap-align: start;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    position: relative;
+  }
+  .p4-strip-skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+  }
+  .p4-strip-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    transition: transform .4s ease;
+  }
+  .p4-strip-item:hover .p4-strip-img { transform: scale(1.04); }
+  .p4-studio-text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .p4-studio-h2 {
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    line-height: 1.15;
+  }
+  .p4-studio-body {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--olive);
+  }
+  .p4-studio-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: transparent;
+    color: var(--olive);
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .75rem 1.5rem;
+    border: 2px solid var(--olive);
+    border-radius: var(--radius-sm);
+    transition: background var(--trans), color var(--trans), transform var(--trans);
+    text-decoration: none;
+  }
+  .p4-studio-cta:hover {
+    background: var(--olive);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+  .p4-studio-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ─── P4: BACKDROPS (full-screen sections) ─── */
+  .p4-backdrop-section {
+    height: 90vh;
+    min-height: 480px;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    overflow: hidden;
+  }
+  .p4-backdrop-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 0;
+  }
+  .p4-backdrop-skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    z-index: 0;
+  }
+  .p4-backdrop-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .p4-backdrop-text {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 3rem 3.5rem;
+    max-width: 420px;
+  }
+  .p4-backdrop-eyebrow {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+  }
+  .p4-backdrop-name {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: .75rem;
+  }
+  .p4-backdrop-desc {
+    font-size: .9rem;
+    line-height: 1.6;
+    max-width: 36ch;
+  }
+  .p4-backdrop-swatch {
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.4);
+    margin-bottom: 1rem;
+    vertical-align: middle;
+    margin-right: .5rem;
+  }
+
+  /* Navy backdrop */
+  .p4-bd-navy .p4-backdrop-overlay {
+    background: linear-gradient(90deg, rgba(17,29,44,.88) 0%, rgba(17,29,44,.2) 70%);
+  }
+  .p4-bd-navy .p4-backdrop-eyebrow,
+  .p4-bd-navy .p4-backdrop-name,
+  .p4-bd-navy .p4-backdrop-desc { color: var(--white); }
+
+  /* Tan backdrop */
+  .p4-bd-tan .p4-backdrop-overlay {
+    background: linear-gradient(90deg, rgba(185,152,121,.92) 0%, rgba(185,152,121,.25) 70%);
+  }
+  .p4-bd-tan .p4-backdrop-eyebrow { color: rgba(255,255,255,.75); }
+  .p4-bd-tan .p4-backdrop-name { color: var(--white); }
+  .p4-bd-tan .p4-backdrop-desc { color: rgba(255,255,255,.85); }
+
+  /* ─── P4: MASONRY GRID ─── */
+  .p4-masonry {
+    padding: 5rem 2rem;
+    background: var(--cream-light);
+  }
+  .p4-masonry-inner { max-width: 1200px; margin: 0 auto; }
+  .p4-masonry-heading {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    margin-bottom: 2rem;
+  }
+  .p4-masonry-grid {
+    columns: 3;
+    column-gap: 1rem;
+  }
+  .p4-masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    display: block;
+  }
+  .p4-masonry-item:hover .p4-masonry-img { transform: scale(1.04); filter: brightness(1.06); }
+  .p4-masonry-item:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+  .p4-masonry-img {
+    width: 100%;
+    display: block;
+    transition: transform .45s ease, filter .45s ease;
+  }
+  .p4-masonry-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: .75rem 1rem;
+    background: linear-gradient(0deg, rgba(17,29,44,.72) 0%, transparent 100%);
+    color: var(--white);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .p4-masonry-item:hover .p4-masonry-caption,
+  .p4-masonry-item:focus-visible .p4-masonry-caption { opacity: 1; }
+
+  /* ─── P4: ABOUT + CTA ─── */
+  .p4-about {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .p4-about-text {}
+  .p4-about-eyebrow {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .7;
+    margin-bottom: .75rem;
+  }
+  .p4-about-h2 {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+  .p4-about-body {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--olive);
+    margin-bottom: 2rem;
+  }
+  .p4-about-img-wrap {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 3/4;
+  }
+  .p4-about-img-skeleton { position: absolute; inset: 0; border-radius: 0; }
+  .p4-about-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+  }
+  .p4-about-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--olive);
+    color: var(--white);
+    font-size: .92rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .95rem 2rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--olive);
+    transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    text-decoration: none;
+  }
+  .p4-about-cta:hover {
+    background: var(--olive-dark);
+    border-color: var(--olive-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(91,88,64,.3);
+  }
+  .p4-about-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ─── P4: LOCATION ─── */
+  .p4-location {
+    padding: 4rem 2rem;
+    background: var(--cream-light);
+    text-align: center;
+  }
+  .p4-loc-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--backdrop-navy);
+    margin-bottom: .75rem;
+  }
+  .p4-loc-addr {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--olive);
+    margin-bottom: 1.5rem;
+  }
+  .p4-loc-link {
+    display: inline-block;
+    background: var(--backdrop-navy);
+    color: var(--white);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .8rem 1.75rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background var(--trans), transform var(--trans);
+  }
+  .p4-loc-link:hover { background: var(--olive); transform: translateY(-1px); }
+  .p4-loc-link:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ─── P4: FOOTER ─── */
+  .p4-footer {
+    background: var(--backdrop-navy);
+    padding: 4rem 2rem 2.5rem;
+    text-align: center;
+  }
+  .p4-footer-logo {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: .6rem;
+  }
+  .p4-footer-tagline {
+    font-size: .8rem;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .p4-footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem 1.5rem;
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+  .p4-footer-links a {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    transition: color var(--trans);
+    text-decoration: none;
+  }
+  .p4-footer-links a:hover { color: var(--white); }
+  .p4-footer-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p4-footer-copy {
+    font-size: .7rem;
+    color: rgba(255,255,255,.25);
+  }
+
+  /* ─── P4: RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .p4-masonry-grid { columns: 2; }
+  }
+  @media (max-width: 900px) {
+    .p4-studio-text { grid-template-columns: 1fr; }
+    .p4-about { grid-template-columns: 1fr; }
+    .p4-about-img-wrap { aspect-ratio: 16/9; max-height: 360px; order: -1; }
+  }
+  @media (max-width: 600px) {
+    .p4-nav-wrap { top: 1rem; width: calc(100% - 2rem); }
+    .p4-nav { gap: 1rem; padding: .75rem 1.25rem; }
+    .p4-nav-sep { display: none; }
+    .p4-masonry-grid { columns: 1; }
+    .p4-backdrop-text { padding: 2rem 1.5rem 2.5rem; }
+    .p4-about { padding: 3.5rem 1.25rem; gap: 2rem; }
+    .p4-studio { padding: 3.5rem 1.25rem; }
+  }
+  </style>
+
+  <!-- P4: NAV (floating pill - positioned absolute over hero) -->
+  <div class="p4-nav-wrap" role="navigation" aria-label="Navegação principal">
+    <nav class="p4-nav" id="p4-nav">
+      <a href="#p4-backdrops" class="p4-nav-link">Cenários</a>
+      <div class="p4-nav-sep" aria-hidden="true"></div>
+      <a href="#p4-about" class="p4-nav-link">Sobre</a>
+      <div class="p4-nav-sep" aria-hidden="true"></div>
+      <a href="#p4-location" class="p4-nav-link">Localização</a>
+      <div class="p4-nav-sep" aria-hidden="true"></div>
+      <a href="https://wa.me/5511999999999" class="p4-nav-cta-pill">Agendar</a>
+    </nav>
+  </div>
+
+  <!-- P4: HERO -->
+  <section class="p4-hero">
+    <div class="p4-hero-overlay" aria-hidden="true"></div>
+    <div class="skeleton" style="position:absolute;inset:0;border-radius:0;z-index:0;" aria-hidden="true"></div>
+    <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+         alt="Retrato feminino em estúdio com iluminação dramática"
+         class="p4-hero-bg" loading="lazy"
+         onload="this.previousElementSibling.style.display='none'">
+    <div class="p4-hero-content">
+      <p class="p4-hero-logo">
+        Lillia Tavares
+        <strong>Fotografia de Retratos</strong>
+      </p>
+    </div>
+    <div class="p4-hero-scroll" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      Scroll
+    </div>
+  </section>
+
+  <!-- P4: STUDIO STRIP -->
+  <section class="p4-studio" aria-labelledby="p4-studio-heading">
+    <div class="p4-photo-strip" role="list" aria-label="Fotos do estúdio">
+      <div class="p4-strip-item" role="listitem">
+        <div class="p4-strip-skeleton skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80"
+             alt="Interior do estúdio com iluminação natural"
+             class="p4-strip-img" loading="lazy"
+             onload="this.parentElement.querySelector('.p4-strip-skeleton').style.display='none'">
+      </div>
+      <div class="p4-strip-item" role="listitem">
+        <div class="p4-strip-skeleton skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
+             alt="Detalhes decorativos do estúdio"
+             class="p4-strip-img" loading="lazy"
+             onload="this.parentElement.querySelector('.p4-strip-skeleton').style.display='none'">
+      </div>
+      <div class="p4-strip-item" role="listitem">
+        <div class="p4-strip-skeleton skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+             alt="Ensaio fotográfico em cenário claro"
+             class="p4-strip-img" loading="lazy"
+             onload="this.parentElement.querySelector('.p4-strip-skeleton').style.display='none'">
+      </div>
+      <div class="p4-strip-item" role="listitem">
+        <div class="p4-strip-skeleton skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80"
+             alt="Cenário clássico do estúdio"
+             class="p4-strip-img" loading="lazy"
+             onload="this.parentElement.querySelector('.p4-strip-skeleton').style.display='none'">
+      </div>
+      <div class="p4-strip-item" role="listitem">
+        <div class="p4-strip-skeleton skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80"
+             alt="Cenário moderno do estúdio"
+             class="p4-strip-img" loading="lazy"
+             onload="this.parentElement.querySelector('.p4-strip-skeleton').style.display='none'">
+      </div>
+    </div>
+    <div class="p4-studio-text">
+      <h2 class="p4-studio-h2" id="p4-studio-heading">Um espaço criado para<br>a sua melhor foto</h2>
+      <div>
+        <p class="p4-studio-body">Cada cenário do estúdio foi desenhado pensando em versatilidade e elegância. Do ensaio íntimo ao retrato de família, o ambiente se adapta à sua história e ao seu estilo.</p>
+        <a href="https://wa.me/5511999999999" class="p4-studio-cta">Agendar sessão</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- P4: BACKDROPS -->
+  <div id="p4-backdrops">
+    <section class="p4-backdrop-section p4-bd-navy" aria-labelledby="p4-bd1-heading">
+      <div class="p4-backdrop-skeleton skeleton" aria-hidden="true"></div>
+      <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+           alt="Ensaio com backdrop navy — fundo azul marinho"
+           class="p4-backdrop-img" loading="lazy"
+           onload="this.previousElementSibling.style.display='none'">
+      <div class="p4-backdrop-overlay" aria-hidden="true"></div>
+      <div class="p4-backdrop-text">
+        <span class="p4-backdrop-swatch" style="background:var(--backdrop-navy);" aria-hidden="true"></span>
+        <p class="p4-backdrop-eyebrow">Backdrop</p>
+        <h2 class="p4-backdrop-name" id="p4-bd1-heading">Navy</h2>
+        <p class="p4-backdrop-desc">Profundidade e sofisticação. Perfeito para retratos de impacto com luz direcional.</p>
+      </div>
+    </section>
+    <section class="p4-backdrop-section p4-bd-tan" aria-labelledby="p4-bd2-heading">
+      <div class="p4-backdrop-skeleton skeleton" aria-hidden="true"></div>
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+           alt="Ensaio com backdrop tan — fundo bege dourado"
+           class="p4-backdrop-img" loading="lazy"
+           onload="this.previousElementSibling.style.display='none'">
+      <div class="p4-backdrop-overlay" aria-hidden="true"></div>
+      <div class="p4-backdrop-text">
+        <span class="p4-backdrop-swatch" style="background:var(--backdrop-tan);" aria-hidden="true"></span>
+        <p class="p4-backdrop-eyebrow">Backdrop</p>
+        <h2 class="p4-backdrop-name" id="p4-bd2-heading">Tan</h2>
+        <p class="p4-backdrop-desc">Calor e luminosidade. Ideal para ensaios femininos e gestantes.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- P4: MASONRY CENÁRIOS -->
+  <section class="p4-masonry" aria-labelledby="p4-masonry-heading">
+    <div class="p4-masonry-inner">
+      <h2 class="p4-masonry-heading" id="p4-masonry-heading">Galeria de cenários</h2>
+      <div class="p4-masonry-grid">
+        <a href="#p4" class="p4-masonry-item" tabindex="0" aria-label="Cenário Clássico — ver fotos">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80"
+               alt="Cenário clássico com sofá vintage" class="p4-masonry-img" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p4-masonry-caption">Cenário Clássico</div>
+        </a>
+        <a href="#p4" class="p4-masonry-item" tabindex="0" aria-label="Cenário Moderno — ver fotos" style="margin-top:1.5rem;">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80"
+               alt="Cenário moderno com sofá contemporâneo" class="p4-masonry-img" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p4-masonry-caption">Cenário Moderno</div>
+        </a>
+        <a href="#p4" class="p4-masonry-item" tabindex="0" aria-label="Luz Difusa — ver fotos">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
+               alt="Cenário com luz difusa e elementos naturais" class="p4-masonry-img" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p4-masonry-caption">Luz Difusa</div>
+        </a>
+        <a href="#p4" class="p4-masonry-item" tabindex="0" aria-label="Retrato Intimista — ver fotos" style="margin-top:1rem;">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80"
+               alt="Retrato intimista com iluminação cálida" class="p4-masonry-img" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p4-masonry-caption">Retrato Intimista</div>
+        </a>
+        <a href="#p4" class="p4-masonry-item" tabindex="0" aria-label="Ensaio Feminino — ver fotos" style="margin-top:.5rem;">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+               alt="Ensaio feminino com luz natural" class="p4-masonry-img" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p4-masonry-caption">Ensaio Feminino</div>
+        </a>
+        <a href="#p4" class="p4-masonry-item" tabindex="0" aria-label="Ensaio Dramático — ver fotos">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+               alt="Ensaio dramático com contraste marcante" class="p4-masonry-img" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p4-masonry-caption">Ensaio Dramático</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- P4: ABOUT + CTA -->
+  <section class="p4-about" id="p4-about" aria-labelledby="p4-about-heading">
+    <div class="p4-about-text">
+      <p class="p4-about-eyebrow">Quem fotografa</p>
+      <h2 class="p4-about-h2" id="p4-about-heading">Lillia Tavares</h2>
+      <p class="p4-about-body">Fotógrafa há mais de 8 anos, especializada em retratos femininos e ensaios de gestante. Minha abordagem é simples: criar um ambiente onde você se sinta segura para ser quem é. Nenhuma pose forçada, nenhuma perfeição artificial — apenas a sua essência revelada pela luz.</p>
+      <a href="https://wa.me/5511999999999" class="p4-about-cta">Agendar minha sessão</a>
+    </div>
+    <div class="p4-about-img-wrap">
+      <div class="p4-about-img-skeleton skeleton" aria-hidden="true"></div>
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+           alt="Retrato da fotógrafa Lillia Tavares"
+           class="p4-about-img" loading="lazy"
+           onload="this.previousElementSibling.style.display='none'">
+    </div>
+  </section>
+
+  <!-- P4: LOCATION -->
+  <section class="p4-location" id="p4-location" aria-labelledby="p4-loc-heading">
+    <p class="p4-loc-title" id="p4-loc-heading">Onde nos encontrar</p>
+    <address class="p4-loc-addr" style="font-style:normal;">
+      Rua das Orquídeas, 123 &mdash; Mogi das Cruzes, SP &mdash; CEP 08730-000<br>
+      Segunda a sábado, 9h às 19h
+    </address>
+    <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="p4-loc-link">
+      Abrir no Google Maps
+    </a>
+  </section>
+
+  <!-- P4: FOOTER -->
+  <footer class="p4-footer">
+    <p class="p4-footer-logo">Lillia Tavares</p>
+    <p class="p4-footer-tagline">Fotografia de retratos</p>
+    <ul class="p4-footer-links">
+      <li><a href="#p4">Galeria</a></li>
+      <li><a href="#p4">Cenários</a></li>
+      <li><a href="#p4">Preços</a></li>
+      <li><a href="#p4">Contato</a></li>
+    </ul>
+    <p class="p4-footer-copy">Mogi das Cruzes, SP</p>
+  </footer>
+
+  <script>
+  (function(){
+    var nav = document.getElementById('p4-nav');
+    window.addEventListener('scroll', function(){
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    }, {passive:true});
+  })();
+  </script>
+</section>
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 5 — SISTEMA DE DESIGN COESO
+     Página como sistema de marca. Grade 8px, escala tipográfica,
+     paddings consistentes, recorte geométrico no hero.
+     ══════════════════════════════════════════════════════════ -->
+<section id="p5" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge">P5</span>
+    Sistema de Design Coeso — Extrapolação Ambiciosa
+    <span class="rationale">Toda decisão de espaçamento e tipografia segue lógica única. Maior complexidade de implementação.</span>
+  </div>
+
+  <style>
+  /* ─── P5: DESIGN SYSTEM TOKENS ─── */
+  #p5 {
+    --p5-space-1: .5rem;
+    --p5-space-2: 1rem;
+    --p5-space-3: 1.5rem;
+    --p5-space-4: 2rem;
+    --p5-space-5: 3rem;
+    --p5-space-6: 4rem;
+    --p5-space-7: 5rem;
+    --p5-sec-desktop: 5rem;
+    --p5-sec-tablet: 3rem;
+    --p5-sec-mobile: 2rem;
+    --p5-fs-xs: .75rem;
+    --p5-fs-sm: .875rem;
+    --p5-fs-base: 1rem;
+    --p5-fs-md: 1.25rem;
+    --p5-fs-lg: 1.75rem;
+    --p5-fs-xl: 2.25rem;
+    --p5-fs-2xl: 3rem;
+    --p5-fs-3xl: 4rem;
+  }
+
+  /* ─── P5: NAV ─── */
+  .p5-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 4.5rem;
+    padding: 0 var(--p5-space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--p5-space-4);
+    background: transparent;
+    transition: background var(--trans), box-shadow var(--trans);
+  }
+  .p5-nav.scrolled {
+    background: var(--white);
+    box-shadow: 0 1px 0 var(--neutral-mid), 0 2px 12px rgba(0,0,0,.06);
+  }
+  .p5-nav-wordmark {
+    font-size: var(--p5-fs-xs);
+    font-weight: 900;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--white);
+    transition: color var(--trans);
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .p5-nav.scrolled .p5-nav-wordmark { color: var(--backdrop-navy); }
+  .p5-nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin-left: auto;
+    gap: 0;
+  }
+  .p5-nav-links li {
+    display: flex;
+    align-items: center;
+  }
+  .p5-nav-links li + li::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.35);
+    margin: 0 var(--p5-space-2);
+    flex-shrink: 0;
+    transition: background var(--trans);
+  }
+  .p5-nav.scrolled .p5-nav-links li + li::before { background: var(--neutral-mid); }
+  .p5-nav-links a {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.8);
+    transition: color var(--trans);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .p5-nav-links a:hover { color: var(--white); }
+  .p5-nav.scrolled .p5-nav-links a { color: var(--olive); }
+  .p5-nav.scrolled .p5-nav-links a:hover { color: var(--backdrop-navy); }
+  .p5-nav-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; border-radius: 2px; }
+  .p5-nav-cta-outline {
+    display: inline-block;
+    margin-left: var(--p5-space-3);
+    background: transparent;
+    color: var(--white);
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .55rem 1.1rem;
+    border: 1.5px solid rgba(255,255,255,.55);
+    border-radius: var(--radius-sm);
+    transition: background var(--trans), color var(--trans), border-color var(--trans), transform var(--trans);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .p5-nav-cta-outline:hover {
+    background: rgba(255,255,255,.12);
+    border-color: var(--white);
+    transform: translateY(-1px);
+  }
+  .p5-nav.scrolled .p5-nav-cta-outline {
+    color: var(--olive);
+    border-color: var(--olive);
+  }
+  .p5-nav.scrolled .p5-nav-cta-outline:hover {
+    background: var(--olive);
+    color: var(--white);
+  }
+  .p5-nav-cta-outline:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+  /* ─── P5: HERO (40/60 split with angled crop) ─── */
+  .p5-hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--backdrop-navy);
+  }
+  .p5-hero-left {
+    padding: var(--p5-space-7) var(--p5-space-5) var(--p5-space-7) var(--p5-space-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--p5-space-3);
+    position: relative;
+    z-index: 1;
+  }
+  .p5-hero-eyebrow {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--backdrop-tan);
+  }
+  .p5-hero-h1 {
+    font-size: clamp(var(--p5-fs-xl), 4.5vw, var(--p5-fs-3xl));
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    letter-spacing: -.015em;
+  }
+  .p5-hero-body {
+    font-size: var(--p5-fs-base);
+    font-weight: 300;
+    color: rgba(255,255,255,.72);
+    line-height: 1.7;
+    max-width: 36ch;
+  }
+  .p5-hero-cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--p5-space-2);
+    align-items: flex-start;
+    margin-top: var(--p5-space-1);
+  }
+  .p5-hero-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--olive);
+    color: var(--white);
+    font-size: var(--p5-fs-sm);
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .9rem 2rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--olive);
+    cursor: pointer;
+    transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .p5-hero-btn-primary:hover {
+    background: var(--olive-dark);
+    border-color: var(--olive-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(91,88,64,.4);
+  }
+  .p5-hero-btn-primary:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
+  .p5-hero-btn-ghost {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color var(--trans);
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  .p5-hero-btn-ghost:hover { color: var(--white); }
+  .p5-hero-btn-ghost:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; border-radius: 2px; }
+  .p5-hero-right {
+    position: relative;
+    height: 100%;
+    min-height: 90vh;
+    overflow: hidden;
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  .p5-hero-img-skeleton { position: absolute; inset: 0; border-radius: 0; }
+  .p5-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── P5: BRAND STRIP ─── */
+  .p5-brand-strip {
+    background: var(--olive);
+    padding: 2.5rem var(--p5-space-4);
+  }
+  .p5-brand-strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .p5-stat {
+    text-align: center;
+    flex: 1;
+    min-width: 140px;
+  }
+  .p5-stat-value {
+    font-size: var(--p5-fs-2xl);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -.02em;
+    display: block;
+  }
+  .p5-stat-label {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+    margin-top: .35rem;
+    display: block;
+  }
+  .p5-stat-sep {
+    width: 1px;
+    height: 3rem;
+    background: rgba(255,255,255,.2);
+    flex-shrink: 0;
+  }
+
+  /* ─── P5: BACKDROPS GRID (2x2) ─── */
+  .p5-backdrops {
+    padding: var(--p5-sec-desktop) var(--p5-space-4);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .p5-sec-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: var(--p5-space-5);
+    flex-wrap: wrap;
+  }
+  .p5-sec-eyebrow {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .65;
+    margin-bottom: .6rem;
+  }
+  .p5-sec-title {
+    font-size: clamp(var(--p5-fs-lg), 3vw, var(--p5-fs-xl));
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    line-height: 1.15;
+  }
+  .p5-sec-link {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--olive);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    white-space: nowrap;
+    transition: color var(--trans);
+    flex-shrink: 0;
+  }
+  .p5-sec-link:hover { color: var(--olive-dark); }
+  .p5-sec-link:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; border-radius: 2px; }
+  .p5-backdrops-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: var(--p5-space-2);
+  }
+  .p5-bd-card {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--cream-light);
+    display: flex;
+    align-items: flex-end;
+    padding: var(--p5-space-2);
+    transition: box-shadow var(--trans);
+  }
+  .p5-bd-card:hover { box-shadow: var(--shadow-md); }
+  .p5-bd-card:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+  .p5-bd-swatch-bg {
+    position: absolute;
+    inset: 0;
+    opacity: .18;
+    transition: opacity .3s;
+  }
+  .p5-bd-card:hover .p5-bd-swatch-bg { opacity: .28; }
+  .p5-bd-preview {
+    position: absolute;
+    right: var(--p5-space-2);
+    top: 50%;
+    transform: translateY(-50%) scale(1);
+    width: 45%;
+    aspect-ratio: 2/3;
+    border-radius: 3px;
+    object-fit: cover;
+    transition: transform .3s ease, opacity .3s;
+    opacity: .85;
+    z-index: 1;
+  }
+  .p5-bd-preview-skeleton {
+    position: absolute;
+    right: var(--p5-space-2);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45%;
+    aspect-ratio: 2/3;
+    border-radius: 3px;
+    z-index: 0;
+  }
+  .p5-bd-card:hover .p5-bd-preview {
+    transform: translateY(-50%) scale(1.04);
+    opacity: 1;
+  }
+  .p5-bd-info {
+    position: relative;
+    z-index: 2;
+  }
+  .p5-bd-color-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .4rem;
+  }
+  .p5-bd-dot {
+    width: .75rem;
+    height: .75rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,.12);
+    flex-shrink: 0;
+  }
+  .p5-bd-hex {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--olive);
+    opacity: .65;
+    font-family: monospace;
+  }
+  .p5-bd-name {
+    font-size: var(--p5-fs-base);
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  /* ─── P5: CENÁRIOS (editorial grid) ─── */
+  .p5-cenarios {
+    background: var(--cream-light);
+    padding: var(--p5-sec-desktop) var(--p5-space-4);
+  }
+  .p5-cenarios-inner { max-width: 1200px; margin: 0 auto; }
+  .p5-editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
+    gap: var(--p5-space-2);
+    margin-top: var(--p5-space-4);
+  }
+  .p5-editorial-grid .p5-eg-a {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+  }
+  .p5-editorial-grid .p5-eg-b {
+    grid-column: 4 / 7;
+    grid-row: 1 / 2;
+  }
+  .p5-editorial-grid .p5-eg-c {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+  }
+  .p5-editorial-grid .p5-eg-d {
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+  }
+  .p5-editorial-grid .p5-eg-e {
+    grid-column: 5 / 7;
+    grid-row: 2 / 3;
+  }
+  .p5-eg-item {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+  }
+  .p5-eg-item:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+  .p5-eg-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    transition: transform .4s ease;
+  }
+  .p5-eg-item:hover img { transform: scale(1.04); }
+  .p5-eg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(17,29,44,.72) 100%);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .p5-eg-item:hover .p5-eg-overlay,
+  .p5-eg-item:focus-visible .p5-eg-overlay { opacity: 1; }
+  .p5-eg-label {
+    position: absolute;
+    bottom: var(--p5-space-2);
+    left: var(--p5-space-2);
+    z-index: 3;
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .p5-eg-item:hover .p5-eg-label,
+  .p5-eg-item:focus-visible .p5-eg-label { opacity: 1; }
+
+  /* ─── P5: TRUST SECTION (testimonials + FAQ) ─── */
+  .p5-trust {
+    padding: var(--p5-sec-desktop) var(--p5-space-4);
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .p5-testi-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--p5-space-3);
+  }
+  .p5-testi-compact {
+    border-left: 3px solid var(--neutral-mid);
+    padding-left: var(--p5-space-2);
+    transition: border-color var(--trans);
+  }
+  .p5-testi-compact:hover { border-left-color: var(--olive); }
+  .p5-testi-compact-quote {
+    font-size: var(--p5-fs-sm);
+    line-height: 1.65;
+    color: var(--backdrop-navy);
+    font-style: italic;
+    margin-bottom: .5rem;
+  }
+  .p5-testi-compact-name {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .p5-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .p5-faq-item {
+    border-bottom: 1px solid var(--neutral-mid);
+  }
+  .p5-faq-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--p5-space-2);
+    padding: var(--p5-space-2) 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--sans);
+    font-size: var(--p5-fs-sm);
+    font-weight: 700;
+    color: var(--backdrop-navy);
+    transition: color var(--trans);
+    letter-spacing: .02em;
+  }
+  .p5-faq-btn:hover { color: var(--olive); }
+  .p5-faq-btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .p5-faq-icon {
+    flex-shrink: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    position: relative;
+    transition: transform .22s ease;
+  }
+  .p5-faq-icon::before,
+  .p5-faq-icon::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform .22s ease, opacity .22s ease;
+  }
+  .p5-faq-icon::before { width: 100%; height: 2px; top: 50%; transform: translateY(-50%); }
+  .p5-faq-icon::after { width: 2px; height: 100%; left: 50%; transform: translateX(-50%); }
+  .p5-faq-item.open .p5-faq-icon::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+  .p5-faq-body {
+    font-size: var(--p5-fs-sm);
+    line-height: 1.7;
+    color: var(--olive);
+    padding: 0 0 var(--p5-space-2);
+    display: none;
+  }
+  .p5-faq-item.open .p5-faq-body { display: block; }
+
+  /* ─── P5: LOCATION + FINAL CTA ─── */
+  .p5-location-cta {
+    background: var(--olive);
+    padding: var(--p5-sec-desktop) var(--p5-space-4);
+    text-align: center;
+  }
+  .p5-lc-eyebrow {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+    margin-bottom: .75rem;
+  }
+  .p5-lc-address {
+    font-style: normal;
+    font-size: var(--p5-fs-base);
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    margin-bottom: var(--p5-space-2);
+  }
+  .p5-lc-maps {
+    display: inline-block;
+    background: transparent;
+    color: var(--white);
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: .65rem 1.4rem;
+    border: 1.5px solid rgba(255,255,255,.45);
+    border-radius: var(--radius-sm);
+    transition: background var(--trans), border-color var(--trans), transform var(--trans);
+    text-decoration: none;
+    margin-bottom: var(--p5-space-5);
+  }
+  .p5-lc-maps:hover {
+    background: rgba(255,255,255,.12);
+    border-color: var(--white);
+    transform: translateY(-1px);
+  }
+  .p5-lc-maps:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+  .p5-lc-divider {
+    width: 3rem;
+    height: 1px;
+    background: rgba(255,255,255,.25);
+    margin: var(--p5-space-4) auto;
+  }
+  .p5-lc-cta-h2 {
+    font-size: clamp(var(--p5-fs-lg), 3.5vw, var(--p5-fs-2xl));
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: var(--p5-space-2);
+    line-height: 1.15;
+  }
+  .p5-lc-cta-sub {
+    font-size: var(--p5-fs-base);
+    color: rgba(255,255,255,.75);
+    max-width: 48ch;
+    margin: 0 auto var(--p5-space-4);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .p5-lc-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--white);
+    color: var(--olive);
+    font-size: var(--p5-fs-sm);
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .95rem 2.25rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--white);
+    cursor: pointer;
+    transition: background var(--trans), color var(--trans), transform var(--trans), box-shadow var(--trans);
+    text-decoration: none;
+  }
+  .p5-lc-cta-btn:hover {
+    background: var(--cream-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(0,0,0,.16);
+  }
+  .p5-lc-cta-btn:focus-visible { outline: 3px solid var(--white); outline-offset: 4px; }
+
+  /* ─── P5: FOOTER ─── */
+  .p5-footer {
+    background: var(--cream-footer);
+    border-top: 1px solid var(--neutral-mid);
+    padding: var(--p5-space-5) var(--p5-space-4) var(--p5-space-3);
+  }
+  .p5-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--p5-space-4);
+    padding-bottom: var(--p5-space-4);
+    border-bottom: 1px solid var(--neutral-mid);
+    margin-bottom: var(--p5-space-3);
+  }
+  .p5-footer-col-title {
+    font-size: var(--p5-fs-xs);
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--backdrop-navy);
+    margin-bottom: var(--p5-space-2);
+    opacity: .55;
+  }
+  .p5-footer-wordmark {
+    font-size: var(--p5-fs-sm);
+    font-weight: 900;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .5rem;
+  }
+  .p5-footer-tagline {
+    font-size: var(--p5-fs-xs);
+    color: var(--olive);
+    opacity: .55;
+    line-height: 1.5;
+    max-width: 26ch;
+  }
+  .p5-footer-col-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+  }
+  .p5-footer-col-links a {
+    font-size: var(--p5-fs-xs);
+    color: var(--olive);
+    opacity: .7;
+    transition: opacity var(--trans), color var(--trans);
+    text-decoration: none;
+    letter-spacing: .04em;
+  }
+  .p5-footer-col-links a:hover { opacity: 1; color: var(--olive-dark); }
+  .p5-footer-col-links a:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; border-radius: 2px; }
+  .p5-footer-copy {
+    font-size: .65rem;
+    color: var(--olive);
+    opacity: .4;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ─── P5: RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .p5-hero { grid-template-columns: 1fr 1fr; }
+    .p5-backdrops-grid { grid-template-columns: 1fr 1fr; }
+    .p5-editorial-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .p5-editorial-grid .p5-eg-a { grid-column: 1 / 3; }
+    .p5-editorial-grid .p5-eg-b { grid-column: 3 / 5; }
+    .p5-editorial-grid .p5-eg-c { grid-column: 1 / 2; }
+    .p5-editorial-grid .p5-eg-d { grid-column: 2 / 3; }
+    .p5-editorial-grid .p5-eg-e { grid-column: 3 / 5; }
+    .p5-footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    .p5-trust { grid-template-columns: 1fr; }
+    .p5-hero { grid-template-columns: 1fr; min-height: auto; }
+    .p5-hero-right { min-height: 56vw; height: 56vw; clip-path: none; }
+    .p5-hero-left { padding: 4rem 2rem 3rem; }
+    .p5-brand-strip-inner { justify-content: center; }
+    .p5-stat-sep { display: none; }
+  }
+  @media (max-width: 768px) {
+    #p5 {
+      --p5-sec-desktop: 3rem;
+    }
+    .p5-backdrops-grid { grid-template-columns: 1fr 1fr; }
+    .p5-editorial-grid { grid-template-columns: repeat(2, 1fr); }
+    .p5-editorial-grid .p5-eg-a,
+    .p5-editorial-grid .p5-eg-b,
+    .p5-editorial-grid .p5-eg-c,
+    .p5-editorial-grid .p5-eg-d,
+    .p5-editorial-grid .p5-eg-e { grid-column: auto; grid-row: auto; }
+    .p5-footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    #p5 { --p5-sec-desktop: 2rem; }
+    .p5-nav { padding: 0 1.25rem; height: 4rem; }
+    .p5-nav-links { display: none; }
+    .p5-hero { grid-template-columns: 1fr; }
+    .p5-hero-left { padding: 3rem 1.25rem 2rem; }
+    .p5-hero-right { min-height: 70vw; height: 70vw; }
+    .p5-backdrops { padding: 2rem 1.25rem; }
+    .p5-backdrops-grid { grid-template-columns: 1fr 1fr; }
+    .p5-cenarios, .p5-trust { padding: 2rem 1.25rem; }
+    .p5-editorial-grid { grid-template-columns: 1fr; }
+    .p5-editorial-grid .p5-eg-a,
+    .p5-editorial-grid .p5-eg-b,
+    .p5-editorial-grid .p5-eg-c,
+    .p5-editorial-grid .p5-eg-d,
+    .p5-editorial-grid .p5-eg-e { grid-column: 1/-1; grid-row: auto; }
+    .p5-location-cta { padding: 2rem 1.25rem; }
+    .p5-footer { padding: 2rem 1.25rem 1.5rem; }
+    .p5-footer-inner { grid-template-columns: 1fr; }
+    .p5-brand-strip { padding: 1.75rem 1.25rem; }
+  }
+  </style>
+
+  <!-- P5: NAV -->
+  <nav class="p5-nav" id="p5-nav" aria-label="Navegação principal">
+    <a href="#p5" class="p5-nav-wordmark" aria-label="Lillia Tavares — página inicial">Lillia Tavares</a>
+    <ul class="p5-nav-links">
+      <li><a href="#p5-backdrops">Cenários</a></li>
+      <li><a href="#p5-cenarios">Trabalhos</a></li>
+      <li><a href="#p5-trust">Depoimentos</a></li>
+      <li><a href="#p5-location">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5511999999999" class="p5-nav-cta-outline" aria-label="Agendar sessão">Agendar sessão</a>
+  </nav>
+
+  <!-- P5: HERO -->
+  <section class="p5-hero" aria-labelledby="p5-hero-heading">
+    <div class="p5-hero-left">
+      <p class="p5-hero-eyebrow">Estúdio Fotográfico em Mogi das Cruzes</p>
+      <h1 class="p5-hero-h1" id="p5-hero-heading">A fotografia<br>que revela quem<br>você é</h1>
+      <p class="p5-hero-body">Retratos com intencionalidade. Cada ensaio é um projeto único, criado com atenção a cada detalhe de luz, composição e emoção.</p>
+      <div class="p5-hero-cta-stack">
+        <a href="https://wa.me/5511999999999" class="p5-hero-btn-primary">Agendar minha sessão</a>
+        <a href="#p5-cenarios" class="p5-hero-btn-ghost">Ver trabalhos recentes</a>
+      </div>
+    </div>
+    <div class="p5-hero-right">
+      <div class="p5-hero-img-skeleton skeleton" aria-hidden="true"></div>
+      <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+           alt="Retrato de mulher com iluminação dramática no estúdio"
+           class="p5-hero-img" loading="lazy"
+           onload="this.previousElementSibling.style.display='none'">
+    </div>
+  </section>
+
+  <!-- P5: BRAND STRIP -->
+  <div class="p5-brand-strip" aria-label="Estatísticas do estúdio">
+    <div class="p5-brand-strip-inner">
+      <div class="p5-stat">
+        <span class="p5-stat-value">500+</span>
+        <span class="p5-stat-label">Ensaios realizados</span>
+      </div>
+      <div class="p5-stat-sep" aria-hidden="true"></div>
+      <div class="p5-stat">
+        <span class="p5-stat-value">8</span>
+        <span class="p5-stat-label">Anos de experiência</span>
+      </div>
+      <div class="p5-stat-sep" aria-hidden="true"></div>
+      <div class="p5-stat">
+        <span class="p5-stat-value">4.9</span>
+        <span class="p5-stat-label">Nota média no Google</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5: BACKDROPS GRID -->
+  <section class="p5-backdrops" id="p5-backdrops" aria-labelledby="p5-bd-heading">
+    <div class="p5-sec-header">
+      <div>
+        <p class="p5-sec-eyebrow">Fundos disponíveis</p>
+        <h2 class="p5-sec-title" id="p5-bd-heading">Escolha seu backdrop</h2>
+      </div>
+      <a href="#p5" class="p5-sec-link">Ver todos os cenários</a>
+    </div>
+    <div class="p5-backdrops-grid">
+      <div class="p5-bd-card" tabindex="0" role="button" aria-label="Backdrop Navy — ver mais">
+        <div class="p5-bd-swatch-bg" style="background:var(--backdrop-navy);" aria-hidden="true"></div>
+        <div class="p5-bd-preview-skeleton skeleton p5-bd-preview-skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+             alt="Ensaio com backdrop navy" class="p5-bd-preview" loading="lazy"
+             onload="this.previousElementSibling.style.display='none'">
+        <div class="p5-bd-info">
+          <div class="p5-bd-color-row">
+            <span class="p5-bd-dot" style="background:var(--backdrop-navy);" aria-hidden="true"></span>
+            <span class="p5-bd-hex">#111D2C</span>
+          </div>
+          <p class="p5-bd-name">Navy</p>
+        </div>
+      </div>
+      <div class="p5-bd-card" tabindex="0" role="button" aria-label="Backdrop Tan — ver mais">
+        <div class="p5-bd-swatch-bg" style="background:var(--backdrop-tan);" aria-hidden="true"></div>
+        <div class="p5-bd-preview-skeleton skeleton p5-bd-preview-skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+             alt="Ensaio com backdrop tan" class="p5-bd-preview" loading="lazy"
+             onload="this.previousElementSibling.style.display='none'">
+        <div class="p5-bd-info">
+          <div class="p5-bd-color-row">
+            <span class="p5-bd-dot" style="background:var(--backdrop-tan);" aria-hidden="true"></span>
+            <span class="p5-bd-hex">#B99879</span>
+          </div>
+          <p class="p5-bd-name">Tan</p>
+        </div>
+      </div>
+      <div class="p5-bd-card" tabindex="0" role="button" aria-label="Backdrop Black — ver mais">
+        <div class="p5-bd-swatch-bg" style="background:var(--backdrop-black);" aria-hidden="true"></div>
+        <div class="p5-bd-preview-skeleton skeleton p5-bd-preview-skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+             alt="Ensaio com backdrop black" class="p5-bd-preview" loading="lazy"
+             onload="this.previousElementSibling.style.display='none'">
+        <div class="p5-bd-info">
+          <div class="p5-bd-color-row">
+            <span class="p5-bd-dot" style="background:var(--backdrop-black);" aria-hidden="true"></span>
+            <span class="p5-bd-hex">#241F21</span>
+          </div>
+          <p class="p5-bd-name">Black</p>
+        </div>
+      </div>
+      <div class="p5-bd-card" tabindex="0" role="button" aria-label="Backdrop Grey — ver mais">
+        <div class="p5-bd-swatch-bg" style="background:var(--backdrop-grey);" aria-hidden="true"></div>
+        <div class="p5-bd-preview-skeleton skeleton p5-bd-preview-skeleton" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+             alt="Ensaio com backdrop grey" class="p5-bd-preview" loading="lazy"
+             onload="this.previousElementSibling.style.display='none'">
+        <div class="p5-bd-info">
+          <div class="p5-bd-color-row">
+            <span class="p5-bd-dot" style="background:var(--backdrop-grey);" aria-hidden="true"></span>
+            <span class="p5-bd-hex">#E4E1E5</span>
+          </div>
+          <p class="p5-bd-name">Grey</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P5: EDITORIAL GRID (cenários) -->
+  <section class="p5-cenarios" id="p5-cenarios" aria-labelledby="p5-cen-heading">
+    <div class="p5-cenarios-inner">
+      <div class="p5-sec-header">
+        <div>
+          <p class="p5-sec-eyebrow">Trabalhos recentes</p>
+          <h2 class="p5-sec-title" id="p5-cen-heading">Ensaios em destaque</h2>
+        </div>
+        <a href="#p5" class="p5-sec-link">Ver portfólio completo</a>
+      </div>
+      <div class="p5-editorial-grid">
+        <a href="#p5" class="p5-eg-item p5-eg-a" aria-label="Cenário Clássico — ver ensaio">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80"
+               alt="Cenário clássico do estúdio" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p5-eg-overlay" aria-hidden="true"></div>
+          <span class="p5-eg-label">Cenário Clássico</span>
+        </a>
+        <a href="#p5" class="p5-eg-item p5-eg-b" aria-label="Cenário Moderno — ver ensaio">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80"
+               alt="Cenário moderno do estúdio" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p5-eg-overlay" aria-hidden="true"></div>
+          <span class="p5-eg-label">Cenário Moderno</span>
+        </a>
+        <a href="#p5" class="p5-eg-item p5-eg-c" aria-label="Retrato Íntimo — ver ensaio">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
+               alt="Retrato íntimo com luz difusa" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p5-eg-overlay" aria-hidden="true"></div>
+          <span class="p5-eg-label">Retrato Íntimo</span>
+        </a>
+        <a href="#p5" class="p5-eg-item p5-eg-d" aria-label="Ensaio Feminino — ver ensaio">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+               alt="Ensaio feminino em luz natural" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p5-eg-overlay" aria-hidden="true"></div>
+          <span class="p5-eg-label">Ensaio Feminino</span>
+        </a>
+        <a href="#p5" class="p5-eg-item p5-eg-e" aria-label="Ensaio Dramático — ver ensaio">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0;" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80"
+               alt="Ensaio dramático com contraste" loading="lazy"
+               onload="this.previousElementSibling.style.display='none'">
+          <div class="p5-eg-overlay" aria-hidden="true"></div>
+          <span class="p5-eg-label">Ensaio Dramático</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- P5: TRUST (testimonials + FAQ) -->
+  <section class="p5-trust" id="p5-trust" aria-labelledby="p5-trust-heading">
+    <div>
+      <p class="p5-sec-eyebrow">Depoimentos</p>
+      <h2 class="p5-sec-title" id="p5-trust-heading" style="margin-bottom:var(--p5-space-4);">O que dizem as clientes</h2>
+      <div class="p5-testi-list">
+        <blockquote class="p5-testi-compact">
+          <p class="p5-testi-compact-quote">"Nunca me senti tão à vontade na frente de uma câmera. O resultado foi simplesmente incrível."</p>
+          <cite class="p5-testi-compact-name">Ana Beatriz &mdash; Ensaio Feminino</cite>
+        </blockquote>
+        <blockquote class="p5-testi-compact">
+          <p class="p5-testi-compact-quote">"O estúdio é lindo, os cenários são apaixonantes. Vale cada centavo!"</p>
+          <cite class="p5-testi-compact-name">Mariana Costa &mdash; Ensaio de 15 anos</cite>
+        </blockquote>
+        <blockquote class="p5-testi-compact">
+          <p class="p5-testi-compact-quote">"Profissionalismo e carinho em cada detalhe. Superou todas as minhas expectativas."</p>
+          <cite class="p5-testi-compact-name">Camila Santos &mdash; Ensaio Gestante</cite>
+        </blockquote>
+      </div>
+    </div>
+    <div>
+      <p class="p5-sec-eyebrow" style="margin-bottom:var(--p5-space-3);">Perguntas frequentes</p>
+      <div class="p5-faq-list" role="list">
+        <div class="p5-faq-item" role="listitem">
+          <button class="p5-faq-btn" aria-expanded="false" aria-controls="p5-faq-1">
+            Preciso saber posar para a sessão?
+            <span class="p5-faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="p5-faq-body" id="p5-faq-1">Não. Toda sessão é orientada pela Lillia, que guia cada movimento e expressão. Você não precisa de experiência prévia — basta aparecer e se entregar ao processo.</div>
+        </div>
+        <div class="p5-faq-item" role="listitem">
+          <button class="p5-faq-btn" aria-expanded="false" aria-controls="p5-faq-2">
+            Em quanto tempo recebo as fotos?
+            <span class="p5-faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="p5-faq-body" id="p5-faq-2">A entrega digital é feita em até 7 dias úteis após a sessão. Você recebe um link privado com todas as fotos em alta resolução, prontas para imprimir ou compartilhar.</div>
+        </div>
+        <div class="p5-faq-item" role="listitem">
+          <button class="p5-faq-btn" aria-expanded="false" aria-controls="p5-faq-3">
+            Quantos cenários posso usar na sessão?
+            <span class="p5-faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="p5-faq-body" id="p5-faq-3">Depende do pacote escolhido. O pacote básico inclui 2 cenários, os pacotes completos incluem até 5 cenários com troca de roupa entre cada um.</div>
+        </div>
+        <div class="p5-faq-item" role="listitem">
+          <button class="p5-faq-btn" aria-expanded="false" aria-controls="p5-faq-4">
+            O estúdio fica em qual bairro?
+            <span class="p5-faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="p5-faq-body" id="p5-faq-4">O estúdio fica na Rua das Orquídeas, 123, no centro de Mogi das Cruzes, SP. Há estacionamento próximo e o local é de fácil acesso por transporte público.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P5: LOCATION + FINAL CTA -->
+  <section class="p5-location-cta" id="p5-location" aria-labelledby="p5-lc-heading">
+    <p class="p5-lc-eyebrow">Onde nos encontrar</p>
+    <address class="p5-lc-address">
+      Rua das Orquídeas, 123 &mdash; Mogi das Cruzes, SP &mdash; CEP 08730-000<br>
+      Segunda a sábado, 9h às 19h
+    </address>
+    <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="p5-lc-maps">
+      Abrir no Google Maps
+    </a>
+    <div class="p5-lc-divider" aria-hidden="true"></div>
+    <h2 class="p5-lc-cta-h2" id="p5-lc-heading">Pronta para começar?</h2>
+    <p class="p5-lc-cta-sub">Escolha seu pacote e agende pelo WhatsApp. Respondemos em menos de 2 horas.</p>
+    <a href="https://wa.me/5511999999999" class="p5-lc-cta-btn">Falar no WhatsApp</a>
+  </section>
+
+  <!-- P5: FOOTER -->
+  <footer class="p5-footer">
+    <div class="p5-footer-inner">
+      <div>
+        <p class="p5-footer-wordmark">Lillia Tavares</p>
+        <p class="p5-footer-tagline">Fotografia de retratos em Mogi das Cruzes, SP</p>
+      </div>
+      <div>
+        <p class="p5-footer-col-title">Navegação</p>
+        <ul class="p5-footer-col-links">
+          <li><a href="#p5">Cenários</a></li>
+          <li><a href="#p5">Trabalhos</a></li>
+          <li><a href="#p5">Preços</a></li>
+          <li><a href="#p5">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="p5-footer-col-title">Social</p>
+        <ul class="p5-footer-col-links">
+          <li><a href="#p5">Instagram</a></li>
+          <li><a href="#p5">Pinterest</a></li>
+          <li><a href="#p5">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="p5-footer-col-title">Contato</p>
+        <ul class="p5-footer-col-links">
+          <li><a href="https://wa.me/5511999999999">WhatsApp</a></li>
+          <li><a href="mailto:contato@lilliatavares.com.br">E-mail</a></li>
+          <li><a href="#p5">Agendar</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="p5-footer-copy">Mogi das Cruzes, SP &mdash; Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+  /* P5: Nav scroll */
+  (function(){
+    var nav = document.getElementById('p5-nav');
+    window.addEventListener('scroll', function(){
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, {passive:true});
+  })();
+  /* P5: FAQ accordion */
+  (function(){
+    document.querySelectorAll('#p5 .p5-faq-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var item = this.closest('.p5-faq-item');
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('#p5 .p5-faq-item.open').forEach(function(el){
+          el.classList.remove('open');
+          el.querySelector('.p5-faq-btn').setAttribute('aria-expanded','false');
+        });
+        if(!wasOpen){
+          item.classList.add('open');
+          this.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+  })();
+  </script>
+</section>
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════════════════
+     RANKING DAS PROPOSTAS
+     ══════════════════════════════════════════════════════════ -->
+<section id="ranking" class="proposal-wrapper">
+  <div class="proposal-label">
+    <span class="badge" style="background:var(--rose);">Ranking</span>
+    Avaliação Produto &amp; Robustez — Todas as 5 propostas comparadas
+    <span class="rationale">Critérios de produto, não de preferência estética.</span>
+  </div>
+
+  <style>
+  /* ─── RANKING SECTION ─── */
+  .rk-section {
+    padding: 4rem 2rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .rk-header {
+    margin-bottom: 3rem;
+    max-width: 72ch;
+  }
+  .rk-eyebrow {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: .65;
+    margin-bottom: .75rem;
+  }
+  .rk-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .rk-subtitle {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--olive);
+  }
+
+  /* ─── CRITERIA LEGEND ─── */
+  .rk-criteria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .rk-criteria-item {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--olive);
+    opacity: .65;
+  }
+  .rk-criteria-item strong {
+    color: var(--backdrop-navy);
+    font-size: .78rem;
+    opacity: 1;
+  }
+
+  /* ─── TABLE ─── */
+  .rk-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 3rem;
+  }
+  .rk-table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: .85rem;
+  }
+  .rk-table thead tr {
+    background: var(--backdrop-navy);
+    color: var(--white);
+  }
+  .rk-table thead th {
+    padding: 1rem .85rem;
+    text-align: left;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .rk-table thead th:first-child { min-width: 130px; }
+  .rk-table thead th.rk-th-prop {
+    text-align: center;
+    min-width: 64px;
+  }
+  .rk-table tbody tr {
+    border-bottom: 1px solid var(--neutral-mid);
+    transition: background var(--trans);
+  }
+  .rk-table tbody tr:hover { background: var(--cream-light); }
+  .rk-table tbody tr:last-child { border-bottom: none; }
+  .rk-table td {
+    padding: .9rem .85rem;
+    color: var(--backdrop-navy);
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .rk-table td:first-child {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--olive);
+    white-space: normal;
+  }
+  .rk-table td.rk-score {
+    text-align: center;
+    font-weight: 700;
+    font-size: .92rem;
+  }
+
+  /* Score color scale: 5=best(olive), 3=mid, 1=worst(rose) */
+  .rk-s5 { color: var(--olive); }
+  .rk-s4 { color: var(--olive-hover,#6a6749); }
+  .rk-s3 { color: var(--backdrop-tan); }
+  .rk-s2 { color: var(--rose); }
+  .rk-s1 { color: #a05050; }
+
+  /* Highlight winner column */
+  .rk-table thead th.rk-winner-col {
+    background: var(--olive);
+    color: var(--white);
+    position: relative;
+  }
+  .rk-table tbody td.rk-winner-col {
+    background: rgba(123,120,91,.07);
+    font-weight: 900;
+  }
+  .rk-winner-badge {
+    display: inline-block;
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--white);
+    color: var(--olive);
+    padding: .15rem .45rem;
+    border-radius: var(--radius-pill);
+    margin-left: .4rem;
+    vertical-align: middle;
+  }
+
+  /* ─── OVERALL ROW ─── */
+  .rk-table tfoot tr {
+    background: var(--cream-light);
+    border-top: 2px solid var(--neutral-mid);
+  }
+  .rk-table tfoot td {
+    padding: .9rem .85rem;
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--backdrop-navy);
+  }
+  .rk-table tfoot td.rk-score {
+    font-size: 1rem;
+  }
+  .rk-table tfoot td.rk-winner-col {
+    background: rgba(123,120,91,.14);
+  }
+
+  /* ─── RANK CARDS ─── */
+  .rk-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .rk-card {
+    background: var(--cream-light);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 1.25rem;
+    border-top: 4px solid var(--neutral-mid);
+    position: relative;
+  }
+  .rk-card.rk-card-winner {
+    border-top-color: var(--olive);
+    background: #f0ede3;
+    box-shadow: var(--shadow-sm);
+  }
+  .rk-card-rank {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--neutral-mid);
+    line-height: 1;
+    margin-bottom: .4rem;
+  }
+  .rk-card.rk-card-winner .rk-card-rank { color: var(--olive); }
+  .rk-card-label {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: .3rem;
+  }
+  .rk-card-name {
+    font-size: .92rem;
+    font-weight: 900;
+    color: var(--backdrop-navy);
+    line-height: 1.3;
+    margin-bottom: .75rem;
+  }
+  .rk-card-rationale {
+    font-size: .78rem;
+    line-height: 1.6;
+    color: var(--olive);
+  }
+  .rk-card-winner-tag {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    font-size: .58rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    background: var(--olive);
+    color: var(--white);
+    padding: .2rem .55rem;
+    border-radius: var(--radius-pill);
+  }
+
+  /* ─── METHODOLOGY NOTE ─── */
+  .rk-methodology {
+    background: var(--cream-light);
+    border-left: 4px solid var(--olive);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.5rem 2rem;
+    max-width: 72ch;
+  }
+  .rk-methodology p {
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--olive);
+    margin-bottom: .75rem;
+  }
+  .rk-methodology p:last-child { margin-bottom: 0; }
+  .rk-methodology strong { color: var(--backdrop-navy); font-weight: 700; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    .rk-cards { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .rk-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .rk-section { padding: 2.5rem 1.25rem 3.5rem; }
+    .rk-cards { grid-template-columns: 1fr; }
+  }
+  </style>
+
+  <div class="rk-section">
+    <div class="rk-header">
+      <p class="rk-eyebrow">Avaliação de produto</p>
+      <h2 class="rk-title">Ranking das Propostas:<br>Produto &amp; Robustez</h2>
+      <p class="rk-subtitle">Cada proposta é avaliada em 6 dimensões críticas de produto. As notas refletem adequação ao contexto real do projeto (site de estúdio fotográfico, deploy em Cloudflare Pages, cliente não-técnico), não preferência estética. Score de 1 a 5 — quanto maior, melhor.</p>
+    </div>
+
+    <div class="rk-criteria" aria-label="Legenda dos critérios">
+      <span class="rk-criteria-item"><strong>1</strong> — Robustez mobile</span>
+      <span class="rk-criteria-item"><strong>2</strong> — Taxa de conversão esperada</span>
+      <span class="rk-criteria-item"><strong>3</strong> — Performance percebida</span>
+      <span class="rk-criteria-item"><strong>4</strong> — Consistência de tokens</span>
+      <span class="rk-criteria-item"><strong>5</strong> — Facilidade de implementação</span>
+      <span class="rk-criteria-item"><strong>6</strong> — Resiliência a edge cases</span>
+    </div>
+
+    <div class="rk-table-wrap">
+      <table class="rk-table" aria-label="Comparativo das 5 propostas">
+        <thead>
+          <tr>
+            <th scope="col">Critério</th>
+            <th class="rk-th-prop" scope="col">P1<br><span style="font-weight:400;opacity:.7;font-size:.6rem;letter-spacing:.04em;text-transform:none;">Refinamento Cirúrgico</span></th>
+            <th class="rk-th-prop" scope="col">P2<br><span style="font-weight:400;opacity:.7;font-size:.6rem;letter-spacing:.04em;text-transform:none;">Hierarquia Clarificada</span></th>
+            <th class="rk-th-prop rk-winner-col" scope="col">P3 <span class="rk-winner-badge">Vencedor</span><br><span style="font-weight:400;opacity:.85;font-size:.6rem;letter-spacing:.04em;text-transform:none;">Foco na Conversão</span></th>
+            <th class="rk-th-prop" scope="col">P4<br><span style="font-weight:400;opacity:.7;font-size:.6rem;letter-spacing:.04em;text-transform:none;">Galeria Imersiva</span></th>
+            <th class="rk-th-prop" scope="col">P5<br><span style="font-weight:400;opacity:.7;font-size:.6rem;letter-spacing:.04em;text-transform:none;">Sistema de Design</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Robustez mobile</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s5 rk-winner-col">5</td>
+            <td class="rk-score rk-s3">3</td>
+            <td class="rk-score rk-s4">4</td>
+          </tr>
+          <tr>
+            <td>2. Taxa de conversão esperada</td>
+            <td class="rk-score rk-s3">3</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s5 rk-winner-col">5</td>
+            <td class="rk-score rk-s3">3</td>
+            <td class="rk-score rk-s4">4</td>
+          </tr>
+          <tr>
+            <td>3. Performance percebida</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s5 rk-winner-col">5</td>
+            <td class="rk-score rk-s3">3</td>
+            <td class="rk-score rk-s4">4</td>
+          </tr>
+          <tr>
+            <td>4. Consistência de tokens</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s4 rk-winner-col">4</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s5">5</td>
+          </tr>
+          <tr>
+            <td>5. Facilidade de implementação</td>
+            <td class="rk-score rk-s5">5</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s4 rk-winner-col">4</td>
+            <td class="rk-score rk-s3">3</td>
+            <td class="rk-score rk-s2">2</td>
+          </tr>
+          <tr>
+            <td>6. Resiliência a edge cases</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s4">4</td>
+            <td class="rk-score rk-s5 rk-winner-col">5</td>
+            <td class="rk-score rk-s2">2</td>
+            <td class="rk-score rk-s4">4</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td class="rk-score">24</td>
+            <td class="rk-score">24</td>
+            <td class="rk-score rk-winner-col">28</td>
+            <td class="rk-score">18</td>
+            <td class="rk-score">23</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Rank cards: ordered 1st to 5th -->
+    <div class="rk-cards" aria-label="Ranking de posições">
+      <div class="rk-card rk-card-winner">
+        <span class="rk-card-winner-tag">1° Lugar</span>
+        <div class="rk-card-rank">1</div>
+        <p class="rk-card-label">P3</p>
+        <p class="rk-card-name">Foco na Conversão</p>
+        <p class="rk-card-rationale">Lidera em 4 de 6 critérios. Nav simples, hero com CTA proeminente, prova social imediata e seção de booking dedicada eliminam fricção no funil. Layout não depende de fotos excepcionais para funcionar — resiste bem a fotos de stock.</p>
+      </div>
+      <div class="rk-card">
+        <div class="rk-card-rank" style="color:var(--backdrop-tan);">2</div>
+        <p class="rk-card-label">P1 · P2 (empate)</p>
+        <p class="rk-card-name">Refinamento Cirúrgico / Hierarquia Clarificada</p>
+        <p class="rk-card-rationale">P1 é o mais fácil de implementar e o mais seguro para manter. P2 adiciona hierarquia visual clara que melhora conversão. Empate em pontuação; P2 tem vantagem em conversão, P1 em implementação.</p>
+      </div>
+      <div class="rk-card" style="border-top-color:var(--neutral-mid);">
+        <div class="rk-card-rank" style="color:var(--neutral-mid);">3</div>
+        <p class="rk-card-label">P5</p>
+        <p class="rk-card-name">Sistema de Design Coeso</p>
+        <p class="rk-card-rationale">Alta consistência de tokens e ótima estrutura, mas a complexidade de implementação e manutenção penaliza o score. Exige comprometimento com o sistema em todas as páginas — risco real para projeto sem design system estabelecido.</p>
+      </div>
+      <div class="rk-card">
+        <div class="rk-card-rank" style="color:var(--rose);">4</div>
+        <p class="rk-card-label">P4</p>
+        <p class="rk-card-name">Galeria Imersiva</p>
+        <p class="rk-card-rationale">Conceito poderoso, mas a fragilidade é estrutural: a proposta depende inteiramente da qualidade das fotos reais. Com fotos de stock, o modelo colapsa. O nav flutuante em pill e o masonry sem JS puro criam edge cases de layout difíceis de prever.</p>
+      </div>
+    </div>
+
+    <!-- Methodology note -->
+    <div class="rk-methodology" role="note">
+      <p><strong>Sobre os critérios:</strong> "Robustez mobile" avalia se o layout funciona em 375px sem ajustes manuais. "Taxa de conversão esperada" considera a posição e saliência do CTA primário, presença de prova social e clareza do próximo passo. "Performance percebida" mede o quanto o layout parece rápido independente de métricas reais (menos blocos above-the-fold, skeletons cobrindo layouts, imagens lazy-loaded com dimensões declaradas). "Consistência de tokens" avalia se toda cor e espaçamento usa custom properties. "Facilidade de implementação" considera o número de padrões CSS novos que precisam ser testados e mantidos. "Resiliência a edge cases" avalia o comportamento com textos longos, imagens quebradas, viewports intermediárias (568px, 768px) e conteúdo dinâmico variável.</p>
+      <p><strong>Recomendação final:</strong> Para um projeto com time pequeno e cliente não-técnico, <strong>P3</strong> entrega o maior retorno sobre investimento de implementação. Se houver disponibilidade de um banco de imagens de alta qualidade e apetite para complexidade maior, <strong>P5</strong> escala melhor para o longo prazo como base de um design system da marca.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ─── TOC: Update labels for P3/P4/P5 ─── */
+(function(){
+  var map = {
+    'p3': 'P3 · Foco na Conversão',
+    'p4': 'P4 · Galeria Imersiva',
+    'p5': 'P5 · Sistema Coeso',
+    'ranking': 'Ranking'
+  };
+  document.querySelectorAll('#toc a').forEach(function(a){
+    var id = a.getAttribute('href').replace('#','');
+    if(map[id]) a.setAttribute('data-label', map[id]);
+  });
+  /* Add ranking dot */
+  var toc = document.getElementById('toc');
+  if(toc && !document.querySelector('#toc a[href="#ranking"]')){
+    var a = document.createElement('a');
+    a.href = '#ranking';
+    a.setAttribute('data-label','Ranking');
+    toc.appendChild(a);
+  }
+  /* Active dot on scroll */
+  var ids = ['p1','p2','p3','p4','p5','ranking'];
+  var dots = {};
+  ids.forEach(function(id){
+    var el = document.querySelector('#toc a[href="#'+id+'"]');
+    if(el) dots[id] = el;
+  });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var d = dots[e.target.id];
+      if(d) d.classList.toggle('active', e.isIntersecting);
+    });
+  }, {threshold:.15});
+  ids.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2705 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lillia Tavares — 5 Propostas de Redesign (Direção de Arte)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --olive: #7B785B;
+  --cream: #F4F2E9;
+  --cream-footer: #F7F4E8;
+  --tan: #B99879;
+  --navy: #111D2C;
+  --rose: #BD9187;
+  --ink: #2A2620;
+  --neutral-mid: #D7D6CD;
+  --backdrop-black: #241F21;
+  --backdrop-grey: #E4E1E5;
+  --white: #FFFFFF;
+}
+body { font-family: 'Lato', sans-serif; background: #1a1a1a; color: #f0ede6; }
+.proposal-divider {
+  background: #0d0d0d;
+  padding: 48px 40px 32px;
+  text-align: center;
+  border-top: 1px solid #333;
+}
+.proposal-divider h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 8px;
+}
+.proposal-divider h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: #e8e2d8;
+  font-style: italic;
+}
+.proposal-divider p {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  color: #666;
+  margin-top: 12px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.proposal-wrap { background: var(--white); }
+
+/* ============================================================
+   PROPOSTA 1 — Editorial Calibrada
+   Tese: Refinamento tipográfico sem quebrar a identidade.
+   Cormorant para headings de seção, grid 8pt firme,
+   hierarquia de escala clara, CTA com peso real.
+   ============================================================ */
+.p1 { background: var(--white); color: var(--ink); font-family: 'Lato', sans-serif; }
+
+/* Nav */
+.p1-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--neutral-mid);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px;
+  height: 72px;
+}
+.p1-nav-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--olive); text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.p1-nav-logo-tree {
+  width: 28px; height: 28px;
+  background: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.p1-nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.p1-nav-links a {
+  font-family: 'Lato', sans-serif;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--olive);
+  text-decoration: none; transition: color 0.2s;
+}
+.p1-nav-links a:hover { color: var(--tan); }
+.p1-nav-cta {
+  background: var(--olive); color: var(--white);
+  font-family: 'Lato', sans-serif;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 12px 24px; transition: background 0.2s;
+}
+.p1-nav-cta:hover { background: var(--ink); }
+.p1-nav-cta:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+
+/* Breadcrumb */
+.p1-breadcrumb {
+  padding: 0 64px;
+  height: 40px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid #ebe9e1;
+}
+.p1-breadcrumb span, .p1-breadcrumb a {
+  font-size: 12px; color: var(--olive); opacity: 0.6;
+  text-decoration: none; letter-spacing: 0.04em;
+}
+.p1-breadcrumb a:hover { opacity: 1; }
+.p1-breadcrumb .sep { opacity: 0.3; }
+
+/* Hero */
+.p1-hero {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+}
+.p1-hero-text {
+  padding: 80px 64px 80px 64px;
+  display: flex; flex-direction: column; justify-content: center; gap: 32px;
+  border-right: 1px solid #ebe9e1;
+}
+.p1-hero-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--tan);
+}
+.p1-hero-h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 56px; font-weight: 300; line-height: 1.1;
+  color: var(--olive); letter-spacing: -0.01em;
+}
+.p1-hero-h1 em { font-style: italic; }
+.p1-hero-body {
+  font-size: 16px; line-height: 1.75; color: var(--ink);
+  max-width: 440px; opacity: 0.8;
+}
+.p1-hero-cta {
+  display: inline-block;
+  background: var(--olive); color: var(--white);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 18px 40px; align-self: flex-start;
+  transition: background 0.2s;
+}
+.p1-hero-cta:hover { background: var(--navy); }
+
+.p1-hero-gallery {
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+  gap: 2px; background: #ebe9e1;
+}
+.p1-hero-gallery-item {
+  background: linear-gradient(145deg, #e2ddd4, #ccc9bc);
+  background-size: cover; background-position: center;
+  min-height: 160px;
+}
+.p1-hero-gallery-item:nth-child(1) {
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-hero-gallery-item:nth-child(2) {
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-hero-gallery-item:nth-child(3) {
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-hero-gallery-item:nth-child(4) {
+  background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+
+/* Fundo Infinito */
+.p1-fundo {
+  background: var(--navy);
+  padding: 96px 64px;
+}
+.p1-fundo-header {
+  margin-bottom: 64px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.p1-fundo-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--tan);
+}
+.p1-fundo-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px; font-weight: 300; font-style: italic;
+  color: var(--white); line-height: 1.1; max-width: 520px;
+}
+.p1-fundo-sub {
+  font-size: 15px; color: rgba(255,255,255,0.55);
+  max-width: 480px; line-height: 1.7;
+}
+.p1-fundo-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+}
+.p1-fundo-card {
+  position: relative; min-height: 420px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden;
+}
+.p1-fundo-card:nth-child(1) { background: var(--navy); }
+.p1-fundo-card:nth-child(2) { background: var(--tan); }
+.p1-fundo-card:nth-child(3) { background: var(--backdrop-black); }
+.p1-fundo-card:nth-child(4) { background: var(--backdrop-grey); }
+.p1-fundo-card-body {
+  position: relative; z-index: 2;
+  padding: 32px 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+}
+.p1-fundo-card-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px; font-weight: 400; color: var(--white);
+  margin-bottom: 4px;
+}
+.p1-fundo-card-desc {
+  font-size: 12px; color: rgba(255,255,255,0.6); letter-spacing: 0.06em;
+}
+.p1-fundo-card:nth-child(4) .p1-fundo-card-name,
+.p1-fundo-card:nth-child(4) .p1-fundo-card-desc { color: var(--ink); }
+.p1-fundo-card:nth-child(4) .p1-fundo-card-body { background: linear-gradient(to top, rgba(180,170,160,0.4) 0%, transparent 100%); }
+
+/* Cenários */
+.p1-cenarios { padding: 96px 64px; background: var(--cream); }
+.p1-cenarios-header { margin-bottom: 56px; }
+.p1-cenarios-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--tan); margin-bottom: 16px;
+}
+.p1-cenarios-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px; font-weight: 300; color: var(--olive); line-height: 1.1;
+}
+.p1-cenarios-mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 320px 240px;
+  gap: 8px;
+}
+.p1-cenarios-mosaic-item {
+  background: linear-gradient(145deg, #e2ddd4, #ccc9bc);
+  background-size: cover; background-position: center;
+  position: relative; overflow: hidden;
+}
+.p1-cenarios-mosaic-item:nth-child(1) {
+  grid-column: 1 / 2; grid-row: 1 / 2;
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-cenarios-mosaic-item:nth-child(2) {
+  grid-column: 2 / 3; grid-row: 1 / 2;
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-cenarios-mosaic-item:nth-child(3) {
+  grid-column: 3 / 4; grid-row: 1 / 3;
+  background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-cenarios-mosaic-item:nth-child(4) {
+  grid-column: 1 / 2; grid-row: 2 / 3;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p1-cenarios-mosaic-item:nth-child(5) {
+  grid-column: 2 / 3; grid-row: 2 / 3;
+  background: var(--olive);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+}
+.p1-cenarios-mosaic-cta-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 400; font-style: italic;
+  color: var(--white); text-align: center; padding: 0 24px;
+}
+.p1-cenarios-mosaic-cta-btn {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--white);
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.5);
+  padding: 12px 24px; transition: background 0.2s, border-color 0.2s;
+}
+.p1-cenarios-mosaic-cta-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+.p1-cenarios-mosaic-item:not(:nth-child(5)) .p1-cenarios-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.15);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: flex-end; padding: 24px;
+}
+.p1-cenarios-mosaic-item:not(:nth-child(5)):hover .p1-cenarios-overlay { opacity: 1; }
+.p1-cenarios-overlay-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--white);
+}
+
+/* Localização */
+.p1-localizacao { padding: 96px 64px; background: var(--white); }
+.p1-localizacao-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.p1-localizacao-map {
+  aspect-ratio: 4/3; background: var(--backdrop-grey);
+  position: relative; overflow: hidden;
+}
+.p1-localizacao-map-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(145deg, #ddd8d0, #c8c4bc);
+  display: flex; align-items: center; justify-content: center;
+}
+.p1-localizacao-map-label {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px; font-style: italic; color: var(--olive); opacity: 0.5;
+}
+.p1-localizacao-text { display: flex; flex-direction: column; gap: 32px; }
+.p1-localizacao-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px; font-weight: 300; color: var(--olive); line-height: 1.1;
+}
+.p1-localizacao-info { display: flex; flex-direction: column; gap: 16px; }
+.p1-localizacao-row {
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.p1-localizacao-row-icon { color: var(--tan); flex-shrink: 0; margin-top: 2px; }
+.p1-localizacao-row-text { font-size: 15px; color: var(--ink); line-height: 1.6; opacity: 0.8; }
+.p1-localizacao-cta {
+  display: inline-block;
+  border: 1.5px solid var(--olive); color: var(--olive);
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 16px 32px; align-self: flex-start;
+  transition: background 0.2s, color 0.2s;
+}
+.p1-localizacao-cta:hover { background: var(--olive); color: var(--white); }
+
+/* Footer P1 */
+.p1-footer {
+  background: var(--cream-footer);
+  border-top: 1px solid #e0ddd3;
+  padding: 64px 64px 40px;
+}
+.p1-footer-inner {
+  display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 64px;
+  margin-bottom: 48px;
+}
+.p1-footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px; font-weight: 600; color: var(--olive); letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.p1-footer-logo-sub {
+  display: block; font-family: 'Lato', sans-serif;
+  font-size: 10px; font-weight: 400; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--tan); margin-top: 4px;
+}
+.p1-footer-nav { display: flex; gap: 48px; }
+.p1-footer-nav-col { display: flex; flex-direction: column; gap: 12px; }
+.p1-footer-nav-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--tan); margin-bottom: 4px;
+}
+.p1-footer-nav-link {
+  font-size: 13px; color: var(--olive); text-decoration: none; opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.p1-footer-nav-link:hover { opacity: 1; }
+.p1-footer-social { display: flex; flex-direction: column; gap: 16px; align-items: flex-end; }
+.p1-footer-social-links { display: flex; gap: 16px; }
+.p1-footer-social-link {
+  color: var(--olive); opacity: 0.6;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(123,120,91,0.2); transition: opacity 0.2s, border-color 0.2s;
+  text-decoration: none;
+}
+.p1-footer-social-link:hover { opacity: 1; border-color: var(--tan); }
+.p1-footer-bottom {
+  border-top: 1px solid #e0ddd3; padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.p1-footer-copy {
+  font-size: 11.5px; color: var(--olive); opacity: 0.4; letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   PROPOSTA 2 — Linha Horizontal
+   Tese: A página como publicação — margens verticais estreitas,
+   divisões por fio horizontal fino, tipografia editorial
+   em contraste com grid rigoroso. Menos respiro, mais densidade
+   intencional; feel de revista impressa.
+   ============================================================ */
+.p2 { background: var(--white); color: var(--ink); font-family: 'Lato', sans-serif; }
+
+.p2-nav {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 64px;
+  height: 80px;
+  border-bottom: 2px solid var(--olive);
+}
+.p2-nav-links-left, .p2-nav-links-right {
+  display: flex; align-items: center; gap: 28px; list-style: none;
+}
+.p2-nav-links-right { justify-content: flex-end; }
+.p2-nav-links-left a, .p2-nav-links-right a {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--olive); text-decoration: none;
+  transition: color 0.2s;
+}
+.p2-nav-links-left a:hover, .p2-nav-links-right a:hover { color: var(--tan); }
+.p2-nav-logo {
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--olive); text-decoration: none; display: block;
+}
+.p2-nav-cta-wrap { display: flex; justify-content: flex-end; align-items: center; }
+.p2-nav-cta {
+  background: var(--olive); color: var(--white);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 10px 20px; transition: background 0.2s;
+  white-space: nowrap;
+}
+.p2-nav-cta:hover { background: var(--navy); }
+
+/* Breadcrumb P2 */
+.p2-breadcrumb {
+  padding: 0 64px;
+  height: 36px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid #e5e2d8;
+}
+.p2-breadcrumb span, .p2-breadcrumb a {
+  font-size: 11px; color: var(--olive); opacity: 0.5; text-decoration: none;
+}
+.p2-breadcrumb a:hover { opacity: 0.9; }
+
+/* Hero P2 — horizontal rule + giant headline */
+.p2-hero {
+  padding: 0 64px;
+  border-bottom: 1px solid #e5e2d8;
+}
+.p2-hero-inner {
+  display: grid; grid-template-columns: 5fr 4fr;
+  gap: 0;
+  min-height: 560px;
+}
+.p2-hero-text {
+  padding: 72px 64px 72px 0;
+  border-right: 1px solid #e5e2d8;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.p2-hero-top { display: flex; flex-direction: column; gap: 24px; }
+.p2-hero-issue {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--tan);
+}
+.p2-hero-h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 72px; font-weight: 300; line-height: 0.95;
+  color: var(--olive); letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.p2-hero-h1 em { font-style: italic; font-weight: 300; }
+.p2-hero-bottom {
+  display: flex; align-items: center; gap: 32px;
+  padding-top: 40px; border-top: 1px solid #e5e2d8;
+}
+.p2-hero-body {
+  font-size: 15px; line-height: 1.8; color: var(--ink); opacity: 0.7; max-width: 400px;
+}
+.p2-hero-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--navy); color: var(--white);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 16px 32px; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.p2-hero-cta:hover { background: var(--olive); }
+.p2-hero-image-col {
+  display: grid; grid-template-rows: 1fr auto;
+}
+.p2-hero-main-img {
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=1200&q=85');
+  background-size: cover; background-position: center top;
+}
+.p2-hero-thumb-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px; background: #e5e2d8; height: 88px;
+}
+.p2-hero-thumb {
+  background-size: cover; background-position: center;
+}
+.p2-hero-thumb:nth-child(1) {
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=300&q=80');
+}
+.p2-hero-thumb:nth-child(2) {
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&q=80');
+}
+.p2-hero-thumb:nth-child(3) {
+  background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=80');
+}
+
+/* Fundo Infinito P2 */
+.p2-fundo {
+  background: var(--white);
+  padding: 80px 64px;
+  border-bottom: 1px solid #e5e2d8;
+}
+.p2-fundo-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--tan);
+  margin-bottom: 8px;
+}
+.p2-fundo-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px; font-weight: 300; color: var(--olive);
+  margin-bottom: 8px;
+}
+.p2-fundo-h2 em { font-style: italic; }
+.p2-fundo-rule { border: none; border-top: 1px solid #e5e2d8; margin: 40px 0; }
+.p2-fundo-cols {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+}
+.p2-fundo-col {
+  display: flex; flex-direction: column;
+  border-right: 1px solid #e5e2d8;
+  overflow: hidden;
+}
+.p2-fundo-col:last-child { border-right: none; }
+.p2-fundo-col-img {
+  height: 320px;
+  background-size: cover; background-position: center top;
+}
+.p2-fundo-col:nth-child(1) .p2-fundo-col-img { background-color: var(--navy); }
+.p2-fundo-col:nth-child(2) .p2-fundo-col-img { background-color: var(--tan); }
+.p2-fundo-col:nth-child(3) .p2-fundo-col-img { background-color: var(--backdrop-black); }
+.p2-fundo-col:nth-child(4) .p2-fundo-col-img { background-color: var(--backdrop-grey); }
+.p2-fundo-col-meta {
+  padding: 20px 24px;
+  border-top: 1px solid #e5e2d8;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.p2-fundo-col-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px; font-weight: 400; color: var(--olive);
+}
+.p2-fundo-col-desc {
+  font-size: 11.5px; color: var(--olive); opacity: 0.5; letter-spacing: 0.06em;
+}
+
+/* Cenários P2 */
+.p2-cenarios { padding: 80px 64px; background: var(--cream); border-bottom: 1px solid #e5e2d8; }
+.p2-cenarios-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 48px;
+}
+.p2-cenarios-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px; font-weight: 300; color: var(--olive);
+}
+.p2-cenarios-h2 em { font-style: italic; }
+.p2-cenarios-header-cta {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--olive); text-decoration: none;
+  border-bottom: 1px solid var(--tan); padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.p2-cenarios-header-cta:hover { color: var(--tan); }
+.p2-cenarios-strip {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 4px; height: 480px;
+}
+.p2-cenarios-strip-item {
+  background-size: cover; background-position: center;
+  position: relative; overflow: hidden; cursor: pointer;
+}
+.p2-cenarios-strip-item:nth-child(1) {
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80');
+}
+.p2-cenarios-strip-item:nth-child(2) {
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80');
+}
+.p2-cenarios-strip-item:nth-child(3) {
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80');
+}
+.p2-cenarios-strip-item:nth-child(4) {
+  background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80');
+}
+.p2-cenarios-strip-item:nth-child(5) {
+  background: var(--olive);
+  display: flex; align-items: center; justify-content: center;
+}
+.p2-cenarios-cta-inner {
+  padding: 32px 16px; text-align: center;
+  display: flex; flex-direction: column; gap: 16px; align-items: center;
+}
+.p2-cenarios-cta-inner span {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px; font-style: italic; font-weight: 300; color: var(--white);
+  line-height: 1.3;
+}
+.p2-cenarios-cta-inner a {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--white);
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.4);
+  padding: 10px 20px; transition: background 0.2s;
+}
+.p2-cenarios-cta-inner a:hover { background: rgba(255,255,255,0.1); }
+.p2-cenarios-strip-item:not(:nth-child(5))::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.3s;
+}
+.p2-cenarios-strip-item:not(:nth-child(5)):hover::after { opacity: 1; }
+
+/* Localização P2 */
+.p2-localizacao {
+  padding: 80px 64px;
+  background: var(--white);
+  border-bottom: 1px solid #e5e2d8;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start;
+}
+.p2-localizacao-left {}
+.p2-localizacao-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--tan); margin-bottom: 16px;
+}
+.p2-localizacao-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 40px; font-weight: 300; color: var(--olive);
+  line-height: 1.1; margin-bottom: 32px;
+}
+.p2-localizacao-info { display: flex; flex-direction: column; gap: 20px; }
+.p2-localizacao-row { display: flex; gap: 14px; align-items: flex-start; }
+.p2-localizacao-row-icon { color: var(--tan); flex-shrink: 0; margin-top: 1px; }
+.p2-localizacao-row-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--tan); margin-bottom: 4px;
+}
+.p2-localizacao-row-val { font-size: 14px; color: var(--ink); opacity: 0.7; line-height: 1.5; }
+.p2-localizacao-cta {
+  display: inline-block; margin-top: 32px;
+  background: var(--olive); color: var(--white);
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 14px 28px; transition: background 0.2s;
+}
+.p2-localizacao-cta:hover { background: var(--navy); }
+.p2-localizacao-map-wrap {
+  aspect-ratio: 16/9;
+  background: var(--backdrop-grey);
+  display: flex; align-items: center; justify-content: center;
+}
+.p2-localizacao-map-placeholder {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px; font-style: italic; color: var(--olive); opacity: 0.4;
+}
+
+/* Footer P2 */
+.p2-footer {
+  background: var(--navy);
+  padding: 64px;
+}
+.p2-footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 48px;
+}
+.p2-footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 600; color: var(--white);
+  letter-spacing: 0.04em; text-decoration: none;
+}
+.p2-footer-tagline {
+  font-size: 11px; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px;
+}
+.p2-footer-nav {
+  display: flex; gap: 32px; list-style: none;
+}
+.p2-footer-nav a {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,255,255,0.45);
+  text-decoration: none; transition: color 0.2s;
+}
+.p2-footer-nav a:hover { color: var(--tan); }
+.p2-footer-social { display: flex; gap: 16px; }
+.p2-footer-social a {
+  color: rgba(255,255,255,0.4); transition: color 0.2s; text-decoration: none;
+  display: flex; align-items: center;
+}
+.p2-footer-social a:hover { color: var(--tan); }
+.p2-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 24px;
+  display: flex; justify-content: space-between;
+}
+.p2-footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.04em; }
+
+@media (max-width: 900px) {
+  .p1-nav { padding: 0 24px; }
+  .p1-nav-links { display: none; }
+  .p1-hero { grid-template-columns: 1fr; }
+  .p1-hero-gallery { min-height: 300px; }
+  .p1-hero-text { padding: 48px 24px; }
+  .p1-hero-h1 { font-size: 40px; }
+  .p1-fundo { padding: 64px 24px; }
+  .p1-fundo-grid { grid-template-columns: 1fr 1fr; }
+  .p1-cenarios { padding: 64px 24px; }
+  .p1-cenarios-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .p1-cenarios-mosaic-item:nth-child(3) { grid-column: auto; grid-row: auto; }
+  .p1-localizacao { padding: 64px 24px; }
+  .p1-localizacao-inner { grid-template-columns: 1fr; gap: 40px; }
+  .p1-footer { padding: 48px 24px 32px; }
+  .p1-footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .p1-footer-social { align-items: flex-start; }
+  .p1-breadcrumb { padding: 0 24px; }
+
+  .p2-nav { grid-template-columns: 1fr; padding: 16px 24px; height: auto; }
+  .p2-nav-links-left, .p2-nav-links-right { display: none; }
+  .p2-nav-logo { text-align: left; }
+  .p2-breadcrumb { padding: 0 24px; }
+  .p2-hero { padding: 0 24px; }
+  .p2-hero-inner { grid-template-columns: 1fr; }
+  .p2-hero-text { padding: 48px 0; border-right: none; border-bottom: 1px solid #e5e2d8; }
+  .p2-hero-h1 { font-size: 48px; }
+  .p2-hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .p2-fundo { padding: 64px 24px; }
+  .p2-fundo-cols { grid-template-columns: 1fr 1fr; }
+  .p2-cenarios { padding: 64px 24px; }
+  .p2-cenarios-strip { grid-template-columns: 1fr 1fr; grid-template-rows: auto; height: auto; }
+  .p2-cenarios-strip-item { min-height: 200px; }
+  .p2-cenarios-strip-item:nth-child(1) { grid-column: 1 / -1; }
+  .p2-localizacao { padding: 64px 24px; grid-template-columns: 1fr; }
+  .p2-footer { padding: 48px 24px; }
+  .p2-footer-inner { flex-direction: column; gap: 32px; align-items: flex-start; }
+  .p2-footer-nav { flex-wrap: wrap; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROPOSAL SEPARATOR -->
+<div class="proposal-divider">
+  <h2>Proposta 01 de 05</h2>
+  <h3>Editorial Calibrada</h3>
+  <p>Evolução segura: hierarquia tipográfica real com Cormorant, grid 8pt firme, CTA com peso visual, mosaico com ritmo. Mantém a identidade mas corrige os sete problemas identificados.</p>
+</div>
+
+<!-- PROPOSTA 1 -->
+<section class="proposal-wrap">
+<div class="p1">
+
+  <!-- Nav -->
+  <nav class="p1-nav" role="navigation" aria-label="Navegação principal">
+    <a href="#" class="p1-nav-logo" aria-label="Lillia Tavares — Fotógrafa">
+      <svg class="p1-nav-logo-tree" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2 C8 2 5 5 5 9 C5 12 7 14.5 10 15.5 L10 22 L14 22 L14 15.5 C17 14.5 19 12 19 9 C19 5 16 2 12 2 Z" fill="#7B785B" opacity="0.7"/>
+        <path d="M12 4 C9 4 7 6.5 7 9 C7 11 8.5 12.8 10.5 13.8 L10.5 22 L13.5 22 L13.5 13.8 C15.5 12.8 17 11 17 9 C17 6.5 15 4 12 4 Z" fill="#7B785B"/>
+      </svg>
+      Lillia Tavares
+    </a>
+    <ul class="p1-nav-links" role="list">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#" aria-current="page">Estúdio</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+    <a href="https://wa.me/55119" class="p1-nav-cta" rel="noopener">Falar no WhatsApp</a>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <nav class="p1-breadcrumb" aria-label="Localização na página">
+    <a href="#">Home</a>
+    <span class="sep">→</span>
+    <span aria-current="page">Estúdio Fotográfico</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="p1-hero" aria-labelledby="p1-h1">
+    <div class="p1-hero-text">
+      <p class="p1-hero-eyebrow">Estúdio Fotográfico em Mogi das Cruzes</p>
+      <h1 class="p1-hero-h1" id="p1-h1">Sobre<br>o <em>Estúdio</em></h1>
+      <p class="p1-hero-body">Um espaço criado para revelar o melhor de você — com cenários pensados para cada tipo de ensaio, luz natural controlada e atenção a cada detalhe. Venha descobrir o ambiente onde sua história será fotografada.</p>
+      <a href="#" class="p1-hero-cta">Agende seu ensaio</a>
+    </div>
+    <div class="p1-hero-gallery" aria-label="Galeria do estúdio">
+      <div class="p1-hero-gallery-item" role="img" aria-label="Cenário interno do estúdio"></div>
+      <div class="p1-hero-gallery-item" role="img" aria-label="Sala com mobiliário sofisticado"></div>
+      <div class="p1-hero-gallery-item" role="img" aria-label="Ambiente com sofá contemporâneo"></div>
+      <div class="p1-hero-gallery-item" role="img" aria-label="Estúdio com iluminação natural"></div>
+    </div>
+  </section>
+
+  <!-- Fundo Infinito -->
+  <section class="p1-fundo" aria-labelledby="p1-fundo-h2">
+    <div class="p1-fundo-header">
+      <p class="p1-fundo-eyebrow">Fundo Infinito Fotográfico</p>
+      <h2 class="p1-fundo-h2" id="p1-fundo-h2">Quatro cenários,<br><em>quatro atmosferas</em></h2>
+      <p class="p1-fundo-sub">Nosso fundo infinito permite mudar completamente o clima do ensaio sem sair do estúdio. Escolha a paleta que fala mais com você.</p>
+    </div>
+    <div class="p1-fundo-grid">
+      <div class="p1-fundo-card">
+        <div class="p1-fundo-card-body">
+          <p class="p1-fundo-card-name">Azul Noite</p>
+          <p class="p1-fundo-card-desc">Dramático · Elegante</p>
+        </div>
+      </div>
+      <div class="p1-fundo-card">
+        <div class="p1-fundo-card-body">
+          <p class="p1-fundo-card-name">Caramel</p>
+          <p class="p1-fundo-card-desc">Quente · Natural</p>
+        </div>
+      </div>
+      <div class="p1-fundo-card">
+        <div class="p1-fundo-card-body">
+          <p class="p1-fundo-card-name">Carvão</p>
+          <p class="p1-fundo-card-desc">Clássico · Atemporal</p>
+        </div>
+      </div>
+      <div class="p1-fundo-card">
+        <div class="p1-fundo-card-body" style="background:none;">
+          <p class="p1-fundo-card-name" style="color:var(--ink);">Cinza Pérola</p>
+          <p class="p1-fundo-card-desc" style="color:rgba(42,38,32,0.6);">Delicado · Luminoso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cenários -->
+  <section class="p1-cenarios" aria-labelledby="p1-cenarios-h2">
+    <div class="p1-cenarios-header">
+      <p class="p1-cenarios-eyebrow">Ambientes exclusivos</p>
+      <h2 class="p1-cenarios-h2" id="p1-cenarios-h2">Conheça os Cenários</h2>
+    </div>
+    <div class="p1-cenarios-mosaic">
+      <div class="p1-cenarios-mosaic-item">
+        <div class="p1-cenarios-overlay"><span class="p1-cenarios-overlay-label">Sala Provençal</span></div>
+      </div>
+      <div class="p1-cenarios-mosaic-item">
+        <div class="p1-cenarios-overlay"><span class="p1-cenarios-overlay-label">Quarto Romântico</span></div>
+      </div>
+      <div class="p1-cenarios-mosaic-item">
+        <div class="p1-cenarios-overlay"><span class="p1-cenarios-overlay-label">Canto de Leitura</span></div>
+      </div>
+      <div class="p1-cenarios-mosaic-item">
+        <div class="p1-cenarios-overlay"><span class="p1-cenarios-overlay-label">Studio Clean</span></div>
+      </div>
+      <div class="p1-cenarios-mosaic-item">
+        <p class="p1-cenarios-mosaic-cta-text">Veja todos os ambientes disponíveis</p>
+        <a href="#" class="p1-cenarios-mosaic-cta-btn">Ver galeria</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização -->
+  <section class="p1-localizacao" aria-labelledby="p1-loc-h2">
+    <div class="p1-localizacao-inner">
+      <div class="p1-localizacao-map" role="img" aria-label="Mapa de localização do estúdio">
+        <div class="p1-localizacao-map-inner">
+          <span class="p1-localizacao-map-label">Mogi das Cruzes, SP</span>
+        </div>
+      </div>
+      <div class="p1-localizacao-text">
+        <h2 class="p1-localizacao-h2" id="p1-loc-h2">Onde fica<br>o estúdio</h2>
+        <div class="p1-localizacao-info">
+          <div class="p1-localizacao-row">
+            <i data-lucide="map-pin" class="p1-localizacao-row-icon" size="18" aria-hidden="true"></i>
+            <span class="p1-localizacao-row-text">Rua das Flores, 120 — Centro<br>Mogi das Cruzes, SP</span>
+          </div>
+          <div class="p1-localizacao-row">
+            <i data-lucide="phone" class="p1-localizacao-row-icon" size="18" aria-hidden="true"></i>
+            <span class="p1-localizacao-row-text">(11) 9 9999-9999</span>
+          </div>
+          <div class="p1-localizacao-row">
+            <i data-lucide="mail" class="p1-localizacao-row-icon" size="18" aria-hidden="true"></i>
+            <span class="p1-localizacao-row-text">contato@lilliatavares.com.br</span>
+          </div>
+        </div>
+        <a href="https://wa.me/55119" class="p1-localizacao-cta" rel="noopener">Agendar visita ao estúdio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p1-footer">
+    <div class="p1-footer-inner">
+      <div>
+        <a href="#" class="p1-footer-logo">Lillia Tavares<em class="p1-footer-logo-sub">Fotógrafa</em></a>
+      </div>
+      <nav class="p1-footer-nav" aria-label="Navegação rodapé">
+        <div class="p1-footer-nav-col">
+          <span class="p1-footer-nav-title">Serviços</span>
+          <a href="#" class="p1-footer-nav-link">Ensaio Feminino</a>
+          <a href="#" class="p1-footer-nav-link">Ensaio Família</a>
+          <a href="#" class="p1-footer-nav-link">Ensaio Gestante</a>
+          <a href="#" class="p1-footer-nav-link">Newborn</a>
+        </div>
+        <div class="p1-footer-nav-col">
+          <span class="p1-footer-nav-title">Navegação</span>
+          <a href="#" class="p1-footer-nav-link">Trabalhos</a>
+          <a href="#" class="p1-footer-nav-link">Estúdio</a>
+          <a href="#" class="p1-footer-nav-link">Preços</a>
+          <a href="#" class="p1-footer-nav-link">Blog</a>
+        </div>
+      </nav>
+      <div class="p1-footer-social" aria-label="Redes sociais">
+        <div class="p1-footer-social-links">
+          <a href="#" class="p1-footer-social-link" aria-label="Instagram">
+            <i data-lucide="instagram" size="16"></i>
+          </a>
+          <a href="#" class="p1-footer-social-link" aria-label="WhatsApp">
+            <i data-lucide="phone" size="16"></i>
+          </a>
+          <a href="#" class="p1-footer-social-link" aria-label="E-mail">
+            <i data-lucide="mail" size="16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="p1-footer-bottom">
+      <span class="p1-footer-copy">© 2025 Lillia Tavares Fotografia. Todos os direitos reservados.</span>
+      <span class="p1-footer-copy">Mogi das Cruzes, São Paulo</span>
+    </div>
+  </footer>
+
+</div>
+</section>
+<!-- END PROPOSTA 1 -->
+
+
+<!-- PROPOSAL SEPARATOR -->
+<div class="proposal-divider">
+  <h2>Proposta 02 de 05</h2>
+  <h3>Publicação Horizontal</h3>
+  <p>Nav centrado simétrico como revista impressa. Hero com H1 generoso de 72px e fio horizontal como âncora de ritmo. Fundo infinito exposto como colunas editoriais com metatexto abaixo. Paleta mais escura no footer (navy).</p>
+</div>
+
+<!-- PROPOSTA 2 -->
+<section class="proposal-wrap">
+<div class="p2">
+
+  <!-- Nav -->
+  <nav class="p2-nav" role="navigation" aria-label="Navegação principal">
+    <ul class="p2-nav-links-left" role="list">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#" aria-current="page">Estúdio</a></li>
+    </ul>
+    <a href="#" class="p2-nav-logo" aria-label="Lillia Tavares — Fotógrafa">Lillia Tavares</a>
+    <div class="p2-nav-cta-wrap">
+      <ul class="p2-nav-links-right" role="list">
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <a href="https://wa.me/55119" class="p2-nav-cta" rel="noopener">WhatsApp</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <nav class="p2-breadcrumb" aria-label="Localização">
+    <a href="#">Home</a>
+    <span>→</span>
+    <span aria-current="page">Estúdio Fotográfico</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="p2-hero" aria-labelledby="p2-h1">
+    <div class="p2-hero-inner">
+      <div class="p2-hero-text">
+        <div class="p2-hero-top">
+          <p class="p2-hero-issue">Estúdio fotográfico em Mogi das Cruzes</p>
+          <h1 class="p2-hero-h1" id="p2-h1">Sobre<br>o <em>Estúdio</em></h1>
+        </div>
+        <div class="p2-hero-bottom">
+          <p class="p2-hero-body">Um espaço criado para revelar o melhor de você — com cenários pensados para cada tipo de ensaio e luz controlada para cada momento.</p>
+          <a href="#" class="p2-hero-cta">
+            Agende seu ensaio
+            <i data-lucide="arrow-right" size="14" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      <div class="p2-hero-image-col">
+        <div class="p2-hero-main-img" role="img" aria-label="Interior do estúdio Lillia Tavares"></div>
+        <div class="p2-hero-thumb-row" aria-hidden="true">
+          <div class="p2-hero-thumb"></div>
+          <div class="p2-hero-thumb"></div>
+          <div class="p2-hero-thumb"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fundo Infinito -->
+  <section class="p2-fundo" aria-labelledby="p2-fundo-h2">
+    <p class="p2-fundo-label">Fundo Infinito Fotográfico</p>
+    <h2 class="p2-fundo-h2" id="p2-fundo-h2">Quatro atmosferas,<br><em>uma escolha sua</em></h2>
+    <hr class="p2-fundo-rule" aria-hidden="true">
+    <div class="p2-fundo-cols">
+      <div class="p2-fundo-col">
+        <div class="p2-fundo-col-img" role="img" aria-label="Fundo azul noite"></div>
+        <div class="p2-fundo-col-meta">
+          <p class="p2-fundo-col-name">Azul Noite</p>
+          <p class="p2-fundo-col-desc">Dramático · Elegante</p>
+        </div>
+      </div>
+      <div class="p2-fundo-col">
+        <div class="p2-fundo-col-img" role="img" aria-label="Fundo caramel"></div>
+        <div class="p2-fundo-col-meta">
+          <p class="p2-fundo-col-name">Caramel</p>
+          <p class="p2-fundo-col-desc">Quente · Natural</p>
+        </div>
+      </div>
+      <div class="p2-fundo-col">
+        <div class="p2-fundo-col-img" role="img" aria-label="Fundo carvão escuro"></div>
+        <div class="p2-fundo-col-meta">
+          <p class="p2-fundo-col-name">Carvão</p>
+          <p class="p2-fundo-col-desc">Clássico · Atemporal</p>
+        </div>
+      </div>
+      <div class="p2-fundo-col">
+        <div class="p2-fundo-col-img" role="img" aria-label="Fundo cinza pérola"></div>
+        <div class="p2-fundo-col-meta">
+          <p class="p2-fundo-col-name">Cinza Pérola</p>
+          <p class="p2-fundo-col-desc">Delicado · Luminoso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cenários -->
+  <section class="p2-cenarios" aria-labelledby="p2-cenarios-h2">
+    <div class="p2-cenarios-header">
+      <h2 class="p2-cenarios-h2" id="p2-cenarios-h2">Conheça os <em>Cenários</em></h2>
+      <a href="#" class="p2-cenarios-header-cta">Ver galeria completa</a>
+    </div>
+    <div class="p2-cenarios-strip">
+      <div class="p2-cenarios-strip-item" role="img" aria-label="Cenário principal do estúdio"></div>
+      <div class="p2-cenarios-strip-item" role="img" aria-label="Sala Provençal"></div>
+      <div class="p2-cenarios-strip-item" role="img" aria-label="Quarto Romântico"></div>
+      <div class="p2-cenarios-strip-item" role="img" aria-label="Studio Clean"></div>
+      <div class="p2-cenarios-strip-item">
+        <div class="p2-cenarios-cta-inner">
+          <span>Cada ambiente, uma história diferente</span>
+          <a href="#">Agendar ensaio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização -->
+  <section class="p2-localizacao" aria-labelledby="p2-loc-h2">
+    <div class="p2-localizacao-left">
+      <p class="p2-localizacao-label">Localização</p>
+      <h2 class="p2-localizacao-h2" id="p2-loc-h2">Onde fica<br>o estúdio</h2>
+      <div class="p2-localizacao-info">
+        <div class="p2-localizacao-row">
+          <i data-lucide="map-pin" class="p2-localizacao-row-icon" size="16" aria-hidden="true"></i>
+          <div>
+            <p class="p2-localizacao-row-label">Endereço</p>
+            <p class="p2-localizacao-row-val">Rua das Flores, 120 — Centro<br>Mogi das Cruzes, SP</p>
+          </div>
+        </div>
+        <div class="p2-localizacao-row">
+          <i data-lucide="phone" class="p2-localizacao-row-icon" size="16" aria-hidden="true"></i>
+          <div>
+            <p class="p2-localizacao-row-label">Telefone</p>
+            <p class="p2-localizacao-row-val">(11) 9 9999-9999</p>
+          </div>
+        </div>
+        <div class="p2-localizacao-row">
+          <i data-lucide="mail" class="p2-localizacao-row-icon" size="16" aria-hidden="true"></i>
+          <div>
+            <p class="p2-localizacao-row-label">Email</p>
+            <p class="p2-localizacao-row-val">contato@lilliatavares.com.br</p>
+          </div>
+        </div>
+      </div>
+      <a href="https://wa.me/55119" class="p2-localizacao-cta" rel="noopener">Agendar pelo WhatsApp</a>
+    </div>
+    <div class="p2-localizacao-map-wrap" role="img" aria-label="Mapa da localização">
+      <span class="p2-localizacao-map-placeholder">Mogi das Cruzes, SP</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p2-footer">
+    <div class="p2-footer-inner">
+      <div>
+        <a href="#" class="p2-footer-logo">Lillia Tavares</a>
+        <p class="p2-footer-tagline">Fotografia de estúdio · Mogi das Cruzes</p>
+      </div>
+      <nav aria-label="Navegação rodapé">
+        <ul class="p2-footer-nav" role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <div class="p2-footer-social" aria-label="Redes sociais">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram" size="18"></i></a>
+        <a href="#" aria-label="WhatsApp"><i data-lucide="phone" size="18"></i></a>
+        <a href="#" aria-label="Email"><i data-lucide="mail" size="18"></i></a>
+      </div>
+    </div>
+    <div class="p2-footer-bottom">
+      <span class="p2-footer-copy">© 2025 Lillia Tavares Fotografia</span>
+      <span class="p2-footer-copy">Mogi das Cruzes, São Paulo</span>
+    </div>
+  </footer>
+
+</div>
+</section>
+<!-- END PROPOSTA 2 -->
+
+<style>
+/* ============================================================
+   PROPOSTA 3 — Cream & Tan
+   Tese: A paleta warm é a protagonista. Fundo cream-to-tan
+   suave, zero brancos crus. Nav translúcido em cream.
+   H1 com letra-alta em Cormorant, corpo em Lato 300.
+   Seções alternadas: cream / tan-light / cream.
+   Micro-detalhe: linha decorativa fina abaixo dos eyebrows
+   (de um lado, não centrada — intencional).
+   ============================================================ */
+.p3 { background: #F4F2E9; color: #2A2620; font-family: 'Lato', sans-serif; }
+
+.p3-nav {
+  background: rgba(244,242,233,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(185,152,121,0.2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px; height: 72px;
+  position: sticky; top: 0; z-index: 100;
+}
+.p3-nav-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 21px; font-weight: 600; letter-spacing: 0.06em;
+  color: #7B785B; text-decoration: none;
+}
+.p3-nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.p3-nav-links a {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #7B785B; text-decoration: none;
+  transition: color 0.2s;
+}
+.p3-nav-links a:hover { color: #B99879; }
+.p3-nav-cta {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #2A2620; text-decoration: none;
+  border-bottom: 1.5px solid #B99879; padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.p3-nav-cta:hover { color: #B99879; }
+
+.p3-breadcrumb {
+  padding: 12px 64px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(185,152,121,0.2);
+}
+.p3-breadcrumb span, .p3-breadcrumb a {
+  font-size: 11px; color: #7B785B; opacity: 0.55; text-decoration: none;
+}
+.p3-breadcrumb a:hover { opacity: 0.9; }
+
+/* Hero P3 */
+.p3-hero {
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: #F4F2E9;
+}
+.p3-hero-text {
+  padding: 96px 64px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.p3-hero-eyebrow-wrap {
+  display: flex; flex-direction: column; gap: 0;
+  margin-bottom: 32px;
+}
+.p3-hero-eyebrow {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #B99879;
+}
+.p3-hero-eyebrow-rule {
+  display: block; width: 40px; height: 1px;
+  background: #B99879; margin-top: 10px;
+}
+.p3-hero-h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 64px; font-weight: 300; line-height: 1.05;
+  color: #7B785B; letter-spacing: -0.01em;
+  margin-bottom: 28px;
+}
+.p3-hero-h1 em { font-style: italic; }
+.p3-hero-body {
+  font-size: 15.5px; font-weight: 300; line-height: 1.85;
+  color: #2A2620; opacity: 0.72; max-width: 400px;
+  margin-bottom: 40px;
+}
+.p3-hero-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: #7B785B; color: #F4F2E9;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 18px 40px; align-self: flex-start;
+  transition: background 0.25s;
+}
+.p3-hero-cta:hover { background: #2A2620; }
+
+.p3-hero-image {
+  position: relative; overflow: hidden; min-height: 560px;
+}
+.p3-hero-image-main {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=1200&q=85');
+  background-size: cover; background-position: center;
+}
+.p3-hero-image-accent {
+  position: absolute; bottom: 40px; left: -24px;
+  width: 180px; height: 220px;
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80');
+  background-size: cover; background-position: center;
+  border: 6px solid #F4F2E9;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+
+/* Fundo Infinito P3 */
+.p3-fundo {
+  background: #EDE9DC;
+  padding: 96px 64px;
+}
+.p3-fundo-header {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: end; margin-bottom: 56px;
+}
+.p3-fundo-eyebrow-wrap { display: flex; flex-direction: column; gap: 0; margin-bottom: 20px; }
+.p3-fundo-eyebrow {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #B99879;
+}
+.p3-fundo-eyebrow-rule { display: block; width: 40px; height: 1px; background: #B99879; margin-top: 10px; }
+.p3-fundo-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px; font-weight: 300; line-height: 1.1;
+  color: #7B785B;
+}
+.p3-fundo-h2 em { font-style: italic; }
+.p3-fundo-body {
+  font-size: 15px; font-weight: 300; line-height: 1.8;
+  color: #2A2620; opacity: 0.65; align-self: center;
+}
+.p3-fundo-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.p3-fundo-card {
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.p3-fundo-card-img {
+  height: 380px;
+  position: relative; overflow: hidden;
+}
+.p3-fundo-card:nth-child(1) .p3-fundo-card-img { background: #111D2C; }
+.p3-fundo-card:nth-child(2) .p3-fundo-card-img { background: #B99879; }
+.p3-fundo-card:nth-child(3) .p3-fundo-card-img { background: #241F21; }
+.p3-fundo-card:nth-child(4) .p3-fundo-card-img { background: #E4E1E5; }
+.p3-fundo-card-meta {
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(123,120,91,0.15);
+  margin-top: 12px;
+}
+.p3-fundo-card-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 19px; font-weight: 400; color: #7B785B;
+  margin-bottom: 2px;
+}
+.p3-fundo-card-desc {
+  font-size: 11px; color: #B99879; letter-spacing: 0.08em;
+}
+
+/* Cenários P3 */
+.p3-cenarios { padding: 96px 64px; background: #F4F2E9; }
+.p3-cenarios-eyebrow-wrap { display: flex; flex-direction: column; gap: 0; margin-bottom: 16px; }
+.p3-cenarios-eyebrow {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #B99879;
+}
+.p3-cenarios-eyebrow-rule { display: block; width: 40px; height: 1px; background: #B99879; margin-top: 10px; }
+.p3-cenarios-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px; font-weight: 300; color: #7B785B;
+  margin-bottom: 56px;
+}
+.p3-cenarios-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 360px 280px;
+  gap: 12px;
+}
+.p3-cenarios-item {
+  background-size: cover; background-position: center;
+  position: relative; overflow: hidden;
+}
+.p3-cenarios-item:nth-child(1) {
+  grid-row: 1 / 3;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80');
+}
+.p3-cenarios-item:nth-child(2) {
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80');
+}
+.p3-cenarios-item:nth-child(3) {
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');
+}
+.p3-cenarios-item:nth-child(4) {
+  background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80');
+}
+.p3-cenarios-item:nth-child(5) {
+  background: #7B785B;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 20px; padding: 32px;
+}
+.p3-cenarios-cta-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 300; font-style: italic;
+  color: #F4F2E9; text-align: center;
+}
+.p3-cenarios-cta-btn {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #F4F2E9; text-decoration: none;
+  border-bottom: 1px solid rgba(244,242,233,0.45); padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.p3-cenarios-cta-btn:hover { border-color: #F4F2E9; }
+.p3-cenarios-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(43,37,32,0.35) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.p3-cenarios-item:hover .p3-cenarios-item-overlay { opacity: 1; }
+
+/* Localização P3 */
+.p3-localizacao { padding: 96px 64px; background: #EDE9DC; }
+.p3-localizacao-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.p3-localizacao-eyebrow-wrap { display: flex; flex-direction: column; gap: 0; margin-bottom: 20px; }
+.p3-localizacao-eyebrow {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #B99879;
+}
+.p3-localizacao-eyebrow-rule { display: block; width: 40px; height: 1px; background: #B99879; margin-top: 10px; }
+.p3-localizacao-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px; font-weight: 300; color: #7B785B;
+  margin-bottom: 40px; line-height: 1.1;
+}
+.p3-localizacao-info { display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px; }
+.p3-localizacao-row { display: flex; gap: 14px; align-items: flex-start; }
+.p3-localizacao-icon { color: #B99879; flex-shrink: 0; margin-top: 2px; }
+.p3-localizacao-val { font-size: 14.5px; font-weight: 300; line-height: 1.7; color: #2A2620; opacity: 0.75; }
+.p3-localizacao-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: #7B785B; color: #F4F2E9;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 16px 32px; transition: background 0.25s;
+}
+.p3-localizacao-cta:hover { background: #2A2620; }
+.p3-localizacao-map {
+  aspect-ratio: 4/3; background: #D7D4C8;
+  display: flex; align-items: center; justify-content: center;
+}
+.p3-localizacao-map-label {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px; font-style: italic; color: #7B785B; opacity: 0.5;
+}
+
+/* Footer P3 */
+.p3-footer { background: #2A2620; padding: 64px; }
+.p3-footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 600; color: #F4F2E9;
+  letter-spacing: 0.05em; text-decoration: none; display: block; margin-bottom: 8px;
+}
+.p3-footer-tagline {
+  font-size: 10.5px; color: #B99879; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 48px;
+}
+.p3-footer-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px;
+  border-top: 1px solid rgba(255,255,255,0.08); padding-top: 40px;
+  margin-bottom: 40px;
+}
+.p3-footer-col-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #B99879; margin-bottom: 16px;
+}
+.p3-footer-col-links { display: flex; flex-direction: column; gap: 12px; }
+.p3-footer-col-link {
+  font-size: 13px; font-weight: 300; color: rgba(244,242,233,0.5);
+  text-decoration: none; transition: color 0.2s;
+}
+.p3-footer-col-link:hover { color: #F4F2E9; }
+.p3-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px; display: flex; justify-content: space-between; align-items: center;
+}
+.p3-footer-copy { font-size: 11px; color: rgba(244,242,233,0.25); }
+.p3-footer-social { display: flex; gap: 20px; }
+.p3-footer-social a { color: rgba(244,242,233,0.35); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
+.p3-footer-social a:hover { color: #B99879; }
+
+@media (max-width: 900px) {
+  .p3-nav { padding: 0 24px; }
+  .p3-nav-links { display: none; }
+  .p3-breadcrumb { padding: 12px 24px; }
+  .p3-hero { grid-template-columns: 1fr; }
+  .p3-hero-text { padding: 56px 24px; }
+  .p3-hero-h1 { font-size: 48px; }
+  .p3-hero-image { min-height: 320px; }
+  .p3-hero-image-accent { display: none; }
+  .p3-fundo { padding: 64px 24px; }
+  .p3-fundo-header { grid-template-columns: 1fr; gap: 24px; }
+  .p3-fundo-grid { grid-template-columns: 1fr 1fr; }
+  .p3-cenarios { padding: 64px 24px; }
+  .p3-cenarios-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .p3-cenarios-item:nth-child(1) { grid-row: auto; min-height: 280px; }
+  .p3-cenarios-item { min-height: 200px; }
+  .p3-localizacao { padding: 64px 24px; }
+  .p3-localizacao-inner { grid-template-columns: 1fr; gap: 40px; }
+  .p3-footer { padding: 48px 24px; }
+  .p3-footer-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ============================================================
+   PROPOSTA 4 — Cinematográfica
+   Tese: Ousadia intencional. O navy e o creme como polaridades
+   visuais — blocos inteiros alternados cheios. O hero é
+   full-bleed com texto sobre imagem, usando o navy como
+   overlay controlado. Tipografia Cormorant em escala maior,
+   Lato só para elementos de UI. Risk: a foto de fundo.
+   ============================================================ */
+.p4 { background: #F4F2E9; font-family: 'Lato', sans-serif; }
+
+.p4-nav {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 80px; height: 80px;
+}
+.p4-nav-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 600; letter-spacing: 0.05em;
+  color: #F4F2E9; text-decoration: none;
+}
+.p4-nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.p4-nav-links a {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: rgba(244,242,233,0.7);
+  text-decoration: none; transition: color 0.2s;
+}
+.p4-nav-links a:hover { color: #F4F2E9; }
+.p4-nav-cta {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: #F4F2E9; text-decoration: none;
+  border: 1px solid rgba(244,242,233,0.45); padding: 10px 20px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.p4-nav-cta:hover { background: rgba(244,242,233,0.1); border-color: #F4F2E9; }
+
+/* Hero full-bleed P4 */
+.p4-hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: flex-end;
+  background: #111D2C;
+  overflow: hidden;
+}
+.p4-hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=1200&q=85');
+  background-size: cover; background-position: center top;
+  opacity: 0.55;
+}
+.p4-hero-content {
+  position: relative; z-index: 2;
+  padding: 80px;
+  max-width: 800px;
+}
+.p4-hero-breadcrumb {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+}
+.p4-hero-breadcrumb a, .p4-hero-breadcrumb span {
+  font-size: 11px; color: rgba(244,242,233,0.5);
+  text-decoration: none; letter-spacing: 0.08em;
+}
+.p4-hero-breadcrumb a:hover { color: rgba(244,242,233,0.8); }
+.p4-hero-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #B99879;
+  margin-bottom: 24px; display: flex; align-items: center; gap: 16px;
+}
+.p4-hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 1px; background: #B99879;
+}
+.p4-hero-h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 88px; font-weight: 300; line-height: 0.92;
+  color: #F4F2E9; letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
+.p4-hero-h1 em { font-style: italic; color: #D7D6CD; }
+.p4-hero-bottom {
+  display: flex; align-items: center; gap: 40px;
+  padding-top: 40px; border-top: 1px solid rgba(244,242,233,0.12);
+}
+.p4-hero-body {
+  font-size: 15px; font-weight: 300; line-height: 1.8;
+  color: rgba(244,242,233,0.6); max-width: 400px;
+}
+.p4-hero-cta {
+  display: inline-flex; align-items: center; gap: 16px;
+  background: #F4F2E9; color: #2A2620;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 20px 44px; flex-shrink: 0;
+  transition: background 0.25s, color 0.25s;
+}
+.p4-hero-cta:hover { background: #B99879; color: #F4F2E9; }
+.p4-hero-scroll-hint {
+  position: absolute; bottom: 40px; right: 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0.3;
+}
+.p4-hero-scroll-hint span {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #F4F2E9;
+  writing-mode: vertical-rl;
+}
+
+/* Fundo Infinito P4 */
+.p4-fundo { background: #2A2620; padding: 0; }
+.p4-fundo-header {
+  padding: 80px 80px 64px;
+}
+.p4-fundo-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: #B99879; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+.p4-fundo-label::before {
+  content: ''; display: block; width: 32px; height: 1px; background: #B99879;
+}
+.p4-fundo-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 56px; font-weight: 300; color: #F4F2E9;
+  line-height: 1.0; max-width: 600px;
+}
+.p4-fundo-h2 em { font-style: italic; color: #B99879; }
+.p4-fundo-panorama {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+}
+.p4-fundo-panel {
+  height: 520px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  cursor: pointer;
+}
+.p4-fundo-panel:nth-child(1) { background: #111D2C; }
+.p4-fundo-panel:nth-child(2) { background: #B99879; }
+.p4-fundo-panel:nth-child(3) { background: #241F21; }
+.p4-fundo-panel:nth-child(4) { background: #E4E1E5; }
+.p4-fundo-panel-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.25);
+  opacity: 0; transition: opacity 0.3s;
+}
+.p4-fundo-panel:hover .p4-fundo-panel-overlay { opacity: 1; }
+.p4-fundo-panel-meta {
+  position: relative; z-index: 2;
+  padding: 0 32px 40px;
+}
+.p4-fundo-panel-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px; font-weight: 300; font-style: italic;
+  color: #F4F2E9; margin-bottom: 4px;
+}
+.p4-fundo-panel:nth-child(4) .p4-fundo-panel-name { color: #2A2620; }
+.p4-fundo-panel-desc {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(244,242,233,0.5);
+}
+.p4-fundo-panel:nth-child(4) .p4-fundo-panel-desc { color: rgba(42,38,32,0.45); }
+
+/* Cenários P4 */
+.p4-cenarios { background: #F4F2E9; padding: 96px 80px; }
+.p4-cenarios-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 56px;
+}
+.p4-cenarios-heading-block {}
+.p4-cenarios-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: #B99879;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.p4-cenarios-label::before { content: ''; display: block; width: 28px; height: 1px; background: #B99879; }
+.p4-cenarios-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 52px; font-weight: 300; color: #7B785B;
+  line-height: 1.0;
+}
+.p4-cenarios-h2 em { font-style: italic; }
+.p4-cenarios-header-cta {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #7B785B; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(123,120,91,0.3); padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.p4-cenarios-header-cta:hover { color: #B99879; border-color: #B99879; }
+.p4-cenarios-layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 480px 240px;
+  gap: 6px;
+}
+.p4-cenarios-main {
+  grid-row: 1 / 3;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=1200&q=85');
+  background-size: cover; background-position: center;
+  position: relative;
+}
+.p4-cenarios-main::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(17,29,44,0.45) 0%, transparent 50%);
+}
+.p4-cenarios-a {
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p4-cenarios-b {
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p4-cenarios-c {
+  display: none;
+}
+.p4-cenarios-cta-panel {
+  grid-column: 2; grid-row: 2;
+  background: #7B785B;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px;
+  padding: 32px;
+}
+.p4-cenarios-cta-txt {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px; font-style: italic; font-weight: 300;
+  color: #F4F2E9; text-align: center; line-height: 1.4;
+}
+.p4-cenarios-cta-link {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #F4F2E9; text-decoration: none;
+  border-bottom: 1px solid rgba(244,242,233,0.4); padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.p4-cenarios-cta-link:hover { border-color: #F4F2E9; }
+
+/* Localização P4 */
+.p4-localizacao {
+  background: #111D2C; padding: 96px 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.p4-localizacao-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: #B99879;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+}
+.p4-localizacao-label::before { content: ''; display: block; width: 28px; height: 1px; background: #B99879; }
+.p4-localizacao-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px; font-weight: 300; color: #F4F2E9;
+  line-height: 1.05; margin-bottom: 40px;
+}
+.p4-localizacao-h2 em { font-style: italic; color: #B99879; }
+.p4-localizacao-info { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
+.p4-localizacao-row { display: flex; gap: 16px; align-items: flex-start; }
+.p4-localizacao-row-icon { color: #B99879; flex-shrink: 0; margin-top: 2px; }
+.p4-localizacao-row-val {
+  font-size: 14.5px; font-weight: 300; line-height: 1.7;
+  color: rgba(244,242,233,0.6);
+}
+.p4-localizacao-cta {
+  display: inline-flex; align-items: center; gap: 16px;
+  background: #F4F2E9; color: #2A2620;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 18px 40px; transition: background 0.25s, color 0.25s;
+}
+.p4-localizacao-cta:hover { background: #B99879; color: #F4F2E9; }
+.p4-localizacao-map {
+  aspect-ratio: 4/3; background: #1A2637;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.p4-localizacao-map-label {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px; font-style: italic; color: rgba(244,242,233,0.25);
+}
+
+/* Footer P4 */
+.p4-footer { background: #F4F2E9; padding: 64px 80px; border-top: 1px solid #E5E2D8; }
+.p4-footer-inner {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 64px;
+  margin-bottom: 48px;
+}
+.p4-footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 600; color: #7B785B; letter-spacing: 0.05em;
+  text-decoration: none; display: block; margin-bottom: 8px;
+}
+.p4-footer-tagline { font-size: 10.5px; color: #B99879; letter-spacing: 0.16em; text-transform: uppercase; }
+.p4-footer-col-title { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #B99879; margin-bottom: 16px; }
+.p4-footer-col-links { display: flex; flex-direction: column; gap: 12px; }
+.p4-footer-col-link { font-size: 13px; color: #7B785B; text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+.p4-footer-col-link:hover { opacity: 1; }
+.p4-footer-bottom {
+  border-top: 1px solid #E5E2D8; padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.p4-footer-copy { font-size: 11px; color: #7B785B; opacity: 0.4; }
+.p4-footer-social { display: flex; gap: 20px; }
+.p4-footer-social a { color: #7B785B; opacity: 0.45; text-decoration: none; transition: opacity 0.2s; display: flex; align-items: center; }
+.p4-footer-social a:hover { opacity: 1; }
+
+@media (max-width: 900px) {
+  .p4-nav { padding: 0 24px; position: relative; background: #111D2C; }
+  .p4-nav-links { display: none; }
+  .p4-hero { min-height: 80vh; }
+  .p4-hero-content { padding: 80px 24px 48px; }
+  .p4-hero-h1 { font-size: 52px; }
+  .p4-hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .p4-hero-scroll-hint { display: none; }
+  .p4-fundo { }
+  .p4-fundo-header { padding: 64px 24px 48px; }
+  .p4-fundo-h2 { font-size: 40px; }
+  .p4-fundo-panorama { grid-template-columns: 1fr 1fr; }
+  .p4-fundo-panel { height: 280px; }
+  .p4-cenarios { padding: 64px 24px; }
+  .p4-cenarios-layout { grid-template-columns: 1fr; grid-template-rows: 320px 240px 240px auto; }
+  .p4-cenarios-main { grid-row: 1; }
+  .p4-cenarios-cta-panel { grid-column: 1; }
+  .p4-localizacao { padding: 64px 24px; grid-template-columns: 1fr; gap: 40px; }
+  .p4-footer { padding: 48px 24px; }
+  .p4-footer-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ============================================================
+   PROPOSTA 5 — Atelier Brasileiro
+   Tese: A proposta mais ousada. Inspirada em publicações
+   editoriais de moda brasileira — margens assimétricas,
+   tipografia Cormorant em tamanho monumental (120px+),
+   texto e imagem se intersectando, grid intencional e
+   quebrado. A paleta é quasi-monocromática: rose + cream
+   + ink. Risco deliberado: tipo que sai do campo da imagem.
+   ============================================================ */
+.p5 { background: #FAFAF7; font-family: 'Lato', sans-serif; --p5-rose: #BD9187; --p5-cream: #F0EDE4; --p5-olive: #7B785B; --p5-ink: #1C1917; --p5-tan: #B99879; }
+
+.p5-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 80px; height: 72px;
+  background: #FAFAF7; border-bottom: 1px solid rgba(123,120,91,0.12);
+}
+.p5-nav-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--p5-olive); text-decoration: none; white-space: nowrap;
+}
+.p5-nav-right { display: flex; align-items: center; gap: 32px; }
+.p5-nav-links { display: flex; gap: 24px; list-style: none; }
+.p5-nav-links a {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--p5-olive); text-decoration: none;
+  opacity: 0.55; transition: opacity 0.2s;
+}
+.p5-nav-links a:hover, .p5-nav-links a[aria-current] { opacity: 1; }
+.p5-nav-cta {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #FAFAF7; text-decoration: none;
+  background: var(--p5-olive); padding: 11px 22px; transition: background 0.2s;
+}
+.p5-nav-cta:hover { background: var(--p5-ink); }
+
+/* Hero P5 — the big typographic risk */
+.p5-hero {
+  min-height: 100vh; position: relative; overflow: hidden;
+  background: #FAFAF7;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.p5-hero-text-side {
+  padding: 80px 48px 80px 80px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; z-index: 2;
+}
+.p5-hero-breadcrumb {
+  position: absolute; top: 24px; left: 80px;
+  display: flex; gap: 8px; align-items: center;
+}
+.p5-hero-breadcrumb a, .p5-hero-breadcrumb span {
+  font-size: 11px; color: var(--p5-olive); opacity: 0.45; text-decoration: none;
+}
+.p5-hero-breadcrumb a:hover { opacity: 0.9; }
+.p5-hero-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--p5-rose); margin-bottom: 24px;
+}
+.p5-hero-h1-large {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(72px, 9vw, 124px);
+  font-weight: 300; line-height: 0.88;
+  color: var(--p5-olive); letter-spacing: -0.03em;
+  margin-bottom: 0; white-space: nowrap;
+}
+.p5-hero-h1-large em { font-style: italic; color: var(--p5-rose); }
+.p5-hero-sub-row {
+  display: flex; align-items: flex-start; gap: 40px;
+  padding-top: 40px; border-top: 1px solid rgba(123,120,91,0.12);
+  margin-top: 40px;
+}
+.p5-hero-body {
+  font-size: 14.5px; font-weight: 300; line-height: 1.85;
+  color: var(--p5-ink); opacity: 0.6; max-width: 320px;
+}
+.p5-hero-cta-block { flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; }
+.p5-hero-cta {
+  display: inline-block;
+  background: var(--p5-rose); color: #FAFAF7;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 16px 32px; transition: background 0.25s;
+  white-space: nowrap;
+}
+.p5-hero-cta:hover { background: var(--p5-ink); }
+.p5-hero-cta-note {
+  font-size: 10px; color: var(--p5-olive); opacity: 0.4;
+  letter-spacing: 0.06em; text-align: center;
+}
+
+.p5-hero-image-side {
+  position: relative; overflow: hidden;
+}
+.p5-hero-image-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=1200&q=85');
+  background-size: cover; background-position: center top;
+}
+/* The typographic bleed — tipo sai do campo */
+.p5-hero-type-bleed {
+  position: absolute; bottom: 48px; left: -60px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 200px; font-weight: 300; font-style: italic;
+  color: rgba(244,242,233,0.08); line-height: 1;
+  white-space: nowrap; pointer-events: none; z-index: 1;
+  letter-spacing: -0.05em;
+}
+
+/* Fundo Infinito P5 */
+.p5-fundo { background: var(--p5-ink); padding: 96px 80px; }
+.p5-fundo-top {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: end; margin-bottom: 64px;
+}
+.p5-fundo-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--p5-rose); margin-bottom: 20px;
+}
+.p5-fundo-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 52px; font-weight: 300; color: #FAFAF7; line-height: 1.0;
+}
+.p5-fundo-h2 em { font-style: italic; color: var(--p5-tan); }
+.p5-fundo-sub {
+  font-size: 14px; font-weight: 300; line-height: 1.85;
+  color: rgba(255,255,255,0.4); align-self: center;
+}
+.p5-fundo-swatches {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+}
+.p5-fundo-swatch {
+  display: flex; flex-direction: column;
+}
+.p5-fundo-swatch-color {
+  height: 440px;
+  position: relative;
+}
+.p5-fundo-swatch:nth-child(1) .p5-fundo-swatch-color { background: #111D2C; }
+.p5-fundo-swatch:nth-child(2) .p5-fundo-swatch-color { background: #B99879; }
+.p5-fundo-swatch:nth-child(3) .p5-fundo-swatch-color { background: #241F21; }
+.p5-fundo-swatch:nth-child(4) .p5-fundo-swatch-color { background: #E4E1E5; }
+.p5-fundo-swatch-label {
+  padding: 16px 0 0;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.p5-fundo-swatch-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 17px; font-style: italic; color: rgba(255,255,255,0.55);
+}
+.p5-fundo-swatch-num {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2); font-variant-numeric: tabular-nums;
+}
+
+/* Cenários P5 */
+.p5-cenarios { background: #F0EDE4; padding: 96px 80px; }
+.p5-cenarios-header {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+  margin-bottom: 64px;
+}
+.p5-cenarios-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--p5-rose); margin-bottom: 20px;
+}
+.p5-cenarios-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 52px; font-weight: 300; color: var(--p5-olive); line-height: 1.0;
+}
+.p5-cenarios-h2 em { font-style: italic; }
+.p5-cenarios-sub {
+  font-size: 14px; font-weight: 300; line-height: 1.85;
+  color: var(--p5-ink); opacity: 0.55; align-self: center;
+}
+.p5-cenarios-sub a {
+  color: var(--p5-rose); text-decoration: none; border-bottom: 1px solid var(--p5-rose);
+}
+.p5-cenarios-asymmetric {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 300px 300px;
+  gap: 8px;
+}
+.p5-sc-a {
+  grid-column: 1; grid-row: 1 / 3;
+  background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p5-sc-b {
+  grid-column: 2; grid-row: 1;
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p5-sc-c {
+  grid-column: 3; grid-row: 1;
+  background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80');
+  background-size: cover; background-position: center;
+}
+.p5-sc-d {
+  grid-column: 2 / 4; grid-row: 2;
+  background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=1200&q=85');
+  background-size: cover; background-position: center 30%;
+  position: relative; display: flex; align-items: flex-end; padding: 32px;
+}
+.p5-sc-d::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28,25,23,0.55) 0%, transparent 55%);
+}
+.p5-sc-d-cta {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+}
+.p5-sc-d-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-style: italic; font-weight: 300; color: #FAFAF7;
+}
+.p5-sc-d-btn {
+  background: #FAFAF7; color: var(--p5-ink);
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none; padding: 14px 28px;
+  transition: background 0.2s, color 0.2s; flex-shrink: 0;
+}
+.p5-sc-d-btn:hover { background: var(--p5-rose); color: #FAFAF7; }
+
+/* Localização P5 */
+.p5-localizacao {
+  background: #FAFAF7; padding: 96px 80px;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center;
+}
+.p5-localizacao-map {
+  aspect-ratio: 4/3; background: #E8E5DE;
+  display: flex; align-items: center; justify-content: center;
+}
+.p5-localizacao-map-placeholder {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px; font-style: italic; color: var(--p5-olive); opacity: 0.35;
+}
+.p5-localizacao-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--p5-rose); margin-bottom: 20px;
+}
+.p5-localizacao-h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px; font-weight: 300; color: var(--p5-olive);
+  line-height: 1.05; margin-bottom: 40px;
+}
+.p5-localizacao-info { display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px; }
+.p5-localizacao-row { display: flex; gap: 14px; align-items: flex-start; }
+.p5-localizacao-row-icon { color: var(--p5-rose); flex-shrink: 0; margin-top: 2px; }
+.p5-localizacao-row-val { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--p5-ink); opacity: 0.65; }
+.p5-localizacao-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--p5-rose); color: #FAFAF7;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 18px 36px; transition: background 0.25s;
+}
+.p5-localizacao-cta:hover { background: var(--p5-ink); }
+
+/* Footer P5 */
+.p5-footer { background: var(--p5-olive); padding: 64px 80px; }
+.p5-footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 48px; padding-bottom: 48px;
+  border-bottom: 1px solid rgba(244,242,233,0.12);
+}
+.p5-footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px; font-weight: 600; color: #FAFAF7; letter-spacing: 0.05em;
+  text-decoration: none; display: block; margin-bottom: 8px;
+}
+.p5-footer-tagline { font-size: 10px; color: rgba(244,242,233,0.4); letter-spacing: 0.16em; text-transform: uppercase; }
+.p5-footer-social { display: flex; gap: 20px; align-items: center; }
+.p5-footer-social a { color: rgba(244,242,233,0.45); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
+.p5-footer-social a:hover { color: #FAFAF7; }
+.p5-footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.p5-footer-nav { display: flex; gap: 24px; list-style: none; }
+.p5-footer-nav a {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(244,242,233,0.4);
+  text-decoration: none; transition: color 0.2s;
+}
+.p5-footer-nav a:hover { color: rgba(244,242,233,0.8); }
+.p5-footer-copy { font-size: 11px; color: rgba(244,242,233,0.25); }
+
+@media (max-width: 900px) {
+  .p5-nav { padding: 0 24px; }
+  .p5-nav-links { display: none; }
+  .p5-hero { grid-template-columns: 1fr; min-height: auto; }
+  .p5-hero-text-side { padding: 80px 24px 48px; }
+  .p5-hero-h1-large { font-size: clamp(52px, 14vw, 72px); white-space: normal; }
+  .p5-hero-image-side { min-height: 320px; }
+  .p5-hero-type-bleed { display: none; }
+  .p5-hero-sub-row { flex-direction: column; gap: 24px; }
+  .p5-fundo { padding: 64px 24px; }
+  .p5-fundo-top { grid-template-columns: 1fr; gap: 24px; }
+  .p5-fundo-swatches { grid-template-columns: 1fr 1fr; }
+  .p5-fundo-swatch-color { height: 240px; }
+  .p5-cenarios { padding: 64px 24px; }
+  .p5-cenarios-header { grid-template-columns: 1fr; gap: 24px; }
+  .p5-cenarios-asymmetric { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .p5-sc-a { grid-column: 1; grid-row: 1; min-height: 240px; }
+  .p5-sc-b, .p5-sc-c { min-height: 200px; }
+  .p5-sc-d { grid-column: 1 / -1; min-height: 200px; }
+  .p5-localizacao { padding: 64px 24px; grid-template-columns: 1fr; gap: 40px; }
+  .p5-footer { padding: 48px 24px; }
+  .p5-footer-top { flex-direction: column; gap: 24px; }
+  .p5-footer-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .p5-footer-nav { flex-wrap: wrap; gap: 12px; }
+}
+</style>
+
+
+<!-- PROPOSAL SEPARATOR -->
+<div class="proposal-divider">
+  <h2>Proposta 03 de 05</h2>
+  <h3>Cream &amp; Tan — Paleta como protagonista</h3>
+  <p>Zero brancos crus. A diferença entre cream (#F4F2E9) e EDE9DC como alternância de seções cria ritmo sem esforço. Microdetalhe: linhas horizontais de 40px sob os eyebrows — assimetria intencional. Foto flutuante no hero como elemento de profundidade.</p>
+</div>
+
+<section class="proposal-wrap">
+<div class="p3">
+
+  <!-- Nav -->
+  <nav class="p3-nav" role="navigation" aria-label="Navegação principal">
+    <a href="#" class="p3-nav-logo">Lillia Tavares</a>
+    <ul class="p3-nav-links" role="list">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#" aria-current="page">Estúdio</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+    <a href="https://wa.me/55119" class="p3-nav-cta" rel="noopener">Falar no WhatsApp</a>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <nav class="p3-breadcrumb" aria-label="Localização">
+    <a href="#">Home</a>
+    <span>→</span>
+    <span aria-current="page">Estúdio Fotográfico</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="p3-hero" aria-labelledby="p3-h1">
+    <div class="p3-hero-text">
+      <div class="p3-hero-eyebrow-wrap">
+        <span class="p3-hero-eyebrow">Estúdio Fotográfico em Mogi das Cruzes</span>
+        <span class="p3-hero-eyebrow-rule" aria-hidden="true"></span>
+      </div>
+      <h1 class="p3-hero-h1" id="p3-h1">Sobre<br>o <em>Estúdio</em></h1>
+      <p class="p3-hero-body">Um espaço criado para revelar o melhor de você — com cenários pensados para cada tipo de ensaio, luz natural controlada e atenção a cada detalhe.</p>
+      <a href="#" class="p3-hero-cta">Agende seu ensaio</a>
+    </div>
+    <div class="p3-hero-image" role="img" aria-label="Interior do estúdio Lillia Tavares">
+      <div class="p3-hero-image-main"></div>
+      <div class="p3-hero-image-accent" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Fundo Infinito -->
+  <section class="p3-fundo" aria-labelledby="p3-fundo-h2">
+    <div class="p3-fundo-header">
+      <div>
+        <div class="p3-fundo-eyebrow-wrap">
+          <span class="p3-fundo-eyebrow">Fundo Infinito Fotográfico</span>
+          <span class="p3-fundo-eyebrow-rule" aria-hidden="true"></span>
+        </div>
+        <h2 class="p3-fundo-h2" id="p3-fundo-h2">Quatro atmosferas,<br><em>uma escolha sua</em></h2>
+      </div>
+      <p class="p3-fundo-body">Nosso fundo infinito permite mudar completamente o clima do ensaio sem sair do estúdio. Escolha a paleta que fala com o seu momento.</p>
+    </div>
+    <div class="p3-fundo-grid">
+      <div class="p3-fundo-card">
+        <div class="p3-fundo-card-img" role="img" aria-label="Fundo azul noite"></div>
+        <div class="p3-fundo-card-meta">
+          <p class="p3-fundo-card-name">Azul Noite</p>
+          <p class="p3-fundo-card-desc">Dramático · Elegante</p>
+        </div>
+      </div>
+      <div class="p3-fundo-card">
+        <div class="p3-fundo-card-img" role="img" aria-label="Fundo caramel"></div>
+        <div class="p3-fundo-card-meta">
+          <p class="p3-fundo-card-name">Caramel</p>
+          <p class="p3-fundo-card-desc">Quente · Natural</p>
+        </div>
+      </div>
+      <div class="p3-fundo-card">
+        <div class="p3-fundo-card-img" role="img" aria-label="Fundo carvão"></div>
+        <div class="p3-fundo-card-meta">
+          <p class="p3-fundo-card-name">Carvão</p>
+          <p class="p3-fundo-card-desc">Clássico · Atemporal</p>
+        </div>
+      </div>
+      <div class="p3-fundo-card">
+        <div class="p3-fundo-card-img" role="img" aria-label="Fundo cinza pérola"></div>
+        <div class="p3-fundo-card-meta">
+          <p class="p3-fundo-card-name">Cinza Pérola</p>
+          <p class="p3-fundo-card-desc">Delicado · Luminoso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cenários -->
+  <section class="p3-cenarios" aria-labelledby="p3-cenarios-h2">
+    <div class="p3-cenarios-eyebrow-wrap">
+      <span class="p3-cenarios-eyebrow">Ambientes exclusivos</span>
+      <span class="p3-cenarios-eyebrow-rule" aria-hidden="true"></span>
+    </div>
+    <h2 class="p3-cenarios-h2" id="p3-cenarios-h2">Conheça os Cenários</h2>
+    <div class="p3-cenarios-grid">
+      <div class="p3-cenarios-item" role="img" aria-label="Cenário principal">
+        <div class="p3-cenarios-item-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="p3-cenarios-item" role="img" aria-label="Sala Provençal">
+        <div class="p3-cenarios-item-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="p3-cenarios-item" role="img" aria-label="Quarto Romântico">
+        <div class="p3-cenarios-item-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="p3-cenarios-item" role="img" aria-label="Studio Clean">
+        <div class="p3-cenarios-item-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="p3-cenarios-item">
+        <p class="p3-cenarios-cta-text">Cada ambiente foi pensado para contar uma história diferente</p>
+        <a href="#" class="p3-cenarios-cta-btn">Agendar ensaio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização -->
+  <section class="p3-localizacao" aria-labelledby="p3-loc-h2">
+    <div class="p3-localizacao-inner">
+      <div>
+        <div class="p3-localizacao-eyebrow-wrap">
+          <span class="p3-localizacao-eyebrow">Localização</span>
+          <span class="p3-localizacao-eyebrow-rule" aria-hidden="true"></span>
+        </div>
+        <h2 class="p3-localizacao-h2" id="p3-loc-h2">Onde fica<br>o estúdio</h2>
+        <div class="p3-localizacao-info">
+          <div class="p3-localizacao-row">
+            <i data-lucide="map-pin" class="p3-localizacao-icon" size="18" aria-hidden="true"></i>
+            <span class="p3-localizacao-val">Rua das Flores, 120 — Centro<br>Mogi das Cruzes, SP</span>
+          </div>
+          <div class="p3-localizacao-row">
+            <i data-lucide="phone" class="p3-localizacao-icon" size="18" aria-hidden="true"></i>
+            <span class="p3-localizacao-val">(11) 9 9999-9999</span>
+          </div>
+          <div class="p3-localizacao-row">
+            <i data-lucide="mail" class="p3-localizacao-icon" size="18" aria-hidden="true"></i>
+            <span class="p3-localizacao-val">contato@lilliatavares.com.br</span>
+          </div>
+        </div>
+        <a href="https://wa.me/55119" class="p3-localizacao-cta" rel="noopener">
+          Agendar visita ao estúdio
+          <i data-lucide="arrow-right" size="14" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="p3-localizacao-map" role="img" aria-label="Mapa de localização">
+        <span class="p3-localizacao-map-label">Mogi das Cruzes, SP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p3-footer">
+    <a href="#" class="p3-footer-logo">Lillia Tavares</a>
+    <p class="p3-footer-tagline">Fotografia de estúdio · Mogi das Cruzes, São Paulo</p>
+    <div class="p3-footer-grid">
+      <div>
+        <p class="p3-footer-col-title">Serviços</p>
+        <div class="p3-footer-col-links">
+          <a href="#" class="p3-footer-col-link">Ensaio Feminino</a>
+          <a href="#" class="p3-footer-col-link">Ensaio Família</a>
+          <a href="#" class="p3-footer-col-link">Ensaio Gestante</a>
+          <a href="#" class="p3-footer-col-link">Newborn</a>
+        </div>
+      </div>
+      <div>
+        <p class="p3-footer-col-title">Navegação</p>
+        <div class="p3-footer-col-links">
+          <a href="#" class="p3-footer-col-link">Home</a>
+          <a href="#" class="p3-footer-col-link">Trabalhos</a>
+          <a href="#" class="p3-footer-col-link">Estúdio</a>
+          <a href="#" class="p3-footer-col-link">Preços</a>
+        </div>
+      </div>
+      <div>
+        <p class="p3-footer-col-title">Contato</p>
+        <div class="p3-footer-col-links">
+          <a href="#" class="p3-footer-col-link">(11) 9 9999-9999</a>
+          <a href="#" class="p3-footer-col-link">contato@lilliatavares.com.br</a>
+          <a href="#" class="p3-footer-col-link">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="p3-footer-bottom">
+      <span class="p3-footer-copy">© 2025 Lillia Tavares Fotografia</span>
+      <div class="p3-footer-social">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram" size="16"></i></a>
+        <a href="#" aria-label="WhatsApp"><i data-lucide="phone" size="16"></i></a>
+        <a href="#" aria-label="Email"><i data-lucide="mail" size="16"></i></a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</section>
+<!-- END PROPOSTA 3 -->
+
+
+<!-- PROPOSAL SEPARATOR -->
+<div class="proposal-divider">
+  <h2>Proposta 04 de 05</h2>
+  <h3>Cinematográfica — Full Bleed</h3>
+  <p>O risco é calculado: hero full-viewport sobre a foto do estúdio, com overlay navy controlado. Tipografia em 88px. O resto da página retorna à paleta cream — o hero funciona como abertura de filme. CTAs com inversão cream/navy.</p>
+</div>
+
+<section class="proposal-wrap">
+<div class="p4">
+
+  <!-- Hero full-bleed (nav flutuante) -->
+  <section class="p4-hero" aria-labelledby="p4-h1">
+    <!-- Nav floating over hero -->
+    <nav class="p4-nav" role="navigation" aria-label="Navegação principal">
+      <a href="#" class="p4-nav-logo">Lillia Tavares</a>
+      <ul class="p4-nav-links" role="list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#" aria-current="page">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <a href="https://wa.me/55119" class="p4-nav-cta" rel="noopener">WhatsApp</a>
+    </nav>
+
+    <div class="p4-hero-bg" aria-hidden="true"></div>
+
+    <div class="p4-hero-content">
+      <nav class="p4-hero-breadcrumb" aria-label="Localização">
+        <a href="#">Home</a>
+        <span>→</span>
+        <span aria-current="page">Estúdio Fotográfico</span>
+      </nav>
+      <p class="p4-hero-eyebrow">Estúdio fotográfico em Mogi das Cruzes</p>
+      <h1 class="p4-hero-h1" id="p4-h1">Sobre<br>o <em>Estúdio</em></h1>
+      <div class="p4-hero-bottom">
+        <p class="p4-hero-body">Um espaço criado para revelar o melhor de você — com cenários pensados para cada tipo de ensaio e atenção a cada detalhe.</p>
+        <a href="#" class="p4-hero-cta">
+          Agende seu ensaio
+          <i data-lucide="arrow-right" size="16" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <div class="p4-hero-scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Fundo Infinito -->
+  <section class="p4-fundo" aria-labelledby="p4-fundo-h2">
+    <div class="p4-fundo-header">
+      <p class="p4-fundo-label">Fundo Infinito Fotográfico</p>
+      <h2 class="p4-fundo-h2" id="p4-fundo-h2">Quatro atmosferas,<br><em>uma escolha sua</em></h2>
+    </div>
+    <div class="p4-fundo-panorama">
+      <div class="p4-fundo-panel">
+        <div class="p4-fundo-panel-overlay" aria-hidden="true"></div>
+        <div class="p4-fundo-panel-meta">
+          <p class="p4-fundo-panel-name">Azul Noite</p>
+          <p class="p4-fundo-panel-desc">Dramático · Elegante</p>
+        </div>
+      </div>
+      <div class="p4-fundo-panel">
+        <div class="p4-fundo-panel-overlay" aria-hidden="true"></div>
+        <div class="p4-fundo-panel-meta">
+          <p class="p4-fundo-panel-name">Caramel</p>
+          <p class="p4-fundo-panel-desc">Quente · Natural</p>
+        </div>
+      </div>
+      <div class="p4-fundo-panel">
+        <div class="p4-fundo-panel-overlay" aria-hidden="true"></div>
+        <div class="p4-fundo-panel-meta">
+          <p class="p4-fundo-panel-name">Carvão</p>
+          <p class="p4-fundo-panel-desc">Clássico · Atemporal</p>
+        </div>
+      </div>
+      <div class="p4-fundo-panel">
+        <div class="p4-fundo-panel-overlay" aria-hidden="true"></div>
+        <div class="p4-fundo-panel-meta">
+          <p class="p4-fundo-panel-name">Cinza Pérola</p>
+          <p class="p4-fundo-panel-desc">Delicado · Luminoso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cenários -->
+  <section class="p4-cenarios" aria-labelledby="p4-cenarios-h2">
+    <div class="p4-cenarios-header">
+      <div class="p4-cenarios-heading-block">
+        <p class="p4-cenarios-label">Ambientes exclusivos</p>
+        <h2 class="p4-cenarios-h2" id="p4-cenarios-h2">Conheça os <em>Cenários</em></h2>
+      </div>
+      <a href="#" class="p4-cenarios-header-cta">
+        Ver galeria completa
+        <i data-lucide="arrow-right" size="14" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="p4-cenarios-layout">
+      <div class="p4-cenarios-main" role="img" aria-label="Cenário principal do estúdio"></div>
+      <div class="p4-cenarios-a" role="img" aria-label="Sala Provençal"></div>
+      <div class="p4-cenarios-b" role="img" aria-label="Quarto Romântico"></div>
+      <div class="p4-cenarios-cta-panel">
+        <p class="p4-cenarios-cta-txt">Cada ambiente, uma história diferente</p>
+        <a href="#" class="p4-cenarios-cta-link">Agendar ensaio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização -->
+  <section class="p4-localizacao" aria-labelledby="p4-loc-h2">
+    <div>
+      <p class="p4-localizacao-label">Localização</p>
+      <h2 class="p4-localizacao-h2" id="p4-loc-h2">Onde fica<br><em>o estúdio</em></h2>
+      <div class="p4-localizacao-info">
+        <div class="p4-localizacao-row">
+          <i data-lucide="map-pin" class="p4-localizacao-row-icon" size="18" aria-hidden="true"></i>
+          <span class="p4-localizacao-row-val">Rua das Flores, 120 — Centro<br>Mogi das Cruzes, SP</span>
+        </div>
+        <div class="p4-localizacao-row">
+          <i data-lucide="phone" class="p4-localizacao-row-icon" size="18" aria-hidden="true"></i>
+          <span class="p4-localizacao-row-val">(11) 9 9999-9999</span>
+        </div>
+        <div class="p4-localizacao-row">
+          <i data-lucide="mail" class="p4-localizacao-row-icon" size="18" aria-hidden="true"></i>
+          <span class="p4-localizacao-row-val">contato@lilliatavares.com.br</span>
+        </div>
+      </div>
+      <a href="https://wa.me/55119" class="p4-localizacao-cta" rel="noopener">
+        Agendar pelo WhatsApp
+        <i data-lucide="arrow-right" size="14" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="p4-localizacao-map" role="img" aria-label="Mapa de localização">
+      <span class="p4-localizacao-map-label">Mogi das Cruzes, SP</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p4-footer">
+    <div class="p4-footer-inner">
+      <div>
+        <a href="#" class="p4-footer-logo">Lillia Tavares</a>
+        <p class="p4-footer-tagline">Fotografia de estúdio · Mogi das Cruzes</p>
+      </div>
+      <div>
+        <p class="p4-footer-col-title">Serviços</p>
+        <div class="p4-footer-col-links">
+          <a href="#" class="p4-footer-col-link">Ensaio Feminino</a>
+          <a href="#" class="p4-footer-col-link">Ensaio Família</a>
+          <a href="#" class="p4-footer-col-link">Ensaio Gestante</a>
+          <a href="#" class="p4-footer-col-link">Newborn</a>
+        </div>
+      </div>
+      <div>
+        <p class="p4-footer-col-title">Navegação</p>
+        <div class="p4-footer-col-links">
+          <a href="#" class="p4-footer-col-link">Trabalhos</a>
+          <a href="#" class="p4-footer-col-link">Estúdio</a>
+          <a href="#" class="p4-footer-col-link">Preços</a>
+          <a href="#" class="p4-footer-col-link">Blog</a>
+        </div>
+      </div>
+    </div>
+    <div class="p4-footer-bottom">
+      <span class="p4-footer-copy">© 2025 Lillia Tavares Fotografia. Todos os direitos reservados.</span>
+      <div class="p4-footer-social">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram" size="16"></i></a>
+        <a href="#" aria-label="WhatsApp"><i data-lucide="phone" size="16"></i></a>
+        <a href="#" aria-label="Email"><i data-lucide="mail" size="16"></i></a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</section>
+<!-- END PROPOSTA 4 -->
+
+
+<!-- PROPOSAL SEPARATOR -->
+<div class="proposal-divider">
+  <h2>Proposta 05 de 05</h2>
+  <h3>Atelier Brasileiro — Tipografia como Imagem</h3>
+  <p>Risco máximo calculado: tipo Cormorant em 120px+ no hero, com bleed decorativo sobre a foto. Rose (#BD9187) como acento cromático principal em lugar do olive. Footer em olive sólido. Grid assimétrico no mosaico. Para uma marca que quer se destacar das demais fotógrafas do mercado.</p>
+</div>
+
+<section class="proposal-wrap">
+<div class="p5">
+
+  <!-- Nav -->
+  <nav class="p5-nav" role="navigation" aria-label="Navegação principal">
+    <a href="#" class="p5-nav-logo">Lillia Tavares</a>
+    <div class="p5-nav-right">
+      <ul class="p5-nav-links" role="list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#" aria-current="page">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <a href="https://wa.me/55119" class="p5-nav-cta" rel="noopener">WhatsApp</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="p5-hero" aria-labelledby="p5-h1">
+    <div class="p5-hero-text-side">
+      <nav class="p5-hero-breadcrumb" aria-label="Localização">
+        <a href="#">Home</a>
+        <span>→</span>
+        <span aria-current="page">Estúdio</span>
+      </nav>
+      <p class="p5-hero-eyebrow">Estúdio fotográfico · Mogi das Cruzes</p>
+      <h1 class="p5-hero-h1-large" id="p5-h1">Sobre<br>o <em>Estú-<br>dio</em></h1>
+      <div class="p5-hero-sub-row">
+        <p class="p5-hero-body">Um espaço criado para revelar o melhor de você — com cenários pensados para cada tipo de ensaio, luz natural controlada e atenção a cada detalhe do ambiente.</p>
+        <div class="p5-hero-cta-block">
+          <a href="#" class="p5-hero-cta">Agendar ensaio</a>
+          <span class="p5-hero-cta-note">Resposta em até 2h</span>
+        </div>
+      </div>
+    </div>
+    <div class="p5-hero-image-side" role="img" aria-label="Interior do estúdio Lillia Tavares">
+      <div class="p5-hero-image-bg"></div>
+      <div class="p5-hero-type-bleed" aria-hidden="true">Estúdio</div>
+    </div>
+  </section>
+
+  <!-- Fundo Infinito -->
+  <section class="p5-fundo" aria-labelledby="p5-fundo-h2">
+    <div class="p5-fundo-top">
+      <div>
+        <p class="p5-fundo-eyebrow">Fundo Infinito Fotográfico</p>
+        <h2 class="p5-fundo-h2" id="p5-fundo-h2">Quatro fundos,<br><em>uma atmosfera</em><br>por vez</h2>
+      </div>
+      <p class="p5-fundo-sub">Nosso fundo infinito permite transformar completamente o clima do ensaio sem sair do estúdio. Escolha a paleta que fala com o seu momento.</p>
+    </div>
+    <div class="p5-fundo-swatches">
+      <div class="p5-fundo-swatch">
+        <div class="p5-fundo-swatch-color" role="img" aria-label="Fundo Azul Noite"></div>
+        <div class="p5-fundo-swatch-label">
+          <span class="p5-fundo-swatch-name">Azul Noite</span>
+          <span class="p5-fundo-swatch-num">01</span>
+        </div>
+      </div>
+      <div class="p5-fundo-swatch">
+        <div class="p5-fundo-swatch-color" role="img" aria-label="Fundo Caramel"></div>
+        <div class="p5-fundo-swatch-label">
+          <span class="p5-fundo-swatch-name">Caramel</span>
+          <span class="p5-fundo-swatch-num">02</span>
+        </div>
+      </div>
+      <div class="p5-fundo-swatch">
+        <div class="p5-fundo-swatch-color" role="img" aria-label="Fundo Carvão"></div>
+        <div class="p5-fundo-swatch-label">
+          <span class="p5-fundo-swatch-name">Carvão</span>
+          <span class="p5-fundo-swatch-num">03</span>
+        </div>
+      </div>
+      <div class="p5-fundo-swatch">
+        <div class="p5-fundo-swatch-color" role="img" aria-label="Fundo Cinza Pérola"></div>
+        <div class="p5-fundo-swatch-label">
+          <span class="p5-fundo-swatch-name">Cinza Pérola</span>
+          <span class="p5-fundo-swatch-num">04</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cenários -->
+  <section class="p5-cenarios" aria-labelledby="p5-cenarios-h2">
+    <div class="p5-cenarios-header">
+      <div>
+        <p class="p5-cenarios-eyebrow">Ambientes exclusivos</p>
+        <h2 class="p5-cenarios-h2" id="p5-cenarios-h2">Conheça os <em>Cenários</em></h2>
+      </div>
+      <p class="p5-cenarios-sub">Cada ambiente foi pensado para revelar um lado diferente de você. <a href="#">Veja a galeria completa</a> ou <a href="#">agende uma visita.</a></p>
+    </div>
+    <div class="p5-cenarios-asymmetric">
+      <div class="p5-sc-a" role="img" aria-label="Sala Provençal"></div>
+      <div class="p5-sc-b" role="img" aria-label="Quarto Romântico"></div>
+      <div class="p5-sc-c" role="img" aria-label="Studio Clean"></div>
+      <div class="p5-sc-d" role="img" aria-label="Cenário principal — agendar ensaio">
+        <div class="p5-sc-d-cta">
+          <span class="p5-sc-d-text">Cada espaço, uma história diferente</span>
+          <a href="#" class="p5-sc-d-btn">Agendar ensaio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização -->
+  <section class="p5-localizacao" aria-labelledby="p5-loc-h2">
+    <div class="p5-localizacao-map" role="img" aria-label="Mapa de localização do estúdio">
+      <span class="p5-localizacao-map-placeholder">Mogi das Cruzes, SP</span>
+    </div>
+    <div>
+      <p class="p5-localizacao-eyebrow">Localização</p>
+      <h2 class="p5-localizacao-h2" id="p5-loc-h2">Onde fica<br>o estúdio</h2>
+      <div class="p5-localizacao-info">
+        <div class="p5-localizacao-row">
+          <i data-lucide="map-pin" class="p5-localizacao-row-icon" size="18" aria-hidden="true"></i>
+          <span class="p5-localizacao-row-val">Rua das Flores, 120 — Centro<br>Mogi das Cruzes, SP</span>
+        </div>
+        <div class="p5-localizacao-row">
+          <i data-lucide="phone" class="p5-localizacao-row-icon" size="18" aria-hidden="true"></i>
+          <span class="p5-localizacao-row-val">(11) 9 9999-9999</span>
+        </div>
+        <div class="p5-localizacao-row">
+          <i data-lucide="mail" class="p5-localizacao-row-icon" size="18" aria-hidden="true"></i>
+          <span class="p5-localizacao-row-val">contato@lilliatavares.com.br</span>
+        </div>
+      </div>
+      <a href="https://wa.me/55119" class="p5-localizacao-cta" rel="noopener">
+        Agendar pelo WhatsApp
+        <i data-lucide="arrow-right" size="14" aria-hidden="true"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p5-footer">
+    <div class="p5-footer-top">
+      <div>
+        <a href="#" class="p5-footer-logo">Lillia Tavares</a>
+        <p class="p5-footer-tagline">Fotografia de estúdio · Mogi das Cruzes, São Paulo</p>
+      </div>
+      <div class="p5-footer-social">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram" size="18"></i></a>
+        <a href="#" aria-label="WhatsApp"><i data-lucide="phone" size="18"></i></a>
+        <a href="#" aria-label="Email"><i data-lucide="mail" size="18"></i></a>
+      </div>
+    </div>
+    <div class="p5-footer-bottom">
+      <nav aria-label="Navegação rodapé">
+        <ul class="p5-footer-nav" role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <span class="p5-footer-copy">© 2025 Lillia Tavares Fotografia</span>
+    </div>
+  </footer>
+
+</div>
+</section>
+<!-- END PROPOSTA 5 -->
+
+
+<!-- RANKING SECTION -->
+<div class="proposal-divider" style="padding-bottom: 64px; text-align: left; max-width: 800px; margin: 0 auto; padding-left: 40px; padding-right: 40px;">
+  <div style="text-align: center; margin-bottom: 48px;">
+    <h2 style="font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #666; margin-bottom: 8px;">Avaliação de Craft</h2>
+    <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 300; font-style: italic; color: #e8e2d8;">Ranking das 5 Propostas</h3>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <div style="display: grid; grid-template-columns: 40px 1fr; gap: 24px; align-items: start; border-bottom: 1px solid #222; padding-bottom: 32px;">
+      <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 48px; font-weight: 300; color: #B99879; line-height: 1;">1</div>
+      <div>
+        <p style="font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #B99879; margin-bottom: 6px;">Melhor proposta</p>
+        <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; color: #e8e2d8; margin-bottom: 12px;">Proposta 4 — Cinematográfica</h4>
+        <p style="font-family: 'Lato', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: #888;">O risco de um hero full-bleed é o mais alto retorno de impacto para uma fotógrafa: ele prova com o próprio produto que ela sabe trabalhar luz e enquadramento. O hero em navy + foto + overlay resolve o problema original de hierarquia de uma vez. O resto da página decomprime corretamente em cream. CTA cream-sobre-navy e depois inverse no hover é o melhor microdetalhe de todas as propostas. Único ponto a calibrar: monitorar LCP no hero com foto de fundo.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 40px 1fr; gap: 24px; align-items: start; border-bottom: 1px solid #222; padding-bottom: 32px;">
+      <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 48px; font-weight: 300; color: #B99879; line-height: 1;">2</div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; color: #e8e2d8; margin-bottom: 12px;">Proposta 5 — Atelier Brasileiro</h4>
+        <p style="font-family: 'Lato', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: #888;">A proposta mais original das cinco. O tipo Cormorant em escala monumental com bleed sobre a foto é um statement tipográfico real — não existe nas concorrentes do mercado de fotografia brasileiro. O rose como acento primário é incomum e funciona bem com o olive de suporte. Fica em 2º e não em 1º porque o H1 partido em três linhas (Sobre / o / Estú- / dio) é arriscado: a hifenização visual de "Estúdio" pode confundir em mobile. Precisa de teste de usuário.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 40px 1fr; gap: 24px; align-items: start; border-bottom: 1px solid #222; padding-bottom: 32px;">
+      <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 48px; font-weight: 300; color: #B99879; line-height: 1;">3</div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; color: #e8e2d8; margin-bottom: 12px;">Proposta 3 — Cream &amp; Tan</h4>
+        <p style="font-family: 'Lato', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: #888;">Execução mais refinada das três conservadoras. O microdetalhe da linha de 40px sob o eyebrow é o elemento de identidade mais memorável — repetido em todas as seções cria assinatura visual. A diferença entre #F4F2E9 e #EDE9DC como alternância de fundos é sutil mas eficaz para o olho treinado. A foto flutuante no hero com borda cream é o toque editorial certo. Fica em 3º porque é a mais segura — não extrapola, mas corrige todos os problemas do site atual.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 40px 1fr; gap: 24px; align-items: start; border-bottom: 1px solid #222; padding-bottom: 32px;">
+      <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 48px; font-weight: 300; color: #B99879; line-height: 1;">4</div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; color: #e8e2d8; margin-bottom: 12px;">Proposta 2 — Publicação Horizontal</h4>
+        <p style="font-family: 'Lato', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: #888;">O nav centralizado simétrico é o detalhe mais elegante das propostas conservadoras — funciona bem para uma marca com identidade de atelier. O H1 de 72px já resolve o problema de hierarquia com força. O problema está na densidade: a seção Fundo Infinito com colunas + texto abaixo fica menos impactante que as demais. O hero com thumbs na base funciona melhor em imagens reais do que nos gradientes de fallback.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 40px 1fr; gap: 24px; align-items: start;">
+      <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 48px; font-weight: 300; color: #B99879; line-height: 1;">5</div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; color: #e8e2d8; margin-bottom: 12px;">Proposta 1 — Editorial Calibrada</h4>
+        <p style="font-family: 'Lato', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: #888;">A mais próxima do site atual — e isso é tanto sua vantagem quanto seu limite. Resolve todos os problemas do brief (hierarquia, CTA, mosaico) sem quebrar nada. O H1 em Cormorant 56px já é uma melhora expressiva. Fica em 5º não por falha de execução, mas porque no contexto comparativo com as demais é a proposta com menor diferenciação. É a escolha certa se o objetivo for uma migração de baixo risco e aprovação fácil com a cliente.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 56px; padding-top: 40px; border-top: 1px solid #222;">
+    <p style="font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #B99879; margin-bottom: 12px;">Recomendação de direção de arte</p>
+    <p style="font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.8; color: #777; max-width: 640px;">Implementar a Proposta 4 com o microdetalhe de eyebrow da Proposta 3 (linha de 40px). O hero cinematográfico é o ponto de diferenciação mais forte; as linhas decorativas criam a assinatura visual que as concorrentes não têm. Se a cliente preferir a via conservadora, a Proposta 3 já é um upgrade completo em craft sem nenhum risco de estranhamento.</p>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  lucide.createIcons();
+});
+</script>
+
+</body>
+</html>

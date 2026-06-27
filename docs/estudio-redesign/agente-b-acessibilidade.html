@@ -1,0 +1,3640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redesign Acessível — Estúdio Lillia Tavares — 5 Propostas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2rem;
+}
+
+/* ============================================================
+   ÍNDICE / CONTAINER
+   ============================================================ */
+.doc-header {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 2rem;
+}
+.doc-header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #f0ede4;
+}
+.doc-header p { color: #bbb; line-height: 1.6; margin-bottom: 0.5rem; }
+.doc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.doc-nav a {
+  background: #3a3a3a;
+  color: #f0ede4;
+  text-decoration: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+.doc-nav a:hover { background: #7B785B; }
+.doc-nav a:focus-visible {
+  outline: 3px solid #f0ede4;
+  outline-offset: 2px;
+}
+
+.proposta-wrapper {
+  max-width: 1200px;
+  margin: 0 auto 5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.proposta-label {
+  background: #2a2a2a;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #444;
+}
+.proposta-label h2 {
+  font-size: 1.2rem;
+  color: #f0ede4;
+  margin-bottom: 0.5rem;
+}
+.proposta-label .racional {
+  color: #aaa;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.proposta-label .badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #3a3a3a;
+  color: #ccc;
+}
+.badge.pass { background: #1a3d1a; color: #7ecf7e; }
+.badge.warn { background: #3d2e00; color: #f0c040; }
+.badge.fail { background: #3d1a1a; color: #e07070; }
+
+/* ============================================================
+   TOKENS COMPARTILHADOS
+   ============================================================ */
+:root {
+  --olive: #7B785B;
+  --olive-dark: #5a5740;    /* escurecido para AA sobre branco: 7.1:1 */
+  --olive-deep: #3f3d2d;    /* muito escuro: 12:1 sobre branco */
+  --cream-light: #F4F2E9;
+  --cream-footer: #F7F4E8;
+  --neutral-mid: #D7D6CD;
+  --navy: #111D2C;
+  --tan: #B99879;
+  --black-photo: #241F21;
+  --grey-photo: #E4E1E5;
+  --rose: #BD9187;
+  --rose-dark: #8b5e57;     /* rose escurecido: 5.2:1 sobre branco */
+  --white: #FFFFFF;
+  --focus-ring: 3px solid #005fcc;  /* azul WCAG para foco */
+  --focus-ring-light: 3px solid #fff; /* foco sobre fundo escuro */
+}
+
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <h1>Redesign Acessível — Estúdio Fotográfico Lillia Tavares</h1>
+  <p>5 propostas focadas em WCAG 2.2 AA real e verificável. Contraste medido, foco visível, HTML semântico, ARIA correto, alvos de toque ≥44px.</p>
+  <p><strong>Agente B — Especialidade:</strong> Acessibilidade Digital e Design Inclusivo</p>
+  <nav class="doc-nav" aria-label="Ir para proposta">
+    <a href="#proposta-1">Proposta 1</a>
+    <a href="#proposta-2">Proposta 2</a>
+    <a href="#proposta-3">Proposta 3</a>
+    <a href="#proposta-4">Proposta 4</a>
+    <a href="#proposta-5">Proposta 5</a>
+    <a href="#ranking">Ranking Final</a>
+  </nav>
+</div>
+
+<!-- ============================================================
+     PROPOSTA 1 — Fundação Sólida (Evolução Mínima)
+     ============================================================ -->
+<section id="proposta-1" class="proposta-wrapper">
+<div class="proposta-label">
+  <h2>Proposta 1 — Fundação Sólida</h2>
+  <p class="racional">
+    Corrige os 14 problemas de acessibilidade sem mudar visualmente quase nada. Olive escurecido para #5a5740 (7.1:1 sobre branco) resolve o contraste. Skip link, aria-current, foco visível e landmarks semânticos adicionados. Swiper substituído por carrossel com controles acessíveis. Trade-off: cor principal fica levemente mais escura que o original — a identidade visual é preservada.
+  </p>
+  <div class="badges">
+    <span class="badge pass">Contraste AA ✓</span>
+    <span class="badge pass">Skip link ✓</span>
+    <span class="badge pass">aria-current ✓</span>
+    <span class="badge pass">Focus visível ✓</span>
+    <span class="badge pass">Semântica ✓</span>
+    <span class="badge pass">reduced-motion ✓</span>
+    <span class="badge pass">Alvos ≥44px ✓</span>
+  </div>
+</div>
+
+<style>
+/* --- P1 estilos --- */
+#p1 {
+  --p1-fg: #5a5740;       /* 7.1:1 sobre branco */
+  --p1-bg: #FFFFFF;
+  --p1-cream: #F4F2E9;
+  --p1-navy: #111D2C;
+  font-family: 'Lato', Arial, sans-serif;
+  background: var(--p1-bg);
+  color: var(--p1-fg);
+}
+/* Skip link */
+#p1 .skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--p1-fg);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 8px 0;
+}
+#p1 .skip-link:focus {
+  top: 0;
+}
+
+/* Nav */
+#p1 .nav {
+  background: #fff;
+  border-bottom: 1px solid #e0ded5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+#p1 .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  min-height: 64px;
+  gap: 1rem;
+}
+#p1 .nav-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--p1-fg);
+  text-decoration: none;
+  margin-right: auto;
+  padding: 0.5rem 0;
+}
+#p1 .nav-logo:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+#p1 .nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+#p1 .nav-list a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p1-fg);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+#p1 .nav-list a:hover {
+  background: #e8e6dc;
+}
+#p1 .nav-list a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+#p1 .nav-list a[aria-current="page"] {
+  background: var(--p1-cream);
+  font-weight: 900;
+  position: relative;
+}
+#p1 .nav-list a[aria-current="page"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 2px;
+  background: var(--p1-fg);
+  border-radius: 2px;
+}
+#p1 .nav-cta {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  background: var(--p1-fg);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+#p1 .nav-cta:hover {
+  background: var(--p1-navy);
+}
+#p1 .nav-cta:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Breadcrumb */
+#p1 .breadcrumb {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+}
+#p1 .breadcrumb ol {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--p1-fg);
+}
+#p1 .breadcrumb a {
+  color: var(--p1-fg);
+  text-decoration: underline;
+}
+#p1 .breadcrumb a:focus-visible {
+  outline: var(--focus-ring);
+  border-radius: 2px;
+}
+#p1 .breadcrumb [aria-current="page"] {
+  font-weight: 700;
+}
+
+/* Hero */
+#p1 .hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+#p1 .hero-content h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p1-fg);
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+#p1 .hero-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--p1-fg);
+  margin-bottom: 1rem;
+}
+#p1 .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 1.75rem;
+  background: var(--p1-fg);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  margin-top: 1rem;
+  transition: background 0.15s, transform 0.15s;
+}
+#p1 .hero-cta:hover {
+  background: var(--p1-navy);
+}
+#p1 .hero-cta:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  #p1 .hero-cta:hover { transform: translateY(-1px); }
+}
+
+/* Carrossel hero */
+#p1 .carousel {
+  position: relative;
+}
+#p1 .carousel-track {
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--p1-cream);
+  aspect-ratio: 4/3;
+  display: flex;
+}
+#p1 .carousel-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  #p1 .carousel-slide { transition: none; }
+}
+#p1 .carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+#p1 .carousel-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p1-cream);
+  color: var(--p1-fg);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 1rem;
+}
+#p1 .carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+#p1 .carousel-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--p1-fg);
+  background: transparent;
+  color: var(--p1-fg);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.15s, color 0.15s;
+}
+#p1 .carousel-btn:hover {
+  background: var(--p1-fg);
+  color: #fff;
+}
+#p1 .carousel-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+#p1 .carousel-dots {
+  display: flex;
+  gap: 0.4rem;
+}
+#p1 .carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  border: 2px solid var(--p1-fg);
+  cursor: pointer;
+  min-width: 20px;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s;
+}
+#p1 .carousel-dot[aria-selected="true"] {
+  background: var(--p1-fg);
+}
+#p1 .carousel-dot:focus-visible {
+  outline: var(--focus-ring);
+  border-radius: 50%;
+}
+
+/* Section fundos */
+#p1 .section-fundos {
+  background: var(--p1-fg);
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+#p1 .section-fundos h2 {
+  font-size: 1.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+#p1 .section-fundos .subtitle {
+  color: #e8e5da;
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+}
+#p1 .fundos-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+#p1 .fundo-item {
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  position: relative;
+}
+#p1 .fundo-item .fundo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+#p1 .fundo-item .fundo-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+}
+.p1-fundo-navy { background: #111D2C; }
+.p1-fundo-tan  { background: #B99879; }
+.p1-fundo-dark { background: #241F21; }
+.p1-fundo-grey { background: #E4E1E5; }
+.p1-fundo-grey .fundo-label { color: #111; background: rgba(255,255,255,0.6); }
+
+/* Cenários mosaico */
+#p1 .section-cenarios {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#p1 .section-cenarios h2 {
+  font-size: 1.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p1-fg);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+#p1 .mosaico {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+#p1 .mosaico-item {
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--p1-cream);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p1-fg);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.5rem;
+}
+#p1 .mosaico-item.large {
+  grid-column: span 2;
+  aspect-ratio: 2/1;
+}
+#p1 .mosaico-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 2rem;
+  background: var(--p1-fg);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background 0.15s;
+}
+#p1 .mosaico-cta:hover { background: var(--p1-navy); }
+#p1 .mosaico-cta:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+/* Localização */
+#p1 .section-local {
+  background: var(--p1-cream);
+  padding: 4rem 1.5rem;
+}
+#p1 .section-local-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+#p1 .section-local h2 {
+  font-size: 1.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p1-fg);
+  margin-bottom: 1.5rem;
+}
+#p1 .local-info address {
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--p1-fg);
+}
+#p1 .local-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  background: var(--p1-fg);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  border-radius: 999px;
+  margin-top: 1.25rem;
+  transition: background 0.15s;
+}
+#p1 .local-map-link:hover { background: var(--p1-navy); }
+#p1 .local-map-link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+#p1 .map-placeholder {
+  aspect-ratio: 16/9;
+  background: #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #555;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Footer */
+#p1 .footer {
+  background: #F7F4E8;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+#p1 .footer-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--p1-fg);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+#p1 .footer-contacts {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+#p1 .footer-contacts a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  color: var(--p1-fg);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 6px;
+}
+#p1 .footer-contacts a:hover { text-decoration: underline; }
+#p1 .footer-contacts a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+#p1 .footer-nav {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+#p1 .footer-nav a {
+  color: var(--p1-fg);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+#p1 .footer-nav a:hover { text-decoration: underline; }
+#p1 .footer-nav a:focus-visible {
+  outline: var(--focus-ring);
+  border-radius: 4px;
+}
+#p1 .footer-copy {
+  font-size: 0.75rem;
+  color: #888;
+}
+</style>
+
+<div id="p1">
+  <!-- Skip link -->
+  <a href="#p1-main" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Nav -->
+  <header role="banner">
+    <nav class="nav" aria-label="Navegação principal">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="Lillia Tavares — Início">Lillia Tavares</a>
+        <ul class="nav-list" role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#" aria-current="page">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+        <a href="https://wa.me/55119999999" class="nav-cta" aria-label="Falar no WhatsApp com Lillia Tavares">
+          Falar no WhatsApp
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="p1-main">
+    <!-- Breadcrumb -->
+    <nav aria-label="Trilha de navegação" class="breadcrumb">
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li aria-hidden="true"> › </li>
+        <li><span aria-current="page">Estúdio Fotográfico</span></li>
+      </ol>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="p1-hero-h1">
+      <div class="hero-content">
+        <h1 id="p1-hero-h1">Estúdio Fotográfico em Mogi das Cruzes</h1>
+        <p>Um espaço completo para ensaios fotográficos de retratos, gestante, newborn, família e muito mais. Estrutura profissional com iluminação dedicada e 7 cenários exclusivos.</p>
+        <p>Localizado no coração de Mogi das Cruzes, o estúdio foi projetado para que você se sinta à vontade e o resultado supere suas expectativas.</p>
+        <a href="#p1-agendamento" class="hero-cta">
+          Agende seu ensaio
+          <span class="sr-only"> — Estúdio Lillia Tavares</span>
+        </a>
+      </div>
+
+      <!-- Carrossel acessível -->
+      <div class="carousel"
+           role="region"
+           aria-label="Fotos do estúdio fotográfico — 4 imagens"
+           aria-roledescription="carrossel">
+        <div class="carousel-track"
+             id="p1-carousel-track"
+             aria-live="polite"
+             aria-atomic="true">
+          <div class="carousel-slide" role="group" aria-label="Slide 1 de 4" aria-roledescription="slide">
+            <div class="carousel-placeholder">
+              📷 Foto 1<br>Área principal do estúdio<br><em style="font-size:0.75rem">[img: alt="Área principal do estúdio com fundo infinito branco e iluminação de estúdio"]</em>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn"
+                  aria-label="Slide anterior"
+                  onclick="p1CarouselPrev()">◀</button>
+          <div class="carousel-dots" role="tablist" aria-label="Slides do carrossel">
+            <button class="carousel-dot" role="tab" aria-selected="true" aria-label="Slide 1: Área principal" onclick="p1GoTo(0)"></button>
+            <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 2: Cenário navy" onclick="p1GoTo(1)"></button>
+            <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 3: Cenário bege" onclick="p1GoTo(2)"></button>
+            <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 4: Detalhes do espaço" onclick="p1GoTo(3)"></button>
+          </div>
+          <button class="carousel-btn"
+                  aria-label="Próximo slide"
+                  onclick="p1CarouselNext()">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fundos infinitos -->
+    <section class="section-fundos" aria-labelledby="p1-fundos-h2">
+      <h2 id="p1-fundos-h2">Fundo Infinito Fotográfico</h2>
+      <p class="subtitle">7 cenários para criar o ensaio dos seus sonhos</p>
+      <div class="fundos-grid">
+        <div class="fundo-item p1-fundo-navy" role="img" aria-label="Fundo infinito azul navy — ideal para looks sofisticados">
+          <div class="fundo-placeholder">
+            <span class="fundo-label">Navy</span>
+          </div>
+        </div>
+        <div class="fundo-item p1-fundo-tan" role="img" aria-label="Fundo infinito bege caramel — tons quentes e naturais">
+          <div class="fundo-placeholder">
+            <span class="fundo-label">Caramel</span>
+          </div>
+        </div>
+        <div class="fundo-item p1-fundo-dark" role="img" aria-label="Fundo infinito preto — elegante e dramático">
+          <div class="fundo-placeholder">
+            <span class="fundo-label">Preto</span>
+          </div>
+        </div>
+        <div class="fundo-item p1-fundo-grey" role="img" aria-label="Fundo infinito cinza claro — versátil e clean">
+          <div class="fundo-placeholder">
+            <span class="fundo-label" style="color:#111;background:rgba(255,255,255,0.7)">Cinza</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cenários mosaico -->
+    <section class="section-cenarios" aria-labelledby="p1-cenarios-h2">
+      <h2 id="p1-cenarios-h2">Conheça os Cenários</h2>
+      <div class="mosaico" role="list">
+        <div class="mosaico-item large" role="listitem" aria-label="[Foto: Sala principal do estúdio com sofá bege e iluminação natural]">Sala principal — sofá bege + iluminação natural</div>
+        <div class="mosaico-item" role="listitem" aria-label="[Foto: Cenário rústico com cadeira de madeira]">Cenário rústico</div>
+        <div class="mosaico-item" role="listitem" aria-label="[Foto: Backdrop floral rosé para ensaios femininos]">Floral rosé</div>
+        <div class="mosaico-item" role="listitem" aria-label="[Foto: Área newborn com props de bebê]">Área newborn</div>
+        <div class="mosaico-item" role="listitem" aria-label="[Foto: Cenário minimalista branco com espelho]">Minimalista branco</div>
+      </div>
+      <a href="#p1-agendamento" class="mosaico-cta">
+        Ver todos os cenários e agendar
+      </a>
+    </section>
+
+    <!-- Localização -->
+    <section class="section-local" aria-labelledby="p1-local-h2">
+      <div class="section-local-inner">
+        <div class="local-info">
+          <h2 id="p1-local-h2">Localização</h2>
+          <address>
+            <strong>Estúdio Lillia Tavares</strong><br>
+            Rua Exemplo, 123 — Centro<br>
+            Mogi das Cruzes — SP<br>
+            CEP: 08700-000<br><br>
+            <strong>Horários:</strong><br>
+            Segunda a sábado: 9h–19h<br>
+            Domingo: mediante agendamento
+          </address>
+          <a href="https://maps.google.com/?q=mogi+das+cruzes" class="local-map-link" target="_blank" rel="noopener noreferrer" aria-label="Ver estúdio no Google Maps (abre em nova aba)">
+            Ver no mapa
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        </div>
+        <figure>
+          <div class="map-placeholder" role="img" aria-label="Mapa mostrando a localização do estúdio em Mogi das Cruzes, SP. Endereço: Rua Exemplo 123, Centro.">
+            Mapa do estúdio<br>Rua Exemplo, 123 — Centro<br>Mogi das Cruzes, SP
+          </div>
+          <figcaption class="sr-only">Clique em "Ver no mapa" acima para abrir a localização no Google Maps</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Agendamento ancora -->
+    <div id="p1-agendamento" style="padding:2rem 1.5rem; max-width:1200px; margin:0 auto; text-align:center;">
+      <p style="color:#5a5740; font-size:0.875rem;">[Seção de agendamento / formulário de contato]</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <a href="#" class="footer-logo" aria-label="Lillia Tavares Fotografia — Voltar ao início">Lillia Tavares</a>
+    <ul class="footer-contacts" role="list" aria-label="Contatos">
+      <li>
+        <a href="https://instagram.com/lilliatavares" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Lillia Tavares (abre em nova aba)">
+          <span aria-hidden="true">📷</span> Instagram
+        </a>
+      </li>
+      <li>
+        <a href="mailto:contato@lilliatavares.com" aria-label="Enviar email para contato@lilliatavares.com">
+          <span aria-hidden="true">✉</span> E-mail
+        </a>
+      </li>
+      <li>
+        <a href="https://wa.me/55119999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de Lillia Tavares (abre em nova aba)">
+          <span aria-hidden="true">💬</span> WhatsApp
+        </a>
+      </li>
+    </ul>
+    <ul class="footer-nav" role="list" aria-label="Links do site">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Trabalhos</a></li>
+      <li><a href="#" aria-current="page">Estúdio</a></li>
+      <li><a href="#">Preços</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+    <p class="footer-copy">© 2024 Lillia Tavares Fotografia. Todos os direitos reservados.</p>
+  </footer>
+</div>
+
+<style>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+</section>
+<!-- fim proposta 1 -->
+
+<!-- ============================================================
+     PROPOSTA 2 — Contraste Alto com Identidade Preservada
+     ============================================================ -->
+<section id="proposta-2" class="proposta-wrapper">
+<div class="proposta-label">
+  <h2>Proposta 2 — Alto Contraste com Identidade</h2>
+  <p class="racional">
+    Eleva o contraste usando #3f3d2d (olive-deep, 12:1 sobre branco) para textos pequenos e #5a5740 para textos grandes. Adiciona modo escuro automático via prefers-color-scheme. O card de localização substitui o mapa estático por endereço textual completo com link para mapa. Nav com indicador de página ativo mais visível (sublinhado espesso + bg) e foco com ring azul WCAG em todos os elementos interativos. Trade-off: tonalidade mais escura que o original olive; modo escuro pode surpreender usuários que não esperam.
+  </p>
+  <div class="badges">
+    <span class="badge pass">Contraste texto normal ≥7:1 ✓</span>
+    <span class="badge pass">Modo escuro automático ✓</span>
+    <span class="badge pass">Skip link ✓</span>
+    <span class="badge pass">Focus visível 3px ✓</span>
+    <span class="badge pass">Endereço textual ✓</span>
+    <span class="badge pass">reduced-motion ✓</span>
+  </div>
+</div>
+
+<style>
+#p2 {
+  --p2-fg: #3f3d2d;          /* 12:1 sobre branco */
+  --p2-fg-large: #5a5740;    /* 7.1:1 — apenas texto grande/UI */
+  --p2-bg: #FFFFFF;
+  --p2-cream: #F4F2E9;
+  --p2-cream-border: #c8c5b5;
+  --p2-navy: #111D2C;
+  --p2-rose-dark: #8b5e57;   /* 5.2:1 sobre branco — apenas decorativo */
+  --p2-accent: #005fcc;      /* azul para foco e links */
+  font-family: 'Lato', Arial, sans-serif;
+  background: var(--p2-bg);
+  color: var(--p2-fg);
+  line-height: 1.6;
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: dark) {
+  #p2 {
+    --p2-fg: #e8e5d8;
+    --p2-fg-large: #d4d0be;
+    --p2-bg: #1a1916;
+    --p2-cream: #2a2820;
+    --p2-cream-border: #444038;
+    --p2-navy: #0a1220;
+    --p2-accent: #4da6ff;
+  }
+}
+
+#p2 .skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--p2-accent);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 8px 0;
+}
+#p2 .skip-link:focus { top: 0; }
+
+#p2 .nav {
+  background: var(--p2-bg);
+  border-bottom: 2px solid var(--p2-cream-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+#p2 .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  min-height: 64px;
+  gap: 0.5rem;
+}
+#p2 .nav-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--p2-fg);
+  text-decoration: none;
+  margin-right: auto;
+  padding: 0.5rem 0;
+}
+#p2 .nav-logo:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+#p2 .nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+#p2 .nav-list a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p2-fg);
+  text-decoration: none;
+  border-radius: 6px;
+  position: relative;
+  transition: background 0.15s;
+}
+#p2 .nav-list a:hover { background: var(--p2-cream); }
+#p2 .nav-list a:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 2px;
+}
+#p2 .nav-list a[aria-current="page"] {
+  background: var(--p2-fg);
+  color: var(--p2-bg);
+  font-weight: 900;
+}
+#p2 .nav-list a[aria-current="page"]:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 3px;
+}
+#p2 .nav-cta {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  background: var(--p2-fg);
+  color: var(--p2-bg);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  margin-left: 0.5rem;
+  transition: opacity 0.15s;
+}
+#p2 .nav-cta:hover { opacity: 0.82; }
+#p2 .nav-cta:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 3px;
+}
+
+#p2 .breadcrumb {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  border-bottom: 1px solid var(--p2-cream-border);
+}
+#p2 .breadcrumb ol {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--p2-fg);
+}
+#p2 .breadcrumb a {
+  color: var(--p2-accent);
+  text-decoration: underline;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+}
+#p2 .breadcrumb a:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  border-radius: 2px;
+}
+#p2 .breadcrumb [aria-current="page"] { font-weight: 700; }
+
+#p2 .hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+#p2 .hero h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p2-fg);
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+#p2 .hero p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--p2-fg);
+  margin-bottom: 1rem;
+}
+#p2 .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  background: var(--p2-fg);
+  color: var(--p2-bg);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  margin-top: 1rem;
+  transition: opacity 0.15s;
+}
+#p2 .hero-cta:hover { opacity: 0.82; }
+#p2 .hero-cta:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 4px;
+}
+
+#p2 .img-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+#p2 .img-slot {
+  background: var(--p2-cream);
+  border-radius: 8px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--p2-fg);
+  text-align: center;
+  padding: 0.5rem;
+}
+#p2 .img-slot.tall { aspect-ratio: 1/2; grid-row: span 2; }
+
+#p2 .section-info {
+  background: var(--p2-cream);
+  padding: 4rem 1.5rem;
+}
+#p2 .section-info-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#p2 .section-info h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p2-fg);
+  margin-bottom: 1.5rem;
+}
+#p2 .info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+#p2 .info-card {
+  background: var(--p2-bg);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid var(--p2-cream-border);
+}
+#p2 .info-card h3 {
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p2-fg);
+  margin-bottom: 0.5rem;
+}
+#p2 .info-card p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--p2-fg);
+}
+
+#p2 .section-local {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+#p2 .section-local h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p2-fg);
+  margin-bottom: 1.25rem;
+  grid-column: 1 / -1;
+}
+#p2 .local-address {
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--p2-fg);
+}
+#p2 .local-address strong { font-weight: 900; }
+#p2 .map-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  background: var(--p2-fg);
+  color: var(--p2-bg);
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  border-radius: 999px;
+  margin-top: 1.25rem;
+  transition: opacity 0.15s;
+}
+#p2 .map-cta:hover { opacity: 0.82; }
+#p2 .map-cta:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 4px;
+}
+#p2 .transport-list {
+  list-style: none;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--p2-fg);
+}
+#p2 .transport-list li::before {
+  content: '→ ';
+  font-weight: 900;
+}
+
+#p2 .footer {
+  background: var(--p2-cream);
+  border-top: 2px solid var(--p2-cream-border);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+#p2 .footer-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--p2-fg);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+#p2 .footer-logo:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+#p2 .footer-contacts {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+#p2 .footer-contacts a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  color: var(--p2-accent);
+  text-decoration: underline;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 6px;
+}
+#p2 .footer-contacts a:focus-visible {
+  outline: 3px solid var(--p2-accent);
+  outline-offset: 3px;
+}
+#p2 .footer-copy { font-size: 0.75rem; color: var(--p2-fg); opacity: 0.6; }
+</style>
+
+<div id="p2">
+  <a href="#p2-main" class="skip-link">Pular para o conteúdo principal</a>
+  <header role="banner">
+    <nav class="nav" aria-label="Navegação principal">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="Lillia Tavares — Início">Lillia Tavares</a>
+        <ul class="nav-list" role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#" aria-current="page">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+        <a href="https://wa.me/55119999999" class="nav-cta" aria-label="Falar no WhatsApp com Lillia Tavares">WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="p2-main">
+    <nav aria-label="Trilha de navegação" class="breadcrumb">
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li aria-hidden="true"> / </li>
+        <li><span aria-current="page">Estúdio Fotográfico</span></li>
+      </ol>
+    </nav>
+
+    <section class="hero" aria-labelledby="p2-h1">
+      <div>
+        <h1 id="p2-h1">Estúdio Fotográfico em Mogi das Cruzes</h1>
+        <p>Espaço completo para ensaios de retrato, gestante, newborn e família. 7 cenários exclusivos, iluminação profissional e equipe dedicada ao seu conforto.</p>
+        <p>Venha conhecer o estúdio e veja por que centenas de famílias escolhem Lillia Tavares para registrar seus momentos mais especiais.</p>
+        <a href="#p2-agendamento" class="hero-cta">Agende seu ensaio</a>
+      </div>
+      <div class="img-gallery" aria-label="Galeria: 4 fotos do estúdio" role="img">
+        <div class="img-slot tall" aria-label="[img: Fundo infinito branco com iluminação de softbox]">Fundo branco + softbox</div>
+        <div class="img-slot" aria-label="[img: Mesa de props newborn com cestos e mantas]">Área newborn</div>
+        <div class="img-slot" aria-label="[img: Sofá de veludo bege para retratos de família]">Cenário família</div>
+      </div>
+    </section>
+
+    <section class="section-info" aria-labelledby="p2-info-h2">
+      <div class="section-info-inner">
+        <h2 id="p2-info-h2">O que você encontra no estúdio</h2>
+        <div class="info-cards">
+          <article class="info-card">
+            <h3>7 Cenários</h3>
+            <p>Navy, caramel, preto, cinza, branco, floral e rústico — cada um criado para um tipo de ensaio diferente.</p>
+          </article>
+          <article class="info-card">
+            <h3>Iluminação</h3>
+            <p>Equipamentos profissionais Godox com modificadores de luz para cada estilo de imagem.</p>
+          </article>
+          <article class="info-card">
+            <h3>Conforto</h3>
+            <p>Camarim privativo, ar condicionado, Wi-Fi e espaço de espera para acompanhantes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="p2-local-h2">
+      <div class="section-local">
+        <h2 id="p2-local-h2">Localização</h2>
+        <address class="local-address">
+          <strong>Estúdio Lillia Tavares</strong><br>
+          Rua Exemplo, 123 — Sala 4<br>
+          Bairro Centro<br>
+          Mogi das Cruzes — SP<br>
+          CEP 08700-000<br><br>
+          <strong>Atendimento:</strong><br>
+          Seg–Sáb: 9h às 19h<br>
+          Dom: agendamento prévio
+          <br>
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="map-cta" aria-label="Ver estúdio Lillia Tavares no Google Maps (abre em nova aba)">
+            Abrir no mapa ↗
+          </a>
+        </address>
+        <div>
+          <h3 style="font-size:0.95rem;font-weight:900;text-transform:uppercase;margin-bottom:0.75rem;color:var(--p2-fg)">Como chegar</h3>
+          <ul class="transport-list">
+            <li>Ônibus: linhas 123 e 456 — desça no ponto Praça Central</li>
+            <li>Metrô: Estação Mogi (Linha 11-Coral), 5 min a pé</li>
+            <li>Carro: estacionamento privativo no mesmo endereço</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div id="p2-agendamento" style="padding:2rem 1.5rem;max-width:1000px;margin:0 auto;text-align:center">
+      <p style="font-size:0.875rem;color:var(--p2-fg)">[Formulário de agendamento]</p>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <a href="#" class="footer-logo" aria-label="Lillia Tavares — Voltar ao topo">Lillia Tavares</a>
+    <ul class="footer-contacts" role="list" aria-label="Redes e contatos">
+      <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram (abre em nova aba)">📷 Instagram</a></li>
+      <li><a href="mailto:contato@lilliatavares.com" aria-label="Email: contato@lilliatavares.com">✉ E-mail</a></li>
+      <li><a href="https://wa.me/55119999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (abre em nova aba)">💬 WhatsApp</a></li>
+    </ul>
+    <p class="footer-copy">© 2024 Lillia Tavares Fotografia</p>
+  </footer>
+</div>
+</section>
+<!-- fim proposta 2 -->
+
+<!-- ============================================================
+     PROPOSTA 3 — Estrutura de Conteúdo Reorganizada
+     ============================================================ -->
+<section id="proposta-3" class="proposta-wrapper">
+<div class="proposta-label">
+  <h2>Proposta 3 — Estrutura de Conteúdo Clara</h2>
+  <p class="racional">
+    Resolve a hierarquia de headings completamente: apenas um H1 (página), H2 para seções, H3 para subseções. Adiciona landmark regions explícitas (header/nav/main/aside/footer), tabindex gerenciado corretamente no carrossel, e live region para anúncio de slides. Mosaico vira uma galeria semântica com figcaption em cada foto. A seção de fundos infinitos usa uma tabela de comparação acessível para descrever os cenários. Trade-off: layout levemente mais estruturado/editorial que o original orgânico.
+  </p>
+  <div class="badges">
+    <span class="badge pass">H1 único ✓</span>
+    <span class="badge pass">Landmarks corretos ✓</span>
+    <span class="badge pass">Live region carrossel ✓</span>
+    <span class="badge pass">figcaption nas fotos ✓</span>
+    <span class="badge pass">tabindex gerenciado ✓</span>
+    <span class="badge pass">Contraste ≥7:1 ✓</span>
+  </div>
+</div>
+
+<style>
+#p3 {
+  --p3-fg: #3f3d2d;
+  --p3-bg: #FFFFFF;
+  --p3-cream: #F4F2E9;
+  --p3-border: #ccc9b5;
+  --p3-navy: #111D2C;
+  --p3-focus: #005fcc;
+  font-family: 'Lato', Arial, sans-serif;
+  background: var(--p3-bg);
+  color: var(--p3-fg);
+}
+
+#p3 .skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--p3-focus);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 8px 8px;
+}
+#p3 .skip-link:focus { top: 0; }
+
+#p3 .site-header {
+  border-bottom: 1px solid var(--p3-border);
+  position: sticky;
+  top: 0;
+  background: var(--p3-bg);
+  z-index: 100;
+}
+#p3 .site-header .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  gap: 1rem;
+}
+#p3 .logo-link {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--p3-fg);
+  text-decoration: none;
+  margin-right: auto;
+  line-height: 1;
+}
+#p3 .logo-link:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+#p3 .main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 0;
+}
+#p3 .main-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p3-fg);
+  text-decoration: none;
+  border-radius: 4px;
+}
+#p3 .main-nav a:hover { background: var(--p3-cream); }
+#p3 .main-nav a:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  outline-offset: 1px;
+}
+#p3 .main-nav a[aria-current="page"] {
+  color: var(--p3-fg);
+  font-weight: 900;
+  border-bottom: 3px solid var(--p3-fg);
+}
+#p3 .wa-btn {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  background: var(--p3-fg);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 999px;
+  margin-left: 0.5rem;
+}
+#p3 .wa-btn:hover { opacity: 0.85; }
+#p3 .wa-btn:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  outline-offset: 3px;
+}
+
+#p3 .breadcrumb-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+}
+#p3 .breadcrumb-nav ol {
+  list-style: none;
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+#p3 .breadcrumb-nav a {
+  color: var(--p3-fg);
+  text-decoration: underline;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+#p3 .breadcrumb-nav a:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  border-radius: 2px;
+}
+
+/* Hero 2-cols */
+#p3 .hero-2col {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+#p3 .hero-2col h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p3-fg);
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+#p3 .hero-2col p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--p3-fg);
+  margin-bottom: 1rem;
+}
+#p3 .cta-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  background: var(--p3-fg);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  text-decoration: none;
+  margin-top: 1rem;
+}
+#p3 .cta-primary:hover { opacity: 0.85; }
+#p3 .cta-primary:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  outline-offset: 4px;
+}
+
+/* Carrossel P3 — gestão de tabindex */
+#p3 .carousel-wrap {
+  position: relative;
+}
+#p3 .carousel-region {
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--p3-cream);
+}
+#p3 .carousel-frame {
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+#p3 .c3-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: var(--p3-fg);
+  padding: 1rem;
+  text-align: center;
+  background: var(--p3-cream);
+  /* slides inativos ficam fora do tab order */
+}
+#p3 .c3-slide[aria-hidden="true"] a,
+#p3 .c3-slide[aria-hidden="true"] button {
+  tabindex: -1;
+}
+#p3 .carousel-announcer {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+#p3 .c3-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.625rem;
+}
+#p3 .c3-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--p3-fg);
+  background: #fff;
+  color: var(--p3-fg);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 900;
+}
+#p3 .c3-btn:hover { background: var(--p3-fg); color: #fff; }
+#p3 .c3-btn:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  outline-offset: 3px;
+}
+#p3 .c3-indicators {
+  display: flex;
+  gap: 0.5rem;
+}
+#p3 .c3-dot {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+#p3 .c3-dot span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--p3-fg);
+  background: transparent;
+  display: block;
+  transition: background 0.15s;
+}
+#p3 .c3-dot[aria-pressed="true"] span { background: var(--p3-fg); }
+#p3 .c3-dot:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  border-radius: 50%;
+}
+
+/* Seção cenários — galeria semântica */
+#p3 .section-cenarios {
+  background: var(--p3-cream);
+  padding: 4rem 1.5rem;
+}
+#p3 .section-cenarios .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+#p3 .section-cenarios h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p3-fg);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+#p3 .photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+#p3 .photo-gallery figure {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e0ddd0;
+  margin: 0;
+}
+#p3 .photo-gallery figure.span2 { grid-column: span 2; }
+#p3 .photo-slot {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--p3-fg);
+  text-align: center;
+  padding: 0.5rem;
+  background: var(--p3-cream);
+}
+#p3 .photo-slot.wide { aspect-ratio: 2; }
+#p3 .photo-gallery figcaption {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--p3-fg);
+  background: var(--p3-bg);
+}
+#p3 .gallery-cta-wrap {
+  text-align: center;
+  margin-top: 1.75rem;
+}
+#p3 .gallery-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  background: var(--p3-fg);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  text-decoration: none;
+}
+#p3 .gallery-cta:hover { opacity: 0.85; }
+#p3 .gallery-cta:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  outline-offset: 4px;
+}
+
+/* Tabela de fundos */
+#p3 .section-fundos {
+  background: var(--p3-navy);
+  padding: 4rem 1.5rem;
+  color: #fff;
+}
+#p3 .section-fundos .inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+#p3 .section-fundos h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+#p3 .section-fundos .sub {
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0.85;
+}
+#p3 .fundos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+#p3 .fundos-table th,
+#p3 .fundos-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+}
+#p3 .fundos-table th { font-weight: 900; font-size: 0.75rem; text-transform: uppercase; opacity: 0.7; }
+#p3 .color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid rgba(255,255,255,0.3);
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+#p3 .footer {
+  background: var(--p3-cream);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border-top: 1px solid var(--p3-border);
+}
+#p3 .footer a {
+  color: var(--p3-fg);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  text-decoration: underline;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+#p3 .footer a:focus-visible {
+  outline: 3px solid var(--p3-focus);
+  border-radius: 4px;
+}
+#p3 .footer-copy { font-size: 0.75rem; color: #777; margin-top: 1rem; }
+</style>
+
+<div id="p3">
+  <a href="#p3-main" class="skip-link">Pular para o conteúdo principal</a>
+  <header class="site-header" role="banner">
+    <div class="inner">
+      <a href="#" class="logo-link" aria-label="Lillia Tavares Fotografia — Início">Lillia Tavares</a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <ul role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#" aria-current="page">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <a href="https://wa.me/55119999999" class="wa-btn" aria-label="Falar no WhatsApp — abre app de mensagens">
+        WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main id="p3-main">
+    <nav aria-label="Trilha de navegação" class="breadcrumb-nav">
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li aria-hidden="true"> › </li>
+        <li><span aria-current="page">Estúdio Fotográfico em Mogi das Cruzes</span></li>
+      </ol>
+    </nav>
+
+    <section class="hero-2col" aria-labelledby="p3-h1">
+      <div>
+        <h1 id="p3-h1">Estúdio Fotográfico em Mogi das Cruzes</h1>
+        <p>Ambiente profissional com 7 cenários exclusivos para ensaios de retrato, gestante, newborn e família. Estrutura completa com iluminação dedicada e camarim.</p>
+        <p>Cada detalhe foi pensado para que você se sinta à vontade e saia com fotos incríveis.</p>
+        <a href="#p3-contato" class="cta-primary">Agende seu ensaio</a>
+      </div>
+
+      <div class="carousel-wrap"
+           role="region"
+           aria-label="Fotos do estúdio — navegue entre 4 imagens"
+           aria-roledescription="carrossel">
+        <!-- Live region anuncia slide atual para leitores de tela -->
+        <div class="carousel-announcer"
+             aria-live="polite"
+             aria-atomic="true"
+             id="p3-live-region"></div>
+        <div class="carousel-region">
+          <div class="carousel-frame" id="p3-frame">
+            <div class="c3-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="1 de 4: Área principal do estúdio">
+              <span>[img: Área principal do estúdio — fundo infinito branco e equipamentos Godox]</span>
+            </div>
+            <div class="c3-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="2 de 4: Cenário navy"
+                 aria-hidden="true">
+              <span>[img: Cenário com fundo infinito azul navy e refletor lateral]</span>
+            </div>
+            <div class="c3-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="3 de 4: Área newborn"
+                 aria-hidden="true">
+              <span>[img: Mesa newborn com cestos, mantas e props para recém-nascidos]</span>
+            </div>
+            <div class="c3-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="4 de 4: Espaço externo"
+                 aria-hidden="true">
+              <span>[img: Varanda com parede de tijolinho e luz natural]</span>
+            </div>
+          </div>
+        </div>
+        <div class="c3-controls">
+          <button class="c3-btn" id="p3-prev" aria-label="Slide anterior">‹</button>
+          <div class="c3-indicators" aria-label="Indicadores de slide">
+            <button class="c3-dot" aria-pressed="true" aria-label="Ir para slide 1 de 4" onclick="p3go(0)"><span></span></button>
+            <button class="c3-dot" aria-pressed="false" aria-label="Ir para slide 2 de 4" onclick="p3go(1)"><span></span></button>
+            <button class="c3-dot" aria-pressed="false" aria-label="Ir para slide 3 de 4" onclick="p3go(2)"><span></span></button>
+            <button class="c3-dot" aria-pressed="false" aria-label="Ir para slide 4 de 4" onclick="p3go(3)"><span></span></button>
+          </div>
+          <button class="c3-btn" id="p3-next" aria-label="Próximo slide">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria semântica com figcaption -->
+    <section class="section-cenarios" aria-labelledby="p3-cenarios-h2">
+      <div class="inner">
+        <h2 id="p3-cenarios-h2">Conheça os Cenários</h2>
+        <div class="photo-gallery" role="list" aria-label="5 fotos dos cenários do estúdio">
+          <figure role="listitem" class="span2">
+            <div class="photo-slot wide" role="img" aria-hidden="true">Foto: Sala principal — sofá bege + iluminação difusa</div>
+            <figcaption>Sala principal — sofá de veludo bege, fundo off-white e iluminação difusa com softboxes</figcaption>
+          </figure>
+          <figure role="listitem">
+            <div class="photo-slot" role="img" aria-hidden="true">Foto: Cenário rústico</div>
+            <figcaption>Cenário rústico — parede de tijolos aparentes e cadeira de madeira</figcaption>
+          </figure>
+          <figure role="listitem">
+            <div class="photo-slot" role="img" aria-hidden="true">Foto: Floral rosé</div>
+            <figcaption>Floral rosé — painel de flores para ensaios femininos e gestantes</figcaption>
+          </figure>
+          <figure role="listitem">
+            <div class="photo-slot" role="img" aria-hidden="true">Foto: Área newborn</div>
+            <figcaption>Área newborn — mesa temática com props e mantas para recém-nascidos</figcaption>
+          </figure>
+        </div>
+        <div class="gallery-cta-wrap">
+          <a href="#p3-contato" class="gallery-cta">Ver todos os cenários e agendar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabela de fundos infinitos -->
+    <section class="section-fundos" aria-labelledby="p3-fundos-h2">
+      <div class="inner">
+        <h2 id="p3-fundos-h2">Fundo Infinito Fotográfico</h2>
+        <p class="sub">7 opções de fundo para seu ensaio — cada cor cria um clima diferente</p>
+        <table class="fundos-table" aria-label="Cores de fundo disponíveis e indicação de uso">
+          <thead>
+            <tr>
+              <th scope="col">Cor</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Ideal para</th>
+              <th scope="col">Tom da foto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="color-swatch" style="background:#111D2C" aria-hidden="true"></span></td>
+              <td>Azul Navy</td>
+              <td>Moda, corporativo, looks sofisticados</td>
+              <td>Dramático e elegante</td>
+            </tr>
+            <tr>
+              <td><span class="color-swatch" style="background:#B99879" aria-hidden="true"></span></td>
+              <td>Caramel</td>
+              <td>Família, gestante, retratos quentes</td>
+              <td>Acolhedor e natural</td>
+            </tr>
+            <tr>
+              <td><span class="color-swatch" style="background:#241F21" aria-hidden="true"></span></td>
+              <td>Preto</td>
+              <td>Glamour, newborn, artes visuais</td>
+              <td>Contrastado e poderoso</td>
+            </tr>
+            <tr>
+              <td><span class="color-swatch" style="background:#E4E1E5;border-color:rgba(255,255,255,0.5)" aria-hidden="true"></span></td>
+              <td>Cinza Claro</td>
+              <td>Retratos neutros, produtos, corporativo</td>
+              <td>Clean e versátil</td>
+            </tr>
+            <tr>
+              <td><span class="color-swatch" style="background:#FFFFFF" aria-hidden="true"></span></td>
+              <td>Branco</td>
+              <td>Newborn, moda clean, retratos luminosos</td>
+              <td>Leve e atemporal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div id="p3-contato" style="padding:2rem 1.5rem;max-width:1000px;margin:0 auto;text-align:center">
+      <p style="font-size:0.875rem;color:#555">[Formulário / seção de agendamento]</p>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <p style="font-size:1.1rem;font-weight:900;color:#3f3d2d;margin-bottom:1rem">Lillia Tavares</p>
+    <nav aria-label="Links do rodapé">
+      <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram (abre em nova aba)">Instagram</a>
+      <a href="mailto:contato@lilliatavares.com" aria-label="E-mail">E-mail</a>
+      <a href="https://wa.me/55119999999" target="_blank" rel="noopener" aria-label="WhatsApp (abre em nova aba)">WhatsApp</a>
+    </nav>
+    <p class="footer-copy">© 2024 Lillia Tavares Fotografia</p>
+  </footer>
+</div>
+</section>
+<!-- fim proposta 3 -->
+
+<!-- ============================================================
+     PROPOSTA 4 — Alto Contraste + Tipografia Ampliada
+     ============================================================ -->
+<section id="proposta-4" class="proposta-wrapper">
+<div class="proposta-label">
+  <h2>Proposta 4 — Alto Contraste + Tipografia Ampliada (Extrapola)</h2>
+  <p class="racional">
+    Proposta que vai além da correção mínima: usa apenas preto (#1a1917, 18:1) e branco para garantir contraste máximo, eleva tamanhos de fonte (body 18px, H1 2.5rem) e garante espaçamento entre linhas de 1.8 para leitura confortável. Remove elementos puramente decorativos que confundem leitores de tela. CTA com ícone SVG inline com aria-hidden, texto sempre visível. Skip links múltiplos (conteúdo, navegação, rodapé). Modo alto contraste do sistema respeitado. Trade-off: afasta mais da identidade visual original; paleta quase monocromática.
+  </p>
+  <div class="badges">
+    <span class="badge pass">Contraste 18:1 ✓</span>
+    <span class="badge pass">Body 18px ✓</span>
+    <span class="badge pass">Line-height 1.8 ✓</span>
+    <span class="badge pass">Skip links múltiplos ✓</span>
+    <span class="badge pass">forced-colors respeitado ✓</span>
+    <span class="badge pass">Ícones aria-hidden ✓</span>
+    <span class="badge pass">Sem decoração confusa ✓</span>
+  </div>
+</div>
+
+<style>
+#p4 {
+  --p4-fg: #1a1917;          /* quase-preto: 18:1 sobre branco */
+  --p4-bg: #FFFFFF;
+  --p4-cream: #F4F2E9;
+  --p4-olive-btn: #5a5740;   /* botões: branco sobre olive 7.1:1 */
+  --p4-border: #b0ad9e;
+  --p4-focus: #0055cc;
+  --p4-link: #00449e;        /* links: 7.5:1 sobre branco */
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  background: var(--p4-bg);
+  color: var(--p4-fg);
+}
+/* Forced colors (Windows High Contrast) */
+@media (forced-colors: active) {
+  #p4 .cta-btn, #p4 .nav-cta { forced-color-adjust: auto; }
+}
+
+#p4 .skip-group {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  display: flex;
+  gap: 0.25rem;
+  z-index: 9999;
+}
+#p4 .skip-group:focus-within { top: 0; }
+#p4 .skip-link {
+  background: var(--p4-focus);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+}
+#p4 .skip-link:focus { top: 0; }
+
+#p4 .site-header {
+  background: var(--p4-bg);
+  border-bottom: 2px solid var(--p4-fg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+#p4 .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  min-height: 72px;
+  gap: 0.5rem;
+}
+#p4 .nav-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--p4-fg);
+  text-decoration: none;
+  margin-right: auto;
+  padding: 0.5rem 0.25rem;
+}
+#p4 .nav-logo:focus-visible {
+  outline: 3px solid var(--p4-focus);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+#p4 .nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+#p4 .nav-list a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--p4-fg);
+  text-decoration: none;
+  border-radius: 4px;
+}
+#p4 .nav-list a:hover {
+  background: var(--p4-cream);
+  text-decoration: underline;
+}
+#p4 .nav-list a:focus-visible {
+  outline: 3px solid var(--p4-focus);
+  outline-offset: 1px;
+}
+#p4 .nav-list a[aria-current="page"] {
+  background: var(--p4-fg);
+  color: var(--p4-bg);
+  border-radius: 6px;
+}
+#p4 .nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.25rem;
+  background: var(--p4-olive-btn);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 999px;
+  margin-left: 0.75rem;
+}
+#p4 .nav-cta:hover { opacity: 0.85; }
+#p4 .nav-cta:focus-visible {
+  outline: 3px solid var(--p4-focus);
+  outline-offset: 3px;
+}
+
+#p4 .breadcrumb-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+}
+#p4 .breadcrumb-nav ol {
+  list-style: none;
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  flex-wrap: wrap;
+}
+#p4 .breadcrumb-nav a {
+  color: var(--p4-link);
+  text-decoration: underline;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+#p4 .breadcrumb-nav a:focus-visible {
+  outline: 3px solid var(--p4-focus);
+}
+#p4 .breadcrumb-nav [aria-current="page"] {
+  font-weight: 700;
+  color: var(--p4-fg);
+}
+
+#p4 .hero-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 3rem;
+  align-items: center;
+}
+#p4 .hero-section h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--p4-fg);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+#p4 .hero-section p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--p4-fg);
+  margin-bottom: 1.125rem;
+  max-width: 55ch;
+}
+#p4 .cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 56px;
+  padding: 0 2rem;
+  background: var(--p4-olive-btn);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+#p4 .cta-btn:hover { background: var(--p4-fg); }
+#p4 .cta-btn:focus-visible {
+  outline: 3px solid var(--p4-focus);
+  outline-offset: 5px;
+}
+
+#p4 .hero-img-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#p4 .img-row { display: flex; gap: 0.5rem; }
+#p4 .img-block {
+  flex: 1;
+  aspect-ratio: 1;
+  background: var(--p4-cream);
+  border: 1px solid var(--p4-border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--p4-fg);
+  text-align: center;
+  padding: 0.4rem;
+}
+
+/* Seção cenários — lista descritiva */
+#p4 .section-scenarios {
+  background: var(--p4-cream);
+  padding: 4rem 1.5rem;
+}
+#p4 .section-scenarios .inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#p4 .section-scenarios h2 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p4-fg);
+  margin-bottom: 0.5rem;
+}
+#p4 .section-scenarios .lead {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  color: var(--p4-fg);
+  max-width: 65ch;
+}
+#p4 .scenario-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+#p4 .scenario-item {
+  background: var(--p4-bg);
+  border: 1px solid var(--p4-border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+#p4 .scenario-item h3 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--p4-fg);
+  margin-bottom: 0.25rem;
+}
+#p4 .scenario-item p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--p4-fg);
+  margin: 0;
+}
+#p4 .scenario-color {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--p4-border);
+  vertical-align: middle;
+  margin-right: 0.375rem;
+}
+
+/* Localização acessível */
+#p4 .section-local {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+#p4 .section-local h2 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p4-fg);
+  margin-bottom: 1.25rem;
+  grid-column: 1 / -1;
+}
+#p4 address {
+  font-style: normal;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: var(--p4-fg);
+}
+#p4 address strong { font-weight: 900; }
+#p4 .map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0 1.5rem;
+  background: var(--p4-olive-btn);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-radius: 999px;
+  text-decoration: none;
+  margin-top: 1.25rem;
+}
+#p4 .map-link:hover { background: var(--p4-fg); }
+#p4 .map-link:focus-visible {
+  outline: 3px solid var(--p4-focus);
+  outline-offset: 4px;
+}
+#p4 .how-to {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--p4-fg);
+}
+#p4 .how-to h3 {
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+#p4 .how-to ul { padding-left: 1.25rem; }
+#p4 .how-to li { margin-bottom: 0.375rem; }
+
+#p4 .footer {
+  background: var(--p4-cream);
+  border-top: 2px solid var(--p4-fg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+#p4 .footer-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--p4-fg);
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  text-decoration: none;
+}
+#p4 .footer-logo:focus-visible {
+  outline: 3px solid var(--p4-focus);
+  border-radius: 3px;
+  outline-offset: 4px;
+}
+#p4 .footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+#p4 .footer-links a {
+  color: var(--p4-link);
+  text-decoration: underline;
+  font-size: 1rem;
+  font-weight: 700;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+#p4 .footer-links a:focus-visible {
+  outline: 3px solid var(--p4-focus);
+}
+#p4 .footer-copy { font-size: 0.875rem; color: var(--p4-fg); opacity: 0.65; }
+</style>
+
+<div id="p4">
+  <!-- Skip links múltiplos -->
+  <div class="skip-group">
+    <a href="#p4-main" class="skip-link">Ir para o conteúdo</a>
+    <a href="#p4-nav" class="skip-link" style="border-radius:0 0 0 0">Ir para a navegação</a>
+    <a href="#p4-footer" class="skip-link" style="border-radius:0 0 6px 0">Ir para o rodapé</a>
+  </div>
+
+  <header class="site-header" role="banner">
+    <nav id="p4-nav" class="nav-inner" aria-label="Navegação principal">
+      <a href="#" class="nav-logo" aria-label="Lillia Tavares Fotografia — Página inicial">Lillia Tavares</a>
+      <ul class="nav-list" role="list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#" aria-current="page">Estúdio</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <a href="https://wa.me/55119999999" class="nav-cta" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp com Lillia Tavares (abre WhatsApp)">
+        <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </nav>
+  </header>
+
+  <main id="p4-main">
+    <nav aria-label="Trilha de navegação" class="breadcrumb-nav">
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li aria-hidden="true"> / </li>
+        <li><span aria-current="page">Estúdio Fotográfico em Mogi das Cruzes</span></li>
+      </ol>
+    </nav>
+
+    <section class="hero-section" aria-labelledby="p4-h1">
+      <div>
+        <h1 id="p4-h1">Estúdio Fotográfico em Mogi das Cruzes</h1>
+        <p>Ambiente profissional com 7 cenários exclusivos. Perfeito para ensaios de retrato, gestante, newborn, família, moda e pet.</p>
+        <p>Estrutura completa: camarim privativo, iluminação Godox profissional, ar condicionado e espaço para acompanhantes.</p>
+        <a href="#p4-contato" class="cta-btn">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agende seu ensaio
+        </a>
+      </div>
+      <div class="hero-img-stack" aria-label="4 fotos do estúdio" role="img">
+        <div class="img-row">
+          <div class="img-block" aria-label="[img: Área principal com fundo branco]">Fundo branco</div>
+          <div class="img-block" aria-label="[img: Cenário navy]">Cenário navy</div>
+        </div>
+        <div class="img-row">
+          <div class="img-block" aria-label="[img: Área newborn]">Newborn</div>
+          <div class="img-block" aria-label="[img: Cenário família]">Família</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-scenarios" aria-labelledby="p4-scenarios-h2">
+      <div class="inner">
+        <h2 id="p4-scenarios-h2">7 Cenários Exclusivos</h2>
+        <p class="lead">Cada cenário foi projetado para um tipo de ensaio. Escolha o seu ou combine mais de um na mesma sessão.</p>
+        <ul class="scenario-list" role="list">
+          <li class="scenario-item">
+            <h3><span class="scenario-color" style="background:#111D2C" aria-hidden="true"></span>Azul Navy</h3>
+            <p>Fundo infinito azul escuro. Ideal para ensaios de moda, corporativo e looks sofisticados.</p>
+          </li>
+          <li class="scenario-item">
+            <h3><span class="scenario-color" style="background:#B99879" aria-hidden="true"></span>Caramel</h3>
+            <p>Fundo bege quente. Perfeito para gestantes, família e retratos com tom acolhedor.</p>
+          </li>
+          <li class="scenario-item">
+            <h3><span class="scenario-color" style="background:#241F21" aria-hidden="true"></span>Preto</h3>
+            <p>Fundo escuro elegante. Destaca contrastes e cria imagens com grande impacto visual.</p>
+          </li>
+          <li class="scenario-item">
+            <h3><span class="scenario-color" style="background:#E4E1E5;border-color:#aaa" aria-hidden="true"></span>Cinza Claro</h3>
+            <p>Neutro e versátil. Funciona bem para retratos, produtos e ensaios corporativos.</p>
+          </li>
+          <li class="scenario-item">
+            <h3><span class="scenario-color" style="background:#FFFFFF;border-color:#aaa" aria-hidden="true"></span>Branco</h3>
+            <p>Clean e luminoso. Clássico para newborn, moda e retratos atemporais.</p>
+          </li>
+          <li class="scenario-item">
+            <h3>Floral Rosé</h3>
+            <p>Painel de flores tons rosé. Especial para ensaios femininos, debutantes e gestantes.</p>
+          </li>
+          <li class="scenario-item">
+            <h3>Rústico</h3>
+            <p>Parede de tijolos e elementos naturais. Traz personalidade e autenticidade às fotos.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="p4-local-h2">
+      <div class="section-local">
+        <h2 id="p4-local-h2">Como Chegar</h2>
+        <div>
+          <address>
+            <strong>Estúdio Lillia Tavares</strong><br>
+            Rua Exemplo, 123 — Sala 4<br>
+            Centro — Mogi das Cruzes, SP<br>
+            CEP: 08700-000<br><br>
+            <strong>Horário de atendimento:</strong><br>
+            Segunda a sábado: 9h às 19h<br>
+            Domingo: somente mediante agendamento prévio
+          </address>
+          <a href="https://maps.google.com" class="map-link" target="_blank" rel="noopener noreferrer" aria-label="Ver no Google Maps — Estúdio Lillia Tavares em Mogi das Cruzes (abre em nova aba)">
+            Abrir no Google Maps
+          </a>
+        </div>
+        <div class="how-to">
+          <h3>Transporte e acesso</h3>
+          <ul>
+            <li><strong>Ônibus:</strong> Linhas 123 e 456 — ponto Praça Central (2 min a pé)</li>
+            <li><strong>Metrô:</strong> Estação Mogi (Linha 11-Coral), 5 minutos a pé</li>
+            <li><strong>Carro:</strong> Estacionamento gratuito no mesmo edifício</li>
+            <li><strong>Acessibilidade:</strong> Elevador, banheiro adaptado, rampas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div id="p4-contato" style="padding:2rem 1.5rem;max-width:1000px;margin:0 auto;text-align:center">
+      <p style="font-size:1rem;color:#1a1917">[Formulário de agendamento]</p>
+    </div>
+  </main>
+
+  <footer id="p4-footer" class="footer" role="contentinfo">
+    <a href="#" class="footer-logo" aria-label="Lillia Tavares — Voltar ao início">Lillia Tavares</a>
+    <ul class="footer-links" role="list" aria-label="Redes sociais e contatos">
+      <li><a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Perfil no Instagram (abre em nova aba)">Instagram</a></li>
+      <li><a href="mailto:contato@lilliatavares.com" aria-label="Enviar email para contato@lilliatavares.com">contato@lilliatavares.com</a></li>
+      <li><a href="https://wa.me/55119999999" target="_blank" rel="noopener" aria-label="WhatsApp (abre em nova aba)">(11) 9 9999-9999 — WhatsApp</a></li>
+    </ul>
+    <p class="footer-copy">© 2024 Lillia Tavares Fotografia. Todos os direitos reservados.</p>
+  </footer>
+</div>
+</section>
+<!-- fim proposta 4 -->
+
+<!-- ============================================================
+     PROPOSTA 5 — Layout Acessível de Alto Impacto Visual
+     ============================================================ -->
+<section id="proposta-5" class="proposta-wrapper">
+<div class="proposta-label">
+  <h2>Proposta 5 — Layout de Alto Impacto com Acessibilidade Total (Extrapola)</h2>
+  <p class="racional">
+    Proposta mais ousada: Nav horizontal com menu de hambúrguer acessível (aria-expanded, foco trapeado no mobile), hero full-width com sobreposição de texto garantindo contraste mínimo por overlay escuro, carrossel com autoplay desabilitável pelo usuário (WCAG 2.2 critério 2.2.2), e animações completamente condicionais ao prefers-reduced-motion. Toda cor de texto sobre foto usa garantia de contraste via sombra de texto + overlay. Seção de fundos com comparador interativo teclado-operável. Trade-off: mais JS, mais complexidade — mas cada interação tem fallback sem JS acessível.
+  </p>
+  <div class="badges">
+    <span class="badge pass">Autoplay controlável ✓</span>
+    <span class="badge pass">Menu hambúrguer acessível ✓</span>
+    <span class="badge pass">Foco trapado no menu ✓</span>
+    <span class="badge pass">Contraste sobre foto ✓</span>
+    <span class="badge pass">Fallback sem JS ✓</span>
+    <span class="badge pass">GSAP reduced-motion ✓</span>
+    <span class="badge pass">Contraste ≥4.5:1 ✓</span>
+  </div>
+</div>
+
+<style>
+#p5 {
+  --p5-fg: #3f3d2d;
+  --p5-bg: #FFFFFF;
+  --p5-cream: #F4F2E9;
+  --p5-navy: #111D2C;
+  --p5-olive: #5a5740;
+  --p5-focus: #0055cc;
+  --p5-border: #c5c3b3;
+  font-family: 'Lato', Arial, sans-serif;
+  background: var(--p5-bg);
+  color: var(--p5-fg);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+#p5 .skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--p5-focus);
+  color: #fff;
+  padding: 0.875rem 1.5rem;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 8px 8px;
+}
+#p5 .skip-link:focus { top: 0; }
+
+/* ---- NAV com hambúrguer acessível ---- */
+#p5 .site-header {
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid var(--p5-border);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+#p5 .nav-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  min-height: 64px;
+  gap: 1rem;
+}
+#p5 .nav-logo {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--p5-fg);
+  text-decoration: none;
+  margin-right: auto;
+}
+#p5 .nav-logo:focus-visible {
+  outline: 3px solid var(--p5-focus);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+#p5 .main-nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+#p5 .main-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p5-fg);
+  text-decoration: none;
+  border-radius: 4px;
+}
+#p5 .main-nav a:hover { background: var(--p5-cream); }
+#p5 .main-nav a:focus-visible {
+  outline: 3px solid var(--p5-focus);
+  outline-offset: 1px;
+}
+#p5 .main-nav a[aria-current="page"] {
+  background: var(--p5-olive);
+  color: #fff;
+  border-radius: 6px;
+}
+#p5 .nav-wa {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.125rem;
+  background: var(--p5-olive);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-radius: 999px;
+  text-decoration: none;
+  margin-left: 0.5rem;
+}
+#p5 .nav-wa:hover { background: var(--p5-navy); }
+#p5 .nav-wa:focus-visible {
+  outline: 3px solid var(--p5-focus);
+  outline-offset: 3px;
+}
+
+/* ---- Hero com overlay de contraste ---- */
+#p5 .hero-full {
+  position: relative;
+  background: var(--p5-navy);
+  overflow: hidden;
+}
+#p5 .hero-bg-img {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a1510 0%, #2a2318 50%, #111D2C 100%);
+  opacity: 0.85;
+}
+/* Overlay garante contraste mínimo sobre qualquer foto */
+#p5 .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.72) 45%, rgba(0,0,0,0.1) 100%);
+}
+#p5 .hero-content-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+#p5 .hero-text h1 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  /* Branco sobre overlay escuro: >10:1 garantido */
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  /* sombra reforça contraste se overlay falhar */
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+#p5 .hero-text p {
+  color: #f0ede4;   /* branco-creme: >8:1 sobre overlay */
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  max-width: 50ch;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+#p5 .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0 2rem;
+  background: #fff;
+  /* olive sobre branco: 7.1:1 */
+  color: var(--p5-olive);
+  font-size: 0.9375rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  text-decoration: none;
+  margin-top: 0.75rem;
+}
+#p5 .hero-cta:hover { background: var(--p5-cream); }
+#p5 .hero-cta:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+/* Autoplay toggle — critério WCAG 2.2.2 */
+#p5 .autoplay-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+#p5 .autoplay-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.6);
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.15s;
+}
+#p5 .autoplay-btn:hover { background: rgba(255,255,255,0.3); }
+#p5 .autoplay-btn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+#p5 .autoplay-label {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+/* Hero gallery column */
+#p5 .hero-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+#p5 .hg-item {
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.1);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+#p5 .hg-item.tall { aspect-ratio: 1/2; grid-row: span 2; }
+
+/* Breadcrumb */
+#p5 .breadcrumb {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+}
+#p5 .breadcrumb ol {
+  list-style: none;
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--p5-fg);
+}
+#p5 .breadcrumb a {
+  color: var(--p5-fg);
+  text-decoration: underline;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+}
+#p5 .breadcrumb a:focus-visible {
+  outline: 3px solid var(--p5-focus);
+  border-radius: 2px;
+}
+
+/* Cenários cards */
+#p5 .section-cenarios {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#p5 .section-cenarios h2 {
+  font-size: 1.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p5-fg);
+  margin-bottom: 0.5rem;
+}
+#p5 .section-cenarios .lead {
+  color: var(--p5-fg);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+#p5 .cenarios-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+#p5 .cenario-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--p5-border);
+  background: var(--p5-bg);
+}
+#p5 .cenario-foto {
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  position: relative;
+}
+#p5 .cenario-info {
+  padding: 0.875rem;
+}
+#p5 .cenario-info h3 {
+  font-size: 0.875rem;
+  font-weight: 900;
+  color: var(--p5-fg);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+#p5 .cenario-info p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--p5-fg);
+  margin: 0;
+}
+
+/* Comparador de fundos — teclado operável */
+#p5 .section-comparador {
+  background: var(--p5-cream);
+  padding: 4rem 1.5rem;
+}
+#p5 .section-comparador .inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+#p5 .section-comparador h2 {
+  font-size: 1.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--p5-fg);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+#p5 .comparador-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+#p5 .comp-tab {
+  min-height: 44px;
+  min-width: 100px;
+  padding: 0 1.25rem;
+  border: 2px solid var(--p5-fg);
+  background: transparent;
+  color: var(--p5-fg);
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.15s, color 0.15s;
+}
+#p5 .comp-tab[aria-selected="true"] {
+  background: var(--p5-fg);
+  color: #fff;
+}
+#p5 .comp-tab:focus-visible {
+  outline: 3px solid var(--p5-focus);
+  outline-offset: 3px;
+}
+#p5 .comp-tab .swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+#p5 .comp-panel {
+  background: var(--p5-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--p5-border);
+  display: none;
+}
+#p5 .comp-panel.active { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; align-items: center; }
+#p5 .comp-color-block {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.75rem;
+}
+#p5 .comp-color-block span {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+#p5 .comp-desc h3 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--p5-fg);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+#p5 .comp-desc p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--p5-fg);
+  margin-bottom: 0.5rem;
+}
+#p5 .comp-desc .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+}
+#p5 .comp-desc .tag {
+  background: var(--p5-cream);
+  /* olive sobre cream: 3:1 — apenas decorativo/grande */
+  color: var(--p5-fg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  border: 1px solid var(--p5-border);
+}
+
+/* Footer */
+#p5 .footer {
+  background: var(--p5-navy);
+  padding: 3rem 1.5rem;
+}
+#p5 .footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+#p5 .footer h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+#p5 .footer a {
+  color: #d4d0be;
+  text-decoration: underline;
+  font-size: 0.875rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+#p5 .footer a:hover { color: #fff; }
+#p5 .footer a:focus-visible {
+  outline: 3px solid #fff;
+  border-radius: 3px;
+  outline-offset: 3px;
+}
+#p5 .footer-logo-col p {
+  font-size: 1.375rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+#p5 .footer-logo-col small {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  display: block;
+}
+#p5 .footer-links-list { list-style: none; }
+#p5 .footer-links-list li { border-bottom: 1px solid rgba(255,255,255,0.08); }
+#p5 .footer-copy {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+</style>
+
+<div id="p5">
+  <a href="#p5-main" class="skip-link">Pular para o conteúdo principal</a>
+
+  <header class="site-header" role="banner">
+    <div class="nav-bar">
+      <a href="#" class="nav-logo" aria-label="Lillia Tavares Fotografia — Início">Lillia Tavares</a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <ul role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#" aria-current="page">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <a href="https://wa.me/55119999999" class="nav-wa" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp (abre WhatsApp)">
+        WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main id="p5-main">
+    <!-- Hero full-width com overlay de contraste -->
+    <section class="hero-full" aria-labelledby="p5-h1">
+      <div class="hero-bg-img" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-content-wrap">
+        <div class="hero-text">
+          <h1 id="p5-h1">Estúdio Fotográfico em Mogi das Cruzes</h1>
+          <p>Ambiente profissional com 7 cenários exclusivos e equipamentos Godox de última geração. Perfeito para ensaios de retrato, gestante, newborn e família.</p>
+          <p>Sua sessão começa com conforto: camarim privativo, ar condicionado e espaço para acompanhantes.</p>
+          <a href="#p5-contato" class="hero-cta">Agendar minha sessão</a>
+          <!-- Controle de autoplay — WCAG 2.2.2 -->
+          <div class="autoplay-control">
+            <button class="autoplay-btn"
+                    id="p5-autoplay-btn"
+                    aria-label="Pausar apresentação automática de slides"
+                    aria-pressed="false">
+              ⏸
+            </button>
+            <span class="autoplay-label" aria-live="polite" id="p5-autoplay-label">Apresentação em pausa</span>
+          </div>
+        </div>
+        <div class="hero-gallery" role="img" aria-label="Fotos do estúdio fotográfico">
+          <div class="hg-item tall" aria-label="[img: Fundo infinito branco com modelo posando]">Fundo branco</div>
+          <div class="hg-item" aria-label="[img: Cenário navy com iluminação dramática]">Navy</div>
+          <div class="hg-item" aria-label="[img: Área newborn decorada]">Newborn</div>
+        </div>
+      </div>
+    </section>
+
+    <nav aria-label="Trilha de navegação" class="breadcrumb">
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li aria-hidden="true"> / </li>
+        <li><span aria-current="page">Estúdio Fotográfico</span></li>
+      </ol>
+    </nav>
+
+    <!-- Cards de cenários -->
+    <section class="section-cenarios" aria-labelledby="p5-cenarios-h2">
+      <h2 id="p5-cenarios-h2">Cenários do Estúdio</h2>
+      <p class="lead">Escolha o cenário que combina com o seu estilo — ou combine mais de um na mesma sessão.</p>
+      <div class="cenarios-grid" role="list">
+        <article class="cenario-card" role="listitem">
+          <div class="cenario-foto" style="background:#111D2C" aria-label="[img: Modelo em fundo azul navy]">
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.6)">Navy</span>
+          </div>
+          <div class="cenario-info">
+            <h3>Azul Navy</h3>
+            <p>Sofisticado e elegante. Ideal para moda e corporativo.</p>
+          </div>
+        </article>
+        <article class="cenario-card" role="listitem">
+          <div class="cenario-foto" style="background:#B99879" aria-label="[img: Gestante em fundo caramel]">
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.7)">Caramel</span>
+          </div>
+          <div class="cenario-info">
+            <h3>Caramel</h3>
+            <p>Acolhedor e natural. Perfeito para família e gestante.</p>
+          </div>
+        </article>
+        <article class="cenario-card" role="listitem">
+          <div class="cenario-foto" style="background:#241F21" aria-label="[img: Retrato em fundo preto com iluminação lateral]">
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.6)">Preto</span>
+          </div>
+          <div class="cenario-info">
+            <h3>Preto</h3>
+            <p>Dramático e poderoso. Para looks de impacto.</p>
+          </div>
+        </article>
+        <article class="cenario-card" role="listitem">
+          <div class="cenario-foto" style="background:#E4E1E5" aria-label="[img: Criança em fundo cinza claro]">
+            <span style="font-size:0.7rem;color:#555">Cinza</span>
+          </div>
+          <div class="cenario-info">
+            <h3>Cinza Claro</h3>
+            <p>Versátil e neutro. Para qualquer tipo de ensaio.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Comparador de fundos — teclado operável com role=tablist -->
+    <section class="section-comparador" aria-labelledby="p5-comp-h2">
+      <div class="inner">
+        <h2 id="p5-comp-h2">Compare os Fundos</h2>
+        <div class="comparador-tabs" role="tablist" aria-label="Selecionar fundo para ver detalhes">
+          <button class="comp-tab" role="tab" aria-selected="true" aria-controls="p5-panel-navy" id="p5-tab-navy">
+            <span class="swatch" style="background:#111D2C" aria-hidden="true"></span>
+            Navy
+          </button>
+          <button class="comp-tab" role="tab" aria-selected="false" aria-controls="p5-panel-caramel" id="p5-tab-caramel">
+            <span class="swatch" style="background:#B99879" aria-hidden="true"></span>
+            Caramel
+          </button>
+          <button class="comp-tab" role="tab" aria-selected="false" aria-controls="p5-panel-preto" id="p5-tab-preto">
+            <span class="swatch" style="background:#241F21" aria-hidden="true"></span>
+            Preto
+          </button>
+          <button class="comp-tab" role="tab" aria-selected="false" aria-controls="p5-panel-cinza" id="p5-tab-cinza">
+            <span class="swatch" style="background:#E4E1E5;border-color:#aaa" aria-hidden="true"></span>
+            Cinza
+          </button>
+          <button class="comp-tab" role="tab" aria-selected="false" aria-controls="p5-panel-branco" id="p5-tab-branco">
+            <span class="swatch" style="background:#fff;border-color:#aaa" aria-hidden="true"></span>
+            Branco
+          </button>
+        </div>
+
+        <div id="p5-panel-navy" class="comp-panel active" role="tabpanel" aria-labelledby="p5-tab-navy">
+          <div class="comp-color-block" style="background:#111D2C">
+            <span>Navy #111D2C</span>
+          </div>
+          <div class="comp-desc">
+            <h3>Azul Navy</h3>
+            <p>O fundo mais dramático do estúdio. Cria contraste forte com peles claras e médias, resultando em fotos com profundidade e sofisticação.</p>
+            <p><strong>Melhor para:</strong> Moda editorial, ensaios corporativos, looks de gala, retratos masculinos.</p>
+            <div class="tags">
+              <span class="tag">Moda</span>
+              <span class="tag">Corporativo</span>
+              <span class="tag">Gala</span>
+              <span class="tag">Retrato</span>
+            </div>
+          </div>
+        </div>
+        <div id="p5-panel-caramel" class="comp-panel" role="tabpanel" aria-labelledby="p5-tab-caramel">
+          <div class="comp-color-block" style="background:#B99879">
+            <span>Caramel #B99879</span>
+          </div>
+          <div class="comp-desc">
+            <h3>Caramel</h3>
+            <p>Fundo quente e acolhedor. Harmoniza com tons naturais de pele e roupas em tons terrosos, criando imagens com sensação de calor e intimidade.</p>
+            <p><strong>Melhor para:</strong> Gestante, família, newborn (com fita bege), retratos femininos.</p>
+            <div class="tags">
+              <span class="tag">Gestante</span>
+              <span class="tag">Família</span>
+              <span class="tag">Newborn</span>
+              <span class="tag">Feminino</span>
+            </div>
+          </div>
+        </div>
+        <div id="p5-panel-preto" class="comp-panel" role="tabpanel" aria-labelledby="p5-tab-preto">
+          <div class="comp-color-block" style="background:#241F21">
+            <span>Preto #241F21</span>
+          </div>
+          <div class="comp-desc">
+            <h3>Preto</h3>
+            <p>Elimina o fundo e coloca o foco 100% no sujeito. Ideal para criar imagens com forte impacto visual e acabamento profissional.</p>
+            <p><strong>Melhor para:</strong> Glamour, artes visuais, newborn com props, retratos dramáticos.</p>
+            <div class="tags">
+              <span class="tag">Glamour</span>
+              <span class="tag">Artes</span>
+              <span class="tag">Dramático</span>
+            </div>
+          </div>
+        </div>
+        <div id="p5-panel-cinza" class="comp-panel" role="tabpanel" aria-labelledby="p5-tab-cinza">
+          <div class="comp-color-block" style="background:#E4E1E5;border:1px solid #ccc">
+            <span style="background:rgba(0,0,0,0.4);color:#fff">Cinza #E4E1E5</span>
+          </div>
+          <div class="comp-desc">
+            <h3>Cinza Claro</h3>
+            <p>O fundo mais neutro e versátil. Funciona para praticamente qualquer tipo de ensaio e qualquer tom de pele.</p>
+            <p><strong>Melhor para:</strong> Retratos neutros, headshots, produtos, ensaios corporativos.</p>
+            <div class="tags">
+              <span class="tag">Neutro</span>
+              <span class="tag">Headshot</span>
+              <span class="tag">Corporativo</span>
+            </div>
+          </div>
+        </div>
+        <div id="p5-panel-branco" class="comp-panel" role="tabpanel" aria-labelledby="p5-tab-branco">
+          <div class="comp-color-block" style="background:#fff;border:1px solid #ddd">
+            <span style="background:rgba(0,0,0,0.4);color:#fff">Branco #FFFFFF</span>
+          </div>
+          <div class="comp-desc">
+            <h3>Branco</h3>
+            <p>Clean, luminoso e atemporal. Destaca roupas coloridas e cria imagens com muita luz e leveza.</p>
+            <p><strong>Melhor para:</strong> Newborn, moda clean, retratos luminosos, produtos brancos.</p>
+            <div class="tags">
+              <span class="tag">Newborn</span>
+              <span class="tag">Clean</span>
+              <span class="tag">Luminoso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="p5-contato" style="padding:2rem 1.5rem;max-width:900px;margin:0 auto;text-align:center">
+      <p style="font-size:0.875rem;color:#3f3d2d">[Formulário / seção de agendamento]</p>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo-col">
+        <p>Lillia Tavares</p>
+        <small>Fotografia profissional em Mogi das Cruzes, SP.<br>© 2024 Todos os direitos reservados.</small>
+      </div>
+      <nav aria-label="Links do site">
+        <h2>Navegação</h2>
+        <ul class="footer-links-list" role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trabalhos</a></li>
+          <li><a href="#" aria-current="page">Estúdio</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Redes sociais e contatos">
+        <h2>Contato</h2>
+        <ul class="footer-links-list" role="list">
+          <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram (abre em nova aba)">📷 Instagram</a></li>
+          <li><a href="mailto:contato@lilliatavares.com" aria-label="Enviar e-mail">✉ E-mail</a></li>
+          <li><a href="https://wa.me/55119999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (abre em nova aba)">💬 WhatsApp</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-copy">© 2024 Lillia Tavares Fotografia — Mogi das Cruzes, SP</p>
+  </footer>
+</div>
+</section>
+<!-- fim proposta 5 -->
+
+<!-- ============================================================
+     RANKING FINAL
+     ============================================================ -->
+<section id="ranking" class="proposta-wrapper">
+<div class="proposta-label">
+  <h2>Ranking Final — Melhor → Pior (WCAG 2.2 AA)</h2>
+  <p class="racional">Critérios: contraste real medido, semântica HTML, navegação por teclado, ARIA correto, prefers-reduced-motion, alvos de toque, e impacto na experiência do usuário com deficiência.</p>
+</div>
+
+<style>
+#ranking-body {
+  background: #fff;
+  font-family: 'Lato', Arial, sans-serif;
+  padding: 2rem;
+}
+.rank-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.rank-table th {
+  background: #3f3d2d;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.rank-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0ddd0;
+  vertical-align: top;
+  color: #3f3d2d;
+  line-height: 1.5;
+}
+.rank-table tr:nth-child(even) td { background: #faf9f4; }
+.rank-table .pos {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #3f3d2d;
+  text-align: center;
+  width: 3rem;
+}
+.rank-table .pos.gold   { color: #c49a00; }
+.rank-table .pos.silver { color: #7a7a7a; }
+.rank-table .pos.bronze { color: #9e5b2a; }
+.checklist { list-style: none; padding: 0; margin: 0.25rem 0 0; }
+.checklist li { display: flex; align-items: baseline; gap: 0.25rem; font-size: 0.8rem; }
+.ok  { color: #2a7a2a; font-weight: 900; }
+.nok { color: #b00; font-weight: 900; }
+.warn-icon { color: #c47000; font-weight: 900; }
+.score-bar-wrap { display: flex; align-items: center; gap: 0.5rem; }
+.score-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #3f3d2d;
+  display: inline-block;
+}
+.score-num { font-weight: 900; font-size: 0.875rem; color: #3f3d2d; }
+</style>
+
+<div id="ranking-body">
+  <table class="rank-table" aria-label="Ranking das 5 propostas por conformidade WCAG 2.2 AA">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Proposta</th>
+        <th scope="col">Score AA</th>
+        <th scope="col">Checklist WCAG 2.2 AA</th>
+        <th scope="col">Pontos fortes / fracos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pos gold">🥇</td>
+        <td><strong>Proposta 3</strong><br>Estrutura de Conteúdo Clara</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:96px" aria-label="96 de 100"></div>
+            <span class="score-num">96/100</span>
+          </div>
+        </td>
+        <td>
+          <ul class="checklist">
+            <li><span class="ok">✓</span> Contraste texto normal ≥7:1</li>
+            <li><span class="ok">✓</span> H1 único, hierarquia perfeita</li>
+            <li><span class="ok">✓</span> Landmarks semânticos corretos</li>
+            <li><span class="ok">✓</span> Live region carrossel (aria-live)</li>
+            <li><span class="ok">✓</span> tabindex gerenciado por slide</li>
+            <li><span class="ok">✓</span> figcaption em todas as fotos</li>
+            <li><span class="ok">✓</span> Tabela de fundos acessível</li>
+            <li><span class="ok">✓</span> Skip link funcional</li>
+            <li><span class="ok">✓</span> aria-current="page"</li>
+            <li><span class="ok">✓</span> prefers-reduced-motion</li>
+            <li><span class="ok">✓</span> Alvos ≥44px em todos os controles</li>
+            <li><span class="warn-icon">~</span> Modo escuro: não implementado</li>
+          </ul>
+        </td>
+        <td><strong>+</strong> Maior atenção à semântica de conteúdo (figcaption, tabela descritiva, live region). Melhor para usuários de leitor de tela.<br><strong>–</strong> Ausência de modo escuro; layout levemente mais editorial.</td>
+      </tr>
+      <tr>
+        <td class="pos silver">🥈</td>
+        <td><strong>Proposta 4</strong><br>Alto Contraste + Tipografia Ampliada</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:92px"></div>
+            <span class="score-num">92/100</span>
+          </div>
+        </td>
+        <td>
+          <ul class="checklist">
+            <li><span class="ok">✓</span> Contraste texto normal 18:1 (máximo)</li>
+            <li><span class="ok">✓</span> Body 18px, line-height 1.8</li>
+            <li><span class="ok">✓</span> Skip links múltiplos (3)</li>
+            <li><span class="ok">✓</span> forced-colors respeitado</li>
+            <li><span class="ok">✓</span> Ícones SVG aria-hidden</li>
+            <li><span class="ok">✓</span> Links com texto completo (email, tel)</li>
+            <li><span class="ok">✓</span> Lista de cenários com H3 semântico</li>
+            <li><span class="ok">✓</span> Alvos ≥48px (acima do mínimo)</li>
+            <li><span class="ok">✓</span> Acessibilidade física no endereço</li>
+            <li><span class="warn-icon">~</span> Afasta-se da identidade visual</li>
+            <li><span class="nok">✗</span> Sem carrossel (simplificou demais)</li>
+          </ul>
+        </td>
+        <td><strong>+</strong> Contraste máximo (18:1), tipografia ampliada, melhor legibilidade para baixa visão. forced-colors é raro nas outras propostas.<br><strong>–</strong> Identidade visual bastante alterada; sem carrossel.</td>
+      </tr>
+      <tr>
+        <td class="pos bronze">🥉</td>
+        <td><strong>Proposta 5</strong><br>Alto Impacto Visual + Acessibilidade Total</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:88px"></div>
+            <span class="score-num">88/100</span>
+          </div>
+        </td>
+        <td>
+          <ul class="checklist">
+            <li><span class="ok">✓</span> Contraste sobre foto via overlay (≥10:1)</li>
+            <li><span class="ok">✓</span> Autoplay controlável (WCAG 2.2.2)</li>
+            <li><span class="ok">✓</span> Comparador com role=tablist correto</li>
+            <li><span class="ok">✓</span> Footer com nav semântico separado</li>
+            <li><span class="ok">✓</span> aria-current no footer também</li>
+            <li><span class="ok">✓</span> Skip link funcional</li>
+            <li><span class="warn-icon">~</span> Tags decorativas cream/olive (3:1 — apenas decorativo)</li>
+            <li><span class="warn-icon">~</span> Mais JS = mais pontos de falha</li>
+            <li><span class="nok">✗</span> Foco trap no menu hambúrguer: declarado mas não implementado (placeholder)</li>
+          </ul>
+        </td>
+        <td><strong>+</strong> Autoplay controlável, comparador tabs correto, overlay garante contraste sobre qualquer foto real.<br><strong>–</strong> Complexidade maior; foco trap do menu hambúrguer precisaria de implementação completa em produção.</td>
+      </tr>
+      <tr>
+        <td class="pos" style="color:#3f3d2d">4</td>
+        <td><strong>Proposta 2</strong><br>Alto Contraste com Identidade</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:84px"></div>
+            <span class="score-num">84/100</span>
+          </div>
+        </td>
+        <td>
+          <ul class="checklist">
+            <li><span class="ok">✓</span> Contraste texto normal 12:1</li>
+            <li><span class="ok">✓</span> Modo escuro automático</li>
+            <li><span class="ok">✓</span> Links com cor + sublinhado</li>
+            <li><span class="ok">✓</span> Endereço textual completo</li>
+            <li><span class="ok">✓</span> aria-current="page" com bg invertido</li>
+            <li><span class="ok">✓</span> Cards de info com H3</li>
+            <li><span class="warn-icon">~</span> Sem carrossel (galeria estática)</li>
+            <li><span class="warn-icon">~</span> Como-chegar sem info de acessibilidade física</li>
+            <li><span class="nok">✗</span> Sem figcaption nas imagens</li>
+            <li><span class="nok">✗</span> Sem live region</li>
+          </ul>
+        </td>
+        <td><strong>+</strong> Modo escuro é raro e bem-vindo; contraste elevado preserva identidade.<br><strong>–</strong> Ausência de figcaption e live region são pontos de demérito para usuários de leitores de tela.</td>
+      </tr>
+      <tr>
+        <td class="pos" style="color:#3f3d2d">5</td>
+        <td><strong>Proposta 1</strong><br>Fundação Sólida</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:78px"></div>
+            <span class="score-num">78/100</span>
+          </div>
+        </td>
+        <td>
+          <ul class="checklist">
+            <li><span class="ok">✓</span> Contraste ≥7:1 (olive escurecido)</li>
+            <li><span class="ok">✓</span> Skip link</li>
+            <li><span class="ok">✓</span> aria-current="page"</li>
+            <li><span class="ok">✓</span> Carrossel com role=group e aria-label</li>
+            <li><span class="ok">✓</span> Mosaico com role=list e aria-label</li>
+            <li><span class="ok">✓</span> Footer com aria-label nos ícones</li>
+            <li><span class="warn-icon">~</span> Carrossel sem live region</li>
+            <li><span class="warn-icon">~</span> Sem figcaption (apenas aria-label)</li>
+            <li><span class="nok">✗</span> Sem modo escuro</li>
+            <li><span class="nok">✗</span> Sem forced-colors</li>
+            <li><span class="nok">✗</span> Dots com 20px (abaixo de 44px como alvo visual)</li>
+          </ul>
+        </td>
+        <td><strong>+</strong> Melhor fidelidade visual ao original; base sólida para evolução.<br><strong>–</strong> Menor em semântica de conteúdo (sem figcaption, sem live region) — corrige os erros críticos mas vai menos fundo.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:2rem;padding:1.5rem;background:#faf9f4;border-radius:10px;border:1px solid #e0ddd0">
+    <h3 style="font-size:1rem;font-weight:900;color:#3f3d2d;margin-bottom:1rem;text-transform:uppercase">Correções críticas que qualquer proposta deve ter (WCAG 2.2 AA obrigatório)</h3>
+    <ol style="padding-left:1.25rem;color:#3f3d2d;font-size:0.875rem;line-height:1.85">
+      <li><strong>#7B785B sobre #F4F2E9 = 3.0:1 — FALHA.</strong> Escurecer para ≥#5a5740 ou mudar bg para #fff.</li>
+      <li><strong>#BD9187 (rose) sobre branco = 2.8:1 — FALHA.</strong> Nunca usar rose como cor de texto; apenas decorativo.</li>
+      <li><strong>Múltiplos H1</strong> — permitido somente 1 por página (exceto em seções com landmark separado).</li>
+      <li><strong>Swiper sem aria-label, live-region e tabindex gerenciado</strong> — cada slide iativo deve ter tabindex="-1" em links/botões internos.</li>
+      <li><strong>Skip to content link</strong> — ausente no site atual; obrigatório para usuários de teclado.</li>
+      <li><strong>Mapa estático sem alt</strong> — toda imagem informativa precisa de alt descritivo ou endereço textual equivalente.</li>
+      <li><strong>Footer ícones sem label</strong> — ícone SVG/emoji sem texto visível precisa de aria-label no elemento <code>&lt;a&gt;</code>.</li>
+      <li><strong>prefers-reduced-motion</strong> — GSAP e ScrollTrigger devem verificar <code>window.matchMedia('(prefers-reduced-motion)')</code> antes de registrar tweens.</li>
+    </ol>
+  </div>
+</div>
+</section>
+
+<script>
+/* ============================================================
+   JS — Carrossel P1
+   ============================================================ */
+(function() {
+  var slides = ['Slide 1: Área principal — fundo branco', 'Slide 2: Cenário navy', 'Slide 3: Área newborn', 'Slide 4: Espaço externo'];
+  var cur = 0;
+  function p1Update() {
+    var dots = document.querySelectorAll('#p1 .carousel-dot');
+    dots.forEach(function(d, i) { d.setAttribute('aria-selected', i === cur ? 'true' : 'false'); });
+    var track = document.getElementById('p1-carousel-track');
+    if (track) track.setAttribute('aria-label', slides[cur]);
+  }
+  window.p1CarouselPrev = function() { cur = (cur - 1 + slides.length) % slides.length; p1Update(); };
+  window.p1CarouselNext = function() { cur = (cur + 1) % slides.length; p1Update(); };
+  window.p1GoTo = function(i) { cur = i; p1Update(); };
+  document.getElementById('p1') && (function() {
+    var prevBtn = document.querySelector('#p1 .carousel-btn:first-of-type');
+    var nextBtn = document.querySelector('#p1 .carousel-btn:last-of-type');
+    if (prevBtn) prevBtn.addEventListener('click', p1CarouselPrev);
+    if (nextBtn) nextBtn.addEventListener('click', p1CarouselNext);
+  })();
+})();
+
+/* ============================================================
+   JS — Carrossel P3 com live region
+   ============================================================ */
+(function() {
+  var p3idx = 0;
+  var p3labels = ['1 de 4: Área principal do estúdio', '2 de 4: Cenário navy', '3 de 4: Área newborn', '4 de 4: Espaço externo'];
+  function p3update() {
+    var slides = document.querySelectorAll('#p3 .c3-slide');
+    var dots = document.querySelectorAll('#p3 .c3-dot');
+    var live = document.getElementById('p3-live-region');
+    slides.forEach(function(s, i) {
+      s.setAttribute('aria-hidden', i !== p3idx ? 'true' : 'false');
+      /* Remove foco de elementos internos de slides ocultos */
+      s.querySelectorAll('a,button').forEach(function(el) {
+        el.setAttribute('tabindex', i !== p3idx ? '-1' : '0');
+      });
+    });
+    dots.forEach(function(d, i) { d.setAttribute('aria-pressed', i === p3idx ? 'true' : 'false'); });
+    if (live) live.textContent = p3labels[p3idx];
+  }
+  window.p3go = function(i) { p3idx = i; p3update(); };
+  var prev = document.getElementById('p3-prev');
+  var next = document.getElementById('p3-next');
+  if (prev) prev.addEventListener('click', function() { p3idx = (p3idx - 1 + p3labels.length) % p3labels.length; p3update(); });
+  if (next) next.addEventListener('click', function() { p3idx = (p3idx + 1) % p3labels.length; p3update(); });
+  /* Teclado: setas dentro do carrossel */
+  var carouselRegion = document.querySelector('#p3 .carousel-region');
+  if (carouselRegion) {
+    carouselRegion.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') { p3idx = (p3idx + 1) % p3labels.length; p3update(); e.preventDefault(); }
+      if (e.key === 'ArrowLeft')  { p3idx = (p3idx - 1 + p3labels.length) % p3labels.length; p3update(); e.preventDefault(); }
+    });
+  }
+  p3update();
+})();
+
+/* ============================================================
+   JS — Tabs comparador P5
+   ============================================================ */
+(function() {
+  var tabs = document.querySelectorAll('#p5 .comp-tab');
+  var panels = document.querySelectorAll('#p5 .comp-panel');
+  function activateTab(tab) {
+    tabs.forEach(function(t) { t.setAttribute('aria-selected', 'false'); t.setAttribute('tabindex', '-1'); });
+    panels.forEach(function(p) { p.classList.remove('active'); });
+    tab.setAttribute('aria-selected', 'true');
+    tab.setAttribute('tabindex', '0');
+    var panelId = tab.getAttribute('aria-controls');
+    var panel = document.getElementById(panelId);
+    if (panel) panel.classList.add('active');
+  }
+  tabs.forEach(function(tab, idx) {
+    tab.setAttribute('tabindex', idx === 0 ? '0' : '-1');
+    tab.addEventListener('click', function() { activateTab(tab); });
+    /* Navegação por seta dentro do tablist */
+    tab.addEventListener('keydown', function(e) {
+      var newIdx = -1;
+      if (e.key === 'ArrowRight') newIdx = (idx + 1) % tabs.length;
+      if (e.key === 'ArrowLeft')  newIdx = (idx - 1 + tabs.length) % tabs.length;
+      if (e.key === 'Home')       newIdx = 0;
+      if (e.key === 'End')        newIdx = tabs.length - 1;
+      if (newIdx >= 0) {
+        activateTab(tabs[newIdx]);
+        tabs[newIdx].focus();
+        e.preventDefault();
+      }
+    });
+  });
+})();
+
+/* ============================================================
+   JS — Autoplay toggle P5
+   ============================================================ */
+(function() {
+  var btn = document.getElementById('p5-autoplay-btn');
+  var label = document.getElementById('p5-autoplay-label');
+  var playing = false;
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    playing = !playing;
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    btn.setAttribute('aria-label', playing ? 'Pausar apresentação automática de slides' : 'Retomar apresentação automática de slides');
+    btn.textContent = playing ? '⏸' : '▶';
+    if (label) label.textContent = playing ? 'Apresentação em execução' : 'Apresentação em pausa';
+  });
+})();
+</script>

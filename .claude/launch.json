@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["serve", "-l", "4321", "docs/hero-redesign"],
       "port": 4321
+    },
+    {
+      "name": "estudio-redesign-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "4322", "docs/estudio-redesign"],
+      "port": 4322
     }
   ]
 }
