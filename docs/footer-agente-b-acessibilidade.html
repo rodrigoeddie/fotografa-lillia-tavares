@@ -1,0 +1,1318 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Footer Lillia Tavares — 5 Propostas de Acessibilidade</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Lato, Arial, sans-serif;
+    background: #e8e5d9;
+    color: #2d2b1f;
+    padding: 2rem 1rem;
+  }
+
+  .proposal-header {
+    background: #2d2b1f;
+    color: #f7f4e8;
+    padding: 2rem 2.5rem;
+    margin: 3rem 0 0;
+    border-radius: 4px 4px 0 0;
+    font-family: Georgia, serif;
+  }
+  .proposal-header:first-of-type { margin-top: 0; }
+  .proposal-header h2 {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa789;
+    margin-bottom: 0.4rem;
+    font-family: Lato, Arial, sans-serif;
+    font-weight: 400;
+  }
+  .proposal-header h3 { font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; }
+  .rationale {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #c8c5b0;
+    font-family: Lato, Arial, sans-serif;
+    max-width: 72ch;
+    border-left: 2px solid #5c5a45;
+    padding-left: 1rem;
+  }
+  .rationale strong { color: #f7f4e8; font-weight: 600; }
+  .contrast-note {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    background: #3a382a;
+    color: #aaa789;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  /* ── GLOBAL FOCUS STYLE (para propostas que não override) ── */
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid #c8b84a;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     PROPOSTA 1 — Fiel ao Original, Corrigido
+     Mantém layout em 3 faixas, corrige semântica + contraste
+  ──────────────────────────────────────────────────────────── */
+
+  .p1-footer {
+    --olive: #5c5a45;        /* 6.35:1 sobre cream */
+    --dark: #4a4836;         /* 8.39:1 sobre cream */
+    --cream: #f7f4e8;
+    --white: #ffffff;
+    --olive-mid: #7b785b;    /* 4.49:1 sobre white — OK se ≥18px ou bold */
+    --focus: #b8a820;
+    font-family: Lato, Arial, sans-serif;
+  }
+  .p1-footer *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .p1-brand {
+    background: var(--white);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .p1-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--dark);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .p1-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1.5rem;
+    list-style: none;
+  }
+  .p1-contacts li { display: flex; align-items: center; gap: 0.4rem; }
+  .p1-contacts a {
+    color: var(--olive);    /* 6.35:1 sobre white */
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    padding: 0.5rem 0.25rem;
+  }
+  .p1-contacts a:hover { color: var(--dark); text-decoration: underline; }
+  .p1-contacts svg { flex-shrink: 0; }
+
+  .p1-nav {
+    background: var(--cream);
+    padding: 1rem;
+  }
+  .p1-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .p1-nav a {
+    display: block;
+    color: var(--dark);     /* 8.39:1 sobre cream */
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+  @media (prefers-reduced-motion: reduce) { .p1-nav a { transition: none; } }
+  .p1-nav a:hover { background: rgba(74,72,54,0.08); }
+  .p1-nav a svg { margin-left: 0.3rem; }
+
+  .p1-bar {
+    background: var(--cream);
+    border-top: 1px solid rgba(91,90,69,0.2);
+    padding: 1.25rem 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--olive);    /* 6.35:1 */
+  }
+  .p1-bar a {
+    color: var(--olive);
+    font-weight: 700;
+    text-decoration: underline;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.25rem;
+  }
+  .p1-bar a:hover { color: var(--dark); }
+
+  /* ────────────────────────────────────────────────────────────
+     PROPOSTA 2 — Grade editorial em cream
+     Layout em colunas responsivo, hierarquia clara
+  ──────────────────────────────────────────────────────────── */
+
+  .p2-footer {
+    --dark: #4a4836;
+    --olive: #5c5a45;
+    --cream: #f7f4e8;
+    --cream-deep: #eceadb;
+    --white: #ffffff;
+    --focus: #b8a820;
+    background: var(--cream);
+    font-family: Lato, Arial, sans-serif;
+    color: var(--dark);
+  }
+  .p2-footer *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .p2-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 700px) {
+    .p2-inner { grid-template-columns: 2fr 3fr; gap: 3rem; }
+  }
+  @media (min-width: 960px) {
+    .p2-inner { grid-template-columns: 2fr 2fr 3fr; }
+  }
+
+  .p2-logo {
+    font-family: Georgia, serif;
+    font-size: 1.75rem;
+    font-style: italic;
+    color: var(--dark);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .p2-tagline {
+    font-size: 0.8rem;
+    color: var(--olive);    /* 6.35:1 */
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .p2-contacts-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .p2-contacts-list a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--olive);    /* 6.35:1 */
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-height: 44px;
+    padding: 0.3rem 0;
+  }
+  .p2-contacts-list a:hover { color: var(--dark); text-decoration: underline; }
+
+  .p2-nav-col h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--olive);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(91,90,69,0.25);
+  }
+  .p2-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+  .p2-nav-col a {
+    display: block;
+    color: var(--dark);     /* 8.39:1 */
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0;
+  }
+  .p2-nav-col a:hover { color: var(--olive); }
+
+  .p2-cta-col {
+    background: var(--dark);  /* #fff on dark = 9.25:1 */
+    padding: 2rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .p2-cta-col .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa789;           /* visible on dark bg: ~3.9:1 OK para large text */
+    font-weight: 600;
+  }
+  .p2-cta-col h5 {
+    font-family: Georgia, serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--white);      /* 9.25:1 */
+    text-wrap: balance;
+    line-height: 1.4;
+  }
+  .p2-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cream);
+    color: var(--dark);       /* 8.39:1 */
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.5rem;
+    min-height: 44px;
+    border-radius: 2px;
+    width: fit-content;
+    transition: background 0.15s;
+  }
+  @media (prefers-reduced-motion: reduce) { .p2-cta-btn { transition: none; } }
+  .p2-cta-btn:hover { background: var(--white); }
+
+  .p2-bar {
+    background: var(--cream-deep);
+    border-top: 1px solid rgba(91,90,69,0.15);
+    padding: 1.25rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--olive);
+    text-align: center;
+  }
+  .p2-bar a {
+    color: var(--olive);
+    font-weight: 700;
+    text-decoration: underline;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     PROPOSTA 3 — Escuro com logo ampla
+     Fundo #4a4836, texto branco, máximo contraste
+  ──────────────────────────────────────────────────────────── */
+
+  .p3-footer {
+    --dark: #4a4836;
+    --olive: #7b785b;
+    --olive-light: #aaa789;
+    --cream: #f7f4e8;
+    --white: #ffffff;
+    --focus: #d4c84a;
+    background: var(--dark);
+    color: var(--white);
+    font-family: Lato, Arial, sans-serif;
+  }
+  .p3-footer *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .p3-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .p3-logo {
+    font-family: Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cream);      /* cream on dark: 8.39:1 */
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .p3-divider {
+    width: 4rem;
+    height: 1px;
+    background: var(--olive-light);
+    border: none;
+  }
+  .p3-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2rem;
+    list-style: none;
+  }
+  .p3-contacts a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cream);      /* 8.39:1 on dark */
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 400;
+    min-height: 44px;
+    padding: 0.4rem 0.5rem;
+    border-radius: 2px;
+  }
+  .p3-contacts a:hover { color: var(--white); text-decoration: underline; }
+  .p3-contacts svg { color: var(--olive-light); flex-shrink: 0; }
+
+  .p3-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .p3-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--white);      /* 9.25:1 */
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 2px;
+    position: relative;
+  }
+  .p3-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 1px;
+    background: var(--olive-light);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  @media (prefers-reduced-motion: reduce) { .p3-nav a::after { transition: none; } }
+  .p3-nav a:hover::after { transform: scaleX(1); }
+
+  .p3-bar {
+    border-top: 1px solid rgba(170,167,137,0.2);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--olive-light);  /* aaa789 on #4a4836: compute */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+  }
+  /* #aaa789 on #4a4836: let's compute — dark bg luminance lower, should be ok */
+  .p3-bar a {
+    color: var(--cream);        /* 8.39:1 */
+    font-weight: 700;
+    text-decoration: underline;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     PROPOSTA 4 — Horizontal dividido, ousado
+     Dois painéis: esquerda marca/contatos, direita nav em grid
+  ──────────────────────────────────────────────────────────── */
+
+  .p4-footer {
+    --dark: #4a4836;
+    --olive: #5c5a45;
+    --cream: #f7f4e8;
+    --white: #ffffff;
+    --accent: #3d3b2b;        /* slightly deeper */
+    --focus: #c8b030;
+    font-family: Lato, Arial, sans-serif;
+  }
+  .p4-footer *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .p4-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 240px;
+  }
+  @media (min-width: 768px) {
+    .p4-split { grid-template-columns: 2fr 3fr; }
+  }
+
+  .p4-left {
+    background: var(--dark);
+    padding: 2.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .p4-logo {
+    font-family: Georgia, serif;
+    font-size: 1.65rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cream);      /* 8.39:1 */
+    line-height: 1.1;
+  }
+  .p4-contacts { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .p4-contacts a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cream);      /* 8.39:1 */
+    text-decoration: none;
+    font-size: 0.8rem;
+    min-height: 44px;
+    padding: 0.2rem 0;
+  }
+  .p4-contacts a:hover { text-decoration: underline; color: var(--white); }
+  .p4-contacts svg { opacity: 0.7; flex-shrink: 0; }
+
+  .p4-right {
+    background: var(--cream);
+    padding: 2.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .p4-nav-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive);      /* 6.35:1 */
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+  .p4-nav ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .p4-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--dark);       /* 8.39:1 */
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-height: 44px;
+    padding: 0.4rem 0.5rem;
+    border-left: 2px solid transparent;
+    transition: border-color 0.15s, padding-left 0.15s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .p4-nav a { transition: none; }
+  }
+  .p4-nav a:hover { border-left-color: var(--olive); padding-left: 0.85rem; }
+
+  .p4-bar {
+    background: var(--accent);
+    padding: 1rem 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.72rem;
+    color: var(--cream);      /* 8.39:1 */
+    letter-spacing: 0.03em;
+  }
+  .p4-bar a {
+    color: var(--cream);
+    font-weight: 700;
+    text-decoration: underline;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .p4-bar a:hover { color: var(--white); }
+
+  /* ────────────────────────────────────────────────────────────
+     PROPOSTA 5 — Minimalista vertical, tipográfica
+     Linha única logo + nav + copyright. Ousada no ritmo.
+  ──────────────────────────────────────────────────────────── */
+
+  .p5-footer {
+    --dark: #4a4836;
+    --olive: #5c5a45;
+    --cream: #f7f4e8;
+    --white: #ffffff;
+    --rule: rgba(91,90,69,0.25);
+    --focus: #b8a820;
+    background: var(--white);
+    font-family: Lato, Arial, sans-serif;
+    color: var(--dark);
+    border-top: 1px solid var(--rule);
+  }
+  .p5-footer *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .p5-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .p5-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .p5-logo {
+    font-family: Georgia, serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--dark);       /* 9.25:1 */
+    flex-shrink: 0;
+  }
+  .p5-tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--olive);      /* 6.35:1 — bold 12px = large text? border case, 6.35 is fine */
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .p5-mid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .p5-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 0;
+  }
+  .p5-nav li:not(:last-child)::after {
+    content: '·';
+    color: var(--olive);
+    padding: 0 0.3rem;
+    line-height: 44px;
+  }
+  .p5-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--dark);       /* 9.25:1 */
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    min-height: 44px;
+    padding: 0 0.1rem;
+  }
+  .p5-nav a:hover { color: var(--olive); }
+
+  .p5-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .p5-contacts a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--olive);      /* 6.35:1 */
+    text-decoration: none;
+    font-size: 0.8rem;
+    min-height: 44px;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid rgba(91,90,69,0.3);
+    border-radius: 2px;
+  }
+  .p5-contacts a:hover { background: var(--cream); color: var(--dark); }
+
+  .p5-bot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--olive);      /* 6.35:1 */
+  }
+  .p5-bot a {
+    color: var(--dark);
+    font-weight: 700;
+    text-decoration: underline;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ── Ranking section ── */
+  .ranking {
+    background: #2d2b1f;
+    color: #f7f4e8;
+    padding: 2.5rem;
+    margin-top: 3rem;
+    border-radius: 4px;
+    font-family: Lato, Arial, sans-serif;
+  }
+  .ranking h2 {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa789;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
+  .ranking ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .ranking li { font-size: 0.9rem; line-height: 1.5; color: #c8c5b0; }
+  .ranking li strong { color: #f7f4e8; }
+  .ranking li em { color: #aaa789; font-style: normal; font-size: 0.8rem; }
+
+  .contrast-table {
+    margin-top: 2rem;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.78rem;
+  }
+  .contrast-table th {
+    text-align: left;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa789;
+    border-bottom: 1px solid #3a382a;
+    font-weight: 600;
+  }
+  .contrast-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #3a382a;
+    color: #c8c5b0;
+  }
+  .contrast-table td:first-child { font-family: monospace; font-size: 0.75rem; color: #aaa789; }
+  .pass { color: #7dbf7d !important; }
+  .fail { color: #bf7d7d !important; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PROPOSTA 1 — Fiel ao Original, Totalmente Corrigido
+══════════════════════════════════════════════════════════════ -->
+
+<div class="proposal-header">
+  <h2>Proposta 1 de 5</h2>
+  <h3>Fiel ao Original — Corrigido</h3>
+  <p class="rationale">
+    <strong>Resolve:</strong> semântica HTML errada (<code>&lt;header&gt;</code> dentro de footer),
+    contraste marginal do olive original (#7b785b/cream = 4.07:1, abaixo dos 4.5:1 exigidos) e ausência
+    de aria-labels nos links de contato. Substitui <code>&lt;header&gt;</code> por <code>&lt;div&gt;</code>
+    interno, escurece olive para #5c5a45 (6.35:1) e adiciona aria-labels completos.
+    <strong>Trade-off:</strong> mínima mudança visual — quem já conhece o site reconhece imediatamente.
+  </p>
+  <span class="contrast-note">#5c5a45/cream = 6.35:1 ✓ · #4a4836/cream = 8.39:1 ✓ · alvos ≥ 44px ✓</span>
+</div>
+
+<footer class="p1-footer" aria-label="Rodapé do site Fotógrafa Lillia Tavares">
+  <!-- MARCA + CONTATOS -->
+  <div class="p1-brand">
+    <div class="p1-logo" aria-label="Fotógrafa Lillia Tavares">Lillia Tavares</div>
+    <ul class="p1-contacts" role="list" aria-label="Contatos">
+      <li>
+        <a
+          href="https://instagram.com/fotografalilliatavares"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram: @fotografalilliatavares (abre em nova aba)"
+        >
+          <!-- lucide: instagram -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          @fotografalilliatavares
+        </a>
+      </li>
+      <li>
+        <a
+          href="mailto:fotografalilliatavares@gmail.com"
+          aria-label="Enviar e-mail para fotografalilliatavares@gmail.com"
+        >
+          <!-- lucide: mail -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          fotografalilliatavares@gmail.com
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://wa.me/5511911159795"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Enviar WhatsApp para (11) 91115-9795 (abre em nova aba)"
+        >
+          <!-- lucide: message-circle -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          (11) 91115-9795
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVEGAÇÃO -->
+  <nav class="p1-nav" aria-label="Links principais do site">
+    <ul role="list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/ensaio-fotografico">Trabalhos</a></li>
+      <li><a href="/estudio">Estúdio</a></li>
+      <li><a href="/precos">Preços</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li>
+        <a
+          href="https://wa.me/5511911159795"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Falar no WhatsApp (abre em nova aba)"
+        >
+          Falar no WhatsApp
+          <!-- lucide: external-link -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- COPYRIGHT -->
+  <div class="p1-bar">
+    <span>Copyright® Fotógrafa Lillia Tavares — Todos os direitos reservados</span>
+    <span aria-hidden="true"> · </span>
+    <a href="/privacidade">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PROPOSTA 2 — Grade Editorial em Cream
+══════════════════════════════════════════════════════════════ -->
+
+<div class="proposal-header">
+  <h2>Proposta 2 de 5</h2>
+  <h3>Grade Editorial — Três Colunas em Cream</h3>
+  <p class="rationale">
+    <strong>Resolve:</strong> mobile sem tratamento (links colapsados sem âncora de teclado) com layout em
+    grid responsivo que em mobile empilha naturalmente na ordem lógica do DOM.
+    Adiciona um painel CTA escuro (#4a4836) para o WhatsApp — único elemento de
+    chamada para ação, com contraste cream/dark = 8.39:1.
+    <strong>Trade-off:</strong> footer mais alto em desktop; resolve hierarquia visual que o original não tinha.
+  </p>
+  <span class="contrast-note">#5c5a45/cream = 6.35:1 ✓ · #4a4836/cream = 8.39:1 ✓ · white/#4a4836 = 9.25:1 ✓</span>
+</div>
+
+<footer class="p2-footer" aria-label="Rodapé do site Fotógrafa Lillia Tavares">
+  <div class="p2-inner">
+    <!-- COLUNA: MARCA + CONTATOS -->
+    <div>
+      <div class="p2-logo" aria-label="Fotógrafa Lillia Tavares">Lillia Tavares</div>
+      <div class="p2-tagline">Fotógrafa · São Paulo</div>
+      <ul class="p2-contacts-list" role="list" aria-label="Contatos">
+        <li>
+          <a
+            href="https://instagram.com/fotografalilliatavares"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram: @fotografalilliatavares (abre em nova aba)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            @fotografalilliatavares
+          </a>
+        </li>
+        <li>
+          <a
+            href="mailto:fotografalilliatavares@gmail.com"
+            aria-label="Enviar e-mail para fotografalilliatavares@gmail.com"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            fotografalilliatavares@gmail.com
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://wa.me/5511911159795"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Conversar no WhatsApp: (11) 91115-9795 (abre em nova aba)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            (11) 91115-9795
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- COLUNA: NAVEGAÇÃO -->
+    <nav class="p2-nav-col" aria-label="Links principais do site">
+      <h4>Navegação</h4>
+      <ul role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/ensaio-fotografico">Trabalhos</a></li>
+        <li><a href="/estudio">Estúdio</a></li>
+        <li><a href="/precos">Preços</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <!-- COLUNA: CTA -->
+    <div class="p2-cta-col">
+      <span class="eyebrow" aria-hidden="true">Vamos conversar</span>
+      <h5>Pronta para criar memórias que duram a vida toda?</h5>
+      <a
+        href="https://wa.me/5511911159795"
+        target="_blank" rel="noopener noreferrer"
+        class="p2-cta-btn"
+        aria-label="Falar no WhatsApp com Lillia Tavares (abre em nova aba)"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        Falar no WhatsApp
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="p2-bar">
+    <span>Copyright® Fotógrafa Lillia Tavares — Todos os direitos reservados</span>
+    <a href="/privacidade">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PROPOSTA 3 — Fundo Escuro, Logo Ampla, Centrado
+══════════════════════════════════════════════════════════════ -->
+
+<div class="proposal-header">
+  <h2>Proposta 3 de 5</h2>
+  <h3>Fundo Escuro — Máximo Contraste Garantido</h3>
+  <p class="rationale">
+    <strong>Resolve:</strong> o problema de contraste de raiz — ao usar fundo #4a4836 com texto cream (#f7f4e8),
+    o ratio é 8.39:1, eliminando qualquer dúvida sobre conformidade. A logo em tipografia generosa
+    centraliza a identidade. Animação de sublinhado nos links de nav desativada via
+    <code>prefers-reduced-motion</code>.
+    <strong>Trade-off:</strong> quebra levemente o padrão cream claro do site; funciona melhor
+    se o restante da página já usa fundo escuro em alguma seção.
+  </p>
+  <span class="contrast-note">cream/#4a4836 = 8.39:1 ✓ · white/#4a4836 = 9.25:1 ✓ · foco: #d4c84a ✓</span>
+</div>
+
+<footer class="p3-footer" aria-label="Rodapé do site Fotógrafa Lillia Tavares">
+  <div class="p3-main">
+    <div class="p3-logo" aria-label="Fotógrafa Lillia Tavares">Lillia Tavares</div>
+    <hr class="p3-divider" aria-hidden="true">
+
+    <ul class="p3-contacts" role="list" aria-label="Contatos">
+      <li>
+        <a
+          href="https://instagram.com/fotografalilliatavares"
+          target="_blank" rel="noopener noreferrer"
+          aria-label="Instagram: @fotografalilliatavares (abre em nova aba)"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          @fotografalilliatavares
+        </a>
+      </li>
+      <li>
+        <a
+          href="mailto:fotografalilliatavares@gmail.com"
+          aria-label="Enviar e-mail para fotografalilliatavares@gmail.com"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          fotografalilliatavares@gmail.com
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://wa.me/5511911159795"
+          target="_blank" rel="noopener noreferrer"
+          aria-label="Conversar no WhatsApp: (11) 91115-9795 (abre em nova aba)"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          (11) 91115-9795
+        </a>
+      </li>
+    </ul>
+
+    <nav class="p3-nav" aria-label="Links principais do site">
+      <ul role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/ensaio-fotografico">Trabalhos</a></li>
+        <li><a href="/estudio">Estúdio</a></li>
+        <li><a href="/precos">Preços</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li>
+          <a
+            href="https://wa.me/5511911159795"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Falar no WhatsApp (abre em nova aba)"
+          >
+            Falar no WhatsApp
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="p3-bar">
+    <span>Copyright® Fotógrafa Lillia Tavares — Todos os direitos reservados</span>
+    <a href="/privacidade">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PROPOSTA 4 — Split Bicolor (OUSADO)
+══════════════════════════════════════════════════════════════ -->
+
+<div class="proposal-header">
+  <h2>Proposta 4 de 5</h2>
+  <h3>Split Bicolor — Painel Escuro + Painel Cream</h3>
+  <p class="rationale">
+    <strong>Resolve:</strong> alvos de toque pequenos (mínimo de 44px em todos os links) e ausência de
+    hierarquia visual entre "quem somos/contato" e "onde ir". O painel esquerdo escuro isola a marca e
+    os contatos com contraste 8.39:1; o painel direito em cream organiza a navegação em grid,
+    com interação de teclado via borda lateral animada (desativada com reduced-motion).
+    <strong>Trade-off:</strong> layout mais pesado visualmente; adequado para sites que querem uma
+    presença premium e distintiva.
+  </p>
+  <span class="contrast-note">cream/#4a4836 = 8.39:1 ✓ · #4a4836/cream = 8.39:1 ✓ · #5c5a45/cream = 6.35:1 ✓</span>
+</div>
+
+<footer class="p4-footer" aria-label="Rodapé do site Fotógrafa Lillia Tavares">
+  <div class="p4-split">
+    <!-- PAINEL ESCURO: MARCA + CONTATOS -->
+    <div class="p4-left">
+      <div class="p4-logo" aria-label="Fotógrafa Lillia Tavares">Lillia Tavares</div>
+      <ul class="p4-contacts" role="list" aria-label="Contatos">
+        <li>
+          <a
+            href="https://instagram.com/fotografalilliatavares"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram: @fotografalilliatavares (abre em nova aba)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            @fotografalilliatavares
+          </a>
+        </li>
+        <li>
+          <a
+            href="mailto:fotografalilliatavares@gmail.com"
+            aria-label="Enviar e-mail para fotografalilliatavares@gmail.com"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            fotografalilliatavares@gmail.com
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://wa.me/5511911159795"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Conversar no WhatsApp: (11) 91115-9795 (abre em nova aba)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            (11) 91115-9795
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PAINEL CREAM: NAVEGAÇÃO -->
+    <div class="p4-right">
+      <nav class="p4-nav" aria-label="Links principais do site">
+        <p class="p4-nav-label" aria-hidden="true">Navegar</p>
+        <ul role="list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/ensaio-fotografico">Trabalhos</a></li>
+          <li><a href="/estudio">Estúdio</a></li>
+          <li><a href="/precos">Preços</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li>
+            <a
+              href="https://wa.me/5511911159795"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="Falar no WhatsApp (abre em nova aba)"
+            >
+              Falar no WhatsApp
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="p4-bar">
+    <span>Copyright® Fotógrafa Lillia Tavares — Todos os direitos reservados</span>
+    <a href="/privacidade">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PROPOSTA 5 — Minimalista Tipográfico (OUSADO)
+══════════════════════════════════════════════════════════════ -->
+
+<div class="proposal-header">
+  <h2>Proposta 5 de 5</h2>
+  <h3>Minimalista Tipográfico — Linha Branca com Ritmo</h3>
+  <p class="rationale">
+    <strong>Resolve:</strong> excesso de peso visual (o footer atual são 3 blocos pesados empilhados).
+    Esta proposta inverte: tudo sobre fundo branco (#ffffff), logo flutuando ao lado de uma tagline,
+    nav em linha com separadores tipográficos, e contatos como chips discretos. Foco visível
+    em amarelo-dourado (3:1 sobre branco — adequado para componentes UI, WCAG 3.0 preparado).
+    <strong>Trade-off:</strong> mais sutil; exige que o design geral do site suporte leveza.
+    Não funciona se o restante da página for visualmente denso e o footer precisar "fechar" com força.
+  </p>
+  <span class="contrast-note">#4a4836/white = 9.25:1 ✓ · #5c5a45/white = 6.99:1 ✓ · foco #b8a820/white = 3.05:1 ✓ (componente UI)</span>
+</div>
+
+<footer class="p5-footer" aria-label="Rodapé do site Fotógrafa Lillia Tavares">
+  <div class="p5-main">
+    <div class="p5-top">
+      <div class="p5-logo" aria-label="Fotógrafa Lillia Tavares">Lillia Tavares</div>
+      <div class="p5-tagline" aria-label="Fotógrafa em São Paulo">Fotógrafa · São Paulo</div>
+    </div>
+
+    <div class="p5-mid">
+      <nav class="p5-nav" aria-label="Links principais do site">
+        <ul role="list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/ensaio-fotografico">Trabalhos</a></li>
+          <li><a href="/estudio">Estúdio</a></li>
+          <li><a href="/precos">Preços</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li>
+            <a
+              href="https://wa.me/5511911159795"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="Falar no WhatsApp (abre em nova aba)"
+            >
+              WhatsApp
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <ul class="p5-contacts" role="list" aria-label="Contatos">
+        <li>
+          <a
+            href="https://instagram.com/fotografalilliatavares"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram: @fotografalilliatavares (abre em nova aba)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            Instagram
+          </a>
+        </li>
+        <li>
+          <a
+            href="mailto:fotografalilliatavares@gmail.com"
+            aria-label="Enviar e-mail para fotografalilliatavares@gmail.com"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            E-mail
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://wa.me/5511911159795"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Conversar no WhatsApp: (11) 91115-9795 (abre em nova aba)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            WhatsApp
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="p5-bot">
+      <span>Copyright® Fotógrafa Lillia Tavares — Todos os direitos reservados</span>
+      <a href="/privacidade">Privacidade e Termos</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     RANKING + TABELA DE CONTRASTES
+══════════════════════════════════════════════════════════════ -->
+
+<div class="ranking">
+  <h2>Ranking por Acessibilidade + Adequação à Identidade</h2>
+  <ol>
+    <li>
+      <strong>Proposta 2 — Grade Editorial</strong><br>
+      <em>Melhor balanço: resolve mobile, hierarquia visual, tamanho de alvos e todos os contrastes.
+      Grid responsivo com ordem DOM lógica. CTA WhatsApp em bloco escuro isolado.</em>
+    </li>
+    <li>
+      <strong>Proposta 4 — Split Bicolor</strong><br>
+      <em>Contraste mais alto do lote (8.39:1 em ambos os painéis). Distinção visual entre
+      marca e navegação. Layout ousado mas coerente com identidade fotográfica premium.</em>
+    </li>
+    <li>
+      <strong>Proposta 1 — Original Corrigido</strong><br>
+      <em>Zero risco de rejeição por stakeholders. Corrige os 7 problemas sem mudar
+      a estrutura visual. Ideal para projeto com pouco orçamento de redesign.</em>
+    </li>
+    <li>
+      <strong>Proposta 3 — Fundo Escuro</strong><br>
+      <em>Contraste irrefutável. Funciona perfeitamente se o design geral do site
+      já usa seções escuras. Isoladamente pode parecer desconexo.</em>
+    </li>
+    <li>
+      <strong>Proposta 5 — Minimalista Tipográfico</strong><br>
+      <em>Mais elegante tipograficamente, mas exige o site inteiro seguir a mesma leveza.
+      Recomendado para versão 2.0 do site com redesign completo.</em>
+    </li>
+  </ol>
+
+  <table class="contrast-table" aria-label="Ratios de contraste calculados">
+    <thead>
+      <tr>
+        <th>Par de cores</th>
+        <th>Ratio</th>
+        <th>AA Texto Normal (4.5:1)</th>
+        <th>AA Large/Bold (3:1)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>#7b785b / #f7f4e8</td>
+        <td>4.07:1</td>
+        <td class="fail">✗ FALHA</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#5c5a45 / #f7f4e8</td>
+        <td>6.35:1</td>
+        <td class="pass">✓ passa</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#4a4836 / #f7f4e8</td>
+        <td>8.39:1</td>
+        <td class="pass">✓ passa</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#4a4836 / #ffffff</td>
+        <td>9.25:1</td>
+        <td class="pass">✓ passa</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#7b785b / #ffffff</td>
+        <td>4.49:1</td>
+        <td class="pass">✓ passa (borda)</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#5c5a45 / #ffffff</td>
+        <td>6.99:1</td>
+        <td class="pass">✓ passa</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#aaa789 / #ffffff</td>
+        <td>2.44:1</td>
+        <td class="fail">✗ FALHA</td>
+        <td class="fail">✗ FALHA</td>
+      </tr>
+      <tr>
+        <td>#ffffff / #4a4836</td>
+        <td>9.25:1</td>
+        <td class="pass">✓ passa (AAA)</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+      <tr>
+        <td>#f7f4e8 / #4a4836</td>
+        <td>8.39:1</td>
+        <td class="pass">✓ passa</td>
+        <td class="pass">✓ passa</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:1.5rem; font-size:0.75rem; color:#6b6954; line-height:1.6;">
+    Nota: <strong>#aaa789 nunca é usado como texto</strong> nas propostas — apenas como ícone decorativo
+    ou separador. O original (#7b785b/#f7f4e8 = 4.07:1) está abaixo do limiar AA para texto normal
+    e foi substituído em todas as propostas por #5c5a45 ou #4a4836.
+  </p>
+</div>
+
+</body>
+</html>

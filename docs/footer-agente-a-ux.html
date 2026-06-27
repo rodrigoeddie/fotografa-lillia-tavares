@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer Redesign — Fotógrafa Lillia Tavares · 5 Propostas UX</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lato:wght@300;400;700;900&display=swap');
+
+/* =============================================
+   TOKENS & RESET
+============================================= */
+:root {
+  --olive:       #7b785b;
+  --olive-light: #aaa789;
+  --cream:       #f7f4e8;
+  --cream-dark:  #ede9d4;
+  --dark-olive:  #4a4836;
+  --darker-olive:#2e2c1f;
+  --white:       #ffffff;
+  --off-white:   #fdfcf8;
+
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-ui:      'Lato', 'Arial', sans-serif;
+
+  --ease-out: cubic-bezier(.22,.68,0,1.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #e8e5d8;
+  font-family: var(--font-ui);
+  color: var(--olive);
+}
+
+/* =============================================
+   PROPOSAL SECTION LABELS
+============================================= */
+.proposal-label {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--dark-olive);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+.proposal-label strong {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+.proposal-label .tag {
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  padding: 0.2em 0.6em;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+
+.proposal-rationale {
+  background: var(--darker-olive);
+  color: var(--olive-light);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  padding: 0.75rem 2rem;
+  font-style: italic;
+}
+.proposal-rationale strong {
+  color: var(--cream);
+  font-style: normal;
+}
+
+/* =============================================
+   RANKING SECTION
+============================================= */
+.ranking-section {
+  background: var(--darker-olive);
+  color: var(--cream);
+  padding: 3rem 2rem;
+  font-family: var(--font-ui);
+}
+.ranking-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+  color: var(--white);
+  text-wrap: balance;
+}
+.ranking-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 680px;
+}
+.ranking-list li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+  background: rgba(255,255,255,0.04);
+  border-left: 2px solid var(--olive-light);
+}
+.ranking-list .pos {
+  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--olive-light);
+  font-variant-numeric: tabular-nums;
+}
+.ranking-list .desc {
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: var(--cream);
+}
+.ranking-list .desc strong {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  color: var(--white);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* =============================================
+   UTILITY: VISUALLY HIDDEN
+============================================= */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ================================================
+   PROPOSTA 1 — EVOLUÇÃO SEGURA: CTA DESTACADO
+   Mantém a estrutura 3-bandas, eleva o WhatsApp
+   para botão primário, corrige semântica.
+================================================ */
+.p1-footer {
+  font-family: var(--font-ui);
+  background: var(--white);
+}
+
+/* Banda 1: identidade */
+.p1-identity {
+  background: var(--white);
+  padding: 2.5rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.p1-logo {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--dark-olive);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.p1-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 2rem;
+}
+
+.p1-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--olive);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.p1-contact-link:hover,
+.p1-contact-link:focus {
+  color: var(--dark-olive);
+  outline: 2px solid var(--olive-light);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.p1-contact-link svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* CTA WhatsApp — destaque primário */
+.p1-cta-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.p1-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: var(--dark-olive);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.15s var(--ease-out);
+}
+.p1-cta:hover {
+  background: var(--darker-olive);
+  transform: translateY(-1px);
+}
+.p1-cta:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+}
+.p1-cta:active { transform: translateY(0); }
+.p1-cta svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Banda 2: nav compacta */
+.p1-nav {
+  background: var(--cream);
+  padding: 1.25rem 1.5rem;
+}
+.p1-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 0;
+}
+.p1-nav li { display: flex; align-items: center; }
+.p1-nav li + li::before {
+  content: '·';
+  color: var(--olive-light);
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+}
+.p1-nav a {
+  color: var(--olive);
+  text-decoration: none;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  padding: 0.25rem 0;
+}
+.p1-nav a:hover { color: var(--dark-olive); }
+.p1-nav a:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+/* Banda 3: bar legal */
+.p1-legal {
+  background: var(--white);
+  border-top: 1px solid var(--cream-dark);
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 2rem;
+  text-align: center;
+}
+.p1-legal p {
+  font-size: 0.6875rem;
+  color: var(--olive-light);
+  letter-spacing: 0.02em;
+}
+.p1-legal p strong { color: var(--olive); }
+.p1-legal a {
+  font-size: 0.6875rem;
+  color: var(--olive-light);
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.p1-legal a:hover { color: var(--olive); }
+.p1-legal a:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+@media (max-width: 600px) {
+  .p1-contacts { flex-direction: column; align-items: center; }
+  .p1-logo { font-size: 1.875rem; }
+}
+
+
+/* ================================================
+   PROPOSTA 2 — EVOLUÇÃO SEGURA: COLUNA + LOCALIZAÇÃO
+   Layout 3 colunas desktop, pilha mobile. Adiciona
+   localização (Mogi das Cruzes), remove nav redundante.
+================================================ */
+.p2-footer {
+  font-family: var(--font-ui);
+  background: var(--cream);
+}
+
+.p2-main {
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr;
+  gap: 2rem 3rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.p2-col-brand .p2-logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--dark-olive);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+.p2-tagline {
+  font-size: 0.75rem;
+  color: var(--olive-light);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.p2-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--dark-olive);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.15s var(--ease-out);
+}
+.p2-cta:hover { background: var(--darker-olive); transform: translateY(-1px); }
+.p2-cta:focus { outline: 2px solid var(--olive); outline-offset: 3px; }
+.p2-cta:active { transform: none; }
+.p2-cta svg {
+  width: 14px; height: 14px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.p2-col-title {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 1rem;
+}
+
+.p2-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.p2-nav-list a {
+  font-size: 0.8125rem;
+  color: var(--olive);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+  display: inline-block;
+  padding: 0.1rem 0;
+}
+.p2-nav-list a:hover { color: var(--dark-olive); }
+.p2-nav-list a:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+.p2-contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.p2-contact-list li a {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--olive);
+  text-decoration: none;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+.p2-contact-list li a:hover { color: var(--dark-olive); }
+.p2-contact-list li a:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+.p2-contact-list svg {
+  width: 14px; height: 14px; flex-shrink: 0;
+  stroke: var(--olive-light); fill: none;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+  margin-top: 0.125rem;
+}
+.p2-location {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cream-dark);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--olive-light);
+  line-height: 1.5;
+}
+.p2-location svg {
+  width: 13px; height: 13px; flex-shrink: 0;
+  stroke: var(--olive-light); fill: none;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+  margin-top: 0.15rem;
+}
+
+.p2-legal {
+  border-top: 1px solid var(--cream-dark);
+  padding: 1rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.p2-legal p, .p2-legal a {
+  font-size: 0.6875rem;
+  color: var(--olive-light);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+.p2-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.p2-legal a:hover { color: var(--olive); }
+.p2-legal a:focus { outline: 2px solid var(--olive); outline-offset: 2px; border-radius: 1px; }
+
+@media (max-width: 900px) {
+  .p2-main { grid-template-columns: 1fr 1fr; }
+  .p2-col-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .p2-main { grid-template-columns: 1fr; gap: 2rem 0; padding: 2rem 1.25rem; }
+  .p2-legal { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* ================================================
+   PROPOSTA 3 — EVOLUÇÃO SEGURA: HORIZONTAL SLIM
+   Uma só banda cream compacta, CTA inline, sem nav
+   redundante. Clean e respeitoso do espaço.
+================================================ */
+.p3-footer {
+  font-family: var(--font-ui);
+  background: var(--cream);
+}
+
+.p3-main {
+  padding: 2.25rem 2rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.p3-logo {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--dark-olive);
+  white-space: nowrap;
+}
+
+.p3-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.75rem;
+}
+.p3-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--olive);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  padding: 0.25rem 0;
+}
+.p3-contact-link:hover { color: var(--dark-olive); }
+.p3-contact-link:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.p3-contact-link svg {
+  width: 13px; height: 13px; stroke: var(--olive-light); fill: none;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.p3-cta {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--dark-olive);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.375rem;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.15s var(--ease-out);
+}
+.p3-cta:hover { background: var(--darker-olive); transform: translateY(-1px); }
+.p3-cta:focus { outline: 2px solid var(--olive); outline-offset: 3px; }
+.p3-cta:active { transform: none; }
+.p3-cta svg {
+  width: 14px; height: 14px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.p3-legal {
+  padding: 0.875rem 2rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+}
+.p3-legal p, .p3-legal a {
+  font-size: 0.625rem;
+  color: var(--olive-light);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+.p3-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.p3-legal a:hover { color: var(--olive); }
+.p3-legal a:focus { outline: 2px solid var(--olive); outline-offset: 2px; border-radius: 1px; }
+
+.p3-location-bar {
+  background: var(--cream-dark);
+  padding: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.625rem;
+  color: var(--olive-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.p3-location-bar svg {
+  width: 11px; height: 11px; stroke: var(--olive-light); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+@media (max-width: 900px) {
+  .p3-main { grid-template-columns: 1fr; justify-items: center; gap: 1.5rem; }
+  .p3-logo { text-align: center; }
+}
+@media (max-width: 600px) {
+  .p3-contacts { flex-direction: column; align-items: center; }
+  .p3-main { padding: 2rem 1.25rem; }
+  .p3-legal { padding: 1rem 1.25rem; flex-direction: column; text-align: center; }
+}
+
+
+/* ================================================
+   PROPOSTA 4 — OUSADA: DARK EDITORIAL
+   Fundo escuro (dark-olive), tipografia display
+   grande, CTA cream-on-dark imponente.
+   Inversão total da paleta mantendo os tokens.
+================================================ */
+.p4-footer {
+  font-family: var(--font-ui);
+  background: var(--dark-olive);
+  color: var(--cream);
+}
+
+.p4-hero-band {
+  padding: 3.5rem 2rem 2.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(170,167,137,0.2);
+}
+
+.p4-headline-group {}
+.p4-eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 0.875rem;
+}
+.p4-logo {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.p4-sub {
+  font-size: 0.75rem;
+  color: var(--olive-light);
+  letter-spacing: 0.06em;
+}
+
+.p4-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.p4-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: var(--cream);
+  color: var(--dark-olive);
+  text-decoration: none;
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.15s var(--ease-out);
+  white-space: nowrap;
+}
+.p4-cta:hover { background: var(--white); transform: translateY(-2px); }
+.p4-cta:focus { outline: 2px solid var(--olive-light); outline-offset: 3px; }
+.p4-cta:active { transform: none; }
+.p4-cta svg {
+  width: 15px; height: 15px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.p4-cta-note {
+  font-size: 0.625rem;
+  color: var(--olive-light);
+  letter-spacing: 0.04em;
+}
+
+.p4-bottom {
+  padding: 1.5rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.p4-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+}
+.p4-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(170,167,137,0.8);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+  padding: 0.25rem 0;
+}
+.p4-contact-link:hover { color: var(--cream); }
+.p4-contact-link:focus {
+  outline: 2px solid var(--olive-light);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.p4-contact-link svg {
+  width: 13px; height: 13px; stroke: currentColor; fill: none;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.p4-legal {
+  font-size: 0.625rem;
+  color: rgba(170,167,137,0.5);
+  letter-spacing: 0.04em;
+  text-align: right;
+  line-height: 1.8;
+}
+.p4-legal a {
+  color: rgba(170,167,137,0.6);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.p4-legal a:hover { color: var(--olive-light); }
+.p4-legal a:focus { outline: 2px solid var(--olive-light); outline-offset: 2px; border-radius: 1px; }
+
+@media (max-width: 768px) {
+  .p4-hero-band { grid-template-columns: 1fr; align-items: flex-start; gap: 1.5rem; }
+  .p4-cta-group { align-items: flex-start; }
+  .p4-bottom { grid-template-columns: 1fr; }
+  .p4-legal { text-align: left; }
+}
+@media (max-width: 600px) {
+  .p4-hero-band, .p4-bottom { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .p4-contacts { flex-direction: column; }
+}
+
+
+/* ================================================
+   PROPOSTA 5 — OUSADA: EDITORIAL MAXIMALISTA
+   Layout assimétrico, marca em grande, contatos
+   como tipografia de destaque, sem nav.
+   CTA como barra full-width ao final.
+================================================ */
+.p5-footer {
+  font-family: var(--font-ui);
+  background: var(--white);
+  border-top: 3px solid var(--dark-olive);
+}
+
+.p5-body {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.p5-brand-col {}
+
+.p5-logo {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--dark-olive);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25rem;
+}
+
+.p5-descriptor {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 2rem;
+}
+
+.p5-location {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--olive-light);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.375rem;
+}
+.p5-location svg {
+  width: 12px; height: 12px; stroke: currentColor; fill: none;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.p5-contact-col {}
+.p5-col-label {
+  font-size: 0.575rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.p5-contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.p5-contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--cream);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.25s var(--ease-out);
+}
+.p5-contact-item:hover { padding-left: 0.375rem; }
+.p5-contact-item:focus {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+  border-radius: 2px;
+  padding-left: 0.375rem;
+}
+.p5-contact-meta {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.p5-contact-meta svg {
+  width: 11px; height: 11px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.p5-contact-value {
+  font-size: 0.875rem;
+  color: var(--dark-olive);
+  letter-spacing: 0.01em;
+}
+
+/* CTA bar full-width */
+.p5-cta-bar {
+  background: var(--dark-olive);
+  padding: 0;
+}
+.p5-cta-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.375rem 2rem;
+  text-decoration: none;
+  color: var(--cream);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  position: relative;
+}
+.p5-cta-link:hover { background: var(--darker-olive); }
+.p5-cta-link:focus { outline: 3px solid var(--olive-light); outline-offset: -3px; }
+.p5-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.p5-cta-arrow svg {
+  width: 14px; height: 14px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.p5-legal {
+  background: var(--cream);
+  padding: 0.875rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.p5-legal p, .p5-legal a {
+  font-size: 0.625rem;
+  color: var(--olive-light);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.p5-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.p5-legal a:hover { color: var(--olive); }
+.p5-legal a:focus { outline: 2px solid var(--olive); outline-offset: 2px; border-radius: 1px; }
+
+@media (max-width: 720px) {
+  .p5-body { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 600px) {
+  .p5-body { padding: 2rem 1.25rem; }
+  .p5-legal { padding: 0.875rem 1.25rem; flex-direction: column; text-align: center; }
+}
+
+/* ================================================
+   @media prefers-reduced-motion
+================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     PROPOSTA 1
+============================================= -->
+<div class="proposal-label">
+  <strong>Proposta 1</strong>
+  <span>Evolução Segura — CTA Destacado</span>
+  <span class="tag">ESTRUTURA PRESERVADA</span>
+</div>
+<div class="proposal-rationale">
+  <strong>Problema resolvido:</strong> WhatsApp enterrado como link igual na nav — agora é botão primário acima da nav, impossível de ignorar. Semântica corrigida (footer&gt;section, não footer&gt;header). Altura da nav reduzida de 208px para altura natural do conteúdo. <strong>Trade-off:</strong> ainda repete a nav do topo — justificável por conveniência de scroll longo, mas pode ser removida sem perder nada.
+</div>
+
+<footer class="p1-footer">
+  <section class="p1-identity" aria-label="Contato e identidade">
+    <p class="p1-logo">Lillia Tavares</p>
+
+    <div class="p1-contacts">
+      <a class="p1-contact-link" href="https://instagram.com/fotografalilliatavares" aria-label="Instagram da Fotógrafa Lillia Tavares" target="_blank" rel="noopener">
+        <!-- Instagram icon (lucide) -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+        </svg>
+        @fotografalilliatavares
+      </a>
+
+      <a class="p1-contact-link" href="mailto:fotografalilliatavares@gmail.com" aria-label="Enviar e-mail para Lillia Tavares">
+        <!-- Mail icon (lucide) -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="22,4 12,13 2,4"/>
+        </svg>
+        fotografalilliatavares@gmail.com
+      </a>
+    </div>
+
+    <div class="p1-cta-wrap">
+      <a class="p1-cta" href="https://wa.me/5511911159795" aria-label="Agendar sessão fotográfica pelo WhatsApp" target="_blank" rel="noopener">
+        <!-- MessageCircle icon (lucide) -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Agendar sessão via WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <nav class="p1-nav" aria-label="Navegação do site">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/portfolio">Trabalhos</a></li>
+      <li><a href="/estudio">Estúdio</a></li>
+      <li><a href="/precos">Preços</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <div class="p1-legal">
+    <p>Copyright® <strong>Fotógrafa Lillia Tavares</strong> — Todos os direitos reservados · 2026</p>
+    <a href="/privacidade" aria-label="Política de privacidade e termos de uso">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- =============================================
+     PROPOSTA 2
+============================================= -->
+<div class="proposal-label">
+  <strong>Proposta 2</strong>
+  <span>Evolução Segura — Colunas + Localização</span>
+  <span class="tag">CONTEÚDO EXPANDIDO</span>
+</div>
+<div class="proposal-rationale">
+  <strong>Problema resolvido:</strong> Adiciona Mogi das Cruzes como sinal de SEO local e credibilidade geográfica. Nav em coluna lateral — reduz peso visual mas mantém acesso. CTA no bloco de marca, hierarquicamente o primeiro a ser lido. <strong>Trade-off:</strong> mais conteúdo no footer pode aumentar o peso percebido — funciona melhor com fotografia real no background ou em sites com scroll longo.
+</div>
+
+<footer class="p2-footer">
+  <div class="p2-main">
+    <div class="p2-col-brand">
+      <p class="p2-logo">Lillia Tavares</p>
+      <p class="p2-tagline">Fotografia de newborn, gestante e família<br>em Mogi das Cruzes e região.</p>
+      <a class="p2-cta" href="https://wa.me/5511911159795" aria-label="Agendar sessão fotográfica pelo WhatsApp" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Agendar sessão
+      </a>
+    </div>
+
+    <nav aria-label="Navegação do site">
+      <p class="p2-col-title">Páginas</p>
+      <ul class="p2-nav-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/portfolio">Trabalhos</a></li>
+        <li><a href="/estudio">Estúdio</a></li>
+        <li><a href="/precos">Preços &amp; Pacotes</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/faq">Perguntas Frequentes</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <p class="p2-col-title">Contato</p>
+      <ul class="p2-contact-list">
+        <li>
+          <a href="https://instagram.com/fotografalilliatavares" aria-label="Instagram @fotografalilliatavares" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="#aaa789"/>
+            </svg>
+            @fotografalilliatavares
+          </a>
+        </li>
+        <li>
+          <a href="mailto:fotografalilliatavares@gmail.com" aria-label="E-mail fotografalilliatavares@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <polyline points="22,4 12,13 2,4"/>
+            </svg>
+            fotografalilliatavares<br>@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/5511911159795" aria-label="WhatsApp (11) 91115-9795" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 8.07 8.07l1.08-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            (11) 91115-9795
+          </a>
+        </li>
+      </ul>
+      <div class="p2-location">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Mogi das Cruzes, São Paulo — SP
+      </div>
+    </div>
+  </div>
+
+  <div class="p2-legal">
+    <p>Copyright® <strong>Fotógrafa Lillia Tavares</strong> — Todos os direitos reservados · 2026</p>
+    <a href="/privacidade" aria-label="Política de privacidade e termos de uso">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- =============================================
+     PROPOSTA 3
+============================================= -->
+<div class="proposal-label">
+  <strong>Proposta 3</strong>
+  <span>Evolução Segura — Horizontal Slim</span>
+  <span class="tag">ESTRUTURA MÍNIMA</span>
+</div>
+<div class="proposal-rationale">
+  <strong>Problema resolvido:</strong> Elimina completamente a nav redundante e o excesso de altura. Uma banda horizontal: logo à esquerda, contatos ao centro, CTA à direita — exatamente a hierarquia de importância. Localização em microbar abaixo. <strong>Trade-off:</strong> sem nav repetida, depende de a nav do topo sempre estar acessível (sticky ou voltando ao topo). Ideal para sites com página única ou nav fixa.
+</div>
+
+<footer class="p3-footer">
+  <div class="p3-location-bar" aria-label="Localização">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Mogi das Cruzes · São Paulo
+  </div>
+
+  <div class="p3-main">
+    <p class="p3-logo">Lillia Tavares</p>
+
+    <div class="p3-contacts" role="list" aria-label="Contatos">
+      <a class="p3-contact-link" href="https://instagram.com/fotografalilliatavares" aria-label="Instagram @fotografalilliatavares" target="_blank" rel="noopener" role="listitem">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="#aaa789"/>
+        </svg>
+        @fotografalilliatavares
+      </a>
+      <a class="p3-contact-link" href="mailto:fotografalilliatavares@gmail.com" aria-label="E-mail fotografalilliatavares@gmail.com" role="listitem">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="22,4 12,13 2,4"/>
+        </svg>
+        fotografalilliatavares@gmail.com
+      </a>
+      <a class="p3-contact-link" href="https://wa.me/5511911159795" aria-label="WhatsApp (11) 91115-9795" target="_blank" rel="noopener" role="listitem">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 8.07 8.07l1.08-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        (11) 91115-9795
+      </a>
+    </div>
+
+    <a class="p3-cta" href="https://wa.me/5511911159795" aria-label="Agendar sessão fotográfica pelo WhatsApp" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      Agendar sessão
+    </a>
+  </div>
+
+  <div class="p3-legal">
+    <p>Copyright® <strong>Fotógrafa Lillia Tavares</strong> — Todos os direitos reservados · 2026</p>
+    <a href="/privacidade" aria-label="Política de privacidade e termos de uso">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- =============================================
+     PROPOSTA 4
+============================================= -->
+<div class="proposal-label">
+  <strong>Proposta 4</strong>
+  <span>Ousada — Dark Editorial</span>
+  <span class="tag">INVERSÃO DE PALETA</span>
+</div>
+<div class="proposal-rationale">
+  <strong>Problema resolvido:</strong> CTA cream sobre dark-olive cria contraste máximo e autoridade visual — o CTA fica impossível de ignorar sem gritar. O fundo escuro cria separação dramática do conteúdo da página, sinalizando encerramento editorial. Contatos secundários ficam abaixo da linha de destaque. <strong>Trade-off:</strong> exige que a identidade visual do site suporte tons escuros — pode contrastar com um site predominantemente branco/cream. Requer fotografia que também funcione em contextos escuros.
+</div>
+
+<footer class="p4-footer">
+  <div class="p4-hero-band">
+    <div class="p4-headline-group">
+      <p class="p4-eyebrow">Fotografia de Newborn · Gestante · Família</p>
+      <p class="p4-logo">Lillia Tavares</p>
+      <p class="p4-sub">Mogi das Cruzes, São Paulo</p>
+    </div>
+
+    <div class="p4-cta-group">
+      <a class="p4-cta" href="https://wa.me/5511911159795" aria-label="Agendar sessão fotográfica pelo WhatsApp" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Agendar minha sessão
+      </a>
+      <p class="p4-cta-note">Resposta em até 24h · sem compromisso</p>
+    </div>
+  </div>
+
+  <div class="p4-bottom">
+    <div class="p4-contacts" role="list" aria-label="Contatos">
+      <a class="p4-contact-link" href="https://instagram.com/fotografalilliatavares" aria-label="Instagram @fotografalilliatavares" target="_blank" rel="noopener" role="listitem">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+        </svg>
+        @fotografalilliatavares
+      </a>
+      <a class="p4-contact-link" href="mailto:fotografalilliatavares@gmail.com" aria-label="E-mail fotografalilliatavares@gmail.com" role="listitem">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="22,4 12,13 2,4"/>
+        </svg>
+        fotografalilliatavares@gmail.com
+      </a>
+      <a class="p4-contact-link" href="https://wa.me/5511911159795" aria-label="WhatsApp (11) 91115-9795" target="_blank" rel="noopener" role="listitem">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 8.07 8.07l1.08-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        (11) 91115-9795
+      </a>
+    </div>
+
+    <div class="p4-legal">
+      <p>Copyright® <strong>Fotógrafa Lillia Tavares</strong> · 2026</p>
+      <p>Todos os direitos reservados</p>
+      <a href="/privacidade" aria-label="Política de privacidade e termos de uso">Privacidade e Termos</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- =============================================
+     PROPOSTA 5
+============================================= -->
+<div class="proposal-label">
+  <strong>Proposta 5</strong>
+  <span>Ousada — Editorial Maximalista</span>
+  <span class="tag">TIPOGRAFIA COMO DESIGN</span>
+</div>
+<div class="proposal-rationale">
+  <strong>Problema resolvido:</strong> Contatos tratados como objetos tipográficos com label + valor — elimina ambiguidade de o que é aquele número ou arroba. A marca em tipo display grande ancora o fim da página como um objeto editorial, não uma rodapé funcional. CTA vira barra full-width no encerramento — difícil de ignorar, impossível de ser omitido. <strong>Trade-off:</strong> mais vertical e mais pesado que as outras propostas. Funciona melhor em sites com identidade fotográfica forte e público disposto a ler. Sem nav — aposta total na priorização do CTA.
+</div>
+
+<footer class="p5-footer">
+  <div class="p5-body">
+    <div class="p5-brand-col">
+      <p class="p5-logo">Lillia<br>Tavares</p>
+      <p class="p5-descriptor">Fotógrafa · Mogi das Cruzes</p>
+      <div class="p5-location">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Estúdio em Mogi das Cruzes, SP
+      </div>
+      <div class="p5-location" style="margin-top:0;">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Atendimento: seg–sáb, 9h–18h
+      </div>
+    </div>
+
+    <div class="p5-contact-col">
+      <p class="p5-col-label">Entre em contato</p>
+      <div class="p5-contact-items">
+        <a class="p5-contact-item" href="https://instagram.com/fotografalilliatavares" aria-label="Instagram @fotografalilliatavares" target="_blank" rel="noopener">
+          <span class="p5-contact-meta">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>
+            Instagram
+          </span>
+          <span class="p5-contact-value">@fotografalilliatavares</span>
+        </a>
+        <a class="p5-contact-item" href="mailto:fotografalilliatavares@gmail.com" aria-label="E-mail fotografalilliatavares@gmail.com">
+          <span class="p5-contact-meta">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <polyline points="22,4 12,13 2,4"/>
+            </svg>
+            E-mail
+          </span>
+          <span class="p5-contact-value">fotografalilliatavares@gmail.com</span>
+        </a>
+        <a class="p5-contact-item" href="https://wa.me/5511911159795" aria-label="WhatsApp (11) 91115-9795" target="_blank" rel="noopener">
+          <span class="p5-contact-meta">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 8.07 8.07l1.08-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            WhatsApp · resposta rápida
+          </span>
+          <span class="p5-contact-value">(11) 91115-9795</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="p5-cta-bar">
+    <a class="p5-cta-link" href="https://wa.me/5511911159795" aria-label="Agendar sessão fotográfica pelo WhatsApp" target="_blank" rel="noopener">
+      Agendar minha sessão fotográfica
+      <span class="p5-cta-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </span>
+    </a>
+  </div>
+
+  <div class="p5-legal">
+    <p>Copyright® <strong>Fotógrafa Lillia Tavares</strong> — Todos os direitos reservados · 2026</p>
+    <a href="/privacidade" aria-label="Política de privacidade e termos de uso">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- =============================================
+     RANKING
+============================================= -->
+<section class="ranking-section">
+  <h2>Ranking — melhor ao pior</h2>
+  <ol class="ranking-list">
+    <li>
+      <span class="pos">2</span>
+      <div class="desc">
+        <strong>Proposta 2 — Colunas + Localização</strong>
+        Melhor equilíbrio entre informação e hierarquia. O bloco de marca com CTA no topo esquerdo e contatos com labels claros resolve os dois maiores problemas (CTA enterrado + falta de localização). Três colunas funcionam bem desktop e empilham limpo no mobile. A proposta mais completa sem ser pesada.
+      </div>
+    </li>
+    <li>
+      <span class="pos">4</span>
+      <div class="desc">
+        <strong>Proposta 4 — Dark Editorial</strong>
+        CTA com maior contraste de todas as propostas — cream sobre dark-olive é a combinação de maior hierarquia visual disponível na paleta. O microcopy "Resposta em até 24h · sem compromisso" reduz a fricção de conversão. Depende de o restante do site suportar a inversão de paleta; se o site for predominantemente claro, pode parecer desconexo.
+      </div>
+    </li>
+    <li>
+      <span class="pos">3</span>
+      <div class="desc">
+        <strong>Proposta 3 — Horizontal Slim</strong>
+        A mais eficiente em espaço. Resolve hierarquia em uma linha: logo, contatos, CTA. Ideal para sites com scroll curto ou nav fixa. Ligeiramente arriscada porque remove toda a nav — funciona perfeitamente se o site tiver retorno ao topo evidente ou nav sticky.
+      </div>
+    </li>
+    <li>
+      <span class="pos">5</span>
+      <div class="desc">
+        <strong>Proposta 5 — Editorial Maximalista</strong>
+        O tratamento tipográfico dos contatos (label + valor) é a solução mais clara de todas para microcopy. A barra CTA full-width é memorável. Fica abaixo das outras por ser a mais vertical e eliminar completamente a nav — uma aposta alta que exige confiança de que o usuário já encontrou o que precisava antes de chegar ao footer.
+      </div>
+    </li>
+    <li>
+      <span class="pos">1</span>
+      <div class="desc">
+        <strong>Proposta 1 — CTA Destacado</strong>
+        A mais segura de implementar — menor risco de regressão visual. Resolve o problema crítico (CTA proeminente) sem mexer em mais nada. Fica por último no ranking não por ser ruim, mas porque preserva a estrutura tripartida com a nav redundante, que ainda ocupa espaço sem adicionar valor real para usuários que chegaram ao footer.
+      </div>
+    </li>
+  </ol>
+</section>
+
+</body>
+</html>

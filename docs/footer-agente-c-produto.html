@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer — 5 Propostas — Fotógrafa Lillia Tavares</title>
+<style>
+/* ─── Reset mínimo ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #d6d3c4; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+/* ─── Tokens de identidade ───────────────────────────────── */
+:root {
+  --olive:        #7b785b;
+  --olive-light:  #aaa789;
+  --olive-dark:   #4a4836;
+  --cream:        #f7f4e8;
+  --cream-dark:   #ede9d4;
+  --white:        #ffffff;
+  --font-body:    'Helvetica Neue', Arial, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+
+  /* escala tipográfica */
+  --text-xs:   0.6875rem;  /* 11px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 0.875rem;   /* 14px */
+  --text-md:   1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.5rem;     /* 24px */
+  --text-2xl:  2rem;       /* 32px */
+  --text-3xl:  2.75rem;    /* 44px */
+
+  /* espaçamento */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+}
+
+/* ─── Labels de seção (fora das propostas) ───────────────── */
+.section-label {
+  padding: 2.5rem 2rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5a5748;
+  border-top: 1px solid #b8b4a4;
+  margin-top: 0;
+}
+.section-label:first-child { border-top: none; }
+.section-label span {
+  display: inline-block;
+  background: #4a4836;
+  color: #f7f4e8;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  margin-right: 0.75rem;
+  font-size: var(--text-xs);
+}
+.section-label .rationale {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #6b6857;
+  max-width: 72ch;
+  line-height: 1.6;
+}
+
+/* ─── Logotipo simulado (script cursiva) ─────────────────── */
+.logo-text {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* ─── SVG icons helper ───────────────────────────────────── */
+svg { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+
+/* ─── Link resets ─────────────────────────────────────────── */
+a { color: inherit; text-decoration: none; }
+a:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ====================================================
+   PROPOSTA 1 — Stacked Centered Refinada
+   Resolve: altura desproporcional da nav, sem mobile
+   ==================================================== */
+
+.p1 {
+  background: var(--white);
+}
+
+/* Header do footer */
+.p1__head {
+  background: var(--white);
+  padding: var(--space-10) var(--space-6) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.p1__logo {
+  font-size: var(--text-2xl);
+  color: var(--olive-dark);
+}
+
+.p1__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-6);
+}
+
+.p1__contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--olive);
+  transition: color 0.18s ease;
+  word-break: break-all;
+}
+.p1__contact-item:hover { color: var(--olive-dark); }
+.p1__contact-item svg { color: var(--olive-light); flex-shrink: 0; }
+
+/* CTA WhatsApp standalone */
+.p1__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--olive-dark);
+  color: var(--cream);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-6);
+  border-radius: 2px;
+  transition: background 0.18s ease;
+}
+.p1__cta:hover { background: var(--olive); color: var(--white); }
+.p1__cta:focus-visible { outline-color: var(--olive-dark); }
+
+/* Nav */
+.p1__nav {
+  background: var(--cream);
+  padding: var(--space-6) var(--space-6);
+}
+
+.p1__nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-6);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.p1__nav-link {
+  font-size: var(--text-sm);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+  transition: color 0.18s ease;
+  padding: var(--space-2) 0;
+  position: relative;
+}
+.p1__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--olive);
+  transform: scaleX(0);
+  transition: transform 0.18s ease;
+}
+.p1__nav-link:hover { color: var(--olive-dark); }
+.p1__nav-link:hover::after { transform: scaleX(1); }
+
+/* Bar inferior */
+.p1__bar {
+  background: var(--cream);
+  border-top: 1px solid var(--cream-dark);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.p1__bar-copy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+  line-height: 1.5;
+}
+.p1__bar-copy strong { color: var(--olive); font-weight: 600; }
+
+.p1__bar-privacy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+.p1__bar-privacy:hover { color: var(--olive); }
+
+.p1__location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+
+@media (max-width: 600px) {
+  .p1__bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .p1__contact-item { font-size: var(--text-xs); word-break: break-word; }
+  .p1__logo { font-size: var(--text-xl); }
+}
+
+
+/* ====================================================
+   PROPOSTA 2 — Three-Column Grid
+   Resolve: ausência de localização SEO, mobile quebrado
+   ==================================================== */
+
+.p2 {
+  background: var(--cream-dark);
+}
+
+.p2__main {
+  padding: var(--space-12) var(--space-6) var(--space-8);
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-8);
+}
+
+.p2__col-logo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.p2__logo {
+  font-size: var(--text-xl);
+  color: var(--olive-dark);
+}
+
+.p2__tagline {
+  font-size: var(--text-sm);
+  color: var(--olive-light);
+  line-height: 1.6;
+  max-width: 24ch;
+}
+
+.p2__location-block {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--olive);
+  line-height: 1.5;
+}
+
+.p2__col-nav { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.p2__col-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--cream);
+  margin-bottom: var(--space-1);
+}
+
+.p2__nav-link {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--olive);
+  transition: color 0.15s ease, padding-left 0.15s ease;
+  display: block;
+  padding: var(--space-1) 0;
+}
+.p2__nav-link:hover {
+  color: var(--olive-dark);
+  padding-left: var(--space-2);
+}
+
+.p2__col-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.p2__contact-link {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--olive);
+  line-height: 1.4;
+  word-break: break-word;
+  transition: color 0.15s ease;
+}
+.p2__contact-link:hover { color: var(--olive-dark); }
+.p2__contact-link svg { margin-top: 1px; flex-shrink: 0; }
+
+.p2__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--olive-dark);
+  color: var(--cream);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-5);
+  border-radius: 2px;
+  margin-top: var(--space-2);
+  transition: background 0.18s ease;
+  align-self: flex-start;
+}
+.p2__cta:hover { background: var(--olive); }
+
+.p2__bar {
+  border-top: 1px solid #d5d1bf;
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.p2__bar-copy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+.p2__bar-copy strong { color: var(--olive); font-weight: 600; }
+.p2__bar-privacy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+.p2__bar-privacy:hover { color: var(--olive); }
+
+@media (max-width: 900px) {
+  .p2__main { grid-template-columns: 1fr 1fr; }
+  .p2__col-logo { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: var(--space-6); }
+}
+@media (max-width: 600px) {
+  .p2__main { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-8) var(--space-5) var(--space-6); }
+  .p2__col-logo { flex-direction: column; }
+  .p2__bar { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* ====================================================
+   PROPOSTA 3 — Split Assimétrico (CTA em destaque)
+   Resolve: CTA WhatsApp igual a links de nav, sem hierarquia
+   ==================================================== */
+
+.p3 {
+  background: var(--white);
+  border-top: 3px solid var(--cream-dark);
+}
+
+.p3__inner {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  min-height: 220px;
+}
+
+.p3__left {
+  background: var(--white);
+  padding: var(--space-10) var(--space-8) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.p3__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.p3__logo { font-size: var(--text-xl); color: var(--olive-dark); }
+
+.p3__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.p3__contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--olive);
+  word-break: break-word;
+  transition: color 0.15s ease;
+}
+.p3__contact-item:hover { color: var(--olive-dark); }
+.p3__contact-item svg { flex-shrink: 0; color: var(--olive-light); }
+
+.p3__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--cream-dark);
+}
+
+.p3__nav-link {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  transition: color 0.15s ease;
+  padding: var(--space-1) 0;
+}
+.p3__nav-link:hover { color: var(--olive-dark); }
+
+/* Coluna direita — CTA isolada */
+.p3__right {
+  background: var(--olive-dark);
+  padding: var(--space-10) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.p3__right-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+}
+
+.p3__right-heading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-xl);
+  color: var(--cream);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.p3__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--cream);
+  color: var(--olive-dark);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-6);
+  border-radius: 2px;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.p3__cta:hover { background: var(--cream-dark); }
+
+.p3__right-location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+
+.p3__bar {
+  background: var(--cream);
+  padding: var(--space-4) var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+.p3__bar-copy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+.p3__bar-copy strong { color: var(--olive); font-weight: 600; }
+.p3__bar-privacy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+.p3__bar-privacy:hover { color: var(--olive); }
+
+@media (max-width: 900px) {
+  .p3__inner { grid-template-columns: 1fr; }
+  .p3__right {
+    align-items: center;
+    text-align: center;
+    padding: var(--space-8) var(--space-6);
+  }
+}
+@media (max-width: 600px) {
+  .p3__left { padding: var(--space-8) var(--space-5) var(--space-6); }
+  .p3__bar { flex-direction: column; align-items: flex-start; padding: var(--space-4) var(--space-5); }
+}
+
+
+/* ====================================================
+   PROPOSTA 4 — Dark Olive Invertido (ousada)
+   Resolve: falta de personalidade noturna / editorial escuro
+   Trade-off: mais pesado, requer teste de contraste para acessibilidade
+   ==================================================== */
+
+.p4 {
+  background: var(--olive-dark);
+}
+
+.p4__main {
+  padding: var(--space-12) var(--space-8) var(--space-8);
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.p4__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.p4__logo {
+  font-size: var(--text-2xl);
+  color: var(--cream);
+}
+
+.p4__tagline {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  max-width: 18ch;
+  line-height: 1.6;
+}
+
+.p4__location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+
+/* Divisor vertical */
+.p4__divider {
+  width: 1px;
+  background: rgba(170, 167, 137, 0.2);
+  align-self: stretch;
+  min-height: 140px;
+}
+
+.p4__nav-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.p4__nav-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: var(--space-1);
+}
+
+.p4__nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.p4__nav-link {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cream-dark);
+  transition: color 0.15s ease;
+}
+.p4__nav-link:hover { color: var(--cream); }
+
+.p4__contact-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.p4__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--cream-dark);
+  word-break: break-word;
+  transition: color 0.15s ease;
+  line-height: 1.4;
+}
+.p4__contact-item:hover { color: var(--cream); }
+.p4__contact-item svg { flex-shrink: 0; margin-top: 1px; }
+
+.p4__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--cream);
+  color: var(--olive-dark);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-5);
+  border-radius: 2px;
+  margin-top: var(--space-2);
+  transition: background 0.18s ease;
+}
+.p4__cta:hover { background: var(--cream-dark); }
+
+.p4__bar {
+  border-top: 1px solid rgba(170, 167, 137, 0.2);
+  padding: var(--space-4) var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.p4__bar-copy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+.p4__bar-copy strong { color: var(--cream-dark); font-weight: 600; }
+.p4__bar-privacy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+.p4__bar-privacy:hover { color: var(--cream-dark); }
+
+@media (max-width: 900px) {
+  .p4__main {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: var(--space-8) var(--space-6) var(--space-6);
+  }
+  .p4__divider { display: none; }
+}
+@media (max-width: 600px) {
+  .p4__main { padding: var(--space-8) var(--space-5) var(--space-5); }
+  .p4__bar { flex-direction: column; align-items: flex-start; padding: var(--space-4) var(--space-5); }
+}
+
+
+/* ====================================================
+   PROPOSTA 5 — Editorial Band (ousada, tipo revista)
+   Resolve: falta de caráter visual marcante, tudo parece genérico
+   Trade-off: mais opinionado — pode não agradar clientes conservadores
+   ==================================================== */
+
+.p5 {
+  background: var(--cream);
+}
+
+.p5__band {
+  background: var(--olive);
+  padding: var(--space-5) var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.p5__band-logo {
+  font-size: var(--text-xl);
+  color: var(--cream);
+}
+
+.p5__band-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1.5px solid rgba(247, 244, 232, 0.5);
+  color: var(--cream);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-2) var(--space-5);
+  border-radius: 2px;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.p5__band-cta:hover {
+  background: rgba(247, 244, 232, 0.12);
+  border-color: var(--cream);
+}
+
+.p5__main {
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr 2px 1fr;
+  gap: 0;
+}
+
+.p5__col {
+  padding: 0 var(--space-8);
+}
+.p5__col:first-child { padding-left: 0; }
+.p5__col:last-child { padding-right: 0; }
+
+.p5__divider-v {
+  background: var(--cream-dark);
+  width: 1px;
+  align-self: stretch;
+  margin: 0 auto;
+}
+
+.p5__col-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.p5__nav-link {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--olive);
+  padding: var(--space-1) 0;
+  transition: color 0.15s ease, letter-spacing 0.15s ease;
+  font-weight: 500;
+}
+.p5__nav-link:hover {
+  color: var(--olive-dark);
+  letter-spacing: 0.03em;
+}
+
+.p5__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--olive);
+  word-break: break-word;
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+  transition: color 0.15s ease;
+}
+.p5__contact-item:hover { color: var(--olive-dark); }
+.p5__contact-item svg { flex-shrink: 0; margin-top: 1px; }
+
+.p5__local {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--olive-light);
+  margin-bottom: var(--space-3);
+  line-height: 1.45;
+}
+
+.p5__bar {
+  border-top: 1px solid var(--cream-dark);
+  padding: var(--space-4) var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.p5__bar-copy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+}
+.p5__bar-copy strong { color: var(--olive); font-weight: 600; }
+.p5__bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.p5__bar-privacy {
+  font-size: var(--text-xs);
+  color: var(--olive-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+.p5__bar-privacy:hover { color: var(--olive); }
+
+@media (max-width: 900px) {
+  .p5__main {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-6);
+  }
+  .p5__divider-v { display: none; }
+  .p5__col { padding: 0; }
+  .p5__col:last-child { grid-column: 1 / -1; }
+  .p5__band { padding: var(--space-4) var(--space-6); }
+}
+@media (max-width: 600px) {
+  .p5__main { grid-template-columns: 1fr; gap: var(--space-5); padding: var(--space-5); }
+  .p5__band { flex-direction: column; align-items: flex-start; padding: var(--space-4) var(--space-5); }
+  .p5__bar { flex-direction: column; align-items: flex-start; padding: var(--space-3) var(--space-5); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Ranking final
+   ──────────────────────────────────────────────────────────── */
+.ranking {
+  background: var(--olive-dark);
+  color: var(--cream);
+  padding: var(--space-12) var(--space-8);
+  font-family: var(--font-body);
+}
+.ranking h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-xl);
+  color: var(--cream);
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid rgba(247,244,232,0.2);
+  padding-bottom: var(--space-4);
+}
+.ranking-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.ranking-list li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+.rank-n {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--olive-light);
+  padding-top: 2px;
+}
+.rank-body strong {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: var(--space-1);
+}
+.rank-body p {
+  font-size: var(--text-sm);
+  color: var(--olive-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .ranking { padding: var(--space-8) var(--space-5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 1 — Stacked Centered Refinada
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-label">
+  <span>Proposta 1</span> Stacked Centered — Refinamento do atual
+  <span class="rationale">
+    Mantém a leitura vertical familiar mas corrige os três problemas mais críticos:
+    a altura de 208px da nav vira altura natural por conteúdo; o CTA de WhatsApp sai
+    da nav e vira um botão escuro separado; o email recebe word-break para não transbordar.
+    Trade-off: mantém estrutura em 3 faixas — conservador mas seguro para quem quer
+    evolução sem ruptura.
+  </span>
+</div>
+
+<footer class="p1">
+  <!-- Faixa 1: branca — logo + contatos + CTA -->
+  <div class="p1__head">
+    <div class="p1__logo logo-text" style="font-size: 2rem; color: #4a4836;">Lillia Tavares</div>
+
+    <div class="p1__contacts">
+      <a href="https://www.instagram.com/fotografalilliatavares/" class="p1__contact-item" target="_blank" rel="noopener">
+        <!-- Instagram icon (lucide) -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        @fotografalilliatavares
+      </a>
+      <a href="mailto:fotografalilliatavares@gmail.com" class="p1__contact-item">
+        <!-- Mail icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        fotografalilliatavares@gmail.com
+      </a>
+      <a href="https://wa.me/5511911159795" class="p1__contact-item" target="_blank" rel="noopener">
+        <!-- Message-circle icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        (11) 91115-9795
+      </a>
+    </div>
+
+    <a href="https://wa.me/5511911159795" class="p1__cta" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      Agendar Ensaio
+    </a>
+  </div>
+
+  <!-- Faixa 2: creme — nav -->
+  <nav class="p1__nav" aria-label="Navegação do rodapé">
+    <div class="p1__nav-inner">
+      <a href="/" class="p1__nav-link">Home</a>
+      <a href="/trabalhos" class="p1__nav-link">Trabalhos</a>
+      <a href="/estudio" class="p1__nav-link">Estúdio</a>
+      <a href="/precos" class="p1__nav-link">Preços</a>
+      <a href="/blog" class="p1__nav-link">Blog</a>
+      <a href="/faq" class="p1__nav-link">FAQ</a>
+    </div>
+  </nav>
+
+  <!-- Faixa 3: barra inferior -->
+  <div class="p1__bar">
+    <p class="p1__bar-copy">© 2026 <strong>Lillia Tavares Fotografia</strong> — Todos os direitos reservados</p>
+    <div class="p1__location">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      Mogi das Cruzes, SP
+    </div>
+    <a href="/privacidade" class="p1__bar-privacy">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 2 — Three-Column Grid
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-label">
+  <span>Proposta 2</span> Three-Column Grid — SEO local + estrutura informacional
+  <span class="rationale">
+    Divide o footer em três colunas com hierarquia clara: Marca/Localização, Navegação,
+    Contato + CTA. Adiciona localização "Mogi das Cruzes, SP — Alto Tietê" como texto
+    corrido, útil para SEO local. Em tablet cai para 2 colunas; mobile, 1.
+    Trade-off: mais "site corporativo" — ganha em clareza, perde um pouco de charme artístico.
+  </span>
+</div>
+
+<footer class="p2">
+  <div class="p2__main">
+    <!-- Col 1: Marca -->
+    <div class="p2__col-logo">
+      <div class="p2__logo logo-text">Lillia Tavares</div>
+      <p class="p2__tagline">Ensaios fotográficos com alma, luz natural e cuidado com cada detalhe.</p>
+      <div class="p2__location-block">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top:2px; color: #aaa789;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="font-size: 0.8125rem; color: #7b785b; line-height: 1.5;">Mogi das Cruzes, SP<br>Região do Alto Tietê</span>
+      </div>
+    </div>
+
+    <!-- Col 2: Nav -->
+    <nav class="p2__col-nav" aria-label="Rodapé — navegação">
+      <div class="p2__col-label">Páginas</div>
+      <a href="/" class="p2__nav-link">Home</a>
+      <a href="/trabalhos" class="p2__nav-link">Trabalhos</a>
+      <a href="/estudio" class="p2__nav-link">Estúdio</a>
+      <a href="/precos" class="p2__nav-link">Preços</a>
+      <a href="/blog" class="p2__nav-link">Blog</a>
+      <a href="/faq" class="p2__nav-link">FAQ</a>
+    </nav>
+
+    <!-- Col 3: Contato -->
+    <div class="p2__col-contact">
+      <div class="p2__col-label">Contato</div>
+      <a href="https://www.instagram.com/fotografalilliatavares/" class="p2__contact-link" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        @fotografalilliatavares
+      </a>
+      <a href="mailto:fotografalilliatavares@gmail.com" class="p2__contact-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        fotografalilliatavares@gmail.com
+      </a>
+      <a href="https://wa.me/5511911159795" class="p2__contact-link" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        (11) 91115-9795
+      </a>
+      <a href="https://wa.me/5511911159795" class="p2__cta" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        Agendar Ensaio
+      </a>
+    </div>
+  </div>
+
+  <div class="p2__bar">
+    <p class="p2__bar-copy">© 2026 <strong>Lillia Tavares Fotografia</strong> — Todos os direitos reservados</p>
+    <a href="/privacidade" class="p2__bar-privacy">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 3 — Split Assimétrico
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-label">
+  <span>Proposta 3</span> Split Assimétrico — CTA com zona própria e visual distinto
+  <span class="rationale">
+    A coluna da direita pertence inteiramente ao CTA de agendamento: fundo olive-dark
+    cria contraste máximo, o "Agendar Ensaio" é impossível de confundir com link de nav.
+    A coluna esquerda concentra logo, contatos e nav reduzida em hierarquia descendente.
+    Trade-off: precisa de 340px livres — em telas < 900px as colunas se empilham,
+    e a col-direita vira uma faixa de CTA horizontal, que funciona bem.
+  </span>
+</div>
+
+<footer class="p3">
+  <div class="p3__inner">
+    <!-- Esquerda -->
+    <div class="p3__left">
+      <div class="p3__top">
+        <div class="p3__logo logo-text">Lillia Tavares</div>
+        <div class="p3__contacts">
+          <a href="https://www.instagram.com/fotografalilliatavares/" class="p3__contact-item" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            @fotografalilliatavares
+          </a>
+          <a href="mailto:fotografalilliatavares@gmail.com" class="p3__contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            fotografalilliatavares@gmail.com
+          </a>
+          <a href="https://wa.me/5511911159795" class="p3__contact-item" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            (11) 91115-9795
+          </a>
+        </div>
+      </div>
+
+      <nav class="p3__nav" aria-label="Rodapé — navegação">
+        <a href="/" class="p3__nav-link">Home</a>
+        <a href="/trabalhos" class="p3__nav-link">Trabalhos</a>
+        <a href="/estudio" class="p3__nav-link">Estúdio</a>
+        <a href="/precos" class="p3__nav-link">Preços</a>
+        <a href="/blog" class="p3__nav-link">Blog</a>
+        <a href="/faq" class="p3__nav-link">FAQ</a>
+      </nav>
+    </div>
+
+    <!-- Direita — zona de CTA exclusiva -->
+    <div class="p3__right">
+      <span class="p3__right-label">Pronta para seu ensaio?</span>
+      <p class="p3__right-heading">Vamos criar algo<br>inesquecível juntas.</p>
+      <a href="https://wa.me/5511911159795" class="p3__cta" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        Agendar Ensaio
+      </a>
+      <div class="p3__right-location">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Mogi das Cruzes, SP — Alto Tietê
+      </div>
+    </div>
+  </div>
+
+  <div class="p3__bar">
+    <p class="p3__bar-copy">© 2026 <strong>Lillia Tavares Fotografia</strong> — Todos os direitos reservados</p>
+    <a href="/privacidade" class="p3__bar-privacy">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 4 — Dark Olive Invertido (ousada)
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-label">
+  <span>Proposta 4 ✦ Ousada</span> Dark Olive — Inversão tonal, elegância noturna
+  <span class="rationale">
+    Usa o olive-dark (#4a4836) como fundo total — uma aposta que poucos sites de fotografia
+    feminina fazem. Cria profundidade, destaca o logotipo cursivo em cream, e o CTA em cream
+    contrasta fortemente contra o fundo escuro. Três colunas com divisor vertical sutil.
+    Trade-off: contraste WCAG precisa de verificação em texto menor (olive-light sobre dark);
+    se aprovado, é a proposta com mais personalidade visual.
+  </span>
+</div>
+
+<footer class="p4">
+  <div class="p4__main">
+    <!-- Marca -->
+    <div class="p4__brand">
+      <div class="p4__logo logo-text">Lillia Tavares</div>
+      <p class="p4__tagline">Fotografia de ensaio em Mogi das Cruzes</p>
+      <div class="p4__location">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Alto Tietê, SP
+      </div>
+    </div>
+
+    <div class="p4__divider" aria-hidden="true"></div>
+
+    <!-- Nav -->
+    <div class="p4__nav-grid">
+      <div class="p4__nav-label">Navegação</div>
+      <nav class="p4__nav-links" aria-label="Rodapé — navegação">
+        <a href="/" class="p4__nav-link">Home</a>
+        <a href="/trabalhos" class="p4__nav-link">Trabalhos</a>
+        <a href="/estudio" class="p4__nav-link">Estúdio</a>
+        <a href="/precos" class="p4__nav-link">Preços</a>
+        <a href="/blog" class="p4__nav-link">Blog</a>
+        <a href="/faq" class="p4__nav-link">FAQ</a>
+      </nav>
+    </div>
+
+    <div class="p4__divider" aria-hidden="true"></div>
+
+    <!-- Contato -->
+    <div class="p4__contact-col">
+      <a href="https://www.instagram.com/fotografalilliatavares/" class="p4__contact-item" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        @fotografalilliatavares
+      </a>
+      <a href="mailto:fotografalilliatavares@gmail.com" class="p4__contact-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        fotografalilliatavares@gmail.com
+      </a>
+      <a href="https://wa.me/5511911159795" class="p4__contact-item" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        (11) 91115-9795
+      </a>
+      <a href="https://wa.me/5511911159795" class="p4__cta" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        Agendar Ensaio
+      </a>
+    </div>
+  </div>
+
+  <div class="p4__bar">
+    <p class="p4__bar-copy">© 2026 <strong>Lillia Tavares Fotografia</strong> — Todos os direitos reservados</p>
+    <a href="/privacidade" class="p4__bar-privacy">Privacidade e Termos</a>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PROPOSTA 5 — Editorial Horizontal Band (ousada)
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-label">
+  <span>Proposta 5 ✦ Ousada</span> Editorial Band — Lógica de revista, olive como acento tonal
+  <span class="rationale">
+    A faixa superior olive carrega o logotipo à esquerda e o CTA à direita — inversão da
+    lógica habitual onde o CTA fica embaixo. Abaixo, três colunas separadas por divisores
+    verticais finos no estilo editorial impresso. O risque — bold de faixa olive como header
+    de footer — é incomum mas coerente com o mundo da moda/fotografia editorial.
+    Trade-off: a faixa superior pode conflitar com a cor do header do site; checar se a
+    transição de fundo da página para o footer fica harmônica.
+  </span>
+</div>
+
+<footer class="p5">
+  <!-- Faixa olive — logo + CTA -->
+  <div class="p5__band">
+    <div class="p5__band-logo logo-text">Lillia Tavares</div>
+    <a href="https://wa.me/5511911159795" class="p5__band-cta" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      Agendar Ensaio
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+    </a>
+  </div>
+
+  <!-- Três colunas editoriais -->
+  <div class="p5__main">
+    <!-- Col 1: Nav -->
+    <div class="p5__col">
+      <div class="p5__col-label">Páginas</div>
+      <nav aria-label="Rodapé — navegação">
+        <a href="/" class="p5__nav-link">Home</a>
+        <a href="/trabalhos" class="p5__nav-link">Trabalhos</a>
+        <a href="/estudio" class="p5__nav-link">Estúdio</a>
+        <a href="/precos" class="p5__nav-link">Preços</a>
+        <a href="/blog" class="p5__nav-link">Blog</a>
+        <a href="/faq" class="p5__nav-link">FAQ</a>
+      </nav>
+    </div>
+
+    <div class="p5__divider-v" aria-hidden="true"></div>
+
+    <!-- Col 2: Contato -->
+    <div class="p5__col">
+      <div class="p5__col-label">Contato</div>
+      <a href="https://www.instagram.com/fotografalilliatavares/" class="p5__contact-item" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        @fotografalilliatavares
+      </a>
+      <a href="mailto:fotografalilliatavares@gmail.com" class="p5__contact-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        fotografalilliatavares@gmail.com
+      </a>
+      <a href="https://wa.me/5511911159795" class="p5__contact-item" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#aaa789"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        (11) 91115-9795
+      </a>
+    </div>
+
+    <div class="p5__divider-v" aria-hidden="true"></div>
+
+    <!-- Col 3: Localização + sobre -->
+    <div class="p5__col">
+      <div class="p5__col-label">Localização</div>
+      <div class="p5__local">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;margin-top:2px; color:#aaa789"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Mogi das Cruzes, SP<br>Região do Alto Tietê</span>
+      </div>
+      <p style="font-size: 0.8125rem; color: #aaa789; line-height: 1.7; margin-top: 0.5rem;">
+        Ensaios realizados em estúdio e em locações externas na região do Alto Tietê. Atendimento com hora marcada.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bar inferior -->
+  <div class="p5__bar">
+    <p class="p5__bar-copy">© 2026 <strong>Lillia Tavares Fotografia</strong> — Todos os direitos reservados</p>
+    <div class="p5__bar-right">
+      <a href="/privacidade" class="p5__bar-privacy">Privacidade e Termos</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     RANKING FINAL
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-label" style="background:#4a4836; color:#ede9d4; border-top: none;">
+  <span style="background:#7b785b; color:#f7f4e8;">Ranking</span> Recomendação de implementação
+</div>
+
+<section class="ranking">
+  <h2>Ranking das Propostas</h2>
+  <ol class="ranking-list">
+    <li>
+      <span class="rank-n">1º</span>
+      <div class="rank-body">
+        <strong>Proposta 3 — Split Assimétrico</strong>
+        <p>Melhor equilíbrio entre identidade visual e conversão. O CTA de agendamento tem zona própria e contraste máximo sem precisar de recursos externos. Responsiva com duas estratégias claras (lado a lado / empilhado). Resolve os dois problemas mais críticos: hierarquia do CTA e ausência de mobile layout.</p>
+      </div>
+    </li>
+    <li>
+      <span class="rank-n">2º</span>
+      <div class="rank-body">
+        <strong>Proposta 4 — Dark Olive Invertido</strong>
+        <p>Mais personalidade visual do conjunto. Se o site tiver páginas com fundos claros predominantes, esse footer cria uma âncora tonal marcante. Requer teste de contraste WCAG para textos menores em olive-light sobre olive-dark, mas é executável com ajuste pontual de opacidade.</p>
+      </div>
+    </li>
+    <li>
+      <span class="rank-n">3º</span>
+      <div class="rank-body">
+        <strong>Proposta 2 — Three-Column Grid</strong>
+        <p>Melhor para SEO local (localização como texto corrido) e para sites com muitas páginas futuras. Leitura de escaneamento rápida. Pode parecer genérico se o site crescer em personalidade visual, mas é o mais sólido estruturalmente.</p>
+      </div>
+    </li>
+    <li>
+      <span class="rank-n">4º</span>
+      <div class="rank-body">
+        <strong>Proposta 5 — Editorial Band</strong>
+        <p>A mais ousada e a mais arriscada. Funciona bem se o site tiver linguagem editorial definida. A faixa olive no topo é o elemento de risco: depende de como a página termina antes do footer. Recomendada se houver intenção de reposicionamento visual no médio prazo.</p>
+      </div>
+    </li>
+    <li>
+      <span class="rank-n">5º</span>
+      <div class="rank-body">
+        <strong>Proposta 1 — Stacked Centered Refinada</strong>
+        <p>A mais segura e a mais próxima do atual. Indicada se o objetivo for apenas corrigir os bugs (altura, mobile, email overflow) sem redesenho. Transição zero-friction para usuários já familiarizados com o footer atual.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+</body>
+</html>
