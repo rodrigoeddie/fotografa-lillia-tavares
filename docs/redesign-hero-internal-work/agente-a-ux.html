@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Redesign · Camila Nogueira · Agente A — UX & IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Lato', system-ui, sans-serif;
+  background: #1A1714;
+  color: #F4F2E9;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── DOC NAV ─────────────────────────────────────────────────── */
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1A1714;
+  border-bottom: 1px solid rgba(167,82,62,0.25);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 52px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.doc-nav-brand {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A7523E;
+  flex-shrink: 0;
+}
+.doc-nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+}
+.doc-nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.5);
+  text-decoration: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  transition: color 0.15s, background 0.15s;
+}
+.doc-nav-links a:hover, .doc-nav-links a:focus {
+  color: #F4F2E9;
+  background: rgba(167,82,62,0.12);
+  outline: none;
+}
+.doc-nav-links a .badge {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: #A7523E;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 900;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  flex-shrink: 0;
+}
+
+/* ─── DOC HEADER ─────────────────────────────────────────────── */
+.doc-header {
+  padding: 5rem 2rem 3rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.doc-header .eyebrow {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #A7523E;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.doc-header .eyebrow::after {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: rgba(167,82,62,0.3);
+}
+.doc-header h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #F4F2E9;
+  text-wrap: balance;
+  margin-bottom: 1.5rem;
+}
+.doc-header h1 em {
+  font-style: normal;
+  color: #A7523E;
+}
+.doc-header .doc-intro {
+  font-size: 1rem;
+  color: rgba(244,242,233,0.65);
+  line-height: 1.75;
+  max-width: 620px;
+  margin-bottom: 2.5rem;
+}
+.doc-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 2px;
+  border: 1px solid rgba(244,242,233,0.15);
+  color: rgba(244,242,233,0.6);
+}
+.pill.accent {
+  border-color: rgba(167,82,62,0.4);
+  color: #A7523E;
+}
+
+/* ─── PROPOSAL SECTIONS ──────────────────────────────────────── */
+.proposal-section {
+  margin-bottom: 0;
+  scroll-margin-top: 52px;
+}
+.proposal-label {
+  padding: 2rem 2rem 1.25rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+}
+.proposal-number {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(167,82,62,0.15);
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+}
+.proposal-info {}
+.proposal-tag {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #A7523E;
+  margin-bottom: 0.35rem;
+}
+.proposal-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #F4F2E9;
+  letter-spacing: -0.01em;
+}
+.proposal-subtitle {
+  font-size: 0.8rem;
+  color: rgba(244,242,233,0.45);
+  margin-top: 0.2rem;
+}
+
+/* ─── HERO VIEWPORT WRAPPER ──────────────────────────────────── */
+.hero-viewport {
+  background: #0E0C0B;
+  overflow: hidden;
+  position: relative;
+}
+.hero-viewport::before {
+  content: 'VIEWPORT SIMULADO · 1280PX';
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.18);
+  z-index: 50;
+}
+
+/* ─── RATIONALE STRIP ────────────────────────────────────────── */
+.rationale {
+  background: #211E1B;
+  border-top: 1px solid rgba(167,82,62,0.15);
+  padding: 2rem;
+  max-width: 100%;
+}
+.rationale-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+.rationale-col {}
+.rationale-col h4 {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #A7523E;
+  margin-bottom: 0.6rem;
+}
+.rationale-col p {
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: rgba(244,242,233,0.6);
+}
+.rationale-col p strong {
+  color: rgba(244,242,233,0.9);
+  font-weight: 700;
+}
+
+/* ─── DIVIDER ─────────────────────────────────────────────────── */
+.divider {
+  height: 3rem;
+  border-top: 1px solid rgba(167,82,62,0.1);
+}
+
+/* ─── RANKING SECTION ─────────────────────────────────────────── */
+.ranking-section {
+  padding: 5rem 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.ranking-section h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #F4F2E9;
+  margin-bottom: 0.5rem;
+}
+.ranking-section .sub {
+  font-size: 0.8rem;
+  color: rgba(244,242,233,0.45);
+  margin-bottom: 3rem;
+}
+.ranking-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(244,242,233,0.08);
+}
+.ranking-item:last-child { border-bottom: 1px solid rgba(244,242,233,0.08); }
+.rank-num {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(167,82,62,0.35);
+  letter-spacing: -0.03em;
+  padding-top: 0.1rem;
+}
+.rank-body h3 {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #F4F2E9;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.4rem;
+}
+.rank-body p {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: rgba(244,242,233,0.55);
+}
+.rank-verdict {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  margin-top: 0.15rem;
+}
+.rank-verdict.recommend { background: rgba(167,82,62,0.18); color: #A7523E; border: 1px solid rgba(167,82,62,0.3); }
+.rank-verdict.safe { background: rgba(123,120,91,0.18); color: #9E9B78; border: 1px solid rgba(123,120,91,0.3); }
+.rank-verdict.bold { background: rgba(249,168,37,0.12); color: #C88B0A; border: 1px solid rgba(249,168,37,0.25); }
+.rank-verdict.risk { background: rgba(244,242,233,0.06); color: rgba(244,242,233,0.45); border: 1px solid rgba(244,242,233,0.12); }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.doc-footer {
+  padding: 2rem;
+  border-top: 1px solid rgba(167,82,62,0.15);
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROPOSTA 1 — HIERARQUIA VIVA
+   Evolução segura: corrige tipografia, adiciona CTA, mantém 2 cols
+   ═══════════════════════════════════════════════════════════════ */
+.p1-hero {
+  background: #F4F2E9;
+  min-height: 540px;
+  display: flex;
+  font-family: 'Lato', sans-serif;
+}
+.p1-left {
+  flex: 0 0 46%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  background: #fff;
+}
+.p1-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.5rem 2rem 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(167,82,62,0.6);
+  text-transform: uppercase;
+}
+.p1-breadcrumb span { color: rgba(167,82,62,0.35); font-size: 0.65rem; }
+.p1-breadcrumb .active { color: #A7523E; }
+.p1-content {
+  padding: 1.75rem 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+}
+.p1-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B785B;
+}
+.p1-h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #1A1714;
+  text-wrap: balance;
+}
+.p1-h1 em {
+  font-style: normal;
+  color: #A7523E;
+  display: block;
+}
+.p1-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(26,23,20,0.65);
+  max-width: 380px;
+}
+.p1-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.p1-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #A7523E;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid #A7523E;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  outline-offset: 3px;
+}
+.p1-cta-primary:hover { background: #8B3F2E; border-color: #8B3F2E; }
+.p1-cta-primary:focus-visible { outline: 2px solid #A7523E; }
+.p1-cta-secondary {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #7B785B;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-bottom: 1px solid rgba(123,120,91,0.3);
+  padding-bottom: 1px;
+  transition: color 0.15s;
+}
+.p1-cta-secondary:hover { color: #A7523E; border-bottom-color: #A7523E; }
+.p1-testimonial {
+  margin: 0 2rem;
+  padding: 1rem 1.25rem;
+  background: #F4F2E9;
+  border-left: 3px solid #A7523E;
+}
+.p1-testimonial-text {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: rgba(26,23,20,0.7);
+  font-style: italic;
+  margin-bottom: 0.6rem;
+}
+.p1-testimonial-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(26,23,20,0.4);
+}
+.p1-stars { color: #F9A825; font-size: 0.7rem; letter-spacing: 0.05em; }
+.p1-metabar {
+  background: #A7523E;
+  padding: 0.85rem 2rem;
+  display: flex;
+  gap: 2rem;
+}
+.p1-meta-item {}
+.p1-meta-label {
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 0.2rem;
+}
+.p1-meta-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+.p1-right {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: #E9E5D8;
+  overflow: hidden;
+}
+.p1-img-placeholder {
+  background: #BD9187;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.p1-img-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, rgba(26,23,20,0.45) 100%);
+  z-index: 1;
+}
+.p1-img-sim {
+  position: absolute;
+  inset: 0;
+  background: #BD9187;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.25);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.p1-img-sim svg { opacity: 0.3; }
+.p1-scroll-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROPOSTA 2 — NARRATIVA EDITORIAL
+   Evolução: texto integra depoimento na narrativa, metabar no topo
+   ═══════════════════════════════════════════════════════════════ */
+.p2-hero {
+  background: #F4F2E9;
+  min-height: 580px;
+  font-family: 'Lato', sans-serif;
+}
+.p2-topbar {
+  background: #A7523E;
+  padding: 0.7rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.p2-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.p2-breadcrumb .sep { color: rgba(255,255,255,0.3); }
+.p2-breadcrumb .active { color: #fff; }
+.p2-topbar-meta {
+  display: flex;
+  gap: 1.75rem;
+  align-items: center;
+}
+.p2-meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+.p2-body {
+  display: flex;
+  min-height: 520px;
+}
+.p2-left {
+  flex: 0 0 48%;
+  padding: 3rem 3rem 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.p2-h1 {
+  font-size: 2.75rem;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: #1A1714;
+  text-wrap: balance;
+}
+.p2-h1 .highlight {
+  position: relative;
+  color: #A7523E;
+}
+.p2-narrative {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: rgba(26,23,20,0.65);
+  max-width: 400px;
+}
+.p2-pullquote {
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+  border-top: 2px solid #A7523E;
+  position: relative;
+}
+.p2-pullquote::before {
+  content: '\201C';
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 0.8;
+  color: rgba(167,82,62,0.12);
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+}
+.p2-pullquote blockquote {
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(26,23,20,0.7);
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+.p2-pullquote-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-left: 0.5rem;
+}
+.p2-stars { color: #F9A825; font-size: 0.7rem; }
+.p2-reviewer { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(26,23,20,0.4); }
+.p2-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.p2-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1A1714;
+  color: #F4F2E9;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.85rem 1.75rem;
+  border: 2px solid #1A1714;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.p2-cta-primary:hover { background: #2D2926; }
+.p2-cta-ghost {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #A7523E;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.05em;
+}
+.p2-cta-ghost:hover { text-decoration: underline; }
+.p2-right {
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: #E9E5D8;
+  padding: 4px;
+}
+.p2-img {
+  background: #BD9187;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+}
+.p2-img.tall { grid-row: 1 / 3; }
+.p2-img-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+}
+.p2-img-inner svg { width: 32px; height: 32px; }
+.p2-scroll-nudge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  background: rgba(26,23,20,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROPOSTA 3 — IMERSÃO PROGRESSIVA
+   Evolução: hero full-bleed com overlay, texto sobre imagem, scroll reveal
+   ═══════════════════════════════════════════════════════════════ */
+.p3-hero {
+  font-family: 'Lato', sans-serif;
+  background: #1A1714;
+  min-height: 580px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.p3-bg {
+  position: absolute;
+  inset: 0;
+  background: #BD9187;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.p3-bg-texture {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(26,23,20,0.9) 0%, rgba(26,23,20,0.55) 55%, rgba(26,23,20,0.1) 100%);
+}
+.p3-img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  height: 100%;
+  width: 55%;
+  align-self: stretch;
+}
+.p3-img-tile {
+  background: #BD9187;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.15);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.p3-img-tile:nth-child(1) { background: #C49A90; }
+.p3-img-tile:nth-child(2) { background: #B5877C; }
+.p3-breadcrumb {
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.p3-breadcrumb .sep { color: rgba(255,255,255,0.2); }
+.p3-breadcrumb .active { color: rgba(255,255,255,0.8); }
+.p3-content {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 2.5rem 2.5rem;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.p3-eyebrow {
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.5);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.p3-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: rgba(244,242,233,0.3);
+}
+.p3-h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: #F4F2E9;
+  text-wrap: balance;
+}
+.p3-h1 em {
+  font-style: normal;
+  color: #EBA99A;
+}
+.p3-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(244,242,233,0.65);
+  max-width: 440px;
+}
+.p3-bottom-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  background: rgba(26,23,20,0.6);
+  border-top: 1px solid rgba(244,242,233,0.08);
+  backdrop-filter: blur(8px);
+}
+.p3-meta-row {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0.9rem 2.5rem;
+  gap: 2.5rem;
+}
+.p3-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.p3-meta-label {
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.35);
+}
+.p3-meta-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(244,242,233,0.85);
+}
+.p3-meta-divider { width: 1px; background: rgba(244,242,233,0.08); align-self: stretch; }
+.p3-cta-zone {
+  display: flex;
+}
+.p3-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #A7523E;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 2rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.p3-cta-btn:hover { background: #8B3F2E; }
+.p3-cta-btn:focus-visible { outline: 2px solid #F4F2E9; outline-offset: -3px; }
+.p3-testimonial-float {
+  position: absolute;
+  right: 2rem;
+  bottom: 5rem;
+  z-index: 5;
+  background: rgba(26,23,20,0.75);
+  border: 1px solid rgba(244,242,233,0.12);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1.25rem;
+  max-width: 260px;
+}
+.p3-testimonial-text {
+  font-size: 0.75rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(244,242,233,0.8);
+  margin-bottom: 0.6rem;
+}
+.p3-testimonial-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.p3-stars { color: #F9A825; font-size: 0.65rem; }
+.p3-google {
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROPOSTA 4 — DEPOIMENTO EM DESTAQUE (Ousada)
+   Social proof como tese do hero; imagens como fundo expressivo
+   ═══════════════════════════════════════════════════════════════ */
+.p4-hero {
+  font-family: 'Lato', sans-serif;
+  background: #F4F2E9;
+  min-height: 580px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.p4-left {
+  background: #A7523E;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.p4-left::before {
+  content: '\201C';
+  position: absolute;
+  top: -1rem;
+  left: 1.5rem;
+  font-size: 12rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.p4-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 1;
+}
+.p4-breadcrumb .sep { color: rgba(255,255,255,0.25); }
+.p4-breadcrumb .active { color: rgba(255,255,255,0.85); }
+.p4-center {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.p4-quote-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.p4-quote-badge::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: rgba(255,255,255,0.3);
+}
+.p4-quote-text {
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1.35;
+  color: #fff;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.p4-quote-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.p4-stars { color: #F9A825; font-size: 0.85rem; letter-spacing: 0.05em; }
+.p4-google-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.p4-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+.p4-h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: rgba(255,255,255,0.9);
+}
+.p4-meta-inline {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.p4-meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+}
+.p4-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.25rem;
+}
+.p4-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: #A7523E;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.p4-cta:hover { background: transparent; color: #fff; }
+.p4-cta-ghost {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.p4-cta-ghost:hover { color: #fff; }
+.p4-right {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: #E9E5D8;
+}
+.p4-img {
+  background: #BD9187;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+}
+.p4-img:nth-child(1) { background: #C49A90; }
+.p4-img:nth-child(2) { background: #B5877C; }
+.p4-img:nth-child(3) { background: #A87868; grid-column: 1 / 3; }
+.p4-img-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROPOSTA 5 — LINHA DO TEMPO VISUAL (Ousada)
+   Horizontal scroll de momentos; storytelling não-linear
+   ═══════════════════════════════════════════════════════════════ */
+.p5-hero {
+  font-family: 'Lato', sans-serif;
+  background: #1A1714;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.p5-header {
+  padding: 1.75rem 2.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+.p5-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.35);
+}
+.p5-breadcrumb .sep { color: rgba(244,242,233,0.15); }
+.p5-breadcrumb .active { color: rgba(244,242,233,0.7); }
+.p5-header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #A7523E;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  border: none;
+  cursor: pointer;
+}
+.p5-main {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  gap: 0;
+}
+.p5-title-col {
+  flex: 0 0 320px;
+  padding: 2rem 2rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  border-right: 1px solid rgba(244,242,233,0.06);
+  position: relative;
+  z-index: 2;
+}
+.p5-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #A7523E;
+}
+.p5-h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #F4F2E9;
+  text-wrap: balance;
+}
+.p5-h1 em { font-style: normal; color: #EBA99A; }
+.p5-desc {
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: rgba(244,242,233,0.5);
+}
+.p5-meta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 0.25rem;
+}
+.p5-meta-row-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+}
+.p5-meta-row-item .label {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.58rem;
+  color: rgba(244,242,233,0.3);
+  width: 60px;
+}
+.p5-meta-row-item .value {
+  color: rgba(244,242,233,0.75);
+  font-weight: 700;
+}
+.p5-panels-col {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 3px;
+  background: #0E0C0B;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167,82,62,0.4) transparent;
+}
+.p5-panel {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  background: #BD9187;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  position: relative;
+  min-height: 400px;
+  overflow: hidden;
+}
+.p5-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,23,20,0.85) 0%, transparent 55%);
+}
+.p5-panel:nth-child(1) { background: #C49A90; flex: 0 0 260px; }
+.p5-panel:nth-child(2) { background: #B5877C; }
+.p5-panel:nth-child(3) { background: #A87868; flex: 0 0 180px; }
+.p5-panel:nth-child(4) {
+  background: #211E1B;
+  flex: 0 0 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1.75rem;
+}
+.p5-panel:nth-child(4)::before { display: none; }
+.p5-panel-content {
+  position: relative;
+  z-index: 1;
+}
+.p5-panel-label {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.35rem;
+}
+.p5-panel-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.4;
+}
+.p5-cta-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.p5-stars { color: #F9A825; font-size: 0.8rem; margin-bottom: 0.5rem; }
+.p5-review-text {
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(244,242,233,0.65);
+  margin-bottom: 0.5rem;
+}
+.p5-review-src {
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244,242,233,0.3);
+}
+.p5-panel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #A7523E;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 1.25rem;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+}
+.p5-scroll-indicator {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ─── RESPONSIVE NOTES ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .p1-hero, .p2-body, .p4-hero { flex-direction: column; }
+  .p1-left, .p2-left { flex: none; }
+  .p1-right, .p2-right, .p4-right {
+    min-height: 260px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .p4-left { min-height: auto; }
+  .p2-topbar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .p3-hero { min-height: auto; }
+  .p3-testimonial-float { display: none; }
+  .p5-title-col { flex: 0 0 100%; border-right: none; border-bottom: 1px solid rgba(244,242,233,0.06); }
+  .p5-main { flex-direction: column; }
+  .doc-nav { padding: 0 1rem; gap: 1rem; }
+  .rationale-inner { grid-template-columns: 1fr; }
+  .ranking-item { grid-template-columns: 2.5rem 1fr; }
+  .rank-verdict { grid-column: 2; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav class="doc-nav" aria-label="Navegação das propostas">
+  <span class="doc-nav-brand">Agente A · UX & IA</span>
+  <ul class="doc-nav-links">
+    <li><a href="#p1"><span class="badge">1</span>Hierarquia Viva</a></li>
+    <li><a href="#p2"><span class="badge">2</span>Narrativa Editorial</a></li>
+    <li><a href="#p3"><span class="badge">3</span>Imersão Progressiva</a></li>
+    <li><a href="#p4"><span class="badge">4</span>Prova Social</a></li>
+    <li><a href="#p5"><span class="badge">5</span>Linha do Tempo</a></li>
+    <li><a href="#ranking">
+      <!-- lucide: bar-chart-2 -->
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Ranking
+    </a></li>
+  </ul>
+</nav>
+
+<!-- ─── DOC HEADER ────────────────────────────────────────────── -->
+<header class="doc-header">
+  <div class="eyebrow">Redesign de Hero · Interna de Trabalho</div>
+  <h1>5 propostas para o hero de <em>Camila Nogueira</em></h1>
+  <p class="doc-intro">
+    Cada proposta é navegável com estados reais, conteúdo autêntico e responsividade funcional.
+    3 evoluções seguras do layout atual + 2 ousadas com intenção declarada.
+    Foco em UX & Arquitetura de Informação: hierarquia, conversão, fluxo, acessibilidade.
+  </p>
+  <div class="doc-meta-pills">
+    <span class="pill accent">
+      <!-- lucide: user -->
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Camila Nogueira
+    </span>
+    <span class="pill">Corporativo · Studio Lillia</span>
+    <span class="pill">Paleta extraída do ensaio</span>
+    <span class="pill">Lato · breakpoints reais do site</span>
+    <span class="pill">Agente A — UX &amp; Arquitetura de Informação</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROPOSTA 1
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="p1" class="proposal-section">
+  <div class="proposal-label">
+    <div class="proposal-number">01</div>
+    <div class="proposal-info">
+      <div class="proposal-tag">Evolução Segura</div>
+      <div class="proposal-title">Hierarquia Viva</div>
+      <div class="proposal-subtitle">O layout de 2 colunas sobrevive — o que muda é o que cada coluna entrega</div>
+    </div>
+  </div>
+  <div class="hero-viewport">
+    <article class="p1-hero" aria-label="Proposta 1: Hierarquia Viva">
+
+      <!-- coluna esquerda -->
+      <div class="p1-left">
+        <nav aria-label="Breadcrumb" class="p1-breadcrumb">
+          <!-- lucide: home -->
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Home</span>
+          <span aria-hidden="true">›</span>
+          <span>Ensaios</span>
+          <span aria-hidden="true">›</span>
+          <span>Corporativo</span>
+          <span aria-hidden="true">›</span>
+          <span class="active">Camila Nogueira</span>
+        </nav>
+
+        <div class="p1-content">
+          <div class="p1-eyebrow">Ensaio Corporativo</div>
+          <h1 class="p1-h1">
+            Camila<br>
+            <em>Nogueira</em>
+          </h1>
+          <p class="p1-desc">
+            Esse ensaio é muito especial — a Camila foi a arquiteta responsável pelo nosso estúdio.
+            Em um ambiente que ela transformou em espaço acolhedor e inspirador, registramos
+            a essência do seu trabalho com psicoarquitetura.
+          </p>
+          <div class="p1-cta-row">
+            <a href="#" class="p1-cta-primary" role="button">
+              <!-- lucide: calendar -->
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agendar meu ensaio
+            </a>
+            <a href="#galeria" class="p1-cta-secondary">
+              Ver galeria completa
+              <!-- lucide: chevron-down -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <blockquote class="p1-testimonial" aria-label="Depoimento Google">
+          <p class="p1-testimonial-text">
+            "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada,
+            não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"
+          </p>
+          <div class="p1-testimonial-meta">
+            <span class="p1-stars" aria-label="4.5 estrelas">★★★★½</span>
+            <span>Google · Avaliação verificada</span>
+          </div>
+        </blockquote>
+
+        <div class="p1-metabar" role="complementary" aria-label="Detalhes do ensaio">
+          <div class="p1-meta-item">
+            <div class="p1-meta-label">Categoria</div>
+            <div class="p1-meta-value">Corporativo</div>
+          </div>
+          <div class="p1-meta-item">
+            <div class="p1-meta-label">Local</div>
+            <div class="p1-meta-value">Estúdio Lillia Tavares</div>
+          </div>
+          <div class="p1-meta-item">
+            <div class="p1-meta-label">Site</div>
+            <div class="p1-meta-value">↗ camilanogueira.arq</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- coluna direita -->
+      <div class="p1-right" aria-hidden="true">
+        <div class="p1-img-placeholder">
+          <div class="p1-img-sim">
+            <!-- lucide: image -->
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="p1-scroll-hint">
+            <!-- lucide: chevron-down -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            Ver galeria
+          </div>
+        </div>
+        <div class="p1-img-placeholder">
+          <div class="p1-img-sim">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+  <div class="rationale">
+    <div class="rationale-inner">
+      <div class="rationale-col">
+        <h4>Problema que resolve</h4>
+        <p>
+          Corrige os <strong>3 problemas críticos de hierarquia</strong>: tipografia muito pequena
+          (agora h1 a 2.4rem, body a 0.88rem), ausência total de CTA no hero (dois CTAs diretos),
+          e depoimento isolado sem contexto (agora posicionado depois da narrativa, antes da metabar).
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Decisão de IA central</h4>
+        <p>
+          A <strong>metabar terracota fica embaixo</strong> — a sequência Breadcrumb → Eyebrow → H1 →
+          Descrição → CTA → Depoimento → Metabar cria um fluxo de leitura F-pattern natural.
+          O depoimento atua como "validação social antes do CTA de fechamento".
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Trade-off</h4>
+        <p>
+          A coluna esquerda <strong>ficou mais longa</strong> do que as imagens — em telas médias
+          pode haver recorte. Solução: sticky as imagens dentro de um container com overflow hidden.
+          Mais conservador para o cliente; menor risco de rejeição.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROPOSTA 2
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="p2" class="proposal-section">
+  <div class="proposal-label">
+    <div class="proposal-number">02</div>
+    <div class="proposal-info">
+      <div class="proposal-tag">Evolução Segura</div>
+      <div class="proposal-title">Narrativa Editorial</div>
+      <div class="proposal-subtitle">Metabar no topo libera a coluna de texto para storytelling puro</div>
+    </div>
+  </div>
+  <div class="hero-viewport">
+    <article class="p2-hero" aria-label="Proposta 2: Narrativa Editorial">
+
+      <!-- topbar com breadcrumb + meta juntos -->
+      <div class="p2-topbar">
+        <nav aria-label="Breadcrumb" class="p2-breadcrumb">
+          <span>Home</span><span class="sep">›</span>
+          <span>Ensaios</span><span class="sep">›</span>
+          <span>Corporativo</span><span class="sep">›</span>
+          <span class="active">Camila Nogueira</span>
+        </nav>
+        <div class="p2-topbar-meta" aria-label="Detalhes do ensaio">
+          <div class="p2-meta-chip">
+            <!-- lucide: map-pin -->
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </div>
+          <div class="p2-meta-chip">
+            <!-- lucide: tag -->
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Corporativo
+          </div>
+          <div class="p2-meta-chip">
+            <!-- lucide: external-link -->
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            camilanogueira.arq
+          </div>
+        </div>
+      </div>
+
+      <!-- corpo: 2 colunas -->
+      <div class="p2-body">
+        <div class="p2-left">
+          <h1 class="p2-h1">
+            Camila<br>
+            <span class="highlight">Nogueira</span>
+          </h1>
+          <p class="p2-narrative">
+            Esse ensaio é muito especial para mim — a Camila foi a arquiteta responsável pelo nosso estúdio.
+            Em seu trabalho com psicoarquitetura, ela transforma ambientes em espaços acolhedores e inspiradores.
+            Era inevitável que os registros captassem essa mesma essência.
+          </p>
+          <figure class="p2-pullquote">
+            <blockquote>
+              "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada,
+              não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"
+            </blockquote>
+            <figcaption class="p2-pullquote-meta">
+              <span class="p2-stars" aria-label="4.5 estrelas">★★★★½</span>
+              <span class="p2-reviewer">Avaliação Google · Cliente verificada</span>
+            </figcaption>
+          </figure>
+          <div class="p2-cta-row">
+            <a href="#" class="p2-cta-primary" role="button">
+              <!-- lucide: calendar -->
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agendar ensaio
+            </a>
+            <a href="#galeria" class="p2-cta-ghost">
+              Ver galeria
+              <!-- lucide: arrow-down -->
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- galeria direita com layout mosaico -->
+        <div class="p2-right" aria-hidden="true">
+          <div class="p2-img tall">
+            <div class="p2-img-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="p2-scroll-nudge">
+              <!-- lucide: chevron-down -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              galeria abaixo
+            </div>
+          </div>
+          <div class="p2-img">
+            <div class="p2-img-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          </div>
+          <div class="p2-img">
+            <div class="p2-img-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+  <div class="rationale">
+    <div class="rationale-inner">
+      <div class="rationale-col">
+        <h4>Problema que resolve</h4>
+        <p>
+          A <strong>metabar desconectada</strong> (problema 6) deixa de ser um bloco isolado:
+          ela sobe para o topo, funde-se com o breadcrumb e libera a coluna inteira para o que
+          importa — a história e a conversão. Também resolve ausência de CTA e hierarquia fraca.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Decisão de IA central</h4>
+        <p>
+          O depoimento é elevado a <strong>blockquote semântico</strong>, posicionado antes do CTA
+          como último argumento de persuasão. A sequência agora é: context → narrativa → prova social →
+          ação. Clássico e eficaz para decisões emocionais como contratar um fotógrafo.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Trade-off</h4>
+        <p>
+          A <strong>topbar terracota perde impacto visual</strong> quando carregada com três chips
+          de metadados — pode parecer densa em telas pequenas. Em mobile, os chips precisam
+          colapsar em um menu ou drawer. Mais trabalho de implementação que a proposta 1.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROPOSTA 3
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="p3" class="proposal-section">
+  <div class="proposal-label">
+    <div class="proposal-number">03</div>
+    <div class="proposal-info">
+      <div class="proposal-tag">Evolução Segura · Mais ousada</div>
+      <div class="proposal-title">Imersão Progressiva</div>
+      <div class="proposal-subtitle">Texto flutua sobre as fotos; foco na emoção antes da razão</div>
+    </div>
+  </div>
+  <div class="hero-viewport">
+    <article class="p3-hero" aria-label="Proposta 3: Imersão Progressiva">
+
+      <!-- fundo com fotos -->
+      <div class="p3-bg" aria-hidden="true">
+        <div class="p3-bg-texture"></div>
+        <div class="p3-img-grid">
+          <div class="p3-img-tile">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="p3-img-tile">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- breadcrumb flutuante -->
+      <nav aria-label="Breadcrumb" class="p3-breadcrumb">
+        <span>Home</span><span class="sep">›</span>
+        <span>Ensaios</span><span class="sep">›</span>
+        <span>Corporativo</span><span class="sep">›</span>
+        <span class="active">Camila Nogueira</span>
+      </nav>
+
+      <!-- conteúdo principal -->
+      <div class="p3-content">
+        <div class="p3-eyebrow">Ensaio Corporativo</div>
+        <h1 class="p3-h1">
+          Camila <em>Nogueira</em>
+        </h1>
+        <p class="p3-desc">
+          A arquiteta que deu alma ao nosso estúdio — registrada no mesmo espaço que ela
+          transformou. Psicoarquitetura em imagem.
+        </p>
+      </div>
+
+      <!-- depoimento flutuante sobre as fotos -->
+      <aside class="p3-testimonial-float" aria-label="Depoimento Google">
+        <p class="p3-testimonial-text">
+          "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada…"
+        </p>
+        <div class="p3-testimonial-meta">
+          <span class="p3-stars" aria-label="4.5 estrelas">★★★★½</span>
+          <span class="p3-google">Google</span>
+        </div>
+      </aside>
+
+      <!-- barra inferior: meta + CTA -->
+      <div class="p3-bottom-row" role="complementary">
+        <div class="p3-meta-row" aria-label="Detalhes do ensaio">
+          <div class="p3-meta-item">
+            <div class="p3-meta-label">Categoria</div>
+            <div class="p3-meta-value">Corporativo</div>
+          </div>
+          <div class="p3-meta-divider"></div>
+          <div class="p3-meta-item">
+            <div class="p3-meta-label">Local</div>
+            <div class="p3-meta-value">Estúdio Lillia Tavares</div>
+          </div>
+          <div class="p3-meta-divider"></div>
+          <div class="p3-meta-item">
+            <div class="p3-meta-label">Site</div>
+            <div class="p3-meta-value">↗ camilanogueira.arq</div>
+          </div>
+        </div>
+        <div class="p3-cta-zone">
+          <a href="#" class="p3-cta-btn" role="button">
+            <!-- lucide: calendar -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar meu ensaio
+          </a>
+        </div>
+      </div>
+
+    </article>
+  </div>
+  <div class="rationale">
+    <div class="rationale-inner">
+      <div class="rationale-col">
+        <h4>Problema que resolve</h4>
+        <p>
+          Resolve o problema mais fundamental: <strong>as fotos não têm identidade no layout atual</strong>.
+          Aqui as fotos são o palco. O overlay escurecido resolve o contraste de leitura sem esconder
+          o trabalho. A barra inferior integra meta e CTA em um único elemento funcional.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Decisão de IA central</h4>
+        <p>
+          A <strong>descrição longa foi editada</strong> — no hero full-bleed, texto demais compete
+          com as fotos. A versão curta cria tensão positiva: o usuário quer ler mais, o que o motiva
+          a scrollar para a galeria. Reveal progressivo como motor de engajamento.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Trade-off</h4>
+        <p>
+          <strong>Contraste e acessibilidade dependem das fotos</strong>. Se as imagens forem muito
+          claras no centro, o texto branco pode perder legibilidade. Requer `text-shadow` ou
+          overlay adaptativo. O depoimento flutuante é ocultado em mobile — perde alcance.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROPOSTA 4
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="p4" class="proposal-section">
+  <div class="proposal-label">
+    <div class="proposal-number">04</div>
+    <div class="proposal-info">
+      <div class="proposal-tag">Ousada</div>
+      <div class="proposal-title">Prova Social como Tese</div>
+      <div class="proposal-subtitle">O depoimento ocupa a posição de destaque — a foto valida o que o texto promete</div>
+    </div>
+  </div>
+  <div class="hero-viewport">
+    <article class="p4-hero" aria-label="Proposta 4: Prova Social como Tese">
+
+      <!-- coluna esquerda: full terracota -->
+      <div class="p4-left">
+        <nav aria-label="Breadcrumb" class="p4-breadcrumb">
+          <span>Home</span><span class="sep">›</span>
+          <span>Ensaios</span><span class="sep">›</span>
+          <span>Corporativo</span><span class="sep">›</span>
+          <span class="active">Camila Nogueira</span>
+        </nav>
+
+        <div class="p4-center">
+          <div class="p4-quote-badge">Depoimento Google</div>
+          <p class="p4-quote-text">
+            "A experiência mais completa que existe nesse mundo — profissional atenciosa,
+            dedicada. Não tem como não voltar. Você se apaixona pelo trabalho dela."
+          </p>
+          <div class="p4-quote-rating">
+            <span class="p4-stars" aria-label="4.5 estrelas">★★★★½</span>
+            <span class="p4-google-tag">Avaliação verificada</span>
+          </div>
+        </div>
+
+        <div class="p4-bottom">
+          <h1 class="p4-h1">Camila Nogueira<br>· Ensaio Corporativo</h1>
+          <div class="p4-meta-inline" aria-label="Detalhes">
+            <div class="p4-meta-chip">
+              <!-- lucide: map-pin -->
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Estúdio Lillia Tavares
+            </div>
+            <div class="p4-meta-chip">
+              <!-- lucide: external-link -->
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              camilanogueira.arq
+            </div>
+          </div>
+          <div class="p4-cta-row">
+            <a href="#" class="p4-cta" role="button">
+              Agendar meu ensaio
+            </a>
+            <a href="#galeria" class="p4-cta-ghost">
+              Ver galeria
+              <!-- lucide: chevron-down -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- coluna direita: 3 fotos -->
+      <div class="p4-right" aria-hidden="true">
+        <div class="p4-img">
+          <div class="p4-img-label">foto 1</div>
+        </div>
+        <div class="p4-img">
+          <div class="p4-img-label">foto 2</div>
+        </div>
+        <div class="p4-img">
+          <div class="p4-img-label">foto 3 · panorâmica</div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+  <div class="rationale">
+    <div class="rationale-inner">
+      <div class="rationale-col">
+        <h4>Problema que resolve</h4>
+        <p>
+          Aposta na <strong>conversão por prova social</strong>. O depoimento deixa de ser
+          um card secundário para se tornar a primeira coisa que o visitante lê — antes mesmo
+          do nome da cliente. Inverte a ordem convencional com intenção: quem veio por
+          indicação já sabe o que quer; quem chegou por busca precisa ser convencido.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Decisão de IA central</h4>
+        <p>
+          O <strong>H1 com o nome da cliente desce para o final</strong> da coluna — isso
+          pode parecer contraintuitivo mas faz o depoimento funcionar como gancho emocional.
+          A estrutura é: gancho → prova → contexto → ação.
+          A coluna terracota cheia cria uma <strong>peça única</strong> para este ensaio.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Trade-off</h4>
+        <p>
+          <strong>SEO sofre</strong> — o H1 está no fim visual da leitura, não no topo.
+          Contornável com `aria-label` e estrutura de heading correta no DOM vs. visual order.
+          Além disso, a coluna terracota pode parecer "pesada" dependendo do ensaio.
+          Funciona melhor para a Camila (identidade forte) que para ensaios mais etéreos.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROPOSTA 5
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="p5" class="proposal-section">
+  <div class="proposal-label">
+    <div class="proposal-number">05</div>
+    <div class="proposal-info">
+      <div class="proposal-tag">Ousada · Experimental</div>
+      <div class="proposal-title">Galeria Horizontal com Storytelling</div>
+      <div class="proposal-subtitle">O hero já é a galeria — scroll horizontal revela o ensaio antes de "ver galeria"</div>
+    </div>
+  </div>
+  <div class="hero-viewport">
+    <article class="p5-hero" aria-label="Proposta 5: Galeria Horizontal com Storytelling">
+
+      <!-- header fixo -->
+      <div class="p5-header">
+        <nav aria-label="Breadcrumb" class="p5-breadcrumb">
+          <span>Home</span><span class="sep">›</span>
+          <span>Ensaios</span><span class="sep">›</span>
+          <span>Corporativo</span><span class="sep">›</span>
+          <span class="active">Camila Nogueira</span>
+        </nav>
+        <a href="#" class="p5-header-cta" role="button">
+          <!-- lucide: calendar -->
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar
+        </a>
+      </div>
+
+      <!-- main: título fixo + painel de fotos scrollável -->
+      <div class="p5-main">
+
+        <!-- coluna de título fixa -->
+        <div class="p5-title-col">
+          <div class="p5-eyebrow">Corporativo</div>
+          <h1 class="p5-h1">
+            Camila<br><em>Nogueira</em>
+          </h1>
+          <p class="p5-desc">
+            A arquiteta que transformou o estúdio Lillia Tavares.
+            Registrada no espaço que ela criou — psicoarquitetura em imagem.
+          </p>
+          <div class="p5-meta-stack" aria-label="Detalhes do ensaio">
+            <div class="p5-meta-row-item">
+              <span class="label">Local</span>
+              <span class="value">Estúdio Lillia Tavares</span>
+            </div>
+            <div class="p5-meta-row-item">
+              <span class="label">Site</span>
+              <span class="value">↗ camilanogueira.arq</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- painel horizontal scrollável -->
+        <div class="p5-panels-col" tabindex="0" aria-label="Galeria de fotos — role horizontalmente para ver mais">
+
+          <div class="p5-panel">
+            <div class="p5-img-inner" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15)">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="p5-panel-content">
+              <div class="p5-panel-label">Look 1</div>
+              <div class="p5-panel-text">Psicoarquitetura<br>em seu elemento</div>
+            </div>
+          </div>
+
+          <div class="p5-panel">
+            <div class="p5-img-inner" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15)">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="p5-panel-content">
+              <div class="p5-panel-label">Look 2</div>
+              <div class="p5-panel-text">Energia<br>e contraste</div>
+            </div>
+          </div>
+
+          <div class="p5-panel">
+            <div class="p5-img-inner" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15)">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="p5-panel-content">
+              <div class="p5-panel-label">Detalhe</div>
+              <div class="p5-panel-text">Textura<br>e presença</div>
+            </div>
+            <div class="p5-scroll-indicator">
+              <!-- lucide: chevron-right -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              mais fotos
+            </div>
+          </div>
+
+          <!-- painel de depoimento + CTA -->
+          <div class="p5-panel">
+            <div class="p5-cta-panel">
+              <div>
+                <div class="p5-stars" aria-label="4.5 estrelas">★★★★½</div>
+                <p class="p5-review-text">
+                  "A experiência mais completa que existe nesse mundo,
+                  profissional atenciosa e dedicada — você se apaixona pelo trabalho dela ❤️"
+                </p>
+                <div class="p5-review-src">Google · Avaliação verificada</div>
+              </div>
+              <a href="#" class="p5-panel-cta" role="button">
+                <!-- lucide: calendar -->
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Agendar meu ensaio
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </article>
+  </div>
+  <div class="rationale">
+    <div class="rationale-inner">
+      <div class="rationale-col">
+        <h4>Problema que resolve</h4>
+        <p>
+          Elimina o problema central de <strong>usuário que não sabe que há galeria</strong>:
+          o hero já é uma preview rolável da galeria. Também resolve mobile de forma elegante —
+          scroll horizontal é natural em touch. O CTA aparece organicamente no fim do scroll,
+          como conclusão narrativa.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Decisão de IA central</h4>
+        <p>
+          A <strong>coluna de título é fixa</strong> enquanto as fotos se movem — cria uma
+          ancoragem editorial que separa contexto (quem é Camila) de evidência (o trabalho).
+          O painel final com depoimento + CTA garante que quem chega ao fim do scroll
+          encontra o convite imediato para agir.
+        </p>
+      </div>
+      <div class="rationale-col">
+        <h4>Trade-off</h4>
+        <p>
+          <strong>Descoverability do scroll horizontal é baixa em desktop</strong> — usuários
+          podem não saber que as fotos são roláveis sem um hint visual (indicador de paginação,
+          seta piscando). Também requer redesign do sistema de layout — maior esforço de
+          implementação. Funciona melhor como destaque de portfólio premium do que como padrão.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── RANKING ───────────────────────────────────────────────── -->
+<section id="ranking" class="ranking-section">
+  <div class="eyebrow" style="font-size:0.65rem;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:#A7523E;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;">
+    Ranking Final
+    <span style="flex:1;height:1px;background:rgba(167,82,62,0.3);display:block;"></span>
+  </div>
+  <h2>Melhor → Mais experimental</h2>
+  <p class="sub">Avaliado por: impacto de hierarquia, conversão, risco de implementação e fit com o site atual</p>
+
+  <div class="ranking-item">
+    <div class="rank-num">1</div>
+    <div class="rank-body">
+      <h3>Narrativa Editorial (Proposta 2)</h3>
+      <p>
+        A reorganização breadcrumb+meta no topo é a mudança de maior ROI: libera a coluna inteira para
+        hierarquia limpa sem adicionar complexidade. O depoimento como blockquote antes do CTA é o padrão
+        de persuasão mais testado para serviços criativos. Implementação incremental — muda CSS e
+        ordem do DOM, não a lógica do componente.
+      </p>
+    </div>
+    <span class="rank-verdict recommend">Implementar primeiro</span>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-num">2</div>
+    <div class="rank-body">
+      <h3>Hierarquia Viva (Proposta 1)</h3>
+      <p>
+        A solução mais segura e com menor risco de rejeição. Resolve hierarquia tipográfica,
+        posicionamento do depoimento e ausência de CTA com mudanças conservadoras no layout existente.
+        Ideal se o cliente não quiser alterar a estrutura visual percebida do site.
+      </p>
+    </div>
+    <span class="rank-verdict safe">Fallback seguro</span>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-num">3</div>
+    <div class="rank-body">
+      <h3>Prova Social como Tese (Proposta 4)</h3>
+      <p>
+        Aposta diferenciada que funciona muito bem para ensaios com depoimentos fortes. O risco
+        de SEO é real mas contornável. Seria excelente como variante A/B da Proposta 2 —
+        mesma implementação, ordem de elementos invertida. Vale testar com dados.
+      </p>
+    </div>
+    <span class="rank-verdict bold">Testar como A/B</span>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-num">4</div>
+    <div class="rank-body">
+      <h3>Imersão Progressiva (Proposta 3)</h3>
+      <p>
+        Esteticamente a mais impactante, mas a mais dependente da qualidade e composição das fotos.
+        O contraste de acessibilidade sobre imagens variáveis é um risco real. Recomendável para
+        ensaios com paleta muito forte e fotos de altíssima qualidade — o caso da Camila qualifica,
+        mas precisa de validação técnica.
+      </p>
+    </div>
+    <span class="rank-verdict bold">Condicional às fotos</span>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-num">5</div>
+    <div class="rank-body">
+      <h3>Galeria Horizontal (Proposta 5)</h3>
+      <p>
+        A proposta mais inovadora em termos de interação, mas a de maior esforço e maior risco
+        de discoverability fraca em desktop. Funcionaria melhor como feature de uma redesign
+        maior do site do que como upgrade isolado do hero. Guardar para uma fase 2.
+      </p>
+    </div>
+    <span class="rank-verdict risk">Fase 2</span>
+  </div>
+</section>
+
+<footer class="doc-footer">
+  Fotógrafa Lillia Tavares · Redesign de Hero · Agente A — UX & Arquitetura de Informação · 2026
+</footer>
+
+</body>
+</html>

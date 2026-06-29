@@ -2,16 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "hero-redesign-preview",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "4321", "docs/hero-redesign"],
-      "port": 4321
-    },
-    {
-      "name": "estudio-redesign-preview",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "4322", "docs/estudio-redesign"],
-      "port": 4322
+      "name": "design-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "9322", "--directory", "/Users/rodrigodemelolima/sites/rodrigo/fotografa-lillia-tavares/docs/redesign-cta-contato-internal-work"],
+      "port": 9322
     }
   ]
 }

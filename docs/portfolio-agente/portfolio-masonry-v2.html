@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masonry Portfolio — 4 Variações de Overlay</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap');
+
+/* ── Reset & tokens ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --olive:      #7b785b;
+  --olive-dark: #4a4836;
+  --olive-mid:  #9b9879;
+  --creme:      #e3dfcb;
+  --creme-light:#f2efe3;
+  --ink:        #232216;
+  --white:      #ffffff;
+  --body-bg:    #faf9f6;
+  --gap:        0.625rem;   /* 10px */
+  --r:          3px;
+  --font:       'Lato', arial, sans-serif;
+}
+
+html { font-family: var(--font); background: var(--body-bg); color: var(--olive-dark); scroll-behavior: smooth; }
+a { text-decoration: none; color: inherit; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Index Nav ── */
+.idx-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--olive-dark);
+  display: flex; flex-wrap: wrap; gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.idx-nav a {
+  padding: .65rem 1.1rem;
+  font-size: .6rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--creme-light); opacity: .65;
+  border-right: 1px solid rgba(255,255,255,.08);
+  transition: opacity .15s, background .15s;
+  white-space: nowrap;
+}
+.idx-nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
+.idx-nav a.active { opacity: 1; border-bottom: 2px solid var(--creme); }
+
+/* ── Proposal wrapper ── */
+.proposal {
+  padding: 5rem 1.5rem 5rem;
+  border-bottom: 1px solid var(--creme);
+}
+.proposal-meta {
+  max-width: 1200px; margin: 0 auto 3rem;
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start;
+}
+.proposal-label {
+  flex: 1;
+}
+.proposal-num {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--olive-mid); margin-bottom: .4rem;
+}
+.proposal-name {
+  font-size: 1.25rem; font-weight: 900; color: var(--olive-dark); margin-bottom: .25rem;
+}
+.proposal-badge {
+  display: inline-block;
+  font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: .2rem .65rem; border-radius: 999px;
+  color: var(--white);
+}
+.badge-segura { background: var(--olive-mid); }
+.badge-ousada { background: var(--olive-dark); }
+.proposal-rationale {
+  font-size: .78rem; line-height: 1.6; color: var(--olive-mid);
+  max-width: 480px; margin-top: .5rem;
+}
+.overlay-badge {
+  flex-shrink: 0;
+  text-align: right;
+}
+.overlay-meter {
+  font-size: .58rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--olive-mid); margin-bottom: .35rem;
+}
+.overlay-bar {
+  width: 120px; height: 6px; background: var(--creme);
+  border-radius: 999px; overflow: hidden; display: flex;
+}
+.overlay-fill {
+  height: 100%; background: var(--olive-dark);
+  border-radius: 999px; transition: width .4s;
+}
+
+/* ════════════════════════════════════
+   SHARED: section header com tabs
+   ════════════════════════════════════ */
+.section-hd {
+  max-width: 1200px; margin: 0 auto 2rem;
+}
+.section-hd-top {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;
+}
+.section-hd-left .eyebrow {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--olive-mid); margin-bottom: .5rem;
+}
+.section-hd-left h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  font-weight: 900; color: var(--olive);
+  line-height: 1.08; letter-spacing: -.015em;
+}
+.section-hd-right {
+  font-size: .62rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--olive-mid);
+  white-space: nowrap;
+}
+/* Tab bar — integrada como faixa de navegação abaixo do título */
+.cat-bar {
+  display: flex; align-items: center; gap: 0;
+  border-top: 1px solid var(--creme);
+  border-bottom: 1px solid var(--creme);
+  padding: .55rem 0;
+  flex-wrap: wrap; gap: .25rem;
+}
+.cat-bar-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--olive-mid);
+  margin-right: .75rem; white-space: nowrap;
+  padding-right: .75rem; border-right: 1px solid var(--creme);
+}
+.cat-link {
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--olive-mid);
+  padding: .3rem .8rem; border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background .18s, color .18s, border-color .18s;
+  white-space: nowrap;
+}
+.cat-link:hover { background: var(--creme); color: var(--olive-dark); }
+.cat-link.cur {
+  background: var(--olive); color: var(--white);
+  border-color: var(--olive);
+}
+.cat-link.all {
+  margin-left: auto; color: var(--olive-mid);
+  border: 1px dashed var(--olive-mid);
+}
+.cat-link.all:hover { background: var(--olive-dark); color: var(--white); border-color: var(--olive-dark); }
+.cat-link:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+/* ════════════════════════════════════
+   SHARED: masonry grid base
+   ════════════════════════════════════ */
+.m-grid {
+  max-width: 1200px; margin: 0 auto 2.5rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: var(--gap);
+}
+.m-cta { max-width: 1200px; margin: 0 auto; text-align: center; }
+.m-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .8rem 2rem;
+  background: var(--olive); color: var(--white);
+  border-radius: 999px;
+  font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
+  transition: background .2s, transform .15s;
+}
+.m-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+.m-btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+/* Card base */
+.mc {
+  position: relative; overflow: hidden;
+  border-radius: var(--r);
+  display: block;
+}
+.mc:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+.mc-featured { grid-row: 1 / 3; grid-column: 1; }
+
+/* Image wrap */
+.mc-img { overflow: hidden; width: 100%; }
+.mc-featured .mc-img { height: 610px; }
+.mc-small  .mc-img  { height: 295px; }
+.mc-img img {
+  transition: transform .65s cubic-bezier(.25,.46,.45,.94);
+}
+.mc:hover .mc-img img { transform: scale(1.04); }
+
+@media (max-width: 900px) {
+  .m-grid { grid-template-columns: 1fr 1fr; }
+  .mc-featured { grid-column: 1 / 3; grid-row: 1; }
+  .mc-featured .mc-img { height: 420px; }
+}
+@media (max-width: 600px) {
+  .m-grid { grid-template-columns: 1fr; }
+  .mc-featured { grid-column: 1; }
+  .mc-featured .mc-img { height: 340px; }
+  .mc-small  .mc-img  { height: 240px; }
+  .cat-bar { gap: .2rem; }
+}
+
+/* ════════════════════════════════════
+   P1 — SEM OVERLAY — info abaixo
+   Meta completamente abaixo da foto
+   ════════════════════════════════════ */
+#p1 { background: var(--white); }
+
+.p1-mc .mc-img img { filter: none; }
+
+.p1-meta {
+  padding: .75rem .1rem .5rem;
+  background: var(--white);
+}
+.p1-meta .cat {
+  font-size: .58rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--olive-mid); display: block; margin-bottom: .2rem;
+}
+.p1-meta h3 {
+  font-size: .9rem; font-weight: 900; color: var(--olive);
+  letter-spacing: .02em; text-transform: uppercase; margin-bottom: .4rem;
+}
+.p1-link {
+  font-size: .6rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--olive-mid);
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: color .15s;
+}
+.p1-link::after { content: '→'; transition: transform .2s; }
+.p1-link:hover { color: var(--olive-dark); }
+.p1-link:hover::after { transform: translateX(3px); }
+.p1-mc { display: flex; flex-direction: column; }
+
+/* No overlay at all — pure image */
+.p1-mc .mc-img { position: relative; }
+
+/* ════════════════════════════════════
+   P2 — GRADIENT 20% — sutil
+   Só os últimos 25% da imagem escurecem
+   ════════════════════════════════════ */
+#p2 { background: var(--creme-light); }
+
+.p2-mc { position: relative; display: block; cursor: pointer; }
+.p2-mc .mc-img { position: relative; }
+
+.p2-ov {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(35,33,22,.45) 0%,
+    rgba(35,33,22,.10) 28%,
+    rgba(35,33,22,0)   50%
+  );
+}
+.p2-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.25rem 1rem .9rem;
+}
+.p2-info .cat {
+  font-size: .55rem; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--creme); opacity: .8;
+  display: block; margin-bottom: .2rem;
+}
+.p2-info h3 {
+  font-size: .9rem; font-weight: 900;
+  color: var(--white); letter-spacing: .03em; text-transform: uppercase;
+}
+.p2-mc-featured .p2-info h3 { font-size: 1.15rem; }
+
+/* Button reveal on hover */
+.p2-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  margin-top: .6rem;
+  padding: .35rem .9rem;
+  background: var(--creme); color: var(--olive);
+  border-radius: 999px;
+  font-size: .6rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  opacity: 0; transform: translateY(.4rem);
+  transition: opacity .28s ease, transform .28s ease, background .15s;
+}
+.p2-mc:hover .p2-btn,
+.p2-mc:focus-visible .p2-btn { opacity: 1; transform: translateY(0); }
+.p2-btn:hover { background: var(--white); }
+
+.p2-mc:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+/* Small cards — NO overlay, meta below */
+.p2-small .p2-ov { display: none; }
+.p2-small .p2-info { position: static; padding: .6rem .1rem .4rem; }
+.p2-small .p2-info .cat { color: var(--olive-mid); }
+.p2-small .p2-info h3 { color: var(--olive); }
+.p2-small { display: flex; flex-direction: column; }
+
+/* ════════════════════════════════════
+   P3 — GRADIENT 50% — seletivo
+   Featured: overlay moderado
+   Pequenos: sem overlay, meta abaixo
+   ════════════════════════════════════ */
+#p3 { background: var(--white); }
+
+.p3-mc { position: relative; display: block; cursor: pointer; }
+.p3-mc .mc-img { position: relative; }
+
+/* Featured: overlay moderado */
+.p3-ov-featured {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(35,33,22,.60) 0%,
+    rgba(35,33,22,.20) 45%,
+    rgba(35,33,22,0)   65%
+  );
+}
+.p3-info-featured {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.5rem 1.5rem;
+}
+.p3-info-featured .cat {
+  font-size: .58rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--creme); opacity: .78;
+  display: block; margin-bottom: .4rem;
+}
+.p3-info-featured h3 {
+  font-size: 1.25rem; font-weight: 900;
+  color: var(--white); letter-spacing: .02em; text-transform: uppercase;
+  margin-bottom: .9rem;
+}
+.p3-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .42rem 1.1rem;
+  background: var(--creme); color: var(--olive);
+  border-radius: 999px;
+  font-size: .62rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  opacity: 0; transform: translateY(.4rem);
+  transition: opacity .28s ease, transform .28s ease, background .15s;
+}
+.p3-mc:hover .p3-btn,
+.p3-mc:focus-visible .p3-btn { opacity: 1; transform: translateY(0); }
+.p3-btn:hover { background: var(--white); }
+.p3-mc:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+/* Mobile: sempre visível */
+@media (max-width: 600px) {
+  .p3-btn { opacity: 1 !important; transform: none !important; }
+}
+
+/* Small cards P3: sem overlay, info abaixo */
+.p3-small { display: flex; flex-direction: column; }
+.p3-meta-small {
+  padding: .65rem .1rem .4rem;
+}
+.p3-meta-small .cat {
+  font-size: .56rem; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--olive-mid); display: block; margin-bottom: .18rem;
+}
+.p3-meta-small h3 {
+  font-size: .82rem; font-weight: 900; color: var(--olive);
+  letter-spacing: .03em; text-transform: uppercase;
+}
+
+/* ════════════════════════════════════
+   P4 — HOVER REVEAL — overlay aparece
+   somente no hover/focus. Fundo branco.
+   Thumbs mais retratos.
+   ════════════════════════════════════ */
+#p4 { background: var(--white); }
+
+/* Grid com altura total controlada — tudo cresce junto */
+#p4 .m-grid {
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: min(70dvh, 720px);
+}
+
+/* Featured e smalls: flex para preencher a célula do grid */
+#p4 .mc-featured,
+#p4 .mc-small    { display: flex; flex-direction: column; }
+
+#p4 .mc-featured .mc-img,
+#p4 .mc-small    .mc-img  { flex: 1; min-height: 0; }
+
+.p4-mc { position: relative; display: block; cursor: pointer; }
+.p4-mc .mc-img { position: relative; }
+.p4-mc:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+/* Overlay + info: invisíveis por padrão */
+.p4-ov {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(35,33,22,.80) 0%,
+    rgba(35,33,22,.35) 48%,
+    rgba(35,33,22,0)   70%
+  );
+  opacity: 0;
+  transition: opacity .38s ease;
+}
+.p4-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  opacity: 0;
+  transform: translateY(.5rem);
+  transition: opacity .32s ease, transform .32s ease;
+}
+.p4-mc-featured .p4-info { padding: 2rem 1.5rem 1.5rem; }
+.p4-mc-small    .p4-info { padding: 1.25rem 1rem 1rem; }
+
+/* Hover/focus (desktop): revela overlay + info */
+.p4-mc:hover    .p4-ov,
+.p4-mc:focus-visible .p4-ov { opacity: 1; }
+.p4-mc:hover    .p4-info,
+.p4-mc:focus-visible .p4-info { opacity: 1; transform: translateY(0); }
+
+.p4-info .cat {
+  font-size: .56rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--creme); opacity: .8;
+  display: block; margin-bottom: .3rem;
+}
+.p4-mc-featured .p4-info h3 {
+  font-size: 1.2rem; font-weight: 900;
+  color: var(--white); letter-spacing: .02em; text-transform: uppercase;
+  margin-bottom: .9rem;
+}
+.p4-mc-small .p4-info h3 {
+  font-size: .85rem; font-weight: 900;
+  color: var(--white); letter-spacing: .04em; text-transform: uppercase;
+  margin-bottom: .55rem;
+}
+.p4-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .42rem 1.1rem;
+  background: var(--creme); color: var(--olive);
+  border-radius: 999px;
+  font-size: .62rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  transition: background .15s;
+}
+.p4-btn:hover { background: var(--white); }
+
+/* Touch/mobile: sem hover → sempre visível */
+@media (hover: none) {
+  .p4-ov   { opacity: 1; }
+  .p4-info { opacity: 1; transform: none; }
+}
+/* Teclado sem mouse: garantir leitura em sm */
+@media (max-width: 600px) {
+  #p4 .m-grid              { height: auto; grid-template-rows: auto; }
+  #p4 .mc-featured,
+  #p4 .mc-small            { display: block; }
+  #p4 .mc-featured .mc-img { height: 420px; }
+  #p4 .mc-small    .mc-img { height: 260px; }
+}
+
+/* ── Ranking ── */
+.ranking {
+  max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem;
+}
+.ranking h2 {
+  font-size: 1.1rem; font-weight: 900; color: var(--olive-dark);
+  margin-bottom: 2rem; text-transform: uppercase; letter-spacing: .08em;
+}
+.rank-item {
+  display: grid; grid-template-columns: 2rem 1fr;
+  gap: 1rem; padding: 1.25rem 0;
+  border-bottom: 1px solid var(--creme); align-items: start;
+}
+.rank-n {
+  font-size: 1rem; font-weight: 900; color: var(--creme);
+  background: var(--olive-dark); border-radius: 50%;
+  width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center;
+}
+.rank-text strong { font-size: .85rem; font-weight: 900; color: var(--olive-dark); display: block; margin-bottom: .25rem; }
+.rank-text p { font-size: .78rem; line-height: 1.6; color: var(--olive-mid); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- INDEX NAV -->
+<nav class="idx-nav" aria-label="Propostas">
+  <a href="#p1" class="active">P1 · Sem overlay</a>
+  <a href="#p2">P2 · Gradient 20%</a>
+  <a href="#p3">P3 · Seletivo (50%)</a>
+  <a href="#p4">P4 · Completo (70%)</a>
+  <a href="#ranking">Ranking</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     P1 — SEM OVERLAY — meta completamente abaixo
+     ═══════════════════════════════════════════════ -->
+<section id="p1" class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-label">
+      <p class="proposal-num">Proposta 01 · Evolução Segura</p>
+      <p class="proposal-name">Sem Overlay — Foto Pura</p>
+      <span class="proposal-badge badge-segura">segura</span>
+      <p class="proposal-rationale">
+        Elimina completamente a sombra. As fotos respiram no tamanho original — o trabalho fala por si. Trade-off: o olhar do usuário precisa descer até os metadados; a leitura é linear, não simultânea.
+      </p>
+    </div>
+    <div class="overlay-badge">
+      <p class="overlay-meter">Overlay</p>
+      <div class="overlay-bar"><div class="overlay-fill" style="width:0%"></div></div>
+      <p style="font-size:.58rem;color:var(--olive-mid);margin-top:.3rem;letter-spacing:.08em">0%</p>
+    </div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-hd-top">
+      <div class="section-hd-left">
+        <p class="eyebrow">Portfólio</p>
+        <h2>Explore meus últimos trabalhos</h2>
+      </div>
+      <p class="section-hd-right">5 ensaios</p>
+    </div>
+    <nav class="cat-bar" aria-label="Categorias de ensaio">
+      <span class="cat-bar-label">Navegando por</span>
+      <a href="/ensaio-fotografico/corporativo"        class="cat-link cur" aria-current="page">Corporativo</a>
+      <a href="/ensaio-fotografico/sensual-intimista"  class="cat-link">Intimista</a>
+      <a href="/ensaio-fotografico/familia"            class="cat-link">Família</a>
+      <a href="/ensaio-fotografico/gestante"           class="cat-link">Gestante</a>
+      <a href="/ensaio-fotografico"                    class="cat-link all">Ver todos</a>
+    </nav>
+  </div>
+
+  <div class="m-grid" role="list">
+    <!-- Featured -->
+    <article class="mc mc-featured p1-mc" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/bruna-freire" aria-label="Ver ensaio de Bruna Freire">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/7992012f-9e52-4056-8c79-fa14e2933c00/public"
+               alt="Retrato corporativo de Bruna Freire no estúdio Lillia Tavares">
+        </div>
+      </a>
+      <div class="p1-meta">
+        <span class="cat">Corporativo</span>
+        <h3>Bruna Freire</h3>
+        <a href="/ensaio-fotografico/corporativo/bruna-freire" class="p1-link">Ver ensaio</a>
+      </div>
+    </article>
+    <!-- Small 1 -->
+    <article class="mc mc-small p1-mc" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/marcella-castelucci" aria-label="Ver ensaio de Marcella Castelucci">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/91111e4b-8e4a-4427-1526-0dc442a23600/public"
+               alt="Mulher de cabelos longos e vestido preto — Marcella Castelucci">
+        </div>
+      </a>
+      <div class="p1-meta">
+        <span class="cat">Corporativo</span>
+        <h3>Marcella Castelucci</h3>
+        <a href="/ensaio-fotografico/corporativo/marcella-castelucci" class="p1-link">Ver ensaio</a>
+      </div>
+    </article>
+    <!-- Small 2 -->
+    <article class="mc mc-small p1-mc" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/monica-rafael" aria-label="Ver ensaio de Monica Rafael">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/a46134e8-0129-425c-3dcf-ec5b03a9d600/public"
+               alt="Monica Rafael — ensaio corporativo feminino">
+        </div>
+      </a>
+      <div class="p1-meta">
+        <span class="cat">Corporativo</span>
+        <h3>Monica Rafael</h3>
+        <a href="/ensaio-fotografico/corporativo/monica-rafael" class="p1-link">Ver ensaio</a>
+      </div>
+    </article>
+    <!-- Small 3 -->
+    <article class="mc mc-small p1-mc" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/andresa-maia" aria-label="Ver ensaio de Andresa Maia">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/cb3583c6-889a-4e41-85c6-423b37ad7100/public"
+               alt="Andresa Maia sorrindo de roupa branca, sentada no chão">
+        </div>
+      </a>
+      <div class="p1-meta">
+        <span class="cat">Corporativo</span>
+        <h3>Andresa Maia</h3>
+        <a href="/ensaio-fotografico/corporativo/andresa-maia" class="p1-link">Ver ensaio</a>
+      </div>
+    </article>
+    <!-- Small 4 -->
+    <article class="mc mc-small p1-mc" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/camila-nogueira" aria-label="Ver ensaio de Camila Nogueira">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/f00300d2-e52f-4b6f-9710-350a173fdf00/public"
+               alt="Camila Nogueira em pé, sorrindo de blazer bege e calça jeans">
+        </div>
+      </a>
+      <div class="p1-meta">
+        <span class="cat">Corporativo</span>
+        <h3>Camila Nogueira</h3>
+        <a href="/ensaio-fotografico/corporativo/camila-nogueira" class="p1-link">Ver ensaio</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="m-cta">
+    <a href="/ensaio-fotografico" class="m-btn">Ver todos os trabalhos</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     P2 — GRADIENT 20% — featured com sombra sutil
+     Pequenos: sem overlay, meta abaixo
+     ═══════════════════════════════════════════════ -->
+<section id="p2" class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-label">
+      <p class="proposal-num">Proposta 02 · Evolução Segura</p>
+      <p class="proposal-name">Gradient 20% — Featured com sombra mínima</p>
+      <span class="proposal-badge badge-segura">segura</span>
+      <p class="proposal-rationale">
+        Apenas o card em destaque recebe um gradient leve — suficiente para o texto branco ser legível, insuficiente para esconder a foto. Cards menores são foto pura com info abaixo. Trade-off: o gradient no featured pode competir com o conteúdo da borda inferior da foto.
+      </p>
+    </div>
+    <div class="overlay-badge">
+      <p class="overlay-meter">Overlay featured</p>
+      <div class="overlay-bar"><div class="overlay-fill" style="width:20%"></div></div>
+      <p style="font-size:.58rem;color:var(--olive-mid);margin-top:.3rem;letter-spacing:.08em">~20%</p>
+    </div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-hd-top">
+      <div class="section-hd-left">
+        <p class="eyebrow">Portfólio</p>
+        <h2>Explore meus últimos trabalhos</h2>
+      </div>
+      <p class="section-hd-right">5 ensaios</p>
+    </div>
+    <nav class="cat-bar" aria-label="Categorias de ensaio">
+      <span class="cat-bar-label">Navegando por</span>
+      <a href="/ensaio-fotografico/corporativo"        class="cat-link cur" aria-current="page">Corporativo</a>
+      <a href="/ensaio-fotografico/sensual-intimista"  class="cat-link">Intimista</a>
+      <a href="/ensaio-fotografico/familia"            class="cat-link">Família</a>
+      <a href="/ensaio-fotografico/gestante"           class="cat-link">Gestante</a>
+      <a href="/ensaio-fotografico"                    class="cat-link all">Ver todos</a>
+    </nav>
+  </div>
+
+  <div class="m-grid" role="list">
+    <!-- Featured: overlay mínimo -->
+    <a href="/ensaio-fotografico/corporativo/bruna-freire"
+       class="mc mc-featured p2-mc p2-mc-featured"
+       role="listitem" aria-label="Ver ensaio de Bruna Freire">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/7992012f-9e52-4056-8c79-fa14e2933c00/public"
+             alt="Retrato corporativo de Bruna Freire no estúdio Lillia Tavares">
+      </div>
+      <div class="p2-ov" aria-hidden="true"></div>
+      <div class="p2-info">
+        <span class="cat">Corporativo</span>
+        <h3>Bruna Freire</h3>
+        <span class="p2-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 1: sem overlay, info abaixo -->
+    <article class="mc mc-small p2-mc p2-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/marcella-castelucci" aria-label="Ver ensaio de Marcella Castelucci">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/91111e4b-8e4a-4427-1526-0dc442a23600/public"
+               alt="Mulher de vestido preto — Marcella Castelucci">
+        </div>
+      </a>
+      <div class="p2-info">
+        <span class="cat">Corporativo</span>
+        <h3>Marcella Castelucci</h3>
+      </div>
+    </article>
+    <!-- Small 2 -->
+    <article class="mc mc-small p2-mc p2-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/monica-rafael" aria-label="Ver ensaio de Monica Rafael">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/a46134e8-0129-425c-3dcf-ec5b03a9d600/public"
+               alt="Monica Rafael — ensaio corporativo">
+        </div>
+      </a>
+      <div class="p2-info">
+        <span class="cat">Corporativo</span>
+        <h3>Monica Rafael</h3>
+      </div>
+    </article>
+    <!-- Small 3 -->
+    <article class="mc mc-small p2-mc p2-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/andresa-maia" aria-label="Ver ensaio de Andresa Maia">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/cb3583c6-889a-4e41-85c6-423b37ad7100/public"
+               alt="Andresa Maia sorrindo de roupa branca">
+        </div>
+      </a>
+      <div class="p2-info">
+        <span class="cat">Corporativo</span>
+        <h3>Andresa Maia</h3>
+      </div>
+    </article>
+    <!-- Small 4 -->
+    <article class="mc mc-small p2-mc p2-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/camila-nogueira" aria-label="Ver ensaio de Camila Nogueira">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/f00300d2-e52f-4b6f-9710-350a173fdf00/public"
+               alt="Camila Nogueira de blazer bege, sorrindo">
+        </div>
+      </a>
+      <div class="p2-info">
+        <span class="cat">Corporativo</span>
+        <h3>Camila Nogueira</h3>
+      </div>
+    </article>
+  </div>
+
+  <div class="m-cta">
+    <a href="/ensaio-fotografico" class="m-btn">Ver todos os trabalhos</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     P3 — GRADIENT 50% SELETIVO
+     Featured: overlay moderado + reveal
+     Pequenos: foto pura + meta abaixo
+     ═══════════════════════════════════════════════ -->
+<section id="p3" class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-label">
+      <p class="proposal-num">Proposta 03 · Evolução Moderada</p>
+      <p class="proposal-name">Seletivo — Featured escuro, pequenos puros</p>
+      <span class="proposal-badge badge-segura">segura</span>
+      <p class="proposal-rationale">
+        O card em destaque usa overlay 50% para criar hierarquia e legibilidade do nome. Os 4 cards menores ficam com a foto intacta e informação abaixo. Melhor dos dois mundos: hierarquia editorial no featured, transparência total nos menores.
+      </p>
+    </div>
+    <div class="overlay-badge">
+      <p class="overlay-meter">Overlay featured</p>
+      <div class="overlay-bar"><div class="overlay-fill" style="width:50%"></div></div>
+      <p style="font-size:.58rem;color:var(--olive-mid);margin-top:.3rem;letter-spacing:.08em">50% (featured) · 0% (pequenos)</p>
+    </div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-hd-top">
+      <div class="section-hd-left">
+        <p class="eyebrow">Portfólio</p>
+        <h2>Explore meus últimos trabalhos</h2>
+      </div>
+      <p class="section-hd-right">5 ensaios</p>
+    </div>
+    <nav class="cat-bar" aria-label="Categorias de ensaio">
+      <span class="cat-bar-label">Navegando por</span>
+      <a href="/ensaio-fotografico/corporativo"        class="cat-link cur" aria-current="page">Corporativo</a>
+      <a href="/ensaio-fotografico/sensual-intimista"  class="cat-link">Intimista</a>
+      <a href="/ensaio-fotografico/familia"            class="cat-link">Família</a>
+      <a href="/ensaio-fotografico/gestante"           class="cat-link">Gestante</a>
+      <a href="/ensaio-fotografico"                    class="cat-link all">Ver todos</a>
+    </nav>
+  </div>
+
+  <div class="m-grid" role="list">
+    <!-- Featured: overlay moderado -->
+    <a href="/ensaio-fotografico/corporativo/bruna-freire"
+       class="mc mc-featured p3-mc"
+       role="listitem" aria-label="Ver ensaio de Bruna Freire">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/7992012f-9e52-4056-8c79-fa14e2933c00/public"
+             alt="Retrato corporativo de Bruna Freire no estúdio Lillia Tavares">
+      </div>
+      <div class="p3-ov-featured" aria-hidden="true"></div>
+      <div class="p3-info-featured">
+        <span class="cat">Corporativo</span>
+        <h3>Bruna Freire</h3>
+        <span class="p3-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 1: foto pura -->
+    <article class="mc mc-small p3-mc p3-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/marcella-castelucci" aria-label="Ver ensaio de Marcella Castelucci">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/91111e4b-8e4a-4427-1526-0dc442a23600/public"
+               alt="Marcella Castelucci — ensaio corporativo feminino">
+        </div>
+      </a>
+      <div class="p3-meta-small">
+        <span class="cat">Corporativo</span>
+        <h3>Marcella Castelucci</h3>
+      </div>
+    </article>
+    <!-- Small 2 -->
+    <article class="mc mc-small p3-mc p3-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/monica-rafael" aria-label="Ver ensaio de Monica Rafael">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/a46134e8-0129-425c-3dcf-ec5b03a9d600/public"
+               alt="Monica Rafael — ensaio corporativo">
+        </div>
+      </a>
+      <div class="p3-meta-small">
+        <span class="cat">Corporativo</span>
+        <h3>Monica Rafael</h3>
+      </div>
+    </article>
+    <!-- Small 3 -->
+    <article class="mc mc-small p3-mc p3-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/andresa-maia" aria-label="Ver ensaio de Andresa Maia">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/cb3583c6-889a-4e41-85c6-423b37ad7100/public"
+               alt="Andresa Maia sorrindo de roupa branca, sentada no chão">
+        </div>
+      </a>
+      <div class="p3-meta-small">
+        <span class="cat">Corporativo</span>
+        <h3>Andresa Maia</h3>
+      </div>
+    </article>
+    <!-- Small 4 -->
+    <article class="mc mc-small p3-mc p3-small" role="listitem">
+      <a href="/ensaio-fotografico/corporativo/camila-nogueira" aria-label="Ver ensaio de Camila Nogueira">
+        <div class="mc-img">
+          <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/f00300d2-e52f-4b6f-9710-350a173fdf00/public"
+               alt="Camila Nogueira de blazer bege, sorrindo, em pé">
+        </div>
+      </a>
+      <div class="p3-meta-small">
+        <span class="cat">Corporativo</span>
+        <h3>Camila Nogueira</h3>
+      </div>
+    </article>
+  </div>
+
+  <div class="m-cta">
+    <a href="/ensaio-fotografico" class="m-btn">Ver todos os trabalhos</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     P4 — GRADIENT 70% COMPLETO — estado original P3
+     Todos os cards com overlay pesado (comparação)
+     ═══════════════════════════════════════════════ -->
+<section id="p4" class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-label">
+      <p class="proposal-num">Proposta 04 · Referência (original P3)</p>
+      <p class="proposal-name">Overlay Completo — todos os cards</p>
+      <span class="proposal-badge badge-ousada">comparação</span>
+      <p class="proposal-rationale">
+        Mantém o overlay pesado original (70%) em todos os cards. Máxima legibilidade do texto, mínima exposição do trabalho fotográfico — especialmente nos cards menores onde a foto quase some. Serve como baseline de comparação.
+      </p>
+    </div>
+    <div class="overlay-badge">
+      <p class="overlay-meter">Overlay todos</p>
+      <div class="overlay-bar"><div class="overlay-fill" style="width:70%"></div></div>
+      <p style="font-size:.58rem;color:var(--olive-mid);margin-top:.3rem;letter-spacing:.08em">70%</p>
+    </div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-hd-top">
+      <div class="section-hd-left">
+        <p class="eyebrow">Portfólio</p>
+        <h2>Explore meus últimos trabalhos</h2>
+      </div>
+      <p class="section-hd-right">5 ensaios</p>
+    </div>
+    <nav class="cat-bar" aria-label="Categorias de ensaio">
+      <span class="cat-bar-label">Navegando por</span>
+      <a href="/ensaio-fotografico/corporativo"        class="cat-link cur" aria-current="page">Corporativo</a>
+      <a href="/ensaio-fotografico/sensual-intimista"  class="cat-link">Intimista</a>
+      <a href="/ensaio-fotografico/familia"            class="cat-link">Família</a>
+      <a href="/ensaio-fotografico/gestante"           class="cat-link">Gestante</a>
+      <a href="/ensaio-fotografico"                    class="cat-link all">Ver todos</a>
+    </nav>
+  </div>
+
+  <div class="m-grid" role="list">
+    <!-- Featured: overlay completo -->
+    <a href="/ensaio-fotografico/corporativo/bruna-freire"
+       class="mc mc-featured p4-mc p4-mc-featured"
+       role="listitem" aria-label="Ver ensaio de Bruna Freire">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/7992012f-9e52-4056-8c79-fa14e2933c00/public"
+             alt="Retrato corporativo de Bruna Freire no estúdio Lillia Tavares">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Bruna Freire</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 1 -->
+    <a href="/ensaio-fotografico/corporativo/marcella-castelucci"
+       class="mc mc-small p4-mc p4-mc-small"
+       role="listitem" aria-label="Ver ensaio de Marcella Castelucci">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/91111e4b-8e4a-4427-1526-0dc442a23600/public"
+             alt="Marcella Castelucci — ensaio corporativo feminino">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Marcella Castelucci</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 2 -->
+    <a href="/ensaio-fotografico/corporativo/monica-rafael"
+       class="mc mc-small p4-mc p4-mc-small"
+       role="listitem" aria-label="Ver ensaio de Monica Rafael">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/a46134e8-0129-425c-3dcf-ec5b03a9d600/public"
+             alt="Monica Rafael — ensaio corporativo">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Monica Rafael</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 3 -->
+    <a href="/ensaio-fotografico/corporativo/andresa-maia"
+       class="mc mc-small p4-mc p4-mc-small"
+       role="listitem" aria-label="Ver ensaio de Andresa Maia">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/cb3583c6-889a-4e41-85c6-423b37ad7100/public"
+             alt="Andresa Maia sorrindo de roupa branca, sentada no chão">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Andresa Maia</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 4 -->
+    <a href="/ensaio-fotografico/corporativo/camila-nogueira"
+       class="mc mc-small p4-mc p4-mc-small"
+       role="listitem" aria-label="Ver ensaio de Camila Nogueira">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/f00300d2-e52f-4b6f-9710-350a173fdf00/public"
+             alt="Camila Nogueira de blazer bege, sorrindo em pé">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Camila Nogueira</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 5 -->
+    <a href="/ensaio-fotografico/corporativo/sheila-lima"
+       class="mc mc-small p4-mc p4-mc-small"
+       role="listitem" aria-label="Ver ensaio de Sheila Lima">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/e4b3b4ff-76c3-4fd8-77ce-040f2e392900/public"
+             alt="Sheila Lima de terno branco em fundo azul">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Sheila Lima</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+    <!-- Small 6 -->
+    <a href="/ensaio-fotografico/corporativo/juliana-kozma"
+       class="mc mc-small p4-mc p4-mc-small"
+       role="listitem" aria-label="Ver ensaio de Juliana Kozma">
+      <div class="mc-img">
+        <img src="https://imagedelivery.net/oEk64Oj9wn0qdlDuKEONYg/06b81ebb-4c35-4b91-c558-4b20260cbe00/public"
+             alt="Juliana Kozma sentada ao lado do sofá">
+      </div>
+      <div class="p4-ov" aria-hidden="true"></div>
+      <div class="p4-info">
+        <span class="cat">Corporativo</span>
+        <h3>Juliana Kozma</h3>
+        <span class="p4-btn" aria-hidden="true">Ver ensaio →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="m-cta">
+    <a href="/ensaio-fotografico" class="m-btn">Ver todos os trabalhos</a>
+  </div>
+</section>
+
+
+<!-- ── Ranking ── -->
+<div id="ranking" class="ranking">
+  <h2>Ranking — overlay &amp; tab layout</h2>
+  <div class="rank-item">
+    <div class="rank-n">1</div>
+    <div class="rank-text">
+      <strong>P3 — Seletivo (50% featured · 0% pequenos)</strong>
+      <p>Melhor equilíbrio: o card featured tem hierarquia e legibilidade, os 4 menores expõem o trabalho puro. As tabs "Navegando por" com separador horizontal criam contexto sem poluir. Recomendação para implementação.</p>
+    </div>
+  </div>
+  <div class="rank-item">
+    <div class="rank-n">2</div>
+    <div class="rank-text">
+      <strong>P1 — Sem overlay</strong>
+      <p>Máxima exposição do trabalho fotográfico. A leitura é linear (olho desce até o nome), mas para o público-alvo de Lillia — quem já sabe o que quer — funciona muito bem. Ótimo para SEO de imagem.</p>
+    </div>
+  </div>
+  <div class="rank-item">
+    <div class="rank-n">3</div>
+    <div class="rank-text">
+      <strong>P2 — Gradient 20% sutil</strong>
+      <p>Compromisso honesto: o featured fica legível sem sacrificar muito a foto. Os pequenos ficam puros. Pequeno risco de o gradient competir com o conteúdo da borda inferior da foto (rosto/mãos).</p>
+    </div>
+  </div>
+  <div class="rank-item">
+    <div class="rank-n">4</div>
+    <div class="rank-text">
+      <strong>P4 — Completo (70% todos os cards)</strong>
+      <p>O overlay nos cards pequenos (290px de altura) apaga praticamente metade do trabalho fotográfico — as fotos corporativas perdem detalhes de roupa, expressão e ambiente. Legibilidade alta, mas o portfólio vira vitrine de texto.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Highlight active proposal in nav on scroll */
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.idx-nav a');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.idx-nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: .25 });
+
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

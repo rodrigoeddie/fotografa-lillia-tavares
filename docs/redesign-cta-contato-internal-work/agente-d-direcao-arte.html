@@ -1,0 +1,1426 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redesign .wrap-schedule — Lillia Tavares | Direção de Arte</title>
+<style>
+/* ─── PLAYFAIR DISPLAY (subset, display role) ──────────────────────────────── */
+/* Using system serif stack as graceful fallback when offline.
+   For proposals 4 & 5 we call a Google Fonts embed via a <link> tag below
+   but also declare the fallback chain so offline rendering degrades well. */
+
+/* ─── DESIGN TOKENS ────────────────────────────────────────────────────────── */
+:root {
+  --terra:       #a7523e;
+  --terra-dark:  #7a3020;
+  --terra-mid:   #c4703a; /* warm amber bridge */
+  --terra-light: #e8d9c5;
+  --terra-mist:  #f5ede4;
+  --cream:       #faf5f0;
+  --sand:        #e8d9c5;
+  --ink:         #2c2a15;
+  --ink-soft:    #4a4635;
+  --green:       #7B785B;
+  --light-green: #e3dfcb;
+  --white:       #ffffff;
+
+  --font-body:    'Lato', Arial, sans-serif;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --shadow-sm:  0 1px 3px rgba(44,42,21,0.10), 0 1px 2px rgba(44,42,21,0.06);
+  --shadow-md:  0 4px 12px rgba(44,42,21,0.12), 0 2px 4px rgba(44,42,21,0.08);
+  --shadow-lg:  0 12px 32px rgba(44,42,21,0.16), 0 4px 8px rgba(44,42,21,0.10);
+  --shadow-terra: 0 4px 16px rgba(167,82,62,0.28), 0 2px 6px rgba(167,82,62,0.18);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: #f0ebe4;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+a { color: inherit; }
+
+/* ─── PAGE SHELL ─────────────────────────────────────────────────────────────── */
+.page-header {
+  background: var(--ink);
+  color: var(--terra-light);
+  padding: 32px 40px 28px;
+}
+.page-header .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.page-header .meta {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--terra-light);
+  opacity: 0.7;
+  letter-spacing: 0.01em;
+}
+
+/* ─── TAB NAV ────────────────────────────────────────────────────────────────── */
+.tab-nav {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  padding: 14px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(232,217,197,0.55);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--terra-light); }
+.tab-btn.active {
+  color: var(--terra);
+  border-bottom-color: var(--terra);
+}
+
+/* ─── PANEL SHELL ────────────────────────────────────────────────────────────── */
+.proposal-panel {
+  display: none;
+}
+.proposal-panel.active {
+  display: block;
+}
+
+.proposal-meta {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 0;
+}
+.proposal-meta .p-name {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.proposal-meta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.proposal-meta .rationale {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 68ch;
+  border-left: 2px solid var(--terra-light);
+  padding-left: 14px;
+}
+
+/* ─── VIEWPORT DEMO SHELL ───────────────────────────────────────────────────── */
+.demo-shell {
+  max-width: 1200px;
+  margin: 24px auto 56px;
+  padding: 0 40px;
+}
+.demo-inner {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(44,42,21,0.08), 0 8px 24px rgba(44,42,21,0.1);
+}
+
+/* ─── SHARED CALENDAR LOGIC ─────────────────────────────────────────────────── */
+/* All proposals render the same interactive calendar JS widget.
+   Per-proposal overrides are scoped inside .prop-N .cal */
+.cal-widget {
+  /* default tokens — proposals override via CSS vars on .prop-N */
+  --cal-accent:     var(--terra);
+  --cal-accent-dark: var(--terra-dark);
+  --cal-header-bg:  var(--terra);
+  --cal-header-txt: var(--cream);
+  --cal-border:     var(--terra-light);
+  --cal-bg:         var(--white);
+  --cal-day-hover:  rgba(167,82,62,0.10);
+  --cal-dow-color:  var(--terra);
+
+  font-family: var(--font-body);
+  background: var(--cal-bg);
+  border: 2px solid var(--cal-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cal-header-bg);
+  padding: 14px 16px;
+  gap: 8px;
+}
+.cal-nav-btn {
+  background: none;
+  border: none;
+  color: var(--cal-header-txt);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 10px;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+  border-radius: 4px;
+}
+.cal-nav-btn:hover:not(:disabled) { opacity: 1; background: rgba(255,255,255,0.12); }
+.cal-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.cal-month-label {
+  color: var(--cal-header-txt);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  flex: 1;
+  text-transform: capitalize;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 12px;
+}
+.cal-dow {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cal-dow-color);
+  padding-bottom: 8px;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.12s;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  min-width: 36px;
+  min-height: 36px;
+}
+.cal-day:hover:not(:disabled):not(.is-selected) {
+  background: var(--cal-day-hover);
+}
+.cal-day:disabled { color: #ccc; cursor: default; }
+.cal-day.is-past { color: #ccc; cursor: default; }
+.cal-day.is-empty { pointer-events: none; }
+.cal-day.is-selected {
+  background: var(--cal-accent);
+  color: white;
+  font-weight: 700;
+  transform: scale(1.08);
+}
+.cal-day.is-today:not(.is-selected):not(.is-past) {
+  outline: 1.5px solid var(--cal-accent);
+  outline-offset: -1.5px;
+}
+
+/* ─── SHARED CTA BUTTON ─────────────────────────────────────────────────────── */
+.cta-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--terra);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 16px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  border: none;
+  font-family: var(--font-body);
+  text-align: left;
+  text-decoration: none;
+  box-shadow: var(--shadow-terra);
+}
+.cta-wa:hover {
+  background: var(--terra-dark);
+  box-shadow: 0 6px 20px rgba(122,48,32,0.36);
+  transform: translateY(-1px);
+}
+.cta-wa:focus-visible {
+  outline: 2px solid var(--terra);
+  outline-offset: 3px;
+}
+.cta-wa svg {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+.cta-wa .cta-text-main {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.88;
+}
+.cta-wa .cta-text-emphasis {
+  display: block;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+/* ─── RANKING SECTION ───────────────────────────────────────────────────────── */
+.ranking-section {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  padding: 0 40px;
+}
+.ranking-section h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 20px;
+  padding-top: 8px;
+  border-top: 1px solid var(--terra-light);
+}
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid var(--terra-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.ranking-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 18px 24px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--terra-light);
+  transition: background 0.15s;
+}
+.ranking-item:last-child { border-bottom: none; }
+.ranking-item:hover { background: #fff; }
+.rank-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--terra);
+  line-height: 1;
+  min-width: 36px;
+  opacity: 0.7;
+}
+.rank-num.gold { color: var(--terra); opacity: 1; }
+.rank-body .rank-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.rank-body .rank-reason {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* ─── RESPONSIVE SHELL ───────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .page-header { padding: 24px 20px 20px; }
+  .tab-btn { padding: 12px 14px; font-size: 11px; }
+  .proposal-meta { padding: 24px 20px 0; }
+  .demo-shell { padding: 0 16px; margin-bottom: 40px; }
+  .ranking-section { padding: 0 20px; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   PROPOSTA 1 — REFINADA
+   3 colunas corrigidas, respiro calculado, hierarquia clara
+   Background: #f5ede4  Acento: terracota
+═══════════════════════════════════════════════════════════════════════════════ */
+.prop-1 .wrap-schedule {
+  background: var(--terra-mist);
+  padding: 48px 48px;
+  font-family: var(--font-body);
+}
+.prop-1 .form-row {
+  display: grid;
+  grid-template-columns: 1fr 340px auto;
+  gap: 40px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.prop-1 .field-text {
+  padding-right: 8px;
+}
+.prop-1 .label-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra);
+  margin-bottom: 12px;
+}
+.prop-1 .schedule-title {
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+.prop-1 .schedule-title em {
+  font-style: normal;
+  color: var(--terra);
+}
+.prop-1 .schedule-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 38ch;
+}
+.prop-1 .schedule-desc strong { color: var(--ink); }
+
+.prop-1 .cal-widget {
+  --cal-header-bg:  var(--terra);
+  --cal-accent:     var(--terra);
+  --cal-border:     var(--terra-light);
+  --cal-dow-color:  var(--terra);
+  --cal-day-hover:  rgba(167,82,62,0.10);
+  width: 340px;
+  box-shadow: var(--shadow-md);
+}
+
+.prop-1 .cta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.prop-1 .cta-col .cta-wa {
+  border-radius: 6px;
+  padding: 18px 24px;
+}
+.prop-1 .cta-note {
+  font-size: 11px;
+  color: var(--ink-soft);
+  opacity: 0.7;
+  line-height: 1.5;
+  max-width: 18ch;
+}
+
+@media (max-width: 1024px) {
+  .prop-1 .form-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .prop-1 .field-text { grid-column: 1 / -1; }
+  .prop-1 .cal-widget { width: 100%; max-width: 360px; }
+  .prop-1 .cta-col { align-self: center; }
+}
+@media (max-width: 640px) {
+  .prop-1 .wrap-schedule { padding: 32px 20px; }
+  .prop-1 .form-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .prop-1 .cal-widget { max-width: 100%; }
+  .prop-1 .cta-col { width: 100%; }
+  .prop-1 .cta-col .cta-wa { width: 100%; justify-content: center; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   PROPOSTA 2 — FAIXA HORIZONTAL
+   Layout linear, calendário central, CTA em célula terracota própria
+═══════════════════════════════════════════════════════════════════════════════ */
+.prop-2 .wrap-schedule {
+  background: var(--cream);
+  font-family: var(--font-body);
+  border-top: 3px solid var(--terra);
+  border-bottom: 1px solid var(--terra-light);
+}
+.prop-2 .form-strip {
+  display: grid;
+  grid-template-columns: 280px 1fr 240px;
+  min-height: 200px;
+}
+.prop-2 .strip-label {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--terra-light);
+}
+.prop-2 .strip-label .eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.prop-2 .strip-label h2 {
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+.prop-2 .strip-label p {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.prop-2 .strip-cal {
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--terra-mist);
+  border-right: 1px solid var(--terra-light);
+}
+.prop-2 .strip-cal .cal-widget {
+  --cal-header-bg:  var(--terra);
+  --cal-accent:     var(--terra);
+  --cal-border:     rgba(167,82,62,0.25);
+  --cal-dow-color:  var(--terra);
+  --cal-day-hover:  rgba(167,82,62,0.10);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-sm);
+}
+.prop-2 .strip-cta {
+  background: var(--terra);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  gap: 16px;
+  text-align: center;
+}
+.prop-2 .strip-cta .cta-kicker {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+}
+.prop-2 .strip-cta .cta-wa {
+  background: white;
+  color: var(--terra-dark);
+  box-shadow: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 22px;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+.prop-2 .strip-cta .cta-wa:hover {
+  background: var(--terra-mist);
+  color: var(--terra-dark);
+  transform: none;
+  box-shadow: inset 0 0 0 2px rgba(122,48,32,0.3);
+}
+.prop-2 .strip-cta .cta-wa svg { color: var(--terra); }
+.prop-2 .strip-cta .cta-wa .cta-text-emphasis { font-size: 14px; color: var(--terra-dark); }
+.prop-2 .strip-cta .cta-wa .cta-text-main { font-size: 12px; color: var(--ink-soft); }
+
+@media (max-width: 900px) {
+  .prop-2 .form-strip {
+    grid-template-columns: 1fr;
+  }
+  .prop-2 .strip-label {
+    border-right: none;
+    border-bottom: 1px solid var(--terra-light);
+    padding: 28px 24px;
+  }
+  .prop-2 .strip-cal {
+    border-right: none;
+    border-bottom: 1px solid var(--terra-light);
+    padding: 24px;
+  }
+  .prop-2 .strip-cta {
+    padding: 28px 24px;
+  }
+  .prop-2 .strip-cta .cta-wa { max-width: 320px; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   PROPOSTA 3 — CARD ELEVADO
+   Calendário é o elemento âncora, texto e CTA orbitam
+═══════════════════════════════════════════════════════════════════════════════ */
+.prop-3 .wrap-schedule {
+  background: var(--terra-mist);
+  padding: 56px 48px;
+  font-family: var(--font-body);
+}
+.prop-3 .card-layout {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  align-items: start;
+}
+.prop-3 .card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 8px;
+}
+.prop-3 .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prop-3 .eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--terra);
+  border-radius: 2px;
+}
+.prop-3 h2 {
+  font-size: 32px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  text-wrap: balance;
+}
+.prop-3 h2 span { color: var(--terra); }
+.prop-3 .body-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 40ch;
+}
+.prop-3 .cta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.prop-3 .cta-block .cta-wa {
+  align-self: flex-start;
+  border-radius: 6px;
+  padding: 18px 28px;
+  font-size: 16px;
+}
+.prop-3 .cta-block .cta-wa svg { width: 32px; height: 32px; }
+.prop-3 .trust-note {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.prop-3 .trust-note::before {
+  content: '✓';
+  color: var(--terra);
+  font-weight: bold;
+  opacity: 1;
+}
+
+.prop-3 .card-right {}
+.prop-3 .cal-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.prop-3 .cal-card .cal-widget {
+  --cal-header-bg:  var(--terra);
+  --cal-accent:     var(--terra);
+  --cal-border:     transparent;
+  --cal-dow-color:  var(--terra);
+  --cal-day-hover:  rgba(167,82,62,0.10);
+  border: none;
+  border-radius: 0;
+  width: 100%;
+}
+.prop-3 .cal-card .cal-grid { padding: 16px 16px 20px; gap: 4px; }
+.prop-3 .cal-card .cal-day { min-width: 40px; min-height: 40px; font-size: 15px; }
+.prop-3 .cal-date-display {
+  padding: 14px 16px 16px;
+  background: rgba(167,82,62,0.06);
+  border-top: 1px solid var(--terra-light);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  text-align: center;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.prop-3 .cal-date-display.has-date {
+  color: var(--terra-dark);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .prop-3 .card-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .prop-3 .card-left { padding-top: 0; }
+  .prop-3 .cta-block .cta-wa { width: 100%; justify-content: center; }
+}
+@media (max-width: 600px) {
+  .prop-3 .wrap-schedule { padding: 32px 20px; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   PROPOSTA 4 — TIRA EDITORIAL
+   Full bleed escuro, display serif grande, inversão total de contraste
+═══════════════════════════════════════════════════════════════════════════════ */
+.prop-4 .wrap-schedule {
+  background: var(--terra-dark);
+  padding: 64px 48px;
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+/* Subtle grain texture via SVG noise */
+.prop-4 .wrap-schedule::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+}
+.prop-4 .editorial-layout {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 64px;
+  align-items: center;
+}
+.prop-4 .editorial-left {}
+.prop-4 .ed-eyebrow {
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra-light);
+  opacity: 0.6;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.prop-4 .ed-eyebrow::after {
+  content: '';
+  flex: 1;
+  max-width: 48px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+.prop-4 .ed-title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.08;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin-bottom: 24px;
+}
+.prop-4 .ed-title em {
+  font-style: normal;
+  color: var(--terra-light);
+  display: block;
+  font-size: 0.65em;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.prop-4 .ed-body {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--terra-light);
+  opacity: 0.75;
+  max-width: 44ch;
+  margin-bottom: 32px;
+}
+.prop-4 .ed-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--terra-light);
+  color: var(--terra-dark);
+  border-radius: var(--radius-pill);
+  padding: 18px 32px;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  border: none;
+  font-family: var(--font-body);
+  text-align: left;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  letter-spacing: 0.02em;
+}
+.prop-4 .ed-cta:hover {
+  background: var(--cream);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+}
+.prop-4 .ed-cta:focus-visible {
+  outline: 2px solid var(--terra-light);
+  outline-offset: 4px;
+}
+.prop-4 .ed-cta svg { width: 26px; height: 26px; color: var(--terra); flex-shrink: 0; }
+.prop-4 .ed-cta .cta-text-main { font-size: 12px; font-weight: 400; opacity: 0.75; }
+.prop-4 .ed-cta .cta-text-emphasis { font-size: 15px; }
+
+.prop-4 .editorial-right {}
+.prop-4 .cal-widget {
+  --cal-header-bg:  rgba(255,255,255,0.08);
+  --cal-accent:     var(--terra-light);
+  --cal-border:     rgba(232,217,197,0.2);
+  --cal-bg:         rgba(255,255,255,0.05);
+  --cal-dow-color:  var(--terra-light);
+  --cal-day-hover:  rgba(232,217,197,0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.prop-4 .cal-widget .cal-header {
+  background: rgba(255,255,255,0.08);
+}
+.prop-4 .cal-widget .cal-month-label { color: var(--terra-light); font-size: 14px; }
+.prop-4 .cal-widget .cal-nav-btn { color: var(--terra-light); font-size: 22px; }
+.prop-4 .cal-widget .cal-grid { background: transparent; padding: 14px; }
+.prop-4 .cal-widget .cal-dow { color: var(--terra-light); opacity: 0.6; }
+.prop-4 .cal-widget .cal-day { color: var(--cream); font-size: 14px; min-width: 40px; min-height: 40px; }
+.prop-4 .cal-widget .cal-day:disabled,
+.prop-4 .cal-widget .cal-day.is-past { color: rgba(255,255,255,0.2); }
+.prop-4 .cal-widget .cal-day.is-selected {
+  background: var(--terra-light);
+  color: var(--terra-dark);
+}
+.prop-4 .cal-widget .cal-day:hover:not(:disabled):not(.is-selected) {
+  background: rgba(232,217,197,0.15);
+}
+
+@media (max-width: 900px) {
+  .prop-4 .editorial-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .prop-4 .ed-cta { width: 100%; justify-content: center; }
+}
+@media (max-width: 600px) {
+  .prop-4 .wrap-schedule { padding: 40px 20px; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   PROPOSTA 5 — INSTANTE (2 etapas)
+   Calendário em foco → seleção → CTA desce com reveal suave
+═══════════════════════════════════════════════════════════════════════════════ */
+.prop-5 .wrap-schedule {
+  background: var(--terra-mist);
+  padding: 64px 48px;
+  font-family: var(--font-body);
+}
+.prop-5 .instante-layout {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+}
+.prop-5 .instante-header {
+  margin-bottom: 32px;
+}
+.prop-5 .instante-header .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra);
+  margin-bottom: 12px;
+}
+.prop-5 .instante-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 10px;
+}
+.prop-5 .instante-header p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.prop-5 .instante-cal-wrap {
+  width: 100%;
+  max-width: 420px;
+}
+.prop-5 .cal-widget {
+  --cal-header-bg:  var(--terra);
+  --cal-accent:     var(--terra);
+  --cal-border:     var(--terra-light);
+  --cal-dow-color:  var(--terra);
+  --cal-day-hover:  rgba(167,82,62,0.10);
+  box-shadow: var(--shadow-lg);
+  border-radius: 12px;
+  width: 100%;
+}
+.prop-5 .cal-grid { padding: 16px 16px 20px; gap: 4px; }
+.prop-5 .cal-day { min-width: 44px; min-height: 44px; font-size: 15px; }
+
+/* Step 2 reveal */
+.prop-5 .instante-reveal {
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s cubic-bezier(0.34,1.28,0.64,1), opacity 0.35s ease, margin-top 0.35s ease;
+  pointer-events: none;
+}
+.prop-5 .instante-reveal.visible {
+  max-height: 260px;
+  opacity: 1;
+  margin-top: 24px;
+  pointer-events: auto;
+}
+.prop-5 .reveal-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+  border: 1.5px solid var(--terra-light);
+}
+.prop-5 .date-confirm {
+  font-size: 13px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prop-5 .date-confirm .date-val {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--terra-dark);
+  background: rgba(167,82,62,0.08);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}
+.prop-5 .cta-wa {
+  width: 100%;
+  max-width: 360px;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 18px 28px;
+  font-size: 16px;
+}
+.prop-5 .cta-wa svg { width: 28px; height: 28px; }
+.prop-5 .cta-note {
+  font-size: 11px;
+  color: var(--ink-soft);
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .prop-5 .wrap-schedule { padding: 40px 20px; }
+  .prop-5 .reveal-inner { padding: 20px; }
+}
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+</head>
+<body>
+
+<!-- ─── PAGE HEADER ──────────────────────────────────────────────────── -->
+<header class="page-header">
+  <div class="eyebrow">Direção de Arte — Agente D</div>
+  <h1>Redesign .wrap-schedule<br>Lillia Tavares Fotografia</h1>
+  <div class="meta">5 propostas · ensaio corporativo Camila Nogueira · terracota #a7523e</div>
+</header>
+
+<!-- ─── TAB NAV ──────────────────────────────────────────────────────── -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" role="tab" aria-selected="true"  data-tab="1">1 · Refinada</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="2">2 · Faixa Horizontal</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="3">3 · Card Elevado</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="4">4 · Tira Editorial</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="5">5 · Instante</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="rank">Ranking</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PROPOSTA 1 — REFINADA
+════════════════════════════════════════════════════════════════════════ -->
+<section class="proposal-panel active prop-1" data-panel="1" role="tabpanel">
+  <div class="proposal-meta">
+    <div class="p-name">Proposta 01</div>
+    <h2>Refinada — Evolução segura com identidade própria</h2>
+    <p class="rationale">
+      Mantém a estrutura de 3 colunas, mas corrige as proporções: texto tem espaço para respirar, calendário ganha 340px de dignidade real (dias 40×40px), e o CTA ocupa uma coluna narrower mas com mais força visual pelo contraste. O background sai do branco puro para <code>#f5ede4</code>, criando campo quente. O terracota do ensaio assume todos os acentos que antes eram <code>#7B785B</code>.
+    </p>
+  </div>
+  <div class="demo-shell">
+    <div class="demo-inner">
+      <div class="wrap-schedule">
+        <form class="form-row" onsubmit="return false">
+          <div class="field-text">
+            <div class="label-eyebrow">Ensaio corporativo · Camila Nogueira</div>
+            <h1 class="schedule-title">Gostou? Agende <em>o seu:</em></h1>
+            <p class="schedule-desc">
+              Selecione a data no calendário e clique em enviar. Você será redirecionada para o WhatsApp com a mensagem já pronta — <strong>leva menos de 1 minuto.</strong>
+            </p>
+          </div>
+          <div class="field-calendar">
+            <div class="cal-widget" id="cal1"></div>
+          </div>
+          <div class="cta-col">
+            <button type="submit" class="cta-wa" onclick="return false">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.998-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>
+                <span class="cta-text-main">Clique aqui para enviar via</span>
+                <span class="cta-text-emphasis">WhatsApp</span>
+              </span>
+            </button>
+            <p class="cta-note">Você vai direto para o app com a mensagem pré-preenchida.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PROPOSTA 2 — FAIXA HORIZONTAL
+════════════════════════════════════════════════════════════════════════ -->
+<section class="proposal-panel prop-2" data-panel="2" role="tabpanel">
+  <div class="proposal-meta">
+    <div class="p-name">Proposta 02</div>
+    <h2>Faixa Horizontal — Ritmo editorial, célula CTA em terracota</h2>
+    <p class="rationale">
+      Três células em grid horizontal, cada uma com função clara e tratamento visual distinto: texto sobre fundo creme, calendário sobre <code>#f5ede4</code>, CTA em bloco terracota sólido. A borda superior de 3px e a divisão por células eliminam o problema de "3 colunas iguais" — cada coluna tem personalidade própria. O botão inverte para fundo claro dentro da célula escura, criando contraste máximo.
+    </p>
+  </div>
+  <div class="demo-shell">
+    <div class="demo-inner">
+      <div class="wrap-schedule">
+        <div class="form-strip">
+          <div class="strip-label">
+            <div class="eyebrow">Agende seu ensaio</div>
+            <h2>Gostou? Marque a sua data:</h2>
+            <p>Escolha o dia no calendário ao lado. Vamos verificar a disponibilidade juntas no WhatsApp.</p>
+          </div>
+          <div class="strip-cal">
+            <div class="cal-widget" id="cal2"></div>
+          </div>
+          <div class="strip-cta">
+            <span class="cta-kicker">próximo passo</span>
+            <button class="cta-wa" onclick="return false">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.998-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>
+                <span class="cta-text-main">Enviar via</span>
+                <span class="cta-text-emphasis">WhatsApp</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PROPOSTA 3 — CARD ELEVADO
+════════════════════════════════════════════════════════════════════════ -->
+<section class="proposal-panel prop-3" data-panel="3" role="tabpanel">
+  <div class="proposal-meta">
+    <div class="p-name">Proposta 03</div>
+    <h2>Card Elevado — Calendário como âncora com shadow premium</h2>
+    <p class="rationale">
+      Assimetria intencional: lado esquerdo é editorial (texto largo, respiro vertical, CTA destacado), lado direito é o calendário como "peça" isolada num card branco com shadow profunda. A data selecionada aparece num mini-display abaixo do grid, criando um feedback imediato e satisfatório antes de enviar. Funciona bem como referência de upgrade futuro com mais info (valor do ensaio, disponibilidade confirmada).
+    </p>
+  </div>
+  <div class="demo-shell">
+    <div class="demo-inner">
+      <div class="wrap-schedule">
+        <div class="card-layout">
+          <div class="card-left">
+            <div>
+              <div class="eyebrow">Agende seu ensaio</div>
+            </div>
+            <div>
+              <h2>Gostou? Agende <span>o seu.</span></h2>
+            </div>
+            <p class="body-text">
+              Escolha no calendário ao lado a data que você pretende fazer o seu ensaio. Vou confirmar a disponibilidade com você pelo WhatsApp — leva menos de 1 minuto.
+            </p>
+            <div class="cta-block">
+              <button class="cta-wa" onclick="return false">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.998-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span>
+                  <span class="cta-text-main">Clique para enviar via</span>
+                  <span class="cta-text-emphasis">WhatsApp</span>
+                </span>
+              </button>
+              <span class="trust-note">Mensagem pré-preenchida, você só envia.</span>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="cal-card">
+              <div class="cal-widget" id="cal3"></div>
+              <div class="cal-date-display" id="cal3-display">Selecione uma data</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PROPOSTA 4 — TIRA EDITORIAL
+════════════════════════════════════════════════════════════════════════ -->
+<section class="proposal-panel prop-4" data-panel="4" role="tabpanel">
+  <div class="proposal-meta">
+    <div class="p-name">Proposta 04</div>
+    <h2>Tira Editorial — Inversão total, display serif, assinatura autoral</h2>
+    <p class="rationale">
+      O risco calculado desta proposta: o dark mode terracota com tipografia display italic em 62px cria um momento de assinatura dentro da página — o usuário para, lê, é seduzido. O calendário inverte (dark field, dias em creme), o CTA se torna uma pílula bege que é o único elemento claro no campo escuro, criando hierarquia por contraste total. Inspiração: editorial de moda, não dashboard de software.
+    </p>
+  </div>
+  <div class="demo-shell">
+    <div class="demo-inner">
+      <div class="wrap-schedule">
+        <div class="editorial-layout">
+          <div class="editorial-left">
+            <div class="ed-eyebrow">Agende seu ensaio</div>
+            <h2 class="ed-title">
+              Gostou do que
+              <em>você viu aqui?</em>
+            </h2>
+            <p class="ed-body">
+              Selecione a data no calendário e envie pelo WhatsApp. Confirmo a disponibilidade com você em instantes.
+            </p>
+            <button class="ed-cta" onclick="return false">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.998-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>
+                <span class="cta-text-main">Enviar pelo</span>
+                <span class="cta-text-emphasis">WhatsApp</span>
+              </span>
+            </button>
+          </div>
+          <div class="editorial-right">
+            <div class="cal-widget" id="cal4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PROPOSTA 5 — INSTANTE
+════════════════════════════════════════════════════════════════════════ -->
+<section class="proposal-panel prop-5" data-panel="5" role="tabpanel">
+  <div class="proposal-meta">
+    <div class="p-name">Proposta 05</div>
+    <h2>Instante — 2 etapas, calendário em foco, CTA como revelação</h2>
+    <p class="rationale">
+      Experiência sequencial: a seção começa limpa, com o calendário como protagonista absoluto. Quando o usuário seleciona uma data, o painel de confirmação desce com uma animação spring — a data escolhida aparece como chip, o CTA ganha contexto real. Elimina a desordem visual de mostrar tudo junto. O ritmo é: ver trabalho → querer → escolher data → confirmar. Cada etapa tem um único foco.
+    </p>
+  </div>
+  <div class="demo-shell">
+    <div class="demo-inner">
+      <div class="wrap-schedule">
+        <div class="instante-layout">
+          <div class="instante-header">
+            <div class="eyebrow">Agende seu ensaio</div>
+            <h2>Gostou? Escolha sua data.</h2>
+            <p>Selecione o dia desejado no calendário abaixo.</p>
+          </div>
+          <div class="instante-cal-wrap">
+            <div class="cal-widget" id="cal5"></div>
+          </div>
+          <div class="instante-reveal" id="reveal5">
+            <div class="reveal-inner">
+              <div class="date-confirm">
+                Data selecionada: <span class="date-val" id="reveal5-date">—</span>
+              </div>
+              <button class="cta-wa" onclick="return false">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.998-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span>
+                  <span class="cta-text-main">Clique para enviar pelo</span>
+                  <span class="cta-text-emphasis">WhatsApp</span>
+                </span>
+              </button>
+              <span class="cta-note">A mensagem já vem preenchida com a data escolhida.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     RANKING
+════════════════════════════════════════════════════════════════════════ -->
+<section class="proposal-panel" data-panel="rank" role="tabpanel">
+  <div class="proposal-meta">
+    <div class="p-name">Avaliação Final</div>
+    <h2>Ranking estético — melhor ao mais experimental</h2>
+    <p class="rationale">
+      Critérios: coesão com o ensaio terracota, hierarquia clara, respeito ao tom acolhedor da Lillia, craft nos detalhes, viabilidade de implementação no Nuxt existente.
+    </p>
+  </div>
+  <div class="ranking-section" style="margin-top:24px">
+    <div class="ranking-list">
+      <div class="ranking-item">
+        <div class="rank-num gold">1</div>
+        <div class="rank-body">
+          <div class="rank-name">Proposta 3 — Card Elevado</div>
+          <div class="rank-reason">A assimetria texto + calendário-card resolve o problema original das 3 colunas iguais sem romper com o site — o calendário ganha protagonismo visual merecido, o display de data selecionada adiciona satisfação interativa que as outras propostas não têm, e o CTA tem força sem briga com os demais elementos.</div>
+        </div>
+      </div>
+      <div class="ranking-item">
+        <div class="rank-num">2</div>
+        <div class="rank-body">
+          <div class="rank-name">Proposta 5 — Instante</div>
+          <div class="rank-reason">A experiência sequencial é a mais coerente com o tom acolhedor e personalista da Lillia — sente como uma conversa, não um formulário. O risco é que usuários menos ativos percebam o CTA como oculto; mas quem chegou até aqui já está motivado.</div>
+        </div>
+      </div>
+      <div class="ranking-item">
+        <div class="rank-num">3</div>
+        <div class="rank-body">
+          <div class="rank-name">Proposta 1 — Refinada</div>
+          <div class="rank-reason">A correção mais limpa do problema atual — todas as proporções consertadas, hierarquia clara, menor risco de rejeição pelo cliente por ser evolutiva. Perfeita como ponto de partida para aprovação rápida.</div>
+        </div>
+      </div>
+      <div class="ranking-item">
+        <div class="rank-num">4</div>
+        <div class="rank-body">
+          <div class="rank-name">Proposta 4 — Tira Editorial</div>
+          <div class="rank-reason">Tecnicamente a proposta com maior ambição autoral e craft tipográfico, mas o dark mode terracota profundo é um salto grande de linguagem para o site atual — pode funcionar num rebranding completo, mas pede mais convencimento para uma seção isolada. O risco vale em contexto certo.</div>
+        </div>
+      </div>
+      <div class="ranking-item">
+        <div class="rank-num">5</div>
+        <div class="rank-body">
+          <div class="rank-name">Proposta 2 — Faixa Horizontal</div>
+          <div class="rank-reason">A célula CTA em terracota sólido é a ideia mais clara desta proposta, mas o grid de 3 células sem nenhuma sobreposição de camadas resulta num design competente sem surpresa. Funciona bem como fallback seguro para versão mobile-first ou landing pages stripped-down.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── JAVASCRIPT ─────────────────────────────────────────────────── -->
+<script>
+/* ─── Tab switching ─────────────────────────────────────────────────── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tab = this.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.proposal-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    this.setAttribute('aria-selected', 'true');
+    document.querySelector(`[data-panel="${tab}"]`).classList.add('active');
+  });
+});
+
+/* ─── Calendar widget factory ────────────────────────────────────────── */
+const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DAYS   = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+function buildCalendar(containerId, onSelect) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  let viewYear  = today.getFullYear();
+  let viewMonth = today.getMonth();
+  let selected  = null;
+
+  function isPast(d) {
+    return new Date(viewYear, viewMonth, d) <= today;
+  }
+  function isToday(d) {
+    return new Date(viewYear, viewMonth, d).getTime() === today.getTime();
+  }
+
+  function render() {
+    const totalDays = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const firstDay  = new Date(viewYear, viewMonth, 1).getDay();
+    const canPrev   = viewYear > today.getFullYear() || viewMonth > today.getMonth();
+    const monthLabel = MONTHS[viewMonth] + ' ' + viewYear;
+
+    const cells = Array(firstDay).fill(null);
+    for (let d = 1; d <= totalDays; d++) cells.push(d);
+
+    const dayBtns = cells.map((day, i) => {
+      if (!day) return `<span class="cal-day is-empty"></span>`;
+      const past     = isPast(day);
+      const todayDay = isToday(day);
+      const isSel    = selected && selected.y === viewYear && selected.m === viewMonth && selected.d === day;
+      const cls = ['cal-day',
+        past     ? 'is-past'     : '',
+        todayDay && !past ? 'is-today'    : '',
+        isSel    ? 'is-selected' : '',
+      ].filter(Boolean).join(' ');
+      return `<button type="button" class="${cls}" ${past?'disabled':''} data-day="${day}">${day}</button>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="cal-header">
+        <button type="button" class="cal-nav-btn cal-prev" ${!canPrev?'disabled':''} aria-label="Mês anterior">&#8249;</button>
+        <span class="cal-month-label">${monthLabel}</span>
+        <button type="button" class="cal-nav-btn cal-next" aria-label="Próximo mês">&#8250;</button>
+      </div>
+      <div class="cal-grid">
+        ${DAYS.map(d=>`<span class="cal-dow">${d}</span>`).join('')}
+        ${dayBtns}
+      </div>
+    `;
+
+    container.querySelector('.cal-prev')?.addEventListener('click', () => {
+      if (!canPrev) return;
+      if (viewMonth === 0) { viewMonth = 11; viewYear--; }
+      else viewMonth--;
+      render();
+    });
+    container.querySelector('.cal-next')?.addEventListener('click', () => {
+      if (viewMonth === 11) { viewMonth = 0; viewYear++; }
+      else viewMonth++;
+      render();
+    });
+    container.querySelectorAll('.cal-day:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const d = parseInt(this.dataset.day);
+        selected = { y: viewYear, m: viewMonth, d };
+        if (onSelect) onSelect(viewYear, viewMonth + 1, d);
+        render();
+      });
+    });
+  }
+
+  render();
+}
+
+/* ─── Build all 5 calendars ──────────────────────────────────────────── */
+buildCalendar('cal1');
+buildCalendar('cal2');
+buildCalendar('cal3', function(y, m, d) {
+  const display  = document.getElementById('cal3-display');
+  if (!display) return;
+  const dateStr = d + ' de ' + MONTHS[m-1] + ' de ' + y;
+  display.textContent = 'Data selecionada: ' + dateStr;
+  display.classList.add('has-date');
+});
+buildCalendar('cal4');
+buildCalendar('cal5', function(y, m, d) {
+  const reveal  = document.getElementById('reveal5');
+  const dateVal = document.getElementById('reveal5-date');
+  if (!reveal || !dateVal) return;
+  dateVal.textContent = d + ' de ' + MONTHS[m-1] + ' de ' + y;
+  reveal.classList.add('visible');
+});
+
+/* ─── Reduced motion respect ─────────────────────────────────────────── */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.instante-reveal').forEach(el => {
+    el.style.transition = 'none';
+  });
+}
+</script>
+
+</body>
+</html>

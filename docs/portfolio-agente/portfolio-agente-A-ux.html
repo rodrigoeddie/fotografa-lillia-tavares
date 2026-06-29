@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Section — 5 Propostas UX · Lillia Tavares</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  background: #f0ede4;
+  color: #3a3826;
+  line-height: 1.5;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ── Tokens ── */
+:root {
+  --olive:       #7b785b;
+  --olive-mid:   #aaa789;
+  --olive-light: #c8c4aa;
+  --creme:       #e3dfcb;
+  --creme-dark:  #d4cfb4;
+  --near-white:  #f6f6f6;
+  --white:       #ffffff;
+  --ink:         #3a3826;
+  --ink-faint:   #7b785b;
+}
+
+/* ── Nav de propostas ── */
+.proposals-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--olive);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+}
+.proposals-nav a {
+  display: block;
+  padding: 1rem 1.25rem;
+  color: var(--creme);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+.proposals-nav a:hover,
+.proposals-nav a:focus { color: var(--white); border-bottom-color: var(--creme); outline: none; }
+
+/* ── Rótulo de proposta ── */
+.proposal-label {
+  background: var(--olive);
+  color: var(--creme);
+  padding: 2.5rem 2rem 1.5rem;
+  position: relative;
+}
+.proposal-label .tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  margin-bottom: 0.4rem;
+}
+.proposal-label h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.proposal-label .rationale {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--creme);
+  max-width: 64ch;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+.proposal-label .badge-tipo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.badge-evolucao { background: rgba(163,160,137,0.25); color: var(--creme); }
+.badge-extrapol { background: rgba(227,223,203,0.15); color: var(--creme-dark); border: 1px solid var(--olive-light); }
+
+.state-labels {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 2rem;
+  background: #4a4836;
+}
+.state-labels span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+}
+.state-labels span strong { color: var(--creme); }
+
+/* ════════════════════════════════════════════════
+   PROPOSTA 1 — Gap + Hover Reveal (Evolução Segura)
+   ════════════════════════════════════════════════ */
+#p1 { background: var(--white); padding: 4rem 2rem 3rem; }
+
+.p1-section-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.p1-section-head .eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  margin-bottom: 0.75rem;
+}
+.p1-section-head h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 900;
+  color: var(--olive);
+  text-wrap: balance;
+  line-height: 1.2;
+}
+
+.p1-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto 2.5rem;
+}
+
+.p1-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--near-white);
+  cursor: pointer;
+  outline-offset: 3px;
+}
+.p1-card:focus-visible { outline: 2px solid var(--olive); }
+.p1-card:focus-visible .p1-card-overlay { opacity: 1; }
+.p1-card:focus-visible .p1-card-info { transform: translateY(0); opacity: 1; }
+
+.p1-card-img {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+.p1-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: grayscale(15%);
+}
+.p1-card:hover .p1-card-img img { transform: scale(1.04); }
+
+/* Overlay + info (reveal ao hover) */
+.p1-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(59,56,38,0.72) 0%, rgba(59,56,38,0) 55%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.p1-card:hover .p1-card-overlay { opacity: 1; }
+
+.p1-card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.25rem 1rem 1rem;
+  transform: translateY(0.5rem);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.p1-card:hover .p1-card-info { transform: translateY(0); opacity: 1; }
+
+.p1-card-info .p1-name {
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+  text-wrap: balance;
+}
+.p1-card-info .p1-cat {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--creme);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+.p1-card-info .p1-btn {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: var(--creme);
+  color: var(--olive);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.p1-card-info .p1-btn:hover { background: var(--white); }
+.p1-card-info .p1-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+
+/* Card sem imagem */
+.p1-card-empty .p1-card-img {
+  background: var(--creme);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.p1-card-empty .placeholder-icon { opacity: 0.35; }
+
+/* Loading skeleton */
+.p1-card-loading .p1-card-img {
+  background: linear-gradient(90deg, var(--near-white) 25%, var(--creme) 50%, var(--near-white) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s infinite;
+}
+@keyframes skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.p1-card-loading .p1-meta-loading {
+  padding: 0.75rem 0.75rem;
+}
+.p1-card-loading .skel-line {
+  height: 0.6rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--near-white) 25%, var(--creme) 50%, var(--near-white) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s infinite;
+  margin-bottom: 0.4rem;
+}
+.p1-card-loading .skel-line:nth-child(1) { width: 70%; }
+.p1-card-loading .skel-line:nth-child(2) { width: 50%; }
+
+.p1-meta-below {
+  padding: 0.75rem 0.75rem 0;
+}
+.p1-meta-below .p1-name-below {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-bottom: 0.1rem;
+  text-wrap: balance;
+}
+.p1-meta-below .p1-cat-below {
+  font-size: 0.65rem;
+  color: var(--olive-mid);
+}
+
+.p1-cta-wrap {
+  text-align: center;
+}
+.p1-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: var(--olive);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.15s;
+}
+.p1-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.p1-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+.p1-cta:active { transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .p1-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .p1-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.75rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    margin: 0 -2rem 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .p1-grid::after {
+    content: '';
+    flex: 0 0 1.25rem;
+  }
+  .p1-card {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
+  }
+  /* Peek do próximo card */
+  .p1-card:last-child { flex: 0 0 72%; }
+  /* Mostrar info abaixo em mobile (sem hover) */
+  .p1-card-overlay { opacity: 1; }
+  .p1-card-info { opacity: 1; transform: none; }
+}
+
+/* ════════════════════════════════════════════════
+   PROPOSTA 2 — Horizontal Scroll com Cards Maiores (Evolução)
+   ════════════════════════════════════════════════ */
+#p2 { background: var(--near-white); padding: 4rem 0 3rem; }
+
+.p2-section-head {
+  padding: 0 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto 2.5rem;
+}
+.p2-section-head-left {}
+.p2-section-head .eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  margin-bottom: 0.5rem;
+}
+.p2-section-head h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 900;
+  color: var(--olive);
+  text-wrap: balance;
+  line-height: 1.15;
+}
+.p2-nav-arrows {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+.p2-arrow {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--olive-light);
+  background: transparent;
+  color: var(--olive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+.p2-arrow:hover { background: var(--creme); border-color: var(--olive); }
+.p2-arrow:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+.p2-track-wrap {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 2rem 1.5rem;
+  cursor: grab;
+}
+.p2-track-wrap:active { cursor: grabbing; }
+.p2-track-wrap::-webkit-scrollbar { height: 3px; }
+.p2-track-wrap::-webkit-scrollbar-track { background: var(--creme); }
+.p2-track-wrap::-webkit-scrollbar-thumb { background: var(--olive-light); border-radius: 2px; }
+
+.p2-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+}
+
+.p2-card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  background: var(--white);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.3s;
+}
+.p2-card:hover { box-shadow: 0 8px 32px rgba(59,56,38,0.10); }
+.p2-card:focus-within { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+.p2-card-img {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+}
+.p2-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  filter: grayscale(10%);
+}
+.p2-card:hover .p2-card-img img { transform: scale(1.03); }
+
+/* Número do card — detalhe editorial */
+.p2-card-num {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  background: rgba(59,56,38,0.5);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+}
+
+.p2-card-body {
+  padding: 1rem 1rem 1.25rem;
+}
+.p2-card-body .p2-name {
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-bottom: 0.25rem;
+  text-wrap: balance;
+}
+.p2-card-body .p2-cat {
+  font-size: 0.68rem;
+  color: var(--olive-mid);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.1rem;
+}
+.p2-card-body .p2-place {
+  font-size: 0.68rem;
+  color: var(--olive-mid);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+.p2-card-body .p2-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  border-bottom: 1px solid var(--creme-dark);
+  padding-bottom: 0.1rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.p2-card-body .p2-link:hover { border-color: var(--olive); }
+.p2-card-body .p2-link:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+/* Card erro */
+.p2-card-error .p2-card-img {
+  background: #f8f5ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--olive-mid);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.p2-progress {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  margin: 1.25rem 2rem 0;
+}
+.p2-progress-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--olive-light);
+  transition: background 0.2s, width 0.2s;
+}
+.p2-progress-dot.active { background: var(--olive); width: 16px; border-radius: 2px; }
+
+.p2-cta-wrap {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ════════════════════════════════════════════════
+   PROPOSTA 3 — Two-Level Grid com Tipografia Escalada (Evolução)
+   ════════════════════════════════════════════════ */
+#p3 { background: var(--white); padding: 5rem 2rem 4rem; }
+
+.p3-section-head {
+  max-width: 1200px;
+  margin: 0 auto 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2rem;
+}
+.p3-section-head .eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  margin-bottom: 0.6rem;
+}
+.p3-section-head h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--olive);
+  text-wrap: balance;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.p3-section-head .p3-count {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  text-align: right;
+}
+
+.p3-grid {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.75rem;
+}
+
+/* Featured card (grande) */
+.p3-card-featured {
+  grid-row: 1 / 3;
+  grid-column: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+  outline-offset: 3px;
+}
+.p3-card-featured:focus-visible { outline: 2px solid var(--olive); }
+
+.p3-card-featured .img-wrap {
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+}
+.p3-card-featured .img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(8%);
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.p3-card-featured:hover .img-wrap img { transform: scale(1.04); }
+
+.p3-card-featured .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(35,33,22,0.7) 0%, rgba(35,33,22,0) 60%);
+  pointer-events: none;
+}
+.p3-card-featured .card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.75rem 1.75rem;
+}
+.p3-card-featured .card-info .tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--creme);
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+.p3-card-featured .card-info .name {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--white);
+  text-wrap: balance;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+.p3-card-featured .card-info .btn-ensaio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  background: var(--creme);
+  color: var(--olive);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.15s;
+  transform: translateY(0.4rem);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.2s;
+}
+.p3-card-featured:hover .card-info .btn-ensaio,
+.p3-card-featured:focus-visible .card-info .btn-ensaio {
+  transform: translateY(0);
+  opacity: 1;
+}
+.p3-card-featured .card-info .btn-ensaio:hover { background: var(--white); }
+
+/* Cards menores */
+.p3-card-small {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+  outline-offset: 3px;
+}
+.p3-card-small:focus-visible { outline: 2px solid var(--olive); }
+
+.p3-card-small .img-wrap {
+  height: 290px;
+  overflow: hidden;
+  position: relative;
+}
+.p3-card-small .img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(8%);
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.p3-card-small:hover .img-wrap img { transform: scale(1.04); }
+
+.p3-card-small .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(35,33,22,0.65) 0%, rgba(35,33,22,0) 55%);
+  pointer-events: none;
+}
+.p3-card-small .card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.25rem 1rem 1rem;
+}
+.p3-card-small .card-info .tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--creme);
+  opacity: 0.75;
+  margin-bottom: 0.3rem;
+}
+.p3-card-small .card-info .name {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--white);
+  text-wrap: balance;
+  letter-spacing: 0.04em;
+}
+
+.p3-cta-wrap {
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .p3-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .p3-card-featured {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+  .p3-card-featured .img-wrap { height: 420px; }
+}
+@media (max-width: 600px) {
+  .p3-section-head { grid-template-columns: 1fr; }
+  .p3-grid { grid-template-columns: 1fr; }
+  .p3-card-featured { grid-column: 1; }
+  .p3-card-featured .img-wrap { height: 360px; }
+  .p3-card-small .img-wrap { height: 220px; }
+  /* Mostrar btn sempre em mobile */
+  .p3-card-featured .card-info .btn-ensaio { transform: translateY(0); opacity: 1; }
+}
+
+/* ════════════════════════════════════════════════
+   PROPOSTA 4 — Editorial Filmstrip (Extrapolação)
+   ════════════════════════════════════════════════ */
+#p4 { background: #1e1c13; padding: 5rem 0 4rem; }
+
+.p4-section-head {
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.p4-section-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(163,160,137,0.25);
+}
+.p4-section-head .eyebrow {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  margin-bottom: 0.4rem;
+}
+.p4-section-head h2 {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--creme);
+  text-wrap: balance;
+  white-space: nowrap;
+}
+.p4-section-head h2 strong {
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Filmstrip */
+.p4-strip-wrap {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 2rem;
+  cursor: grab;
+}
+.p4-strip-wrap:active { cursor: grabbing; }
+.p4-strip-wrap::-webkit-scrollbar { height: 2px; }
+.p4-strip-wrap::-webkit-scrollbar-track { background: rgba(163,160,137,0.1); }
+.p4-strip-wrap::-webkit-scrollbar-thumb { background: var(--olive-mid); }
+
+.p4-frame {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  position: relative;
+  border-right: 3px solid #1e1c13;
+}
+.p4-frame:last-child { border-right: none; }
+
+/* Frame número estilo contact sheet */
+.p4-frame-num {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
+  background: rgba(30,28,19,0.9);
+  z-index: 2;
+}
+.p4-frame-num span {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--olive-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.p4-frame-img {
+  height: 340px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.p4-frame-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%) sepia(10%);
+  transition: filter 0.4s ease, transform 0.5s ease;
+}
+.p4-frame:hover .p4-frame-img img {
+  filter: grayscale(0%) sepia(0%);
+  transform: scale(1.03);
+}
+.p4-frame:focus-within .p4-frame-img img {
+  filter: grayscale(0%) sepia(0%);
+}
+.p4-frame-img a {
+  display: block;
+  height: 100%;
+}
+.p4-frame-img a:focus-visible { outline: 2px solid var(--creme); outline-offset: -2px; }
+
+/* Sprocket holes (decorativo) */
+.p4-frame::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 54px;
+  height: 1px;
+  background: rgba(163,160,137,0.15);
+  z-index: 2;
+}
+
+.p4-frame-meta {
+  background: #2a2819;
+  padding: 0.75rem 0.75rem 1rem;
+}
+.p4-frame-meta .p4-name {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--creme);
+  margin-bottom: 0.2rem;
+  text-wrap: balance;
+}
+.p4-frame-meta .p4-cat {
+  font-size: 0.6rem;
+  color: var(--olive-mid);
+  letter-spacing: 0.06em;
+}
+
+.p4-cta-wrap {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding: 0 2rem;
+}
+.p4-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  color: var(--creme);
+  border: 1px solid rgba(163,160,137,0.4);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.25s, border-color 0.25s;
+}
+.p4-cta:hover { background: rgba(227,223,203,0.1); border-color: var(--creme); }
+.p4-cta:focus-visible { outline: 2px solid var(--creme); outline-offset: 3px; }
+
+/* ════════════════════════════════════════════════
+   PROPOSTA 5 — Accordion Horizontal / Foco + Periferia (Extrapolação)
+   ════════════════════════════════════════════════ */
+#p5 { background: var(--creme); padding: 5rem 2rem 4rem; }
+
+.p5-section-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.p5-section-head .eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+  margin-bottom: 0.6rem;
+}
+.p5-section-head h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
+  color: var(--olive);
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+.p5-accordion {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto 2.5rem;
+  height: 520px;
+}
+
+.p5-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: flex 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+  flex: 1;
+  outline-offset: 3px;
+}
+.p5-panel:focus-visible { outline: 2px solid var(--olive); }
+
+.p5-panel.active { flex: 4; }
+
+.p5-panel-img {
+  position: absolute;
+  inset: 0;
+}
+.p5-panel-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+  transition: filter 0.5s ease;
+}
+.p5-panel.active .p5-panel-img img { filter: grayscale(5%); }
+
+/* Overlay gradiente */
+.p5-panel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(35,33,22,0.75) 0%, rgba(35,33,22,0.1) 60%);
+  transition: background 0.4s;
+}
+.p5-panel:not(.active) .p5-panel-overlay {
+  background: rgba(35,33,22,0.45);
+}
+
+/* Título rotacionado quando colapsado */
+.p5-panel-label-collapsed {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin: center center;
+  white-space: nowrap;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.p5-panel.active .p5-panel-label-collapsed { opacity: 0; }
+
+/* Info quando expandido */
+.p5-panel-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.75rem 1.75rem;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
+  pointer-events: none;
+}
+.p5-panel.active .p5-panel-info {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.p5-panel-info .tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--creme);
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+.p5-panel-info .name {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+  text-wrap: balance;
+}
+.p5-panel-info .place {
+  font-size: 0.7rem;
+  color: var(--creme);
+  opacity: 0.75;
+  margin-bottom: 1.25rem;
+}
+.p5-panel-info .p5-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--creme);
+  color: var(--olive);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.p5-panel-info .p5-btn:hover { background: var(--white); }
+.p5-panel-info .p5-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+
+/* Loading state para painel */
+.p5-panel-loading {
+  background: linear-gradient(90deg, var(--creme-dark) 25%, var(--near-white) 50%, var(--creme-dark) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s infinite;
+}
+
+.p5-cta-wrap { text-align: center; }
+
+/* Mobile: accordion vira lista vertical */
+@media (max-width: 768px) {
+  .p5-accordion {
+    flex-direction: column;
+    height: auto;
+  }
+  .p5-panel {
+    height: 120px;
+    flex: none !important;
+    transition: height 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .p5-panel.active { height: 380px; }
+  .p5-panel-label-collapsed {
+    transform: none;
+    bottom: auto;
+    top: 50%;
+    left: 1.25rem;
+    transform: translateY(-50%);
+    font-size: 0.72rem;
+  }
+  .p5-panel.active .p5-panel-label-collapsed { opacity: 0; }
+}
+
+/* ════════════════════════════════════════════════
+   RANKING
+   ════════════════════════════════════════════════ */
+#ranking {
+  background: var(--olive);
+  padding: 4rem 2rem;
+}
+.ranking-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.ranking-inner h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--creme);
+  margin-bottom: 2rem;
+}
+.ranking-item {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem 1.25rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(163,160,137,0.3);
+}
+.ranking-item:last-child { border-bottom: 1px solid rgba(163,160,137,0.3); }
+.ranking-pos {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--olive-mid);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  padding-top: 0.15rem;
+}
+.ranking-content .r-title {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+.ranking-content .r-text {
+  font-size: 0.72rem;
+  color: var(--creme);
+  line-height: 1.6;
+  opacity: 0.85;
+  max-width: 58ch;
+}
+.ranking-content .r-verdict {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive-mid);
+}
+
+/* ── Shared CTA style ── */
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: var(--olive);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.15s;
+  cursor: pointer;
+  border: none;
+}
+.btn-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.btn-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+.btn-cta:active { transform: translateY(0); }
+
+/* Divider entre seções */
+.section-divider {
+  height: 0;
+  border: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Category Tabs — SEO: links reais para páginas de categoria ── */
+.cat-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.cat-tab {
+  font-family: 'Lato', arial;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--olive, #7b785b);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+.cat-tab:hover { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab--active { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab:focus-visible { outline: 2px solid var(--olive, #7b785b); outline-offset: 2px; }
+.cat-tab--all { border-style: dashed; opacity: .8; }
+/* Dark bg variant */
+.cat-tabs--dark .cat-tab { color: var(--creme, #e3dfcb); border-color: currentColor; }
+.cat-tabs--dark .cat-tab:hover,
+.cat-tabs--dark .cat-tab--active { background: var(--creme, #e3dfcb); color: var(--ink, #2e2d26); }
+.cat-tabs--dark .cat-tab:focus-visible { outline-color: var(--creme, #e3dfcb); }
+</style>
+</head>
+<body>
+
+<!-- ── Navegação de propostas ── -->
+<nav class="proposals-nav" aria-label="Navegação entre propostas">
+  <a href="#p1">P1 · Gap + Hover Reveal</a>
+  <a href="#p2">P2 · Scroll Horizontal</a>
+  <a href="#p3">P3 · Masonry Assimétrico</a>
+  <a href="#p4">P4 · Filmstrip Editorial</a>
+  <a href="#p5">P5 · Accordion Foco</a>
+  <a href="#ranking">Ranking</a>
+</nav>
+
+<!-- ════════ PROPOSTA 1 ════════ -->
+<div class="proposal-label" id="p1-label">
+  <div class="tag">Proposta 1 · Evolução Segura</div>
+  <h1>Gap + Hover Reveal</h1>
+  <p class="rationale">Mantém o layout em 5 colunas mas introduz gap de 1rem, escala a tipografia para 14px+, e revela informações ao hover com overlay gradiente — sem alterar a estrutura de dados ou o componente Swiper. O maior risco é a perda de área de foto por conta do gap.</p>
+  <span class="badge-tipo badge-evolucao">Evolução segura</span>
+</div>
+<div class="state-labels" aria-hidden="true">
+  <span><strong>Estados:</strong></span>
+  <span>Default (card 1–4)</span>
+  <span>· Hover (card 1)</span>
+  <span>· Loading skeleton (card 5)</span>
+  <span>· Sem imagem (card 4)</span>
+  <span>· Nome longo (card 3)</span>
+</div>
+
+<section id="p1" aria-labelledby="p1-h2">
+  <div class="p1-section-head">
+    <p class="eyebrow">Portfólio</p>
+    <h2 id="p1-h2">Explore meus últimos trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+  </div>
+
+  <div class="p1-grid" role="list">
+
+    <!-- Card 1 — hover state simulado via CSS :hover; js não necessário -->
+    <article class="p1-card" role="listitem" tabindex="0">
+      <div class="p1-card-img">
+        <img src="https://picsum.photos/seed/bruna/400/600" alt="Ensaio corporativo de Bruna Freire">
+        <div class="p1-card-overlay" aria-hidden="true"></div>
+        <div class="p1-card-info" aria-hidden="true">
+          <p class="p1-name">Bruna Freire</p>
+          <p class="p1-cat">Corporativo</p>
+          <a class="p1-btn" href="#" tabindex="-1">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p1-meta-below" aria-hidden="true">
+        <p class="p1-name-below">Bruna Freire</p>
+        <p class="p1-cat-below">Corporativo</p>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="p1-card" role="listitem" tabindex="0">
+      <div class="p1-card-img">
+        <img src="https://picsum.photos/seed/andresa/400/600" alt="Ensaio corporativo de Andresa Maia">
+        <div class="p1-card-overlay" aria-hidden="true"></div>
+        <div class="p1-card-info" aria-hidden="true">
+          <p class="p1-name">Andresa Maia</p>
+          <p class="p1-cat">Corporativo</p>
+          <a class="p1-btn" href="#" tabindex="-1">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p1-meta-below" aria-hidden="true">
+        <p class="p1-name-below">Andresa Maia</p>
+        <p class="p1-cat-below">Corporativo</p>
+      </div>
+    </article>
+
+    <!-- Card 3 — Nome longo -->
+    <article class="p1-card" role="listitem" tabindex="0">
+      <div class="p1-card-img">
+        <img src="https://picsum.photos/seed/alessandra/400/600" alt="Ensaio corporativo de Alessandra Magalhães de Souza">
+        <div class="p1-card-overlay" aria-hidden="true"></div>
+        <div class="p1-card-info" aria-hidden="true">
+          <p class="p1-name">Alessandra Magalhães de Souza</p>
+          <p class="p1-cat">Corporativo</p>
+          <a class="p1-btn" href="#" tabindex="-1">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p1-meta-below" aria-hidden="true">
+        <p class="p1-name-below">Alessandra Magalhães de Souza</p>
+        <p class="p1-cat-below">Corporativo</p>
+      </div>
+    </article>
+
+    <!-- Card 4 — Sem imagem -->
+    <article class="p1-card p1-card-empty" role="listitem" tabindex="0" aria-label="Marcella Castelucci — imagem não disponível">
+      <div class="p1-card-img">
+        <svg class="placeholder-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7b785b" stroke-width="1.5" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+      </div>
+      <div class="p1-meta-below">
+        <p class="p1-name-below">Marcella Castelucci</p>
+        <p class="p1-cat-below">Imagem indisponível</p>
+      </div>
+    </article>
+
+    <!-- Card 5 — Loading skeleton -->
+    <article class="p1-card p1-card-loading" role="listitem" aria-busy="true" aria-label="Carregando ensaio">
+      <div class="p1-card-img"></div>
+      <div class="p1-meta-loading">
+        <div class="skel-line"></div>
+        <div class="skel-line"></div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="p1-cta-wrap">
+    <a class="p1-cta btn-cta" href="#">
+      Ver todos os trabalhos
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════ PROPOSTA 2 ════════ -->
+<div class="proposal-label" id="p2-label">
+  <div class="tag">Proposta 2 · Evolução Segura</div>
+  <h1>Scroll Horizontal com Cards Maiores</h1>
+  <p class="rationale">Substitui o grid fixo por um carrossel com scroll nativo e snap, cards de 260px com foto 360px de altura. A metadados aparecem abaixo da imagem, visíveis sempre — resolve o problema de discoverbility sem depender de hover. Perde-se a visão panorâmica dos 5 trabalhos de uma vez.</p>
+  <span class="badge-tipo badge-evolucao">Evolução segura</span>
+</div>
+<div class="state-labels" aria-hidden="true">
+  <span><strong>Estados:</strong></span>
+  <span>Default</span>
+  <span>· Hover (box-shadow)</span>
+  <span>· Focus-within</span>
+  <span>· Erro de imagem (card 4)</span>
+  <span>· Loading (card 5)</span>
+</div>
+
+<section id="p2" aria-labelledby="p2-h2">
+  <div class="p2-section-head">
+    <div class="p2-section-head-left">
+      <p class="eyebrow">Portfólio</p>
+      <h2 id="p2-h2">Explore meus últimos<br>trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    </div>
+    <div class="p2-nav-arrows">
+      <button class="p2-arrow" aria-label="Card anterior" onclick="document.querySelector('.p2-track-wrap').scrollBy({left:-280,behavior:'smooth'})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="p2-arrow" aria-label="Próximo card" onclick="document.querySelector('.p2-track-wrap').scrollBy({left:280,behavior:'smooth'})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="p2-track-wrap" role="region" aria-label="Lista de ensaios fotográficos" tabindex="0">
+    <div class="p2-track" role="list">
+
+      <article class="p2-card" role="listitem">
+        <div class="p2-card-img">
+          <span class="p2-card-num" aria-hidden="true">01</span>
+          <img src="https://picsum.photos/seed/bruna2/400/600" alt="Ensaio corporativo de Bruna Freire">
+        </div>
+        <div class="p2-card-body">
+          <h3 class="p2-name"><a href="#" class="p2-link-name">Bruna Freire</a></h3>
+          <p class="p2-cat">Corporativo</p>
+          <p class="p2-place">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </p>
+          <a class="p2-link" href="#" aria-label="Acessar ensaio de Bruna Freire">
+            Acessar Ensaio
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="p2-card" role="listitem">
+        <div class="p2-card-img">
+          <span class="p2-card-num" aria-hidden="true">02</span>
+          <img src="https://picsum.photos/seed/andresa2/400/600" alt="Ensaio corporativo de Andresa Maia">
+        </div>
+        <div class="p2-card-body">
+          <h3 class="p2-name"><a href="#" class="p2-link-name">Andresa Maia</a></h3>
+          <p class="p2-cat">Corporativo</p>
+          <p class="p2-place">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </p>
+          <a class="p2-link" href="#" aria-label="Acessar ensaio de Andresa Maia">
+            Acessar Ensaio
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="p2-card" role="listitem">
+        <div class="p2-card-img">
+          <span class="p2-card-num" aria-hidden="true">03</span>
+          <img src="https://picsum.photos/seed/camila/400/600" alt="Ensaio corporativo de Camila Nogueira">
+        </div>
+        <div class="p2-card-body">
+          <h3 class="p2-name"><a href="#" class="p2-link-name">Camila Nogueira</a></h3>
+          <p class="p2-cat">Corporativo</p>
+          <p class="p2-place">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </p>
+          <a class="p2-link" href="#" aria-label="Acessar ensaio de Camila Nogueira">
+            Acessar Ensaio
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card nome longo -->
+      <article class="p2-card" role="listitem">
+        <div class="p2-card-img">
+          <span class="p2-card-num" aria-hidden="true">04</span>
+          <img src="https://picsum.photos/seed/marcella/400/600" alt="Ensaio corporativo de Alessandra Magalhães de Souza">
+        </div>
+        <div class="p2-card-body">
+          <h3 class="p2-name"><a href="#" class="p2-link-name">Alessandra Magalhães de Souza</a></h3>
+          <p class="p2-cat">Corporativo</p>
+          <p class="p2-place">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </p>
+          <a class="p2-link" href="#" aria-label="Acessar ensaio de Alessandra Magalhães de Souza">
+            Acessar Ensaio
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card erro de imagem -->
+      <article class="p2-card p2-card-error" role="listitem">
+        <div class="p2-card-img" style="height:360px;background:#f8f5ef;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#aaa789" stroke-width="1.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span style="font-size:0.65rem;color:#aaa789;letter-spacing:0.06em;">Imagem indisponível</span>
+        </div>
+        <div class="p2-card-body">
+          <h3 class="p2-name">Monica Rafael</h3>
+          <p class="p2-cat">Corporativo</p>
+          <p class="p2-place" style="color:#aaa789;font-size:0.65rem;">Tente novamente mais tarde</p>
+        </div>
+      </article>
+
+      <!-- Card loading -->
+      <article class="p2-card" role="listitem" aria-busy="true" aria-label="Carregando ensaio">
+        <div class="p2-card-img" style="height:360px;background:linear-gradient(90deg,#f6f6f6 25%,#e3dfcb 50%,#f6f6f6 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;"></div>
+        <div class="p2-card-body">
+          <div class="skel-line" style="height:0.75rem;border-radius:2px;background:linear-gradient(90deg,#f6f6f6 25%,#e3dfcb 50%,#f6f6f6 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;width:65%;margin-bottom:0.5rem;"></div>
+          <div class="skel-line" style="height:0.65rem;border-radius:2px;background:linear-gradient(90deg,#f6f6f6 25%,#e3dfcb 50%,#f6f6f6 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;width:45%;"></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="p2-progress" role="tablist" aria-label="Posição no carrossel">
+    <div class="p2-progress-dot active" role="tab" aria-selected="true" aria-label="Item 1"></div>
+    <div class="p2-progress-dot" role="tab" aria-selected="false" aria-label="Item 2"></div>
+    <div class="p2-progress-dot" role="tab" aria-selected="false" aria-label="Item 3"></div>
+    <div class="p2-progress-dot" role="tab" aria-selected="false" aria-label="Item 4"></div>
+    <div class="p2-progress-dot" role="tab" aria-selected="false" aria-label="Item 5"></div>
+    <div class="p2-progress-dot" role="tab" aria-selected="false" aria-label="Item 6"></div>
+  </div>
+
+  <div class="p2-cta-wrap">
+    <a class="btn-cta" href="#">
+      Ver todos os trabalhos
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════ PROPOSTA 3 ════════ -->
+<div class="proposal-label" id="p3-label">
+  <div class="tag">Proposta 3 · Evolução Moderada</div>
+  <h1>Grid Assimétrico com Destaque Editorial</h1>
+  <p class="rationale">Quebra a monotonia de 5 colunas iguais introduzindo um card featured (2×) e 4 cards menores. A hierarquia visual guia o olho naturalmente; o primeiro trabalho recebe mais atenção. O trade-off é que o layout favorece um trabalho sobre os demais, o que pode gerar expectativas do cliente sobre ordenação.</p>
+  <span class="badge-tipo badge-evolucao">Evolução moderada</span>
+</div>
+<div class="state-labels" aria-hidden="true">
+  <span><strong>Estados:</strong></span>
+  <span>Default</span>
+  <span>· Hover (btn reveal no featured)</span>
+  <span>· Focus-visible (outline olive)</span>
+  <span>· Sem imagem (card pequeno)</span>
+  <span>· Nome longo (featured)</span>
+</div>
+
+<section id="p3" aria-labelledby="p3-h2">
+  <div class="p3-section-head">
+    <div>
+      <p class="eyebrow">Portfólio</p>
+      <h2 id="p3-h2">Explore meus<br>últimos trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    </div>
+    <p class="p3-count" aria-label="5 ensaios recentes">5 ensaios<br>recentes</p>
+  </div>
+
+  <div class="p3-grid" role="list">
+
+    <!-- Featured -->
+    <article class="p3-card-featured" role="listitem" tabindex="0" aria-label="Ensaio corporativo de Alessandra Magalhães de Souza — card em destaque">
+      <div class="img-wrap">
+        <img src="https://picsum.photos/seed/feat1/600/800" alt="Ensaio corporativo de Alessandra Magalhães de Souza">
+      </div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="card-info">
+        <p class="tag">Corporativo · Estúdio Lillia Tavares</p>
+        <h3 class="name">Alessandra Magalhães de Souza</h3>
+        <a class="btn-ensaio" href="#" tabindex="0" aria-label="Acessar ensaio de Alessandra Magalhães de Souza">
+          Acessar Ensaio
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Small 1 -->
+    <article class="p3-card-small" role="listitem" tabindex="0" aria-label="Ensaio corporativo de Andresa Maia">
+      <div class="img-wrap">
+        <img src="https://picsum.photos/seed/small1/400/400" alt="Ensaio corporativo de Andresa Maia">
+      </div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="card-info">
+        <p class="tag">Corporativo</p>
+        <h3 class="name">Andresa Maia</h3>
+      </div>
+    </article>
+
+    <!-- Small 2 -->
+    <article class="p3-card-small" role="listitem" tabindex="0" aria-label="Ensaio corporativo de Bruna Freire">
+      <div class="img-wrap">
+        <img src="https://picsum.photos/seed/small2/400/400" alt="Ensaio corporativo de Bruna Freire">
+      </div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="card-info">
+        <p class="tag">Corporativo</p>
+        <h3 class="name">Bruna Freire</h3>
+      </div>
+    </article>
+
+    <!-- Small 3 -->
+    <article class="p3-card-small" role="listitem" tabindex="0" aria-label="Ensaio corporativo de Camila Nogueira">
+      <div class="img-wrap">
+        <img src="https://picsum.photos/seed/small3/400/400" alt="Ensaio corporativo de Camila Nogueira">
+      </div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="card-info">
+        <p class="tag">Corporativo</p>
+        <h3 class="name">Camila Nogueira</h3>
+      </div>
+    </article>
+
+    <!-- Small 4 — sem imagem -->
+    <article class="p3-card-small" role="listitem" tabindex="0" aria-label="Ensaio corporativo de Monica Rafael — imagem indisponível" style="background:#e8e4cf;">
+      <div class="img-wrap" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;background:#e8e4cf;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#aaa789" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.6rem;color:#aaa789;letter-spacing:0.08em;font-weight:700;">Sem imagem</span>
+      </div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="card-info" style="opacity:1;transform:none;">
+        <p class="tag">Corporativo</p>
+        <h3 class="name">Monica Rafael</h3>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="p3-cta-wrap">
+    <a class="btn-cta" href="#">
+      Ver todos os trabalhos
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════ PROPOSTA 4 ════════ -->
+<div class="proposal-label" id="p4-label">
+  <div class="tag">Proposta 4 · Extrapolação</div>
+  <h1>Filmstrip Editorial — Contact Sheet</h1>
+  <p class="rationale">Inversão total do fundo para escuro (#1e1c13), evocando a estética de negativos fotográficos e contact sheets de laboratório. As imagens aparecem em grayscale suave e se revelam coloridas ao hover — metáfora do processo fotográfico. Ousado: requer decisão de marca para um fundo escuro na home, que contradiz o branco atual.</p>
+  <span class="badge-tipo badge-extrapol">Extrapolação ousada</span>
+</div>
+<div class="state-labels" aria-hidden="true">
+  <span><strong>Estados:</strong></span>
+  <span>Default (grayscale)</span>
+  <span>· Hover (color reveal)</span>
+  <span>· Focus (outline creme)</span>
+  <span>· Loading (frame 4)</span>
+  <span>· Nome longo (frame 5)</span>
+</div>
+
+<section id="p4" aria-labelledby="p4-h2">
+  <div class="p4-section-head">
+    <div>
+      <p class="eyebrow">Portfólio</p>
+      <h2 id="p4-h2"><strong>Últimos</strong> trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    </div>
+  </div>
+
+  <div class="p4-strip-wrap" role="region" aria-label="Ensaios fotográficos — rolar horizontalmente">
+    <div class="p4-track" style="display:flex;gap:0;" role="list">
+
+      <article class="p4-frame" role="listitem">
+        <div class="p4-frame-num" aria-hidden="true">
+          <span>01</span><span>▶</span>
+        </div>
+        <div class="p4-frame-img">
+          <a href="#" aria-label="Acessar ensaio de Bruna Freire">
+            <img src="https://picsum.photos/seed/film1/320/500" alt="Bruna Freire">
+          </a>
+        </div>
+        <div class="p4-frame-meta">
+          <p class="p4-name">Bruna Freire</p>
+          <p class="p4-cat">Corporativo</p>
+        </div>
+      </article>
+
+      <article class="p4-frame" role="listitem">
+        <div class="p4-frame-num" aria-hidden="true">
+          <span>02</span><span>▶</span>
+        </div>
+        <div class="p4-frame-img">
+          <a href="#" aria-label="Acessar ensaio de Andresa Maia">
+            <img src="https://picsum.photos/seed/film2/320/500" alt="Andresa Maia">
+          </a>
+        </div>
+        <div class="p4-frame-meta">
+          <p class="p4-name">Andresa Maia</p>
+          <p class="p4-cat">Corporativo</p>
+        </div>
+      </article>
+
+      <article class="p4-frame" role="listitem">
+        <div class="p4-frame-num" aria-hidden="true">
+          <span>03</span><span>▶</span>
+        </div>
+        <div class="p4-frame-img">
+          <a href="#" aria-label="Acessar ensaio de Camila Nogueira">
+            <img src="https://picsum.photos/seed/film3/320/500" alt="Camila Nogueira">
+          </a>
+        </div>
+        <div class="p4-frame-meta">
+          <p class="p4-name">Camila Nogueira</p>
+          <p class="p4-cat">Corporativo</p>
+        </div>
+      </article>
+
+      <!-- Frame loading -->
+      <article class="p4-frame p5-panel-loading" role="listitem" aria-busy="true" aria-label="Carregando ensaio" style="background:#2a2819;">
+        <div class="p4-frame-num" aria-hidden="true">
+          <span>04</span><span style="opacity:0.3;">▶</span>
+        </div>
+        <div class="p4-frame-img" style="background:linear-gradient(90deg,#2a2819 25%,#3a3826 50%,#2a2819 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;"></div>
+        <div class="p4-frame-meta">
+          <div style="height:0.65rem;border-radius:2px;background:linear-gradient(90deg,#2a2819 25%,#3a3826 50%,#2a2819 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;width:70%;margin-bottom:0.4rem;"></div>
+          <div style="height:0.55rem;border-radius:2px;background:linear-gradient(90deg,#2a2819 25%,#3a3826 50%,#2a2819 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;width:45%;"></div>
+        </div>
+      </article>
+
+      <!-- Frame nome longo -->
+      <article class="p4-frame" role="listitem">
+        <div class="p4-frame-num" aria-hidden="true">
+          <span>05</span><span>▶</span>
+        </div>
+        <div class="p4-frame-img">
+          <a href="#" aria-label="Acessar ensaio de Alessandra Magalhães de Souza">
+            <img src="https://picsum.photos/seed/film5/320/500" alt="Alessandra Magalhães de Souza">
+          </a>
+        </div>
+        <div class="p4-frame-meta">
+          <p class="p4-name">Alessandra Magalhães de Souza</p>
+          <p class="p4-cat">Corporativo</p>
+        </div>
+      </article>
+
+      <article class="p4-frame" role="listitem">
+        <div class="p4-frame-num" aria-hidden="true">
+          <span>06</span><span>▶</span>
+        </div>
+        <div class="p4-frame-img">
+          <a href="#" aria-label="Acessar ensaio de Monica Rafael">
+            <img src="https://picsum.photos/seed/film6/320/500" alt="Monica Rafael">
+          </a>
+        </div>
+        <div class="p4-frame-meta">
+          <p class="p4-name">Monica Rafael</p>
+          <p class="p4-cat">Corporativo</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="p4-cta-wrap">
+    <a class="p4-cta" href="#">
+      Ver todos os trabalhos
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════ PROPOSTA 5 ════════ -->
+<div class="proposal-label" id="p5-label">
+  <div class="tag">Proposta 5 · Extrapolação</div>
+  <h1>Accordion Horizontal — Foco e Periferia</h1>
+  <p class="rationale">Interação baseada em expansão: colunas colapsadas mostram apenas o nome rotacionado; ao clicar/focar, o card expande revelando a foto completa e o CTA. Cria uma micro-narrativa de descoberta. Risco: a interação não é óbvia sem onboarding; usuários mobile precisam da versão vertical (implementada). Requer JS mínimo.</p>
+  <span class="badge-tipo badge-extrapol">Extrapolação ousada</span>
+</div>
+<div class="state-labels" aria-hidden="true">
+  <span><strong>Estados:</strong></span>
+  <span>Default (colapsado)</span>
+  <span>· Active/Expanded</span>
+  <span>· Focus-visible</span>
+  <span>· Hover (cursor pointer)</span>
+  <span>· Loading (painel 3)</span>
+</div>
+
+<section id="p5" aria-labelledby="p5-h2">
+  <div class="p5-section-head">
+    <p class="eyebrow">Portfólio</p>
+    <h2 id="p5-h2">Explore meus últimos trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+  </div>
+
+  <div class="p5-accordion" role="list" aria-label="Ensaios fotográficos — clique para expandir">
+
+    <article class="p5-panel active" role="listitem" tabindex="0" aria-expanded="true" aria-label="Bruna Freire — clique para expandir ou colapsar">
+      <div class="p5-panel-img">
+        <img src="https://picsum.photos/seed/acc1/500/700" alt="Ensaio corporativo de Bruna Freire">
+      </div>
+      <div class="p5-panel-overlay" aria-hidden="true"></div>
+      <span class="p5-panel-label-collapsed" aria-hidden="true">Bruna Freire</span>
+      <div class="p5-panel-info">
+        <p class="tag">Corporativo · Estúdio Lillia Tavares</p>
+        <h3 class="name">Bruna Freire</h3>
+        <p class="place">Estúdio Lillia Tavares</p>
+        <a class="p5-btn" href="#" aria-label="Acessar ensaio de Bruna Freire">
+          Acessar Ensaio
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <article class="p5-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="Andresa Maia — clique para expandir">
+      <div class="p5-panel-img">
+        <img src="https://picsum.photos/seed/acc2/500/700" alt="Ensaio corporativo de Andresa Maia">
+      </div>
+      <div class="p5-panel-overlay" aria-hidden="true"></div>
+      <span class="p5-panel-label-collapsed" aria-hidden="true">Andresa Maia</span>
+      <div class="p5-panel-info">
+        <p class="tag">Corporativo · Estúdio Lillia Tavares</p>
+        <h3 class="name">Andresa Maia</h3>
+        <p class="place">Estúdio Lillia Tavares</p>
+        <a class="p5-btn" href="#" aria-label="Acessar ensaio de Andresa Maia">
+          Acessar Ensaio
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Painel loading -->
+    <article class="p5-panel" role="listitem" aria-busy="true" aria-label="Carregando ensaio" style="cursor:default;">
+      <div class="p5-panel-img" style="background:linear-gradient(90deg,#d4cfb4 25%,#e3dfcb 50%,#d4cfb4 75%);background-size:200% 100%;animation:skeleton 1.4s infinite;"></div>
+      <div class="p5-panel-overlay" style="background:rgba(0,0,0,0.1);" aria-hidden="true"></div>
+      <span class="p5-panel-label-collapsed" style="color:rgba(123,120,91,0.5);" aria-hidden="true">Carregando…</span>
+    </article>
+
+    <article class="p5-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="Marcella Castelucci — clique para expandir">
+      <div class="p5-panel-img">
+        <img src="https://picsum.photos/seed/acc4/500/700" alt="Ensaio corporativo de Marcella Castelucci">
+      </div>
+      <div class="p5-panel-overlay" aria-hidden="true"></div>
+      <span class="p5-panel-label-collapsed" aria-hidden="true">Marcella Castelucci</span>
+      <div class="p5-panel-info">
+        <p class="tag">Corporativo · Estúdio Lillia Tavares</p>
+        <h3 class="name">Marcella Castelucci</h3>
+        <p class="place">Estúdio Lillia Tavares</p>
+        <a class="p5-btn" href="#" aria-label="Acessar ensaio de Marcella Castelucci">
+          Acessar Ensaio
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <article class="p5-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="Alessandra Magalhães de Souza — clique para expandir">
+      <div class="p5-panel-img">
+        <img src="https://picsum.photos/seed/acc5/500/700" alt="Ensaio corporativo de Alessandra Magalhães de Souza">
+      </div>
+      <div class="p5-panel-overlay" aria-hidden="true"></div>
+      <span class="p5-panel-label-collapsed" aria-hidden="true">Alessandra Magalhães</span>
+      <div class="p5-panel-info">
+        <p class="tag">Corporativo · Estúdio Lillia Tavares</p>
+        <h3 class="name">Alessandra Magalhães de Souza</h3>
+        <p class="place">Estúdio Lillia Tavares</p>
+        <a class="p5-btn" href="#" aria-label="Acessar ensaio de Alessandra Magalhães de Souza">
+          Acessar Ensaio
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="p5-cta-wrap">
+    <a class="btn-cta" href="#">
+      Ver todos os trabalhos
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════ RANKING ════════ -->
+<section id="ranking" aria-labelledby="ranking-h2">
+  <div class="ranking-inner">
+    <h2 id="ranking-h2">Ranking · Melhor → Pior implementação</h2>
+
+    <div class="ranking-item">
+      <div class="ranking-pos" aria-label="Posição 1">1</div>
+      <div class="ranking-content">
+        <p class="r-title">P3 · Grid Assimétrico com Destaque Editorial</p>
+        <p class="r-text">Resolve hierarquia, clickability e responsividade sem introduzir dependências ou padrões de interação desconhecidos. O card featured comunica imediatamente qual trabalho merece atenção; os cards menores funcionam como suporte sem pedir atenção em excesso. Implementação pure CSS com mínimo JS — compatível diretamente com o Nuxt/GSAP atual.</p>
+        <span class="r-verdict">Melhor custo-benefício · Implementação 1–2 dias</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos" aria-label="Posição 2">2</div>
+      <div class="ranking-content">
+        <p class="r-title">P5 · Accordion Horizontal — Foco e Periferia</p>
+        <p class="r-text">A interação de expansão é memorável e diferencia o site. Em desktop funciona impecavelmente; em mobile a versão vertical é igualmente elegante. O risco é a discoverability — usuários que não testam o clique nunca veem o conteúdo expandido. Um hint visual (cursor animado ou label "clique") mitiga o problema.</p>
+        <span class="r-verdict">Alto impacto · Requer JS leve · Testar com usuários</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos" aria-label="Posição 3">3</div>
+      <div class="ranking-content">
+        <p class="r-title">P1 · Gap + Hover Reveal</p>
+        <p class="r-text">A proposta mais conservadora e de menor risco. Resolve o problema mais crítico (gap) e adiciona hover com elegância. A desvantagem é que mantém a estrutura Swiper atual, que já tem problemas de paginação e acessibilidade documentados. É uma evolução, não uma solução.</p>
+        <span class="r-verdict">Menor risco · Menor impacto · Implementação meio-dia</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos" aria-label="Posição 4">4</div>
+      <div class="ranking-content">
+        <p class="r-title">P4 · Filmstrip Editorial — Contact Sheet</p>
+        <p class="r-text">Visualmente mais distintivo e com uma narrativa de marca clara (laboratório fotográfico). O fundo escuro exige decisão estratégica de branding — não pode ser implementado de forma incremental sem revisar o restante da home. Melhor como proposta para uma landing page ou seção "about" do que para a home principal.</p>
+        <span class="r-verdict">Alta distinção · Alto risco de marca · Decisão de direção criativa</span>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos" aria-label="Posição 5">5</div>
+      <div class="ranking-content">
+        <p class="r-title">P2 · Scroll Horizontal com Cards Maiores</p>
+        <p class="r-text">Funcional e mobile-friendly, mas perde a visão panorâmica dos 5 trabalhos em desktop — o que é exatamente o que a seção se propõe a fazer ("explore meus últimos trabalhos" implica ver o conjunto). O carrossel horizontal em desktop é um padrão controverso: esconde conteúdo sem indicar claramente que existe mais. Adequado se o portfólio crescer para 10+ itens.</p>
+        <span class="r-verdict">Melhor para portfólios grandes · Menos eficaz para 5 itens</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+/* ── P5 Accordion — JS mínimo ── */
+(function() {
+  const panels = document.querySelectorAll('#p5 .p5-panel[tabindex]');
+
+  function activate(panel) {
+    panels.forEach(p => {
+      p.classList.remove('active');
+      p.setAttribute('aria-expanded', 'false');
+    });
+    panel.classList.add('active');
+    panel.setAttribute('aria-expanded', 'true');
+  }
+
+  panels.forEach(panel => {
+    panel.addEventListener('click', () => activate(panel));
+    panel.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activate(panel);
+      }
+    });
+  });
+})();
+
+/* ── P2 Progress dots ── */
+(function() {
+  const wrap = document.querySelector('.p2-track-wrap');
+  const dots = document.querySelectorAll('.p2-progress-dot');
+  if (!wrap || !dots.length) return;
+
+  wrap.addEventListener('scroll', () => {
+    const scrollLeft = wrap.scrollLeft;
+    const cardWidth = 260 + 20; /* card + gap */
+    const idx = Math.round(scrollLeft / cardWidth);
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+      d.setAttribute('aria-selected', String(i === idx));
+    });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

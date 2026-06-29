@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTA Contato — Redesign .wrap-schedule — Agente A (UX/IA)</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  background: #ede8df;
+  color: #2c2a15;
+  padding: 0 0 6rem;
+}
+
+/* ── Page chrome ── */
+.page-header {
+  background: #f8f4ef;
+  border-bottom: 1px solid #ddd8cd;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+}
+.page-header h1 {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #7B785B;
+  margin-bottom: .3rem;
+}
+.page-header p {
+  font-size: .78rem;
+  color: #9a9780;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Nav tabs ── */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+  padding: 1.25rem 1rem .75rem;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  background: #f8f4ef;
+  border: 1px solid #ccc8b8;
+  border-radius: 20px;
+  padding: .35rem .9rem;
+  font-size: .73rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #7B785B;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.tab-btn:hover { background: #e3dfcb; }
+.tab-btn.active {
+  background: #a7523e;
+  border-color: #a7523e;
+  color: #fff;
+}
+
+/* ── Proposal wrapper ── */
+.proposal { display: none; }
+.proposal.active { display: block; }
+.proposal-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+.proposal-meta {
+  margin-bottom: 1.5rem;
+}
+.proposal-meta h2 {
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #a7523e;
+  margin-bottom: .25rem;
+}
+.proposal-meta h3 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #2c2a15;
+  margin-bottom: .6rem;
+}
+.rational {
+  background: #fff;
+  border-left: 3px solid #a7523e;
+  padding: .7rem 1rem;
+  font-size: .8rem;
+  line-height: 1.65;
+  color: #7B785B;
+  border-radius: 0 4px 4px 0;
+}
+.rational strong { color: #2c2a15; }
+
+/* ── Browser frame ── */
+.browser-frame {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 24px rgba(44,42,21,.1), 0 1px 4px rgba(44,42,21,.06);
+  margin-top: 1.25rem;
+}
+.browser-bar {
+  background: #ede8df;
+  padding: .45rem .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  border-bottom: 1px solid #d6d3be;
+}
+.browser-dots { display: flex; gap: .3rem; }
+.browser-dots span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #c5c2ae; display: block;
+}
+.browser-url {
+  flex: 1; background: #fff; border-radius: 3px;
+  padding: .18rem .55rem; font-size: .68rem;
+  color: #9a9780; border: 1px solid #d6d3be;
+}
+
+/* ── States legend ── */
+.states-legend {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  padding: .75rem 1rem;
+  background: #f8f4ef;
+  border-bottom: 1px solid #e3dfcb;
+  font-size: .7rem;
+  color: #7B785B;
+}
+.states-legend strong { color: #2c2a15; }
+
+/* ══════════════════════════════════════════
+   PROPOSTA 1 — Fluxo numerado, evolução segura
+   ══════════════════════════════════════════ */
+.p1-wrap {
+  --ch: #a7523e;
+  --ch-dark: #7a3020;
+  --ch-tint: #f5ede9;
+  --ch-light: #e8d9c5;
+  --olive: #7B785B;
+  --deep: #2c2a15;
+  background: #f8f4ef;
+  padding: 2.5rem 2rem;
+}
+.p1-header-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ch);
+  margin-bottom: 1rem;
+}
+.p1-header-label::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 2px;
+  background: var(--ch);
+}
+.p1-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+@media (max-width: 820px) {
+  .p1-form { flex-direction: column; }
+}
+.p1-step {
+  display: flex;
+  gap: .85rem;
+  align-items: flex-start;
+}
+.p1-step-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--ch);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .1rem;
+}
+.p1-step-body h2 {
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--deep);
+  line-height: 1.2;
+  margin-bottom: .4rem;
+}
+.p1-step-body p {
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--olive);
+  max-width: 280px;
+}
+.p1-divider {
+  width: 1px;
+  background: #ddd8cd;
+  align-self: stretch;
+  flex-shrink: 0;
+  margin: 0 .25rem;
+}
+/* Calendar component */
+.cal-wrap { position: relative; }
+.simple-cal {
+  border: 2px solid var(--ch);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 220px;
+  font-size: .8rem;
+}
+.simple-cal .cal-head {
+  background: var(--ch);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem .75rem;
+  font-size: .78rem;
+  font-weight: 700;
+}
+.simple-cal .cal-head button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: .9rem;
+  padding: 0 .2rem;
+  opacity: .8;
+  transition: opacity .15s;
+}
+.simple-cal .cal-head button:hover { opacity: 1; }
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  padding: .5rem .35rem;
+  background: #fff;
+}
+.cal-dow {
+  text-align: center;
+  font-size: .62rem;
+  font-weight: 700;
+  color: var(--ch);
+  padding: .2rem 0 .4rem;
+  letter-spacing: .04em;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .72rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  border: none;
+  background: none;
+  color: var(--deep);
+}
+.cal-day:hover:not(.past):not(.selected) { background: var(--ch-tint); }
+.cal-day.past { color: #ccc; cursor: default; }
+.cal-day.selected { background: var(--ch); color: #fff; font-weight: 700; }
+.cal-day.today { border: 1.5px solid var(--ch); }
+.cal-day.empty { cursor: default; }
+
+.p1-error {
+  font-size: .72rem;
+  color: #a7523e;
+  margin-top: .35rem;
+  display: none;
+  align-items: center;
+  gap: .25rem;
+}
+.p1-error.show { display: flex; }
+
+/* CTA button zone */
+.p1-cta-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .75rem;
+  flex-shrink: 0;
+}
+.p1-date-confirm {
+  background: var(--ch-tint);
+  border: 1px solid #e0b9ae;
+  border-radius: 6px;
+  padding: .5rem .75rem;
+  font-size: .78rem;
+  color: var(--ch-dark);
+  font-weight: 700;
+  display: none;
+}
+.p1-date-confirm.show { display: block; }
+.p1-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  background: var(--ch);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: .85rem 1.4rem;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  min-width: 220px;
+}
+.p1-btn:hover { background: var(--ch-dark); transform: translateY(-1px); }
+.p1-btn:active { transform: none; }
+.p1-btn .wa-icon { font-size: 1.7rem; line-height: 1; flex-shrink: 0; }
+.p1-btn .btn-text { text-align: left; }
+.p1-btn .btn-text .main { display: block; font-size: .72rem; font-weight: 400; opacity: .85; margin-bottom: .1rem; }
+.p1-btn .btn-text .bold { display: block; font-size: .9rem; font-weight: 900; }
+.p1-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.p1-btn.loading .bold::after {
+  content: '...';
+  animation: dots 1s steps(3) infinite;
+}
+@keyframes dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+}
+.p1-note {
+  font-size: .68rem;
+  color: var(--olive);
+  opacity: .7;
+  line-height: 1.5;
+  max-width: 220px;
+}
+
+/* ══════════════════════════════════════════
+   PROPOSTA 2 — Confirmação inline + badge de urgência
+   ══════════════════════════════════════════ */
+.p2-wrap {
+  --ch: #a7523e;
+  --ch-dark: #7a3020;
+  --ch-tint: #f5ede9;
+  --olive: #7B785B;
+  --deep: #2c2a15;
+  background: var(--ch-tint);
+  padding: 0;
+}
+.p2-top-bar {
+  background: var(--ch);
+  padding: .55rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.p2-top-bar .eyebrow {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+}
+.p2-top-bar .badge {
+  background: #fff;
+  color: var(--ch);
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .2rem .55rem;
+  border-radius: 20px;
+}
+.p2-body {
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+@media (max-width: 820px) {
+  .p2-body { flex-direction: column; align-items: flex-start; }
+}
+.p2-text { flex: 1; max-width: 340px; }
+.p2-text h2 {
+  font-size: 1.45rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--deep);
+  line-height: 1.15;
+  margin-bottom: .6rem;
+}
+.p2-text h2 em {
+  font-style: normal;
+  color: var(--ch);
+}
+.p2-text p {
+  font-size: .82rem;
+  line-height: 1.65;
+  color: var(--olive);
+}
+.p2-cal-zone { flex-shrink: 0; }
+.p2-cal-label {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ch);
+  margin-bottom: .4rem;
+}
+.p2-feedback {
+  margin-top: .5rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.p2-feedback-text {
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--ch-dark);
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .25s, transform .25s;
+}
+.p2-feedback-text.show { opacity: 1; transform: none; }
+.p2-feedback-text svg { flex-shrink: 0; }
+.p2-cta { flex-shrink: 0; display: flex; flex-direction: column; gap: .6rem; justify-content: center; }
+.p2-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  background: var(--ch);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s;
+  box-shadow: 0 4px 12px rgba(167,82,62,.25);
+  min-width: 200px;
+}
+.p2-btn:hover { background: var(--ch-dark); box-shadow: 0 6px 20px rgba(167,82,62,.35); }
+.p2-btn .wa-icon { font-size: 1.6rem; flex-shrink: 0; }
+.p2-btn .btn-text .main { display: block; font-size: .7rem; font-weight: 400; opacity: .85; }
+.p2-btn .btn-text .bold { display: block; font-size: .88rem; font-weight: 900; }
+.p2-btn.locked {
+  background: #c9c5b0;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.p2-unlock-hint {
+  font-size: .7rem;
+  color: var(--olive);
+  opacity: .7;
+  line-height: 1.4;
+  max-width: 200px;
+  text-align: center;
+}
+.p2-err {
+  font-size: .7rem;
+  color: var(--ch-dark);
+  display: none;
+  margin-top: .3rem;
+}
+.p2-err.show { display: block; }
+
+/* ══════════════════════════════════════════
+   PROPOSTA 3 — Cartão flutuante, step-by-step
+   ══════════════════════════════════════════ */
+.p3-wrap {
+  --ch: #a7523e;
+  --ch-dark: #7a3020;
+  --ch-tint: #f5ede9;
+  --sand: #e8d9c5;
+  --olive: #7B785B;
+  --deep: #2c2a15;
+  background: var(--sand);
+  padding: 2.5rem 2rem;
+  position: relative;
+}
+.p3-section-label {
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ch);
+  margin-bottom: .6rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.p3-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #c4b49d;
+}
+.p3-layout {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+}
+@media (max-width: 820px) {
+  .p3-layout { flex-direction: column; }
+}
+.p3-text-col { flex: 1; }
+.p3-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--deep);
+  line-height: 1.2;
+  margin-bottom: .5rem;
+  text-wrap: balance;
+}
+.p3-desc {
+  font-size: .82rem;
+  line-height: 1.65;
+  color: var(--olive);
+  margin-bottom: 1.25rem;
+  max-width: 300px;
+}
+.p3-steps {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.p3-step-row {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.p3-step-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--ch);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s, border-color .2s;
+}
+.p3-step-icon.done { background: var(--ch); border-color: var(--ch); }
+.p3-step-icon svg { width: 10px; height: 10px; }
+.p3-step-label {
+  font-size: .75rem;
+  color: var(--olive);
+  font-weight: 400;
+}
+.p3-step-label.done { color: var(--ch); font-weight: 700; }
+.p3-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(44,42,21,.1);
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 230px;
+}
+.p3-card-head {
+  background: var(--ch);
+  padding: .6rem .85rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+.p3-card-body { padding: .5rem .35rem; }
+.p3-card-foot {
+  padding: .5rem .75rem .75rem;
+  border-top: 1px solid #f0ede6;
+}
+.p3-selected-date {
+  font-size: .75rem;
+  color: var(--ch);
+  font-weight: 700;
+  padding: .4rem .6rem;
+  background: var(--ch-tint);
+  border-radius: 4px;
+  margin-bottom: .5rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.p3-selected-date.empty { color: #bbb; font-weight: 400; font-style: italic; }
+.p3-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  background: var(--ch);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: .75rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: .82rem;
+  transition: background .2s;
+}
+.p3-btn:hover { background: var(--ch-dark); }
+.p3-btn .wa-icon { font-size: 1.3rem; }
+.p3-btn:disabled { opacity: .5; cursor: not-allowed; }
+.p3-err { font-size: .7rem; color: var(--ch); margin-top: .3rem; display: none; }
+.p3-err.show { display: block; }
+
+/* ══════════════════════════════════════════
+   PROPOSTA 4 — Tira horizontal com calendário
+   expandido e CTA âncora no fundo
+   ══════════════════════════════════════════ */
+.p4-wrap {
+  --ch: #a7523e;
+  --ch-dark: #7a3020;
+  --ch-tint: #f5ede9;
+  --sand: #e8d9c5;
+  --olive: #7B785B;
+  --deep: #2c2a15;
+  background: #fff;
+}
+.p4-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 280px;
+}
+@media (max-width: 820px) {
+  .p4-split { grid-template-columns: 1fr; }
+}
+.p4-left {
+  background: var(--ch);
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.p4-left .eyebrow {
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .75rem;
+}
+.p4-left h2 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: .02em;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+.p4-left p {
+  font-size: .82rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.8);
+  max-width: 280px;
+  margin-bottom: 1.5rem;
+}
+.p4-left .guarantee {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .72rem;
+  color: rgba(255,255,255,.65);
+}
+.p4-left .guarantee svg { flex-shrink: 0; }
+.p4-right {
+  background: var(--sand);
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+/* Expanded calendar for P4 */
+.cal-expanded {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 310px;
+  box-shadow: 0 2px 12px rgba(44,42,21,.08);
+}
+.cal-expanded .cal-head {
+  background: var(--ch);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .6rem .9rem;
+  font-size: .82rem;
+  font-weight: 700;
+}
+.cal-expanded .cal-head button {
+  background: none; border: none;
+  color: #fff; cursor: pointer;
+  font-size: 1rem; padding: 0 .2rem;
+  opacity: .8; transition: opacity .15s;
+}
+.cal-expanded .cal-head button:hover { opacity: 1; }
+.cal-expanded .cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: .6rem .5rem;
+  gap: 2px;
+}
+.cal-expanded .cal-dow {
+  text-align: center;
+  font-size: .6rem;
+  font-weight: 700;
+  color: var(--ch);
+  padding: .15rem 0 .35rem;
+  letter-spacing: .04em;
+}
+.cal-expanded .cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--deep);
+  transition: background .15s, color .15s;
+}
+.cal-expanded .cal-day:hover:not(.past):not(.selected):not(.empty) { background: var(--ch-tint); color: var(--ch); }
+.cal-expanded .cal-day.past { color: #ccc; cursor: default; }
+.cal-expanded .cal-day.selected { background: var(--ch); color: #fff; font-weight: 700; }
+.cal-expanded .cal-day.today { box-shadow: 0 0 0 1.5px var(--ch); }
+.cal-expanded .cal-day.empty { cursor: default; }
+
+.p4-confirm {
+  width: 100%;
+  max-width: 310px;
+}
+.p4-selected-display {
+  font-size: .8rem;
+  color: var(--ch);
+  font-weight: 700;
+  background: var(--ch-tint);
+  border-radius: 4px;
+  padding: .5rem .75rem;
+  margin-bottom: .6rem;
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+}
+.p4-selected-display.empty { color: #bbb; font-weight: 400; font-style: italic; }
+.p4-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  background: var(--ch);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: .9rem 1.25rem;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: .88rem;
+  transition: background .2s, transform .15s;
+  box-shadow: 0 4px 14px rgba(167,82,62,.28);
+}
+.p4-btn:hover { background: var(--ch-dark); transform: translateY(-1px); }
+.p4-btn .wa-icon { font-size: 1.4rem; }
+.p4-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+.p4-err { font-size: .7rem; color: var(--ch); margin-top: .3rem; display: none; }
+.p4-err.show { display: block; }
+
+/* ══════════════════════════════════════════
+   PROPOSTA 5 — Experiência imersiva:
+   fundo com textura, calendário sobreposto,
+   CTA como bloco de assinatura
+   ══════════════════════════════════════════ */
+.p5-wrap {
+  --ch: #a7523e;
+  --ch-dark: #7a3020;
+  --ch-tint: rgba(167,82,62,.08);
+  --sand: #e8d9c5;
+  --olive: #7B785B;
+  --deep: #2c2a15;
+  background: var(--deep);
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.p5-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 120% at 60% 50%, rgba(167,82,62,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.p5-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+@media (max-width: 820px) {
+  .p5-inner { flex-direction: column; }
+}
+.p5-text { flex: 1; }
+.p5-eyebrow {
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ch);
+  margin-bottom: .85rem;
+}
+.p5-heading {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #f8f4ef;
+  line-height: 1.1;
+  letter-spacing: .02em;
+  margin-bottom: .75rem;
+  text-wrap: balance;
+}
+.p5-heading em {
+  font-style: normal;
+  color: var(--ch);
+}
+.p5-subtext {
+  font-size: .82rem;
+  line-height: 1.7;
+  color: rgba(248,244,239,.6);
+  max-width: 300px;
+  margin-bottom: 1.5rem;
+}
+.p5-testimonial-hint {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .72rem;
+  color: rgba(248,244,239,.4);
+  font-style: italic;
+}
+.p5-testimonial-hint::before {
+  content: '"';
+  font-size: 1.4rem;
+  color: var(--ch);
+  line-height: 1;
+  margin-top: -.1rem;
+}
+.p5-right { flex-shrink: 0; }
+.p5-cal-card {
+  background: rgba(248,244,239,.06);
+  border: 1px solid rgba(248,244,239,.12);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 250px;
+  backdrop-filter: blur(4px);
+}
+.p5-cal-card .cal-head {
+  background: var(--ch);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .65rem .9rem;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #fff;
+}
+.p5-cal-card .cal-head button {
+  background: none; border: none;
+  color: #fff; cursor: pointer;
+  font-size: .95rem; padding: 0 .2rem;
+  opacity: .75; transition: opacity .15s;
+}
+.p5-cal-card .cal-head button:hover { opacity: 1; }
+.p5-cal-card .cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: .55rem .4rem;
+  gap: 2px;
+  background: transparent;
+}
+.p5-cal-card .cal-dow {
+  text-align: center;
+  font-size: .6rem;
+  font-weight: 700;
+  color: rgba(248,244,239,.4);
+  padding: .15rem 0 .35rem;
+  letter-spacing: .03em;
+}
+.p5-cal-card .cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .72rem;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: rgba(248,244,239,.85);
+  transition: background .15s, color .15s;
+}
+.p5-cal-card .cal-day:hover:not(.past):not(.selected):not(.empty) {
+  background: rgba(167,82,62,.3);
+  color: #f8f4ef;
+}
+.p5-cal-card .cal-day.past { color: rgba(255,255,255,.2); cursor: default; }
+.p5-cal-card .cal-day.selected { background: var(--ch); color: #fff; font-weight: 700; }
+.p5-cal-card .cal-day.today { box-shadow: 0 0 0 1px rgba(167,82,62,.6); }
+.p5-cal-card .cal-day.empty { cursor: default; }
+.p5-cal-foot {
+  padding: .6rem .75rem .85rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.p5-date-display {
+  font-size: .75rem;
+  color: rgba(248,244,239,.5);
+  font-style: italic;
+  margin-bottom: .55rem;
+  min-height: 1.1rem;
+}
+.p5-date-display.picked { color: var(--ch); font-weight: 700; font-style: normal; }
+.p5-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  background: var(--ch);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: .8rem 1rem;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: .82rem;
+  transition: background .2s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(167,82,62,.4);
+}
+.p5-btn:hover { background: var(--ch-dark); box-shadow: 0 6px 22px rgba(167,82,62,.5); }
+.p5-btn .wa-icon { font-size: 1.25rem; }
+.p5-btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+.p5-err { font-size: .68rem; color: #e8917a; margin-top: .3rem; display: none; }
+.p5-err.show { display: block; }
+
+/* ══════════════════════════════════════════
+   RANKING section
+   ══════════════════════════════════════════ */
+.ranking-section {
+  max-width: 660px;
+  margin: 4rem auto 0;
+  padding: 0 1.5rem;
+}
+.ranking-section h2 {
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #a7523e;
+  margin-bottom: 1.25rem;
+}
+.rank-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: .8rem;
+  overflow-x: auto;
+}
+.rank-table th {
+  text-align: left;
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #9a9780;
+  padding: .4rem .75rem;
+  border-bottom: 1px solid #ddd8cd;
+}
+.rank-table td {
+  padding: .7rem .75rem;
+  color: #2c2a15;
+  border-bottom: 1px solid #e8e4d8;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.rank-table td:first-child {
+  font-weight: 900;
+  color: #a7523e;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.rank-table tr:last-child td { border-bottom: none; }
+
+/* ── Shared WhatsApp SVG helper ── */
+.wa-svg { display: inline-block; width: 1em; height: 1em; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Redesign .wrap-schedule — CTA de contato na interna de trabalho</h1>
+  <p>Fotógrafa Lillia Tavares · Ensaio Camila Nogueira · 5 propostas — Agente A (UX &amp; IA) · Cor primária: <strong style="color:#a7523e">--color-highlight: #a7523e</strong></p>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showProposal(1, this)">P1 — Fluxo guiado</button>
+  <button class="tab-btn" onclick="showProposal(2, this)">P2 — Botão desbloqueável</button>
+  <button class="tab-btn" onclick="showProposal(3, this)">P3 — Cartão compacto</button>
+  <button class="tab-btn" onclick="showProposal(4, this)">P4 — Split screen</button>
+  <button class="tab-btn" onclick="showProposal(5, this)">P5 — Imersivo escuro</button>
+</div>
+
+<!-- ═══════════════ PROPOSTA 1 ═══════════════ -->
+<div class="proposal active" id="p1">
+  <div class="proposal-inner">
+    <div class="proposal-meta">
+      <h2>Proposta 1 — Evolução segura</h2>
+      <h3>Fluxo numerado com confirmação visual</h3>
+      <div class="rational">
+        <strong>Problema resolvido:</strong> O layout de 3 colunas atual não deixa claro qual é a ordem de interação. Esta proposta introduz numeração de passo (1→2→3) sem mudar a estrutura horizontal, tornando o fluxo autoexplicativo e eliminando o texto instrucional longo. <strong>Trade-off:</strong> Os números adicionam um nível de UI que pode parecer excessivo para um formulário de apenas dois estados.
+      </div>
+    </div>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">lilliatavares.com.br/ensaio-fotografico/corporativo/camila-nogueira</div>
+      </div>
+      <div class="states-legend">
+        <span><strong>Estados:</strong></span>
+        <span>🔘 default — nenhuma data</span>
+        <span>🟠 data selecionada — confirmação aparece</span>
+        <span>🔴 erro — submissão sem data</span>
+      </div>
+      <div class="p1-wrap" id="p1-demo">
+        <div class="p1-header-label">Próximo passo</div>
+        <form class="p1-form" onsubmit="return p1submit(event)">
+          <!-- Step 1 -->
+          <div class="p1-step">
+            <div class="p1-step-num">1</div>
+            <div class="p1-step-body">
+              <h2>Gostou?<br>Agende o seu</h2>
+              <p>Escolha uma data disponível ao lado e envie pelo WhatsApp — mensagem já configurada.</p>
+            </div>
+          </div>
+          <div class="p1-divider"></div>
+          <!-- Step 2 -->
+          <div class="p1-step" style="flex-direction:column; gap:.5rem;">
+            <div style="display:flex; gap:.85rem; align-items:center;">
+              <div class="p1-step-num" id="p1-step2-num">2</div>
+              <span style="font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ch);">Escolha a data</span>
+            </div>
+            <div class="cal-wrap">
+              <div class="simple-cal" id="p1-cal"></div>
+              <div class="p1-error" id="p1-err">
+                <svg width="12" height="12" fill="none" stroke="#a7523e" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Selecione uma data antes de enviar
+              </div>
+            </div>
+          </div>
+          <div class="p1-divider"></div>
+          <!-- Step 3 -->
+          <div class="p1-cta-zone">
+            <div class="p1-step-num" id="p1-step3-num" style="background:#ccc; transition:background .3s;">3</div>
+            <div class="p1-date-confirm" id="p1-confirm">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline; margin-right:.3rem;"><polyline points="20 6 9 17 4 12"/></svg>
+              Data: <span id="p1-confirm-date">—</span>
+            </div>
+            <button class="p1-btn" type="submit" id="p1-btn" aria-label="Enviar agendamento pelo WhatsApp">
+              <span class="wa-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.7rem" height="1.7rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </span>
+              <span class="btn-text">
+                <span class="main">Clique aqui para enviar</span>
+                <span class="bold">pelo WhatsApp</span>
+              </span>
+            </button>
+            <p class="p1-note">Você será levado direto ao app com a mensagem pronta.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROPOSTA 2 ═══════════════ -->
+<div class="proposal" id="p2">
+  <div class="proposal-inner">
+    <div class="proposal-meta">
+      <h2>Proposta 2 — Evolução segura</h2>
+      <h3>Botão que se desbloqueia ao selecionar data</h3>
+      <div class="rational">
+        <strong>Problema resolvido:</strong> O botão na versão atual parece disponível mesmo sem data selecionada, gerando erro frustante ao clicar. Aqui o botão começa desabilitado visualmente e só "acorda" (cor, sombra, cursor) após uma data ser selecionada — o design previne o erro em vez de corrigi-lo. A faixa terracota superior ancora a seção na identidade do ensaio. <strong>Trade-off:</strong> Um botão travado pode parecer quebrado para usuários menos atentos.
+      </div>
+    </div>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">lilliatavares.com.br/ensaio-fotografico/corporativo/camila-nogueira</div>
+      </div>
+      <div class="states-legend">
+        <span><strong>Estados:</strong></span>
+        <span>🔘 default — botão travado (acinzentado)</span>
+        <span>🟠 data selecionada — botão ativa + feedback inline</span>
+        <span>⏳ loading — texto muda</span>
+      </div>
+      <div class="p2-wrap" id="p2-demo">
+        <div class="p2-top-bar">
+          <span class="eyebrow">Próximo passo</span>
+          <span class="badge">Resposta rápida no WhatsApp</span>
+        </div>
+        <form class="p2-body" onsubmit="return p2submit(event)">
+          <div class="p2-text">
+            <h2>Gostou do<br>ensaio da <em>Camila?</em></h2>
+            <p>Escolha uma data no calendário ao lado e envie direto pelo WhatsApp. A mensagem já vem pronta para você.</p>
+          </div>
+          <div class="p2-cal-zone">
+            <div class="p2-cal-label">Escolha a data do seu ensaio:</div>
+            <div class="simple-cal" id="p2-cal"></div>
+            <div class="p2-feedback">
+              <div class="p2-feedback-text" id="p2-fb">
+                <svg width="13" height="13" fill="none" stroke="#7a3020" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span id="p2-fb-date">Data confirmada</span>
+              </div>
+            </div>
+            <div class="p2-err" id="p2-err">Selecione uma data antes de enviar.</div>
+          </div>
+          <div class="p2-cta">
+            <button class="p2-btn locked" type="submit" id="p2-btn" aria-label="Enviar agendamento pelo WhatsApp">
+              <span class="wa-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.6rem" height="1.6rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </span>
+              <span class="btn-text">
+                <span class="main" id="p2-btn-sub">Agende sua sessão</span>
+                <span class="bold">Enviar pelo WhatsApp</span>
+              </span>
+            </button>
+            <p class="p2-unlock-hint" id="p2-hint">Selecione uma data para ativar o envio</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROPOSTA 3 ═══════════════ -->
+<div class="proposal" id="p3">
+  <div class="proposal-inner">
+    <div class="proposal-meta">
+      <h2>Proposta 3 — Evolução segura</h2>
+      <h3>Cartão compacto com checklist de progresso</h3>
+      <div class="rational">
+        <strong>Problema resolvido:</strong> Mantém a estrutura visual atual mas compacta o calendário dentro de um cartão de produto com cabeçalho colorido, tornando-o o protagonista da interação. O checklist de três etapas (viu, escolheu, enviou) substitui o texto instrucional e dá satisfação visual de progresso. <strong>Trade-off:</strong> O checklist ocupa mais espaço vertical na versão desktop e pode parecer redundante em mobile.
+      </div>
+    </div>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">lilliatavares.com.br/ensaio-fotografico/corporativo/camila-nogueira</div>
+      </div>
+      <div class="states-legend">
+        <span><strong>Estados:</strong></span>
+        <span>🔘 default — 1 de 3 passos concluído (viu)</span>
+        <span>🟠 data selecionada — 2 de 3, botão ativa</span>
+        <span>🔴 erro — mensagem inline</span>
+      </div>
+      <div class="p3-wrap" id="p3-demo">
+        <div class="p3-section-label">Agende o seu ensaio</div>
+        <form class="p3-layout" onsubmit="return p3submit(event)">
+          <div class="p3-text-col">
+            <h2 class="p3-title">Gostou? Agora é a sua vez</h2>
+            <p class="p3-desc">Escolha uma data e fale direto pelo WhatsApp — sem formulários, sem espera.</p>
+            <div class="p3-steps">
+              <div class="p3-step-row">
+                <div class="p3-step-icon done">
+                  <svg fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span class="p3-step-label done">Você viu o trabalho</span>
+              </div>
+              <div class="p3-step-row">
+                <div class="p3-step-icon" id="p3-si2">
+                  <svg fill="none" stroke="#a7523e" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <span class="p3-step-label" id="p3-sl2">Escolha a data</span>
+              </div>
+              <div class="p3-step-row">
+                <div class="p3-step-icon" id="p3-si3">
+                  <svg fill="none" stroke="#a7523e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <span class="p3-step-label" id="p3-sl3">Envie pelo WhatsApp</span>
+              </div>
+            </div>
+          </div>
+          <div class="p3-card">
+            <div class="p3-card-head">Escolha a data do ensaio</div>
+            <div class="p3-card-body">
+              <div class="simple-cal" id="p3-cal"></div>
+            </div>
+            <div class="p3-card-foot">
+              <div class="p3-selected-date empty" id="p3-sel">Nenhuma data selecionada</div>
+              <p class="p3-err" id="p3-err">Selecione uma data para continuar.</p>
+              <button class="p3-btn" type="submit" id="p3-btn" aria-label="Enviar agendamento pelo WhatsApp">
+                <span class="wa-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.3rem" height="1.3rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </span>
+                Enviar pelo WhatsApp
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROPOSTA 4 ═══════════════ -->
+<div class="proposal" id="p4">
+  <div class="proposal-inner">
+    <div class="proposal-meta">
+      <h2>Proposta 4 — Ousada</h2>
+      <h3>Split screen: manifesto terracota à esquerda, calendário expandido à direita</h3>
+      <div class="rational">
+        <strong>Problema resolvido:</strong> Quebra a estrutura de formulário e trata a seção como uma chamada editorial: o painel esquerdo terracota cheio é o "por quê" (convicção, tom emocional), o painel direito arenoso é o "como" (calendário maior e mais confortável de usar). O CTA cresce e ganha sombra; o calendário expandido reduz erros de toque no mobile. <strong>Trade-off:</strong> Requer mais altura de viewport — é a proposta mais "pesada" visualmente, o que pode criar tensão com a galeria de fotos imediatamente acima.
+      </div>
+    </div>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">lilliatavares.com.br/ensaio-fotografico/corporativo/camila-nogueira</div>
+      </div>
+      <div class="states-legend">
+        <span><strong>Estados:</strong></span>
+        <span>🔘 default — nenhuma data</span>
+        <span>🟠 data selecionada — display + botão ativa</span>
+        <span>🔴 erro abaixo do botão</span>
+      </div>
+      <div class="p4-wrap" id="p4-demo">
+        <form class="p4-split" onsubmit="return p4submit(event)">
+          <div class="p4-left">
+            <div class="eyebrow">Fotografia corporativa — SP</div>
+            <h2>Pronta para o seu ensaio?</h2>
+            <p>Escolha a melhor data para você e envie direto pelo WhatsApp. Respondo rapidamente para confirmar a agenda.</p>
+            <div class="guarantee">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Sem compromisso — só uma conversa
+            </div>
+          </div>
+          <div class="p4-right">
+            <div class="cal-expanded" id="p4-cal"></div>
+            <div class="p4-confirm">
+              <div class="p4-selected-display empty" id="p4-sel">Nenhuma data selecionada ainda</div>
+              <button class="p4-btn" type="submit" id="p4-btn" aria-label="Enviar agendamento pelo WhatsApp">
+                <span class="wa-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.4rem" height="1.4rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </span>
+                Enviar pelo WhatsApp
+              </button>
+              <p class="p4-err" id="p4-err">Selecione uma data antes de enviar.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROPOSTA 5 ═══════════════ -->
+<div class="proposal" id="p5">
+  <div class="proposal-inner">
+    <div class="proposal-meta">
+      <h2>Proposta 5 — Ousada</h2>
+      <h3>Painel imersivo escuro com acento terracota — identidade do ensaio no máximo</h3>
+      <div class="rational">
+        <strong>Problema resolvido:</strong> A seção se comporta como uma "assinatura" do ensaio: ao invés de ser um formulário branco genérico após fotos poderosas, ela carrega a atmosfera do ensaio para dentro do CTA. O fundo escuro cria contraste máximo com a galeria acima (que termina em luz), reforçando que chegamos a um ponto de decisão. O calendário é compacto e integrado no painel. <strong>Trade-off:</strong> A mudança de registro visual é abrupta — exige que o footer logo abaixo também acompanhe ou que haja espaço de respiração. Pode ser excessivo para fotografias mais suaves (casamento, bebê).
+      </div>
+    </div>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">lilliatavares.com.br/ensaio-fotografico/corporativo/camila-nogueira</div>
+      </div>
+      <div class="states-legend">
+        <span><strong>Estados:</strong></span>
+        <span>🔘 default — data vazia, botão desabilitado</span>
+        <span>🟠 data selecionada — display ativa, botão ilumina</span>
+        <span>🔴 erro em cor suave (não quebra a atmosfera)</span>
+      </div>
+      <div class="p5-wrap" id="p5-demo">
+        <form class="p5-inner" onsubmit="return p5submit(event)">
+          <div class="p5-text">
+            <div class="p5-eyebrow">Fotografia corporativa · São Paulo</div>
+            <h2 class="p5-heading">Pronta para<br>ser a <em>próxima</em>?</h2>
+            <p class="p5-subtext">Escolha uma data e envie pelo WhatsApp. Respondo hoje para confirmar sua agenda.</p>
+            <div class="p5-testimonial-hint">Assim como a Camila fez — e adorou o resultado.</div>
+          </div>
+          <div class="p5-right">
+            <div class="p5-cal-card">
+              <div class="cal-head">
+                <button type="button" onclick="p5prevMonth()">&#8249;</button>
+                <span id="p5-month-label">Junho 2026</span>
+                <button type="button" onclick="p5nextMonth()">&#8250;</button>
+              </div>
+              <div class="cal-grid" id="p5-cal-grid"></div>
+              <div class="p5-cal-foot">
+                <div class="p5-date-display" id="p5-sel">Toque em uma data para selecionar</div>
+                <button class="p5-btn" type="submit" id="p5-btn" disabled aria-label="Enviar agendamento pelo WhatsApp">
+                  <span class="wa-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.25rem" height="1.25rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  </span>
+                  Enviar pelo WhatsApp
+                </button>
+                <div class="p5-err" id="p5-err">Selecione uma data para continuar.</div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ RANKING ═══════════════ -->
+<div class="ranking-section">
+  <h2>Ranking das propostas — melhor → pior para implementação</h2>
+  <table class="rank-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Proposta</th>
+        <th>Justificativa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1º</td>
+        <td><strong>P2 — Botão desbloqueável</strong></td>
+        <td>Resolve o principal ponto de fricção (submissão sem data) com o menor custo de UI — prevenção sempre supera correção, e a faixa terracota já ancora o ensaio sem exagero estrutural.</td>
+      </tr>
+      <tr>
+        <td>2º</td>
+        <td><strong>P4 — Split screen</strong></td>
+        <td>O painel terracota sólido faz a seção assumir a identidade do ensaio de forma inequívoca; o calendário maior melhora usabilidade em touch; risco controlado pois é autocontido.</td>
+      </tr>
+      <tr>
+        <td>3º</td>
+        <td><strong>P1 — Fluxo numerado</strong></td>
+        <td>Os steps eliminam a instrução verbal e tornam o fluxo evidente sem redesenhar a estrutura, mas a numeração explicita demais uma interação que deveria ser intuitiva.</td>
+      </tr>
+      <tr>
+        <td>4º</td>
+        <td><strong>P3 — Cartão compacto</strong></td>
+        <td>O checklist de progresso é satisfatório mas acrescenta altura sem ganho proporcional de clareza; funciona melhor em mobile que desktop.</td>
+      </tr>
+      <tr>
+        <td>5º</td>
+        <td><strong>P5 — Imersivo escuro</strong></td>
+        <td>A atmosfera editorial é a mais forte, mas a dissonância com o footer branco existente e o risco de parecer pesado demais em ensaios de outros temas a tornam a opção com mais custo de contexto para implementar.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+/* ── Tab navigation ── */
+function showProposal(n, btn) {
+  document.querySelectorAll('.proposal').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('p' + n).classList.add('active');
+  btn.classList.add('active');
+  /* Re-render calendars that initialised while their container was hidden */
+  if (n === 5) { p5renderCal(); }
+  if (n === 4 && window._p4cal) { window._p4cal._render(); }
+}
+
+/* ── Calendar factory ── */
+var MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+var DOWS = ['D','S','T','Q','Q','S','S'];
+
+function buildCal(containerId, opts) {
+  /* opts: { selectedDate, onSelect, accentColor, compact } */
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  var now = new Date();
+  var year = opts.year || now.getFullYear();
+  var month = opts.month !== undefined ? opts.month : now.getMonth();
+  var selectedDate = opts.selectedDate || null;
+  var accentColor = opts.accentColor || '#a7523e';
+  var compact = opts.compact !== false;
+
+  container._calState = { year: year, month: month, selectedDate: selectedDate, opts: opts };
+
+  function render() {
+    var s = container._calState;
+    var firstDay = new Date(s.year, s.month, 1).getDay();
+    var daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
+    var today = new Date();
+    today.setHours(0,0,0,0);
+
+    var headHtml = '<div class="cal-head">' +
+      '<button type="button" onclick="calPrev(\'' + containerId + '\')">&#8249;</button>' +
+      '<span>' + MONTHS[s.month] + ' ' + s.year + '</span>' +
+      '<button type="button" onclick="calNext(\'' + containerId + '\')">&#8250;</button>' +
+      '</div>';
+
+    var gridHtml = '<div class="cal-grid">';
+    DOWS.forEach(function(d) { gridHtml += '<div class="cal-dow">' + d + '</div>'; });
+
+    /* empty cells before first day */
+    for (var i = 0; i < firstDay; i++) {
+      gridHtml += '<div class="cal-day empty"></div>';
+    }
+
+    for (var day = 1; day <= daysInMonth; day++) {
+      var dt = new Date(s.year, s.month, day);
+      dt.setHours(0,0,0,0);
+      var isPast = dt <= today;
+      var dateStr = s.year + '-' + String(s.month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+      var isSelected = s.selectedDate === dateStr;
+      var isToday = dt.getTime() === today.getTime();
+      var cls = 'cal-day';
+      if (isPast) cls += ' past';
+      if (isSelected) cls += ' selected';
+      if (isToday) cls += ' today';
+      var clickHandler = isPast ? '' : 'calSelect(\'' + containerId + '\',\'' + dateStr + '\',\'' + day + '/' + String(s.month+1).padStart(2,'0') + '/' + s.year + '\')';
+      gridHtml += '<button type="button" class="' + cls + '" ' + (clickHandler ? 'onclick="' + clickHandler + '"' : '') + '>' + day + '</button>';
+    }
+
+    gridHtml += '</div>';
+    container.innerHTML = headHtml + gridHtml;
+  }
+
+  container._render = render;
+  render();
+}
+
+function calPrev(id) {
+  var c = document.getElementById(id);
+  var s = c._calState;
+  if (s.month === 0) { s.month = 11; s.year--; }
+  else { s.month--; }
+  c._render();
+}
+function calNext(id) {
+  var c = document.getElementById(id);
+  var s = c._calState;
+  if (s.month === 11) { s.month = 0; s.year++; }
+  else { s.month++; }
+  c._render();
+}
+function calSelect(id, dateStr, displayStr) {
+  var c = document.getElementById(id);
+  c._calState.selectedDate = dateStr;
+  c._calState._displayStr = displayStr;
+  c._render();
+  /* fire proposal-specific callback */
+  if (c._calState.opts.onSelect) c._calState.opts.onSelect(dateStr, displayStr);
+}
+
+/* ── P1 ── */
+var p1Date = '';
+buildCal('p1-cal', {
+  onSelect: function(dateStr, displayStr) {
+    p1Date = dateStr;
+    var confirmEl = document.getElementById('p1-confirm');
+    var confirmDate = document.getElementById('p1-confirm-date');
+    var step3 = document.getElementById('p1-step3-num');
+    var err = document.getElementById('p1-err');
+    confirmDate.textContent = displayStr;
+    confirmEl.classList.add('show');
+    step3.style.background = '#a7523e';
+    err.classList.remove('show');
+  }
+});
+function p1submit(e) {
+  e.preventDefault();
+  if (!p1Date) {
+    document.getElementById('p1-err').classList.add('show');
+    return false;
+  }
+  var btn = document.getElementById('p1-btn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.querySelector('.bold').textContent = 'Abrindo WhatsApp';
+  setTimeout(function() {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btn.querySelector('.bold').textContent = 'pelo WhatsApp';
+  }, 2200);
+  var parts = p1Date.split('-');
+  var msg = 'Olá, gostaria de ver a disponibilidade de um ensaio para a data ' + parts[2] + '/' + parts[1] + '/' + parts[0] + '. (mensagem do site)';
+  window.open('https://wa.me/5511911159795?text=' + encodeURIComponent(msg), '_blank');
+  return false;
+}
+
+/* ── P2 ── */
+var p2Date = '';
+buildCal('p2-cal', {
+  onSelect: function(dateStr, displayStr) {
+    p2Date = dateStr;
+    var fb = document.getElementById('p2-fb');
+    var fbDate = document.getElementById('p2-fb-date');
+    var btn = document.getElementById('p2-btn');
+    var hint = document.getElementById('p2-hint');
+    var err = document.getElementById('p2-err');
+    fbDate.textContent = displayStr + ' selecionada';
+    fb.classList.add('show');
+    btn.classList.remove('locked');
+    hint.style.display = 'none';
+    err.classList.remove('show');
+  }
+});
+function p2submit(e) {
+  e.preventDefault();
+  if (!p2Date) {
+    document.getElementById('p2-err').classList.add('show');
+    return false;
+  }
+  var btn = document.getElementById('p2-btn');
+  var sub = document.getElementById('p2-btn-sub');
+  btn.disabled = true;
+  sub.textContent = 'Abrindo...';
+  setTimeout(function() {
+    btn.disabled = false;
+    sub.textContent = 'Agende sua sessão';
+  }, 2200);
+  var parts = p2Date.split('-');
+  var msg = 'Olá, gostaria de ver a disponibilidade de um ensaio para a data ' + parts[2] + '/' + parts[1] + '/' + parts[0] + '. (mensagem do site)';
+  window.open('https://wa.me/5511911159795?text=' + encodeURIComponent(msg), '_blank');
+  return false;
+}
+
+/* ── P3 ── */
+var p3Date = '';
+buildCal('p3-cal', {
+  onSelect: function(dateStr, displayStr) {
+    p3Date = dateStr;
+    var sel = document.getElementById('p3-sel');
+    var si2 = document.getElementById('p3-si2');
+    var sl2 = document.getElementById('p3-sl2');
+    var si3 = document.getElementById('p3-si3');
+    var sl3 = document.getElementById('p3-sl3');
+    var err = document.getElementById('p3-err');
+    sel.textContent = displayStr + ' selecionada';
+    sel.classList.remove('empty');
+    si2.classList.add('done');
+    si2.innerHTML = '<svg fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+    sl2.classList.add('done');
+    /* step 3 activate */
+    si3.style.borderColor = '#a7523e';
+    sl3.style.color = '#a7523e';
+    err.classList.remove('show');
+  }
+});
+function p3submit(e) {
+  e.preventDefault();
+  if (!p3Date) {
+    document.getElementById('p3-err').classList.add('show');
+    return false;
+  }
+  var btn = document.getElementById('p3-btn');
+  btn.disabled = true;
+  btn.textContent = 'Abrindo WhatsApp...';
+  setTimeout(function() { btn.disabled = false; btn.innerHTML = '<span class="wa-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.3rem" height="1.3rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>Enviar pelo WhatsApp'; }, 2200);
+  var parts = p3Date.split('-');
+  var msg = 'Olá, gostaria de ver a disponibilidade de um ensaio para a data ' + parts[2] + '/' + parts[1] + '/' + parts[0] + '. (mensagem do site)';
+  window.open('https://wa.me/5511911159795?text=' + encodeURIComponent(msg), '_blank');
+  return false;
+}
+
+/* ── P4 (expanded cal) ── */
+var p4Date = '';
+(function buildExpandedCal() {
+  var container = document.getElementById('p4-cal');
+  if (!container) return;
+  var now = new Date();
+  var state = { year: now.getFullYear(), month: now.getMonth(), sel: '' };
+  container._state = state;
+
+  function render() {
+    var s = container._state;
+    var firstDay = new Date(s.year, s.month, 1).getDay();
+    var daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
+    var today = new Date(); today.setHours(0,0,0,0);
+    var h = '<div class="cal-head"><button type="button" onclick="p4prevM()">&#8249;</button><span>' + MONTHS[s.month] + ' ' + s.year + '</span><button type="button" onclick="p4nextM()">&#8250;</button></div>';
+    var g = '<div class="cal-grid">';
+    DOWS.forEach(function(d) { g += '<div class="cal-dow">' + d + '</div>'; });
+    for (var i=0;i<firstDay;i++) g += '<div class="cal-day empty"></div>';
+    for (var day=1;day<=daysInMonth;day++) {
+      var dt = new Date(s.year, s.month, day); dt.setHours(0,0,0,0);
+      var past = dt <= today;
+      var ds = s.year + '-' + String(s.month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+      var disp = String(day).padStart(2,'0') + '/' + String(s.month+1).padStart(2,'0') + '/' + s.year;
+      var cls = 'cal-day' + (past?' past':'') + (s.sel===ds?' selected':'') + (dt.getTime()===today.getTime()?' today':'');
+      var clk = past ? '' : 'onclick="p4select(\'' + ds + '\',\'' + disp + '\')"';
+      g += '<button type="button" class="' + cls + '" ' + clk + '>' + day + '</button>';
+    }
+    g += '</div>';
+    container.innerHTML = h + g;
+  }
+  container._render = render;
+  render();
+  window._p4cal = container;
+})();
+function p4prevM() { var s=window._p4cal._state; if(s.month===0){s.month=11;s.year--;}else{s.month--;} window._p4cal._render(); }
+function p4nextM() { var s=window._p4cal._state; if(s.month===11){s.month=0;s.year++;}else{s.month++;} window._p4cal._render(); }
+function p4select(ds, disp) {
+  p4Date = ds;
+  window._p4cal._state.sel = ds;
+  window._p4cal._render();
+  var sel = document.getElementById('p4-sel');
+  sel.textContent = disp + ' selecionada';
+  sel.classList.remove('empty');
+  document.getElementById('p4-err').classList.remove('show');
+}
+function p4submit(e) {
+  e.preventDefault();
+  if (!p4Date) { document.getElementById('p4-err').classList.add('show'); return false; }
+  var btn = document.getElementById('p4-btn');
+  btn.disabled = true;
+  btn.textContent = 'Abrindo WhatsApp...';
+  setTimeout(function() { btn.disabled=false; btn.textContent='Enviar pelo WhatsApp'; }, 2200);
+  var parts = p4Date.split('-');
+  var msg = 'Olá, gostaria de ver a disponibilidade de um ensaio para a data ' + parts[2] + '/' + parts[1] + '/' + parts[0] + '. (mensagem do site)';
+  window.open('https://wa.me/5511911159795?text=' + encodeURIComponent(msg), '_blank');
+  return false;
+}
+
+/* ── P5 (dark cal, self-contained) ── */
+var p5Date = '';
+var p5State = (function() {
+  var now = new Date();
+  return { year: now.getFullYear(), month: now.getMonth(), sel: '' };
+})();
+function p5renderCal() {
+  var s = p5State;
+  var grid = document.getElementById('p5-cal-grid');
+  var label = document.getElementById('p5-month-label');
+  if (!grid) return;
+  label.textContent = MONTHS[s.month] + ' ' + s.year;
+  var firstDay = new Date(s.year, s.month, 1).getDay();
+  var daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
+  var today = new Date(); today.setHours(0,0,0,0);
+  var html = '';
+  DOWS.forEach(function(d) { html += '<div class="cal-dow">' + d + '</div>'; });
+  for (var i=0;i<firstDay;i++) html += '<div class="cal-day empty"></div>';
+  for (var day=1;day<=daysInMonth;day++) {
+    var dt = new Date(s.year, s.month, day); dt.setHours(0,0,0,0);
+    var past = dt <= today;
+    var ds = s.year + '-' + String(s.month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+    var disp = String(day).padStart(2,'0') + '/' + String(s.month+1).padStart(2,'0') + '/' + s.year;
+    var cls = 'cal-day' + (past?' past':'') + (s.sel===ds?' selected':'') + (dt.getTime()===today.getTime()?' today':'');
+    var clk = past ? '' : 'onclick="p5sel(\'' + ds + '\',\'' + disp + '\')"';
+    html += '<button type="button" class="' + cls + '" ' + clk + '>' + day + '</button>';
+  }
+  grid.innerHTML = html;
+}
+function p5prevMonth() { if(p5State.month===0){p5State.month=11;p5State.year--;}else{p5State.month--;} p5renderCal(); }
+function p5nextMonth() { if(p5State.month===11){p5State.month=0;p5State.year++;}else{p5State.month++;} p5renderCal(); }
+function p5sel(ds, disp) {
+  p5Date = ds;
+  p5State.sel = ds;
+  p5renderCal();
+  var sel = document.getElementById('p5-sel');
+  sel.textContent = disp;
+  sel.classList.add('picked');
+  var btn = document.getElementById('p5-btn');
+  btn.disabled = false;
+  document.getElementById('p5-err').classList.remove('show');
+}
+function p5submit(e) {
+  e.preventDefault();
+  if (!p5Date) { document.getElementById('p5-err').classList.add('show'); return false; }
+  var btn = document.getElementById('p5-btn');
+  btn.disabled = true;
+  btn.textContent = 'Abrindo...';
+  setTimeout(function() { btn.disabled=false; btn.textContent='Enviar pelo WhatsApp'; }, 2200);
+  var parts = p5Date.split('-');
+  var msg = 'Olá, gostaria de ver a disponibilidade de um ensaio para a data ' + parts[2] + '/' + parts[1] + '/' + parts[0] + '. (mensagem do site)';
+  window.open('https://wa.me/5511911159795?text=' + encodeURIComponent(msg), '_blank');
+  return false;
+}
+
+/* init p5 on load */
+p5renderCal();
+
+/* ── Focus visible ── */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Tab') document.body.classList.add('kb-nav');
+});
+document.addEventListener('mousedown', function() {
+  document.body.classList.remove('kb-nav');
+});
+</script>
+<style>
+body:not(.kb-nav) *:focus { outline: none; }
+body.kb-nav *:focus { outline: 2px solid #a7523e; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</body>
+</html>

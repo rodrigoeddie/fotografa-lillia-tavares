@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Redesign — 5 Propostas — Lillia Tavares</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap');
+
+/* ─── RESET & GLOBALS ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --olive:       #7b785b;
+  --olive-deep:  #4a4836;
+  --olive-mid:   #615e47;
+  --olive-light: #aaa789;
+  --olive-pale:  #d4d0bb;
+  --cream:       #e3dfcb;
+  --cream-deep:  #cdc9b4;
+  --bone:        #f6f6f6;
+  --bone-warm:   #f2f0e8;
+  --white:       #ffffff;
+  --ink:         #2d2c24;
+  --font: 'Lato', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: #eeece4;
+  color: var(--olive-deep);
+}
+
+/* ─── CHAPTER LABELS ──────────────────────────────────────────── */
+.chapter {
+  padding: 3rem 2rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.chapter-label {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.chapter-num {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+}
+
+.chapter-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--olive-deep);
+  letter-spacing: 0.01em;
+}
+
+.chapter-type {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--olive);
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+}
+
+.chapter-type.bold { background: var(--olive-deep); }
+
+.chapter-rationale {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--olive-mid);
+  max-width: 56ch;
+  margin-top: 0.25rem;
+}
+
+.chapter-problem {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-top: 0.625rem;
+}
+
+/* ─── SECTION WRAPPER ─────────────────────────────────────────── */
+.proposal-wrap {
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PROPOSAL 1 — Compact Editorial Grid
+   Evolução segura: preserva 5 colunas mas com gap, tipografia
+   controlada e todos os estados robustos.
+   ════════════════════════════════════════════════════════════════ */
+.p1 {
+  --p1-col: 5;
+  padding: 3rem 2.5rem 3.5rem;
+  background: var(--white);
+}
+
+.p1-heading {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 0.375rem;
+}
+
+.p1-title {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--olive-deep);
+  margin-bottom: 2rem;
+  text-wrap: balance;
+}
+
+.p1-title strong {
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Filter bar */
+.p1-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.p1-filter {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  background: transparent;
+  border: 1px solid var(--olive-pale);
+  border-radius: 999px;
+  padding: 0.4em 1em;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.p1-filter:hover {
+  background: var(--bone-warm);
+  border-color: var(--cream-deep);
+  color: var(--olive);
+}
+
+.p1-filter.active {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: var(--white);
+}
+
+.p1-filter:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+}
+
+/* Grid */
+.p1-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--p1-col), 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1024px) { .p1 { --p1-col: 3; } }
+@media (max-width: 768px)  { .p1 { --p1-col: 2; } }
+@media (max-width: 480px)  { .p1 { --p1-col: 1; } }
+
+/* Card */
+.p1-card {
+  background: var(--bone);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.p1-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(75,72,54,0.12);
+}
+
+.p1-card:focus-within {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+}
+
+.p1-card[data-hidden] { display: none; }
+
+/* Image area */
+.p1-img-wrap {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.p1-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.p1-card:hover .p1-img { transform: scale(1.04); }
+
+/* Blur-up: images start blurred, JS removes class after load */
+.p1-img.loading {
+  filter: blur(8px);
+  transform: scale(1.06);
+}
+
+/* Fallback initials */
+.p1-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--olive);
+  letter-spacing: 0.05em;
+}
+
+/* Skeleton shimmer */
+.p1-skeleton .p1-img-wrap,
+.p1-skeleton .p1-sk-line {
+  background: linear-gradient(90deg, var(--bone) 25%, var(--cream) 50%, var(--bone) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.p1-sk-line {
+  border-radius: 2px;
+  height: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.p1-sk-line.short { width: 60%; }
+.p1-sk-line.xshort { width: 40%; }
+
+/* Info */
+.p1-info {
+  padding: 0.875rem 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.p1-cat {
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+}
+
+.p1-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--olive-deep);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.p1-place {
+  font-size: 0.6875rem;
+  color: var(--olive-light);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.p1-place svg { flex-shrink: 0; }
+
+.p1-cta {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--olive);
+  background: var(--cream);
+  border: none;
+  border-radius: 999px;
+  padding: 0.5em 1.1em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  align-self: flex-start;
+}
+
+.p1-cta:hover { background: var(--olive); color: var(--white); }
+.p1-cta:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+
+/* Empty state */
+.p1-empty {
+  grid-column: 1 / -1;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--olive-light);
+}
+
+.p1-empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.p1-empty p { font-size: 0.875rem; }
+
+/* Error state */
+.p1-error {
+  grid-column: 1 / -1;
+  padding: 2rem 1rem;
+  border: 1px solid var(--cream-deep);
+  border-radius: 4px;
+  text-align: center;
+  color: var(--olive-mid);
+}
+
+.p1-error p { font-size: 0.8125rem; }
+.p1-error button {
+  margin-top: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--cream);
+  border: none;
+  border-radius: 999px;
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  color: var(--olive);
+}
+
+/* Footer CTA */
+.p1-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.p1-btn-all {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--olive);
+  border: none;
+  border-radius: 999px;
+  padding: 0.75em 2em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s;
+}
+
+.p1-btn-all:hover { background: var(--olive-deep); }
+.p1-btn-all:focus-visible { outline: 2px solid var(--olive-deep); outline-offset: 2px; }
+
+/* State tabs (demo only) */
+.demo-states {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--cream);
+}
+
+.demo-state-btn {
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--bone-warm);
+  border: 1px solid var(--cream-deep);
+  border-radius: 2px;
+  padding: 0.35em 0.9em;
+  cursor: pointer;
+  color: var(--olive-mid);
+}
+
+.demo-state-btn:hover { background: var(--cream); }
+.demo-state-btn.active-state { background: var(--olive-deep); color: var(--white); border-color: var(--olive-deep); }
+.demo-label { font-size: 0.625rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: var(--olive-light); align-self: center; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   PROPOSAL 2 — Horizontal Strip / Magazine Row
+   Evolução segura: troca a grid vertical por faixas horizontais
+   assimétricas. Lê como editorial de moda — resolve o problema
+   de 5 colunas apertadas em mobile sem mudar a identidade.
+   ════════════════════════════════════════════════════════════════ */
+.p2 {
+  padding: 3rem 2.5rem 3.5rem;
+  background: var(--bone-warm);
+}
+
+.p2-heading { font-size: 0.6875rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive-light); margin-bottom: 0.375rem; }
+.p2-title { font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 300; font-style: italic; color: var(--olive-deep); margin-bottom: 2rem; }
+.p2-title strong { font-weight: 900; font-style: normal; }
+
+.p2-strip {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--olive-pale) transparent;
+}
+
+.p2-strip::-webkit-scrollbar { height: 3px; }
+.p2-strip::-webkit-scrollbar-track { background: transparent; }
+.p2-strip::-webkit-scrollbar-thumb { background: var(--olive-pale); border-radius: 2px; }
+
+.p2-card {
+  flex: 0 0 clamp(180px, 22vw, 260px);
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+  background: var(--bone);
+}
+
+.p2-card + .p2-card { border-left: 2px solid var(--white); }
+
+.p2-img-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.p2-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.p2-card:hover .p2-img { transform: scale(1.05); }
+
+/* Overlay on hover */
+.p2-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(75,72,54,0.82) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem 1rem;
+}
+
+.p2-card:hover .p2-overlay { opacity: 1; }
+
+.p2-overlay-cta {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 999px;
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  text-decoration: none;
+  backdrop-filter: blur(4px);
+}
+
+.p2-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--olive);
+  background: var(--cream);
+}
+
+.p2-info {
+  padding: 0.75rem 0.875rem 1rem;
+  border-top: 1px solid var(--cream-deep);
+}
+
+.p2-cat {
+  font-size: 0.5625rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 0.2rem;
+}
+
+.p2-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--olive-deep);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.p2-place {
+  font-size: 0.6rem;
+  color: var(--olive-light);
+  margin-top: 0.15rem;
+}
+
+/* Skeleton */
+.p2-skeleton .p2-img-wrap {
+  background: linear-gradient(90deg, var(--bone) 25%, var(--cream) 50%, var(--bone) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.p2-sk-line {
+  border-radius: 2px;
+  height: 0.65rem;
+  margin-bottom: 0.4rem;
+  background: linear-gradient(90deg, var(--bone) 25%, var(--cream) 50%, var(--bone) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.p2-footer { margin-top: 1.75rem; text-align: right; }
+.p2-btn-all {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive);
+  background: transparent;
+  border: 1px solid var(--olive);
+  border-radius: 999px;
+  padding: 0.7em 1.8em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+}
+
+.p2-btn-all:hover { background: var(--olive); color: var(--white); }
+.p2-scroll-hint {
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PROPOSAL 3 — Masonry + Focus Card
+   Evolução segura com estrutura assimétrica. O primeiro card é
+   2× mais largo, cria hierarquia editorial sem mudar a paleta.
+   Resolve monotonia de "5 colunas iguais".
+   ════════════════════════════════════════════════════════════════ */
+.p3 {
+  padding: 3rem 2.5rem 3.5rem;
+  background: var(--white);
+}
+
+.p3-heading { font-size: 0.6875rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive-light); margin-bottom: 0.375rem; }
+.p3-title { font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 300; font-style: italic; color: var(--olive-deep); margin-bottom: 2rem; }
+.p3-title strong { font-weight: 900; font-style: normal; }
+
+.p3-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.75rem;
+}
+
+.p3-card { position: relative; overflow: hidden; background: var(--bone); border-radius: 3px; }
+.p3-card.featured { grid-row: 1 / 3; }
+
+@media (max-width: 900px) {
+  .p3-grid { grid-template-columns: 1fr 1fr; }
+  .p3-card.featured { grid-row: auto; grid-column: 1 / 3; }
+}
+
+@media (max-width: 540px) {
+  .p3-grid { grid-template-columns: 1fr; }
+  .p3-card.featured { grid-column: auto; }
+}
+
+.p3-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.p3-card.featured .p3-img-wrap { aspect-ratio: 2/3; }
+.p3-card:not(.featured) .p3-img-wrap { aspect-ratio: 4/5; }
+
+.p3-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.p3-card:hover .p3-img { transform: scale(1.04); }
+
+.p3-band {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 1rem 0.875rem;
+  background: linear-gradient(to top, rgba(42,41,32,0.88) 0%, transparent 100%);
+}
+
+.p3-card.featured .p3-band { padding: 2rem 1.25rem 1.25rem; }
+
+.p3-band-cat {
+  font-size: 0.5625rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.25rem;
+}
+
+.p3-band-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.p3-card.featured .p3-band-name { font-size: 1.125rem; white-space: normal; text-wrap: balance; }
+
+.p3-band-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+  font-size: 0.5625rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(227,223,203,0.35);
+  padding-bottom: 0.1em;
+  transition: color 0.18s, border-color 0.18s;
+}
+
+.p3-band-link:hover { color: var(--white); border-color: rgba(255,255,255,0.6); }
+
+.p3-fallback {
+  width: 100%;
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--olive);
+  background: var(--cream);
+}
+
+.p3-card.featured .p3-fallback { aspect-ratio: 2/3; }
+
+.p3-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.p3-count { font-size: 0.6875rem; color: var(--olive-light); font-weight: 400; }
+.p3-count strong { font-weight: 900; color: var(--olive-mid); }
+
+.p3-btn-all {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--olive);
+  border: none;
+  border-radius: 999px;
+  padding: 0.7em 1.8em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s;
+}
+
+.p3-btn-all:hover { background: var(--olive-deep); }
+
+
+/* ════════════════════════════════════════════════════════════════
+   PROPOSAL 4 — Dark Inversion (Ousado)
+   Superfície olive-escura, tipografia clara. Inverte o padrão
+   claro sem sair da paleta. Lê como agência de alto padrão.
+   Risco: pode parecer pesado — mitigado com muito espaço branco
+   interno e uso cirúrgico do creme como accent.
+   ════════════════════════════════════════════════════════════════ */
+.p4 {
+  padding: 3.5rem 2.5rem 4rem;
+  background: var(--olive-deep);
+}
+
+.p4-heading {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 0.375rem;
+}
+
+.p4-title {
+  font-size: clamp(1.375rem, 2.5vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 2.25rem;
+  text-wrap: balance;
+}
+
+.p4-title strong {
+  font-weight: 900;
+  font-style: normal;
+  color: var(--white);
+}
+
+.p4-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+}
+
+@media (max-width: 1024px) { .p4-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px)  { .p4-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 400px)  { .p4-grid { grid-template-columns: 1fr; } }
+
+.p4-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--olive-mid);
+  cursor: pointer;
+}
+
+.p4-img-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--olive-mid);
+}
+
+.p4-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%);
+  transition: transform 0.5s ease, filter 0.4s ease;
+}
+
+.p4-card:hover .p4-img {
+  transform: scale(1.06);
+  filter: grayscale(0%);
+}
+
+/* Number badge */
+.p4-num {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 0.5rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  background: rgba(42,41,32,0.6);
+  border: 1px solid rgba(227,223,203,0.25);
+  border-radius: 2px;
+  padding: 0.2em 0.5em;
+  backdrop-filter: blur(4px);
+}
+
+/* Reveal panel */
+.p4-reveal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0.875rem 0.875rem;
+  background: linear-gradient(to top, rgba(42,41,32,0.95) 30%, transparent 100%);
+  transform: translateY(30%);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.p4-card:hover .p4-reveal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.p4-reveal-cat {
+  font-size: 0.5rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.65;
+  margin-bottom: 0.2rem;
+}
+
+.p4-reveal-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.p4-reveal-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.5rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-deep);
+  background: var(--cream);
+  border: none;
+  border-radius: 999px;
+  padding: 0.45em 1.1em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.p4-fallback {
+  width: 100%;
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--cream);
+  background: var(--olive-mid);
+}
+
+.p4-footer {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.p4-total {
+  font-size: 0.6875rem;
+  color: var(--olive-light);
+  font-weight: 400;
+}
+
+.p4-btn-all {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-deep);
+  background: var(--cream);
+  border: none;
+  border-radius: 999px;
+  padding: 0.75em 2em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s;
+}
+
+.p4-btn-all:hover { background: var(--white); }
+.p4-btn-all:focus-visible { outline: 2px solid var(--cream); outline-offset: 2px; }
+
+/* ════════════════════════════════════════════════════════════════
+   PROPOSAL 5 — Tipo-First / Typographic Grid (Ousado)
+   Sem foto dominante: linha tipográfica com thumbnail lateral.
+   Lê como portfolio impresso, editorial de luxo. Resolve o
+   problema de nomes longos transformando-os em feature, não bug.
+   ════════════════════════════════════════════════════════════════ */
+.p5 {
+  padding: 3rem 2.5rem 3.5rem;
+  background: var(--white);
+  border-top: 2px solid var(--olive);
+}
+
+.p5-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.p5-eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--cream-deep);
+}
+
+.p5-eyebrow-text {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+}
+
+.p5-title {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--olive-deep);
+  margin-bottom: 2rem;
+}
+
+.p5-title strong { font-weight: 900; font-style: normal; }
+
+/* Row list */
+.p5-list { list-style: none; }
+
+.p5-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--cream);
+  cursor: pointer;
+  transition: background 0.18s;
+  border-radius: 3px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.p5-item:first-child { border-top: 1px solid var(--cream); }
+
+.p5-item:hover {
+  background: var(--bone-warm);
+}
+
+.p5-item:focus-within {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .p5-item { grid-template-columns: 3rem 1fr; }
+  .p5-item-right { display: none; }
+}
+
+/* Thumbnail */
+.p5-thumb {
+  width: 3rem;
+  height: 3.75rem;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--cream);
+}
+
+.p5-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.p5-item:hover .p5-thumb img { transform: scale(1.08); }
+
+.p5-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--olive);
+}
+
+/* Center: name + meta */
+.p5-item-center {}
+
+.p5-item-name {
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  font-weight: 900;
+  color: var(--olive-deep);
+  line-height: 1.2;
+  /* Allow long names to wrap — that's the feature */
+}
+
+.p5-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.p5-item-cat {
+  font-size: 0.5625rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--olive-light);
+  border-radius: 2px;
+  padding: 0.15em 0.5em;
+}
+
+.p5-item-place {
+  font-size: 0.6875rem;
+  color: var(--olive-light);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+/* Right: arrow + count */
+.p5-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.p5-photo-count {
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: var(--olive-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.p5-arrow {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.p5-item:hover .p5-arrow {
+  background: var(--olive);
+  transform: translateX(3px);
+}
+
+.p5-item:hover .p5-arrow svg { stroke: var(--white); }
+
+/* Skeleton row */
+.p5-skeleton-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid var(--cream);
+}
+
+.p5-sk-thumb {
+  width: 3rem;
+  height: 3.75rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--bone) 25%, var(--cream) 50%, var(--bone) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.p5-sk-text { display: flex; flex-direction: column; gap: 0.4rem; }
+.p5-sk-line {
+  border-radius: 2px;
+  height: 0.75rem;
+  background: linear-gradient(90deg, var(--bone) 25%, var(--cream) 50%, var(--bone) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.p5-footer {
+  margin-top: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.p5-count { font-size: 0.6875rem; color: var(--olive-light); }
+.p5-count strong { font-weight: 900; color: var(--olive-mid); }
+
+.p5-btn-all {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--olive);
+  border: none;
+  border-radius: 999px;
+  padding: 0.7em 1.8em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s;
+}
+
+.p5-btn-all:hover { background: var(--olive-deep); }
+
+/* ─── RANKING SECTION ─────────────────────────────────────────── */
+.ranking {
+  padding: 3rem 2.5rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ranking h2 {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 1.5rem;
+}
+
+.ranking-list { list-style: none; counter-reset: rank; }
+
+.ranking-item {
+  counter-increment: rank;
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(227,223,203,0.5);
+}
+
+.ranking-item::before {
+  content: counter(rank);
+  font-size: 0.6875rem;
+  font-weight: 900;
+  color: var(--olive-light);
+  padding-top: 0.1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ranking-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--olive-deep);
+  margin-bottom: 0.25rem;
+}
+
+.ranking-why {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--olive-mid);
+  max-width: 56ch;
+}
+
+.ranking-badge {
+  display: inline-block;
+  font-size: 0.5rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+  margin-bottom: 0.35rem;
+}
+
+.badge-safe { background: var(--cream); color: var(--olive); }
+.badge-bold { background: var(--olive-deep); color: var(--white); }
+
+/* ─── REDUCED MOTION ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ─── PAGE INTRO ──────────────────────────────────────────────── */
+.page-intro {
+  padding: 3rem 2.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-intro h1 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 900;
+  color: var(--olive-deep);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.375rem;
+}
+
+.page-intro p {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--olive-mid);
+  max-width: 52ch;
+}
+
+/* ── Category Tabs — SEO: links reais para páginas de categoria ── */
+.cat-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.cat-tab {
+  font-family: 'Lato', arial;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--olive, #7b785b);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+.cat-tab:hover { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab--active { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab:focus-visible { outline: 2px solid var(--olive, #7b785b); outline-offset: 2px; }
+.cat-tab--all { border-style: dashed; opacity: .8; }
+/* Dark bg variant */
+.cat-tabs--dark .cat-tab { color: var(--creme, #e3dfcb); border-color: currentColor; }
+.cat-tabs--dark .cat-tab:hover,
+.cat-tabs--dark .cat-tab--active { background: var(--creme, #e3dfcb); color: var(--ink, #2e2d26); }
+.cat-tabs--dark .cat-tab:focus-visible { outline-color: var(--creme, #e3dfcb); }
+</style>
+</head>
+<body>
+
+<!-- ─── PAGE INTRO ──────────────────────────────────────────── -->
+<div class="page-intro">
+  <h1>Portfolio — 5 Propostas de Redesign</h1>
+  <p>Fotografa Lillia Tavares · Agente C — Design de Produto · Junho 2026.<br>
+  Cada proposta demonstra: dados extremos, todos os breakpoints, estados completos e polimento estético.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROPOSAL 1
+     ══════════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-label">
+    <span class="chapter-num">Proposta 01</span>
+    <span class="chapter-title">Compact Editorial Grid</span>
+    <span class="chapter-type">Evolução segura</span>
+  </div>
+  <p class="chapter-problem">Problema principal: 5 colunas sem gap colapsam em tablet; sem estados de loading/vazio/erro.</p>
+  <p class="chapter-rationale">Mantém a estrutura de grid mas adiciona gap real, skeleton animado, filtro por categoria funcional e todos os estados. O trade-off é que 5 colunas ainda ficam apertadas em 768px — mitigado descendo para 3 colunas via CSS Grid auto-responsive.</p>
+</div>
+
+<div class="proposal-wrap">
+<section class="p1" id="proposal-1">
+
+  <p class="p1-heading">Portfolio</p>
+  <h2 class="p1-title">Explore meus <strong>Últimos Trabalhos</strong></h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+
+  <!-- Demo state controls (for presentation only) -->
+  <div class="demo-states" aria-label="Demonstração de estados">
+    <span class="demo-label">Estado:</span>
+    <button class="demo-state-btn active-state" onclick="p1SetState('default')">Default</button>
+    <button class="demo-state-btn" onclick="p1SetState('loading')">Loading</button>
+    <button class="demo-state-btn" onclick="p1SetState('empty')">Vazio</button>
+    <button class="demo-state-btn" onclick="p1SetState('error')">Erro</button>
+  </div>
+
+  <!-- Filters -->
+  <div class="p1-filters" role="group" aria-label="Filtrar por categoria">
+    <button class="p1-filter active" data-filter="all" onclick="p1Filter(this,'all')">Todos</button>
+    <button class="p1-filter" data-filter="Corporativo" onclick="p1Filter(this,'Corporativo')">Corporativo</button>
+    <button class="p1-filter" data-filter="Família" onclick="p1Filter(this,'Família')">Família</button>
+    <button class="p1-filter" data-filter="Casamento" onclick="p1Filter(this,'Casamento')">Casamento</button>
+    <button class="p1-filter" data-filter="Gestante" onclick="p1Filter(this,'Gestante')">Gestante</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="p1-grid" id="p1-grid">
+
+    <!-- Card 1: nome longo -->
+    <article class="p1-card" data-cat="Corporativo">
+      <div class="p1-img-wrap">
+        <img class="p1-img loading" src="https://picsum.photos/seed/lil1/400/500?grayscale" alt="Ensaio de Alessandra Magalhães de Souza" loading="lazy" onload="this.classList.remove('loading')" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p1-fallback" style="display:none">AM</div>
+      </div>
+      <div class="p1-info">
+        <p class="p1-cat">Corporativo</p>
+        <h3 class="p1-name" title="Alessandra Magalhães de Souza">Alessandra Magalhães de Souza</h3>
+        <p class="p1-place">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+          Estúdio Lillia Tavares
+        </p>
+        <a href="#" class="p1-cta">Acessar Ensaio</a>
+      </div>
+    </article>
+
+    <!-- Card 2: nome curto -->
+    <article class="p1-card" data-cat="Corporativo">
+      <div class="p1-img-wrap">
+        <img class="p1-img loading" src="https://picsum.photos/seed/lil2/400/500?grayscale" alt="Ensaio de Bruna Freire" loading="lazy" onload="this.classList.remove('loading')" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p1-fallback" style="display:none">BF</div>
+      </div>
+      <div class="p1-info">
+        <p class="p1-cat">Corporativo</p>
+        <h3 class="p1-name">Bruna Freire</h3>
+        <p class="p1-place">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+          Estúdio Lillia Tavares
+        </p>
+        <a href="#" class="p1-cta">Acessar Ensaio</a>
+      </div>
+    </article>
+
+    <!-- Card 3: sem imagem (fallback) -->
+    <article class="p1-card" data-cat="Família">
+      <div class="p1-img-wrap">
+        <div class="p1-fallback" style="display:flex">Li</div>
+      </div>
+      <div class="p1-info">
+        <p class="p1-cat">Família</p>
+        <h3 class="p1-name">Li</h3>
+        <p class="p1-place">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+          Externo
+        </p>
+        <a href="#" class="p1-cta">Acessar Ensaio</a>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="p1-card" data-cat="Corporativo">
+      <div class="p1-img-wrap">
+        <img class="p1-img loading" src="https://picsum.photos/seed/lil4/400/500?grayscale" alt="Ensaio de Marcella Castelucci" loading="lazy" onload="this.classList.remove('loading')" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p1-fallback" style="display:none">MC</div>
+      </div>
+      <div class="p1-info">
+        <p class="p1-cat">Corporativo</p>
+        <h3 class="p1-name">Marcella Castelucci</h3>
+        <p class="p1-place">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+          Estúdio Lillia Tavares
+        </p>
+        <a href="#" class="p1-cta">Acessar Ensaio</a>
+      </div>
+    </article>
+
+    <!-- Card 5 -->
+    <article class="p1-card" data-cat="Casamento">
+      <div class="p1-img-wrap">
+        <img class="p1-img loading" src="https://picsum.photos/seed/lil5/400/500?grayscale" alt="Ensaio de Monica Rafael" loading="lazy" onload="this.classList.remove('loading')" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p1-fallback" style="display:none">MR</div>
+      </div>
+      <div class="p1-info">
+        <p class="p1-cat">Casamento</p>
+        <h3 class="p1-name">Monica Rafael</h3>
+        <p class="p1-place">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+          Externa
+        </p>
+        <a href="#" class="p1-cta">Acessar Ensaio</a>
+      </div>
+    </article>
+
+  </div><!-- /p1-grid -->
+
+  <div class="p1-footer">
+    <a href="#" class="p1-btn-all">Ver todos os trabalhos</a>
+  </div>
+
+</section>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROPOSAL 2
+     ══════════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-label">
+    <span class="chapter-num">Proposta 02</span>
+    <span class="chapter-title">Horizontal Strip / Magazine Row</span>
+    <span class="chapter-type">Evolução segura</span>
+  </div>
+  <p class="chapter-problem">Problema principal: grid rígida de 5 colunas não escala. Swiper flip heavy e confuso.</p>
+  <p class="chapter-rationale">Troca o grid vertical por scroll horizontal com snap — idiomatic em mobile, elegante em desktop. O hover overlay substitui o Swiper flip com custo zero de JS. Trade-off: perde a visão panorâmica dos 5 cards simultaneamente em mobile.</p>
+</div>
+
+<div class="proposal-wrap">
+<section class="p2" id="proposal-2">
+
+  <p class="p2-heading">Portfolio</p>
+  <h2 class="p2-title">Explore meus <strong>Últimos Trabalhos</strong></h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+
+  <div class="p2-strip" role="list" aria-label="Últimos trabalhos">
+
+    <article class="p2-card" role="listitem">
+      <div class="p2-img-wrap">
+        <img class="p2-img" src="https://picsum.photos/seed/lil1/320/427?grayscale" alt="Alessandra Magalhães de Souza" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p2-fallback" style="display:none">AM</div>
+        <div class="p2-overlay">
+          <a href="#" class="p2-overlay-cta">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p2-info">
+        <p class="p2-cat">Corporativo</p>
+        <h3 class="p2-name" title="Alessandra Magalhães de Souza">Alessandra Magalhães de Souza</h3>
+        <p class="p2-place">Estúdio Lillia Tavares</p>
+      </div>
+    </article>
+
+    <article class="p2-card" role="listitem">
+      <div class="p2-img-wrap">
+        <img class="p2-img" src="https://picsum.photos/seed/lil2/320/427?grayscale" alt="Bruna Freire" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p2-fallback" style="display:none">BF</div>
+        <div class="p2-overlay">
+          <a href="#" class="p2-overlay-cta">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p2-info">
+        <p class="p2-cat">Corporativo</p>
+        <h3 class="p2-name">Bruna Freire</h3>
+        <p class="p2-place">Estúdio Lillia Tavares</p>
+      </div>
+    </article>
+
+    <!-- Skeleton card (demonstra loading inline) -->
+    <article class="p2-card p2-skeleton" role="listitem" aria-label="Carregando">
+      <div class="p2-img-wrap" style="aspect-ratio:3/4"></div>
+      <div class="p2-info">
+        <div class="p2-sk-line" style="width:40%"></div>
+        <div class="p2-sk-line" style="width:70%"></div>
+        <div class="p2-sk-line" style="width:55%"></div>
+      </div>
+    </article>
+
+    <article class="p2-card" role="listitem">
+      <div class="p2-img-wrap">
+        <img class="p2-img" src="https://picsum.photos/seed/lil4/320/427?grayscale" alt="Marcella Castelucci" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p2-fallback" style="display:none">MC</div>
+        <div class="p2-overlay">
+          <a href="#" class="p2-overlay-cta">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p2-info">
+        <p class="p2-cat">Família</p>
+        <h3 class="p2-name">Marcella Castelucci</h3>
+        <p class="p2-place">Estúdio Lillia Tavares</p>
+      </div>
+    </article>
+
+    <!-- Sem imagem: fallback com iniciais -->
+    <article class="p2-card" role="listitem">
+      <div class="p2-img-wrap">
+        <div class="p2-fallback" style="display:flex">MR</div>
+        <div class="p2-overlay">
+          <a href="#" class="p2-overlay-cta">Acessar Ensaio</a>
+        </div>
+      </div>
+      <div class="p2-info">
+        <p class="p2-cat">Casamento</p>
+        <h3 class="p2-name">Monica Rafael</h3>
+        <p class="p2-place">Externo</p>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="p2-scroll-hint">
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 5h12M9 1l4 4-4 4"/></svg>
+    Deslize para ver mais
+  </div>
+
+  <div class="p2-footer">
+    <a href="#" class="p2-btn-all">Ver todos os trabalhos</a>
+  </div>
+
+</section>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROPOSAL 3
+     ══════════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-label">
+    <span class="chapter-num">Proposta 03</span>
+    <span class="chapter-title">Masonry + Focus Card</span>
+    <span class="chapter-type">Evolução segura</span>
+  </div>
+  <p class="chapter-problem">Problema principal: monotonia visual de 5 colunas idênticas, sem hierarquia editorial.</p>
+  <p class="chapter-rationale">Card destacado (2× largo) cria hierarquia sem adicionar complexidade — o trabalho mais recente ou relevante "lidera". Resolve visualmente o problema de nomes longos: o card grande tem espaço. Trade-off: o featured card precisa de curadoria manual ou lógica de destaque na API.</p>
+</div>
+
+<div class="proposal-wrap">
+<section class="p3" id="proposal-3">
+
+  <p class="p3-heading">Portfolio</p>
+  <h2 class="p3-title">Explore meus <strong>Últimos Trabalhos</strong></h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+
+  <div class="p3-grid">
+
+    <!-- Featured (2× tall) -->
+    <article class="p3-card featured">
+      <div class="p3-img-wrap">
+        <img class="p3-img" src="https://picsum.photos/seed/lil1/600/800?grayscale" alt="Alessandra Magalhães de Souza" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p3-fallback" style="display:none">AM</div>
+      </div>
+      <div class="p3-band">
+        <p class="p3-band-cat">Corporativo · Destaque</p>
+        <h3 class="p3-band-name">Alessandra Magalhães de Souza</h3>
+        <a href="#" class="p3-band-link">
+          Acessar Ensaio
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Small card 1 -->
+    <article class="p3-card">
+      <div class="p3-img-wrap">
+        <img class="p3-img" src="https://picsum.photos/seed/lil2/400/500?grayscale" alt="Bruna Freire" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p3-fallback" style="display:none">BF</div>
+      </div>
+      <div class="p3-band">
+        <p class="p3-band-cat">Corporativo</p>
+        <h3 class="p3-band-name">Bruna Freire</h3>
+        <a href="#" class="p3-band-link">Acessar Ensaio <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+      </div>
+    </article>
+
+    <!-- Small card 2: fallback -->
+    <article class="p3-card">
+      <div class="p3-fallback" style="display:flex;aspect-ratio:4/5">CA</div>
+      <div class="p3-band" style="background:linear-gradient(to top,rgba(42,41,32,0.9),transparent)">
+        <p class="p3-band-cat">Família</p>
+        <h3 class="p3-band-name">Camila Andrade</h3>
+        <a href="#" class="p3-band-link">Acessar Ensaio <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+      </div>
+    </article>
+
+    <!-- Small card 3 -->
+    <article class="p3-card">
+      <div class="p3-img-wrap">
+        <img class="p3-img" src="https://picsum.photos/seed/lil4/400/500?grayscale" alt="Marcella Castelucci" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p3-fallback" style="display:none">MC</div>
+      </div>
+      <div class="p3-band">
+        <p class="p3-band-cat">Corporativo</p>
+        <h3 class="p3-band-name">Marcella Castelucci</h3>
+        <a href="#" class="p3-band-link">Acessar Ensaio <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+      </div>
+    </article>
+
+    <!-- Small card 4 -->
+    <article class="p3-card">
+      <div class="p3-img-wrap">
+        <img class="p3-img" src="https://picsum.photos/seed/lil5/400/500?grayscale" alt="Monica Rafael" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p3-fallback" style="display:none">MR</div>
+      </div>
+      <div class="p3-band">
+        <p class="p3-band-cat">Casamento</p>
+        <h3 class="p3-band-name">Monica Rafael</h3>
+        <a href="#" class="p3-band-link">Acessar Ensaio <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="p3-footer">
+    <p class="p3-count"><strong>5</strong> trabalhos recentes</p>
+    <a href="#" class="p3-btn-all">Ver todos os trabalhos</a>
+  </div>
+
+</section>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROPOSAL 4 — Dark Inversion
+     ══════════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-label">
+    <span class="chapter-num">Proposta 04</span>
+    <span class="chapter-title">Dark Inversion</span>
+    <span class="chapter-type bold">Ousado</span>
+  </div>
+  <p class="chapter-problem">Problema principal: a paleta existente é completamente clara — sem contraste emocional. O site não transmite "alta qualidade" suficiente.</p>
+  <p class="chapter-rationale">Inverte para fundo olive-escuro (#4a4836), mantendo exatamente a mesma paleta da marca — apenas usa os tons escuros que já existem. Fotografias ganham presença sem artifício. Trade-off: exige atenção ao contraste de acessibilidade nos textos secundários.</p>
+</div>
+
+<div class="proposal-wrap">
+<section class="p4" id="proposal-4">
+
+  <p class="p4-heading">Portfolio</p>
+  <h2 class="p4-title">Explore meus <strong>Últimos Trabalhos</strong></h2>
+<nav class="cat-tabs cat-tabs--dark" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+
+  <div class="p4-grid">
+
+    <article class="p4-card">
+      <div class="p4-img-wrap">
+        <img class="p4-img" src="https://picsum.photos/seed/lil1/400/533?grayscale" alt="Alessandra Magalhães de Souza" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p4-fallback" style="display:none">AM</div>
+        <span class="p4-num">01</span>
+        <div class="p4-reveal">
+          <p class="p4-reveal-cat">Corporativo</p>
+          <p class="p4-reveal-name" title="Alessandra Magalhães de Souza">Alessandra Magalhães de Souza</p>
+          <a href="#" class="p4-reveal-btn">Acessar</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="p4-card">
+      <div class="p4-img-wrap">
+        <img class="p4-img" src="https://picsum.photos/seed/lil2/400/533?grayscale" alt="Bruna Freire" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p4-fallback" style="display:none">BF</div>
+        <span class="p4-num">02</span>
+        <div class="p4-reveal">
+          <p class="p4-reveal-cat">Corporativo</p>
+          <p class="p4-reveal-name">Bruna Freire</p>
+          <a href="#" class="p4-reveal-btn">Acessar</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Fallback card -->
+    <article class="p4-card">
+      <div class="p4-img-wrap">
+        <div class="p4-fallback" style="display:flex">CN</div>
+        <span class="p4-num">03</span>
+        <div class="p4-reveal">
+          <p class="p4-reveal-cat">Família</p>
+          <p class="p4-reveal-name">Camila Nogueira</p>
+          <a href="#" class="p4-reveal-btn">Acessar</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="p4-card">
+      <div class="p4-img-wrap">
+        <img class="p4-img" src="https://picsum.photos/seed/lil4/400/533?grayscale" alt="Marcella Castelucci" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p4-fallback" style="display:none">MC</div>
+        <span class="p4-num">04</span>
+        <div class="p4-reveal">
+          <p class="p4-reveal-cat">Corporativo</p>
+          <p class="p4-reveal-name">Marcella Castelucci</p>
+          <a href="#" class="p4-reveal-btn">Acessar</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="p4-card">
+      <div class="p4-img-wrap">
+        <img class="p4-img" src="https://picsum.photos/seed/lil5/400/533?grayscale" alt="Monica Rafael" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p4-fallback" style="display:none">MR</div>
+        <span class="p4-num">05</span>
+        <div class="p4-reveal">
+          <p class="p4-reveal-cat">Casamento</p>
+          <p class="p4-reveal-name">Monica Rafael</p>
+          <a href="#" class="p4-reveal-btn">Acessar</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="p4-footer">
+    <span class="p4-total">5 trabalhos recentes</span>
+    <a href="#" class="p4-btn-all">Ver todos os trabalhos</a>
+  </div>
+
+</section>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROPOSAL 5 — Tipo-First
+     ══════════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-label">
+    <span class="chapter-num">Proposta 05</span>
+    <span class="chapter-title">Tipo-First / Lista Editorial</span>
+    <span class="chapter-type bold">Ousado</span>
+  </div>
+  <p class="chapter-problem">Problema principal: nomes longos quebram layout; 5 imagens grandes pesam na percepção de velocidade.</p>
+  <p class="chapter-rationale">Inverte a hierarquia: nome é protagonista tipográfico, thumbnail é acessório. Lê como um portfólio impresso de agência. Nomes longos viram asset, não problema. Skeleton rows são mais leves. Trade-off: reduz o impacto visual imediato das fotos — indicado para públicos sofisticados que valorizam curadoria editorial sobre impacto imediato de imagem.</p>
+</div>
+
+<div class="proposal-wrap">
+<section class="p5" id="proposal-5">
+
+  <div class="p5-eyebrow">
+    <span class="p5-eyebrow-text">Portfolio</span>
+    <div class="p5-eyebrow-line"></div>
+  </div>
+
+  <h2 class="p5-title">Explore meus <strong>Últimos Trabalhos</strong></h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+
+  <!-- State: Loading skeleton -->
+  <div id="p5-skeleton" style="display:none">
+    <div class="p5-skeleton-item">
+      <div class="p5-sk-thumb"></div>
+      <div class="p5-sk-text">
+        <div class="p5-sk-line" style="width:75%"></div>
+        <div class="p5-sk-line" style="width:40%"></div>
+      </div>
+    </div>
+    <div class="p5-skeleton-item">
+      <div class="p5-sk-thumb"></div>
+      <div class="p5-sk-text">
+        <div class="p5-sk-line" style="width:55%"></div>
+        <div class="p5-sk-line" style="width:35%"></div>
+      </div>
+    </div>
+    <div class="p5-skeleton-item">
+      <div class="p5-sk-thumb"></div>
+      <div class="p5-sk-text">
+        <div class="p5-sk-line" style="width:65%"></div>
+        <div class="p5-sk-line" style="width:42%"></div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="p5-list" id="p5-list">
+
+    <li class="p5-item" tabindex="0" role="link" aria-label="Ver ensaio de Alessandra Magalhães de Souza">
+      <div class="p5-thumb">
+        <img src="https://picsum.photos/seed/lil1/100/125?grayscale" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p5-thumb-fallback" style="display:none">AM</div>
+      </div>
+      <div class="p5-item-center">
+        <p class="p5-item-name">Alessandra Magalhães de Souza</p>
+        <div class="p5-item-meta">
+          <span class="p5-item-cat">Corporativo</span>
+          <span class="p5-item-place">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+            Estúdio Lillia Tavares
+          </span>
+        </div>
+      </div>
+      <div class="p5-item-right">
+        <span class="p5-photo-count">24 fotos</span>
+        <div class="p5-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--olive)" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </div>
+      </div>
+    </li>
+
+    <li class="p5-item" tabindex="0" role="link" aria-label="Ver ensaio de Bruna Freire">
+      <div class="p5-thumb">
+        <img src="https://picsum.photos/seed/lil2/100/125?grayscale" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p5-thumb-fallback" style="display:none">BF</div>
+      </div>
+      <div class="p5-item-center">
+        <p class="p5-item-name">Bruna Freire</p>
+        <div class="p5-item-meta">
+          <span class="p5-item-cat">Corporativo</span>
+          <span class="p5-item-place">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+            Estúdio Lillia Tavares
+          </span>
+        </div>
+      </div>
+      <div class="p5-item-right">
+        <span class="p5-photo-count">18 fotos</span>
+        <div class="p5-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--olive)" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </div>
+      </div>
+    </li>
+
+    <!-- Sem imagem -->
+    <li class="p5-item" tabindex="0" role="link" aria-label="Ver ensaio de Li">
+      <div class="p5-thumb">
+        <div class="p5-thumb-fallback" style="display:flex">Li</div>
+      </div>
+      <div class="p5-item-center">
+        <p class="p5-item-name">Li</p>
+        <div class="p5-item-meta">
+          <span class="p5-item-cat">Família</span>
+          <span class="p5-item-place">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+            Externo
+          </span>
+        </div>
+      </div>
+      <div class="p5-item-right">
+        <span class="p5-photo-count">31 fotos</span>
+        <div class="p5-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--olive)" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </div>
+      </div>
+    </li>
+
+    <li class="p5-item" tabindex="0" role="link" aria-label="Ver ensaio de Marcella Castelucci">
+      <div class="p5-thumb">
+        <img src="https://picsum.photos/seed/lil4/100/125?grayscale" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p5-thumb-fallback" style="display:none">MC</div>
+      </div>
+      <div class="p5-item-center">
+        <p class="p5-item-name">Marcella Castelucci</p>
+        <div class="p5-item-meta">
+          <span class="p5-item-cat">Corporativo</span>
+          <span class="p5-item-place">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+            Estúdio Lillia Tavares
+          </span>
+        </div>
+      </div>
+      <div class="p5-item-right">
+        <span class="p5-photo-count">27 fotos</span>
+        <div class="p5-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--olive)" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </div>
+      </div>
+    </li>
+
+    <li class="p5-item" tabindex="0" role="link" aria-label="Ver ensaio de Monica Rafael">
+      <div class="p5-thumb">
+        <img src="https://picsum.photos/seed/lil5/100/125?grayscale" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="p5-thumb-fallback" style="display:none">MR</div>
+      </div>
+      <div class="p5-item-center">
+        <p class="p5-item-name">Monica Rafael</p>
+        <div class="p5-item-meta">
+          <span class="p5-item-cat">Casamento</span>
+          <span class="p5-item-place">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/><circle cx="5" cy="4" r="1"/></svg>
+            Externo
+          </span>
+        </div>
+      </div>
+      <div class="p5-item-right">
+        <span class="p5-photo-count">42 fotos</span>
+        <div class="p5-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--olive)" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+
+  <div class="p5-footer">
+    <p class="p5-count"><strong>5</strong> trabalhos recentes</p>
+    <a href="#" class="p5-btn-all">Ver todos os trabalhos</a>
+  </div>
+
+</section>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     RANKING
+     ══════════════════════════════════════════════════════════════ -->
+<div class="ranking">
+  <h2>Ranking — Melhor para Pior (perspectiva de produto)</h2>
+  <ol class="ranking-list">
+
+    <li class="ranking-item">
+      <div>
+        <span class="ranking-badge badge-safe">Evolução Segura</span>
+        <p class="ranking-name">Proposta 03 — Masonry + Focus Card</p>
+        <p class="ranking-why">Melhor equilíbrio entre impacto visual e robustez de produto. O card destacado resolve hierarquia editorial sem custo de JS, o band overlay elimina a tipografia que compete com a foto, e o layout se comporta dignamente em todos os breakpoints. O trade-off de curadoria do featured card é gerenciável com um campo "destaque" na API.</p>
+      </div>
+    </li>
+
+    <li class="ranking-item">
+      <div>
+        <span class="ranking-badge badge-bold">Ousado</span>
+        <p class="ranking-name">Proposta 04 — Dark Inversion</p>
+        <p class="ranking-why">Maior impacto emocional e distinção de mercado dentro da paleta existente. As fotos ganham presença real. Requer atenção ao contraste de acessibilidade nos textos secundários (olive-light sobre olive-deep) — corrigível com um ajuste pontual de valor. Altamente indicado para capturar clientes de ticket médio-alto.</p>
+      </div>
+    </li>
+
+    <li class="ranking-item">
+      <div>
+        <span class="ranking-badge badge-safe">Evolução Segura</span>
+        <p class="ranking-name">Proposta 01 — Compact Editorial Grid</p>
+        <p class="ranking-why">A proposta mais segura e mais completa em termos de estados (loading, vazio, erro, filtro funcional). Menor risco de rompimento com a identidade atual. Ligeiramente menos memorável visualmente — ideal como ponto de partida para uma equipe que prefere iterar incrementalmente.</p>
+      </div>
+    </li>
+
+    <li class="ranking-item">
+      <div>
+        <span class="ranking-badge badge-bold">Ousado</span>
+        <p class="ranking-name">Proposta 05 — Tipo-First / Lista Editorial</p>
+        <p class="ranking-why">A mais diferenciada e a de melhor desempenho percebido (thumbnails pequenas, scroll rápido). Funciona excepcionalmente bem para portfólios grandes e públicos sofisticados. Perde pontos de ranking por reduzir o impacto imediato das fotos — o produto de Lillia é essencialmente visual, então a lista pode subconverter visitantes que precisam ser seduzidos pela imagem antes de clicar.</p>
+      </div>
+    </li>
+
+    <li class="ranking-item">
+      <div>
+        <span class="ranking-badge badge-safe">Evolução Segura</span>
+        <p class="ranking-name">Proposta 02 — Horizontal Strip</p>
+        <p class="ranking-why">Ótima experiência mobile (scroll horizontal com snap é idiomático e fluido), mas em desktop perde a vantagem de mostrar todos os trabalhos em uma relance panorâmica. O scroll oculta cards que estão fora do viewport sem sinalização suficiente. Melhor como componente secundário (ex: "Mais trabalhos" abaixo da grid principal) do que como seção principal.</p>
+      </div>
+    </li>
+
+  </ol>
+</div>
+
+
+<script>
+/* ─── PROPOSAL 1: State Machine & Filter ─────────────────────── */
+
+const p1Data = [
+  { cat: 'Corporativo', name: 'Alessandra Magalhães de Souza', place: 'Estúdio Lillia Tavares', seed: 'lil1' },
+  { cat: 'Corporativo', name: 'Bruna Freire',                  place: 'Estúdio Lillia Tavares', seed: 'lil2' },
+  { cat: 'Família',     name: 'Li',                            place: 'Externo',                seed: null   },
+  { cat: 'Corporativo', name: 'Marcella Castelucci',            place: 'Estúdio Lillia Tavares', seed: 'lil4' },
+  { cat: 'Casamento',   name: 'Monica Rafael',                  place: 'Externa',               seed: 'lil5' },
+];
+
+function initials(name) {
+  return name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+}
+
+function pinSVG() {
+  return `<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path d="M5 1a3 3 0 0 1 3 3c0 2-3 5-3 5S2 6 2 4a3 3 0 0 1 3-3Z"/>
+    <circle cx="5" cy="4" r="1"/>
+  </svg>`;
+}
+
+function buildCard(d) {
+  const imgHtml = d.seed
+    ? `<img class="p1-img loading" src="https://picsum.photos/seed/${d.seed}/400/500?grayscale" alt="${d.name}" loading="lazy"
+         onload="this.classList.remove('loading')"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+       <div class="p1-fallback" style="display:none">${initials(d.name)}</div>`
+    : `<div class="p1-fallback" style="display:flex">${initials(d.name)}</div>`;
+
+  return `
+    <article class="p1-card" data-cat="${d.cat}">
+      <div class="p1-img-wrap">${imgHtml}</div>
+      <div class="p1-info">
+        <p class="p1-cat">${d.cat}</p>
+        <h3 class="p1-name" title="${d.name}">${d.name}</h3>
+        <p class="p1-place">${pinSVG()} ${d.place}</p>
+        <a href="#" class="p1-cta">Acessar Ensaio</a>
+      </div>
+    </article>`;
+}
+
+function buildSkeleton() {
+  return Array.from({length: 5}, () => `
+    <div class="p1-card p1-skeleton" aria-hidden="true">
+      <div class="p1-img-wrap" style="aspect-ratio:4/5"></div>
+      <div class="p1-info">
+        <div class="p1-sk-line" style="width:40%"></div>
+        <div class="p1-sk-line" style="width:75%"></div>
+        <div class="p1-sk-line short"></div>
+        <div class="p1-sk-line xshort" style="margin-top:.5rem"></div>
+      </div>
+    </div>`).join('');
+}
+
+function buildEmpty() {
+  return `<div class="p1-empty" role="status">
+    <div class="p1-empty-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--olive-light)" stroke-width="1.2">
+        <rect x="6" y="8" width="28" height="24" rx="2"/>
+        <path d="M6 16h28"/>
+        <circle cx="13" cy="12" r="1.5"/>
+        <circle cx="20" cy="12" r="1.5"/>
+      </svg>
+    </div>
+    <p style="font-weight:700;color:var(--olive-mid);margin-bottom:.25rem">Nenhum trabalho encontrado</p>
+    <p>Tente outra categoria ou volte em breve.</p>
+  </div>`;
+}
+
+function buildError() {
+  return `<div class="p1-error" role="alert">
+    <p style="font-weight:700;margin-bottom:.25rem">Não foi possível carregar os trabalhos</p>
+    <p>Verifique sua conexão e tente novamente.</p>
+    <button onclick="p1SetState('default')">Tentar novamente</button>
+  </div>`;
+}
+
+let p1CurrentFilter = 'all';
+
+function p1SetState(state) {
+  const grid = document.getElementById('p1-grid');
+  const btns = document.querySelectorAll('.demo-state-btn');
+  btns.forEach(b => b.classList.remove('active-state'));
+  event.target.classList.add('active-state');
+
+  if (state === 'loading') {
+    grid.innerHTML = buildSkeleton();
+  } else if (state === 'empty') {
+    grid.innerHTML = buildEmpty();
+  } else if (state === 'error') {
+    grid.innerHTML = buildError();
+  } else {
+    grid.innerHTML = p1Data.map(buildCard).join('');
+    p1ApplyFilter(p1CurrentFilter);
+  }
+}
+
+function p1Filter(btn, cat) {
+  document.querySelectorAll('.p1-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  p1CurrentFilter = cat;
+  p1ApplyFilter(cat);
+}
+
+function p1ApplyFilter(cat) {
+  const cards = document.querySelectorAll('#p1-grid .p1-card:not(.p1-skeleton)');
+  let visible = 0;
+  cards.forEach(c => {
+    const match = cat === 'all' || c.dataset.cat === cat;
+    c.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+
+  const existing = document.querySelector('#p1-grid .p1-empty');
+  if (existing) existing.remove();
+
+  if (visible === 0 && cat !== 'all') {
+    const el = document.createElement('div');
+    el.innerHTML = buildEmpty();
+    document.getElementById('p1-grid').appendChild(el.firstElementChild);
+  }
+}
+
+/* P5: keyboard nav */
+document.querySelectorAll('.p5-item').forEach(item => {
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      item.click();
+    }
+  });
+});
+</script>
+
+</body>
+</html>

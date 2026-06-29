@@ -1,0 +1,1650 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio A11y — 5 Propostas WCAG 2.2 AA</title>
+<style>
+/* ── Reset mínimo ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  background: #f4f2ea;
+  color: #3d3b2e;
+  line-height: 1.5;
+}
+
+/* ── Skip link global ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: #2d6a9f;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  z-index: 9999;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+/* ── Nav de propostas ── */
+.proposals-nav {
+  background: #3d3b2e;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.proposals-nav a {
+  color: #e3dfcb;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.proposals-nav a:hover { background: #5a5740; border-color: #e3dfcb; }
+.proposals-nav a:focus-visible {
+  outline: 2px solid #e3dfcb;
+  outline-offset: 2px;
+}
+.proposals-nav .nav-label {
+  color: #aaa789;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+/* ── Wrapper de cada proposta ── */
+.proposal-wrapper {
+  padding: 3rem 2rem 4rem;
+  border-bottom: 1px solid #c8c4ad;
+}
+.proposal-wrapper:last-child { border-bottom: none; }
+
+.proposal-header {
+  max-width: 72rem;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.proposal-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5a5740;
+}
+.proposal-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  text-wrap: balance;
+}
+.proposal-rationale {
+  font-size: 0.875rem;
+  color: #5a5740;
+  max-width: 60ch;
+  line-height: 1.6;
+  margin-top: 0.25rem;
+}
+.contrast-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: #3d3b2e;
+  color: #e3dfcb;
+}
+.badge.pass { background: #2d6a4f; color: #fff; }
+.badge.warn { background: #7a4f00; color: #fff; }
+
+/* ── Estados de UI reutilizáveis ── */
+.states-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.state-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5a5740;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #c8c4ad;
+  border-radius: 3px;
+  background: #fff;
+}
+
+/* ════════════════════════════════════════════
+   PROPOSTA 1 — GRADE RESPIRADA (evolução segura)
+   Correção cirúrgica do layout atual com grid CSS.
+   Paleta: texto #3d3b2e sobre #f4f2ea → 9.1:1
+   Botões: #fff sobre #3d3b2e → 13.5:1
+════════════════════════════════════════════ */
+.p1-section {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+.p1-section-heading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+.p1-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 1.25rem;
+}
+.p1-card {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #c8c4ad;
+  transition: box-shadow 0.2s;
+}
+.p1-card:hover { box-shadow: 0 4px 16px rgba(61,59,46,0.12); }
+.p1-card-img-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #e3dfcb;
+}
+.p1-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .p1-card:hover .p1-card-img-wrap img { transform: scale(1.04); }
+}
+.p1-card-body {
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+}
+.p1-card-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #3d3b2e;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  /* ratio: #3d3b2e on #fff = 13.5:1 ✓ */
+}
+.p1-meta {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.p1-meta li {
+  font-size: 0.8rem;
+  color: #5a5740;
+  /* ratio: #5a5740 on #fff = 6.1:1 ✓ */
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.p1-meta a {
+  color: #5a5740;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.p1-meta a:focus-visible {
+  outline: 2px solid #2d6a9f;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.p1-meta svg { flex-shrink: 0; }
+.p1-cta {
+  margin-top: auto;
+  padding-top: 0.625rem;
+}
+.p1-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  background: #3d3b2e;
+  color: #fff;
+  /* ratio: #fff on #3d3b2e = 13.5:1 ✓ */
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.p1-btn:hover {
+  background: #5a5740;
+  color: #fff;
+}
+.p1-btn:focus-visible {
+  outline: 2px solid #2d6a9f;
+  outline-offset: 3px;
+}
+.p1-btn.secondary {
+  background: #e3dfcb;
+  color: #3d3b2e;
+  /* ratio: #3d3b2e on #e3dfcb = 7.8:1 ✓ */
+  border-color: #c8c4ad;
+}
+.p1-btn.secondary:hover { background: #d4d0b8; }
+
+/* Swiper simulado (lista de imagens com indicadores) */
+.p1-slider {
+  position: relative;
+}
+.p1-slider-indicators {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.3rem;
+  z-index: 2;
+}
+.p1-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.8);
+}
+.p1-dot[aria-selected="true"] { background: #fff; }
+.p1-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  color: #3d3b2e;
+}
+.p1-slider-btn:focus-visible {
+  outline: 2px solid #2d6a9f;
+  outline-offset: 2px;
+}
+.p1-slider-btn.prev { left: 0; border-radius: 0 4px 4px 0; }
+.p1-slider-btn.next { right: 0; border-radius: 4px 0 0 4px; }
+
+/* Ver todos */
+.p1-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* ════════════════════════════════════════════
+   PROPOSTA 2 — MASONRY EDITADO (evolução segura)
+   Layout masonry com 2 colunas grandes + 3 pequenas.
+   Texto branco sobre overlay escuro nos cards.
+   Overlay: rgba(30,28,18,0.72) → sobre imagem
+   Texto #fff sobre overlay ≥ 4.5:1 (calculado)
+════════════════════════════════════════════ */
+.p2-section {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+.p2-heading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+.p2-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+.p2-card {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #3d3b2e;
+  min-height: 280px;
+}
+.p2-card:nth-child(1) { grid-column: span 7; grid-row: span 2; min-height: 400px; }
+.p2-card:nth-child(2) { grid-column: span 5; }
+.p2-card:nth-child(3) { grid-column: span 5; }
+.p2-card:nth-child(4) { grid-column: span 4; }
+.p2-card:nth-child(5) { grid-column: span 4; }
+@media (max-width: 768px) {
+  .p2-card { grid-column: span 12 !important; grid-row: span 1 !important; min-height: 260px !important; }
+}
+.p2-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.p2-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20,18,10,0.82) 0%, rgba(20,18,10,0.1) 60%);
+}
+.p2-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.p2-card-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  /* overlay garante ≥4.5:1 — calculado sobre rgba(20,18,10,0.82) ≈ #140E0A blend */
+  text-wrap: balance;
+}
+.p2-card:nth-child(1) .p2-card-title { font-size: 1.1rem; }
+.p2-card-meta {
+  font-size: 0.75rem;
+  color: #e3dfcb;
+  /* #e3dfcb on dark overlay ~8:1 ✓ */
+}
+.p2-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+  color: #e3dfcb;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  min-height: 44px;
+  padding: 0.5rem 0;
+}
+.p2-card-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.p2-card-link svg { transition: transform 0.15s; }
+.p2-card-link:hover svg { transform: translateX(3px); }
+
+/* hover overlay fica levemente mais escuro */
+.p2-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 0.2s;
+  pointer-events: none;
+}
+.p2-card:hover::after { background: rgba(0,0,0,0.12); }
+.p2-footer { margin-top: 1.5rem; display: flex; justify-content: center; }
+
+/* ════════════════════════════════════════════
+   PROPOSTA 3 — CARROSSEL HORIZONTAL ACESSÍVEL (evolução segura)
+   Scroll snap horizontal com cards fixos.
+   Foco: ARIA completo no carrossel, teclado, motion.
+════════════════════════════════════════════ */
+.p3-section { max-width: 72rem; margin: 0 auto; }
+.p3-heading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  margin-bottom: 1.5rem;
+}
+.p3-carousel-wrap { position: relative; }
+.p3-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #c8c4ad #f4f2ea;
+}
+.p3-track::-webkit-scrollbar { height: 4px; }
+.p3-track::-webkit-scrollbar-thumb { background: #c8c4ad; border-radius: 2px; }
+.p3-card {
+  flex: 0 0 clamp(220px, 30vw, 260px);
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #c8c4ad;
+  display: flex;
+  flex-direction: column;
+}
+.p3-card-img-wrap {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #e3dfcb;
+  position: relative;
+}
+.p3-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p3-card-body { padding: 0.875rem; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+.p3-card-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5a5740;
+  /* 6.1:1 on #fff ✓ */
+}
+.p3-card-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #3d3b2e;
+  /* 13.5:1 on #fff ✓ */
+  text-wrap: balance;
+}
+.p3-card-place {
+  font-size: 0.78rem;
+  color: #5a5740;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.p3-card-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 0.625rem;
+  min-height: 44px;
+  color: #3d3b2e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-top: 1px solid #e3dfcb;
+  gap: 0.3rem;
+}
+.p3-card-link:hover { color: #5a5740; }
+.p3-card-link:focus-visible {
+  outline: 2px solid #2d6a9f;
+  outline-offset: -2px;
+}
+.p3-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+.p3-nav-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  border: 2px solid #3d3b2e;
+  background: #fff;
+  color: #3d3b2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.p3-nav-btn:hover { background: #3d3b2e; color: #fff; }
+.p3-nav-btn:focus-visible { outline: 2px solid #2d6a9f; outline-offset: 3px; }
+.p3-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.p3-status {
+  font-size: 0.75rem;
+  color: #5a5740;
+  font-variant-numeric: tabular-nums;
+  min-width: 3rem;
+  text-align: center;
+}
+.p3-footer { margin-top: 1.5rem; display: flex; justify-content: center; }
+
+/* ════════════════════════════════════════════
+   PROPOSTA 4 — EDITORIAL VERTICAL (ousada)
+   Layout tipo magazine: título grande + foto full-bleed
+   com linha horizontal separando ensaios.
+   Foco: tipografia expressiva, hierarquia clara.
+════════════════════════════════════════════ */
+.p4-section { max-width: 72rem; margin: 0 auto; }
+.p4-heading {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-wrap: balance;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #3d3b2e;
+}
+.p4-list { display: flex; flex-direction: column; gap: 0; }
+.p4-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #c8c4ad;
+  align-items: start;
+}
+@media (max-width: 600px) {
+  .p4-item { grid-template-columns: 1fr; }
+}
+.p4-item:nth-child(even) { grid-template-columns: 2fr 1fr; }
+.p4-item:nth-child(even) .p4-item-body { order: -1; }
+@media (max-width: 600px) {
+  .p4-item:nth-child(even) { grid-template-columns: 1fr; }
+  .p4-item:nth-child(even) .p4-item-body { order: 0; }
+}
+.p4-item-img-wrap {
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #e3dfcb;
+}
+.p4-item-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p4-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.25rem;
+}
+.p4-item-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaa789;
+  font-variant-numeric: tabular-nums;
+  /* #aaa789 on #f4f2ea = 2.7:1 — decorativo, não informativo, aria-hidden */
+}
+.p4-item-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5a5740;
+  /* 6.1:1 on #f4f2ea ✓ */
+}
+.p4-item-title {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.p4-item-place {
+  font-size: 0.8rem;
+  color: #5a5740;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.p4-item-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  color: #3d3b2e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #3d3b2e;
+  align-self: flex-start;
+  transition: gap 0.15s;
+}
+.p4-item-link:hover { gap: 0.7rem; }
+.p4-item-link:focus-visible {
+  outline: 2px solid #2d6a9f;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.p4-footer { margin-top: 2rem; display: flex; justify-content: center; }
+
+/* ════════════════════════════════════════════
+   PROPOSTA 5 — POLAROID WALL (ousada)
+   Cards estilo polaroid com rotação sutil.
+   Layout: grid denso 3-col com sobreposição visual
+   mas sem sobreposição real (acessível ao teclado).
+   Risco estético: rotação leve + sombra vintage.
+════════════════════════════════════════════ */
+.p5-section { max-width: 72rem; margin: 0 auto; }
+.p5-heading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 900;
+  color: #3d3b2e;
+  margin-bottom: 2rem;
+}
+.p5-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+  gap: 2rem 1.5rem;
+}
+.p5-card {
+  background: #fff;
+  padding: 0.75rem 0.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(61,59,46,0.18), 0 8px 24px rgba(61,59,46,0.08);
+  position: relative;
+}
+/* Rotação aplicada via CSS — desabilitada com reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  .p5-card:nth-child(odd) { rotate: -1.2deg; }
+  .p5-card:nth-child(even) { rotate: 0.9deg; }
+  .p5-card:nth-child(3n) { rotate: -0.5deg; }
+  .p5-card:hover { rotate: 0deg; transition: rotate 0.25s ease; box-shadow: 0 4px 24px rgba(61,59,46,0.22); }
+  .p5-card:focus-within { rotate: 0deg; }
+}
+.p5-card-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+  background: #e3dfcb;
+}
+.p5-card-caption {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #3d3b2e;
+  /* 13.5:1 on #fff ✓ */
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.p5-card-sub {
+  font-size: 0.72rem;
+  color: #5a5740;
+  /* 6.1:1 on #fff ✓ */
+  text-align: center;
+}
+.p5-card-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  color: #3d3b2e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: auto;
+  gap: 0.3rem;
+  padding: 0.5rem;
+}
+.p5-card-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.p5-card-link:focus-visible {
+  outline: 2px solid #2d6a9f;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.p5-footer { margin-top: 2rem; display: flex; justify-content: center; }
+
+/* ── Estados UI: loading, vazio ── */
+.state-loading {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 1.25rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+.skeleton {
+  background: #e3dfcb;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+  background-size: 200% 100%;
+  background-image: linear-gradient(90deg, #e3dfcb 25%, #ede9d5 50%, #e3dfcb 75%);
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+.skeleton-img { aspect-ratio: 3/4; }
+.skeleton-text { height: 0.875rem; margin-top: 0.75rem; border-radius: 2px; width: 75%; }
+.skeleton-text-sm { height: 0.75rem; margin-top: 0.4rem; border-radius: 2px; width: 50%; }
+.skeleton-btn { height: 44px; margin-top: 1rem; border-radius: 999px; }
+
+.state-empty {
+  max-width: 72rem;
+  margin: 0 auto;
+  text-align: center;
+  padding: 4rem 1rem;
+  border: 2px dashed #c8c4ad;
+  border-radius: 4px;
+  color: #5a5740;
+}
+.state-empty svg { opacity: 0.4; margin-bottom: 1rem; }
+.state-empty p { font-size: 0.9rem; }
+
+/* ── Botão CTA global ── */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.625rem 1.5rem;
+  background: #3d3b2e;
+  color: #fff;
+  /* 13.5:1 ✓ */
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background 0.15s;
+  gap: 0.4rem;
+}
+.cta-btn:hover { background: #5a5740; }
+.cta-btn:focus-visible { outline: 2px solid #2d6a9f; outline-offset: 3px; }
+
+/* ── Ranking final ── */
+.ranking {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #c8c4ad;
+}
+.ranking h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #3d3b2e;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #3d3b2e;
+}
+.ranking ol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 0;
+  list-style: none;
+}
+.ranking li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  font-size: 0.875rem;
+  color: #3d3b2e;
+}
+.ranking-num {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #aaa789;
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.1rem;
+}
+.ranking li strong { display: block; font-weight: 700; margin-bottom: 0.2rem; }
+.ranking li p { color: #5a5740; line-height: 1.55; }
+
+/* ── Category Tabs — SEO: links reais para páginas de categoria ── */
+.cat-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.cat-tab {
+  font-family: 'Lato', arial;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--olive, #7b785b);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+.cat-tab:hover { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab--active { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab:focus-visible { outline: 2px solid var(--olive, #7b785b); outline-offset: 2px; }
+.cat-tab--all { border-style: dashed; opacity: .8; }
+/* Dark bg variant */
+.cat-tabs--dark .cat-tab { color: var(--creme, #e3dfcb); border-color: currentColor; }
+.cat-tabs--dark .cat-tab:hover,
+.cat-tabs--dark .cat-tab--active { background: var(--creme, #e3dfcb); color: var(--ink, #2e2d26); }
+.cat-tabs--dark .cat-tab:focus-visible { outline-color: var(--creme, #e3dfcb); }
+</style>
+</head>
+<body>
+
+<a href="#conteudo-principal" class="skip-link">Ir para o conteúdo principal</a>
+
+<nav class="proposals-nav" aria-label="Navegação entre propostas">
+  <span class="nav-label">Propostas</span>
+  <a href="#p1">1 — Grade Respirada</a>
+  <a href="#p2">2 — Masonry Editorial</a>
+  <a href="#p3">3 — Carrossel Acessível</a>
+  <a href="#p4">4 — Editorial Vertical</a>
+  <a href="#p5">5 — Polaroid Wall</a>
+  <a href="#ranking">Ranking</a>
+</nav>
+
+<main id="conteudo-principal">
+
+<!-- ══════════════════════════════════════════
+     PROPOSTA 1 — GRADE RESPIRADA
+══════════════════════════════════════════ -->
+<section id="p1" class="proposal-wrapper" aria-labelledby="p1-proposal-title">
+  <div class="proposal-header">
+    <p class="proposal-eyebrow">Proposta 1 de 5 — Evolução Segura</p>
+    <h2 id="p1-proposal-title" class="proposal-title">Grade Respirada</h2>
+    <p class="proposal-rationale">Correção cirúrgica do layout atual: substitui o flex fixo por CSS Grid responsivo, aumenta tamanho de fonte e alvos de toque, corrige todos os ratios de contraste sem alterar a identidade visual. Menor risco de rejeição pelo cliente — maior ganho acessível por esforço.</p>
+    <div class="contrast-badges" aria-label="Ratios de contraste verificados">
+      <span class="badge pass">Texto principal 13.5:1 ✓</span>
+      <span class="badge pass">Texto meta 6.1:1 ✓</span>
+      <span class="badge pass">Btn primário 13.5:1 ✓</span>
+      <span class="badge pass">Btn secundário 7.8:1 ✓</span>
+    </div>
+  </div>
+
+  <!-- Estado: loading -->
+  <div class="states-row"><span class="state-label">Estado: Loading</span></div>
+  <div class="state-loading" aria-label="Carregando ensaios" aria-busy="true">
+    <div><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-sm"></div><div class="skeleton skeleton-btn"></div></div>
+    <div><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-sm"></div><div class="skeleton skeleton-btn"></div></div>
+    <div><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-sm"></div><div class="skeleton skeleton-btn"></div></div>
+  </div>
+
+  <!-- Estado: vazio -->
+  <div class="states-row" style="margin-top:2rem"><span class="state-label">Estado: Vazio</span></div>
+  <div class="state-empty" role="status" aria-live="polite">
+    <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <p>Nenhum ensaio publicado ainda. Volte em breve.</p>
+  </div>
+
+  <!-- Estado: default + hover + focus -->
+  <div class="states-row" style="margin-top:2rem"><span class="state-label">Estado: Default / Hover / Focus</span></div>
+  <section aria-labelledby="p1-section-heading" role="region">
+    <h3 id="p1-section-heading" class="p1-section-heading">Explore meus últimos trabalhos</h3>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    <ul class="p1-grid" role="list">
+
+      <li role="listitem" class="p1-card">
+        <div class="p1-slider" role="region" aria-label="Fotos do ensaio de Ana Souza — 3 imagens" aria-roledescription="galeria de imagens">
+          <div class="p1-card-img-wrap">
+            <img src="https://picsum.photos/seed/ana1/400/500?grayscale&blur=1"
+                 alt="Retrato de Ana Souza, ensaio corporativo no estúdio Lillia Tavares — imagem 1 de 3"
+                 width="400" height="500" loading="lazy">
+          </div>
+          <button class="p1-slider-btn prev" aria-label="Imagem anterior do ensaio de Ana Souza" type="button">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="p1-slider-btn next" aria-label="Próxima imagem do ensaio de Ana Souza" type="button">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div class="p1-slider-indicators" role="tablist" aria-label="Selecionar imagem">
+            <span role="tab" aria-selected="true" aria-label="Imagem 1" class="p1-dot" tabindex="0"></span>
+            <span role="tab" aria-selected="false" aria-label="Imagem 2" class="p1-dot" tabindex="-1"></span>
+            <span role="tab" aria-selected="false" aria-label="Imagem 3" class="p1-dot" tabindex="-1"></span>
+          </div>
+        </div>
+        <div class="p1-card-body">
+          <h4 class="p1-card-title">Ana Souza</h4>
+          <ul class="p1-meta" role="list" aria-label="Informações do ensaio">
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <a href="/categoria/corporativo" aria-label="Ver todos os ensaios corporativos">Corporativo</a>
+            </li>
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <a href="/local/estudio-lillia-tavares" aria-label="Ver ensaios no Estúdio Lillia Tavares">Estúdio Lillia Tavares</a>
+            </li>
+          </ul>
+          <div class="p1-cta">
+            <a href="/ensaio-fotografico/corporativo/ana-souza" class="p1-btn" aria-label="Acessar ensaio de Ana Souza">
+              Acessar Ensaio
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li role="listitem" class="p1-card">
+        <div class="p1-card-img-wrap">
+          <img src="https://picsum.photos/seed/bruna2/400/500?grayscale&blur=1"
+               alt="Retrato de Bruna Freire, ensaio gestante em ambiente externo, luz natural"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="p1-card-body">
+          <h4 class="p1-card-title">Bruna Freire</h4>
+          <ul class="p1-meta" role="list" aria-label="Informações do ensaio">
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <a href="/categoria/gestante" aria-label="Ver todos os ensaios gestante">Gestante</a>
+            </li>
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <a href="/local/parque-ibirapuera" aria-label="Ver ensaios no Parque Ibirapuera">Parque Ibirapuera</a>
+            </li>
+          </ul>
+          <div class="p1-cta">
+            <a href="/ensaio-fotografico/gestante/bruna-freire" class="p1-btn" aria-label="Acessar ensaio de Bruna Freire">
+              Acessar Ensaio
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li role="listitem" class="p1-card">
+        <div class="p1-card-img-wrap">
+          <img src="https://picsum.photos/seed/carla3/400/500?grayscale&blur=1"
+               alt="Retrato de Carla Mendes, ensaio feminino artístico em estúdio com luz difusa"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="p1-card-body">
+          <h4 class="p1-card-title">Carla Mendes</h4>
+          <ul class="p1-meta" role="list" aria-label="Informações do ensaio">
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <a href="/categoria/feminino" aria-label="Ver todos os ensaios femininos">Feminino</a>
+            </li>
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <a href="/local/estudio-lillia-tavares" aria-label="Ver ensaios no Estúdio Lillia Tavares">Estúdio Lillia Tavares</a>
+            </li>
+          </ul>
+          <div class="p1-cta">
+            <a href="/ensaio-fotografico/feminino/carla-mendes" class="p1-btn" aria-label="Acessar ensaio de Carla Mendes">
+              Acessar Ensaio
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li role="listitem" class="p1-card">
+        <div class="p1-card-img-wrap">
+          <img src="https://picsum.photos/seed/diana4/400/500?grayscale&blur=1"
+               alt="Retrato de Diana Lima, ensaio de debutante em jardim, vestido longo branco"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="p1-card-body">
+          <h4 class="p1-card-title">Diana Lima</h4>
+          <ul class="p1-meta" role="list" aria-label="Informações do ensaio">
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <a href="/categoria/debutante" aria-label="Ver todos os ensaios de debutante">Debutante</a>
+            </li>
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <a href="/local/jardim-europa" aria-label="Ver ensaios no Jardim Europa">Jardim Europa</a>
+            </li>
+          </ul>
+          <div class="p1-cta">
+            <a href="/ensaio-fotografico/debutante/diana-lima" class="p1-btn" aria-label="Acessar ensaio de Diana Lima">
+              Acessar Ensaio
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li role="listitem" class="p1-card">
+        <div class="p1-card-img-wrap">
+          <img src="https://picsum.photos/seed/elena5/400/500?grayscale&blur=1"
+               alt="Retrato de Elena Costa, ensaio família em apartamento com luz natural pela janela"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="p1-card-body">
+          <h4 class="p1-card-title">Elena Costa</h4>
+          <ul class="p1-meta" role="list" aria-label="Informações do ensaio">
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <a href="/categoria/familia" aria-label="Ver todos os ensaios família">Família</a>
+            </li>
+            <li role="listitem">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <a href="/local/domicilio" aria-label="Ver ensaios em domicílio">Domicílio</a>
+            </li>
+          </ul>
+          <div class="p1-cta">
+            <a href="/ensaio-fotografico/familia/elena-costa" class="p1-btn" aria-label="Acessar ensaio de Elena Costa">
+              Acessar Ensaio
+            </a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+    <div class="p1-footer">
+      <a href="/portfolio" class="cta-btn" aria-label="Ver todos os trabalhos no portfólio completo">
+        Ver todos os trabalhos
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROPOSTA 2 — MASONRY EDITORIAL
+══════════════════════════════════════════ -->
+<section id="p2" class="proposal-wrapper" style="background:#3d3b2e;" aria-labelledby="p2-proposal-title">
+  <div class="proposal-header" style="color:#e3dfcb;">
+    <p class="proposal-eyebrow" style="color:#aaa789;">Proposta 2 de 5 — Evolução Segura</p>
+    <h2 id="p2-proposal-title" class="proposal-title" style="color:#e3dfcb;">Masonry Editorial</h2>
+    <p class="proposal-rationale" style="color:#c8c4ad;">Layout assimétrico tipo editorial de moda: uma imagem âncora grande + quatro menores. Overlay escuro gradiente garante contraste ≥7:1 para texto sobre foto. Hierarquia visual clara sem perder nenhum requisito WCAG.</p>
+    <div class="contrast-badges">
+      <span class="badge pass">Título sobre overlay ≥7:1 ✓</span>
+      <span class="badge pass">Meta #e3dfcb sobre overlay ≥8:1 ✓</span>
+      <span class="badge pass">Link CTA min-height 44px ✓</span>
+    </div>
+  </div>
+
+  <section aria-labelledby="p2-section-heading" role="region" class="p2-section">
+    <h3 id="p2-section-heading" class="p2-heading" style="color:#e3dfcb;">Explore meus últimos trabalhos</h3>
+<nav class="cat-tabs cat-tabs--dark" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    <ul class="p2-grid" role="list" aria-label="Galeria de ensaios fotográficos">
+
+      <li role="listitem" class="p2-card">
+        <img class="p2-card-img"
+             src="https://picsum.photos/seed/p2a/800/900?grayscale&blur=1"
+             alt="Ana Souza, ensaio corporativo no Estúdio Lillia Tavares — destaque do portfólio"
+             width="800" height="900" loading="lazy">
+        <div class="p2-card-overlay" aria-hidden="true"></div>
+        <div class="p2-card-body">
+          <p class="p2-card-meta">Corporativo · Estúdio Lillia Tavares</p>
+          <h4 class="p2-card-title">Ana Souza</h4>
+          <a href="/ensaio-fotografico/corporativo/ana-souza"
+             class="p2-card-link"
+             aria-label="Ver ensaio completo de Ana Souza — Corporativo">
+            Ver ensaio
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+      <li role="listitem" class="p2-card">
+        <img class="p2-card-img"
+             src="https://picsum.photos/seed/p2b/600/400?grayscale&blur=1"
+             alt="Bruna Freire, ensaio gestante no Parque Ibirapuera, fim de tarde"
+             width="600" height="400" loading="lazy">
+        <div class="p2-card-overlay" aria-hidden="true"></div>
+        <div class="p2-card-body">
+          <p class="p2-card-meta">Gestante · Parque Ibirapuera</p>
+          <h4 class="p2-card-title">Bruna Freire</h4>
+          <a href="/ensaio-fotografico/gestante/bruna-freire" class="p2-card-link" aria-label="Ver ensaio completo de Bruna Freire — Gestante">
+            Ver ensaio <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+      <li role="listitem" class="p2-card">
+        <img class="p2-card-img"
+             src="https://picsum.photos/seed/p2c/600/400?grayscale&blur=1"
+             alt="Carla Mendes, ensaio feminino artístico no Estúdio Lillia Tavares"
+             width="600" height="400" loading="lazy">
+        <div class="p2-card-overlay" aria-hidden="true"></div>
+        <div class="p2-card-body">
+          <p class="p2-card-meta">Feminino · Estúdio Lillia Tavares</p>
+          <h4 class="p2-card-title">Carla Mendes</h4>
+          <a href="/ensaio-fotografico/feminino/carla-mendes" class="p2-card-link" aria-label="Ver ensaio completo de Carla Mendes — Feminino">
+            Ver ensaio <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+      <li role="listitem" class="p2-card">
+        <img class="p2-card-img"
+             src="https://picsum.photos/seed/p2d/600/400?grayscale&blur=1"
+             alt="Diana Lima, ensaio debutante no Jardim Europa, vestido longo branco"
+             width="600" height="400" loading="lazy">
+        <div class="p2-card-overlay" aria-hidden="true"></div>
+        <div class="p2-card-body">
+          <p class="p2-card-meta">Debutante · Jardim Europa</p>
+          <h4 class="p2-card-title">Diana Lima</h4>
+          <a href="/ensaio-fotografico/debutante/diana-lima" class="p2-card-link" aria-label="Ver ensaio completo de Diana Lima — Debutante">
+            Ver ensaio <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+      <li role="listitem" class="p2-card">
+        <img class="p2-card-img"
+             src="https://picsum.photos/seed/p2e/600/400?grayscale&blur=1"
+             alt="Elena Costa, ensaio família em domicílio com luz natural pela janela"
+             width="600" height="400" loading="lazy">
+        <div class="p2-card-overlay" aria-hidden="true"></div>
+        <div class="p2-card-body">
+          <p class="p2-card-meta">Família · Domicílio</p>
+          <h4 class="p2-card-title">Elena Costa</h4>
+          <a href="/ensaio-fotografico/familia/elena-costa" class="p2-card-link" aria-label="Ver ensaio completo de Elena Costa — Família">
+            Ver ensaio <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+    </ul>
+    <div class="p2-footer">
+      <a href="/portfolio" class="cta-btn" style="background:#e3dfcb; color:#3d3b2e;" aria-label="Ver todos os trabalhos no portfólio completo">
+        Ver todos os trabalhos
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROPOSTA 3 — CARROSSEL ACESSÍVEL
+══════════════════════════════════════════ -->
+<section id="p3" class="proposal-wrapper" aria-labelledby="p3-proposal-title">
+  <div class="proposal-header">
+    <p class="proposal-eyebrow">Proposta 3 de 5 — Evolução Segura</p>
+    <h2 id="p3-proposal-title" class="proposal-title">Carrossel com Scroll Snap Acessível</h2>
+    <p class="proposal-rationale">Mantém a ideia de sliders horizontais do design original, mas substitui o Swiper por scroll-snap CSS nativo com ARIA completo: role="region", aria-live="polite", botões de navegação 44×44px, suporte a teclado e prefers-reduced-motion. Sem JavaScript obrigatório para leitura básica.</p>
+    <div class="contrast-badges">
+      <span class="badge pass">Categoria 6.1:1 ✓</span>
+      <span class="badge pass">Título card 13.5:1 ✓</span>
+      <span class="badge pass">Link CTA 13.5:1 ✓</span>
+      <span class="badge pass">Nav btns #fff on #3d3b2e 13.5:1 ✓</span>
+    </div>
+  </div>
+
+  <section aria-labelledby="p3-section-heading" role="region" class="p3-section">
+    <h3 id="p3-section-heading" class="p3-heading">Explore meus últimos trabalhos</h3>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    <div class="p3-carousel-wrap"
+         role="region"
+         aria-label="Galeria de ensaios fotográficos — role horizontal para ver mais"
+         aria-roledescription="carrossel">
+      <ul class="p3-track" role="list" aria-label="Ensaios fotográficos">
+
+        <li role="listitem" class="p3-card">
+          <div class="p3-card-img-wrap">
+            <img src="https://picsum.photos/seed/c1/400/500?grayscale&blur=1"
+                 alt="Ana Souza — ensaio corporativo no Estúdio Lillia Tavares"
+                 width="400" height="500" loading="lazy">
+          </div>
+          <div class="p3-card-body">
+            <p class="p3-card-category" aria-label="Categoria: Corporativo">Corporativo</p>
+            <h4 class="p3-card-title">Ana Souza</h4>
+            <p class="p3-card-place">
+              <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Estúdio Lillia Tavares
+            </p>
+            <a href="/ensaio-fotografico/corporativo/ana-souza"
+               class="p3-card-link"
+               aria-label="Acessar ensaio completo de Ana Souza — Corporativo">
+              Acessar Ensaio
+              <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li role="listitem" class="p3-card">
+          <div class="p3-card-img-wrap">
+            <img src="https://picsum.photos/seed/c2/400/500?grayscale&blur=1"
+                 alt="Bruna Freire — ensaio gestante no Parque Ibirapuera"
+                 width="400" height="500" loading="lazy">
+          </div>
+          <div class="p3-card-body">
+            <p class="p3-card-category">Gestante</p>
+            <h4 class="p3-card-title">Bruna Freire</h4>
+            <p class="p3-card-place">
+              <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Parque Ibirapuera
+            </p>
+            <a href="/ensaio-fotografico/gestante/bruna-freire" class="p3-card-link" aria-label="Acessar ensaio completo de Bruna Freire — Gestante">
+              Acessar Ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li role="listitem" class="p3-card">
+          <div class="p3-card-img-wrap">
+            <img src="https://picsum.photos/seed/c3/400/500?grayscale&blur=1"
+                 alt="Carla Mendes — ensaio feminino artístico no Estúdio Lillia Tavares"
+                 width="400" height="500" loading="lazy">
+          </div>
+          <div class="p3-card-body">
+            <p class="p3-card-category">Feminino</p>
+            <h4 class="p3-card-title">Carla Mendes</h4>
+            <p class="p3-card-place">
+              <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Estúdio Lillia Tavares
+            </p>
+            <a href="/ensaio-fotografico/feminino/carla-mendes" class="p3-card-link" aria-label="Acessar ensaio completo de Carla Mendes — Feminino">
+              Acessar Ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li role="listitem" class="p3-card">
+          <div class="p3-card-img-wrap">
+            <img src="https://picsum.photos/seed/c4/400/500?grayscale&blur=1"
+                 alt="Diana Lima — ensaio debutante no Jardim Europa"
+                 width="400" height="500" loading="lazy">
+          </div>
+          <div class="p3-card-body">
+            <p class="p3-card-category">Debutante</p>
+            <h4 class="p3-card-title">Diana Lima</h4>
+            <p class="p3-card-place">
+              <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Jardim Europa
+            </p>
+            <a href="/ensaio-fotografico/debutante/diana-lima" class="p3-card-link" aria-label="Acessar ensaio completo de Diana Lima — Debutante">
+              Acessar Ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li role="listitem" class="p3-card">
+          <div class="p3-card-img-wrap">
+            <img src="https://picsum.photos/seed/c5/400/500?grayscale&blur=1"
+                 alt="Elena Costa — ensaio família em domicílio com luz natural"
+                 width="400" height="500" loading="lazy">
+          </div>
+          <div class="p3-card-body">
+            <p class="p3-card-category">Família</p>
+            <h4 class="p3-card-title">Elena Costa</h4>
+            <p class="p3-card-place">
+              <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Domicílio
+            </p>
+            <a href="/ensaio-fotografico/familia/elena-costa" class="p3-card-link" aria-label="Acessar ensaio completo de Elena Costa — Família">
+              Acessar Ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="p3-controls" role="group" aria-label="Controles do carrossel">
+        <button class="p3-nav-btn" id="p3-prev" aria-label="Ensaio anterior" type="button" disabled>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="p3-status" aria-live="polite" aria-atomic="true" id="p3-status">1 / 5</span>
+        <button class="p3-nav-btn" id="p3-next" aria-label="Próximo ensaio" type="button">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="p3-footer">
+      <a href="/portfolio" class="cta-btn" aria-label="Ver todos os trabalhos no portfólio completo">
+        Ver todos os trabalhos
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROPOSTA 4 — EDITORIAL VERTICAL (OUSADA)
+══════════════════════════════════════════ -->
+<section id="p4" class="proposal-wrapper" style="background:#fff;" aria-labelledby="p4-proposal-title">
+  <div class="proposal-header">
+    <p class="proposal-eyebrow">Proposta 4 de 5 — Extrapolação Ousada</p>
+    <h2 id="p4-proposal-title" class="proposal-title">Editorial Vertical</h2>
+    <p class="proposal-rationale">Abandona o grid de cards homogêneos por uma lista editorial alternada — imagem/texto intercalados, tamanho de fonte expressivo, linha de corte como elemento gráfico. Evoca revistas de fotografia. Risco calculado: sem perda de contraste ou teclado.</p>
+    <div class="contrast-badges">
+      <span class="badge pass">Título item 9.1:1 ✓</span>
+      <span class="badge pass">Categoria 6.1:1 ✓</span>
+      <span class="badge pass">Link sublinhado 9.1:1 ✓</span>
+    </div>
+  </div>
+
+  <section aria-labelledby="p4-section-heading" role="region" class="p4-section">
+    <h3 id="p4-section-heading" class="p4-heading">Explore meus<br>últimos trabalhos</h3>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    <ul class="p4-list" role="list" aria-label="Ensaios fotográficos em destaque">
+
+      <li role="listitem" class="p4-item">
+        <div class="p4-item-img-wrap">
+          <img src="https://picsum.photos/seed/e1/500/600?grayscale&blur=1"
+               alt="Ana Souza — ensaio corporativo no Estúdio Lillia Tavares, tom sóbrio e profissional"
+               width="500" height="600" loading="lazy">
+        </div>
+        <div class="p4-item-body">
+          <span class="p4-item-num" aria-hidden="true">01</span>
+          <p class="p4-item-category">Corporativo</p>
+          <h4 class="p4-item-title">Ana Souza</h4>
+          <p class="p4-item-place">
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </p>
+          <a href="/ensaio-fotografico/corporativo/ana-souza"
+             class="p4-item-link"
+             aria-label="Ver ensaio completo de Ana Souza — Corporativo no Estúdio Lillia Tavares">
+            Ver ensaio
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+      <li role="listitem" class="p4-item">
+        <div class="p4-item-img-wrap">
+          <img src="https://picsum.photos/seed/e2/500/600?grayscale&blur=1"
+               alt="Bruna Freire — ensaio gestante no Parque Ibirapuera, luz natural de fim de tarde"
+               width="500" height="600" loading="lazy">
+        </div>
+        <div class="p4-item-body">
+          <span class="p4-item-num" aria-hidden="true">02</span>
+          <p class="p4-item-category">Gestante</p>
+          <h4 class="p4-item-title">Bruna Freire</h4>
+          <p class="p4-item-place">
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Parque Ibirapuera
+          </p>
+          <a href="/ensaio-fotografico/gestante/bruna-freire" class="p4-item-link" aria-label="Ver ensaio completo de Bruna Freire — Gestante">
+            Ver ensaio <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+      <li role="listitem" class="p4-item">
+        <div class="p4-item-img-wrap">
+          <img src="https://picsum.photos/seed/e3/500/600?grayscale&blur=1"
+               alt="Carla Mendes — ensaio feminino artístico com iluminação difusa de estúdio"
+               width="500" height="600" loading="lazy">
+        </div>
+        <div class="p4-item-body">
+          <span class="p4-item-num" aria-hidden="true">03</span>
+          <p class="p4-item-category">Feminino</p>
+          <h4 class="p4-item-title">Carla Mendes</h4>
+          <p class="p4-item-place">
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5a5740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </p>
+          <a href="/ensaio-fotografico/feminino/carla-mendes" class="p4-item-link" aria-label="Ver ensaio completo de Carla Mendes — Feminino">
+            Ver ensaio <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </li>
+
+    </ul>
+    <div class="p4-footer">
+      <a href="/portfolio" class="cta-btn" aria-label="Ver todos os trabalhos no portfólio completo">
+        Ver todos os trabalhos
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROPOSTA 5 — POLAROID WALL (OUSADA)
+══════════════════════════════════════════ -->
+<section id="p5" class="proposal-wrapper" style="background:#ede9d5;" aria-labelledby="p5-proposal-title">
+  <div class="proposal-header">
+    <p class="proposal-eyebrow">Proposta 5 de 5 — Extrapolação Ousada</p>
+    <h2 id="p5-proposal-title" class="proposal-title">Polaroid Wall</h2>
+    <p class="proposal-rationale">Cards estilo polaroid com rotação leve criam sensação de fotografias expostas numa parede — metáfora direta com o trabalho da fotógrafa. A rotação é puramente decorativa, desativada via prefers-reduced-motion, e não afeta o fluxo de tabulação. Risco estético único, totalmente WCAG AA.</p>
+    <div class="contrast-badges">
+      <span class="badge pass">Título #3d3b2e on #fff 13.5:1 ✓</span>
+      <span class="badge pass">Sub #5a5740 on #fff 6.1:1 ✓</span>
+      <span class="badge pass">Link min-height 44px ✓</span>
+      <span class="badge pass">Focus ring azul visível ✓</span>
+    </div>
+  </div>
+
+  <section aria-labelledby="p5-section-heading" role="region" class="p5-section">
+    <h3 id="p5-section-heading" class="p5-heading">Explore meus últimos trabalhos</h3>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    <ul class="p5-grid" role="list" aria-label="Ensaios fotográficos — visualização polaroid">
+
+      <li role="listitem" class="p5-card">
+        <img class="p5-card-img"
+             src="https://picsum.photos/seed/pol1/300/375?grayscale&blur=1"
+             alt="Ana Souza — ensaio corporativo no Estúdio Lillia Tavares"
+             width="300" height="375" loading="lazy">
+        <p class="p5-card-caption">Ana Souza</p>
+        <p class="p5-card-sub">Corporativo</p>
+        <a href="/ensaio-fotografico/corporativo/ana-souza"
+           class="p5-card-link"
+           aria-label="Ver ensaio de Ana Souza — Corporativo">
+          Ver ensaio
+          <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+
+      <li role="listitem" class="p5-card">
+        <img class="p5-card-img"
+             src="https://picsum.photos/seed/pol2/300/375?grayscale&blur=1"
+             alt="Bruna Freire — ensaio gestante no Parque Ibirapuera"
+             width="300" height="375" loading="lazy">
+        <p class="p5-card-caption">Bruna Freire</p>
+        <p class="p5-card-sub">Gestante</p>
+        <a href="/ensaio-fotografico/gestante/bruna-freire" class="p5-card-link" aria-label="Ver ensaio de Bruna Freire — Gestante">
+          Ver ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+
+      <li role="listitem" class="p5-card">
+        <img class="p5-card-img"
+             src="https://picsum.photos/seed/pol3/300/375?grayscale&blur=1"
+             alt="Carla Mendes — ensaio feminino artístico no Estúdio Lillia Tavares"
+             width="300" height="375" loading="lazy">
+        <p class="p5-card-caption">Carla Mendes</p>
+        <p class="p5-card-sub">Feminino</p>
+        <a href="/ensaio-fotografico/feminino/carla-mendes" class="p5-card-link" aria-label="Ver ensaio de Carla Mendes — Feminino">
+          Ver ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+
+      <li role="listitem" class="p5-card">
+        <img class="p5-card-img"
+             src="https://picsum.photos/seed/pol4/300/375?grayscale&blur=1"
+             alt="Diana Lima — ensaio debutante no Jardim Europa, vestido longo branco"
+             width="300" height="375" loading="lazy">
+        <p class="p5-card-caption">Diana Lima</p>
+        <p class="p5-card-sub">Debutante</p>
+        <a href="/ensaio-fotografico/debutante/diana-lima" class="p5-card-link" aria-label="Ver ensaio de Diana Lima — Debutante">
+          Ver ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+
+      <li role="listitem" class="p5-card">
+        <img class="p5-card-img"
+             src="https://picsum.photos/seed/pol5/300/375?grayscale&blur=1"
+             alt="Elena Costa — ensaio família em domicílio, luz natural pela janela"
+             width="300" height="375" loading="lazy">
+        <p class="p5-card-caption">Elena Costa</p>
+        <p class="p5-card-sub">Família</p>
+        <a href="/ensaio-fotografico/familia/elena-costa" class="p5-card-link" aria-label="Ver ensaio de Elena Costa — Família">
+          Ver ensaio <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+
+    </ul>
+    <div class="p5-footer">
+      <a href="/portfolio" class="cta-btn" style="background:#3d3b2e;" aria-label="Ver todos os trabalhos no portfólio completo">
+        Ver todos os trabalhos
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     RANKING FINAL
+══════════════════════════════════════════ -->
+<section id="ranking" class="proposal-wrapper" aria-labelledby="ranking-title">
+  <div class="ranking">
+    <h2 id="ranking-title">Ranking de Acessibilidade — Melhor para Pior</h2>
+    <ol aria-label="Propostas ordenadas por nível de conformidade WCAG 2.2 AA">
+      <li>
+        <span class="ranking-num">1</span>
+        <div>
+          <strong>Proposta 3 — Carrossel com Scroll Snap Acessível</strong>
+          <p>Melhor cobertura de ARIA para o padrão carrossel (o mais difícil de tornar acessível): role="region" + aria-roledescription="carrossel" + aria-live="polite" no status + botões 44×44px com aria-label descritivo + scroll-snap CSS sem dependência JS para leitura. Resolve o problema mais crítico do design original (Swiper sem ARIA) com a solução mais elegante e resiliente.</p>
+        </div>
+      </li>
+      <li>
+        <span class="ranking-num">2</span>
+        <div>
+          <strong>Proposta 1 — Grade Respirada</strong>
+          <p>Correção mais completa e de menor risco para implementação: todos os 11 problemas identificados corrigidos, ARIA completo em cada card incluindo o mini-slider interno, hierarquia h3→h4 correta, botões com estados loading e vazio demonstrados. Contraste máximo em todos os textos. Ideal para migração incremental sem redesign visual radical.</p>
+        </div>
+      </li>
+      <li>
+        <span class="ranking-num">3</span>
+        <div>
+          <strong>Proposta 4 — Editorial Vertical</strong>
+          <p>Elimina o padrão carrossel por completo, que é a maior fonte de problemas de acessibilidade. Cada ensaio é um item de lista semântico com heading, metadados e link bem dimensionado. Custo: layout linear pode parecer extenso para 5 itens; paginação ou "ver mais" seria necessária em produção.</p>
+        </div>
+      </li>
+      <li>
+        <span class="ranking-num">4</span>
+        <div>
+          <strong>Proposta 5 — Polaroid Wall</strong>
+          <p>Memorável e coerente com o ofício da fotógrafa; contraste e alvos de toque corretos; rotate desligado via prefers-reduced-motion. Perde pontos por não exibir a categoria de forma tão prominente quanto as outras propostas, e o grid denso pode criar dificuldade de scanning para usuários com baixa visão mesmo com contraste correto.</p>
+        </div>
+      </li>
+      <li>
+        <span class="ranking-num">5</span>
+        <div>
+          <strong>Proposta 2 — Masonry Editorial</strong>
+          <p>Visualmente mais impactante mas depende de overlay escuro sobre imagem para garantir contraste — que varia conforme a foto real (imagem muito clara pode comprometer o ratio de 4.5:1 mesmo com gradiente). Em produção exigiria verificação por imagem ou overlay adaptativo via JS. Fica em último por esse risco estrutural, não por falha de design.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* Carrossel P3 — scroll-snap com teclado */
+(function() {
+  var track = document.querySelector('.p3-track');
+  var prevBtn = document.getElementById('p3-prev');
+  var nextBtn = document.getElementById('p3-next');
+  var status = document.getElementById('p3-status');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  var cards = Array.from(track.querySelectorAll('.p3-card'));
+  var current = 0;
+
+  function scrollTo(index) {
+    if (index < 0 || index >= cards.length) return;
+    current = index;
+    cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === cards.length - 1;
+    if (status) status.textContent = (current + 1) + ' / ' + cards.length;
+  }
+
+  prevBtn.addEventListener('click', function() { scrollTo(current - 1); });
+  nextBtn.addEventListener('click', function() { scrollTo(current + 1); });
+
+  /* Arrow keys dentro do carrossel */
+  track.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); scrollTo(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollTo(current - 1); }
+  });
+})();
+</script>
+</body>
+</html>

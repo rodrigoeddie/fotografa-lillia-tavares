@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Propostas — Seção Portfolio | Fotógrafa Lillia Tavares</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --olive: #7b785b;
+  --olive-dark: #5a5842;
+  --olive-light: rgba(123,120,91,0.12);
+  --cream: #e3dfcb;
+  --cream-deep: #d6d1b8;
+  --parchment: #f6f6f6;
+  --white: #ffffff;
+  --muted: #aaa789;
+  --ink: #2e2d26;
+  --lato: 'Lato', Arial, sans-serif;
+  --cormorant: 'Cormorant Garamond', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--lato);
+  background: #f0ede0;
+  color: var(--olive);
+  padding: 0;
+}
+
+/* ===================== NAV (identidade do site) ===================== */
+.site-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--cream);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-nav .logo {
+  font-family: var(--cormorant);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--olive);
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
+.site-nav .tagline {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+/* ===================== ÍNDICE DE PROPOSTAS ===================== */
+.proposals-index {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  align-items: flex-start;
+}
+.proposals-index h1 {
+  width: 100%;
+  font-family: var(--cormorant);
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.proposals-index a {
+  font-family: var(--lato);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.proposals-index a:hover { opacity: 1; }
+.proposals-index a span {
+  font-family: var(--cormorant);
+  font-size: 0.85rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* ===================== PROPOSAL WRAPPER ===================== */
+.proposal-block {
+  background: var(--white);
+  margin: 3rem 0;
+  border-top: 3px solid var(--olive);
+}
+.proposal-label {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.proposal-label .num {
+  font-family: var(--cormorant);
+  font-size: 3rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1;
+}
+.proposal-label .title-wrap {}
+.proposal-label .ptitle {
+  font-family: var(--lato);
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.proposal-label .psub {
+  font-family: var(--cormorant);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+.proposal-label .ptag {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  border-radius: 2px;
+  align-self: center;
+}
+.proposal-rationale {
+  background: #f9f7f2;
+  border-bottom: 1px solid var(--cream);
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.proposal-rationale p {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--olive);
+  max-width: 28rem;
+}
+.proposal-rationale strong {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--olive-dark);
+}
+
+/* ====================================================
+   PROPOSTA 1 — "Respiração Editorial"
+   ==================================================== */
+#p1 { background: var(--white); }
+
+.p1-section {
+  padding: 5rem 2rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.p1-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.p1-eyebrow .line {
+  height: 1px;
+  width: 3rem;
+  background: var(--muted);
+}
+.p1-eyebrow span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.p1-heading-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.p1-index-mark {
+  font-family: var(--cormorant);
+  font-size: 9rem;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+}
+.p1-heading {
+  flex: 1;
+  min-width: 260px;
+}
+.p1-heading h2 {
+  font-family: var(--cormorant);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--olive-dark);
+  line-height: 1.15;
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+.p1-heading h2 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--muted);
+}
+.p1-heading p {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.p1-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.p1-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+}
+
+.p1-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--parchment);
+  aspect-ratio: 3/4;
+}
+.p1-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+  filter: grayscale(20%);
+}
+.p1-card:hover .p1-img-wrap img {
+  transform: scale(1.04);
+  filter: grayscale(0%);
+}
+.p1-img-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--olive);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.p1-card:hover .p1-img-overlay {
+  transform: scaleX(1);
+}
+
+.p1-card-body {
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--cream);
+  margin-top: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.p1-card-num {
+  font-family: var(--cormorant);
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+.p1-card-name {
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive-dark);
+  margin-bottom: 0.3rem;
+}
+.p1-card-meta {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  flex: 1;
+}
+.p1-card-cta {
+  margin-top: 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.p1-card-cta svg { transition: transform 0.3s; }
+.p1-card:hover .p1-card-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.p1-card:hover .p1-card-cta svg { transform: translateX(4px); }
+
+.p1-footer {
+  margin-top: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.p1-footer::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--cream);
+}
+.p1-cta-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2rem;
+  background: var(--olive-dark);
+  color: var(--cream);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, gap 0.25s;
+}
+.p1-cta-main:hover { background: var(--ink); gap: 1.25rem; }
+
+/* ====================================================
+   PROPOSTA 2 — "Polaroid de Película"
+   ==================================================== */
+#p2 { background: #f2efe3; }
+
+.p2-section {
+  padding: 5rem 3rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.p2-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.p2-header .sub {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.p2-header h2 {
+  font-family: var(--cormorant);
+  font-size: 2.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--olive-dark);
+  text-wrap: balance;
+  line-height: 1.2;
+}
+
+.p2-grid {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.p2-card {
+  width: 210px;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), z-index 0s;
+  z-index: 1;
+}
+.p2-card:nth-child(1) { transform: rotate(-2.1deg) translateY(6px); }
+.p2-card:nth-child(2) { transform: rotate(1.3deg) translateY(-4px); }
+.p2-card:nth-child(3) { transform: rotate(-0.7deg) translateY(8px); }
+.p2-card:nth-child(4) { transform: rotate(2.2deg) translateY(-6px); }
+.p2-card:nth-child(5) { transform: rotate(-1.5deg) translateY(4px); }
+.p2-card:hover {
+  transform: rotate(0deg) translateY(-16px) scale(1.04) !important;
+  z-index: 10;
+}
+
+.p2-polaroid {
+  background: var(--white);
+  padding: 12px 12px 40px;
+  box-shadow: 0 8px 32px rgba(46,45,38,0.14), 0 2px 6px rgba(46,45,38,0.08);
+  position: relative;
+}
+.p2-img-wrap {
+  width: 100%;
+  aspect-ratio: 3/4.2;
+  overflow: hidden;
+  background: var(--cream);
+  position: relative;
+}
+.p2-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: grayscale(30%) sepia(10%);
+}
+.p2-card:hover .p2-img-wrap img {
+  transform: scale(1.06);
+  filter: grayscale(0%) sepia(0%);
+}
+.p2-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 28px;
+  background: rgba(227,223,203,0.75);
+  border-radius: 2px;
+  z-index: 2;
+}
+.p2-caption {
+  padding: 0.5rem 0 0;
+  text-align: center;
+}
+.p2-caption .name {
+  font-family: var(--cormorant);
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--olive-dark);
+  display: block;
+  line-height: 1.3;
+}
+.p2-caption .meta {
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.p2-footer {
+  margin-top: 5rem;
+  text-align: center;
+}
+.p2-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2.25rem;
+  border: 1.5px solid var(--olive);
+  color: var(--olive-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+.p2-cta:hover { background: var(--olive-dark); color: var(--cream); }
+
+/* ====================================================
+   PROPOSTA 3 — "Galeria com Alturas Variadas"
+   ==================================================== */
+#p3 { background: var(--white); }
+
+.p3-section {
+  padding: 5rem 2rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.p3-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  margin-bottom: 3rem;
+  gap: 1rem;
+}
+.p3-header-left {}
+.p3-header .overline {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.p3-header .overline::after {
+  content: '';
+  height: 1px;
+  width: 2rem;
+  background: var(--muted);
+}
+.p3-header h2 {
+  font-family: var(--lato);
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--olive-dark);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.p3-header h2 span {
+  font-weight: 300;
+  color: var(--muted);
+}
+.p3-cta-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--cream);
+  color: var(--olive-dark);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.p3-cta-top:hover { background: var(--cream-deep); }
+
+.p3-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.p3-card {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: var(--parchment);
+}
+.p3-card:nth-child(1) { height: 420px; }
+.p3-card:nth-child(2) { height: 340px; margin-top: 40px; }
+.p3-card:nth-child(3) { height: 420px; }
+.p3-card:nth-child(4) { height: 340px; margin-top: 40px; }
+.p3-card:nth-child(5) { height: 420px; }
+
+.p3-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(15%);
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+}
+.p3-card:hover img {
+  transform: scale(1.07);
+  filter: grayscale(0%);
+}
+
+.p3-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(46,45,38,0.75) 0%, rgba(46,45,38,0) 55%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.p3-card:hover .p3-overlay { opacity: 1; }
+
+.p3-card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 1.25rem 1.25rem;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: transform 0.35s, opacity 0.35s;
+}
+.p3-card:hover .p3-card-info {
+  transform: translateY(0);
+  opacity: 1;
+}
+.p3-card-num {
+  font-family: var(--cormorant);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgba(227,223,203,0.6);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.p3-card-name {
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.p3-card-cat {
+  font-size: 0.68rem;
+  color: rgba(227,223,203,0.65);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.p3-card-link {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(227,223,203,0.4);
+  padding-bottom: 1px;
+  display: inline-block;
+}
+
+/* ====================================================
+   PROPOSTA 4 — "Magazine Overlay" (ousada)
+   ==================================================== */
+#p4 { background: var(--ink); }
+
+.p4-section {
+  padding: 5rem 2rem 6rem;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.p4-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+.p4-header h2 {
+  font-family: var(--cormorant);
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  letter-spacing: 0.01em;
+}
+.p4-header .rule {
+  flex: 1;
+  height: 1px;
+  background: rgba(227,223,203,0.2);
+}
+.p4-header .count {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.p4-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+}
+
+.p4-card {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  cursor: pointer;
+  background: #1a1915;
+}
+
+.p4-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(40%) brightness(0.9);
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s;
+  transform-origin: center;
+}
+.p4-card:hover img {
+  transform: scale(1.08);
+  filter: grayscale(0%) brightness(1);
+}
+
+.p4-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(46,45,38,0.92) 0%,
+    rgba(46,45,38,0.4) 40%,
+    rgba(46,45,38,0) 70%
+  );
+  transition: opacity 0.4s;
+}
+.p4-card:hover .p4-gradient {
+  background: linear-gradient(
+    to top,
+    rgba(46,45,38,0.96) 0%,
+    rgba(46,45,38,0.5) 50%,
+    rgba(46,45,38,0) 75%
+  );
+}
+
+.p4-card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.25rem 1.5rem;
+}
+.p4-card-name {
+  font-family: var(--cormorant);
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--cream);
+  display: block;
+  line-height: 1.15;
+  margin-bottom: 0.3rem;
+  transition: transform 0.35s;
+}
+.p4-card:hover .p4-card-name { transform: translateY(-4px); }
+.p4-card-cat {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0;
+  transition: opacity 0.3s, transform 0.35s;
+}
+.p4-card-studio {
+  font-size: 0.6rem;
+  color: rgba(170,167,137,0.6);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-top: 0.15rem;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.35s 0.05s, transform 0.35s 0.05s;
+}
+.p4-card:hover .p4-card-studio {
+  opacity: 1;
+  transform: translateY(0);
+}
+.p4-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s 0.08s, transform 0.3s 0.08s;
+  border-bottom: 1px solid rgba(227,223,203,0.35);
+  padding-bottom: 1px;
+}
+.p4-card:hover .p4-card-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.p4-footer {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-top: 1px solid rgba(227,223,203,0.12);
+  padding-top: 2rem;
+}
+.p4-footer p {
+  font-family: var(--cormorant);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: rgba(170,167,137,0.6);
+}
+.p4-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2rem;
+  border: 1px solid var(--muted);
+  color: var(--cream);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.25s, border-color 0.25s;
+}
+.p4-cta:hover { background: var(--olive); border-color: var(--olive); }
+
+/* ====================================================
+   PROPOSTA 5 — "Lista Vertical Assimétrica" (radical)
+   ==================================================== */
+#p5 { background: var(--white); }
+
+.p5-section {
+  padding: 5rem 2rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.p5-header {
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+.p5-header-idx {
+  font-family: var(--cormorant);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--muted);
+  writing-mode: vertical-lr;
+  letter-spacing: 0.18em;
+  padding-top: 0.5rem;
+  opacity: 0.7;
+}
+.p5-header-text {}
+.p5-header-text h2 {
+  font-family: var(--cormorant);
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: var(--olive-dark);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.p5-header-text h2 em {
+  font-style: italic;
+  font-weight: 600;
+}
+.p5-header-text p {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 28rem;
+  line-height: 1.65;
+}
+
+.p5-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--cream);
+}
+
+.p5-item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 2fr auto;
+  gap: 0 2rem;
+  align-items: stretch;
+  border-bottom: 1px solid var(--cream);
+  padding: 2rem 0;
+  cursor: pointer;
+  transition: background 0.25s;
+  position: relative;
+}
+.p5-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--olive);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.p5-item:hover { background: #faf9f5; }
+.p5-item:hover::before { transform: scaleY(1); }
+
+.p5-roman {
+  font-family: var(--cormorant);
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream-deep);
+  align-self: center;
+  line-height: 1;
+  transition: color 0.25s;
+}
+.p5-item:hover .p5-roman { color: var(--muted); }
+
+.p5-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+}
+.p5-name {
+  font-family: var(--lato);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--olive-dark);
+  text-transform: uppercase;
+}
+.p5-cat {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.p5-studio {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: rgba(170,167,137,0.6);
+}
+
+.p5-img-strip {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  height: 120px;
+  align-self: center;
+}
+.p5-img-strip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  filter: grayscale(30%);
+  transition: transform 0.5s ease, filter 0.4s;
+}
+.p5-item:hover .p5-img-strip img {
+  transform: scale(1.08);
+  filter: grayscale(0%);
+}
+
+.p5-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  min-width: 5rem;
+}
+.p5-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1.5px solid var(--cream-deep);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--olive);
+  text-decoration: none;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  flex-shrink: 0;
+}
+.p5-item:hover .p5-action-btn {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: var(--cream);
+  transform: scale(1.12);
+}
+
+.p5-footer {
+  margin-top: 3rem;
+  padding-left: 5.5rem;
+}
+.p5-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--olive-dark);
+  text-decoration: none;
+  border-bottom: 2px solid var(--olive);
+  padding-bottom: 0.25rem;
+  transition: gap 0.25s;
+}
+.p5-cta:hover { gap: 1.25rem; }
+
+/* ====================================================
+   RANKING
+   ==================================================== */
+.ranking-block {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+}
+.ranking-block h2 {
+  font-family: var(--cormorant);
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 700px;
+}
+.rank-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(227,223,203,0.1);
+}
+.rank-pos {
+  font-family: var(--cormorant);
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1;
+}
+.rank-content {}
+.rank-title {
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.35rem;
+}
+.rank-why {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(227,223,203,0.65);
+  line-height: 1.6;
+}
+
+/* ====================================================
+   RESPONSIVE
+   ==================================================== */
+@media (max-width: 900px) {
+  .p1-grid { grid-template-columns: repeat(3, 1fr); }
+  .p1-grid .p1-card:nth-child(n+4) { display: none; }
+  .p1-index-mark { font-size: 5rem; }
+  .p1-heading h2 { font-size: 1.8rem; }
+
+  .p2-grid { gap: 0; overflow-x: auto; padding-bottom: 1rem; }
+  .p2-card { width: 180px; }
+
+  .p3-grid { grid-template-columns: repeat(3, 1fr); }
+  .p3-card:nth-child(n+4) { display: none; }
+  .p3-card:nth-child(2) { margin-top: 20px; }
+  .p3-card:nth-child(4) { margin-top: 20px; }
+
+  .p4-grid { grid-template-columns: repeat(3, 1fr); }
+  .p4-grid .p4-card:nth-child(n+4) { display: none; }
+
+  .p5-item {
+    grid-template-columns: 2.5rem 1fr auto;
+    grid-template-rows: auto auto;
+  }
+  .p5-img-strip { display: none; }
+}
+
+@media (max-width: 600px) {
+  .p1-grid { grid-template-columns: 1fr 1fr; }
+  .p1-grid .p1-card:nth-child(n+3) { display: none; }
+  .p1-heading h2 { font-size: 1.5rem; }
+  .p1-index-mark { display: none; }
+
+  .p2-card { width: 155px; }
+
+  .p3-grid { grid-template-columns: 1fr 1fr; }
+  .p3-card:nth-child(n+3) { display: none; }
+  .p3-card:nth-child(2) { margin-top: 0; }
+  .p3-header { grid-template-columns: 1fr; }
+  .p3-cta-top { display: none; }
+
+  .p4-grid { grid-template-columns: 1fr 1fr; }
+  .p4-grid .p4-card:nth-child(n+3) { display: none; }
+  .p4-footer { flex-direction: column; }
+
+  .p5-item { grid-template-columns: 2rem 1fr auto; gap: 0 1rem; }
+  .p5-footer { padding-left: 0; }
+
+  .proposal-label { gap: 0.75rem; }
+  .proposal-label .ptag { display: none; }
+  .ranking-block { padding: 2rem 1rem; }
+  .rank-item { grid-template-columns: 2.5rem 1fr; }
+}
+
+/* ── Category Tabs — SEO: links reais para páginas de categoria ── */
+.cat-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.cat-tab {
+  font-family: 'Lato', arial;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--olive, #7b785b);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+.cat-tab:hover { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab--active { background: var(--olive, #7b785b); color: #fff; }
+.cat-tab:focus-visible { outline: 2px solid var(--olive, #7b785b); outline-offset: 2px; }
+.cat-tab--all { border-style: dashed; opacity: .8; }
+/* Dark bg variant */
+.cat-tabs--dark .cat-tab { color: var(--creme, #e3dfcb); border-color: currentColor; }
+.cat-tabs--dark .cat-tab:hover,
+.cat-tabs--dark .cat-tab--active { background: var(--creme, #e3dfcb); color: var(--ink, #2e2d26); }
+.cat-tabs--dark .cat-tab:focus-visible { outline-color: var(--creme, #e3dfcb); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <span class="logo">Lillia Tavares</span>
+  <span class="tagline">Fotógrafa</span>
+</nav>
+
+<!-- ÍNDICE -->
+<div class="proposals-index">
+  <h1>5 Propostas de Redesign — Seção Portfólio</h1>
+  <a href="#p1"><span>01</span> Respiração Editorial</a>
+  <a href="#p2"><span>02</span> Polaroid de Película</a>
+  <a href="#p3"><span>03</span> Galeria com Ritmo</a>
+  <a href="#p4"><span>04</span> Magazine Overlay</a>
+  <a href="#p5"><span>05</span> Lista Vertical Assimétrica</a>
+  <a href="#ranking"><span>—</span> Ranking Final</a>
+</div>
+
+<!-- =============================================
+     PROPOSTA 1 — RESPIRAÇÃO EDITORIAL
+     ============================================= -->
+<div class="proposal-block" id="p1">
+  <div class="proposal-label">
+    <div class="num">01</div>
+    <div class="title-wrap">
+      <div class="ptitle">Respiração Editorial</div>
+      <div class="psub">Evolução segura — hierarquia e whitespace intencional</div>
+    </div>
+    <div class="ptag">Evolução</div>
+  </div>
+  <div class="proposal-rationale">
+    <p><strong>Inspiração</strong>Vogue Brasil impresso — index mark gigante, grid modular com gap generoso, tipografia em escala progressiva Cormorant + Lato. O "01" em 9rem é a marca d'água que ancora a composição sem decoração gratuita.</p>
+    <p><strong>Problema resolvido</strong>Gap zero eliminado (24px entre cards). Hierarquia tipográfica: nome em Lato 900 uppercase, meta em muted 72%, CTA reveal no hover. A linha olive cresce da base do card indicando interatividade com elegância.</p>
+    <p><strong>Trade-off</strong>Mais vertical que o layout atual. Em telas 1280px o grid de 5 colunas fica compacto — cards finos, mas a proporção 3:4 mantém o peso da imagem.</p>
+  </div>
+  <section class="p1-section" style="background:#fff;">
+
+    <div class="p1-eyebrow">
+      <div class="line"></div>
+      <span>Portfólio</span>
+    </div>
+    <div class="p1-heading-wrap">
+      <div class="p1-index-mark">01</div>
+      <div class="p1-heading">
+        <h2>Explore meus <em>últimos</em><br>trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+        <p>Retratos corporativos femininos — Estúdio Lillia Tavares</p>
+      </div>
+    </div>
+    <div class="p1-grid">
+      <article class="p1-card">
+        <div class="p1-img-wrap">
+          <img src="https://picsum.photos/seed/p1a/400/530?grayscale" alt="Bruna Freire">
+          <div class="p1-img-overlay"></div>
+        </div>
+        <div class="p1-card-body">
+          <span class="p1-card-num">01 / 05</span>
+          <h2 class="p1-card-name">Bruna Freire</h2>
+          <ul class="p1-card-meta" style="list-style:none;"><li>Corporativo</li><li>Estúdio Lillia Tavares</li></ul>
+          <a class="p1-card-cta" href="#">Acessar ensaio <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p1-card">
+        <div class="p1-img-wrap">
+          <img src="https://picsum.photos/seed/p1b/400/530?grayscale" alt="Andresa Maia">
+          <div class="p1-img-overlay"></div>
+        </div>
+        <div class="p1-card-body">
+          <span class="p1-card-num">02 / 05</span>
+          <h2 class="p1-card-name">Andresa Maia</h2>
+          <ul class="p1-card-meta" style="list-style:none;"><li>Corporativo</li><li>Estúdio Lillia Tavares</li></ul>
+          <a class="p1-card-cta" href="#">Acessar ensaio <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p1-card">
+        <div class="p1-img-wrap">
+          <img src="https://picsum.photos/seed/p1c/400/530?grayscale" alt="Camila Nogueira">
+          <div class="p1-img-overlay"></div>
+        </div>
+        <div class="p1-card-body">
+          <span class="p1-card-num">03 / 05</span>
+          <h2 class="p1-card-name">Camila Nogueira</h2>
+          <ul class="p1-card-meta" style="list-style:none;"><li>Corporativo</li><li>Estúdio Lillia Tavares</li></ul>
+          <a class="p1-card-cta" href="#">Acessar ensaio <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p1-card">
+        <div class="p1-img-wrap">
+          <img src="https://picsum.photos/seed/p1d/400/530?grayscale" alt="Marcella Castelucci">
+          <div class="p1-img-overlay"></div>
+        </div>
+        <div class="p1-card-body">
+          <span class="p1-card-num">04 / 05</span>
+          <h2 class="p1-card-name">Marcella Castelucci</h2>
+          <ul class="p1-card-meta" style="list-style:none;"><li>Corporativo</li><li>Estúdio Lillia Tavares</li></ul>
+          <a class="p1-card-cta" href="#">Acessar ensaio <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p1-card">
+        <div class="p1-img-wrap">
+          <img src="https://picsum.photos/seed/p1e/400/530?grayscale" alt="Monica Rafael">
+          <div class="p1-img-overlay"></div>
+        </div>
+        <div class="p1-card-body">
+          <span class="p1-card-num">05 / 05</span>
+          <h2 class="p1-card-name">Monica Rafael</h2>
+          <ul class="p1-card-meta" style="list-style:none;"><li>Corporativo</li><li>Estúdio Lillia Tavares</li></ul>
+          <a class="p1-card-cta" href="#">Acessar ensaio <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+    </div>
+    <div class="p1-footer">
+      <a class="p1-cta-main" href="#">Ver todos os trabalhos <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5h14M11 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+</div>
+
+<!-- =============================================
+     PROPOSTA 2 — POLAROID DE PELÍCULA
+     ============================================= -->
+<div class="proposal-block" id="p2">
+  <div class="proposal-label">
+    <div class="num">02</div>
+    <div class="title-wrap">
+      <div class="ptitle">Polaroid de Película</div>
+      <div class="psub">Evolução segura — moldura analógica, rotação leve</div>
+    </div>
+    <div class="ptag">Evolução</div>
+  </div>
+  <div class="proposal-rationale">
+    <p><strong>Inspiração</strong>Livros de fotografia analógica e moodboards editoriais — borda branca larga como moldura polaroid. A "fita adesiva" em creme no topo de cada card é o flair autoral: simples, referencial, sem exagero.</p>
+    <p><strong>Problema resolvido</strong>Imagens sem enquadramento → polaroid cria moldura intencional. Rotações ±2° dão vida sem perder profissionalismo. Hover normaliza e eleva o card, criando hierarquia clara de foco.</p>
+    <p><strong>Trade-off</strong>Nome em Cormorant itálico sob a foto é mais delicado que bold uppercase — sacrifica um pouco de legibilidade rápida em favor de sentimento artesanal. Adequado para o público da Lillia.</p>
+  </div>
+  <section class="p2-section" style="background:#f2efe3;">
+
+    <div class="p2-header">
+      <span class="sub">Portfólio</span>
+      <h2>Explore meus últimos trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+    </div>
+    <div class="p2-grid">
+      <div class="p2-card">
+        <div class="p2-polaroid">
+          <div class="p2-tape"></div>
+          <div class="p2-img-wrap">
+            <img src="https://picsum.photos/seed/p2a/380/480?grayscale" alt="Bruna Freire">
+          </div>
+          <div class="p2-caption">
+            <span class="name">Bruna Freire</span>
+            <span class="meta">Corporativo · Estúdio Lillia</span>
+          </div>
+        </div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-polaroid">
+          <div class="p2-tape"></div>
+          <div class="p2-img-wrap">
+            <img src="https://picsum.photos/seed/p2b/380/480?grayscale" alt="Andresa Maia">
+          </div>
+          <div class="p2-caption">
+            <span class="name">Andresa Maia</span>
+            <span class="meta">Corporativo · Estúdio Lillia</span>
+          </div>
+        </div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-polaroid">
+          <div class="p2-tape"></div>
+          <div class="p2-img-wrap">
+            <img src="https://picsum.photos/seed/p2c/380/480?grayscale" alt="Camila Nogueira">
+          </div>
+          <div class="p2-caption">
+            <span class="name">Camila Nogueira</span>
+            <span class="meta">Corporativo · Estúdio Lillia</span>
+          </div>
+        </div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-polaroid">
+          <div class="p2-tape"></div>
+          <div class="p2-img-wrap">
+            <img src="https://picsum.photos/seed/p2d/380/480?grayscale" alt="Marcella Castelucci">
+          </div>
+          <div class="p2-caption">
+            <span class="name">Marcella Castelucci</span>
+            <span class="meta">Corporativo · Estúdio Lillia</span>
+          </div>
+        </div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-polaroid">
+          <div class="p2-tape"></div>
+          <div class="p2-img-wrap">
+            <img src="https://picsum.photos/seed/p2e/380/480?grayscale" alt="Monica Rafael">
+          </div>
+          <div class="p2-caption">
+            <span class="name">Monica Rafael</span>
+            <span class="meta">Corporativo · Estúdio Lillia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p2-footer">
+      <a class="p2-cta" href="#">Ver todos os trabalhos <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+</div>
+
+<!-- =============================================
+     PROPOSTA 3 — GALERIA COM RITMO
+     ============================================= -->
+<div class="proposal-block" id="p3">
+  <div class="proposal-label">
+    <div class="num">03</div>
+    <div class="title-wrap">
+      <div class="ptitle">Galeria com Ritmo</div>
+      <div class="psub">Evolução segura — alturas alternadas, overlay no hover</div>
+    </div>
+    <div class="ptag">Evolução</div>
+  </div>
+  <div class="proposal-rationale">
+    <p><strong>Inspiração</strong>Galerias físicas de fotografia — works em alturas variadas criam movimento sem caos. CTA no topo direito é posicionamento inteligente: quem vai ver o portfólio completo está decidido antes de ver os cards.</p>
+    <p><strong>Problema resolvido</strong>Monotonia visual do grid uniforme. Alturas 420/340/420/340/420 criam ritmo sinusoidal. Overlay dark no hover revela texto diretamente sobre a imagem, unindo contexto e imagem sem espaço extra.</p>
+    <p><strong>Trade-off</strong>O offset vertical dos cards pares exige que o container tenha altura suficiente — pequeno risco de corte em viewports muito estreitas. Texto sobre imagem depende do contraste da foto real.</p>
+  </div>
+  <section class="p3-section" style="background:#fff;">
+
+    <div class="p3-header">
+      <div class="p3-header-left">
+        <div class="overline">Portfólio</div>
+        <h2>Últimos <span>trabalhos</span></h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+      </div>
+      <a class="p3-cta-top" href="#">Ver todos <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="p3-grid">
+      <article class="p3-card">
+        <img src="https://picsum.photos/seed/p3a/320/520?grayscale" alt="Bruna Freire">
+        <div class="p3-overlay"></div>
+        <div class="p3-card-info">
+          <span class="p3-card-num">01 / 05</span>
+          <span class="p3-card-name">Bruna Freire</span>
+          <span class="p3-card-cat">Corporativo</span>
+          <a class="p3-card-link" href="#">Acessar ensaio</a>
+        </div>
+      </article>
+      <article class="p3-card">
+        <img src="https://picsum.photos/seed/p3b/320/420?grayscale" alt="Andresa Maia">
+        <div class="p3-overlay"></div>
+        <div class="p3-card-info">
+          <span class="p3-card-num">02 / 05</span>
+          <span class="p3-card-name">Andresa Maia</span>
+          <span class="p3-card-cat">Corporativo</span>
+          <a class="p3-card-link" href="#">Acessar ensaio</a>
+        </div>
+      </article>
+      <article class="p3-card">
+        <img src="https://picsum.photos/seed/p3c/320/520?grayscale" alt="Camila Nogueira">
+        <div class="p3-overlay"></div>
+        <div class="p3-card-info">
+          <span class="p3-card-num">03 / 05</span>
+          <span class="p3-card-name">Camila Nogueira</span>
+          <span class="p3-card-cat">Corporativo</span>
+          <a class="p3-card-link" href="#">Acessar ensaio</a>
+        </div>
+      </article>
+      <article class="p3-card">
+        <img src="https://picsum.photos/seed/p3d/320/420?grayscale" alt="Marcella Castelucci">
+        <div class="p3-overlay"></div>
+        <div class="p3-card-info">
+          <span class="p3-card-num">04 / 05</span>
+          <span class="p3-card-name">Marcella Castelucci</span>
+          <span class="p3-card-cat">Corporativo</span>
+          <a class="p3-card-link" href="#">Acessar ensaio</a>
+        </div>
+      </article>
+      <article class="p3-card">
+        <img src="https://picsum.photos/seed/p3e/320/520?grayscale" alt="Monica Rafael">
+        <div class="p3-overlay"></div>
+        <div class="p3-card-info">
+          <span class="p3-card-num">05 / 05</span>
+          <span class="p3-card-name">Monica Rafael</span>
+          <span class="p3-card-cat">Corporativo</span>
+          <a class="p3-card-link" href="#">Acessar ensaio</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+
+<!-- =============================================
+     PROPOSTA 4 — MAGAZINE OVERLAY (ousada)
+     ============================================= -->
+<div class="proposal-block" id="p4">
+  <div class="proposal-label">
+    <div class="num">04</div>
+    <div class="title-wrap">
+      <div class="ptitle">Magazine Overlay</div>
+      <div class="psub">Ousada — fundo escuro, texto sobre imagem, Cormorant itálico</div>
+    </div>
+    <div class="ptag">Ousada</div>
+  </div>
+  <div class="proposal-rationale">
+    <p><strong>Inspiração</strong>Harper's Bazaar, Aperture magazine — fundo quase-preto que faz as imagens respirarem como luminárias em sala escura. O nome da cliente em Cormorant 1.3rem itálico tem peso editorial real. Gap 3px entre cards cria tensão de mosaico.</p>
+    <p><strong>Problema resolvido</strong>Imagens sem enquadramento → imagem é o card inteiro. Hierarquia em camadas: de grayscale para color no hover, texto aparece em sequência (nome → estúdio → CTA), criando reveal cinematográfico.</p>
+    <p><strong>Trade-off</strong>Fundo escuro quebra a continuidade com o restante do site (branco/creme). Depende de fotos com boa qualidade para o overlay não escurecer demais. Risco calculado — o contraste é deliberado.</p>
+  </div>
+  <section class="p4-section" style="background:#2e2d26;">
+
+    <div class="p4-header">
+      <h2>Explore meus últimos trabalhos</h2>
+<nav class="cat-tabs cat-tabs--dark" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+      <div class="rule"></div>
+      <span class="count">5 ensaios</span>
+    </div>
+    <div class="p4-grid">
+      <article class="p4-card">
+        <img src="https://picsum.photos/seed/p4a/360/540?grayscale" alt="Bruna Freire">
+        <div class="p4-gradient"></div>
+        <div class="p4-card-info">
+          <span class="p4-card-name">Bruna Freire</span>
+          <span class="p4-card-cat">Corporativo</span>
+          <span class="p4-card-studio">Estúdio Lillia Tavares</span>
+          <a class="p4-card-btn" href="#">Acessar ensaio <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p4-card">
+        <img src="https://picsum.photos/seed/p4b/360/540?grayscale" alt="Andresa Maia">
+        <div class="p4-gradient"></div>
+        <div class="p4-card-info">
+          <span class="p4-card-name">Andresa Maia</span>
+          <span class="p4-card-cat">Corporativo</span>
+          <span class="p4-card-studio">Estúdio Lillia Tavares</span>
+          <a class="p4-card-btn" href="#">Acessar ensaio <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p4-card">
+        <img src="https://picsum.photos/seed/p4c/360/540?grayscale" alt="Camila Nogueira">
+        <div class="p4-gradient"></div>
+        <div class="p4-card-info">
+          <span class="p4-card-name">Camila Nogueira</span>
+          <span class="p4-card-cat">Corporativo</span>
+          <span class="p4-card-studio">Estúdio Lillia Tavares</span>
+          <a class="p4-card-btn" href="#">Acessar ensaio <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p4-card">
+        <img src="https://picsum.photos/seed/p4d/360/540?grayscale" alt="Marcella Castelucci">
+        <div class="p4-gradient"></div>
+        <div class="p4-card-info">
+          <span class="p4-card-name">Marcella Castelucci</span>
+          <span class="p4-card-cat">Corporativo</span>
+          <span class="p4-card-studio">Estúdio Lillia Tavares</span>
+          <a class="p4-card-btn" href="#">Acessar ensaio <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+      <article class="p4-card">
+        <img src="https://picsum.photos/seed/p4e/360/540?grayscale" alt="Monica Rafael">
+        <div class="p4-gradient"></div>
+        <div class="p4-card-info">
+          <span class="p4-card-name">Monica Rafael</span>
+          <span class="p4-card-cat">Corporativo</span>
+          <span class="p4-card-studio">Estúdio Lillia Tavares</span>
+          <a class="p4-card-btn" href="#">Acessar ensaio <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M7 1l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+    </div>
+    <div class="p4-footer">
+      <p>Cada ensaio, uma história única.</p>
+      <a class="p4-cta" href="#">Ver todos os trabalhos <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+</div>
+
+<!-- =============================================
+     PROPOSTA 5 — LISTA VERTICAL ASSIMÉTRICA (radical)
+     ============================================= -->
+<div class="proposal-block" id="p5">
+  <div class="proposal-label">
+    <div class="num">05</div>
+    <div class="title-wrap">
+      <div class="ptitle">Lista Vertical Assimétrica</div>
+      <div class="psub">Radical — layout documental, numeração romana, linha pivot</div>
+    </div>
+    <div class="ptag">Ousada</div>
+  </div>
+  <div class="proposal-rationale">
+    <p><strong>Inspiração</strong>Layouts de fotógrafos documentais (arquivos Magnum, livros Sebastião Salgado) — o grid de 5 colunas é desconstruído em lista. A linha olive na borda esquerda é a espinha dorsal visual. Numeração romana amplifica o caráter artesanal.</p>
+    <p><strong>Problema resolvido</strong>Grid horizontal convencional → hierarquia de lista vertical cria espaço para nome grande, categoria e localização legíveis. A thumbnail em strip 120px é suficiente para reconhecimento sem ser o foco.</p>
+    <p><strong>Trade-off</strong>Quebra radicalmente o padrão de portfolio em grid. Pode ser percebido como "minimalista demais" para clientes que esperam ver fotos grandes. A aposta é que o refinamento compensa — adequado para brand premium.</p>
+  </div>
+  <section class="p5-section" style="background:#fff;">
+
+    <div class="p5-header">
+      <div class="p5-header-idx">Portfólio · 2024</div>
+      <div class="p5-header-text">
+        <h2>Explore meus <em>últimos</em><br>trabalhos</h2>
+<nav class="cat-tabs" aria-label="Categorias de ensaio — links para páginas indexáveis">
+  <a href="/ensaio-fotografico/corporativo" class="cat-tab cat-tab--active" aria-current="page">Corporativo</a>
+  <a href="/ensaio-fotografico/intimista"   class="cat-tab">Intimista</a>
+  <a href="/ensaio-fotografico/familia"     class="cat-tab">Família</a>
+  <a href="/ensaio-fotografico/gestante"    class="cat-tab">Gestante</a>
+  <a href="/ensaio-fotografico"             class="cat-tab cat-tab--all">Ver todos</a>
+</nav>
+
+        <p>Retratos corporativos femininos com a luz natural do Estúdio Lillia Tavares, São Paulo.</p>
+      </div>
+    </div>
+    <div class="p5-list">
+      <article class="p5-item">
+        <div class="p5-roman">I</div>
+        <div class="p5-info">
+          <span class="p5-name">Bruna Freire</span>
+          <span class="p5-cat">Corporativo</span>
+          <span class="p5-studio">Estúdio Lillia Tavares</span>
+        </div>
+        <div class="p5-img-strip">
+          <img src="https://picsum.photos/seed/p5a/600/240?grayscale" alt="Bruna Freire">
+        </div>
+        <div class="p5-action">
+          <a class="p5-action-btn" href="#" title="Acessar ensaio">
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="p5-item">
+        <div class="p5-roman">II</div>
+        <div class="p5-info">
+          <span class="p5-name">Andresa Maia</span>
+          <span class="p5-cat">Corporativo</span>
+          <span class="p5-studio">Estúdio Lillia Tavares</span>
+        </div>
+        <div class="p5-img-strip">
+          <img src="https://picsum.photos/seed/p5b/600/240?grayscale" alt="Andresa Maia">
+        </div>
+        <div class="p5-action">
+          <a class="p5-action-btn" href="#" title="Acessar ensaio">
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="p5-item">
+        <div class="p5-roman">III</div>
+        <div class="p5-info">
+          <span class="p5-name">Camila Nogueira</span>
+          <span class="p5-cat">Corporativo</span>
+          <span class="p5-studio">Estúdio Lillia Tavares</span>
+        </div>
+        <div class="p5-img-strip">
+          <img src="https://picsum.photos/seed/p5c/600/240?grayscale" alt="Camila Nogueira">
+        </div>
+        <div class="p5-action">
+          <a class="p5-action-btn" href="#" title="Acessar ensaio">
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="p5-item">
+        <div class="p5-roman">IV</div>
+        <div class="p5-info">
+          <span class="p5-name">Marcella Castelucci</span>
+          <span class="p5-cat">Corporativo</span>
+          <span class="p5-studio">Estúdio Lillia Tavares</span>
+        </div>
+        <div class="p5-img-strip">
+          <img src="https://picsum.photos/seed/p5d/600/240?grayscale" alt="Marcella Castelucci">
+        </div>
+        <div class="p5-action">
+          <a class="p5-action-btn" href="#" title="Acessar ensaio">
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="p5-item">
+        <div class="p5-roman">V</div>
+        <div class="p5-info">
+          <span class="p5-name">Monica Rafael</span>
+          <span class="p5-cat">Corporativo</span>
+          <span class="p5-studio">Estúdio Lillia Tavares</span>
+        </div>
+        <div class="p5-img-strip">
+          <img src="https://picsum.photos/seed/p5e/600/240?grayscale" alt="Monica Rafael">
+        </div>
+        <div class="p5-action">
+          <a class="p5-action-btn" href="#" title="Acessar ensaio">
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+    <div class="p5-footer">
+      <a class="p5-cta" href="#">Ver todos os trabalhos <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+</div>
+
+<!-- =============================================
+     RANKING FINAL
+     ============================================= -->
+<div class="ranking-block" id="ranking">
+  <h2>Ranking — craft visual</h2>
+  <div class="ranking-list">
+    <div class="rank-item">
+      <div class="rank-pos">1°</div>
+      <div class="rank-content">
+        <div class="rank-title">04 — Magazine Overlay</div>
+        <div class="rank-why">Maior coerência entre identidade e execução. O fundo escuro transforma imagens em objetos de luz — exatamente o que fotografia de retrato merece. Hover em três camadas (cor, texto, CTA) é o hover mais sofisticado das 5. O Cormorant itálico sobre o gradient cria tensão tipográfica real. Risco mais alto, recompensa mais alta.</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-pos">2°</div>
+      <div class="rank-content">
+        <div class="rank-title">01 — Respiração Editorial</div>
+        <div class="rank-why">O "01" em Cormorant 9rem como marca d'água âncora é o flair mais elegante entre as evoluções seguras. Hierarquia tipográfica clara: Cormorant para display, Lato para dados. A linha olive que cresce da base do card é o hover mais honesto — escala o que a imagem promete. Fácil de aprovar com qualquer cliente.</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-pos">3°</div>
+      <div class="rank-content">
+        <div class="rank-title">05 — Lista Vertical Assimétrica</div>
+        <div class="rank-why">O design mais corajoso conceitualmente. A lista documental com numeração romana e espinha olive tem identidade autoral forte. O risco é real: clientes de fotografia esperam imagens grandes. Mas para um brand premium que quer se diferenciar de "mais um portfolio em grid", esta proposta abre conversas importantes.</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-pos">4°</div>
+      <div class="rank-content">
+        <div class="rank-title">03 — Galeria com Ritmo</div>
+        <div class="rank-why">Alturas alternadas resolvem a monotonia sem abandonar o grid. O overlay hover é eficiente. Perde pontos por ser uma solução que já aparece em muitos sites de fotografia — o ritmo sinusoidal é bom, mas não suficientemente distinto. O CTA no topo direito é uma decisão inteligente de UX que compensa.</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-pos">5°</div>
+      <div class="rank-content">
+        <div class="rank-title">02 — Polaroid de Película</div>
+        <div class="rank-why">O conceito é delicioso e a fita adesiva em creme é o melhor detalhe autoral do lote. Mas as rotações criam tensão de alinhamento que pode incomodar em produção com imagens reais de tamanhos variados. A proposta precisa de mais controle sobre as fotos para funcionar bem — em placeholder funciona, mas é a mais dependente de conteúdo real.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Acessibilidade: focus-visible para teclado */
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('focus', () => el.style.outline = '2px solid #7b785b');
+  el.addEventListener('blur', () => el.style.outline = '');
+});
+
+/* Reduced motion */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const style = document.createElement('style');
+  style.textContent = `
+    * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    .p2-card:nth-child(1), .p2-card:nth-child(2), .p2-card:nth-child(3),
+    .p2-card:nth-child(4), .p2-card:nth-child(5) { transform: none !important; }
+    .p2-card:hover { transform: none !important; }
+  `;
+  document.head.appendChild(style);
+}
+</script>
+</body>
+</html>

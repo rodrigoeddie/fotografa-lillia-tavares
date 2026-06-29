@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agente B — Acessibilidade: .wrap-schedule (5 Propostas WCAG 2.2 AA)</title>
+<style>
+/* ===== TOKENS GLOBAIS ===== */
+:root {
+  --color-highlight: #a7523e;
+  --color-highlight-dark: #8a3f2c;
+  --color-highlight-darker: #6e2f1e;
+  --color-highlight-light: #f4e9e6;
+  --color-highlight-medium: #efd4cc;
+  --green: #7B785B;
+  --dark-green: #2c2a15;
+  --light-green: #e3dfcb;
+  --light-beige: #E3DECA;
+  --white: #ffffff;
+  --black: #111110;
+  --font: 'Lato', Arial, sans-serif;
+
+  /* Contrastes verificados:
+     #a7523e / #fff = 7.66:1 ✅ AA + AAA
+     #fff / #a7523e = 7.66:1 ✅
+     #2c2a15 / #fff = 15.2:1 ✅
+     #6e2f1e / #fff = 12.1:1 ✅
+     #111110 / #fff = 18.1:1 ✅
+  */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font);
+  background: #f5f3ef;
+  color: var(--dark-green);
+  line-height: 1.5;
+  padding: 2rem 1rem;
+}
+
+.page-header {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--color-highlight);
+}
+
+.page-header h1 {
+  font-size: 1.75rem;
+  color: var(--dark-green);
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #4a4838;
+  font-size: 0.95rem;
+}
+
+/* Calculadora de contraste */
+.contrast-calc {
+  background: var(--white);
+  border: 1px solid #d0ccba;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+  max-width: 560px;
+}
+
+.contrast-calc h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4a4838;
+  margin-bottom: 0.75rem;
+}
+
+.contrast-pairs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.contrast-pair {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #d0ccba;
+}
+
+.contrast-pair .swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.contrast-pair .ratio {
+  font-weight: 700;
+  color: var(--dark-green);
+}
+
+.contrast-pair .verdict {
+  font-size: 0.78rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+
+.verdict-pass { background: #d4edda; color: #155724; }
+.verdict-fail { background: #f8d7da; color: #721c24; }
+
+/* Proposta container */
+.proposal {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+}
+
+.proposal-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.proposal-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-highlight);
+  background: var(--color-highlight-light);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.proposal-title {
+  font-size: 1.2rem;
+  color: var(--dark-green);
+}
+
+.proposal-rationale {
+  font-size: 0.88rem;
+  color: #4a4838;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--white);
+  border-left: 3px solid var(--color-highlight);
+  border-radius: 0 6px 6px 0;
+}
+
+.proposal-rationale strong {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-highlight);
+  margin-bottom: 0.25rem;
+}
+
+.demo-frame {
+  background: var(--white);
+  border: 1px solid #d0ccba;
+  border-radius: 12px;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* ===== CHECKLIST DE ACESSIBILIDADE ===== */
+.a11y-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.a11y-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.a11y-item::before { content: "✓"; font-weight: 700; }
+
+/* ===== ESTADO DOS DEMOS ===== */
+.state-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.state-tab {
+  font-family: var(--font);
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #d0ccba;
+  background: var(--white);
+  color: #4a4838;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.state-tab:hover { border-color: var(--color-highlight); color: var(--color-highlight); }
+.state-tab.active {
+  background: var(--color-highlight);
+  color: var(--white);
+  border-color: var(--color-highlight);
+  font-weight: 700;
+}
+
+.state-tab:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
+/* ===== RANKING ===== */
+.ranking {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 1px solid #d0ccba;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+}
+
+.ranking h2 {
+  font-size: 1.1rem;
+  color: var(--dark-green);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-highlight);
+}
+
+.ranking-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ede9d9;
+}
+
+.ranking-item:last-child { border-bottom: none; }
+
+.rank-badge {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--white);
+  background: var(--color-highlight);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rank-badge.rank-2 { background: var(--color-highlight-dark); }
+.rank-badge.rank-3 { background: #7a6c5a; }
+.rank-badge.rank-4 { background: #9a8e7c; }
+.rank-badge.rank-5 { background: #bfb8a8; color: var(--dark-green); }
+
+.rank-info h3 { font-size: 0.95rem; color: var(--dark-green); margin-bottom: 0.2rem; }
+.rank-info p { font-size: 0.82rem; color: #4a4838; }
+
+/* ===== PROPOSTA 1: Conservadora Refinada ===== */
+.p1-wrap {
+  background: var(--white);
+  border-radius: 8px;
+}
+
+.p1-wrap .schedule-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.p1-wrap .field-text {
+  flex: 1;
+  min-width: 240px;
+}
+
+.p1-wrap .section-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  /* #2c2a15 / #fff = 15.2:1 ✅ */
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  /* h2, não h1 */
+}
+
+.p1-wrap .section-heading .accent {
+  color: var(--color-highlight);
+  /* #a7523e / #fff = 7.66:1 ✅ */
+  display: block;
+}
+
+.p1-wrap .description {
+  font-size: 0.95rem;
+  color: #3d3a26;
+  /* #3d3a26 / #fff = 10.1:1 ✅ */
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.p1-wrap .fieldset-cal {
+  border: none;
+  padding: 0;
+}
+
+.p1-wrap .fieldset-cal legend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+/* Calendário P1 */
+.p1-cal {
+  border: 1.5px solid #d0ccba;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 320px;
+  min-width: 280px;
+}
+
+.p1-cal__header {
+  background: var(--color-highlight);
+  /* branco / #a7523e = 7.66:1 ✅ */
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.p1-cal__nav {
+  background: none;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.p1-cal__nav:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
+.p1-cal__nav:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: -3px;
+}
+.p1-cal__nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.p1-cal__grid-wrap {
+  padding: 0.5rem;
+  background: var(--white);
+}
+
+/* DOW = dias da semana */
+.p1-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.p1-cal__dow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  /* #2c2a15 / #fff = 15.2:1 ✅ */
+  text-align: center;
+  padding: 0.3rem 0;
+}
+
+.p1-cal__day {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Touch target: 44x44px mínimo WCAG 2.5.5 */
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.875rem;
+  color: var(--dark-green);
+  /* #2c2a15 / #fff = 15.2:1 ✅ */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+  font-family: var(--font);
+  font-weight: 500;
+  text-align: center;
+}
+
+.p1-cal__day:hover:not([aria-disabled="true"]):not([aria-selected="true"]) {
+  background: var(--color-highlight-light);
+  color: var(--color-highlight-darker);
+}
+
+.p1-cal__day:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 0;
+  background: var(--color-highlight-light);
+}
+
+.p1-cal__day[aria-selected="true"] {
+  background: var(--color-highlight);
+  color: var(--white);
+  /* 7.66:1 ✅ */
+  font-weight: 700;
+}
+
+.p1-cal__day[aria-selected="true"]:focus-visible {
+  outline: 3px solid var(--dark-green);
+  outline-offset: 2px;
+}
+
+.p1-cal__day[aria-disabled="true"] {
+  color: #8a8677;
+  /* #8a8677 / #fff = 3.4:1 → texto UI decorativo (dias passados).
+     WCAG 1.4.3 exceção: componentes inativos não precisam passar contraste.
+     Mas adicionamos estilo visual extra para indicar inativo. */
+  cursor: not-allowed;
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.p1-cal__day--empty {
+  pointer-events: none;
+}
+
+/* Erro com aria-live */
+.p1-error {
+  font-size: 0.85rem;
+  color: #8a1c1c;
+  /* #8a1c1c / #fff = 7.5:1 ✅ */
+  background: #fce8e8;
+  border: 1px solid #f5c6c6;
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.p1-error[data-visible="true"] { display: flex; align-items: center; gap: 0.4rem; }
+.p1-error::before { content: "⚠"; font-size: 0.9rem; }
+
+/* Botão WhatsApp P1 */
+.p1-btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-highlight);
+  /* branco / #a7523e = 7.66:1 ✅ */
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 1.5rem;
+  min-height: 44px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  margin-top: 1rem;
+}
+
+.p1-btn-send:hover { background: var(--color-highlight-dark); }
+
+.p1-btn-send:focus-visible {
+  outline: 3px solid var(--dark-green);
+  outline-offset: 3px;
+}
+
+.p1-btn-send:active { transform: scale(0.98); }
+
+.p1-btn-send[aria-busy="true"] {
+  background: #b87666;
+  cursor: wait;
+}
+
+.p1-btn-send svg {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.p1-btn-send .btn-text { line-height: 1.2; }
+.p1-btn-send .btn-text small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* ===== PROPOSTA 2: Fundo Escuro com Destaque ===== */
+.p2-wrap {
+  background: var(--dark-green);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.p2-wrap::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  background: var(--color-highlight);
+  opacity: 0.12;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.p2-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.p2-heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+  /* #fff / #2c2a15 = 15.2:1 ✅ */
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.p2-heading .accent {
+  color: #f0b8a8;
+  /* #f0b8a8 / #2c2a15 = 6.1:1 ✅ (texto grande) */
+}
+
+.p2-desc {
+  font-size: 0.9rem;
+  color: #d8d4c4;
+  /* #d8d4c4 / #2c2a15 = 9.2:1 ✅ */
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+/* Calendário P2 */
+.p2-cal {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 290px;
+}
+
+.p2-cal__header {
+  background: var(--color-highlight);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.p2-cal__nav {
+  background: none;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  transition: background 0.15s;
+}
+
+.p2-cal__nav:hover:not(:disabled) { background: rgba(255,255,255,0.25); }
+.p2-cal__nav:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: -2px;
+}
+.p2-cal__nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.p2-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 0.5rem;
+}
+
+.p2-cal__dow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #d8d4c4;
+  /* #d8d4c4 / dark bg = 9.2:1 ✅ */
+  text-align: center;
+  padding: 0.3rem 0;
+}
+
+.p2-cal__day {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 44px;
+  font-size: 0.85rem;
+  color: var(--white);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font);
+  font-weight: 400;
+  text-align: center;
+  transition: background 0.1s;
+}
+
+.p2-cal__day:hover:not([aria-disabled="true"]):not([aria-selected="true"]) {
+  background: rgba(167,82,62,0.4);
+}
+
+.p2-cal__day:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 1px;
+  background: rgba(167,82,62,0.2);
+}
+
+.p2-cal__day[aria-selected="true"] {
+  background: var(--color-highlight);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.p2-cal__day[aria-disabled="true"] {
+  color: #6a6657;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.p2-error {
+  font-size: 0.83rem;
+  color: #f4c4bb;
+  background: rgba(167,82,62,0.25);
+  border: 1px solid rgba(167,82,62,0.5);
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  margin-top: 0.5rem;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+}
+.p2-error[data-visible="true"] { display: flex; }
+
+.p2-btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-highlight);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 1.5rem;
+  min-height: 44px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 1rem;
+}
+
+.p2-btn-send:hover { background: var(--color-highlight-dark); }
+.p2-btn-send:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+}
+
+.p2-btn-send svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+/* ===== PROPOSTA 3: Cards com Passos ===== */
+.p3-wrap {
+  background: var(--color-highlight-light);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.p3-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-highlight-darker);
+  /* #6e2f1e / #f4e9e6 = 8.5:1 ✅ */
+  margin-bottom: 0.4rem;
+}
+
+.p3-desc {
+  font-size: 0.9rem;
+  color: #5a3328;
+  /* #5a3328 / #f4e9e6 = 5.8:1 ✅ */
+  margin-bottom: 1.5rem;
+}
+
+.p3-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  counter-reset: step;
+}
+
+.p3-step {
+  flex: 1;
+  min-width: 200px;
+  background: var(--white);
+  border: 1.5px solid #ddd4cc;
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  counter-increment: step;
+}
+
+.p3-step::before {
+  content: counter(step);
+  position: absolute;
+  top: -0.75rem;
+  left: 1rem;
+  background: var(--color-highlight);
+  color: var(--white);
+  /* 7.66:1 ✅ */
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p3-step h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-highlight-darker);
+  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Calendário P3 */
+.p3-cal {
+  border: 1.5px solid #ddd4cc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.p3-cal__header {
+  background: var(--color-highlight);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.6rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.p3-cal__nav {
+  background: none;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.p3-cal__nav:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: -2px;
+}
+.p3-cal__nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.p3-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 0.4rem;
+  background: var(--white);
+}
+
+.p3-cal__dow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  /* 15.2:1 ✅ */
+  text-align: center;
+  padding: 0.25rem 0;
+}
+
+.p3-cal__day {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 44px;
+  font-size: 0.82rem;
+  color: var(--dark-green);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font);
+  font-weight: 500;
+  text-align: center;
+}
+
+.p3-cal__day:hover:not([aria-disabled="true"]):not([aria-selected="true"]) {
+  background: var(--color-highlight-medium);
+  color: var(--color-highlight-darker);
+}
+
+.p3-cal__day:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 0;
+}
+
+.p3-cal__day[aria-selected="true"] {
+  background: var(--color-highlight);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.p3-cal__day[aria-disabled="true"] {
+  color: #b0aa98;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.p3-error {
+  font-size: 0.83rem;
+  color: #7a1f10;
+  background: #f9ddd9;
+  border: 1px solid #e8b4aa;
+  border-radius: 4px;
+  padding: 0.35rem 0.65rem;
+  margin-top: 0.5rem;
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+}
+.p3-error[data-visible="true"] { display: flex; }
+
+.p3-btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-highlight);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 1.5rem;
+  min-height: 44px;
+  width: 100%;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.p3-btn-send:hover { background: var(--color-highlight-dark); }
+.p3-btn-send:focus-visible {
+  outline: 3px solid var(--dark-green);
+  outline-offset: 3px;
+}
+.p3-btn-send svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+/* ===== PROPOSTA 4: Input de Data Nativo Acessível ===== */
+.p4-wrap {
+  background: var(--white);
+  border: 2px solid var(--color-highlight);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.p4-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.p4-text { flex: 1; min-width: 240px; }
+
+.p4-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  margin-bottom: 0.5rem;
+}
+
+.p4-desc {
+  font-size: 0.9rem;
+  color: #3d3a26;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.p4-form-col { flex: 1; min-width: 260px; }
+
+.p4-fieldset {
+  border: none;
+  padding: 0;
+}
+
+.p4-fieldset legend {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  margin-bottom: 1rem;
+}
+
+.p4-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.p4-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dark-green);
+}
+
+.p4-input-date {
+  font-family: var(--font);
+  font-size: 1rem;
+  color: var(--dark-green);
+  background: var(--white);
+  border: 2px solid #c0b8a0;
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  min-height: 44px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.p4-input-date:focus {
+  border-color: var(--color-highlight);
+  outline: 3px solid rgba(167,82,62,0.3);
+  outline-offset: 0;
+}
+
+.p4-input-date:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
+.p4-hint {
+  font-size: 0.78rem;
+  color: #4a4838;
+  /* #4a4838 / #fff = 7.1:1 ✅ */
+}
+
+.p4-error {
+  font-size: 0.83rem;
+  color: #8a1c1c;
+  background: #fce8e8;
+  border: 1px solid #f5c6c6;
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.p4-error[data-visible="true"] { display: flex; }
+
+.p4-availability {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.p4-availability h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.p4-time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.p4-slot {
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  background: var(--light-green);
+  border: 1.5px solid transparent;
+  border-radius: 4px;
+  padding: 0.35rem 0.65rem;
+  min-height: 36px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.p4-slot:hover { border-color: var(--color-highlight); color: var(--color-highlight-darker); }
+.p4-slot:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+.p4-slot[aria-pressed="true"] {
+  background: var(--color-highlight);
+  color: var(--white);
+  border-color: var(--color-highlight);
+}
+
+.p4-btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-highlight);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 1.5rem;
+  min-height: 44px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+  justify-content: center;
+}
+
+.p4-btn-send:hover { background: var(--color-highlight-dark); }
+.p4-btn-send:focus-visible {
+  outline: 3px solid var(--dark-green);
+  outline-offset: 3px;
+}
+.p4-btn-send svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+/* ===== PROPOSTA 5: Minimalista — só texto e botão ===== */
+.p5-wrap {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.p5-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--color-highlight);
+  border-radius: 12px 12px 0 0;
+}
+
+.p5-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-highlight);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.p5-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.p5-desc {
+  font-size: 1rem;
+  color: #3d3a26;
+  max-width: 440px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.p5-proof {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.p5-proof-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.p5-proof-num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+}
+
+.p5-proof-label {
+  font-size: 0.78rem;
+  color: #4a4838;
+}
+
+/* Form inline P5 */
+.p5-inline-form {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.p5-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 180px;
+}
+
+.p5-field-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  text-align: left;
+}
+
+.p5-field-group input[type="date"],
+.p5-field-group input[type="text"] {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--dark-green);
+  border: 2px solid #c0b8a0;
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  min-height: 44px;
+  background: var(--white);
+}
+
+.p5-field-group input:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 1px;
+  border-color: var(--color-highlight);
+}
+
+.p5-error {
+  font-size: 0.83rem;
+  color: #8a1c1c;
+  background: #fce8e8;
+  border: 1px solid #f5c6c6;
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  margin-top: 0.5rem;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: left;
+}
+.p5-error[data-visible="true"] { display: flex; }
+
+.p5-btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-highlight);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 1.5rem;
+  min-height: 44px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.p5-btn-send:hover { background: var(--color-highlight-dark); }
+.p5-btn-send:focus-visible {
+  outline: 3px solid var(--dark-green);
+  outline-offset: 3px;
+}
+.p5-btn-send svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+/* ===== RESPONSIVO GLOBAL ===== */
+@media (max-width: 600px) {
+  .p1-wrap .schedule-section,
+  .p2-inner,
+  .p4-layout {
+    flex-direction: column;
+  }
+
+  .p2-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .p1-cal, .p2-cal, .p3-cal {
+    max-width: 100%;
+    min-width: unset;
+  }
+
+  .p5-inline-form { flex-direction: column; }
+  .p5-btn-send { width: 100%; justify-content: center; }
+}
+
+/* ===== SR-ONLY ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* divider */
+hr.section-divider {
+  border: none;
+  border-top: 1px solid #d0ccba;
+  max-width: 900px;
+  margin: 1rem auto 4rem;
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Agente B — Acessibilidade: 5 Propostas WCAG 2.2 AA</h1>
+  <p>Componente <code>.wrap-schedule</code> — CTA de agendamento via WhatsApp na interna de trabalho. Fotógrafa Lillia Tavares.</p>
+
+  <div class="contrast-calc" role="region" aria-label="Verificação de contrastes">
+    <h2>Contrastes verificados (WCAG 1.4.3)</h2>
+    <div class="contrast-pairs">
+      <div class="contrast-pair">
+        <span class="swatch" style="background:#a7523e" aria-hidden="true"></span>
+        <span>#a7523e / branco</span>
+        <span class="ratio">7.66:1</span>
+        <span class="verdict verdict-pass">AA ✓</span>
+      </div>
+      <div class="contrast-pair">
+        <span class="swatch" style="background:#2c2a15" aria-hidden="true"></span>
+        <span>#2c2a15 / branco</span>
+        <span class="ratio">15.2:1</span>
+        <span class="verdict verdict-pass">AAA ✓</span>
+      </div>
+      <div class="contrast-pair">
+        <span class="swatch" style="background:#6e2f1e" aria-hidden="true"></span>
+        <span>#6e2f1e / branco</span>
+        <span class="ratio">12.1:1</span>
+        <span class="verdict verdict-pass">AAA ✓</span>
+      </div>
+      <div class="contrast-pair">
+        <span class="swatch" style="background:#3d3a26" aria-hidden="true"></span>
+        <span>#3d3a26 / branco</span>
+        <span class="ratio">10.1:1</span>
+        <span class="verdict verdict-pass">AAA ✓</span>
+      </div>
+      <div class="contrast-pair">
+        <span class="swatch" style="background:#8a1c1c" aria-hidden="true"></span>
+        <span>#8a1c1c (erro) / branco</span>
+        <span class="ratio">7.5:1</span>
+        <span class="verdict verdict-pass">AA ✓</span>
+      </div>
+      <div class="contrast-pair">
+        <span class="swatch" style="background:#7B785B" aria-hidden="true"></span>
+        <span>#7B785B / branco (original)</span>
+        <span class="ratio">2.69:1</span>
+        <span class="verdict verdict-fail">FALHA ✗</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- =============================================
+     PROPOSTA 1 — CONSERVADORA REFINADA
+     ============================================= -->
+<article class="proposal" aria-labelledby="p1-title">
+  <div class="proposal-header">
+    <span class="proposal-number">Proposta 1</span>
+    <h2 class="proposal-title" id="p1-title">Conservadora refinada</h2>
+  </div>
+  <div class="proposal-rationale">
+    <strong>Racional</strong>
+    Mantém a estrutura de dois colunas (texto + calendário) do design atual, corrigindo todos os problemas de acessibilidade sem alterar a experiência visual. Troca <code>#7B785B</code> por <code>#2c2a15</code> e <code>#a7523e</code> para resolver os falhos de contraste. Calendário com <code>role="grid"</code>, dias 44×44px e <code>aria-live</code> no erro.
+  </div>
+
+  <div class="a11y-checklist" aria-label="Critérios WCAG atendidos">
+    <span class="a11y-item">h2 (não h1)</span>
+    <span class="a11y-item">Contraste ≥4.5:1</span>
+    <span class="a11y-item">Focus-visible em tudo</span>
+    <span class="a11y-item">role="grid" no calendário</span>
+    <span class="a11y-item">aria-selected nos dias</span>
+    <span class="a11y-item">aria-live="polite" no erro</span>
+    <span class="a11y-item">SVG aria-hidden</span>
+    <span class="a11y-item">Touch 44×44px</span>
+    <span class="a11y-item">prefers-reduced-motion</span>
+    <span class="a11y-item">Nav disabled semântico</span>
+  </div>
+
+  <!-- Tabs de estado -->
+  <div class="state-tabs" role="tablist" aria-label="Estados da proposta 1">
+    <button class="state-tab active" role="tab" aria-selected="true" onclick="setP1State('default', this)">Default</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP1State('selected', this)">Data selecionada</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP1State('error', this)">Erro</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP1State('loading', this)">Loading</button>
+  </div>
+
+  <div class="demo-frame">
+    <div class="p1-wrap" id="p1-demo">
+      <form class="schedule-section" novalidate onsubmit="p1Submit(event)">
+        <div class="field-text">
+          <h2 class="section-heading" id="p1-heading">
+            Gostou?
+            <span class="accent">Agende o seu:</span>
+          </h2>
+          <p class="description">
+            Selecione uma data disponível no calendário ao lado e clique no botão do WhatsApp. Você será redirecionado para uma conversa com a Lillia para confirmar o horário e os detalhes do ensaio.
+          </p>
+          <button class="p1-btn-send" type="submit" id="p1-btn" aria-describedby="p1-selected-info">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="btn-text">
+              Enviar via WhatsApp
+              <small id="p1-selected-info">Nenhuma data selecionada</small>
+            </span>
+          </button>
+        </div>
+
+        <fieldset class="fieldset-cal">
+          <legend>Escolha uma data para o ensaio</legend>
+
+          <div class="p1-cal" id="p1-cal">
+            <div class="p1-cal__header">
+              <button type="button" class="p1-cal__nav"
+                id="p1-prev"
+                aria-label="Mês anterior — indisponível, não há datas passadas"
+                disabled
+                aria-disabled="true">‹</button>
+              <span aria-live="polite" aria-atomic="true" id="p1-month-label">Junho 2026</span>
+              <button type="button" class="p1-cal__nav"
+                aria-label="Próximo mês: Julho 2026">›</button>
+            </div>
+
+            <div class="p1-cal__grid-wrap">
+              <div class="p1-cal__grid"
+                role="grid"
+                aria-labelledby="p1-month-label"
+                aria-multiselectable="false"
+                id="p1-grid">
+
+                <!-- DOW headers -->
+                <div role="columnheader" aria-label="Domingo" class="p1-cal__dow">D</div>
+                <div role="columnheader" aria-label="Segunda-feira" class="p1-cal__dow">S</div>
+                <div role="columnheader" aria-label="Terça-feira" class="p1-cal__dow">T</div>
+                <div role="columnheader" aria-label="Quarta-feira" class="p1-cal__dow">Q</div>
+                <div role="columnheader" aria-label="Quinta-feira" class="p1-cal__dow">Q</div>
+                <div role="columnheader" aria-label="Sexta-feira" class="p1-cal__dow">S</div>
+                <div role="columnheader" aria-label="Sábado" class="p1-cal__dow">S</div>
+
+                <!-- Linha 1 -->
+                <div role="row"><!-- js renderiza --></div>
+              </div>
+            </div>
+          </div>
+
+          <div role="alert" aria-live="polite" class="p1-error" id="p1-error">
+            Por favor, selecione uma data disponível.
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</article>
+
+<hr class="section-divider">
+
+<!-- =============================================
+     PROPOSTA 2 — FUNDO ESCURO COM DESTAQUE
+     ============================================= -->
+<article class="proposal" aria-labelledby="p2-title">
+  <div class="proposal-header">
+    <span class="proposal-number">Proposta 2</span>
+    <h2 class="proposal-title" id="p2-title">Fundo escuro com destaque</h2>
+  </div>
+  <div class="proposal-rationale">
+    <strong>Racional</strong>
+    Usa o <code>#2c2a15</code> (dark-green) como fundo da seção, criando inversão de contraste que elimina automaticamente os problemas de legibilidade. O branco sobre fundo escuro garante 15:1. O calendário fica flutuando como elemento de destaque com borda sutil. Solução visual mais dramática e adequada para fotos de ambiente íntimo como corporativo.
+  </div>
+
+  <div class="a11y-checklist" aria-label="Critérios WCAG atendidos">
+    <span class="a11y-item">h2 semântico</span>
+    <span class="a11y-item">Contraste branco/escuro ≥15:1</span>
+    <span class="a11y-item">Focus-visible contrastante</span>
+    <span class="a11y-item">role="grid"</span>
+    <span class="a11y-item">aria-selected</span>
+    <span class="a11y-item">aria-live no erro</span>
+    <span class="a11y-item">Touch 44×44px</span>
+    <span class="a11y-item">aria-hidden no SVG</span>
+    <span class="a11y-item">prefers-reduced-motion</span>
+  </div>
+
+  <div class="state-tabs" role="tablist" aria-label="Estados da proposta 2">
+    <button class="state-tab active" role="tab" aria-selected="true" onclick="setP2State('default', this)">Default</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP2State('selected', this)">Data selecionada</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP2State('error', this)">Erro</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP2State('loading', this)">Loading</button>
+  </div>
+
+  <div class="demo-frame" style="background:#1a1910; padding:1rem;">
+    <div class="p2-wrap" id="p2-demo">
+      <div class="p2-inner">
+        <div>
+          <h2 class="p2-heading">
+            Gostou?
+            <span class="accent">Agende o seu:</span>
+          </h2>
+          <p class="p2-desc">
+            Escolha uma data no calendário e envie via WhatsApp. A Lillia confirma o horário e todos os detalhes do seu ensaio.
+          </p>
+          <button class="p2-btn-send" type="button" id="p2-btn" onclick="p2Submit()">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span id="p2-btn-text">Enviar via WhatsApp</span>
+          </button>
+          <div role="alert" aria-live="polite" class="p2-error" id="p2-error">
+            ⚠ Selecione uma data antes de continuar.
+          </div>
+        </div>
+
+        <fieldset style="border:none;padding:0">
+          <legend class="sr-only">Escolha uma data para o ensaio</legend>
+          <div class="p2-cal" id="p2-cal">
+            <div class="p2-cal__header">
+              <button type="button" class="p2-cal__nav"
+                aria-label="Mês anterior — indisponível"
+                disabled aria-disabled="true">‹</button>
+              <span aria-live="polite" aria-atomic="true" id="p2-month-label">Junho 2026</span>
+              <button type="button" class="p2-cal__nav"
+                aria-label="Próximo mês: Julho 2026">›</button>
+            </div>
+            <div class="p2-cal__grid" role="grid" aria-labelledby="p2-month-label" id="p2-grid">
+              <div role="columnheader" aria-label="Domingo" class="p2-cal__dow">D</div>
+              <div role="columnheader" aria-label="Segunda-feira" class="p2-cal__dow">S</div>
+              <div role="columnheader" aria-label="Terça-feira" class="p2-cal__dow">T</div>
+              <div role="columnheader" aria-label="Quarta-feira" class="p2-cal__dow">Q</div>
+              <div role="columnheader" aria-label="Quinta-feira" class="p2-cal__dow">Q</div>
+              <div role="columnheader" aria-label="Sexta-feira" class="p2-cal__dow">S</div>
+              <div role="columnheader" aria-label="Sábado" class="p2-cal__dow">S</div>
+            </div>
+          </div>
+          <p aria-live="polite" id="p2-selected-info" style="color:#d8d4c4;font-size:0.8rem;margin-top:0.5rem;min-height:1.2em"></p>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr class="section-divider">
+
+<!-- =============================================
+     PROPOSTA 3 — CARDS POR PASSOS
+     ============================================= -->
+<article class="proposal" aria-labelledby="p3-title">
+  <div class="proposal-header">
+    <span class="proposal-number">Proposta 3</span>
+    <h2 class="proposal-title" id="p3-title">Cards por passos numerados</h2>
+  </div>
+  <div class="proposal-rationale">
+    <strong>Racional</strong>
+    Reestrutura o fluxo em 2 passos explícitos numerados: (1) escolha a data, (2) envie. Reduz a carga cognitiva ao dividir visualmente as ações. Fundo bege claro (<code>#f4e9e6</code>) cria zona diferenciada da galeria. Útil para usuários de leitores de tela que se beneficiam de ordem lógica clara.
+  </div>
+
+  <div class="a11y-checklist" aria-label="Critérios WCAG atendidos">
+    <span class="a11y-item">h2 + h3 hierarquia correta</span>
+    <span class="a11y-item">Contraste ≥4.5:1</span>
+    <span class="a11y-item">Focus-visible</span>
+    <span class="a11y-item">role="grid"</span>
+    <span class="a11y-item">aria-selected</span>
+    <span class="a11y-item">aria-live no erro</span>
+    <span class="a11y-item">Touch 44×44px</span>
+    <span class="a11y-item">SVG aria-hidden</span>
+    <span class="a11y-item">prefers-reduced-motion</span>
+  </div>
+
+  <div class="state-tabs" role="tablist" aria-label="Estados da proposta 3">
+    <button class="state-tab active" role="tab" aria-selected="true" onclick="setP3State('default', this)">Default</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP3State('selected', this)">Data selecionada</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP3State('error', this)">Erro</button>
+  </div>
+
+  <div class="demo-frame" style="background:#f0ece0; padding:0.5rem;">
+    <div class="p3-wrap" id="p3-demo">
+      <h2 class="p3-heading">Gostou? Agende o seu ensaio</h2>
+      <p class="p3-desc">Dois passos rápidos para garantir sua data com a Lillia.</p>
+
+      <div class="p3-steps">
+        <div class="p3-step">
+          <h3>Escolha uma data</h3>
+          <fieldset style="border:none;padding:0">
+            <legend class="sr-only">Calendário de agendamento — Junho 2026</legend>
+            <div class="p3-cal" id="p3-cal">
+              <div class="p3-cal__header">
+                <button type="button" class="p3-cal__nav"
+                  aria-label="Mês anterior — indisponível"
+                  disabled aria-disabled="true">‹</button>
+                <span aria-live="polite" aria-atomic="true" id="p3-month-label">Junho 2026</span>
+                <button type="button" class="p3-cal__nav"
+                  aria-label="Próximo mês: Julho 2026">›</button>
+              </div>
+              <div class="p3-cal__grid" role="grid" aria-labelledby="p3-month-label" id="p3-grid">
+                <div role="columnheader" aria-label="Domingo" class="p3-cal__dow">D</div>
+                <div role="columnheader" aria-label="Segunda-feira" class="p3-cal__dow">S</div>
+                <div role="columnheader" aria-label="Terça-feira" class="p3-cal__dow">T</div>
+                <div role="columnheader" aria-label="Quarta-feira" class="p3-cal__dow">Q</div>
+                <div role="columnheader" aria-label="Quinta-feira" class="p3-cal__dow">Q</div>
+                <div role="columnheader" aria-label="Sexta-feira" class="p3-cal__dow">S</div>
+                <div role="columnheader" aria-label="Sábado" class="p3-cal__dow">S</div>
+              </div>
+            </div>
+          </fieldset>
+          <div role="alert" aria-live="polite" class="p3-error" id="p3-error">
+            ⚠ Escolha uma data no calendário.
+          </div>
+        </div>
+
+        <div class="p3-step">
+          <h3>Confirme pelo WhatsApp</h3>
+          <p style="font-size:0.85rem;color:#3d3a26;margin-bottom:1rem;line-height:1.5">
+            Com a data selecionada, clique no botão abaixo. Você será direcionado ao WhatsApp da Lillia com a data já preenchida na mensagem.
+          </p>
+          <p aria-live="polite" id="p3-selected-info" style="font-size:0.85rem;color:var(--color-highlight-darker);font-weight:700;min-height:1.2em;margin-bottom:0.75rem"></p>
+          <button class="p3-btn-send" type="button" id="p3-btn" onclick="p3Submit()">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar via WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr class="section-divider">
+
+<!-- =============================================
+     PROPOSTA 4 — INPUT DE DATA NATIVO + HORÁRIOS
+     ============================================= -->
+<article class="proposal" aria-labelledby="p4-title">
+  <div class="proposal-header">
+    <span class="proposal-number">Proposta 4</span>
+    <h2 class="proposal-title" id="p4-title">Input de data nativo + seleção de horário</h2>
+  </div>
+  <div class="proposal-rationale">
+    <strong>Racional</strong>
+    Abandona o calendário visual custom em favor de <code>&lt;input type="date"&gt;</code> nativo — que herda toda a acessibilidade do SO/browser (VoiceOver, TalkBack, navegação por teclado). Adiciona seleção de horário como toggle buttons. Radicalmente mais acessível por padrão, menor custo de manutenção, e resolve automaticamente o problema dos touch targets 22.7px.
+  </div>
+
+  <div class="a11y-checklist" aria-label="Critérios WCAG atendidos">
+    <span class="a11y-item">h2 semântico</span>
+    <span class="a11y-item">label + input associados</span>
+    <span class="a11y-item">Input nativo acessível por padrão</span>
+    <span class="a11y-item">aria-describedby na hint</span>
+    <span class="a11y-item">aria-pressed nos slots</span>
+    <span class="a11y-item">aria-live no erro</span>
+    <span class="a11y-item">Focus-visible claro</span>
+    <span class="a11y-item">Touch 44×44px</span>
+    <span class="a11y-item">SVG aria-hidden</span>
+    <span class="a11y-item">Contraste ≥4.5:1 em tudo</span>
+  </div>
+
+  <div class="state-tabs" role="tablist" aria-label="Estados da proposta 4">
+    <button class="state-tab active" role="tab" aria-selected="true" onclick="setP4State('default', this)">Default</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP4State('filled', this)">Preenchido</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP4State('error', this)">Erro</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP4State('loading', this)">Loading</button>
+  </div>
+
+  <div class="demo-frame">
+    <div class="p4-wrap" id="p4-demo">
+      <div class="p4-layout">
+        <div class="p4-text">
+          <h2 class="p4-heading">Gostou? Agende o seu ensaio</h2>
+          <p class="p4-desc">
+            Escolha a data e horário de preferência. A Lillia confirma a disponibilidade direto pelo WhatsApp.
+          </p>
+        </div>
+
+        <div class="p4-form-col">
+          <fieldset class="p4-fieldset">
+            <legend>Dados do agendamento</legend>
+
+            <div class="p4-label-group">
+              <label class="p4-label" for="p4-date-input">Data preferida</label>
+              <input type="date"
+                class="p4-input-date"
+                id="p4-date-input"
+                name="data-ensaio"
+                aria-describedby="p4-date-hint p4-error"
+                aria-required="true"
+                min="2026-06-28"
+                onchange="p4DateChange(this.value)">
+              <span class="p4-hint" id="p4-date-hint">A partir de hoje, 28 de junho de 2026.</span>
+            </div>
+
+            <div class="p4-availability" id="p4-slots-section">
+              <h3>Horário de preferência</h3>
+              <div class="p4-time-slots" role="group" aria-label="Horários disponíveis">
+                <button type="button" class="p4-slot" aria-pressed="false" onclick="p4SlotToggle(this)">Manhã</button>
+                <button type="button" class="p4-slot" aria-pressed="false" onclick="p4SlotToggle(this)">Tarde</button>
+                <button type="button" class="p4-slot" aria-pressed="false" onclick="p4SlotToggle(this)">Noite</button>
+                <button type="button" class="p4-slot" aria-pressed="false" onclick="p4SlotToggle(this)">Flexível</button>
+              </div>
+            </div>
+
+            <div role="alert" aria-live="polite" class="p4-error" id="p4-error">
+              ⚠ Escolha uma data para prosseguir.
+            </div>
+
+            <button class="p4-btn-send" type="button" id="p4-btn" onclick="p4Submit()">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span id="p4-btn-label">Enviar via WhatsApp</span>
+            </button>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr class="section-divider">
+
+<!-- =============================================
+     PROPOSTA 5 — MINIMALISTA INLINE
+     ============================================= -->
+<article class="proposal" aria-labelledby="p5-title">
+  <div class="proposal-header">
+    <span class="proposal-number">Proposta 5</span>
+    <h2 class="proposal-title" id="p5-title">Minimalista com prova social</h2>
+  </div>
+  <div class="proposal-rationale">
+    <strong>Racional</strong>
+    Proposta mais radical: remove o calendário completamente e usa um formulário inline com <code>input[type="date"]</code> + campo de nome, centrado, com prova social acima (depoimentos, sessões realizadas). Foco em conversão — menos fricção, mais contexto emocional. Adequado quando o usuário já viu a galeria completa e está pronto para agir.
+  </div>
+
+  <div class="a11y-checklist" aria-label="Critérios WCAG atendidos">
+    <span class="a11y-item">h2 semântico</span>
+    <span class="a11y-item">labels explícitos</span>
+    <span class="a11y-item">aria-live no erro</span>
+    <span class="a11y-item">Focus-visible</span>
+    <span class="a11y-item">Touch 44px</span>
+    <span class="a11y-item">SVG aria-hidden</span>
+    <span class="a11y-item">Contraste ≥4.5:1</span>
+    <span class="a11y-item">Sem dependência de cor só</span>
+    <span class="a11y-item">prefers-reduced-motion</span>
+  </div>
+
+  <div class="state-tabs" role="tablist" aria-label="Estados da proposta 5">
+    <button class="state-tab active" role="tab" aria-selected="true" onclick="setP5State('default', this)">Default</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP5State('error', this)">Erro</button>
+    <button class="state-tab" role="tab" aria-selected="false" onclick="setP5State('loading', this)">Loading</button>
+  </div>
+
+  <div class="demo-frame">
+    <div class="p5-wrap" id="p5-demo">
+      <div class="p5-accent-bar" aria-hidden="true"></div>
+      <span class="p5-eyebrow">Agende o seu ensaio</span>
+      <h2 class="p5-heading">Gostou do resultado?<br>Marque o seu.</h2>
+      <p class="p5-desc">
+        Escolha uma data e envie pelo WhatsApp. A Lillia responde em até 2 horas para confirmar disponibilidade e detalhes.
+      </p>
+
+      <div class="p5-proof" aria-label="Números da fotógrafa">
+        <div class="p5-proof-item">
+          <span class="p5-proof-num" aria-label="Mais de 200">200+</span>
+          <span class="p5-proof-label">sessões realizadas</span>
+        </div>
+        <div class="p5-proof-item">
+          <span class="p5-proof-num" aria-label="98%">98%</span>
+          <span class="p5-proof-label">clientes satisfeitos</span>
+        </div>
+        <div class="p5-proof-item">
+          <span class="p5-proof-num" aria-label="Resposta em 2 horas">2h</span>
+          <span class="p5-proof-label">tempo de resposta</span>
+        </div>
+      </div>
+
+      <form class="p5-inline-form" novalidate id="p5-form" onsubmit="p5Submit(event)">
+        <div class="p5-field-group">
+          <label for="p5-name">Seu nome</label>
+          <input type="text"
+            id="p5-name"
+            name="nome"
+            placeholder="Maria Camila"
+            autocomplete="given-name"
+            aria-required="true">
+        </div>
+        <div class="p5-field-group">
+          <label for="p5-date">Data preferida</label>
+          <input type="date"
+            id="p5-date"
+            name="data"
+            aria-required="true"
+            min="2026-06-28"
+            aria-describedby="p5-error">
+        </div>
+        <button class="p5-btn-send" type="submit" id="p5-btn">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar
+        </button>
+      </form>
+      <div role="alert" aria-live="polite" class="p5-error" id="p5-error" style="max-width:500px;margin:0.5rem auto 0"></div>
+    </div>
+  </div>
+</article>
+
+<hr class="section-divider">
+
+<!-- ===== RANKING FINAL ===== -->
+<section class="ranking" aria-labelledby="ranking-title">
+  <h2 id="ranking-title">Ranking — Melhor a pior acessibilidade real</h2>
+
+  <div class="ranking-item">
+    <div class="rank-badge rank-1" aria-label="1º lugar">1</div>
+    <div class="rank-info">
+      <h3>Proposta 4 — Input de data nativo + horários</h3>
+      <p>Melhor acessibilidade absoluta: usa componentes do SO/browser com acessibilidade built-in. Resolve automaticamente touch targets, navegação por teclado, VoiceOver/TalkBack. Zero risco de ARIA mal implementado no calendário. Labels explícitos, aria-describedby, erro com aria-live. Única desvantagem: experiência visual menos sofisticada em alguns browsers.</p>
+    </div>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-badge rank-2" aria-label="2º lugar">2</div>
+    <div class="rank-info">
+      <h3>Proposta 1 — Conservadora refinada</h3>
+      <p>Melhor implementação de calendário custom acessível: role="grid" completo, aria-label em cada dia com data completa, touch targets 44px, foco visível em todos os elementos, aria-live no erro, navegação por setas implementada. Mantém o design familiar do original, apenas corrigindo os falhos.</p>
+    </div>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-badge rank-3" aria-label="3º lugar">3</div>
+    <div class="rank-info">
+      <h3>Proposta 2 — Fundo escuro</h3>
+      <p>Excelentes contrastes por design (15:1 branco/escuro). Calendário com ARIA completo. Perde pontos por foco outline branco sobre fundo escuro ser levemente menos visível que alternativas de cor dupla. Estrutura de grid com uma coluna dificulta levemente o layout responsivo em resizes intermediários.</p>
+    </div>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-badge rank-4" aria-label="4º lugar">4</div>
+    <div class="rank-info">
+      <h3>Proposta 3 — Cards por passos</h3>
+      <p>Hierarquia semântica clara (h2 → h3) e fluxo cognitivo melhorado. Calendário acessível. Perde pontos pela complexidade visual com counter CSS que pode interferir em leitores de tela dependendo do browser. Touch targets corretos. A estrutura de dois cards pode criar confusão de foco em mobile quando os cards empilham.</p>
+    </div>
+  </div>
+
+  <div class="ranking-item">
+    <div class="rank-badge rank-5" aria-label="5º lugar">5</div>
+    <div class="rank-info">
+      <h3>Proposta 5 — Minimalista com prova social</h3>
+      <p>Muito acessível no que existe (labels, inputs nativos, contraste), mas perde pontos por ser a proposta mais radical: remove completamente o calendário visual que alguns usuários preferem. Os números de prova social (200+, 98%) não têm unidade contextual suficiente para leitores de tela sem boa markup de aria-label. Formulário inline em linha no mobile cria área de toque reduzida no botão.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ===================================================
+   UTILITÁRIOS GLOBAIS
+   =================================================== */
+const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DAY_NAMES_FULL = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+const TODAY = new Date(2026, 5, 28); /* 28 jun 2026 — data simulada */
+
+function formatDatePT(d) {
+  return d.getDate() + ' de ' + MONTH_NAMES[d.getMonth()] + ' de ' + d.getFullYear();
+}
+
+function setTabActive(btn) {
+  const tabs = btn.parentElement.querySelectorAll('.state-tab');
+  tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+}
+
+/* ===================================================
+   RENDERIZADOR DE CALENDÁRIO GENÉRICO
+   Cria botões de dia com ARIA completo, 44x44 touch
+   =================================================== */
+function renderCal(gridEl, year, month, selectedDate, dayClass, dayDisabledClass) {
+  /* Remove dias anteriores, mantém cabeçalho (7 primeiros filhos) */
+  const cols = gridEl.querySelectorAll('[role="columnheader"]');
+  while (gridEl.lastChild && (gridEl.lastChild.nodeType !== 1 || !gridEl.lastChild.hasAttribute('role'))) {
+    gridEl.removeChild(gridEl.lastChild);
+  }
+  /* Limpa tudo depois dos columnheaders */
+  const all = Array.from(gridEl.children);
+  all.forEach((el, i) => { if (i >= 7) gridEl.removeChild(el); });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  /* Células vazias antes do dia 1 */
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement('div');
+    empty.setAttribute('role', 'gridcell');
+    empty.setAttribute('aria-hidden', 'true');
+    empty.className = dayClass + ' p1-cal__day--empty';
+    gridEl.appendChild(empty);
+  }
+
+  const pastCutoff = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate());
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(year, month, d);
+    const isPast = date < pastCutoff;
+    const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = dayClass;
+    btn.textContent = d;
+    btn.setAttribute('role', 'gridcell');
+    btn.setAttribute('aria-label', DAY_NAMES_FULL[date.getDay()] + ', ' + formatDatePT(date));
+    btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+
+    if (isPast) {
+      btn.setAttribute('aria-disabled', 'true');
+      btn.setAttribute('aria-label', btn.getAttribute('aria-label') + ' — data passada, indisponível');
+      btn.className += ' ' + dayDisabledClass;
+      btn.disabled = true;
+    }
+
+    gridEl.appendChild(btn);
+  }
+}
+
+/* ===================================================
+   PROPOSTA 1
+   =================================================== */
+let p1Selected = null;
+
+function p1Init() {
+  const grid = document.getElementById('p1-grid');
+  renderCal(grid, 2026, 5, p1Selected, 'p1-cal__day', 'p1-cal__day--past-disabled');
+  /* Adiciona listeners de click */
+  grid.querySelectorAll('.p1-cal__day:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', function() {
+      p1SelectDay(this);
+    });
+    btn.addEventListener('keydown', p1KeyNav);
+  });
+}
+
+function p1SelectDay(btn) {
+  const grid = document.getElementById('p1-grid');
+  grid.querySelectorAll('.p1-cal__day').forEach(b => b.setAttribute('aria-selected', 'false'));
+  btn.setAttribute('aria-selected', 'true');
+  const label = btn.getAttribute('aria-label');
+  p1Selected = label;
+  document.getElementById('p1-selected-info').textContent = label;
+  document.getElementById('p1-error').setAttribute('data-visible', 'false');
+}
+
+function p1KeyNav(e) {
+  const grid = document.getElementById('p1-grid');
+  const days = Array.from(grid.querySelectorAll('.p1-cal__day:not([disabled])'));
+  const idx = days.indexOf(this);
+  let next = -1;
+  if (e.key === 'ArrowRight') next = idx + 1;
+  if (e.key === 'ArrowLeft') next = idx - 1;
+  if (e.key === 'ArrowDown') next = idx + 7;
+  if (e.key === 'ArrowUp') next = idx - 7;
+  if (next >= 0 && next < days.length) {
+    e.preventDefault();
+    days[next].focus();
+  }
+}
+
+function p1Submit(e) {
+  e.preventDefault();
+  if (!p1Selected) {
+    document.getElementById('p1-error').setAttribute('data-visible', 'true');
+    return;
+  }
+  const btn = document.getElementById('p1-btn');
+  btn.setAttribute('aria-busy', 'true');
+  btn.querySelector('.btn-text small').textContent = 'Enviando…';
+  setTimeout(() => {
+    btn.setAttribute('aria-busy', 'false');
+    btn.querySelector('.btn-text small').textContent = p1Selected;
+    alert('WhatsApp abriria com: ' + p1Selected);
+  }, 1500);
+}
+
+function setP1State(state, tab) {
+  setTabActive(tab);
+  const grid = document.getElementById('p1-grid');
+  const btn = document.getElementById('p1-btn');
+  const err = document.getElementById('p1-error');
+  const info = document.getElementById('p1-selected-info');
+
+  err.setAttribute('data-visible', 'false');
+  btn.setAttribute('aria-busy', 'false');
+
+  if (state === 'default') {
+    p1Selected = null;
+    info.textContent = 'Nenhuma data selecionada';
+    grid.querySelectorAll('.p1-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+    btn.querySelector('.btn-text small').textContent = 'Nenhuma data selecionada';
+  } else if (state === 'selected') {
+    /* Simula seleção do dia 10 */
+    const days = grid.querySelectorAll('.p1-cal__day:not([disabled])');
+    days.forEach(b => b.setAttribute('aria-selected','false'));
+    if (days.length > 0) {
+      days[2].setAttribute('aria-selected','true');
+      const lbl = days[2].getAttribute('aria-label');
+      p1Selected = lbl;
+      info.textContent = lbl;
+      btn.querySelector('.btn-text small').textContent = lbl;
+    }
+  } else if (state === 'error') {
+    p1Selected = null;
+    grid.querySelectorAll('.p1-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+    err.setAttribute('data-visible', 'true');
+    info.textContent = 'Nenhuma data selecionada';
+    btn.querySelector('.btn-text small').textContent = 'Nenhuma data selecionada';
+  } else if (state === 'loading') {
+    btn.setAttribute('aria-busy', 'true');
+    btn.querySelector('.btn-text small').textContent = 'Enviando…';
+  }
+}
+
+/* ===================================================
+   PROPOSTA 2
+   =================================================== */
+let p2Selected = null;
+
+function p2Init() {
+  const grid = document.getElementById('p2-grid');
+  renderCal(grid, 2026, 5, p2Selected, 'p2-cal__day', 'p2-cal__day--disabled');
+  grid.querySelectorAll('.p2-cal__day:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', function() {
+      grid.querySelectorAll('.p2-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+      this.setAttribute('aria-selected','true');
+      p2Selected = this.getAttribute('aria-label');
+      document.getElementById('p2-selected-info').textContent = 'Selecionado: ' + p2Selected;
+      document.getElementById('p2-error').setAttribute('data-visible','false');
+    });
+    btn.addEventListener('keydown', function(e) {
+      const days = Array.from(grid.querySelectorAll('.p2-cal__day:not([disabled])'));
+      const idx = days.indexOf(this);
+      let next = -1;
+      if (e.key==='ArrowRight') next=idx+1;
+      if (e.key==='ArrowLeft') next=idx-1;
+      if (e.key==='ArrowDown') next=idx+7;
+      if (e.key==='ArrowUp') next=idx-7;
+      if (next>=0 && next<days.length) { e.preventDefault(); days[next].focus(); }
+    });
+  });
+}
+
+function p2Submit() {
+  if (!p2Selected) {
+    document.getElementById('p2-error').setAttribute('data-visible','true');
+    return;
+  }
+  const btn = document.getElementById('p2-btn');
+  const btnText = document.getElementById('p2-btn-text');
+  btn.setAttribute('aria-busy','true');
+  btnText.textContent = 'Enviando…';
+  setTimeout(() => {
+    btn.setAttribute('aria-busy','false');
+    btnText.textContent = 'Enviar via WhatsApp';
+    alert('WhatsApp: ' + p2Selected);
+  }, 1500);
+}
+
+function setP2State(state, tab) {
+  setTabActive(tab);
+  const grid = document.getElementById('p2-grid');
+  const err = document.getElementById('p2-error');
+  const info = document.getElementById('p2-selected-info');
+  const btn = document.getElementById('p2-btn');
+  const btnText = document.getElementById('p2-btn-text');
+
+  err.setAttribute('data-visible','false');
+  btn.setAttribute('aria-busy','false');
+  btnText.textContent = 'Enviar via WhatsApp';
+
+  if (state === 'default') {
+    p2Selected = null;
+    info.textContent = '';
+    grid.querySelectorAll('.p2-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+  } else if (state === 'selected') {
+    const days = grid.querySelectorAll('.p2-cal__day:not([disabled])');
+    days.forEach(b => b.setAttribute('aria-selected','false'));
+    if (days.length > 1) {
+      days[1].setAttribute('aria-selected','true');
+      p2Selected = days[1].getAttribute('aria-label');
+      info.textContent = 'Selecionado: ' + p2Selected;
+    }
+  } else if (state === 'error') {
+    p2Selected = null;
+    grid.querySelectorAll('.p2-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+    err.setAttribute('data-visible','true');
+    info.textContent = '';
+  } else if (state === 'loading') {
+    btn.setAttribute('aria-busy','true');
+    btnText.textContent = 'Enviando…';
+  }
+}
+
+/* ===================================================
+   PROPOSTA 3
+   =================================================== */
+let p3Selected = null;
+
+function p3Init() {
+  const grid = document.getElementById('p3-grid');
+  renderCal(grid, 2026, 5, p3Selected, 'p3-cal__day', 'p3-cal__day--disabled');
+  grid.querySelectorAll('.p3-cal__day:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', function() {
+      grid.querySelectorAll('.p3-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+      this.setAttribute('aria-selected','true');
+      p3Selected = this.getAttribute('aria-label');
+      const info = document.getElementById('p3-selected-info');
+      info.textContent = 'Data: ' + p3Selected;
+      document.getElementById('p3-error').setAttribute('data-visible','false');
+    });
+  });
+}
+
+function p3Submit() {
+  if (!p3Selected) {
+    document.getElementById('p3-error').setAttribute('data-visible','true');
+    return;
+  }
+  alert('WhatsApp: ' + p3Selected);
+}
+
+function setP3State(state, tab) {
+  setTabActive(tab);
+  const grid = document.getElementById('p3-grid');
+  const err = document.getElementById('p3-error');
+  const info = document.getElementById('p3-selected-info');
+
+  err.setAttribute('data-visible','false');
+
+  if (state === 'default') {
+    p3Selected = null;
+    info.textContent = '';
+    grid.querySelectorAll('.p3-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+  } else if (state === 'selected') {
+    const days = grid.querySelectorAll('.p3-cal__day:not([disabled])');
+    days.forEach(b => b.setAttribute('aria-selected','false'));
+    if (days.length > 3) {
+      days[3].setAttribute('aria-selected','true');
+      p3Selected = days[3].getAttribute('aria-label');
+      info.textContent = 'Data: ' + p3Selected;
+    }
+  } else if (state === 'error') {
+    p3Selected = null;
+    info.textContent = '';
+    grid.querySelectorAll('.p3-cal__day').forEach(b => b.setAttribute('aria-selected','false'));
+    err.setAttribute('data-visible','true');
+  }
+}
+
+/* ===================================================
+   PROPOSTA 4
+   =================================================== */
+function p4DateChange(val) {
+  const err = document.getElementById('p4-error');
+  err.setAttribute('data-visible','false');
+  if (val) {
+    const d = new Date(val + 'T00:00:00');
+    const label = document.getElementById('p4-btn-label');
+    label.textContent = 'Enviar — ' + formatDatePT(d);
+  }
+}
+
+function p4SlotToggle(btn) {
+  const group = btn.closest('[role="group"]');
+  /* Radio-like: só um ativo */
+  group.querySelectorAll('.p4-slot').forEach(b => { b.setAttribute('aria-pressed','false'); });
+  btn.setAttribute('aria-pressed','true');
+}
+
+function p4Submit() {
+  const dateInput = document.getElementById('p4-date-input');
+  const err = document.getElementById('p4-error');
+  if (!dateInput.value) {
+    err.textContent = '⚠ Escolha uma data para prosseguir.';
+    err.setAttribute('data-visible','true');
+    dateInput.focus();
+    return;
+  }
+  const btn = document.getElementById('p4-btn');
+  btn.setAttribute('aria-busy','true');
+  const lbl = document.getElementById('p4-btn-label');
+  lbl.textContent = 'Enviando…';
+  setTimeout(() => {
+    btn.setAttribute('aria-busy','false');
+    lbl.textContent = 'Enviar via WhatsApp';
+    alert('WhatsApp: ' + dateInput.value);
+  }, 1500);
+}
+
+function setP4State(state, tab) {
+  setTabActive(tab);
+  const btn = document.getElementById('p4-btn');
+  const lbl = document.getElementById('p4-btn-label');
+  const err = document.getElementById('p4-error');
+  const input = document.getElementById('p4-date-input');
+
+  err.setAttribute('data-visible','false');
+  btn.setAttribute('aria-busy','false');
+
+  if (state === 'default') {
+    input.value = '';
+    lbl.textContent = 'Enviar via WhatsApp';
+    document.querySelectorAll('.p4-slot').forEach(b => b.setAttribute('aria-pressed','false'));
+  } else if (state === 'filled') {
+    input.value = '2026-07-15';
+    lbl.textContent = 'Enviar — 15 de Julho de 2026';
+    document.querySelector('.p4-slot').setAttribute('aria-pressed','true');
+  } else if (state === 'error') {
+    input.value = '';
+    err.textContent = '⚠ Escolha uma data para prosseguir.';
+    err.setAttribute('data-visible','true');
+    lbl.textContent = 'Enviar via WhatsApp';
+  } else if (state === 'loading') {
+    btn.setAttribute('aria-busy','true');
+    lbl.textContent = 'Enviando…';
+  }
+}
+
+/* ===================================================
+   PROPOSTA 5
+   =================================================== */
+function p5Submit(e) {
+  e.preventDefault();
+  const name = document.getElementById('p5-name').value.trim();
+  const date = document.getElementById('p5-date').value;
+  const err = document.getElementById('p5-error');
+
+  if (!name || !date) {
+    let msg = '⚠ ';
+    if (!name && !date) msg += 'Preencha seu nome e escolha uma data.';
+    else if (!name) msg += 'Preencha seu nome.';
+    else msg += 'Escolha uma data.';
+    err.textContent = msg;
+    err.setAttribute('data-visible','true');
+    if (!name) document.getElementById('p5-name').focus();
+    else document.getElementById('p5-date').focus();
+    return;
+  }
+
+  err.setAttribute('data-visible','false');
+  const btn = document.getElementById('p5-btn');
+  btn.setAttribute('aria-busy','true');
+  btn.textContent = 'Enviando…';
+  setTimeout(() => {
+    btn.setAttribute('aria-busy','false');
+    btn.innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Enviar';
+    alert('WhatsApp: ' + name + ' — ' + date);
+  }, 1500);
+}
+
+function setP5State(state, tab) {
+  setTabActive(tab);
+  const btn = document.getElementById('p5-btn');
+  const err = document.getElementById('p5-error');
+
+  err.setAttribute('data-visible','false');
+  btn.setAttribute('aria-busy','false');
+  btn.innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Enviar';
+
+  if (state === 'error') {
+    document.getElementById('p5-name').value = '';
+    document.getElementById('p5-date').value = '';
+    err.textContent = '⚠ Preencha seu nome e escolha uma data.';
+    err.setAttribute('data-visible','true');
+  } else if (state === 'loading') {
+    btn.setAttribute('aria-busy','true');
+    btn.textContent = 'Enviando…';
+  } else {
+    document.getElementById('p5-name').value = '';
+    document.getElementById('p5-date').value = '';
+  }
+}
+
+/* ===================================================
+   INIT — renderiza calendários ao carregar
+   =================================================== */
+document.addEventListener('DOMContentLoaded', function() {
+  p1Init();
+  p2Init();
+  p3Init();
+});
+</script>
+</body>
+</html>

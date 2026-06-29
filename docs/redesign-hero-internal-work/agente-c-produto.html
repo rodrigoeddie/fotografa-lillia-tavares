@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Interno — Redesign · Agente C (Produto & Robustez)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS — compartilhados entre todas as propostas
+   ============================================================ */
+:root {
+  /* Paleta extraída do ensaio Camila Nogueira */
+  --c-terra:      #A7523E;   /* terracota principal */
+  --c-terra-dark: #8B3E2C;   /* hover / pressed */
+  --c-terra-faint:#F3EAE7;   /* superfície muito clara */
+  --c-nude:       #BD9187;   /* ambient das fotos */
+  --c-nude-light: #D4B0A9;   /* bordas suaves */
+  --c-creme:      #F4F2E9;   /* fundo principal */
+  --c-creme-mid:  #E9E5D8;   /* divisores */
+  --c-oliva:      #7B785B;   /* labels, metadados */
+  --c-oliva-faint:#EEECEA;   /* surface oliva suave */
+  --c-mostarda:   #F9A825;   /* acento energético (uso comedido) */
+  --c-white:      #FFFFFF;
+  --c-ink:        #2C2520;   /* near-black com bias terracota */
+  --c-ink-mid:    #6B5D58;   /* body text secundário */
+
+  /* Tipografia */
+  --font-base: 'Lato', system-ui, sans-serif;
+
+  /* Escala tipográfica */
+  --t-xs:   0.65rem;   /* 10.4px — breadcrumb */
+  --t-sm:   0.8rem;    /* 12.8px — meta, labels */
+  --t-base: 0.9375rem; /* 15px — body padrão */
+  --t-md:   1.125rem;  /* 18px — corpo ampliado */
+  --t-lg:   1.5rem;    /* 24px — h2 */
+  --t-xl:   2rem;      /* 32px — h1 normal */
+  --t-2xl:  2.75rem;   /* 44px — h1 grande */
+  --t-3xl:  3.5rem;    /* 56px — editorial */
+
+  /* Espaçamento */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+
+  /* Raio */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+
+  /* Sombras */
+  --sh-sm: 0 1px 3px rgba(44,37,32,.10);
+  --sh-md: 0 4px 16px rgba(44,37,32,.12);
+  --sh-lg: 0 8px 32px rgba(44,37,32,.14);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-base);
+  background: #1a1512;
+  color: var(--c-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   LAYOUT DE PÁGINA DO DOCUMENTO
+   ============================================================ */
+.doc-header {
+  background: var(--c-ink);
+  color: var(--c-creme);
+  padding: var(--sp-8) var(--sp-8) var(--sp-6);
+  border-bottom: 2px solid var(--c-terra);
+}
+
+.doc-header h1 {
+  font-size: var(--t-xl);
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--c-white);
+  margin-bottom: var(--sp-2);
+}
+
+.doc-header .subtitle {
+  font-size: var(--t-sm);
+  color: var(--c-nude);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4) var(--sp-8);
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-6);
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+
+.doc-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.doc-meta-item .label {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-nude);
+}
+
+.doc-meta-item .value {
+  font-size: var(--t-sm);
+  color: var(--c-creme);
+}
+
+/* Container de proposta */
+.proposal-wrapper {
+  padding: var(--sp-12) var(--sp-8);
+  border-bottom: 1px solid #2e2825;
+}
+
+.proposal-wrapper:last-child { border-bottom: none; }
+
+.proposal-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-8);
+}
+
+.proposal-badge {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--c-terra);
+  color: var(--c-white);
+  font-size: var(--t-sm);
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: .02em;
+}
+
+.proposal-info h2 {
+  font-size: var(--t-md);
+  font-weight: 900;
+  color: var(--c-white);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-2);
+}
+
+.proposal-info .rationale {
+  font-size: var(--t-sm);
+  color: #a09590;
+  line-height: 1.7;
+  max-width: 64ch;
+}
+
+.proposal-info .rationale strong {
+  color: var(--c-nude);
+}
+
+.proposal-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 2px var(--sp-3);
+  border-radius: var(--r-sm);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: var(--sp-2);
+}
+
+.proposal-tag.evolucao { background: rgba(123,120,91,.2); color: #b5b2a0; }
+.proposal-tag.ousada { background: rgba(167,82,62,.2); color: #d4907e; }
+
+/* Moldura do preview */
+.preview-frame {
+  background: var(--c-creme);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06), var(--sh-lg);
+}
+
+/* Tabs de estado */
+.state-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--c-ink);
+  border-bottom: 1px solid #2e2825;
+  padding: var(--sp-2) var(--sp-4);
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.state-tab {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #a09590;
+  border: 1px solid #3a3330;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  background: transparent;
+  transition: all .15s ease;
+}
+
+.state-tab:hover { color: var(--c-creme); border-color: #5a5350; }
+.state-tab.active { color: var(--c-white); background: var(--c-terra); border-color: var(--c-terra); }
+
+/* Ranking final */
+.ranking-section {
+  padding: var(--sp-12) var(--sp-8);
+  background: var(--c-ink);
+}
+
+.ranking-section h2 {
+  font-size: var(--t-lg);
+  font-weight: 900;
+  color: var(--c-white);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-8);
+  padding-bottom: var(--sp-4);
+  border-bottom: 2px solid var(--c-terra);
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.ranking-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  background: #201c19;
+  border-radius: var(--r-md);
+  border: 1px solid #2e2825;
+}
+
+.ranking-pos {
+  font-size: var(--t-2xl);
+  font-weight: 900;
+  color: var(--c-terra);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  padding-top: var(--sp-1);
+}
+
+.ranking-content h3 {
+  font-size: var(--t-base);
+  font-weight: 700;
+  color: var(--c-white);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-2);
+}
+
+.ranking-content p {
+  font-size: var(--t-sm);
+  color: #a09590;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   UTILITÁRIOS COMPARTILHADOS (dentro dos heroes)
+   ============================================================ */
+
+/* Ícone SVG inline */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Estrelas */
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.star-full { color: #F9A825; }
+.star-half { color: #F9A825; }
+.star-empty { color: #ccc; }
+
+/* Skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skel {
+  background: linear-gradient(90deg, var(--c-creme-mid) 25%, var(--c-creme) 50%, var(--c-creme-mid) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--r-sm);
+}
+
+/* Imagem com erro */
+.img-error {
+  background: var(--c-terra-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--sp-3);
+  color: var(--c-nude);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+/* Descrição truncada + expand */
+.desc-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.desc-expanded {
+  display: block;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: var(--c-terra);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  cursor: pointer;
+  padding: var(--sp-1) 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: var(--font-base);
+}
+
+/* ============================================================
+   PROPOSTA A — Evolução Estrutural Calibrada
+   Problema: tipografia ilegível (10–18px) + sem CTA above fold
+   Trade-off: fiel ao layout atual; baixo risco de regressão visual
+   ============================================================ */
+
+.hero-a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  min-height: 580px;
+  background: var(--c-creme);
+}
+
+.hero-a .col-text {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-8) var(--sp-8) var(--sp-8) var(--sp-10);
+  gap: var(--sp-5);
+  background: var(--c-white);
+  position: relative;
+  z-index: 1;
+}
+
+/* Breadcrumb */
+.breadcrumb-a {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  font-size: var(--t-sm);
+  color: var(--c-oliva);
+  font-weight: 400;
+}
+
+.breadcrumb-a a:hover { color: var(--c-terra); }
+
+.breadcrumb-a .sep {
+  color: var(--c-nude-light);
+  font-size: .7rem;
+}
+
+.breadcrumb-a .current {
+  color: var(--c-terra);
+  font-weight: 700;
+}
+
+/* Cabeçalho */
+.hero-a .heading-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.hero-a .eyebrow {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--c-oliva);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.hero-a h1 {
+  font-size: var(--t-2xl);
+  font-weight: 900;
+  color: var(--c-terra);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Descrição */
+.hero-a .description {
+  font-size: var(--t-base);
+  color: var(--c-ink-mid);
+  line-height: 1.75;
+}
+
+/* Depoimento */
+.depo-card-a {
+  background: var(--c-creme);
+  border-left: 3px solid var(--c-terra);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.depo-card-a .depo-text {
+  font-size: var(--t-sm);
+  color: var(--c-ink-mid);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+.depo-card-a .depo-author {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--c-oliva);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.depo-card-a.--absent {
+  border-color: var(--c-creme-mid);
+  background: transparent;
+}
+
+.depo-card-a.--absent .depo-text {
+  color: var(--c-nude);
+  font-style: normal;
+  font-size: var(--t-xs);
+}
+
+/* Meta bar */
+.meta-bar-a {
+  background: var(--c-terra);
+  color: var(--c-white);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4) var(--sp-8);
+  margin-top: auto;
+}
+
+.meta-item-a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.meta-item-a .m-label {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .7;
+}
+
+.meta-item-a .m-value {
+  font-size: var(--t-sm);
+  font-weight: 700;
+}
+
+/* CTA above fold */
+.cta-inline-a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--c-terra);
+  color: var(--c-white);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: var(--sp-3) var(--sp-5);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background .15s ease;
+  border: none;
+  font-family: var(--font-base);
+  align-self: flex-start;
+}
+
+.cta-inline-a:hover { background: var(--c-terra-dark); }
+
+/* Coluna de imagens */
+.hero-a .col-imgs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: var(--c-creme-mid);
+  position: relative;
+  overflow: hidden;
+}
+
+.img-portrait-a {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+
+.hero-a .col-imgs:hover .img-portrait-a {
+  transform: scale(1.025);
+}
+
+.hero-a .col-imgs .img-skel {
+  width: 100%;
+  aspect-ratio: 3/4;
+}
+
+/* Skeleton state A */
+.hero-a.--loading .skel-h1 { height: 3rem; width: 75%; }
+.hero-a.--loading .skel-line { height: 0.85rem; width: 100%; }
+.hero-a.--loading .skel-line-short { height: 0.85rem; width: 60%; }
+
+/* Scroll hint */
+.scroll-hint-a {
+  position: absolute;
+  bottom: var(--sp-5);
+  right: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--c-white);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+.scroll-arrow {
+  animation: bounceDown .9s infinite ease-in-out alternate;
+}
+
+@keyframes bounceDown {
+  from { transform: translateY(0); }
+  to   { transform: translateY(5px); }
+}
+
+/* Responsivo A */
+@media (max-width: 900px) {
+  .hero-a {
+    grid-template-columns: 1fr;
+  }
+  .hero-a .col-imgs {
+    order: -1;
+    height: 300px;
+  }
+  .hero-a .col-imgs .img-portrait-a {
+    aspect-ratio: auto;
+    height: 100%;
+    object-position: top;
+  }
+  .hero-a .col-text {
+    padding: var(--sp-6) var(--sp-5);
+  }
+  .hero-a h1 { font-size: var(--t-xl); }
+}
+
+/* ============================================================
+   PROPOSTA B — Tipografia Expandida + Overlay Informacional
+   Problema: hierarquia visual fraca, metadados enterrados
+   Trade-off: mais imagem, menos texto visível; depende de fotos boas
+   ============================================================ */
+
+.hero-b {
+  position: relative;
+  background: var(--c-creme);
+  overflow: hidden;
+}
+
+.hero-b .imgs-bg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 560px;
+  gap: 3px;
+  background: var(--c-creme-mid);
+}
+
+.hero-b .imgs-bg img,
+.hero-b .imgs-bg .img-bg-skel {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay lateral */
+.hero-b .overlay-panel {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(480px, 55%);
+  background: linear-gradient(105deg, var(--c-creme) 70%, rgba(244,242,233,0) 100%);
+  padding: var(--sp-10) var(--sp-10) var(--sp-8) var(--sp-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.breadcrumb-b {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  font-size: var(--t-sm);
+  color: var(--c-oliva);
+}
+
+.breadcrumb-b .sep { color: var(--c-nude); font-size: .65rem; }
+.breadcrumb-b .current { color: var(--c-terra); font-weight: 700; }
+
+.hero-b .category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--c-terra-faint);
+  color: var(--c-terra);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 99px;
+  align-self: flex-start;
+}
+
+.hero-b h1 {
+  font-size: clamp(var(--t-xl), 3.5vw, var(--t-2xl));
+  font-weight: 900;
+  color: var(--c-terra);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.hero-b .description {
+  font-size: var(--t-base);
+  color: var(--c-ink-mid);
+  line-height: 1.75;
+}
+
+/* Meta grid */
+.meta-grid-b {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--c-creme-mid);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.meta-cell-b {
+  background: var(--c-white);
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.meta-cell-b .m-label {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-oliva);
+}
+
+.meta-cell-b .m-value {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+.meta-cell-b .m-value a {
+  color: var(--c-terra);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Depo flutuante B */
+.depo-float-b {
+  position: absolute;
+  bottom: var(--sp-8);
+  right: var(--sp-6);
+  max-width: 280px;
+  background: var(--c-white);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-lg);
+  padding: var(--sp-4) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.depo-float-b .depo-text {
+  font-size: var(--t-sm);
+  color: var(--c-ink-mid);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.depo-float-b .depo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.google-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--c-oliva);
+  letter-spacing: .06em;
+}
+
+@media (max-width: 900px) {
+  .hero-b .imgs-bg { height: 280px; }
+  .hero-b .overlay-panel {
+    position: static;
+    width: 100%;
+    background: var(--c-creme);
+  }
+  .depo-float-b { display: none; }
+}
+
+/* ============================================================
+   PROPOSTA C — Split Invertido: Imagem Dominante Left
+   Problema: CTA abaixo do fold + narrativa visual fraca
+   Trade-off: move CTA para cima mas sacrifica real estate de texto
+   ============================================================ */
+
+.hero-c {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  min-height: 600px;
+  background: var(--c-creme);
+}
+
+.hero-c .col-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-creme-mid);
+}
+
+.hero-c .col-img img,
+.hero-c .col-img .img-c-skel {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Segunda foto — thumbnail bottom-right */
+.hero-c .thumb-secondary {
+  position: absolute;
+  bottom: var(--sp-6);
+  right: var(--sp-6);
+  width: 120px;
+  aspect-ratio: 3/4;
+  border: 3px solid var(--c-white);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--sh-md);
+}
+
+.hero-c .thumb-secondary img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Número de fotos no ensaio */
+.hero-c .photo-count {
+  position: absolute;
+  top: var(--sp-5);
+  left: var(--sp-5);
+  background: rgba(44,37,32,.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--c-white);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.hero-c .col-text {
+  background: var(--c-white);
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-8) var(--sp-10) var(--sp-8) var(--sp-8);
+  gap: var(--sp-5);
+}
+
+.breadcrumb-c {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  font-size: var(--t-sm);
+  color: var(--c-oliva);
+}
+
+.breadcrumb-c .sep { color: var(--c-nude-light); font-size: .65rem; }
+.breadcrumb-c .current { color: var(--c-terra); font-weight: 700; }
+
+.hero-c .heading-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.hero-c .label-cat {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--c-oliva);
+}
+
+.hero-c h1 {
+  font-size: var(--t-2xl);
+  font-weight: 900;
+  color: var(--c-terra);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.hero-c .description {
+  font-size: var(--t-base);
+  color: var(--c-ink-mid);
+  line-height: 1.75;
+}
+
+/* Depoimento C */
+.depo-c {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--c-terra-faint);
+  border-radius: var(--r-md);
+}
+
+.depo-c .depo-text {
+  font-size: var(--t-sm);
+  color: var(--c-ink-mid);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+.depo-c .depo-author {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--c-terra);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* Meta + CTA juntos */
+.hero-c .meta-cta-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-top: auto;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--c-creme-mid);
+}
+
+.meta-list-c {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.meta-row-c {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--t-sm);
+  color: var(--c-ink-mid);
+}
+
+.meta-row-c .m-label {
+  font-weight: 700;
+  color: var(--c-oliva);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: var(--t-xs);
+  min-width: 5rem;
+}
+
+.cta-c {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--c-terra);
+  color: var(--c-white);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: var(--sp-4) var(--sp-6);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background .15s ease;
+  border: none;
+  font-family: var(--font-base);
+  align-self: flex-start;
+}
+
+.cta-c:hover { background: var(--c-terra-dark); }
+
+@media (max-width: 900px) {
+  .hero-c {
+    grid-template-columns: 1fr;
+  }
+  .hero-c .col-img {
+    height: 320px;
+  }
+  .hero-c .col-text {
+    padding: var(--sp-6) var(--sp-5);
+  }
+  .hero-c h1 { font-size: var(--t-xl); }
+}
+
+/* ============================================================
+   PROPOSTA D — Editorial de Moda / Fotógrafa Autoral (OUSADA)
+   Problema: identidade visual genérica, sem personalidade fotográfica
+   Trade-off: fortíssimo impacto visual; requer fotos de qualidade técnica alta
+   ============================================================ */
+
+.hero-d {
+  position: relative;
+  min-height: 680px;
+  background: var(--c-ink);
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+}
+
+/* Full-bleed images como mosaico assimétrico */
+.hero-d .mosaic {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  height: 680px;
+  position: absolute;
+  inset: 0;
+}
+
+.hero-d .mosaic .tile {
+  overflow: hidden;
+  background: var(--c-ink);
+}
+
+.hero-d .mosaic .tile-main {
+  grid-row: 1 / -1; /* span 2 rows */
+}
+
+.hero-d .mosaic .tile img,
+.hero-d .mosaic .tile .skel-tile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s ease;
+}
+
+.hero-d .mosaic .tile:hover img { transform: scale(1.04); }
+
+/* Camada de tinte */
+.hero-d .tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(44,37,32,.88) 0%,
+    rgba(44,37,32,.60) 45%,
+    rgba(44,37,32,.15) 70%,
+    rgba(44,37,32,.0) 100%
+  );
+  pointer-events: none;
+}
+
+/* Conteúdo textual */
+.hero-d .content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--sp-12) var(--sp-10);
+  max-width: 580px;
+  gap: var(--sp-5);
+  min-height: 680px;
+}
+
+.breadcrumb-d {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  font-size: var(--t-sm);
+  color: rgba(255,255,255,.55);
+}
+
+.breadcrumb-d .sep { font-size: .65rem; }
+.breadcrumb-d .current { color: var(--c-nude-light); font-weight: 700; }
+.breadcrumb-d a:hover { color: var(--c-white); }
+
+.hero-d .eyebrow-d {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--c-mostarda);
+}
+
+.hero-d h1 {
+  font-size: clamp(var(--t-2xl), 5vw, var(--t-3xl));
+  font-weight: 900;
+  color: var(--c-white);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  line-height: 1.0;
+  text-wrap: balance;
+}
+
+.hero-d h1 em {
+  color: var(--c-terra);
+  font-style: normal;
+}
+
+.hero-d .description-d {
+  font-size: var(--t-base);
+  color: rgba(255,255,255,.75);
+  line-height: 1.8;
+  max-width: 44ch;
+}
+
+/* Depo inline D */
+.depo-d {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-left: 2px solid var(--c-terra);
+}
+
+.depo-d .depo-text {
+  font-size: var(--t-sm);
+  color: rgba(255,255,255,.7);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* Meta chips D */
+.meta-chips-d {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.chip-d {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: rgba(255,255,255,.85);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+/* CTA D */
+.cta-d {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--c-terra);
+  color: var(--c-white);
+  font-size: var(--t-base);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: var(--sp-4) var(--sp-8);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background .15s ease;
+  border: none;
+  font-family: var(--font-base);
+  align-self: flex-start;
+}
+
+.cta-d:hover { background: var(--c-terra-dark); }
+
+@media (max-width: 900px) {
+  .hero-d .mosaic {
+    opacity: .45;
+  }
+  .hero-d .tint {
+    background: rgba(44,37,32,.85);
+  }
+  .hero-d .content {
+    padding: var(--sp-8) var(--sp-5);
+    max-width: none;
+  }
+  .hero-d h1 { font-size: var(--t-xl); }
+}
+
+/* ============================================================
+   PROPOSTA E — Revista / Magazine Scroll Split (OUSADA)
+   Problema: galeria abaixo do fold sem hint; narrativa fragmentada
+   Trade-off: quebra totalmente o paradigma — maior salto de implementação
+   ============================================================ */
+
+.hero-e {
+  background: var(--c-creme);
+  position: relative;
+}
+
+/* Faixa de título grande — ocupa linha inteira */
+.hero-e .title-band {
+  background: var(--c-terra);
+  padding: var(--sp-6) var(--sp-10);
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.hero-e .title-band .name-big {
+  font-size: clamp(var(--t-2xl), 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--c-white);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  line-height: 1;
+}
+
+.hero-e .title-band .cat-tag {
+  font-size: var(--t-md);
+  font-weight: 300;
+  color: rgba(255,255,255,.65);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding-left: var(--sp-6);
+  border-left: 2px solid rgba(255,255,255,.3);
+}
+
+/* Breadcrumb E — abaixo do title band */
+.breadcrumb-e-wrap {
+  background: var(--c-terra-dark);
+  padding: var(--sp-2) var(--sp-10);
+}
+
+.breadcrumb-e {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  font-size: var(--t-xs);
+  color: rgba(255,255,255,.6);
+}
+
+.breadcrumb-e .sep { font-size: .6rem; }
+.breadcrumb-e .current { color: rgba(255,255,255,.9); font-weight: 700; }
+.breadcrumb-e a:hover { color: var(--c-white); }
+
+/* Corpo do hero — 3 colunas */
+.hero-e .body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 0;
+  min-height: 480px;
+}
+
+/* Coluna editorial esquerda */
+.hero-e .col-editorial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  padding: var(--sp-8) var(--sp-6) var(--sp-8) var(--sp-10);
+  border-right: 1px solid var(--c-creme-mid);
+}
+
+.hero-e .col-editorial .description {
+  font-size: var(--t-base);
+  color: var(--c-ink-mid);
+  line-height: 1.85;
+}
+
+.hero-e .col-editorial .read-more-btn {
+  background: none;
+  border: none;
+  color: var(--c-terra);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--font-base);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+/* Coluna central — imagens sangradas */
+.hero-e .col-center {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  background: var(--c-creme-mid);
+  overflow: hidden;
+}
+
+.hero-e .col-center img,
+.hero-e .col-center .skel-center {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Coluna direita — meta + depo + CTA */
+.hero-e .col-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-8) var(--sp-10) var(--sp-8) var(--sp-6);
+  border-left: 1px solid var(--c-creme-mid);
+}
+
+.hero-e .sidebar-section-title {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--c-oliva);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--c-creme-mid);
+}
+
+.meta-stack-e {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.meta-row-e {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-row-e .m-label {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-oliva);
+}
+
+.meta-row-e .m-value {
+  font-size: var(--t-sm);
+  color: var(--c-ink);
+  font-weight: 400;
+}
+
+.depo-e {
+  background: var(--c-ink);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.depo-e .depo-text {
+  font-size: var(--t-sm);
+  color: rgba(255,255,255,.75);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+.depo-e .depo-stars {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.depo-e .depo-footer {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cta-e {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  background: var(--c-terra);
+  color: var(--c-white);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background .15s ease;
+  border: none;
+  font-family: var(--font-base);
+  margin-top: auto;
+  text-align: center;
+}
+
+.cta-e:hover { background: var(--c-terra-dark); }
+
+/* Scroll hint E — linha abaixo */
+.hero-e .gallery-hint {
+  background: var(--c-creme-mid);
+  padding: var(--sp-3) var(--sp-10);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-oliva);
+  cursor: pointer;
+}
+
+.hero-e .gallery-hint:hover { color: var(--c-terra); }
+
+@media (max-width: 900px) {
+  .hero-e .body-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-e .col-center {
+    height: 300px;
+    grid-template-rows: 1fr;
+  }
+  .hero-e .col-center img:last-child { display: none; }
+  .hero-e .title-band, .breadcrumb-e-wrap, .hero-e .col-editorial,
+  .hero-e .col-sidebar, .hero-e .gallery-hint {
+    padding-left: var(--sp-5);
+    padding-right: var(--sp-5);
+  }
+  .hero-e .col-sidebar { border-left: none; border-top: 1px solid var(--c-creme-mid); }
+  .hero-e .col-editorial { border-right: none; }
+}
+
+/* ============================================================
+   FOTOS SIMULADAS — gradientes temáticos em vez de imagens reais
+   (em produção, seriam <img> com src real)
+   ============================================================ */
+
+/* Gradiente que simula a paleta nude/terracota dos retratos */
+.photo-sim-1 {
+  background: linear-gradient(160deg, #C9A49E 0%, #BD9187 40%, #A7826E 70%, #8B6458 100%);
+}
+
+.photo-sim-2 {
+  background: linear-gradient(160deg, #D4B8B2 0%, #C4A09A 40%, #AD8A84 70%, #9B7570 100%);
+}
+
+.photo-sim-error {
+  background: var(--c-terra-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--sp-3);
+  color: var(--c-nude);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CABEÇALHO DO DOCUMENTO
+     ============================================================ -->
+<header class="doc-header">
+  <h1>Hero Interno · Redesign</h1>
+  <p class="subtitle">Agente C — Produto & Robustez · 5 Propostas</p>
+  <div class="doc-meta">
+    <div class="doc-meta-item">
+      <span class="label">Ensaio</span>
+      <span class="value">Camila Nogueira — Corporativo</span>
+    </div>
+    <div class="doc-meta-item">
+      <span class="label">Site</span>
+      <span class="value">fotografalilliatavares.com.br</span>
+    </div>
+    <div class="doc-meta-item">
+      <span class="label">Foco</span>
+      <span class="value">Robustez, responsividade, edge cases, performance percebida</span>
+    </div>
+    <div class="doc-meta-item">
+      <span class="label">Tokens</span>
+      <span class="value">CSS custom properties — paleta do ensaio</span>
+    </div>
+  </div>
+</header>
+
+
+<!-- ============================================================
+     PROPOSTA A — Evolução Estrutural Calibrada
+     ============================================================ -->
+<section class="proposal-wrapper">
+  <div class="proposal-label">
+    <div class="proposal-badge">A</div>
+    <div class="proposal-info">
+      <h2>Evolução Estrutural Calibrada</h2>
+      <span class="proposal-tag evolucao">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Evolução Segura
+      </span>
+      <p class="rationale">
+        <strong>Problema resolvido:</strong> tipografia ilegível (breadcrumb 10px → 12.8px, H1 18px → 44px, body 12px → 15px), CTA de agendamento above fold via botão no col-text, aspect-ratio nas imagens elimina CLS, skeleton com shimmer correto.
+        <strong>Trade-off:</strong> mantém o flex-2-col original, por isso é a menor fricção de implementação. Depoimento tem estado ausente gracioso (linha pontilhada + aviso leve). Descrição longa tem truncate com expand.
+      </p>
+    </div>
+  </div>
+
+  <div class="state-tabs" id="tabs-a">
+    <button class="state-tab active" onclick="setStateA('normal')">Normal</button>
+    <button class="state-tab" onclick="setStateA('skeleton')">Skeleton Loading</button>
+    <button class="state-tab" onclick="setStateA('img-error')">Imagem com Erro</button>
+    <button class="state-tab" onclick="setStateA('no-depo')">Sem Depoimento</button>
+    <button class="state-tab" onclick="setStateA('long-desc')">Descrição Longa</button>
+    <button class="state-tab" onclick="setStateA('long-title')">Título Longo</button>
+  </div>
+
+  <div class="preview-frame">
+    <div class="hero-a" id="hero-a">
+      <!-- Coluna texto -->
+      <div class="col-text" id="hero-a-text">
+
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb-a" id="hero-a-breadcrumb" aria-label="Breadcrumb">
+          <a href="#">Home</a>
+          <span class="sep" aria-hidden="true">›</span>
+          <a href="#">Ensaios Fotográficos</a>
+          <span class="sep" aria-hidden="true">›</span>
+          <a href="#">Corporativo</a>
+          <span class="sep" aria-hidden="true">›</span>
+          <span class="current" aria-current="page">Camila Nogueira</span>
+        </nav>
+
+        <!-- Heading -->
+        <div class="heading-block" id="hero-a-heading">
+          <p class="eyebrow">Ensaio Corporativo</p>
+          <h1>Camila Nogueira</h1>
+        </div>
+
+        <!-- Descrição -->
+        <p class="description" id="hero-a-desc">
+          Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no Instagram ela traz a frase: <em>"Sua vida através da psicoarquitetura!"</em> — e não podia estar mais certa. No meu ambiente de trabalho, me sinto em casa, confortável.
+        </p>
+
+        <!-- Depoimento -->
+        <div class="depo-card-a" id="hero-a-depo">
+          <div class="stars">
+            <svg class="star-full" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-half" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="clip-path:inset(0 50% 0 0)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="depo-text" id="hero-a-depo-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"</p>
+          <span class="depo-author">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Google · Camila Nogueira
+          </span>
+        </div>
+
+        <!-- CTA above fold -->
+        <button class="cta-inline-a" id="hero-a-cta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar Sessão
+        </button>
+
+        <!-- Meta bar -->
+        <div class="meta-bar-a" id="hero-a-meta">
+          <div class="meta-item-a">
+            <span class="m-label">Categoria</span>
+            <span class="m-value">Corporativo</span>
+          </div>
+          <div class="meta-item-a">
+            <span class="m-label">Local</span>
+            <span class="m-value">Estúdio Lillia Tavares</span>
+          </div>
+          <div class="meta-item-a">
+            <span class="m-label">Site</span>
+            <span class="m-value">
+              <a href="#" style="color:white;text-decoration:underline;text-underline-offset:2px">
+                camilanogueira.com.br
+              </a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Coluna imagens -->
+      <div class="col-imgs" id="hero-a-imgs">
+        <div class="photo-sim-1 img-portrait-a" id="hero-a-img1" style="aspect-ratio:3/4;" aria-label="Foto 1 — Camila Nogueira"></div>
+        <div class="photo-sim-2 img-portrait-a" id="hero-a-img2" style="aspect-ratio:3/4;" aria-label="Foto 2 — Camila Nogueira"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROPOSTA B — Tipografia Expandida + Overlay Informacional
+     ============================================================ -->
+<section class="proposal-wrapper">
+  <div class="proposal-label">
+    <div class="proposal-badge">B</div>
+    <div class="proposal-info">
+      <h2>Overlay Informacional sobre Imagem Plena</h2>
+      <span class="proposal-tag evolucao">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Evolução Segura
+      </span>
+      <p class="rationale">
+        <strong>Problema resolvido:</strong> imagens dominam o espaço (o produto é fotografia), enquanto o conteúdo informacional vive num overlay com gradiente sólido — sem perda de legibilidade. Meta em grid 2×2 resolve fragmentação. Depoimento flutua no canto inferior direito como prova social sem competir com o título.
+        <strong>Trade-off:</strong> se as fotos tiverem qualidade inconsistente ou tons muito claros à esquerda, o gradiente pode não proteger o texto. Resolve com overlay fallback de opacidade fixa.
+      </p>
+    </div>
+  </div>
+
+  <div class="state-tabs" id="tabs-b">
+    <button class="state-tab active" onclick="setStateB('normal')">Normal</button>
+    <button class="state-tab" onclick="setStateB('skeleton')">Skeleton Loading</button>
+    <button class="state-tab" onclick="setStateB('no-depo')">Sem Depoimento</button>
+  </div>
+
+  <div class="preview-frame">
+    <div class="hero-b" id="hero-b">
+
+      <!-- Imagens de fundo -->
+      <div class="imgs-bg" id="hero-b-imgs">
+        <div class="photo-sim-1" id="hero-b-img1" style="width:100%;height:100%;"></div>
+        <div class="photo-sim-2" id="hero-b-img2" style="width:100%;height:100%;"></div>
+      </div>
+
+      <!-- Overlay painel -->
+      <div class="overlay-panel" id="hero-b-panel">
+
+        <nav class="breadcrumb-b" aria-label="Breadcrumb">
+          <a href="#">Home</a>
+          <span class="sep">›</span>
+          <a href="#">Ensaios</a>
+          <span class="sep">›</span>
+          <a href="#">Corporativo</a>
+          <span class="sep">›</span>
+          <span class="current">Camila Nogueira</span>
+        </nav>
+
+        <span class="category-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Corporativo
+        </span>
+
+        <h1 id="hero-b-h1">Camila Nogueira</h1>
+
+        <p class="description" id="hero-b-desc">
+          Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Ela transforma seus ambientes em espaços acolhedores e inspiradores — "Sua vida através da psicoarquitetura!"
+        </p>
+
+        <!-- Meta grid -->
+        <div class="meta-grid-b" id="hero-b-meta">
+          <div class="meta-cell-b">
+            <span class="m-label">Categoria</span>
+            <span class="m-value">Corporativo</span>
+          </div>
+          <div class="meta-cell-b">
+            <span class="m-label">Local</span>
+            <span class="m-value">Estúdio Lillia Tavares</span>
+          </div>
+          <div class="meta-cell-b" style="grid-column:1/-1;">
+            <span class="m-label">Site</span>
+            <span class="m-value"><a href="#">camilanogueira.com.br ↗</a></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Depoimento flutuante -->
+      <div class="depo-float-b" id="hero-b-depo">
+        <div class="stars">
+          <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span style="font-size:var(--t-xs);color:var(--c-oliva);font-weight:700;margin-left:4px">4.5</span>
+        </div>
+        <p class="depo-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada ❤️"</p>
+        <div class="depo-footer">
+          <div class="google-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg>
+            Google Review
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROPOSTA C — Split Invertido: Imagem Dominante Left
+     ============================================================ -->
+<section class="proposal-wrapper">
+  <div class="proposal-label">
+    <div class="proposal-badge">C</div>
+    <div class="proposal-info">
+      <h2>Split Invertido — Imagem Dominante à Esquerda</h2>
+      <span class="proposal-tag evolucao">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Evolução Segura
+      </span>
+      <p class="rationale">
+        <strong>Problema resolvido:</strong> CTA acima do fold via bloco meta+CTA fixo no bottom do col-text; segunda foto como thumbnail superposta resolve o problema de mostrar 2 fotos sem dividir igualmente — a composição fica mais editorial. Badge de contagem de fotos dá hint da galeria.
+        <strong>Trade-off:</strong> thumbnail superposto pode colidir com UI em mobile se não tratado; solução: display:none abaixo de 600px. Requer fotos com boa composição no 1/3 superior.
+      </p>
+    </div>
+  </div>
+
+  <div class="state-tabs">
+    <button class="state-tab active" onclick="setStateC('normal')">Normal</button>
+    <button class="state-tab" onclick="setStateC('skeleton')">Skeleton</button>
+    <button class="state-tab" onclick="setStateC('img-error')">Erro de Imagem</button>
+    <button class="state-tab" onclick="setStateC('no-depo')">Sem Depoimento</button>
+  </div>
+
+  <div class="preview-frame">
+    <div class="hero-c" id="hero-c">
+
+      <!-- Coluna imagem -->
+      <div class="col-img">
+        <div class="photo-sim-1" id="hero-c-img1" style="width:100%;height:100%;"></div>
+
+        <!-- Badge contagem fotos -->
+        <div class="photo-count">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          32 fotos
+        </div>
+
+        <!-- Segunda foto como thumb -->
+        <div class="thumb-secondary" id="hero-c-thumb">
+          <div class="photo-sim-2" style="width:100%;height:100%;"></div>
+        </div>
+      </div>
+
+      <!-- Coluna texto -->
+      <div class="col-text">
+
+        <nav class="breadcrumb-c" aria-label="Breadcrumb">
+          <a href="#">Home</a>
+          <span class="sep">›</span>
+          <a href="#">Ensaios</a>
+          <span class="sep">›</span>
+          <a href="#">Corporativo</a>
+          <span class="sep">›</span>
+          <span class="current">Camila Nogueira</span>
+        </nav>
+
+        <div class="heading-stack" id="hero-c-heading">
+          <p class="label-cat">Ensaio Corporativo</p>
+          <h1 id="hero-c-h1">Camila Nogueira</h1>
+        </div>
+
+        <p class="description" id="hero-c-desc">
+          Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no Instagram ela traz a frase: <em>"Sua vida através da psicoarquitetura!"</em> Ela transforma seus ambientes em espaços acolhedores e inspiradores.
+        </p>
+
+        <!-- Depoimento -->
+        <div class="depo-c" id="hero-c-depo">
+          <div class="stars">
+            <svg class="star-full" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="opacity:.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span style="font-size:var(--t-xs);color:var(--c-terra);font-weight:700;margin-left:4px;">4.5 Google</span>
+          </div>
+          <p class="depo-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio ❤️"</p>
+          <span class="depo-author">— Camila Nogueira</span>
+        </div>
+
+        <!-- Meta + CTA -->
+        <div class="meta-cta-block">
+          <div class="meta-list-c">
+            <div class="meta-row-c">
+              <span class="m-label">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                Categoria
+              </span>
+              <span>Corporativo</span>
+            </div>
+            <div class="meta-row-c">
+              <span class="m-label">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Local
+              </span>
+              <span>Estúdio Lillia Tavares</span>
+            </div>
+            <div class="meta-row-c">
+              <span class="m-label">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Site
+              </span>
+              <a href="#" style="color:var(--c-terra);text-decoration:underline;text-underline-offset:2px;font-size:var(--t-sm);">camilanogueira.com.br ↗</a>
+            </div>
+          </div>
+          <button class="cta-c">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar Meu Ensaio
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROPOSTA D — Editorial Fotográfico (OUSADA)
+     ============================================================ -->
+<section class="proposal-wrapper">
+  <div class="proposal-label">
+    <div class="proposal-badge" style="background:var(--c-mostarda);color:var(--c-ink);">D</div>
+    <div class="proposal-info">
+      <h2>Editorial Fotográfico — Imersão Total</h2>
+      <span class="proposal-tag ousada">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Proposta Ousada
+      </span>
+      <p class="rationale">
+        <strong>Problema resolvido:</strong> o site deve sentir como fotografia, não como CMS. Aqui as imagens são o hero — full-bleed, mosaico assimétrico. O texto vive sobre tint escuro com tipografia grande e respira. Mostarda usada apenas no eyebrow (segundo look da Camila), terracota no CTA, tudo mais quieto.
+        <strong>Trade-off:</strong> o mais impactante, mas o mais dependente de imagens de alta qualidade técnica e composição forte. Não degrada bem com fotos medianas. Também é a maior mudança de código em relação ao template existente.
+      </p>
+    </div>
+  </div>
+
+  <div class="state-tabs">
+    <button class="state-tab active" onclick="setStateD('normal')">Normal</button>
+    <button class="state-tab" onclick="setStateD('skeleton')">Skeleton</button>
+    <button class="state-tab" onclick="setStateD('no-depo')">Sem Depoimento</button>
+  </div>
+
+  <div class="preview-frame" style="background:var(--c-ink);">
+    <div class="hero-d" id="hero-d">
+
+      <!-- Mosaico de imagens -->
+      <div class="mosaic" id="hero-d-mosaic">
+        <div class="tile tile-main">
+          <div class="photo-sim-1" id="hero-d-img1" style="width:100%;height:100%;"></div>
+        </div>
+        <div class="tile">
+          <div class="photo-sim-2" id="hero-d-img2" style="width:100%;height:100%;"></div>
+        </div>
+        <div class="tile" style="background:var(--c-terra);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:1rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span style="font-size:0.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-align:center;">32 fotos no ensaio</span>
+        </div>
+      </div>
+
+      <!-- Tint -->
+      <div class="tint"></div>
+
+      <!-- Conteúdo -->
+      <div class="content" id="hero-d-content">
+
+        <nav class="breadcrumb-d" aria-label="Breadcrumb">
+          <a href="#">Home</a>
+          <span class="sep">›</span>
+          <a href="#">Ensaios</a>
+          <span class="sep">›</span>
+          <a href="#">Corporativo</a>
+          <span class="sep">›</span>
+          <span class="current">Camila Nogueira</span>
+        </nav>
+
+        <p class="eyebrow-d">Ensaio Corporativo</p>
+
+        <h1 id="hero-d-h1">
+          <em>Camila</em><br>Nogueira
+        </h1>
+
+        <p class="description-d" id="hero-d-desc">
+          Esse ensaio é muito especial para mim — a Camila Nogueira foi a arquiteta do nosso estúdio. "Sua vida através da psicoarquitetura!" Ela transforma ambientes em espaços acolhedores e inspiradores.
+        </p>
+
+        <!-- Meta chips -->
+        <div class="meta-chips-d">
+          <span class="chip-d">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Estúdio Lillia Tavares
+          </span>
+          <span class="chip-d">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            camilanogueira.com.br ↗
+          </span>
+        </div>
+
+        <!-- Depoimento -->
+        <div class="depo-d" id="hero-d-depo">
+          <div class="stars">
+            <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="depo-text">"A experiência mais completa que existe nesse mundo ❤️"</p>
+        </div>
+
+        <button class="cta-d">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar Meu Ensaio
+        </button>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROPOSTA E — Revista / Magazine 3 colunas (OUSADA)
+     ============================================================ -->
+<section class="proposal-wrapper">
+  <div class="proposal-label">
+    <div class="proposal-badge" style="background:var(--c-mostarda);color:var(--c-ink);">E</div>
+    <div class="proposal-info">
+      <h2>Formato Revista — 3 Colunas Editoriais</h2>
+      <span class="proposal-tag ousada">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Proposta Ousada
+      </span>
+      <p class="rationale">
+        <strong>Problema resolvido:</strong> a galeria abaixo do fold sem hint visual — aqui a barra "Ver 32 fotos" é parte integrante do hero, imediatamente abaixo. O layout de revista em 3 colunas separa editorialmente: texto narrativo / imagens / informação+conversão. O título em banda terracota full-width é o tese visual único desta proposta.
+        <strong>Trade-off:</strong> mais complexo para implementar em Nuxt; grid de 3 colunas colapsa para 1 coluna mobile com mais scrolling necessário. É o layout que mais diverge do código atual.
+      </p>
+    </div>
+  </div>
+
+  <div class="state-tabs">
+    <button class="state-tab active" onclick="setStateE('normal')">Normal</button>
+    <button class="state-tab" onclick="setStateE('skeleton')">Skeleton</button>
+    <button class="state-tab" onclick="setStateE('no-depo')">Sem Depoimento</button>
+    <button class="state-tab" onclick="setStateE('long-desc')">Descrição Longa</button>
+  </div>
+
+  <div class="preview-frame">
+    <div class="hero-e" id="hero-e">
+
+      <!-- Banda de título full-width -->
+      <div class="title-band">
+        <span class="name-big" id="hero-e-h1">Camila Nogueira</span>
+        <span class="cat-tag">Corporativo</span>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-e-wrap">
+        <nav class="breadcrumb-e" aria-label="Breadcrumb">
+          <a href="#">Home</a>
+          <span class="sep">›</span>
+          <a href="#">Ensaios Fotográficos</a>
+          <span class="sep">›</span>
+          <a href="#">Corporativo</a>
+          <span class="sep">›</span>
+          <span class="current">Camila Nogueira</span>
+        </nav>
+      </div>
+
+      <!-- Corpo 3 colunas -->
+      <div class="body-grid">
+
+        <!-- Coluna esquerda: editorial -->
+        <div class="col-editorial">
+          <p class="description" id="hero-e-desc">
+            Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no Instagram ela traz a frase: <em>"Sua vida através da psicoarquitetura!"</em> — e não podia estar mais certa. No meu ambiente de trabalho, me sinto em casa, confortável, ela transforma seus ambientes em espaços acolhedores e inspiradores.
+          </p>
+          <button class="read-more-btn" id="hero-e-readmore" style="display:none" onclick="toggleDescE()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            Ler Completo
+          </button>
+        </div>
+
+        <!-- Coluna central: imagens sangradas -->
+        <div class="col-center" id="hero-e-imgs">
+          <div class="photo-sim-1" id="hero-e-img1"></div>
+          <div class="photo-sim-2" id="hero-e-img2"></div>
+        </div>
+
+        <!-- Coluna direita: sidebar de informação -->
+        <div class="col-sidebar">
+
+          <p class="sidebar-section-title">Informações do Ensaio</p>
+
+          <div class="meta-stack-e">
+            <div class="meta-row-e">
+              <span class="m-label">Categoria</span>
+              <span class="m-value">Corporativo</span>
+            </div>
+            <div class="meta-row-e">
+              <span class="m-label">Local</span>
+              <span class="m-value">Estúdio Lillia Tavares</span>
+            </div>
+            <div class="meta-row-e">
+              <span class="m-label">Site</span>
+              <span class="m-value">
+                <a href="#" style="color:var(--c-terra);text-decoration:underline;text-underline-offset:2px;">camilanogueira.com.br ↗</a>
+              </span>
+            </div>
+          </div>
+
+          <!-- Depoimento -->
+          <div class="depo-e" id="hero-e-depo">
+            <div class="depo-stars">
+              <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="star-full" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span style="color:rgba(255,255,255,.5);font-size:var(--t-xs);font-weight:700;margin-left:4px;">4.5</span>
+            </div>
+            <p class="depo-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar ❤️"</p>
+            <p class="depo-footer">Google Review · Camila Nogueira</p>
+          </div>
+
+          <button class="cta-e">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar Ensaio
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Gallery hint bar -->
+      <div class="gallery-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Ver as 32 fotos do ensaio
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     RANKING FINAL
+     ============================================================ -->
+<section class="ranking-section">
+  <h2>Ranking das 5 Propostas</h2>
+  <div class="ranking-list">
+
+    <div class="ranking-item">
+      <span class="ranking-pos">1</span>
+      <div class="ranking-content">
+        <h3>Proposta C — Split Invertido</h3>
+        <p>Melhor equilíbrio entre impacto visual (imagem maior, à esquerda, como produto principal), robustez de implementação e CTA acima do fold. O thumbnail superposto resolve a "segunda foto" de forma editorial sem dividir o espaço visualmente. Meta e CTA agrupados no rodapé do col-text criam uma progressão narrativa clara: veja → leia → confie (depoimento) → aja. Degrada bem no mobile.</p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <span class="ranking-pos">2</span>
+      <div class="ranking-content">
+        <h3>Proposta A — Evolução Estrutural</h3>
+        <p>Menor fricção de implementação — é o layout atual corrigido, não substituído. Corrige todos os problemas críticos de produto: tipografia ilegível, CLS por aspect-ratio faltante, skeleton loading, estados de erro. Ideal se o objetivo for uma sprint rápida sem risco de regressão visual ou de aprovação.</p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <span class="ranking-pos">3</span>
+      <div class="ranking-content">
+        <h3>Proposta D — Editorial Fotográfico</h3>
+        <p>Visualmente o mais impactante e o mais coerente com a identidade de uma fotógrafa autoral. O risco é a dependência de fotos com qualidade técnica consistente — em imagens medianas o tint escuro mata a atmosfera ao invés de realçá-la. Recomendado para lançamento oficial com curadoria das fotos do hero.</p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <span class="ranking-pos">4</span>
+      <div class="ranking-content">
+        <h3>Proposta E — Revista 3 Colunas</h3>
+        <p>A solução mais completa para o problema do "gallery hint" abaixo do fold, e a mais editorial. O título em banda terracota full-width é um statement forte. O custo é a complexidade de implementação — 3 colunas com lógica de colapso mobile é mais complexo que o grid atual. Indicado para uma versão 2.0 do site.</p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <span class="ranking-pos">5</span>
+      <div class="ranking-content">
+        <h3>Proposta B — Overlay Informacional</h3>
+        <p>Conceitualmente válida (imagens dominam o espaço) mas o overlay com gradiente é a solução mais frágil: a legibilidade do texto depende da composição específica de cada foto. Em ensaios com fundos claros à esquerda (como os fundos bege-nude da Camila), o gradiente não protege suficientemente o texto. Exigiria um fallback de opacidade dinâmica por ensaio.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     JAVASCRIPT — Lógica de estados interativos
+     ============================================================ -->
+<script>
+/* ---- PROPOSTA A ---- */
+function setStateA(state) {
+  document.querySelectorAll('#tabs-a .state-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const hero = document.getElementById('hero-a');
+  const img1 = document.getElementById('hero-a-img1');
+  const img2 = document.getElementById('hero-a-img2');
+  const depo = document.getElementById('hero-a-depo');
+  const desc = document.getElementById('hero-a-desc');
+  const h1 = document.querySelector('#hero-a-heading h1');
+  const breadcrumb = document.getElementById('hero-a-breadcrumb');
+  const cta = document.getElementById('hero-a-cta');
+  const meta = document.getElementById('hero-a-meta');
+
+  /* Reset */
+  img1.className = 'photo-sim-1 img-portrait-a';
+  img1.style.cssText = 'aspect-ratio:3/4;';
+  img2.className = 'photo-sim-2 img-portrait-a';
+  img2.style.cssText = 'aspect-ratio:3/4;';
+  depo.style.display = '';
+  depo.className = 'depo-card-a';
+  desc.style.display = '';
+  desc.style.webkitLineClamp = '';
+  desc.style.webkitBoxOrient = '';
+  desc.style.overflow = '';
+  desc.style.display = '';
+  h1.textContent = 'Camila Nogueira';
+  h1.style.cssText = '';
+
+  /* Remover botão expand se existir */
+  const existBtn = document.getElementById('hero-a-expand');
+  if (existBtn) existBtn.remove();
+
+  if (state === 'normal') {
+    /* já no reset */
+  }
+
+  if (state === 'skeleton') {
+    img1.className = 'skel img-portrait-a';
+    img1.style.cssText = 'aspect-ratio:3/4;background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;border-radius:0;';
+    img2.className = 'skel img-portrait-a';
+    img2.style.cssText = 'aspect-ratio:3/4;background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;border-radius:0;';
+    h1.style.cssText = 'background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;color:transparent;border-radius:4px;width:70%;';
+    desc.style.cssText = 'background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;color:transparent;border-radius:4px;height:4rem;';
+    depo.style.cssText = 'background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;border-left-color:transparent;height:5rem;';
+  }
+
+  if (state === 'img-error') {
+    img1.className = 'photo-sim-error img-portrait-a';
+    img1.style.cssText = 'aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;';
+    img1.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BD9187" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/><line x1="3" y1="21" x2="21" y2="3" stroke="#A7523E" stroke-width="1.5"/></svg><span style="font-size:0.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#BD9187;text-align:center;">Foto<br>indisponível</span>';
+  }
+
+  if (state === 'no-depo') {
+    depo.className = 'depo-card-a --absent';
+    document.getElementById('hero-a-depo-text').textContent = 'Depoimento não disponível para este ensaio.';
+    depo.querySelector('.depo-author') && (depo.querySelector('.depo-author').style.display = 'none');
+    depo.querySelector('.stars') && (depo.querySelector('.stars').style.display = 'none');
+  }
+
+  if (state === 'long-desc') {
+    desc.textContent = 'Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no Instagram ela traz a frase: "Sua vida através da psicoarquitetura!" — e não podia estar mais certa. No meu ambiente de trabalho, me sinto em casa, confortável, ela transforma seus ambientes em espaços acolhedores e inspiradores. O que mais me chama a atenção no trabalho da Camila é a capacidade que ela tem de escutar o cliente e traduzir suas necessidades e desejos em espaços funcionais e belos. Cada detalhe é pensado com muito cuidado e carinho. Foi uma honra tê-la como arquiteta e ainda mais como cliente. Este ensaio traduz exatamente quem ela é: uma profissional apaixonada, elegante e humana.';
+    desc.style.cssText = 'display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:var(--t-base);color:var(--c-ink-mid);line-height:1.75;';
+
+    const btn = document.createElement('button');
+    btn.className = 'expand-btn';
+    btn.id = 'hero-a-expand';
+    btn.textContent = '+ Ler completo';
+    btn.onclick = function() {
+      desc.style.webkitLineClamp = 'unset';
+      desc.style.overflow = 'visible';
+      btn.style.display = 'none';
+    };
+    desc.insertAdjacentElement('afterend', btn);
+  }
+
+  if (state === 'long-title') {
+    h1.textContent = 'Camila Nogueira da Silva Arquiteta e Psicoarquitetura';
+    h1.style.fontSize = 'clamp(1.5rem, 2.8vw, 2.25rem)';
+  }
+}
+
+/* ---- PROPOSTA B ---- */
+function setStateB(state) {
+  document.querySelectorAll('#tabs-b .state-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const depo = document.getElementById('hero-b-depo');
+  const img1 = document.getElementById('hero-b-img1');
+  const img2 = document.getElementById('hero-b-img2');
+  const panel = document.getElementById('hero-b-panel');
+
+  img1.className = 'photo-sim-1';
+  img1.style.cssText = 'width:100%;height:100%;';
+  img2.className = 'photo-sim-2';
+  img2.style.cssText = 'width:100%;height:100%;';
+  depo.style.display = '';
+
+  if (state === 'skeleton') {
+    img1.style.cssText = 'width:100%;height:100%;background:linear-gradient(90deg,#3a3330 25%,#4a4340 50%,#3a3330 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;';
+    img2.style.cssText = 'width:100%;height:100%;background:linear-gradient(90deg,#3a3330 25%,#4a4340 50%,#3a3330 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;';
+    depo.style.display = 'none';
+  }
+
+  if (state === 'no-depo') {
+    depo.style.display = 'none';
+  }
+}
+
+/* ---- PROPOSTA C ---- */
+function setStateC(state) {
+  document.querySelectorAll('#hero-c ~ .state-tabs .state-tab, .proposal-wrapper:nth-child(3) .state-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const img1 = document.getElementById('hero-c-img1');
+  const depo = document.getElementById('hero-c-depo');
+  const thumb = document.getElementById('hero-c-thumb');
+  const h1 = document.getElementById('hero-c-h1');
+
+  img1.className = 'photo-sim-1';
+  img1.style.cssText = 'width:100%;height:100%;';
+  thumb.style.display = '';
+  depo.style.display = '';
+  h1.textContent = 'Camila Nogueira';
+
+  if (state === 'skeleton') {
+    img1.style.cssText = 'width:100%;height:100%;background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;';
+    thumb.style.display = 'none';
+  }
+
+  if (state === 'img-error') {
+    img1.className = 'photo-sim-error';
+    img1.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;';
+    img1.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#BD9187" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/><line x1="3" y1="21" x2="21" y2="3" stroke="#A7523E" stroke-width="1.5"/></svg><span style="font-size:0.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#BD9187;text-align:center;">Foto não<br>disponível</span>';
+  }
+
+  if (state === 'no-depo') {
+    depo.style.display = 'none';
+  }
+}
+
+/* ---- PROPOSTA D ---- */
+function setStateD(state) {
+  document.querySelectorAll('.proposal-wrapper:nth-child(4) .state-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const depo = document.getElementById('hero-d-depo');
+  const img1 = document.getElementById('hero-d-img1');
+
+  img1.className = 'photo-sim-1';
+  img1.style.cssText = 'width:100%;height:100%;';
+  depo.style.display = '';
+
+  if (state === 'skeleton') {
+    img1.style.cssText = 'width:100%;height:100%;background:linear-gradient(90deg,#2e2825 25%,#3a3330 50%,#2e2825 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;';
+  }
+
+  if (state === 'no-depo') {
+    depo.style.display = 'none';
+  }
+}
+
+/* ---- PROPOSTA E ---- */
+var heroELongDesc = false;
+
+function toggleDescE() {
+  const desc = document.getElementById('hero-e-desc');
+  const btn = document.getElementById('hero-e-readmore');
+  if (heroELongDesc) {
+    desc.style.webkitLineClamp = '5';
+    desc.style.overflow = 'hidden';
+    btn.textContent = '+ Ler Completo';
+    heroELongDesc = false;
+  } else {
+    desc.style.webkitLineClamp = 'unset';
+    desc.style.overflow = 'visible';
+    btn.textContent = '− Menos';
+    heroELongDesc = true;
+  }
+}
+
+function setStateE(state) {
+  document.querySelectorAll('.proposal-wrapper:nth-child(5) .state-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const depo = document.getElementById('hero-e-depo');
+  const img1 = document.getElementById('hero-e-img1');
+  const img2 = document.getElementById('hero-e-img2');
+  const desc = document.getElementById('hero-e-desc');
+  const btn = document.getElementById('hero-e-readmore');
+  const h1 = document.getElementById('hero-e-h1');
+
+  depo.style.display = '';
+  img1.className = 'photo-sim-1';
+  img1.style.cssText = '';
+  img2.className = 'photo-sim-2';
+  img2.style.cssText = '';
+  desc.style.cssText = 'font-size:var(--t-base);color:var(--c-ink-mid);line-height:1.85;';
+  btn.style.display = 'none';
+  desc.textContent = 'Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no Instagram ela traz a frase: "Sua vida através da psicoarquitetura!" — e não podia estar mais certa.';
+  heroELongDesc = false;
+
+  if (state === 'skeleton') {
+    img1.style.cssText = 'background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;';
+    img2.style.cssText = 'background:linear-gradient(90deg,#E9E5D8 25%,#F4F2E9 50%,#E9E5D8 75%);background-size:400px 100%;animation:shimmer 1.4s infinite linear;';
+    depo.style.display = 'none';
+  }
+
+  if (state === 'no-depo') {
+    depo.style.display = 'none';
+  }
+
+  if (state === 'long-desc') {
+    desc.textContent = 'Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no Instagram ela traz a frase: "Sua vida através da psicoarquitetura!" — e não podia estar mais certa. No meu ambiente de trabalho, me sinto em casa, confortável, ela transforma seus ambientes em espaços acolhedores e inspiradores. O que mais me chama a atenção no trabalho da Camila é a capacidade que ela tem de escutar o cliente e traduzir suas necessidades e desejos em espaços funcionais e belos. Cada detalhe é pensado com muito cuidado e carinho. Foi uma honra tê-la como arquiteta e ainda mais como cliente. Este ensaio traduz exatamente quem ela é: uma profissional apaixonada, elegante e humana.';
+    desc.style.cssText = 'font-size:var(--t-base);color:var(--c-ink-mid);line-height:1.85;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;';
+    btn.style.display = 'flex';
+    heroELongDesc = false;
+  }
+}
+</script>
+
+</body>
+</html>

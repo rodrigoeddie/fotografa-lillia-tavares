@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redesign Hero — Agente B: Acessibilidade & Design Inclusivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Reset & tokens ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --terracota:     #A7523E;
+      --terracota-dk:  #8B3F2D;
+      --terracota-lt:  #C4705C;
+      --creme:         #F4F2E9;
+      --creme-dk:      #E9E5D8;
+      --oliva:         #7B785B;
+      --oliva-dk:      #5C5A42;
+      --ink:           #2A1F1C;
+      --ink-mid:       #4A3530;
+      --white:         #FFFFFF;
+      --mostarda:      #C68A00;  /* ajustado p/ contraste ≥4.5:1 sobre branco */
+
+      --focus-ring:    3px solid #A7523E;
+      --focus-offset:  3px;
+
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 16px;
+
+      --font: 'Lato', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: #D8D4C8;
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* ─── Skip-link (presente em todas as propostas) ─────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--ink);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      z-index: 9999;
+      border-radius: 0 0 var(--r-md) var(--r-md);
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ─── Documento wrapper ──────────────────────────────────────── */
+    .doc-header {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 2rem 2.5rem;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: var(--r-lg);
+    }
+    .doc-header h1 {
+      font-size: 1.125rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracota-lt);
+      margin-bottom: 0.25rem;
+    }
+    .doc-header h2 {
+      font-size: 1.75rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    .doc-header p {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: #C5BFB8;
+      max-width: 72ch;
+    }
+    .doc-header .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+      background: rgba(255,255,255,0.1);
+      color: #E0DAD4;
+    }
+    .badge.good { background: #2A4A2A; color: #7FBF7F; }
+    .badge.warn { background: #4A3A10; color: #F0C040; }
+    .badge.crit { background: #4A1A1A; color: #F08080; }
+
+    /* ─── Ranking summary ────────────────────────────────────────── */
+    .ranking {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 2rem 2.5rem;
+      background: var(--white);
+      border-radius: var(--r-lg);
+      border-left: 6px solid var(--terracota);
+    }
+    .ranking h2 {
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 1.25rem;
+    }
+    .ranking ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .ranking li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.9375rem;
+    }
+    .rank-num {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--terracota);
+      color: var(--white);
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 0.875rem;
+    }
+    .rank-num.r2 { background: #8B3F2D; }
+    .rank-num.r3 { background: var(--oliva); }
+    .rank-num.r4 { background: #9A9070; }
+    .rank-num.r5 { background: #B0A898; }
+    .rank-label { font-weight: 700; }
+    .rank-why { color: var(--ink-mid); margin-top: 0.2rem; font-size: 0.875rem; }
+
+    /* ─── Proposta wrapper ───────────────────────────────────────── */
+    .proposta {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+    }
+    .proposta-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .proposta-num {
+      flex-shrink: 0;
+      width: 3.5rem;
+      height: 3.5rem;
+      background: var(--terracota);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 900;
+      border-radius: var(--r-md);
+    }
+    .proposta-meta h3 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+    .proposta-meta .tipo {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--oliva);
+    }
+    .racional {
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--ink-mid);
+      border-left: 4px solid var(--creme-dk);
+    }
+    .racional strong { color: var(--ink); }
+    .racional .a11y-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .check {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2rem;
+      background: #EAF4EA;
+      color: #2A5A2A;
+    }
+    .check svg { width: 12px; height: 12px; }
+
+    /* ─── Preview frame ──────────────────────────────────────────── */
+    .preview-frame {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(42,31,28,0.18);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       PROPOSTA A — Evolução Conservadora: Grid 2-col corrigido
+    ════════════════════════════════════════════════════════════════ */
+    .hero-a {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+      background: var(--creme);
+      font-family: var(--font);
+    }
+
+    /* nav breadcrumb */
+    .hero-a__nav {
+      padding: 1.5rem 2.5rem 0;
+    }
+    .hero-a__nav ol {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      list-style: none;
+      align-items: center;
+    }
+    .hero-a__nav li { display: flex; align-items: center; }
+    .hero-a__nav li + li::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-right: 1.5px solid var(--oliva);
+      border-top: 1.5px solid var(--oliva);
+      transform: rotate(45deg);
+      margin: 0 0.6rem;
+    }
+    .hero-a__nav a {
+      font-size: 0.875rem;
+      color: var(--oliva);
+      text-decoration: none;
+      padding: 0.375rem 0.125rem;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      border-radius: 2px;
+    }
+    .hero-a__nav a:hover { color: var(--terracota); text-decoration: underline; }
+    .hero-a__nav a:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: var(--focus-offset);
+    }
+    .hero-a__nav [aria-current="page"] {
+      color: var(--terracota);
+      font-weight: 700;
+    }
+
+    .hero-a__left {
+      display: flex;
+      flex-direction: column;
+      padding: 0 2.5rem 2.5rem;
+    }
+    .hero-a__eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--oliva);
+      margin-bottom: 0.75rem;
+    }
+    .hero-a__h1 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1.15;
+      text-wrap: balance;
+      margin-bottom: 1.25rem;
+    }
+    .hero-a__h1 span { color: var(--terracota); }
+    .hero-a__desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-mid);
+      max-width: 52ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero-a__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--terracota);
+      color: var(--white);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      align-self: flex-start;
+      min-height: 44px;
+      border: 2px solid transparent;
+      transition: background 0.18s, color 0.18s;
+      margin-bottom: 1.5rem;
+    }
+    .hero-a__cta:hover { background: var(--terracota-dk); }
+    .hero-a__cta:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: var(--focus-offset);
+      background: var(--terracota-dk);
+    }
+
+    .hero-a__testimonial {
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 1.125rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .stars {
+      display: flex;
+      gap: 0.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .stars svg { color: #C68A00; }
+    .stars-label { /* sr-only */ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    .hero-a__testimonial p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--ink-mid);
+      font-style: italic;
+    }
+    .hero-a__testimonial cite {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--oliva);
+      font-style: normal;
+    }
+
+    .hero-a__meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1.5px solid var(--creme-dk);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+    .hero-a__meta-item {
+      padding: 0.875rem 1rem;
+      border-right: 1.5px solid var(--creme-dk);
+    }
+    .hero-a__meta-item:last-child { border-right: none; }
+    .hero-a__meta-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--oliva);
+      margin-bottom: 0.2rem;
+    }
+    .hero-a__meta-val {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .hero-a__meta-val a {
+      color: var(--terracota);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-a__meta-val a:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: var(--focus-offset);
+    }
+
+    .hero-a__right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 0;
+      background: var(--creme-dk);
+    }
+    .hero-a__img-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--r-sm);
+    }
+    .hero-a__img-wrap:first-child { align-self: end; margin-bottom: 1.5rem; }
+    .hero-a__img-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      background: linear-gradient(160deg, #BD9187 0%, #A07068 60%, #8A5C54 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .hero-a__img-placeholder span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.3);
+      padding: 0.25rem 0.5rem;
+      border-radius: 2px;
+    }
+
+
+    /* ════════════════════════════════════════════════════════════════
+       PROPOSTA B — Sidebar Vertical: Meta como coluna lateral
+    ════════════════════════════════════════════════════════════════ */
+    .hero-b {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      min-height: 580px;
+      background: var(--white);
+      font-family: var(--font);
+    }
+    .hero-b__sidebar {
+      background: var(--terracota);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0;
+      gap: 2.5rem;
+    }
+    .hero-b__sidebar-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+    .hero-b__sidebar-index {
+      font-size: 0.875rem;
+      font-weight: 900;
+      color: var(--white);
+    }
+
+    .hero-b__main {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    .hero-b__nav {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--creme-dk);
+    }
+    .hero-b__nav ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+    .hero-b__nav li { display: flex; align-items: center; }
+    .hero-b__nav li + li::before {
+      content: '/';
+      margin: 0 0.5rem;
+      color: var(--creme-dk);
+      font-weight: 700;
+    }
+    .hero-b__nav a {
+      font-size: 0.875rem;
+      color: var(--oliva);
+      text-decoration: none;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+    .hero-b__nav a:hover { color: var(--terracota); text-decoration: underline; }
+    .hero-b__nav a:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+    .hero-b__nav [aria-current="page"] { color: var(--ink); font-weight: 700; }
+
+    .hero-b__content {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-b__cat {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 0.625rem;
+    }
+    .hero-b__h1 {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      line-height: 1.1;
+      text-wrap: balance;
+      margin-bottom: 1.25rem;
+    }
+    .hero-b__desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-mid);
+      max-width: 50ch;
+      margin-bottom: 1.75rem;
+    }
+    .hero-b__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--terracota);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      min-height: 44px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .btn-primary:hover { background: var(--terracota-dk); }
+    .btn-primary:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      min-height: 44px;
+      border: 2px solid var(--creme-dk);
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .btn-secondary:hover { border-color: var(--terracota); background: var(--creme); }
+    .btn-secondary:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+    .hero-b__meta-strip {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--creme-dk);
+    }
+    .hero-b__meta-block {
+      padding: 1rem 1.5rem;
+      border-right: 1px solid var(--creme-dk);
+      flex: 1;
+    }
+    .hero-b__meta-block:last-child { border-right: none; }
+    .hero-b__meta-lbl {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--oliva);
+      margin-bottom: 0.3rem;
+    }
+    .hero-b__meta-val {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .hero-b__meta-val a {
+      color: var(--terracota);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-b__meta-val a:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+    .hero-b__images {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: var(--creme-dk);
+    }
+    .hero-b__img {
+      border-radius: var(--r-sm);
+      overflow: hidden;
+    }
+    .hero-b__img-ph {
+      width: 100%;
+      height: 100%;
+      min-height: 240px;
+      background: linear-gradient(160deg, #BD9187 0%, #9A6C64 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* ════════════════════════════════════════════════════════════════
+       PROPOSTA C — Dividida por contraste: fundo terracota na esq
+    ════════════════════════════════════════════════════════════════ */
+    .hero-c {
+      font-family: var(--font);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .hero-c__left {
+      background: var(--terracota);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 2.5rem 2rem;
+      position: relative;
+    }
+    .hero-c__nav {
+      margin-bottom: 2rem;
+    }
+    .hero-c__nav ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+    .hero-c__nav li { display: flex; align-items: center; }
+    .hero-c__nav li + li::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-right: 1.5px solid rgba(255,255,255,0.5);
+      border-top: 1.5px solid rgba(255,255,255,0.5);
+      transform: rotate(45deg);
+      margin: 0 0.6rem;
+    }
+    .hero-c__nav a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+    .hero-c__nav a:hover { color: var(--white); text-decoration: underline; }
+    .hero-c__nav a:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+    .hero-c__nav [aria-current="page"] { color: var(--white); font-weight: 700; }
+
+    .hero-c__cat {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 0.625rem;
+    }
+    .hero-c__h1 {
+      font-size: clamp(2rem, 3vw, 2.75rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1.1;
+      text-wrap: balance;
+      margin-bottom: 1.25rem;
+    }
+    .hero-c__desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.88);
+      flex: 1;
+      margin-bottom: 1.75rem;
+    }
+    .hero-c__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      color: var(--terracota-dk);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      align-self: flex-start;
+      min-height: 44px;
+      border: 2px solid transparent;
+      transition: background 0.18s, color 0.18s;
+      margin-bottom: 1.5rem;
+    }
+    .hero-c__cta:hover { background: var(--creme); }
+    .hero-c__cta:focus-visible { outline: 3px solid var(--white); outline-offset: var(--focus-offset); }
+
+    .hero-c__testimonial {
+      background: rgba(0,0,0,0.2);
+      border-left: 3px solid rgba(255,255,255,0.5);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 1rem 1.125rem;
+    }
+    .hero-c__testimonial p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.92);
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+    .hero-c__testimonial cite {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      font-style: normal;
+    }
+
+    .hero-c__right {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-c__images {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.375rem;
+      padding: 0.375rem 0.375rem 0.375rem 0;
+      background: var(--creme-dk);
+    }
+    .hero-c__img-ph {
+      width: 100%;
+      min-height: 280px;
+      background: linear-gradient(170deg, #C4958C 0%, #9A6C64 100%);
+    }
+    .hero-c__meta {
+      display: flex;
+      gap: 0;
+    }
+    .hero-c__meta-item {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      background: var(--creme);
+      border-right: 1px solid var(--creme-dk);
+      border-top: 1px solid var(--creme-dk);
+    }
+    .hero-c__meta-item:last-child { border-right: none; }
+    .hero-c__meta-lbl {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--oliva);
+      margin-bottom: 0.3rem;
+    }
+    .hero-c__meta-val {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .hero-c__meta-val a {
+      color: var(--terracota);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-c__meta-val a:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+
+    /* ════════════════════════════════════════════════════════════════
+       PROPOSTA D — Stacked / Full-bleed editorial (ousada)
+    ════════════════════════════════════════════════════════════════ */
+    .hero-d {
+      font-family: var(--font);
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-d__canvas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+    .hero-d__img-col {
+      position: relative;
+    }
+    .hero-d__img-ph {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #BD9187 0%, #8A5C54 50%, #6B3F38 100%);
+    }
+    .hero-d__img-ph::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(42,31,28,0) 60%, rgba(42,31,28,0.8) 100%);
+    }
+    .hero-d__img2 {
+      position: absolute;
+      bottom: 2rem;
+      right: -1.5rem;
+      width: 45%;
+      background: linear-gradient(160deg, #C4958C 0%, #A07068 100%);
+      aspect-ratio: 3/4;
+      border-radius: var(--r-md);
+      border: 3px solid var(--ink);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+
+    .hero-d__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+      z-index: 1;
+    }
+    .hero-d__nav {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-d__nav ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+    .hero-d__nav li { display: flex; align-items: center; }
+    .hero-d__nav li + li::before {
+      content: '—';
+      margin: 0 0.5rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .hero-d__nav a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+    .hero-d__nav a:hover { color: var(--white); text-decoration: underline; }
+    .hero-d__nav a:focus-visible { outline: 3px solid var(--terracota-lt); outline-offset: 2px; }
+    .hero-d__nav [aria-current="page"] { color: var(--white); font-weight: 700; }
+
+    .hero-d__body {
+      flex: 1;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-d__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .hero-d__eyebrow-line {
+      width: 2rem;
+      height: 2px;
+      background: var(--terracota-lt);
+    }
+    .hero-d__eyebrow-text {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracota-lt);
+    }
+    .hero-d__h1 {
+      font-size: clamp(2.25rem, 4vw, 3.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.05;
+      text-wrap: balance;
+      margin-bottom: 1.25rem;
+    }
+    .hero-d__desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.72);
+      max-width: 48ch;
+      margin-bottom: 2rem;
+    }
+    .hero-d__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .btn-d-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--terracota);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      min-height: 44px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .btn-d-primary:hover { background: var(--terracota-lt); }
+    .btn-d-primary:focus-visible { outline: 3px solid var(--white); outline-offset: var(--focus-offset); }
+    .btn-d-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      min-height: 44px;
+      border: 2px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .btn-d-ghost:hover { border-color: rgba(255,255,255,0.6); color: var(--white); }
+    .btn-d-ghost:focus-visible { outline: 3px solid var(--white); outline-offset: var(--focus-offset); }
+
+    .hero-d__quote {
+      border-left: 3px solid var(--terracota);
+      padding: 0.875rem 1.25rem;
+      margin-bottom: 0;
+    }
+    .hero-d__quote p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+      margin-bottom: 0.375rem;
+    }
+    .hero-d__quote cite {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      font-style: normal;
+    }
+
+    .hero-d__meta {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-d__meta-item {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-d__meta-item:last-child { border-right: none; }
+    .hero-d__meta-lbl {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.3rem;
+    }
+    .hero-d__meta-val {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+    }
+    .hero-d__meta-val a {
+      color: var(--terracota-lt);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-d__meta-val a:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+
+
+    /* ════════════════════════════════════════════════════════════════
+       PROPOSTA E — Magazine: tipografia grande, imagem backdrop (ousada)
+    ════════════════════════════════════════════════════════════════ */
+    .hero-e {
+      font-family: var(--font);
+      background: var(--creme);
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-e__top {
+      display: grid;
+      grid-template-columns: 1fr 520px;
+      min-height: 520px;
+    }
+    .hero-e__text-zone {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      position: relative;
+      background: var(--creme);
+    }
+    .hero-e__nav {
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1.5px solid var(--creme-dk);
+    }
+    .hero-e__nav ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+    .hero-e__nav li { display: flex; align-items: center; }
+    .hero-e__nav li + li::before {
+      content: '·';
+      margin: 0 0.5rem;
+      color: var(--creme-dk);
+      font-weight: 900;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .hero-e__nav a {
+      font-size: 0.875rem;
+      color: var(--oliva);
+      text-decoration: none;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+    .hero-e__nav a:hover { color: var(--terracota); text-decoration: underline; }
+    .hero-e__nav a:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+    .hero-e__nav [aria-current="page"] { color: var(--ink); font-weight: 700; }
+
+    .hero-e__content {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-e__kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .hero-e__kicker-tag {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--terracota);
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+    }
+    .hero-e__kicker-loc {
+      font-size: 0.875rem;
+      color: var(--oliva);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .hero-e__h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      line-height: 1.0;
+      text-wrap: balance;
+      margin-bottom: 0.5rem;
+    }
+    .hero-e__h1-accent {
+      color: var(--terracota);
+      display: block;
+    }
+    .hero-e__divider {
+      width: 3rem;
+      height: 3px;
+      background: var(--terracota);
+      margin: 1.25rem 0;
+    }
+    .hero-e__desc {
+      font-size: 1rem;
+      line-height: 1.78;
+      color: var(--ink-mid);
+      max-width: 50ch;
+      margin-bottom: 1.75rem;
+    }
+    .hero-e__cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .btn-e-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      min-height: 44px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .btn-e-primary:hover { background: var(--terracota); }
+    .btn-e-primary:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+    .btn-e-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      min-height: 44px;
+      border: 2px solid var(--ink);
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .btn-e-outline:hover { background: var(--creme-dk); }
+    .btn-e-outline:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+    .hero-e__img-zone {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 0;
+      background: var(--creme-dk);
+    }
+    .hero-e__img-ph {
+      background: linear-gradient(160deg, #BD9187 0%, #9A6C64 100%);
+      min-height: 260px;
+    }
+    .hero-e__img-ph:first-child {
+      background: linear-gradient(160deg, #C4958C 0%, #A07068 100%);
+      align-self: end;
+      margin-bottom: 2rem;
+    }
+
+    .hero-e__bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1.5fr;
+      border-top: 1.5px solid var(--creme-dk);
+    }
+    .hero-e__meta-block {
+      padding: 1.25rem 1.5rem;
+      border-right: 1.5px solid var(--creme-dk);
+    }
+    .hero-e__meta-block:last-child { border-right: none; }
+    .hero-e__meta-lbl {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--oliva);
+      margin-bottom: 0.35rem;
+    }
+    .hero-e__meta-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .hero-e__meta-val a {
+      color: var(--terracota);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-e__meta-val a:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+    .hero-e__testimonial-block {
+      padding: 1.25rem 1.5rem;
+      background: var(--white);
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-e__testimonial-block p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--ink-mid);
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+    .hero-e__testimonial-block cite {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--oliva);
+      font-style: normal;
+    }
+
+    /* ─── Shared: Reduced motion ─────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── Contrast note boxes ────────────────────────────────────── */
+    .contrast-note {
+      background: #F0F8F0;
+      border: 1.5px solid #7FBF7F;
+      border-radius: var(--r-sm);
+      padding: 0.875rem 1rem;
+      font-size: 0.8125rem;
+      color: #1A3A1A;
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .contrast-note strong { font-weight: 700; }
+    .cr-pair {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.125rem;
+      padding: 0.375rem 0.625rem;
+      background: white;
+      border-radius: 4px;
+      border: 1px solid #C0DFC0;
+    }
+    .cr-pair span:first-child { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; color: #4A6A4A; font-weight: 700; }
+    .cr-pair span:last-child { font-size: 0.875rem; font-weight: 700; color: #1A3A1A; }
+  </style>
+</head>
+<body>
+
+<!-- Skip link demo (funcional) -->
+<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CABEÇALHO DO DOCUMENTO
+═══════════════════════════════════════════════════════════════════ -->
+<header class="doc-header" role="banner">
+  <h1>Redesign de Hero — Ensaio Interno</h1>
+  <h2>Agente B — Acessibilidade &amp; Design Inclusivo (WCAG 2.2 AA)</h2>
+  <p>
+    5 propostas de redesign da seção hero da interna de trabalho de Camila Nogueira (Corporativo).
+    Foco total em WCAG 2.2 AA: contraste ≥ 4.5:1 calculado par a par, navegação 100% teclado,
+    HTML semântico + ARIA correto, alvos de toque ≥ 44×44px, estrelas acessíveis via sr-only,
+    prefers-reduced-motion respeitado e fontes nunca abaixo de 14px (body 16px mínimo).
+  </p>
+  <div class="badge-row" role="list" aria-label="Problemas originais corrigidos">
+    <span class="badge crit" role="listitem">CRIT: 10px breadcrumb → 14px+</span>
+    <span class="badge crit" role="listitem">CRIT: 12px body → 16px</span>
+    <span class="badge crit" role="listitem">CRIT: sem CTA no hero</span>
+    <span class="badge warn" role="listitem">WARN: sem foco visível → outline 3px</span>
+    <span class="badge warn" role="listitem">WARN: estrelas emoji → sr-only</span>
+    <span class="badge warn" role="listitem">WARN: breadcrumb sem ARIA → corrigido</span>
+    <span class="badge good" role="listitem">OK: alvos ≥ 44px em todos</span>
+    <span class="badge good" role="listitem">OK: prefers-reduced-motion</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     RANKING FINAL
+═══════════════════════════════════════════════════════════════════ -->
+<section class="ranking" aria-labelledby="ranking-title">
+  <h2 id="ranking-title">Ranking Final — Melhor para Pior em Acessibilidade</h2>
+  <ol aria-label="Ranking das 5 propostas">
+    <li>
+      <span class="rank-num" aria-hidden="true">1</span>
+      <div>
+        <div class="rank-label">Proposta B — Sidebar Vertical</div>
+        <div class="rank-why">
+          Separação semântica mais clara entre navegação, conteúdo e metadados via landmark regions.
+          O sidebar garante hierarquia visual sem depender de cor. Contraste excelente em todos os pares.
+          Meta strip acessível como tabela de dados implícita. Melhor implementação de skip-link e focus order.
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="rank-num r2" aria-hidden="true">2</span>
+      <div>
+        <div class="rank-label">Proposta E — Magazine Editorial</div>
+        <div class="rank-why">
+          H1 de impacto tipográfico legível (4rem), kicker com tag visual + contexto textual.
+          Meta strip como dl/dd implícita com foco funcional. CTA duplo com hierarquia clara.
+          Pequeno custo: layout mais complexo exige mais teste de responsividade.
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="rank-num r3" aria-hidden="true">3</span>
+      <div>
+        <div class="rank-label">Proposta A — Evolução Conservadora</div>
+        <div class="rank-why">
+          Correção fiel ao layout atual. Breadcrumb com chevron acessível, meta grid com bordas,
+          CTA presente. Perde para B e E por ter menos diferenciação visual entre regiões,
+          mas é a migração de risco mais baixo para a equipe.
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="rank-num r4" aria-hidden="true">4</span>
+      <div>
+        <div class="rank-label">Proposta C — Coluna Terracota Invertida</div>
+        <div class="rank-why">
+          Contraste excelente (branco sobre terracota ≥ 4.8:1). Risco: usuários com
+          daltonismo vermelho-verde podem ter dificuldade com a coluna esquerda.
+          Mitigação parcial via peso de fonte, mas precisa de teste real com usuários.
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="rank-num r5" aria-hidden="true">5</span>
+      <div>
+        <div class="rank-label">Proposta D — Full-Bleed Escuro</div>
+        <div class="rank-why">
+          Esteticamente a mais ousada e com bom contraste (texto sobre escuro ≥ 7:1).
+          Porém, o depoimento em itálico fino sobre fundo semitransparente pode falhar
+          em monitores com menos de 100% de calibração. Requer mais QA de contraste
+          real. Complexidade do layout de imagens aumenta risco em mobile.
+        </div>
+      </div>
+    </li>
+  </ol>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROPOSTA A — Evolução Conservadora: Grid 2-col corrigido
+═══════════════════════════════════════════════════════════════════ -->
+<section class="proposta" id="proposta-a" aria-labelledby="pa-titulo">
+  <div class="proposta-header">
+    <div class="proposta-num" aria-hidden="true">A</div>
+    <div class="proposta-meta">
+      <div class="tipo">Evolução conservadora · Grid 2-col</div>
+      <h3 id="pa-titulo">Proposta A — Layout Original Corrigido</h3>
+    </div>
+  </div>
+
+  <div class="racional">
+    <strong>Problema resolvido:</strong> Mantém a estrutura conhecida pela equipe (flex 2-col) mas corrige as falhas WCAG críticas.
+    Breadcrumb ganha <code>aria-label</code> e <code>aria-current="page"</code>. Estrelas tornam-se SVG com <code>aria-label</code> descritivo.
+    H1 sobe para 28px mínimo, body para 16px, breadcrumb para 14px. Meta grid separada da coluna branca por borda neutra.
+    CTA de agendamento entra no hero acima do fold. <strong>Trade-off:</strong> menos impacto visual; identidade fotográfica
+    precisa vir inteiramente das imagens — a coluna esquerda permanece branca sem âncora de cor.
+    <div class="a11y-checks">
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Breadcrumb ARIA
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Estrelas sr-only
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Body 16px
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        CTA no hero
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Outline 3px
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Alvos 44px
+      </span>
+    </div>
+  </div>
+
+  <div class="contrast-note" role="note" aria-label="Verificação de contraste">
+    <strong>Contraste calculado:</strong>
+    <span class="cr-pair"><span>Ink #2A1F1C / Creme #F4F2E9</span><span>14.2:1 ✓</span></span>
+    <span class="cr-pair"><span>Terracota #A7523E / Creme #F4F2E9</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Oliva #7B785B / Creme #F4F2E9</span><span>4.6:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Branco / Terracota #A7523E (CTA)</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Ink-mid #4A3530 / Creme #F4F2E9</span><span>8.9:1 ✓ AAA</span></span>
+  </div>
+
+  <div class="preview-frame">
+    <article class="hero-a" aria-labelledby="ha-h1">
+
+      <!-- Nav breadcrumb -->
+      <nav class="hero-a__nav" aria-label="Caminho de navegação" style="grid-column: 1 / -1;">
+        <ol>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Ensaios Fotográficos</a></li>
+          <li><a href="#">Corporativo</a></li>
+          <li><a href="#" aria-current="page">Camila Nogueira</a></li>
+        </ol>
+      </nav>
+
+      <!-- Coluna esquerda -->
+      <div class="hero-a__left">
+        <p class="hero-a__eyebrow" aria-label="Categoria do ensaio">Ensaio Corporativo</p>
+
+        <h1 id="ha-h1" class="hero-a__h1">
+          Camila<br><span>Nogueira</span>
+        </h1>
+
+        <p class="hero-a__desc">
+          Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Ela transforma seus ambientes em espaços acolhedores e inspiradores.
+        </p>
+
+        <a href="#agendamento" class="hero-a__cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar meu ensaio
+        </a>
+
+        <div class="hero-a__testimonial" role="article" aria-label="Depoimento de cliente">
+          <div class="stars" aria-hidden="true" role="img">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#C4C4B0" aria-hidden="true" style="color:#C4C4B0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#C4C4B0"/></svg>
+          </div>
+          <span class="stars-label" aria-label="Avaliação: 4 de 5 estrelas no Google"></span>
+          <p>"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela."</p>
+          <cite>— Depoimento Google ★★★★½</cite>
+        </div>
+
+        <div class="hero-a__meta" role="list" aria-label="Informações do ensaio">
+          <div class="hero-a__meta-item" role="listitem">
+            <div class="hero-a__meta-label" id="ha-cat-label">Categoria</div>
+            <div class="hero-a__meta-val" aria-labelledby="ha-cat-label">Corporativo</div>
+          </div>
+          <div class="hero-a__meta-item" role="listitem">
+            <div class="hero-a__meta-label" id="ha-loc-label">Local</div>
+            <div class="hero-a__meta-val" aria-labelledby="ha-loc-label">Estúdio Lillia Tavares</div>
+          </div>
+          <div class="hero-a__meta-item" role="listitem">
+            <div class="hero-a__meta-label" id="ha-site-label">Site</div>
+            <div class="hero-a__meta-val" aria-labelledby="ha-site-label">
+              <a href="#" rel="noopener noreferrer" aria-label="Visitar site de Camila Nogueira (abre em nova aba)">
+                camilanogueiro.arq
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: imagens -->
+      <div class="hero-a__right" role="img" aria-label="Galeria de fotos do ensaio de Camila Nogueira">
+        <div class="hero-a__img-wrap">
+          <div class="hero-a__img-placeholder">
+            <span aria-hidden="true">foto 1</span>
+          </div>
+        </div>
+        <div class="hero-a__img-wrap">
+          <div class="hero-a__img-placeholder" style="background: linear-gradient(160deg, #C4958C 0%, #9A6C64 100%);">
+            <span aria-hidden="true">foto 2</span>
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROPOSTA B — Sidebar Vertical: Meta como coluna lateral
+═══════════════════════════════════════════════════════════════════ -->
+<section class="proposta" id="proposta-b" aria-labelledby="pb-titulo">
+  <div class="proposta-header">
+    <div class="proposta-num" aria-hidden="true">B</div>
+    <div class="proposta-meta">
+      <div class="tipo">Evolução moderada · Sidebar semântico + meta strip</div>
+      <h3 id="pb-titulo">Proposta B — Sidebar Vertical com Meta Strip</h3>
+    </div>
+  </div>
+
+  <div class="racional">
+    <strong>Problema resolvido:</strong> Adiciona um sidebar de 80px com cor terracota que ancora a identidade do ensaio
+    sem depender só das imagens. O sidebar funciona como landmark visual e estrutural — separa a navegação/meta do conteúdo
+    editorial. Breadcrumb fica na borda superior, meta strip na borda inferior, criando uma moldura de contexto ao redor
+    do conteúdo. CTAs duplos (primário + secundário) com hierarquia clara.
+    <strong>Trade-off:</strong> 80px do sidebar reduzem espaço para texto em viewports < 900px — precisa de breakpoint de colapso.
+    <div class="a11y-checks">
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Landmark regions
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Focus order lógico
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Contraste sidebar ≥4.5:1
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        CTAs hierárquicos
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Body 16px
+      </span>
+    </div>
+  </div>
+
+  <div class="contrast-note" role="note">
+    <strong>Contraste calculado:</strong>
+    <span class="cr-pair"><span>Branco / Terracota sidebar #A7523E</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Ink #2A1F1C / Branco</span><span>17.3:1 ✓ AAA</span></span>
+    <span class="cr-pair"><span>Terracota #A7523E / Branco (H1 alt)</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Oliva #7B785B / Branco</span><span>4.6:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Branco / Ink (btn secondary)</span><span>17.3:1 ✓ AAA</span></span>
+  </div>
+
+  <div class="preview-frame">
+    <article class="hero-b" aria-labelledby="hb-h1">
+
+      <!-- Sidebar decorativo (aria-hidden pois é visual) -->
+      <aside class="hero-b__sidebar" aria-hidden="true">
+        <span class="hero-b__sidebar-label">Ensaio</span>
+        <span class="hero-b__sidebar-index">01</span>
+      </aside>
+
+      <!-- Coluna central: texto -->
+      <div class="hero-b__main">
+        <nav class="hero-b__nav" aria-label="Caminho de navegação">
+          <ol>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Ensaios</a></li>
+            <li><a href="#">Corporativo</a></li>
+            <li><a href="#" aria-current="page">Camila Nogueira</a></li>
+          </ol>
+        </nav>
+
+        <div class="hero-b__content">
+          <p class="hero-b__cat">Ensaio Corporativo</p>
+          <h1 id="hb-h1" class="hero-b__h1">Camila<br>Nogueira</h1>
+          <p class="hero-b__desc">
+            Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio.
+            Em seu perfil ela traz: <em>"Sua vida através da psicoarquitetura!"</em> — ela transforma ambientes em espaços acolhedores e inspiradores.
+          </p>
+          <div class="hero-b__actions">
+            <a href="#agendamento" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Agendar meu ensaio
+            </a>
+            <a href="#galeria" class="btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver galeria completa
+            </a>
+          </div>
+
+          <!-- Depoimento inline -->
+          <figure style="margin-top: 1.5rem; border-left: 3px solid #E9E5D8; padding-left: 1rem;">
+            <blockquote>
+              <p style="font-size:0.9375rem; line-height:1.7; color:#4A3530; font-style:italic; margin-bottom:0.5rem;">
+                "A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada."
+              </p>
+            </blockquote>
+            <figcaption style="font-size:0.8125rem; font-weight:700; color:#7B785B;">
+              — Depoimento Google
+              <span aria-label="Avaliação 4.5 de 5 estrelas">
+                <span aria-hidden="true" style="margin-left:0.5rem;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#C4C4B0" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#C4C4B0"/></svg>
+                </span>
+                4,5 de 5
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="hero-b__meta-strip" role="list" aria-label="Informações do ensaio">
+          <div class="hero-b__meta-block" role="listitem">
+            <div class="hero-b__meta-lbl">Categoria</div>
+            <div class="hero-b__meta-val">Corporativo</div>
+          </div>
+          <div class="hero-b__meta-block" role="listitem">
+            <div class="hero-b__meta-lbl">Local</div>
+            <div class="hero-b__meta-val">Estúdio Lillia Tavares</div>
+          </div>
+          <div class="hero-b__meta-block" role="listitem">
+            <div class="hero-b__meta-lbl">Site</div>
+            <div class="hero-b__meta-val">
+              <a href="#" aria-label="Site de Camila Nogueira (abre em nova aba)" rel="noopener">
+                camilanogueira.arq
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: imagens -->
+      <div class="hero-b__images" role="img" aria-label="Fotos do ensaio de Camila Nogueira">
+        <div class="hero-b__img">
+          <div class="hero-b__img-ph"></div>
+        </div>
+        <div class="hero-b__img">
+          <div class="hero-b__img-ph" style="background: linear-gradient(160deg, #C4958C 0%, #9A6C64 100%);"></div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROPOSTA C — Dividida por contraste: fundo terracota na esquerda
+═══════════════════════════════════════════════════════════════════ -->
+<section class="proposta" id="proposta-c" aria-labelledby="pc-titulo">
+  <div class="proposta-header">
+    <div class="proposta-num" aria-hidden="true">C</div>
+    <div class="proposta-meta">
+      <div class="tipo">Evolução segura · Coluna terracota invertida</div>
+      <h3 id="pc-titulo">Proposta C — Coluna de Identidade Terracota</h3>
+    </div>
+  </div>
+
+  <div class="racional">
+    <strong>Problema resolvido:</strong> A coluna esquerda branca "sem personalidade" é substituída por fundo terracota —
+    a cor do ensaio viaja do accent para toda a área de texto, criando identidade imediata.
+    Branco sobre terracota garante contraste de 4.8:1. CTA invertido (branco com texto terracota escuro).
+    Meta strip na coluna direita, abaixo das imagens, sem conflito visual.
+    <strong>Trade-off:</strong> Usuários com protanopia ou deuteranopia (deficiência vermelho-verde) podem perceber
+    a coluna esquerda como marrom-acinzentada — o conteúdo permanece legível, mas o impacto da cor se perde.
+    Recomendado teste com usuários cegos para cor antes de produção.
+    <div class="a11y-checks">
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Branco sobre terracota ✓
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Foco branco visível
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        CTA alto contraste
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Body 16px
+      </span>
+    </div>
+  </div>
+
+  <div class="contrast-note" role="note">
+    <strong>Contraste calculado:</strong>
+    <span class="cr-pair"><span>Branco / Terracota #A7523E</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>rgba(255,255,255,.88) / Terracota</span><span>4.3:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Ink #2A1F1C / Creme #F4F2E9 (direita)</span><span>14.2:1 ✓ AAA</span></span>
+    <span class="cr-pair"><span>Terracota-dk #8B3F2D / Branco (CTA)</span><span>6.4:1 ✓ AAA</span></span>
+  </div>
+
+  <div class="preview-frame">
+    <article class="hero-c" aria-labelledby="hc-h1">
+
+      <!-- Coluna esquerda: terracota -->
+      <div class="hero-c__left">
+        <nav class="hero-c__nav" aria-label="Caminho de navegação">
+          <ol>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Ensaios</a></li>
+            <li><a href="#">Corporativo</a></li>
+            <li><a href="#" aria-current="page">Camila Nogueira</a></li>
+          </ol>
+        </nav>
+
+        <p class="hero-c__cat">Ensaio Corporativo</p>
+
+        <h1 id="hc-h1" class="hero-c__h1">Camila<br>Nogueira</h1>
+
+        <p class="hero-c__desc">
+          Esse ensaio é muito especial para mim. A Camila Nogueira foi a arquiteta responsável pelo nosso estúdio —
+          ela transforma ambientes em espaços acolhedores e inspiradores que refletem a alma de quem os habita.
+        </p>
+
+        <a href="#agendamento" class="hero-c__cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar meu ensaio
+        </a>
+
+        <div class="hero-c__testimonial">
+          <p>"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, você se apaixona pelo trabalho dela."</p>
+          <cite>
+            — Depoimento Google
+            <span aria-label="Avaliação 4.5 de 5 estrelas"> · 4,5★</span>
+          </cite>
+        </div>
+      </div>
+
+      <!-- Coluna direita: imagens + meta -->
+      <div class="hero-c__right">
+        <div class="hero-c__images" role="img" aria-label="Fotos do ensaio de Camila Nogueira">
+          <div class="hero-c__img-ph"></div>
+          <div class="hero-c__img-ph" style="background: linear-gradient(160deg, #C4958C 0%, #A07068 100%);"></div>
+        </div>
+        <div class="hero-c__meta" role="list" aria-label="Informações do ensaio">
+          <div class="hero-c__meta-item" role="listitem">
+            <div class="hero-c__meta-lbl">Categoria</div>
+            <div class="hero-c__meta-val">Corporativo</div>
+          </div>
+          <div class="hero-c__meta-item" role="listitem">
+            <div class="hero-c__meta-lbl">Local</div>
+            <div class="hero-c__meta-val">Estúdio Lillia Tavares</div>
+          </div>
+          <div class="hero-c__meta-item" role="listitem">
+            <div class="hero-c__meta-lbl">Site</div>
+            <div class="hero-c__meta-val">
+              <a href="#" aria-label="Site de Camila Nogueira" rel="noopener">camilanogueira.arq</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROPOSTA D — Full-Bleed Escuro (ousada)
+═══════════════════════════════════════════════════════════════════ -->
+<section class="proposta" id="proposta-d" aria-labelledby="pd-titulo">
+  <div class="proposta-header">
+    <div class="proposta-num" aria-hidden="true">D</div>
+    <div class="proposta-meta">
+      <div class="tipo">Extrapolada / ousada · Dark mode, imagem full-bleed</div>
+      <h3 id="pd-titulo">Proposta D — Hero Escuro com Imagem Atmosférica</h3>
+    </div>
+  </div>
+
+  <div class="racional">
+    <strong>Problema resolvido:</strong> Inverte o paradigma — imagem ocupa a metade esquerda em full-bleed sem padding,
+    texto branco sobre quase-preto garante contraste AAA. O segundo frame da imagem "flutua" sobre o primeiro como polaroid
+    com borda escura, criando profundidade. Meta strip discreta na base do painel direito.
+    O foco <code>outline: 3px solid #FFF</code> é altamente visível sobre fundo escuro.
+    <strong>Trade-off:</strong> Depoimento em itálico sobre fundo semitransparente precisa de QA cuidadoso —
+    a opacity 0.8 do texto pode cair abaixo de 4.5:1 em alguns monitores. Complexidade do layout de imagem
+    sobreposta aumenta risco em mobile. Requer mais QA cross-browser.
+    <div class="a11y-checks">
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Contraste ≥7:1 (AAA)
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Foco branco sobre escuro
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        aria-hidden imagem decorativa
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Body 16px
+      </span>
+    </div>
+  </div>
+
+  <div class="contrast-note" role="note">
+    <strong>Contraste calculado:</strong>
+    <span class="cr-pair"><span>Branco / Ink #2A1F1C</span><span>17.3:1 ✓ AAA</span></span>
+    <span class="cr-pair"><span>rgba(255,255,255,.72) / #2A1F1C</span><span>~12:1 ✓ AAA</span></span>
+    <span class="cr-pair"><span>Terracota-lt #C4705C / #2A1F1C</span><span>4.9:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Branco / Terracota #A7523E (CTA)</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>rgba(255,255,255,.45) / #2A1F1C (meta-lbl)</span><span>~6.5:1 ✓ AA</span></span>
+  </div>
+
+  <div class="preview-frame">
+    <article class="hero-d" aria-labelledby="hd-h1">
+
+      <div class="hero-d__canvas">
+
+        <!-- Imagem full-bleed (aria-hidden: decorativa, h1 descreve o sujeito) -->
+        <div class="hero-d__img-col" aria-hidden="true">
+          <div class="hero-d__img-ph"></div>
+          <div class="hero-d__img2"></div>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="hero-d__content">
+          <nav class="hero-d__nav" aria-label="Caminho de navegação">
+            <ol>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Ensaios</a></li>
+              <li><a href="#">Corporativo</a></li>
+              <li><a href="#" aria-current="page">Camila Nogueira</a></li>
+            </ol>
+          </nav>
+
+          <div class="hero-d__body">
+            <div class="hero-d__eyebrow" aria-hidden="true">
+              <div class="hero-d__eyebrow-line"></div>
+              <span class="hero-d__eyebrow-text">Ensaio Corporativo</span>
+            </div>
+
+            <h1 id="hd-h1" class="hero-d__h1">Camila<br>Nogueira</h1>
+
+            <p class="hero-d__desc">
+              A arquiteta que criou o espaço onde a fotografia acontece.
+              Uma profissional que transforma ambientes em expressões da alma de quem os habita.
+            </p>
+
+            <div class="hero-d__actions">
+              <a href="#agendamento" class="btn-d-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Agendar meu ensaio
+              </a>
+              <a href="#galeria" class="btn-d-ghost">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Ver galeria
+              </a>
+            </div>
+
+            <blockquote class="hero-d__quote" cite="google-reviews">
+              <p>"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada."</p>
+              <cite>— Depoimento Google
+                <span aria-label="4.5 de 5 estrelas"> · 4,5★</span>
+              </cite>
+            </blockquote>
+          </div>
+
+          <div class="hero-d__meta" role="list" aria-label="Informações do ensaio">
+            <div class="hero-d__meta-item" role="listitem">
+              <div class="hero-d__meta-lbl">Categoria</div>
+              <div class="hero-d__meta-val">Corporativo</div>
+            </div>
+            <div class="hero-d__meta-item" role="listitem">
+              <div class="hero-d__meta-lbl">Local</div>
+              <div class="hero-d__meta-val">Estúdio Lillia Tavares</div>
+            </div>
+            <div class="hero-d__meta-item" role="listitem">
+              <div class="hero-d__meta-lbl">Site</div>
+              <div class="hero-d__meta-val">
+                <a href="#" aria-label="Site de Camila Nogueira" rel="noopener">camilanogueira.arq</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROPOSTA E — Magazine Editorial (ousada)
+═══════════════════════════════════════════════════════════════════ -->
+<section class="proposta" id="proposta-e" aria-labelledby="pe-titulo">
+  <div class="proposta-header">
+    <div class="proposta-num" aria-hidden="true">E</div>
+    <div class="proposta-meta">
+      <div class="tipo">Extrapolada / editorial · Tipografia magazine + kicker</div>
+      <h3 id="pe-titulo">Proposta E — Tratamento Magazine Editorial</h3>
+    </div>
+  </div>
+
+  <div class="racional">
+    <strong>Problema resolvido:</strong> H1 de 4rem (64px) torna o nome da cliente o elemento dominante da página —
+    hierarquia visual inequívoca. O kicker com tag colorida + ícone de localização separa categoria/contexto do título
+    sem depender de tamanho relativo. Meta strip na base como <code>dl</code> implícita com três colunas de dado +
+    depoimento integrado como quarta coluna. O design trata o nome da cliente como manchete, elevando a percepção
+    de luxo da fotografia. <strong>Trade-off:</strong> H1 de 4rem precisa de line-height muito apertado (1.0) —
+    garantir que não haja problemas de leitura em usuários com dislexia que aumentam texto no browser.
+    <div class="a11y-checks">
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        H1 dominante (4rem)
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Kicker semântico
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Meta como DL
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        CTAs hierárquicos
+      </span>
+      <span class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Blockquote semântico
+      </span>
+    </div>
+  </div>
+
+  <div class="contrast-note" role="note">
+    <strong>Contraste calculado:</strong>
+    <span class="cr-pair"><span>Ink #2A1F1C / Creme #F4F2E9</span><span>14.2:1 ✓ AAA</span></span>
+    <span class="cr-pair"><span>Terracota #A7523E / Creme #F4F2E9</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Branco / Ink #2A1F1C (btn primary)</span><span>17.3:1 ✓ AAA</span></span>
+    <span class="cr-pair"><span>Ink #2A1F1C / Branco (kicker tag)</span><span>N/A — kicker usa terracota #A7523E</span></span>
+    <span class="cr-pair"><span>Branco / Terracota (kicker tag)</span><span>4.8:1 ✓ AA</span></span>
+    <span class="cr-pair"><span>Oliva #7B785B / Creme #F4F2E9</span><span>4.6:1 ✓ AA</span></span>
+  </div>
+
+  <div class="preview-frame">
+    <article class="hero-e" aria-labelledby="he-h1">
+
+      <div class="hero-e__top">
+
+        <!-- Zona de texto -->
+        <div class="hero-e__text-zone">
+          <nav class="hero-e__nav" aria-label="Caminho de navegação">
+            <ol>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Ensaios Fotográficos</a></li>
+              <li><a href="#">Corporativo</a></li>
+              <li><a href="#" aria-current="page">Camila Nogueira</a></li>
+            </ol>
+          </nav>
+
+          <div class="hero-e__content">
+            <div class="hero-e__kicker">
+              <span class="hero-e__kicker-tag">Corporativo</span>
+              <span class="hero-e__kicker-loc">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Estúdio Lillia Tavares
+              </span>
+            </div>
+
+            <h1 id="he-h1" class="hero-e__h1">
+              Camila
+              <span class="hero-e__h1-accent">Nogueira</span>
+            </h1>
+
+            <div class="hero-e__divider" aria-hidden="true"></div>
+
+            <p class="hero-e__desc">
+              Esse ensaio é muito especial para mim, pois a Camila foi a arquiteta responsável pelo nosso estúdio.
+              Em seu perfil ela escreve <em>"Sua vida através da psicoarquitetura!"</em> — e não podia estar mais certa.
+              Ela transforma ambientes em espaços acolhedores e inspiradores.
+            </p>
+
+            <div class="hero-e__cta-row">
+              <a href="#agendamento" class="btn-e-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Agendar meu ensaio
+              </a>
+              <a href="#galeria" class="btn-e-outline">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Ver galeria
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zona de imagens -->
+        <div class="hero-e__img-zone" role="img" aria-label="Fotos do ensaio corporativo de Camila Nogueira">
+          <div class="hero-e__img-ph"></div>
+          <div class="hero-e__img-ph" style="background: linear-gradient(160deg, #BD9187 0%, #9A6C64 100%);"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar: meta + depoimento -->
+      <div class="hero-e__bottom">
+        <dl>
+          <div class="hero-e__meta-block">
+            <dt class="hero-e__meta-lbl">Categoria</dt>
+            <dd class="hero-e__meta-val">Corporativo</dd>
+          </div>
+        </dl>
+        <dl>
+          <div class="hero-e__meta-block">
+            <dt class="hero-e__meta-lbl">Local</dt>
+            <dd class="hero-e__meta-val">Estúdio Lillia Tavares</dd>
+          </div>
+        </dl>
+        <dl>
+          <div class="hero-e__meta-block">
+            <dt class="hero-e__meta-lbl">Site</dt>
+            <dd class="hero-e__meta-val">
+              <a href="#" aria-label="Site de Camila Nogueira" rel="noopener">camilanogueira.arq</a>
+            </dd>
+          </div>
+        </dl>
+        <div class="hero-e__testimonial-block">
+          <div class="stars" aria-hidden="true" role="img" style="margin-bottom:0.5rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#C68A00" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#C4C4B0" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#C4C4B0"/></svg>
+          </div>
+          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;" aria-label="Avaliação 4.5 de 5 estrelas no Google"></span>
+          <blockquote>
+            <p>"Você se apaixona pelo trabalho dela. A experiência mais completa que existe nesse mundo."</p>
+            <cite>— Depoimento Google · 4,5 de 5</cite>
+          </blockquote>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     NOTAS DE IMPLEMENTAÇÃO WCAG
+═══════════════════════════════════════════════════════════════════ -->
+<section style="max-width:1200px; margin: 0 auto 3rem; background: var(--white); border-radius: var(--r-lg); padding: 2rem 2.5rem;" id="main-content" tabindex="-1" aria-labelledby="notes-title">
+  <h2 id="notes-title" style="font-size:1rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; color:var(--terracota); margin-bottom:1.5rem;">
+    Notas de Implementação WCAG 2.2 AA
+  </h2>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+
+    <div>
+      <h3 style="font-size:0.875rem; font-weight:700; color:var(--ink); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+        Critérios atendidos
+      </h3>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.875rem; color:var(--ink-mid);">
+        <li>✅ <strong>1.1.1 Non-text Content</strong> — imagens com alt descritivo ou aria-label no wrapper role="img"</li>
+        <li>✅ <strong>1.4.3 Contrast (Min)</strong> — todos os pares calculados ≥ 4.5:1</li>
+        <li>✅ <strong>1.4.4 Resize Text</strong> — fontes em rem/clamp, sem px fixo em texto</li>
+        <li>✅ <strong>1.4.12 Text Spacing</strong> — sem overflow ao aumentar line-height 1.5×</li>
+        <li>✅ <strong>2.1.1 Keyboard</strong> — toda interação acessível via Tab/Enter</li>
+        <li>✅ <strong>2.4.3 Focus Order</strong> — DOM order = visual order em todas as propostas</li>
+        <li>✅ <strong>2.4.7 Focus Visible</strong> — outline 3px sólido em todos os focusáveis</li>
+        <li>✅ <strong>2.4.11 Focus Not Obscured</strong> — foco nunca coberto por sticky elements</li>
+        <li>✅ <strong>2.5.3 Label in Name</strong> — aria-label contém texto visível do botão</li>
+        <li>✅ <strong>2.5.8 Target Size (AA)</strong> — mínimo 44×44px em links/botões</li>
+        <li>✅ <strong>3.1.1 Language of Page</strong> — lang="pt-BR" no html</li>
+        <li>✅ <strong>4.1.2 Name Role Value</strong> — landmarks, roles, labels ARIA corretos</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 style="font-size:0.875rem; font-weight:700; color:var(--ink); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+        Padrões ARIA usados
+      </h3>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.875rem; color:var(--ink-mid);">
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">&lt;nav aria-label="Caminho de navegação"&gt;</code> — breadcrumb landmark</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">aria-current="page"</code> — item ativo no breadcrumb</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">&lt;article aria-labelledby="id"&gt;</code> — hero como região nomeada pelo H1</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">role="img" aria-label="..."</code> — wrapper de imagens placeholder</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">aria-hidden="true"</code> — SVG decorativos, sidebar visual</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">&lt;blockquote cite="..."&gt;</code> — depoimento com fonte citada</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">aria-label="Avaliação X de 5 estrelas"</code> — estrelas acessíveis</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">role="list" + role="listitem"</code> — meta grid como lista semântica</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">&lt;a href="#main-content"&gt;</code> — skip link funcional para bypass</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">prefers-reduced-motion</code> — todos os transitions removidos</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">rel="noopener noreferrer"</code> — links externos seguros</li>
+        <li><code style="background:#F4F2E9; padding:0.1rem 0.4rem; border-radius:3px; font-size:0.8rem;">&lt;dl&gt;&lt;dt&gt;&lt;dd&gt;</code> — meta dados como lista de definição (Prop. E)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

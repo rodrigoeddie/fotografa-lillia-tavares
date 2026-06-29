@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Interna de Trabalho — 5 Propostas · Direção de Arte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  /* ─────────────────────────────────────────────
+     RESET & TOKENS
+  ───────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --terracota:      #A7523E;
+    --terracota-dark: #8A3D2C;
+    --terracota-light:#C47060;
+    --bege-nude:      #BD9187;
+    --bege-light:     #D4B8B2;
+    --creme:          #F4F2E9;
+    --creme-escuro:   #E9E5D8;
+    --creme-mid:      #EDE9DC;
+    --oliva:          #7B785B;
+    --oliva-light:    #9B9880;
+    --mostarda:       #F9A825;
+    --mostarda-dark:  #E09500;
+    --branco:         #FFFFFF;
+    --quase-preto:    #1C1A17;
+    --cinza-quente:   #6B6458;
+
+    --ff-display: 'Playfair Display', Georgia, serif;
+    --ff-body:    'Lato', system-ui, sans-serif;
+
+    --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-body);
+    background: #1C1A17;
+    color: var(--quase-preto);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─────────────────────────────────────────────
+     PÁGINA — ESTRUTURA GERAL
+  ───────────────────────────────────────────── */
+  .page-header {
+    background: var(--quase-preto);
+    color: var(--creme);
+    padding: 48px 64px 40px;
+    border-bottom: 1px solid rgba(244,242,233,0.1);
+  }
+
+  .page-header .label {
+    font-family: var(--ff-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-family: var(--ff-display);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--creme);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .page-header p {
+    font-size: 14px;
+    color: var(--oliva-light);
+    max-width: 680px;
+    line-height: 1.7;
+  }
+
+  /* ─────────────────────────────────────────────
+     PROPOSTA WRAPPER
+  ───────────────────────────────────────────── */
+  .proposal {
+    padding: 64px;
+    border-bottom: 1px solid rgba(244,242,233,0.06);
+  }
+
+  .proposal-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .proposal-number {
+    font-family: var(--ff-display);
+    font-size: 72px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(167,82,62,0.18);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 80px;
+    text-align: right;
+  }
+
+  .proposal-info { flex: 1; }
+
+  .proposal-name {
+    font-family: var(--ff-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota-light);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .proposal-title {
+    font-family: var(--ff-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--creme);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .proposal-rationale {
+    font-size: 13px;
+    color: var(--oliva-light);
+    line-height: 1.75;
+    max-width: 700px;
+  }
+
+  .proposal-rationale strong {
+    color: var(--creme-escuro);
+    font-weight: 700;
+  }
+
+  /* ─────────────────────────────────────────────
+     SHARED HERO ELEMENTS (conteúdo real)
+  ───────────────────────────────────────────── */
+
+  /* Breadcrumb */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .breadcrumb a {
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .breadcrumb a:hover { opacity: 0.7; }
+
+  .breadcrumb-sep {
+    opacity: 0.4;
+    font-size: 10px;
+  }
+
+  /* Star rating */
+  .stars {
+    display: flex;
+    gap: 1px;
+  }
+
+  .star {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* ─────────────────────────────────────────────
+     FOTO PLACEHOLDER (simula as fotos)
+  ───────────────────────────────────────────── */
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: var(--bege-nude);
+  }
+
+  .photo-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(244,242,233,0.15) 0%,
+      transparent 50%,
+      rgba(167,82,62,0.08) 100%
+    );
+  }
+
+  /* Silhueta estilizada */
+  .photo-placeholder svg {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 90%;
+    width: auto;
+    opacity: 0.35;
+  }
+
+  .photo-placeholder.look-2 {
+    background: #C4A560;
+  }
+
+  .photo-placeholder.look-2::after {
+    background: linear-gradient(
+      160deg,
+      rgba(249,168,37,0.15) 0%,
+      transparent 50%,
+      rgba(167,82,62,0.1) 100%
+    );
+  }
+
+  /* ─────────────────────────────────────────────
+     ÍCONES LUCIDE (inline SVG)
+  ───────────────────────────────────────────── */
+  .icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .icon-lg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ─────────────────────────────────────────────
+     PROPOSTA 1 — EVOLUÇÃO SEGURA
+     "Equilíbrio Editorial"
+  ───────────────────────────────────────────── */
+  .p1-hero {
+    background: var(--creme);
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    min-height: 620px;
+    position: relative;
+  }
+
+  .p1-text-col {
+    background: var(--creme);
+    display: flex;
+    flex-direction: column;
+    padding: 48px 52px 0 52px;
+    position: relative;
+  }
+
+  .p1-text-col .breadcrumb {
+    color: var(--oliva);
+    margin-bottom: 40px;
+  }
+
+  .p1-text-col .breadcrumb a { color: var(--oliva); }
+
+  .p1-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 12px;
+  }
+
+  .p1-h1 {
+    font-family: var(--ff-body);
+    font-size: 52px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--quase-preto);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .p1-h1 span {
+    display: block;
+    color: var(--terracota);
+    font-size: 38px;
+  }
+
+  .p1-subtitle {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--bege-nude);
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
+  }
+
+  .p1-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--terracota);
+    margin-bottom: 24px;
+  }
+
+  .p1-description {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--cinza-quente);
+    margin-bottom: 32px;
+    max-width: 360px;
+  }
+
+  .p1-testimonial {
+    background: var(--creme-escuro);
+    border-left: 3px solid var(--terracota);
+    padding: 20px 20px 20px 24px;
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .p1-testimonial .stars { margin-bottom: 10px; }
+
+  .p1-testimonial-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--cinza-quente);
+    margin-bottom: 10px;
+  }
+
+  .p1-testimonial-author {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracota);
+  }
+
+  .p1-meta-bar {
+    background: var(--terracota);
+    padding: 20px 52px;
+    display: flex;
+    gap: 40px;
+  }
+
+  .p1-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .p1-meta-item .icon { color: rgba(255,255,255,0.6); }
+
+  .p1-meta-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  .p1-meta-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--branco);
+    text-decoration: none;
+    display: block;
+  }
+
+  a.p1-meta-value:hover { text-decoration: underline; }
+
+  .p1-img-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  .p1-img-col::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: -24px;
+    width: 48px;
+    height: 2px;
+    background: var(--terracota);
+    z-index: 2;
+  }
+
+  .p1-photo {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .p1-photo:first-child {
+    border-right: 4px solid var(--creme);
+  }
+
+  /* ─────────────────────────────────────────────
+     PROPOSTA 2 — COLUNA INVERTIDA
+     "A Foto Primeiro"
+  ───────────────────────────────────────────── */
+  .p2-hero {
+    background: var(--quase-preto);
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    min-height: 640px;
+    position: relative;
+  }
+
+  .p2-img-col {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p2-img-col .photo-placeholder {
+    height: 100%;
+    background: var(--bege-nude);
+  }
+
+  .p2-img-col::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      transparent 60%,
+      var(--quase-preto) 100%
+    );
+  }
+
+  .p2-photo-strip {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 140px;
+    height: 100%;
+    z-index: 1;
+    border-left: 4px solid var(--terracota);
+  }
+
+  .p2-text-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 52px 56px 40px;
+    position: relative;
+  }
+
+  .p2-text-col .breadcrumb {
+    color: var(--oliva-light);
+    margin-bottom: 40px;
+  }
+
+  .p2-text-col .breadcrumb a { color: var(--oliva-light); }
+
+  .p2-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota-light);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(167,82,62,0.3);
+  }
+
+  .p2-h1 {
+    font-family: var(--ff-body);
+    font-size: 58px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--creme);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .p2-h1 em {
+    display: block;
+    font-style: normal;
+    font-size: 34px;
+    color: var(--bege-light);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  .p2-description {
+    font-size: 13px;
+    line-height: 1.85;
+    color: rgba(233,229,216,0.65);
+    margin-bottom: 32px;
+  }
+
+  .p2-testimonial {
+    position: relative;
+    padding: 20px 20px 20px 0;
+    border-top: 1px solid rgba(167,82,62,0.25);
+  }
+
+  .p2-testimonial-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.75;
+    color: rgba(233,229,216,0.7);
+    margin-bottom: 12px;
+  }
+
+  .p2-testimonial-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .p2-testimonial-author {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracota-light);
+  }
+
+  .p2-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(167,82,62,0.2);
+  }
+
+  .p2-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: rgba(233,229,216,0.6);
+  }
+
+  .p2-meta-item .icon { color: var(--terracota-light); }
+
+  .p2-meta-item a { color: var(--terracota-light); text-decoration: none; }
+  .p2-meta-item a:hover { text-decoration: underline; }
+
+  /* ─────────────────────────────────────────────
+     PROPOSTA 3 — GRID ASSIMÉTRICO
+     "Sistema 3:1:1"
+  ───────────────────────────────────────────── */
+  .p3-hero {
+    background: var(--creme-escuro);
+    display: grid;
+    grid-template-columns: 400px 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    min-height: 640px;
+    gap: 0;
+    position: relative;
+  }
+
+  .p3-text-col {
+    grid-row: 1 / 3;
+    background: var(--branco);
+    display: flex;
+    flex-direction: column;
+    padding: 48px 44px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .p3-text-col .breadcrumb {
+    color: var(--oliva);
+    margin-bottom: 48px;
+  }
+
+  .p3-text-col .breadcrumb a { color: var(--oliva); }
+
+  .p3-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--terracota);
+    color: var(--branco);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    margin-bottom: 24px;
+    align-self: flex-start;
+  }
+
+  .p3-h1 {
+    font-family: var(--ff-body);
+    font-size: 46px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--quase-preto);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .p3-name-accent {
+    display: block;
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    text-transform: none;
+    color: var(--terracota);
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .p3-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--creme-escuro);
+    margin-bottom: 24px;
+  }
+
+  .p3-description {
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--cinza-quente);
+    margin-bottom: 32px;
+    flex: 1;
+  }
+
+  .p3-testimonial {
+    background: var(--creme);
+    padding: 20px 20px 20px 20px;
+    position: relative;
+  }
+
+  .p3-testimonial::before {
+    content: '\201C';
+    font-family: var(--ff-display);
+    font-size: 64px;
+    color: var(--terracota);
+    opacity: 0.25;
+    position: absolute;
+    top: 4px;
+    left: 14px;
+    line-height: 1;
+  }
+
+  .p3-testimonial-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--cinza-quente);
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  .p3-testimonial-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+  }
+
+  .p3-testimonial-author {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracota);
+  }
+
+  .p3-photo-main {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    position: relative;
+    border-left: 4px solid var(--creme-escuro);
+  }
+
+  .p3-photo-secondary {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+    position: relative;
+    border-left: 4px solid var(--creme-escuro);
+  }
+
+  .p3-meta-bar {
+    grid-row: 2 / 3;
+    grid-column: 2 / 4;
+    background: var(--terracota);
+    display: flex;
+    align-items: stretch;
+  }
+
+  .p3-meta-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    text-decoration: none;
+  }
+
+  .p3-meta-item:last-child { border-right: none; }
+
+  .p3-meta-icon { color: rgba(255,255,255,0.5); flex-shrink: 0; }
+
+  .p3-meta-text { display: flex; flex-direction: column; gap: 1px; }
+
+  .p3-meta-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .p3-meta-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--branco);
+    text-decoration: none;
+  }
+
+  /* ─────────────────────────────────────────────
+     PROPOSTA 4 — FULL-BLEED LOOKBOOK
+     "Cinematográfico"
+  ───────────────────────────────────────────── */
+  .p4-hero {
+    background: var(--quase-preto);
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    min-height: 700px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p4-visual {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p4-visual .photo-placeholder {
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      #C4A07A 0%,
+      #BD9187 40%,
+      #A07060 100%
+    );
+  }
+
+  .p4-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      transparent 50%,
+      rgba(28,26,23,0.4) 100%
+    );
+  }
+
+  .p4-photo-number {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 120px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .p4-mostarda-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--mostarda);
+  }
+
+  .p4-photo2-inset {
+    position: absolute;
+    bottom: 48px;
+    left: 40px;
+    width: 160px;
+    height: 212px;
+    border: 3px solid var(--branco);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .p4-photo2-inset .photo-placeholder {
+    height: 100%;
+    background: #C4A560;
+  }
+
+  .p4-panel {
+    background: var(--branco);
+    display: flex;
+    flex-direction: column;
+    padding: 56px 44px;
+    position: relative;
+  }
+
+  .p4-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--terracota);
+  }
+
+  .p4-panel .breadcrumb {
+    color: var(--oliva);
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .p4-panel .breadcrumb a { color: var(--oliva); }
+
+  .p4-category {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .p4-category::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--creme-escuro);
+  }
+
+  .p4-h1 {
+    font-family: var(--ff-body);
+    font-size: 40px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--quase-preto);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .p4-subtitle {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--terracota);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .p4-description {
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--cinza-quente);
+    margin-bottom: 32px;
+    flex: 1;
+  }
+
+  .p4-testimonial {
+    border: 1px solid var(--creme-escuro);
+    padding: 18px 20px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .p4-testimonial-accent {
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    width: 32px;
+    height: 3px;
+    background: var(--mostarda);
+  }
+
+  .p4-testimonial-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: var(--cinza-quente);
+    margin-bottom: 10px;
+  }
+
+  .p4-testimonial-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .p4-testimonial-author {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracota);
+  }
+
+  .p4-meta {
+    border-top: 1px solid var(--creme-escuro);
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .p4-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--cinza-quente);
+  }
+
+  .p4-meta-item .icon { color: var(--terracota); }
+
+  .p4-meta-item a {
+    color: var(--terracota);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .p4-meta-item a:hover { text-decoration: underline; }
+
+  /* ─────────────────────────────────────────────
+     PROPOSTA 5 — REVISTA DE MODA
+     "Editorial Fragmentado"
+  ───────────────────────────────────────────── */
+  .p5-hero {
+    background: var(--creme);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p5-bg-word {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-family: var(--ff-body);
+    font-weight: 900;
+    font-size: 280px;
+    text-transform: uppercase;
+    color: rgba(167,82,62,0.04);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    user-select: none;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .p5-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 520px;
+    min-height: 720px;
+  }
+
+  .p5-left {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    padding: 48px 0 0 56px;
+    gap: 0;
+  }
+
+  .p5-header-area {
+    padding-bottom: 40px;
+  }
+
+  .p5-left .breadcrumb {
+    color: var(--oliva);
+    margin-bottom: 40px;
+  }
+
+  .p5-left .breadcrumb a { color: var(--oliva); }
+
+  .p5-h1-wrap {
+    position: relative;
+  }
+
+  .p5-overline {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .p5-overline::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--terracota);
+  }
+
+  .p5-h1-large {
+    font-family: var(--ff-body);
+    font-size: 88px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--quase-preto);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    margin-bottom: 0;
+  }
+
+  .p5-h1-name {
+    display: block;
+    position: relative;
+  }
+
+  .p5-h1-name::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 6px;
+    background: var(--mostarda);
+    margin-top: 4px;
+  }
+
+  .p5-h1-serif {
+    display: block;
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 44px;
+    text-transform: none;
+    color: var(--terracota);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+
+  .p5-content-area {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 40px;
+    padding: 0 0 48px 0;
+    align-items: start;
+  }
+
+  .p5-description {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--cinza-quente);
+  }
+
+  .p5-sidebar {
+    padding-top: 4px;
+  }
+
+  .p5-meta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 24px;
+  }
+
+  .p5-meta-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--creme-escuro);
+  }
+
+  .p5-meta-line:first-child {
+    border-top: 1px solid var(--creme-escuro);
+  }
+
+  .p5-meta-line .icon { color: var(--terracota); margin-top: 1px; }
+
+  .p5-meta-line-text { display: flex; flex-direction: column; gap: 1px; }
+
+  .p5-meta-line-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--oliva-light);
+  }
+
+  .p5-meta-line-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--quase-preto);
+    text-decoration: none;
+  }
+
+  a.p5-meta-line-value { color: var(--terracota); }
+  a.p5-meta-line-value:hover { text-decoration: underline; }
+
+  .p5-testimonial {
+    background: var(--terracota);
+    padding: 20px 20px;
+    position: relative;
+  }
+
+  .p5-testimonial::before {
+    content: '\201C';
+    font-family: var(--ff-display);
+    font-size: 48px;
+    color: rgba(255,255,255,0.2);
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    line-height: 1;
+  }
+
+  .p5-testimonial-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  .p5-testimonial-author {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    padding-left: 20px;
+  }
+
+  /* Foto grid fragmentada */
+  .p5-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 180px);
+    gap: 4px;
+    height: 100%;
+  }
+
+  .p5-photo-cell {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .p5-photo-cell .photo-placeholder {
+    height: 100%;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .p5-photo-cell:hover .photo-placeholder {
+    transform: scale(1.04);
+  }
+
+  .p5-photo-cell.span2 {
+    grid-column: 1 / 3;
+  }
+
+  .p5-photo-cell.look2-cell .photo-placeholder {
+    background: #C4A560;
+  }
+
+  .p5-photo-accent-tag {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--mostarda);
+    color: var(--quase-preto);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+
+  /* ─────────────────────────────────────────────
+     RANKING FINAL
+  ───────────────────────────────────────────── */
+  .ranking-section {
+    padding: 64px;
+    background: var(--quase-preto);
+    border-top: 1px solid rgba(244,242,233,0.08);
+  }
+
+  .ranking-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .ranking-title {
+    font-family: var(--ff-display);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--creme);
+    margin-bottom: 48px;
+  }
+
+  .ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ranking-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(244,242,233,0.06);
+    align-items: start;
+  }
+
+  .ranking-item:last-child {
+    border-bottom: none;
+  }
+
+  .ranking-pos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ranking-pos-num {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(167,82,62,0.25);
+  }
+
+  .ranking-pos-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--oliva-light);
+  }
+
+  .ranking-content {}
+
+  .ranking-proposal-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracota-light);
+    margin-bottom: 4px;
+  }
+
+  .ranking-proposal-title {
+    font-family: var(--ff-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--creme);
+    margin-bottom: 12px;
+  }
+
+  .ranking-justificativa {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--oliva-light);
+    max-width: 700px;
+  }
+
+  .ranking-justificativa strong {
+    color: var(--creme-escuro);
+    font-weight: 700;
+  }
+
+  /* ─────────────────────────────────────────────
+     SILHUETA SVG
+  ───────────────────────────────────────────── */
+  .person-silhouette {
+    opacity: 0.2;
+    fill: var(--terracota);
+  }
+
+  /* Separador de proposta */
+  .proposal-separator {
+    background: var(--creme-escuro);
+    color: var(--quase-preto);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 10px 64px;
+    opacity: 0.7;
+  }
+
+  /* Stars helper */
+  .star-filled { fill: #F9A825; stroke: none; }
+  .star-half { fill: url(#halfGrad); stroke: none; }
+  .star-empty { fill: none; stroke: #F9A825; stroke-width: 1.5; }
+
+  /* Focus visible */
+  :focus-visible {
+    outline: 2px solid var(--terracota);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="halfGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="50%" stop-color="#F9A825"/>
+      <stop offset="50%" stop-color="transparent"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ──────────────────────────────────────────────
+     CABEÇALHO DA ENTREGA
+────────────────────────────────────────────── -->
+<header class="page-header">
+  <span class="label">Direção de Arte — Redesign Hero</span>
+  <h1>5 Propostas para o Hero da Interna de Trabalho</h1>
+  <p>Camila Nogueira · Ensaio Corporativo · Fotógrafa Lillia Tavares — Cada proposta usa a paleta cromática extraída do ensaio como identidade visual da página. As fotos são representadas por placeholders coloridos com as cores reais da paleta.</p>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     PROPOSTA 1 — EVOLUÇÃO SEGURA
+════════════════════════════════════════════ -->
+<section class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-number">1</div>
+    <div class="proposal-info">
+      <span class="proposal-name">Proposta 1 · Evolução Segura</span>
+      <h2 class="proposal-title">Equilíbrio Editorial</h2>
+      <p class="proposal-rationale">
+        <strong>Intenção:</strong> Respeita a estrutura de 2 colunas do layout atual, mas eleva cada decisão. O H1 sobe de 18px para 52px; o bege-nude do ensaio assume o papel de cor de ambiente ao invés de branco genérico; as imagens ganham um separador terracota. <strong>Referência visual:</strong> Catálogos editoriais de médio porte — <em>Kinfolk</em>, <em>Cereal</em>. A meta bar ganha divisores internos e respiro. Escolha segura para implementação imediata, com ganho expressivo de hierarquia.
+      </p>
+    </div>
+  </div>
+
+  <div class="p1-hero">
+    <!-- Coluna texto -->
+    <div class="p1-text-col">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="#">Home</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Ensaios Fotográficos</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Corporativo</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Camila Nogueira</span>
+      </nav>
+
+      <p class="p1-eyebrow">
+        <!-- ícone categoria Lucide -->
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Ensaio Corporativo
+      </p>
+
+      <h1 class="p1-h1">
+        Camila
+        <span>Nogueira</span>
+      </h1>
+
+      <p class="p1-subtitle">Psicoarquitetura · Estúdio Lillia Tavares</p>
+
+      <div class="p1-divider" aria-hidden="true"></div>
+
+      <p class="p1-description">
+        Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no instagram ela traz a frase: "Sua vida através da psicoarquitetura!" e não podia estar mais certa.
+      </p>
+
+      <!-- Depoimento -->
+      <div class="p1-testimonial">
+        <div class="stars" role="img" aria-label="Avaliação: 4.5 de 5 estrelas">
+          <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+          <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+          <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+          <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+          <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="hg1" x1="0" x2="1"><stop offset="50%" stop-color="#F9A825"/><stop offset="50%" stop-color="transparent"/></linearGradient></defs><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="url(#hg1)" stroke="#F9A825" stroke-width="1"/></svg>
+        </div>
+        <p class="p1-testimonial-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"</p>
+        <span class="p1-testimonial-author">Google Reviews · 4.5 estrelas</span>
+      </div>
+    </div>
+
+    <!-- Coluna imagens -->
+    <div class="p1-img-col" aria-label="Fotos do ensaio">
+      <div class="p1-photo photo-placeholder">
+        <svg viewBox="0 0 120 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse cx="60" cy="52" rx="28" ry="32" class="person-silhouette"/>
+          <path d="M20 280 Q20 180 40 160 L60 155 L80 160 Q100 180 100 280 Z" class="person-silhouette"/>
+          <rect x="30" y="100" width="60" height="80" rx="4" class="person-silhouette"/>
+        </svg>
+      </div>
+      <div class="p1-photo photo-placeholder look-2">
+        <svg viewBox="0 0 120 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse cx="60" cy="52" rx="28" ry="32" class="person-silhouette"/>
+          <path d="M20 280 Q20 180 40 160 L60 155 L80 160 Q100 180 100 280 Z" class="person-silhouette"/>
+          <rect x="30" y="100" width="60" height="80" rx="4" class="person-silhouette"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Meta bar: span full width -->
+    <div class="p1-meta-bar" style="grid-column: 1/3;">
+      <div class="p1-meta-item">
+        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <div>
+          <span class="p1-meta-label">Categoria</span>
+          <span class="p1-meta-value">Corporativo</span>
+        </div>
+      </div>
+      <div class="p1-meta-item">
+        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div>
+          <span class="p1-meta-label">Local</span>
+          <span class="p1-meta-value">Estúdio Lillia Tavares</span>
+        </div>
+      </div>
+      <div class="p1-meta-item">
+        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div>
+          <span class="p1-meta-label">Site</span>
+          <a href="#" class="p1-meta-value">camilanogueira.arq.br</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proposal-separator" aria-hidden="true">· · ·</div>
+
+<!-- ══════════════════════════════════════════════
+     PROPOSTA 2 — COLUNA INVERTIDA
+════════════════════════════════════════════ -->
+<section class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-number">2</div>
+    <div class="proposal-info">
+      <span class="proposal-name">Proposta 2 · Evolução Segura</span>
+      <h2 class="proposal-title">A Foto Primeiro</h2>
+      <p class="proposal-rationale">
+        <strong>Intenção:</strong> Inverte a hierarquia para colocar a imagem em posição dominante — afinal, este é um site de fotógrafa. O fundo escuro (quase-preto quente) serve como câmara escura que valoriza as fotos. A tipografia branca em fundo preto cria contraste máximo com o terracota como único calor. <strong>Referência visual:</strong> Sites de fotógrafos de moda contemporâneos — <em>Tim Walker</em>, <em>Misan Harriman</em>. A segunda foto vira uma tira lateral, criando ritmo sem simetria.
+      </p>
+    </div>
+  </div>
+
+  <div class="p2-hero">
+    <!-- Coluna imagem dominante -->
+    <div class="p2-img-col" aria-label="Foto principal do ensaio">
+      <div class="photo-placeholder" style="height:100%">
+        <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:85%;width:auto;opacity:0.22;fill:#A7523E" aria-hidden="true">
+          <ellipse cx="100" cy="80" rx="44" ry="52"/>
+          <path d="M30 400 Q30 280 64 255 L100 248 L136 255 Q170 280 170 400 Z"/>
+          <rect x="50" y="145" width="100" height="120" rx="6"/>
+        </svg>
+      </div>
+      <!-- Tira da segunda foto -->
+      <div class="p2-photo-strip photo-placeholder look-2" aria-label="Segunda foto do ensaio"></div>
+    </div>
+
+    <!-- Coluna texto -->
+    <div class="p2-text-col">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="#">Home</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Ensaios</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Corporativo</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page" style="color:var(--creme)">Camila Nogueira</span>
+      </nav>
+
+      <p class="p2-category">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Ensaio Corporativo
+      </p>
+
+      <h1 class="p2-h1">
+        Camila
+        <em>Nogueira</em>
+      </h1>
+
+      <p class="p2-description">Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Ela transforma seus ambientes em espaços acolhedores e inspiradores.</p>
+
+      <div class="p2-testimonial">
+        <p class="p2-testimonial-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"</p>
+        <div class="p2-testimonial-footer">
+          <span class="p2-testimonial-author">Google Reviews</span>
+          <div class="stars" role="img" aria-label="4.5 estrelas">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="hg2" x1="0" x2="1"><stop offset="50%" stop-color="#F9A825"/><stop offset="50%" stop-color="rgba(0,0,0,0)"/></linearGradient></defs><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="url(#hg2)" stroke="#F9A825" stroke-width="1"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="p2-meta">
+        <div class="p2-meta-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Estúdio Lillia Tavares, São Paulo
+        </div>
+        <div class="p2-meta-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a href="#">camilanogueira.arq.br</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proposal-separator" aria-hidden="true">· · ·</div>
+
+<!-- ══════════════════════════════════════════════
+     PROPOSTA 3 — GRID ASSIMÉTRICO
+════════════════════════════════════════════ -->
+<section class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-number">3</div>
+    <div class="proposal-info">
+      <span class="proposal-name">Proposta 3 · Evolução Segura</span>
+      <h2 class="proposal-title">Sistema 3:1:1</h2>
+      <p class="proposal-rationale">
+        <strong>Intenção:</strong> Grid de 3 colunas assimétricas — texto ocupa coluna inteira à esquerda, duas fotos dividem as colunas direitas. A meta bar terracota ancora o rodapé das fotos, criando uma linha de base horizontal. A tag de categoria sólida substitui o eyebrow tipográfico — mais direta. O nome em Playfair itálico quebra a uniformidade do Lato bold, criando contraste de voz. <strong>Referência visual:</strong> Grids de revista de arquitetura — <em>Wallpaper*</em>, <em>Dezeen</em>. Legível, elegante, sistem-ático.
+      </p>
+    </div>
+  </div>
+
+  <div class="p3-hero">
+    <!-- Coluna texto -->
+    <div class="p3-text-col">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="#">Home</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Ensaios</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Corporativo</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Camila Nogueira</span>
+      </nav>
+
+      <div class="p3-tag">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Corporativo
+      </div>
+
+      <h1 class="p3-h1">
+        Camila
+        <span class="p3-name-accent">Nogueira</span>
+      </h1>
+
+      <div class="p3-rule" aria-hidden="true"></div>
+
+      <p class="p3-description">Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no instagram ela traz a frase: <em>"Sua vida através da psicoarquitetura!"</em> e não podia estar mais certa. No meu ambiente de trabalho, me sinto em casa, confortável — ela transforma seus ambientes em espaços acolhedores e inspiradores.</p>
+
+      <!-- Depoimento -->
+      <div class="p3-testimonial">
+        <p class="p3-testimonial-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio, você se apaixona pelo trabalho dela ❤️"</p>
+        <div class="p3-testimonial-footer">
+          <span class="p3-testimonial-author">Google Reviews</span>
+          <div class="stars" role="img" aria-label="4.5 estrelas">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="hg3" x1="0" x2="1"><stop offset="50%" stop-color="#F9A825"/><stop offset="50%" stop-color="rgba(0,0,0,0)"/></linearGradient></defs><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="url(#hg3)" stroke="#F9A825" stroke-width="1"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Foto principal -->
+    <div class="p3-photo-main photo-placeholder" aria-label="Foto principal">
+      <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:85%;width:auto;opacity:0.22;fill:#A7523E" aria-hidden="true">
+        <ellipse cx="100" cy="80" rx="44" ry="52"/>
+        <path d="M30 400 Q30 280 64 255 L100 248 L136 255 Q170 280 170 400 Z"/>
+        <rect x="50" y="145" width="100" height="120" rx="6"/>
+      </svg>
+    </div>
+
+    <!-- Foto secundária -->
+    <div class="p3-photo-secondary photo-placeholder look-2" aria-label="Foto secundária">
+      <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:85%;width:auto;opacity:0.22;fill:#8A3D2C" aria-hidden="true">
+        <ellipse cx="100" cy="80" rx="44" ry="52"/>
+        <path d="M30 400 Q30 280 64 255 L100 248 L136 255 Q170 280 170 400 Z"/>
+        <rect x="50" y="145" width="100" height="120" rx="6"/>
+      </svg>
+    </div>
+
+    <!-- Meta bar -->
+    <div class="p3-meta-bar">
+      <div class="p3-meta-item">
+        <svg class="icon p3-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <div class="p3-meta-text">
+          <span class="p3-meta-label">Categoria</span>
+          <span class="p3-meta-value">Corporativo</span>
+        </div>
+      </div>
+      <div class="p3-meta-item">
+        <svg class="icon p3-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="p3-meta-text">
+          <span class="p3-meta-label">Local</span>
+          <span class="p3-meta-value">Estúdio Lillia Tavares</span>
+        </div>
+      </div>
+      <div class="p3-meta-item">
+        <svg class="icon p3-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="p3-meta-text">
+          <span class="p3-meta-label">Site</span>
+          <a href="#" class="p3-meta-value">camilanogueira.arq.br</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proposal-separator" aria-hidden="true">· · ·</div>
+
+<!-- ══════════════════════════════════════════════
+     PROPOSTA 4 — FULL-BLEED LOOKBOOK
+════════════════════════════════════════════ -->
+<section class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-number">4</div>
+    <div class="proposal-info">
+      <span class="proposal-name">Proposta 4 · Extrapolação Ousada</span>
+      <h2 class="proposal-title">Cinematográfico</h2>
+      <p class="proposal-rationale">
+        <strong>Intenção:</strong> A fotografia toma 65% da largura total — o texto existe como painel lateral fechado, quase como os informativos dos bastidores de um filme. A segunda foto aparece como inset, uma polaroid dentro da cena principal. O strip mostarda no rodapé da foto é o único elemento vibrante — tudo o mais é contido. <strong>Referência visual:</strong> Lookbooks de moda editorial europeus — <em>Vogue Italia</em>, editorial de capa. O mostarda é a assinatura do segundo look e aparece como detalhe proposital, não decoração.
+      </p>
+    </div>
+  </div>
+
+  <div class="p4-hero">
+    <!-- Visual/foto -->
+    <div class="p4-visual">
+      <div class="photo-placeholder" style="height:100%;background:linear-gradient(155deg,#D4B8B2 0%,#BD9187 50%,#9A7068 100%)">
+        <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:90%;width:auto;opacity:0.18;fill:#6B3020" aria-hidden="true">
+          <ellipse cx="150" cy="110" rx="66" ry="80"/>
+          <path d="M40 600 Q40 380 96 340 L150 330 L204 340 Q260 380 260 600 Z"/>
+          <rect x="72" y="210" width="156" height="190" rx="8"/>
+        </svg>
+      </div>
+      <div class="p4-visual-overlay" aria-hidden="true"></div>
+      <div class="p4-photo-number" aria-hidden="true">01</div>
+      <div class="p4-mostarda-strip" aria-hidden="true"></div>
+
+      <!-- Inset foto 2 -->
+      <div class="p4-photo2-inset" aria-label="Segunda foto do ensaio (look mostarda)">
+        <div class="photo-placeholder look-2" style="height:100%;background:linear-gradient(150deg,#D4B040 0%,#C4A040 100%)">
+          <svg viewBox="0 0 160 280" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:85%;width:auto;opacity:0.25;fill:#8A3D2C" aria-hidden="true">
+            <ellipse cx="80" cy="55" rx="34" ry="42"/>
+            <path d="M20 280 Q20 200 50 180 L80 175 L110 180 Q140 200 140 280 Z"/>
+            <rect x="38" y="110" width="84" height="95" rx="5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel texto -->
+    <div class="p4-panel">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="#">Home</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Ensaios</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="#">Corporativo</a>
+      </nav>
+
+      <p class="p4-category">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Corporativo
+      </p>
+
+      <h1 class="p4-h1">Camila<br>Nogueira</h1>
+      <p class="p4-subtitle">Psicoarquitetura</p>
+
+      <p class="p4-description">Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil ela traz: <em>"Sua vida através da psicoarquitetura!"</em> — no meu ambiente de trabalho, me sinto em casa. Ela transforma seus ambientes em espaços acolhedores e inspiradores.</p>
+
+      <div class="p4-testimonial">
+        <div class="p4-testimonial-accent" aria-hidden="true"></div>
+        <p class="p4-testimonial-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, não tem como não voltar pra fazer outro ensaio ❤️"</p>
+        <div class="p4-testimonial-footer">
+          <span class="p4-testimonial-author">Google Reviews</span>
+          <div class="stars" role="img" aria-label="4.5 estrelas">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="hg4" x1="0" x2="1"><stop offset="50%" stop-color="#F9A825"/><stop offset="50%" stop-color="rgba(0,0,0,0)"/></linearGradient></defs><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="url(#hg4)" stroke="#F9A825" stroke-width="1"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="p4-meta">
+        <div class="p4-meta-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Estúdio Lillia Tavares
+        </div>
+        <div class="p4-meta-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a href="#">camilanogueira.arq.br</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proposal-separator" aria-hidden="true">· · ·</div>
+
+<!-- ══════════════════════════════════════════════
+     PROPOSTA 5 — REVISTA DE MODA
+════════════════════════════════════════════ -->
+<section class="proposal">
+  <div class="proposal-meta">
+    <div class="proposal-number">5</div>
+    <div class="proposal-info">
+      <span class="proposal-name">Proposta 5 · Extrapolação Ousada</span>
+      <h2 class="proposal-title">Editorial Fragmentado</h2>
+      <p class="proposal-rationale">
+        <strong>Intenção:</strong> O nome "Camila" em 88px como elemento gráfico — não só título, mas identidade visual. O sublinhado mostarda em tela cheia é o risco estético desta proposta. A fotografia é fragmentada em grid 2×3 de células, referenciando o ritmo de um storyboard ou spread de revista. O depoimento aparece no card terracota sólido, sem tentar se disfarçar. <strong>Referência visual:</strong> Spreads de revista de moda — <em>i-D</em>, <em>Dazed &amp; Confused</em>. A palavra gigante atrás é um fantasma — existe apenas como textura, não como informação.
+      </p>
+    </div>
+  </div>
+
+  <div class="p5-hero">
+    <div class="p5-bg-word" aria-hidden="true">CAMILA</div>
+
+    <div class="p5-inner">
+      <!-- Esquerda: texto -->
+      <div class="p5-left">
+        <div class="p5-header-area">
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="#">Home</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+            <a href="#">Ensaios</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+            <a href="#">Corporativo</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+            <span aria-current="page">Camila Nogueira</span>
+          </nav>
+
+          <div class="p5-overline">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Ensaio Corporativo
+          </div>
+
+          <div class="p5-h1-wrap">
+            <h1 class="p5-h1-large">
+              <span class="p5-h1-name">Camila</span>
+              <span class="p5-h1-serif">Nogueira</span>
+            </h1>
+          </div>
+        </div>
+
+        <div class="p5-content-area">
+          <div>
+            <p class="p5-description">Esse ensaio é muito especial para mim, pois a Camila Nogueira foi a arquiteta responsável pelo nosso estúdio. Em seu perfil no instagram ela traz a frase: <em>"Sua vida através da psicoarquitetura!"</em> e não podia estar mais certa. No meu ambiente de trabalho, me sinto em casa, confortável. Ela transforma seus ambientes em espaços acolhedores e inspiradores.</p>
+          </div>
+
+          <div class="p5-sidebar">
+            <div class="p5-meta-stack">
+              <div class="p5-meta-line">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <div class="p5-meta-line-text">
+                  <span class="p5-meta-line-label">Categoria</span>
+                  <span class="p5-meta-line-value">Corporativo</span>
+                </div>
+              </div>
+              <div class="p5-meta-line">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div class="p5-meta-line-text">
+                  <span class="p5-meta-line-label">Local</span>
+                  <span class="p5-meta-line-value">Estúdio Lillia Tavares</span>
+                </div>
+              </div>
+              <div class="p5-meta-line">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <div class="p5-meta-line-text">
+                  <span class="p5-meta-line-label">Site</span>
+                  <a href="#" class="p5-meta-line-value">camilanogueira.arq.br</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p5-testimonial">
+              <p class="p5-testimonial-text">"A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada, você se apaixona pelo trabalho dela ❤️"</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding-left:20px;">
+                <span class="p5-testimonial-author">Google · 4.5★</span>
+                <div class="stars" role="img" aria-label="4.5 estrelas" style="gap:2px">
+                  <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+                  <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+                  <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+                  <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="star-filled"/></svg>
+                  <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="hg5" x1="0" x2="1"><stop offset="50%" stop-color="#F9A825"/><stop offset="50%" stop-color="rgba(0,0,0,0)"/></linearGradient></defs><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="url(#hg5)" stroke="#F9A825" stroke-width="1"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direita: grid fragmentado de fotos -->
+      <div class="p5-photos" aria-label="Galeria do ensaio Camila Nogueira">
+        <div class="p5-photo-cell">
+          <div class="photo-placeholder" style="background:linear-gradient(160deg,#D4B8B2,#BD9187)"></div>
+        </div>
+        <div class="p5-photo-cell look2-cell">
+          <div class="photo-placeholder look-2" style="background:linear-gradient(160deg,#D4A840,#C49830)"></div>
+          <span class="p5-photo-accent-tag">Look 2</span>
+        </div>
+        <div class="p5-photo-cell span2">
+          <div class="photo-placeholder" style="background:linear-gradient(120deg,#C4A89A,#BD9187,#A07868);height:100%"></div>
+        </div>
+        <div class="p5-photo-cell">
+          <div class="photo-placeholder" style="background:linear-gradient(160deg,#BD9187,#A07868)"></div>
+        </div>
+        <div class="p5-photo-cell">
+          <div class="photo-placeholder" style="background:linear-gradient(160deg,#C4B070,#B09040)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     RANKING FINAL
+════════════════════════════════════════════ -->
+<section class="ranking-section">
+  <span class="ranking-label">Análise Final · Ranking Estético</span>
+  <h2 class="ranking-title">As 5 propostas rankeadas — melhor a pior</h2>
+
+  <div class="ranking-list">
+
+    <div class="ranking-item">
+      <div class="ranking-pos">
+        <span class="ranking-pos-num">1°</span>
+        <span class="ranking-pos-label">Melhor</span>
+      </div>
+      <div class="ranking-content">
+        <p class="ranking-proposal-name">Proposta 4</p>
+        <p class="ranking-proposal-title">Cinematográfico</p>
+        <p class="ranking-justificativa">
+          A proposta com maior coerência entre forma e conteúdo. <strong>A fotografia ocupa o espaço que merece</strong> em um site de fotógrafa — dominante, imersiva, sem competição. O painel branco lateral cria tensão visual produtiva com a foto. O inset da segunda foto é o microdetalhe mais elegante do conjunto: resolve o problema das 2 fotos sem duplicá-las horizontalmente. O strip mostarda é o único elemento vibrante e age como assinatura do look. A contenção do painel texto é precisa — cada elemento existe por razão. <strong>Risco estético bem executado, máxima clareza de propósito.</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">
+        <span class="ranking-pos-num">2°</span>
+        <span class="ranking-pos-label"></span>
+      </div>
+      <div class="ranking-content">
+        <p class="ranking-proposal-name">Proposta 3</p>
+        <p class="ranking-proposal-title">Sistema 3:1:1</p>
+        <p class="ranking-justificativa">
+          O grid assimétrico de 3 colunas é a solução estrutural mais sólida entre as evolutivas. <strong>A meta bar terracota como rodapé das fotos cria uma linha de base que ancora todo o layout</strong> — algo que a versão atual não tem. O uso do Playfair italic para o sobrenome "Nogueira" é a quebra tipográfica mais discreta e elegante das cinco propostas. Perde para o #4 pela foto menor na hierarquia perceptiva, mas ganha em legibilidade da coluna de texto. <strong>A escolha mais sólida para implementação sem risco.</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">
+        <span class="ranking-pos-num">3°</span>
+        <span class="ranking-pos-label"></span>
+      </div>
+      <div class="ranking-content">
+        <p class="ranking-proposal-name">Proposta 1</p>
+        <p class="ranking-proposal-title">Equilíbrio Editorial</p>
+        <p class="ranking-justificativa">
+          A proposta mais segura — e ainda assim a que mais resolve os problemas originais na prática. <strong>O H1 em 52px resolve o principal problema de presença tipográfica.</strong> O Playfair italic no subtítulo cria o contraste de voz sem comprometer a identidade do site. A borda terracota entre as fotos é um microdetalhe que funciona. A limitação está na falta de um diferencial compositivo forte — ainda sente como "layout de 2 colunas melhorado", não como uma intenção editorial clara.
+        </p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">
+        <span class="ranking-pos-num">4°</span>
+        <span class="ranking-pos-label"></span>
+      </div>
+      <div class="ranking-content">
+        <p class="ranking-proposal-name">Proposta 5</p>
+        <p class="ranking-proposal-title">Editorial Fragmentado</p>
+        <p class="ranking-justificativa">
+          A proposta mais ousada e a que tem o maior potencial editorial — mas também a maior fragilidade de execução. <strong>O H1 de 88px com o sublinhado mostarda é o momento mais memorável das cinco propostas.</strong> O grid fragmentado de 6 células funciona como storyboard de revista de moda. O problema: com fotos reais, o grid pode criar ruído excessivo na entrada da página e competir com a galeria masonry abaixo. O racional estético está correto, a execução precisa ser calibrada com as imagens reais. <strong>Alto risco, alto potencial.</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="ranking-item">
+      <div class="ranking-pos">
+        <span class="ranking-pos-num">5°</span>
+        <span class="ranking-pos-label">Menor</span>
+      </div>
+      <div class="ranking-content">
+        <p class="ranking-proposal-name">Proposta 2</p>
+        <p class="ranking-proposal-title">A Foto Primeiro</p>
+        <p class="ranking-justificativa">
+          A lógica conceitual é sólida — foto dominante faz sentido para uma fotógrafa. Mas o fundo escuro (quase-preto) cria uma distância emocional do ensaio, que tem paleta quente e acolhedora. <strong>O contraste entre o ambiente do ensaio (bege, terracota, mostarda) e o container preto é a principal contradição.</strong> A tira lateral da segunda foto é elegante como ideia mas pequena demais para impactar visualmente. O texto branco sobre fundo escuro funciona tecnicamente mas vai na direção contrária do calor do ensaio. Proposta válida para ensaios de paleta fria ou moda de editorial urbano — não para este contexto específico.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
