@@ -6,6 +6,18 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "9322", "--directory", "/Users/rodrigodemelolima/sites/rodrigo/fotografa-lillia-tavares/docs/redesign-cta-contato-internal-work"],
       "port": 9322
+    },
+    {
+      "name": "hero-curadoria",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "9331", "--directory", "/Users/rodrigodemelolima/sites/rodrigo/fotografa-lillia-tavares/docs/redesign-hero-internal-work"],
+      "port": 9331
+    },
+    {
+      "name": "estudio-curadoria",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "9342", "--directory", "/Users/rodrigodemelolima/sites/rodrigo/fotografa-lillia-tavares/docs/estudio-redesign"],
+      "port": 9342
     }
   ]
 }

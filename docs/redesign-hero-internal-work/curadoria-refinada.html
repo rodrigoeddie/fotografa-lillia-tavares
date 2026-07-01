@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Interna — Curadoria Refinada · Camila Nogueira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* paleta extraída do ensaio da Camila */
+    --terracota:      #A7523E;   /* accent / display */
+    --terracota-deep: #8A3D2C;   /* texto pequeno + barras (AA) */
+    --terracota-soft: #C47060;
+    --nude:           #BD9187;   /* fundo das fotos */
+    --nude-pale:      #DAC7C0;
+    --cream:          #F4F2E9;
+    --cream-deep:     #E9E5D8;
+    --cream-line:     #DED8C7;
+    --olive:          #7B785B;
+    --mustard:        #F9A825;   /* assinatura — segundo look */
+    --white:          #FFFFFF;
+    --ink:            #2B2622;   /* preto quente */
+    --ink-soft:       #5C534A;
+
+    --ff-display: 'Playfair Display', Georgia, serif;
+    --ff-body:    'Lato', system-ui, sans-serif;
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --shadow-frame: 0 30px 80px -30px rgba(0,0,0,0.55);
+
+    /* fotos reais do ensaio (Cloudflare Images) */
+    --ph1: url('https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/f00300d2-e52f-4b6f-9710-350a173fdf00/public');
+    --ph2: url('https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/6d768995-575c-49cd-4401-cc91a658d400/public');
+    --land: url('https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=1700,h=1134,q=90/https://images.fotografalilliatavares.com.br/images/49396ff2-872b-442c-dc06-fd1970b96700/public');
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-body);
+    background: #1F1C19;
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 3px solid var(--mustard);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* heros escuros precisam de foco claro sobre escuro */
+  .on-dark :focus-visible { outline-color: var(--mustard); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+
+  /* ───────── skip link ───────── */
+  .skip {
+    position: absolute; left: 16px; top: -60px;
+    background: var(--mustard); color: var(--ink);
+    padding: 10px 18px; font-weight: 700; font-size: 14px;
+    border-radius: 6px; z-index: 100; transition: top .2s var(--ease);
+  }
+  .skip:focus { top: 16px; }
+
+  /* ───────── página / gallery chrome ───────── */
+  .page-head {
+    max-width: 1180px; margin: 0 auto; padding: 64px 32px 32px;
+    color: var(--cream);
+  }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--terracota-soft); margin-bottom: 18px;
+  }
+  .page-head h1 {
+    font-family: var(--ff-display); font-weight: 500; font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.12; color: var(--cream); margin-bottom: 18px; letter-spacing: -.01em;
+  }
+  .page-head h1 em { font-style: italic; color: var(--terracota-soft); }
+  .lede { font-size: 16px; line-height: 1.75; color: #B8B0A2; max-width: 660px; }
+
+  /* nota de curadoria */
+  .curation {
+    max-width: 1180px; margin: 36px auto 8px; padding: 0 32px;
+  }
+  .curation-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px; background: rgba(244,242,233,.1);
+    border: 1px solid rgba(244,242,233,.1); border-radius: 12px; overflow: hidden;
+  }
+  .curation-cell { background: #26221E; padding: 20px 22px; }
+  .curation-cell .c-h {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 13px; font-weight: 700; color: var(--cream); margin-bottom: 6px;
+  }
+  .curation-cell .c-h .ico { width: 16px; height: 16px; color: var(--mustard); }
+  .curation-cell p { font-size: 13.5px; line-height: 1.6; color: #A39B8D; }
+
+  /* nav âncora */
+  .anchor-nav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(31,28,25,.86); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(244,242,233,.1);
+    margin-top: 40px;
+  }
+  .anchor-nav ul {
+    max-width: 1180px; margin: 0 auto; padding: 0 32px;
+    display: flex; gap: 4px; list-style: none; overflow-x: auto;
+  }
+  .anchor-nav a {
+    display: block; padding: 16px 14px; font-size: 12.5px; font-weight: 700;
+    letter-spacing: .04em; text-transform: uppercase; color: #8C8478;
+    text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .anchor-nav a:hover { color: var(--cream); }
+  .anchor-nav a .n { color: var(--terracota-soft); margin-right: 6px; }
+
+  /* ───────── stage / caption ───────── */
+  .stage { max-width: 1180px; margin: 0 auto; padding: 72px 32px; scroll-margin-top: 60px; }
+  .caption { display: grid; grid-template-columns: 64px 1fr; gap: 28px; margin-bottom: 32px; align-items: start; }
+  .cap-num {
+    font-family: var(--ff-display); font-style: italic; font-weight: 500;
+    font-size: 58px; line-height: .8; color: rgba(196,112,96,.5); text-align: right;
+  }
+  .cap-body { color: var(--cream); }
+  .cap-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+  }
+  .tag-evo { background: rgba(123,120,91,.25); color: #C9C6A8; border: 1px solid rgba(123,120,91,.45); }
+  .tag-bold { background: rgba(249,168,37,.16); color: var(--mustard); border: 1px solid rgba(249,168,37,.4); }
+  .tag-lens { background: rgba(196,112,96,.16); color: var(--terracota-soft); border: 1px solid rgba(196,112,96,.4); }
+  .cap-title { font-family: var(--ff-display); font-weight: 500; font-size: 26px; line-height: 1.2; margin-bottom: 10px; }
+  .cap-rationale { font-size: 15px; line-height: 1.7; color: #A8A093; max-width: 760px; }
+  .cap-rationale strong { color: var(--cream-deep); font-weight: 700; }
+  .cap-rationale .trade { display: block; margin-top: 8px; color: #8C8478; }
+  .cap-rationale .trade b { color: var(--terracota-soft); font-weight: 700; }
+
+  /* moldura do hero (simula a viewport do site) */
+  .frame {
+    border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-frame);
+    background: var(--cream);
+  }
+
+  /* ╔══════════════════════════════════════════╗
+     COMPONENTES COMPARTILHADOS (conteúdo real)
+     ╚══════════════════════════════════════════╝ */
+  .ico { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-sm { width: 15px; height: 15px; }
+
+  .crumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 13px; letter-spacing: .02em; }
+  .crumbs a { text-decoration: none; padding: 4px 2px; border-radius: 3px; transition: color .18s var(--ease); }
+  .crumbs .sep { width: 14px; height: 14px; opacity: .5; }
+  .crumbs [aria-current] { font-weight: 700; }
+
+  .stars { display: inline-flex; gap: 2px; vertical-align: middle; }
+  .stars .s { width: 16px; height: 16px; fill: var(--mustard); }
+
+  /* botões */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    font-family: var(--ff-body); font-weight: 700; font-size: 15px; letter-spacing: .01em;
+    padding: 14px 22px; min-height: 48px; border-radius: 8px; border: 2px solid transparent;
+    cursor: pointer; text-decoration: none; transition: transform .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease), color .18s var(--ease);
+  }
+  .btn .ico { width: 18px; height: 18px; }
+  .btn-primary { background: var(--terracota); color: var(--white); box-shadow: 0 8px 22px -10px rgba(167,82,62,.9); }
+  .btn-primary:hover { background: var(--terracota-deep); transform: translateY(-2px); box-shadow: 0 12px 26px -10px rgba(138,61,44,.95); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost { background: transparent; color: var(--terracota-deep); border-color: var(--cream-line); }
+  .btn-ghost:hover { border-color: var(--terracota); background: rgba(167,82,62,.06); }
+  .btn-light { background: rgba(255,255,255,.12); color: var(--white); border-color: rgba(255,255,255,.35); backdrop-filter: blur(4px); }
+  .btn-light:hover { background: rgba(255,255,255,.22); border-color: var(--white); }
+
+  /* foto base */
+  .photo { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; background: var(--nude); }
+
+  /* ════════ 01 · EDITORIAL QUENTE (evolução) ════════ */
+  .h1-wrap { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 600px; }
+  .h1-text { display: flex; flex-direction: column; padding: 40px 48px 0; background: var(--cream); }
+  .h1-text .crumbs { color: var(--olive); margin-bottom: 36px; }
+  .h1-text .crumbs a:hover { color: var(--terracota-deep); }
+  .h1-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracota-deep); margin-bottom: 14px; }
+  .h1-title { font-family: var(--ff-body); font-weight: 900; text-transform: uppercase; line-height: .98; letter-spacing: -.015em; color: var(--ink); font-size: clamp(40px, 4.6vw, 58px); }
+  .h1-title span { display: block; color: var(--terracota); }
+  .h1-sub { font-family: var(--ff-display); font-style: italic; font-size: 19px; color: var(--nude); margin: 10px 0 22px; }
+  .h1-rule { width: 52px; height: 3px; background: var(--terracota); margin-bottom: 22px; }
+  .h1-desc { font-size: 16px; line-height: 1.75; color: var(--ink-soft); max-width: 420px; margin-bottom: 26px; }
+  .h1-desc em { font-family: var(--ff-display); font-style: italic; color: var(--terracota-deep); }
+  .h1-quote { border-left: 3px solid var(--terracota); background: var(--cream-deep); padding: 18px 20px; margin-bottom: 28px; }
+  .h1-quote .stars { margin-bottom: 8px; }
+  .h1-quote blockquote { font-family: var(--ff-display); font-style: italic; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .h1-quote cite { display: flex; align-items: center; gap: 7px; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--terracota-deep); margin-top: 10px; }
+  .h1-quote cite .ico { width: 14px; height: 14px; color: var(--olive); }
+  .h1-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; padding-bottom: 40px; }
+  .h1-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--cream); }
+  .h1-photos .cell { overflow: hidden; }
+  .h1-photos .cell img { transition: transform .6s var(--ease); }
+  .h1-photos .cell:hover img { transform: scale(1.04); }
+  .h1-meta { grid-column: 1 / -1; background: var(--terracota-deep); display: flex; flex-wrap: wrap; }
+  .h1-meta .m {
+    flex: 1; min-width: 180px; display: flex; align-items: center; gap: 13px;
+    padding: 18px 28px; text-decoration: none; border-right: 1px solid rgba(255,255,255,.14);
+    transition: background .18s var(--ease);
+  }
+  .h1-meta .m:last-child { border-right: none; }
+  .h1-meta a.m:hover { background: rgba(0,0,0,.16); }
+  .h1-meta .ico { color: rgba(255,255,255,.7); }
+  .h1-meta .mt { display: flex; flex-direction: column; gap: 1px; }
+  .h1-meta .ml { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.78); }
+  .h1-meta .mv { font-size: 15px; font-weight: 700; color: var(--white); }
+
+  /* ════════ 02 · SPLIT CINEMATOGRÁFICO ════════ */
+  .h2-wrap { display: grid; grid-template-columns: 1.4fr 1fr; min-height: 640px; }
+  .h2-visual { position: relative; overflow: hidden; background: var(--nude); }
+  .h2-visual .photo { object-position: center 18%; transition: transform .8s var(--ease); }
+  .h2-visual:hover .photo { transform: scale(1.03); }
+  .h2-badge {
+    position: absolute; top: 22px; right: 22px; z-index: 3;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(28,26,23,.62); color: var(--white); backdrop-filter: blur(6px);
+    padding: 8px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: .04em;
+  }
+  .h2-badge .ico { width: 15px; height: 15px; }
+  .h2-inset {
+    position: absolute; left: 28px; bottom: 40px; z-index: 3;
+    width: 132px; aspect-ratio: 3 / 4; border: 4px solid var(--white);
+    border-radius: 3px; overflow: hidden; box-shadow: 0 14px 34px rgba(0,0,0,.34);
+    transform: rotate(-2deg); transition: transform .3s var(--ease);
+  }
+  .h2-inset:hover { transform: rotate(0) scale(1.03); }
+  .h2-inset .photo { object-position: center 30%; }
+  .h2-strip { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--mustard); z-index: 2; }
+  .h2-panel { display: flex; flex-direction: column; padding: 44px 40px; background: var(--white); }
+  .h2-panel .crumbs { color: var(--olive); margin-bottom: 32px; }
+  .h2-panel .crumbs a:hover { color: var(--terracota-deep); }
+  .h2-cat { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--terracota-deep); margin-bottom: 16px; }
+  .h2-cat::after { content: ''; flex: 1; height: 1px; background: var(--cream-line); }
+  .h2-title { font-family: var(--ff-body); font-weight: 900; text-transform: uppercase; font-size: clamp(34px, 3.4vw, 44px); line-height: 1; letter-spacing: -.01em; color: var(--ink); }
+  .h2-sub { font-family: var(--ff-display); font-style: italic; font-size: 21px; color: var(--terracota); margin: 8px 0 24px; }
+  .h2-desc { font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 24px; }
+  .h2-desc em { font-family: var(--ff-display); font-style: italic; color: var(--terracota-deep); }
+  .h2-quote { border: 1px solid var(--cream-line); border-radius: 8px; padding: 18px 20px; margin-bottom: 26px; position: relative; }
+  .h2-quote::before { content: ''; position: absolute; top: -1px; left: 22px; width: 34px; height: 3px; background: var(--mustard); }
+  .h2-quote .stars { margin-bottom: 8px; }
+  .h2-quote blockquote { font-family: var(--ff-display); font-style: italic; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+  .h2-quote cite { display: block; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--terracota-deep); margin-top: 9px; }
+  .h2-foot { margin-top: auto; }
+  .h2-metarow { display: flex; flex-wrap: wrap; gap: 8px 26px; padding: 18px 0; border-top: 1px solid var(--cream-line); margin-bottom: 18px; }
+  .h2-metarow .m { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--ink-soft); }
+  .h2-metarow .m .ico { width: 16px; height: 16px; color: var(--terracota); }
+  .h2-metarow .m a { color: var(--terracota-deep); font-weight: 700; text-decoration: none; }
+  .h2-metarow .m a:hover { text-decoration: underline; }
+  .h2-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* ════════ 03 · MANCHETE EDITORIAL (ousada) ════════ */
+  .h3 { background: var(--cream); padding: 44px 48px 0; }
+  .h3 .crumbs { color: var(--olive); margin-bottom: 30px; }
+  .h3 .crumbs a:hover { color: var(--terracota-deep); }
+  .h3-over { display: flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--terracota-deep); margin-bottom: 14px; }
+  .h3-over::before { content: ''; width: 30px; height: 1px; background: var(--terracota); }
+  .h3-head { font-family: var(--ff-body); font-weight: 900; text-transform: uppercase; font-size: clamp(48px, 8vw, 92px); line-height: .86; letter-spacing: -.03em; color: var(--ink); margin-bottom: 6px; }
+  .h3-head .name { display: inline; background: linear-gradient(transparent 72%, var(--mustard) 72%, var(--mustard) 90%, transparent 90%); }
+  .h3-serif { display: block; font-family: var(--ff-display); font-style: italic; font-weight: 500; font-size: clamp(24px, 3.4vw, 38px); text-transform: none; letter-spacing: 0; color: var(--terracota); margin-top: 8px; }
+  .h3-band { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 36px 0 0; }
+  .h3-band .cell { aspect-ratio: 16 / 11; overflow: hidden; }
+  .h3-band .cell img { transition: transform .6s var(--ease); }
+  .h3-band .cell:hover img { transform: scale(1.04); }
+  .h3-band .cell .photo { object-position: center 20%; }
+  .h3-lower { display: grid; grid-template-columns: 1.6fr 1fr; gap: 44px; padding: 34px 0 44px; align-items: start; }
+  .h3-desc { font-size: 17px; line-height: 1.85; color: var(--ink-soft); }
+  .h3-desc em { font-family: var(--ff-display); font-style: italic; color: var(--terracota-deep); }
+  .h3-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .h3-aside dl { margin: 0; }
+  .h3-aside .row { display: flex; align-items: flex-start; gap: 11px; padding: 13px 0; border-bottom: 1px solid var(--cream-line); }
+  .h3-aside .row:first-child { border-top: 1px solid var(--cream-line); }
+  .h3-aside .ico { width: 16px; height: 16px; color: var(--terracota); margin-top: 3px; }
+  .h3-aside dt { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--olive); }
+  .h3-aside dd { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .h3-aside dd a { color: var(--terracota-deep); text-decoration: none; }
+  .h3-aside dd a:hover { text-decoration: underline; }
+  .h3-quote { background: var(--terracota-deep); border-radius: 8px; padding: 20px; margin-top: 22px; }
+  .h3-quote .stars { margin-bottom: 9px; }
+  .h3-quote blockquote { font-family: var(--ff-display); font-style: italic; font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.94); }
+  .h3-quote cite { display: block; font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); margin-top: 10px; }
+
+  /* ════════ 04 · PAISAGEM IMERSIVA (variante 1 foto) ════════ */
+  .h4 { position: relative; min-height: 600px; display: flex; align-items: stretch; background: var(--nude); }
+  .h4-bg { position: absolute; inset: 0; }
+  .h4-bg .photo { object-position: center 40%; }
+  .h4-scrim { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(28,26,23,.82) 0%, rgba(28,26,23,.55) 38%, rgba(28,26,23,.12) 68%, transparent 100%); }
+  .h4-inner { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 56px 56px; max-width: 600px; color: var(--cream); }
+  .h4 .crumbs { color: rgba(244,242,233,.78); margin-bottom: 28px; }
+  .h4 .crumbs a:hover { color: var(--white); }
+  .h4 .crumbs .sep { opacity: .6; }
+  .h4-cat { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--mustard); margin-bottom: 16px; }
+  .h4-title { font-family: var(--ff-body); font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 5vw, 60px); line-height: .96; letter-spacing: -.015em; color: var(--white); margin-bottom: 6px; }
+  .h4-sub { font-family: var(--ff-display); font-style: italic; font-size: 22px; color: var(--nude-pale); margin-bottom: 22px; }
+  .h4-desc { font-size: 16px; line-height: 1.8; color: rgba(244,242,233,.9); max-width: 460px; margin-bottom: 24px; }
+  .h4-desc em { font-family: var(--ff-display); font-style: italic; color: var(--mustard); }
+  .h4-quote { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid rgba(244,242,233,.2); border-bottom: 1px solid rgba(244,242,233,.2); margin-bottom: 26px; max-width: 460px; }
+  .h4-quote .stars { flex-shrink: 0; }
+  .h4-quote p { font-size: 14px; line-height: 1.55; color: rgba(244,242,233,.82); }
+  .h4-quote.is-empty { color: rgba(244,242,233,.55); font-style: italic; font-size: 14px; }
+  .h4-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .h4-meta { position: absolute; z-index: 2; right: 0; bottom: 0; display: flex; gap: 1px; background: rgba(244,242,233,.16); }
+  .h4-meta .m { background: rgba(28,26,23,.55); backdrop-filter: blur(6px); padding: 14px 22px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(244,242,233,.92); text-decoration: none; }
+  .h4-meta .m .ico { width: 15px; height: 15px; color: var(--mustard); }
+  .h4-meta a.m:hover { background: rgba(28,26,23,.78); }
+  /* skeleton */
+  .h4.skeleton .h4-bg { background: var(--cream-deep); }
+  .h4.skeleton .h4-bg .photo { opacity: 0; }
+  .h4.skeleton .h4-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(100deg, var(--cream-deep) 30%, #f3efe4 50%, var(--cream-deep) 70%);
+    background-size: 200% 100%; animation: shimmer 1.3s linear infinite;
+  }
+  .h4.skeleton .h4-scrim { background: linear-gradient(100deg, rgba(123,120,91,.4), transparent 70%); }
+  @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+  /* ════════ 05 · DÍPTICO SERENO (evolução / quiet luxury) ════════ */
+  .h5 { background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+  .h5-text { display: flex; flex-direction: column; justify-content: center; padding: 64px 56px; }
+  .h5 .crumbs { color: var(--olive); margin-bottom: 40px; font-size: 12.5px; }
+  .h5 .crumbs a:hover { color: var(--terracota-deep); }
+  .h5-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--terracota-deep); margin-bottom: 18px; }
+  .h5-title { font-family: var(--ff-display); font-weight: 500; font-size: clamp(38px, 4.4vw, 54px); line-height: 1.04; letter-spacing: -.01em; color: var(--ink); margin-bottom: 4px; }
+  .h5-title em { display: block; font-style: italic; font-size: .62em; color: var(--terracota); }
+  .h5-rule { width: 44px; height: 2px; background: var(--nude); margin: 26px 0; }
+  .h5-desc { font-size: 16px; line-height: 1.85; color: var(--ink-soft); max-width: 400px; margin-bottom: 28px; }
+  .h5-desc em { font-family: var(--ff-display); font-style: italic; color: var(--terracota-deep); }
+  .h5-quote { margin-bottom: 30px; max-width: 400px; }
+  .h5-quote .stars { margin-bottom: 8px; }
+  .h5-quote blockquote { font-family: var(--ff-display); font-style: italic; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .h5-quote cite { font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); }
+  .h5-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 26px; }
+  .h5-link { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; font-size: 14px; color: var(--terracota-deep); text-decoration: none; }
+  .h5-link .ico { width: 16px; height: 16px; transition: transform .2s var(--ease); }
+  .h5-link:hover .ico { transform: translateX(3px); }
+  .h5-meta { display: flex; gap: 28px; flex-wrap: wrap; }
+  .h5-meta .m { font-size: 13px; color: var(--ink-soft); }
+  .h5-meta .ml { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--olive); margin-bottom: 2px; }
+  .h5-meta a { color: var(--terracota-deep); text-decoration: none; font-weight: 700; }
+  .h5-photos { display: grid; grid-template-rows: 1fr 1fr; gap: 4px; padding: 4px 4px 4px 0; min-height: 0; }
+  .h5-photos .cell { position: relative; overflow: hidden; border-radius: 2px; min-height: 0; }
+  .h5-photos .cell .photo { position: absolute; inset: 0; transition: transform .7s var(--ease); }
+  .h5-photos .cell:hover img { transform: scale(1.04); }
+  .h5-photos .cell:first-child .photo { object-position: center 16%; }
+  .h5-photos .cell:last-child .photo { object-position: center 34%; }
+
+  /* ───────── ranking ───────── */
+  .ranking { max-width: 1180px; margin: 0 auto; padding: 80px 32px 96px; }
+  .ranking .kicker { color: var(--terracota-soft); }
+  .ranking h2 { font-family: var(--ff-display); font-weight: 500; font-size: 30px; color: var(--cream); margin-bottom: 40px; }
+  .rank-item { display: grid; grid-template-columns: 56px 1fr; gap: 28px; padding: 26px 0; border-bottom: 1px solid rgba(244,242,233,.08); align-items: start; }
+  .rank-item:last-child { border-bottom: none; }
+  .rank-pos { font-family: var(--ff-display); font-style: italic; font-weight: 600; font-size: 40px; line-height: 1; color: rgba(196,112,96,.55); text-align: right; }
+  .rank-name { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--terracota-soft); margin-bottom: 4px; }
+  .rank-title { font-family: var(--ff-display); font-size: 21px; color: var(--cream); margin-bottom: 9px; }
+  .rank-why { font-size: 15px; line-height: 1.7; color: #A8A093; max-width: 800px; }
+  .rank-why strong { color: var(--cream-deep); }
+
+  .foot { max-width: 1180px; margin: 0 auto; padding: 0 32px 80px; color: #6F6962; font-size: 13px; line-height: 1.7; }
+
+  /* ───────── RESPONSIVO ───────── */
+  @media (max-width: 900px) {
+    .stage { padding: 48px 18px; }
+    .caption { grid-template-columns: 1fr; gap: 14px; }
+    .cap-num { text-align: left; font-size: 44px; }
+
+    .h1-wrap, .h2-wrap, .h5 { grid-template-columns: 1fr; }
+    .h1-text { padding: 32px 26px; }
+    .h1-photos { grid-template-columns: 1fr 1fr; }
+    .h1-photos .cell { aspect-ratio: 3 / 4; }
+    .h1-cta { padding-bottom: 32px; }
+
+    .h2-wrap { display: flex; flex-direction: column; }
+    .h2-visual { min-height: 420px; }
+    .h2-panel { padding: 32px 26px; }
+    .h2-inset { width: 104px; left: 20px; bottom: 28px; }
+
+    .h3 { padding: 32px 24px 0; }
+    .h3-lower { grid-template-columns: 1fr; gap: 28px; }
+    .h3-band { margin-top: 28px; }
+
+    .h4 { min-height: auto; }
+    .h4-scrim { background: linear-gradient(180deg, rgba(28,26,23,.35) 0%, rgba(28,26,23,.82) 60%); }
+    .h4-inner { padding: 340px 26px 90px; max-width: none; }
+    .h4-meta { position: static; flex-direction: row; width: 100%; }
+    .h4-meta .m { flex: 1; justify-content: center; }
+
+    .h5-text { padding: 36px 26px; }
+    .h5-photos { grid-template-rows: none; grid-template-columns: 1fr 1fr; padding: 4px; }
+    .h5-photos .cell { aspect-ratio: 3 / 4; }
+  }
+
+  @media (max-width: 560px) {
+    .h1-photos, .h3-band, .h5-photos { grid-template-columns: 1fr; }
+    .h2-metarow, .h5-meta { flex-direction: column; gap: 12px; }
+    .btn { width: 100%; }
+    .h1-cta, .h2-cta, .h3-cta, .h4-cta, .h5-cta { flex-direction: column; align-items: stretch; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#p1">Pular para as propostas</a>
+
+<!-- ░░░ SVG SPRITE (Lucide) ░░░ -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-images" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 6-4.5 4.5"/><rect width="14" height="14" x="8" y="2" rx="2"/><circle cx="12.5" cy="6.5" r="1"/></symbol>
+    <symbol id="i-google" viewBox="0 0 24 24"><path d="M12 11v3.5h4.9c-.2 1.2-1.6 3.6-4.9 3.6-2.9 0-5.3-2.4-5.3-5.4S9 6.9 12 6.9c1.7 0 2.8.7 3.4 1.3l2.3-2.2C16.3 4.6 14.4 3.8 12 3.8c-4.6 0-8.3 3.7-8.3 8.3s3.7 8.3 8.3 8.3c4.8 0 8-3.4 8-8.1 0-.5-.1-1-.1-1.3z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ░░░ CABEÇALHO ░░░ -->
+<header class="page-head">
+  <p class="kicker">Curadoria refinada · Direção criativa</p>
+  <h1>Hero da interna de trabalho, <em>reeditado</em> — com as fotos reais da Camila Nogueira</h1>
+  <p class="lede">Das 20 propostas originais (4 lentes × 5), selecionei e reconstruí as <strong>5 de maior coerência entre forma e conteúdo</strong>. Cada uma combina a melhor ideia de uma lente com o craft de outra, agora medida contra a imagem real do ensaio — não contra placeholders.</p>
+</header>
+
+<section class="curation" aria-label="O que foi refinado">
+  <div class="curation-grid">
+    <div class="curation-cell">
+      <div class="c-h"><svg class="ico"><use href="#i-camera"/></svg>Foto real, não placeholder</div>
+      <p>Toda composição usa as 3 imagens reais do CDN. Recorte e proporção foram julgados contra o ensaio verdadeiro.</p>
+    </div>
+    <div class="curation-cell">
+      <div class="c-h"><svg class="ico"><use href="#i-arrow"/></svg>Tipografia legível</div>
+      <p>Corpo 16px (era 12,3px), breadcrumb 13px (era 10,4px), H1 fluido até 92px. O problema nº 1 do brief, resolvido de fato.</p>
+    </div>
+    <div class="curation-cell">
+      <div class="c-h"><svg class="ico"><use href="#i-folder"/></svg>Contraste AA real</div>
+      <p>Barra de meta escurecida para <strong>terracota-deep</strong>: branco passa 7:1. Texto terracota pequeno nunca abaixo de 4.5:1.</p>
+    </div>
+    <div class="curation-cell">
+      <div class="c-h"><svg class="ico"><use href="#i-calendar"/></svg>CTA acima da dobra</div>
+      <p>Agendar + Ver galeria presentes em todo hero. A conversão deixa de morar no rodapé.</p>
+    </div>
+    <div class="curation-cell">
+      <div class="c-h"><svg class="ico"><use href="#i-images"/></svg>Variante paisagem</div>
+      <p>A proposta 04 cobre o caso de 1 foto horizontal — com estado de carregamento e depoimento ausente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ NAV ÂNCORA ░░░ -->
+<nav class="anchor-nav" aria-label="Navegar entre propostas">
+  <ul>
+    <li><a href="#p1"><span class="n">01</span>Editorial Quente</a></li>
+    <li><a href="#p2"><span class="n">02</span>Split Cinematográfico</a></li>
+    <li><a href="#p3"><span class="n">03</span>Manchete Editorial</a></li>
+    <li><a href="#p4"><span class="n">04</span>Paisagem Imersiva</a></li>
+    <li><a href="#p5"><span class="n">05</span>Díptico Sereno</a></li>
+    <li><a href="#ranking"><span class="n">★</span>Ranking</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ 01 ═══════════ -->
+<section class="stage" id="p1">
+  <div class="caption">
+    <div class="cap-num">01</div>
+    <div class="cap-body">
+      <div class="cap-tags">
+        <span class="tag tag-evo">Evolução segura</span>
+        <span class="tag tag-lens">Arte + UX</span>
+      </div>
+      <h3 class="cap-title">Editorial Quente — o estilo da casa, bem-feito</h3>
+      <p class="cap-rationale">A estrutura de 2 colunas que já existe, mas com a coluna de texto sobre <strong>creme</strong> (não branco genérico), H1 com presença, depoimento como <strong>blockquote</strong> citável e a barra de meta convertida em rodapé estrutural que ancora o bloco inteiro. CTA no topo do fluxo.
+        <span class="trade"><b>Trade-off:</b> a evolução mais conservadora — baixo risco de implementação, mas é a que menos surpreende.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="h1-wrap">
+      <div class="h1-text">
+        <nav class="crumbs" aria-label="Você está em">
+          <a href="#p1">Home</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p1">Ensaios</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p1">Corporativo</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <span aria-current="page">Camila Nogueira</span>
+        </nav>
+        <p class="h1-eyebrow">Ensaio Corporativo</p>
+        <h1 class="h1-title">Camila <span>Nogueira</span></h1>
+        <p class="h1-sub">Sua vida através da psicoarquitetura</p>
+        <div class="h1-rule"></div>
+        <p class="h1-desc">Esse ensaio é muito especial para mim: a Camila foi a arquiteta responsável pelo nosso estúdio. Ela transforma ambientes em espaços <em>acolhedores e inspiradores</em> — e não podia estar mais certa sobre a frase que carrega.</p>
+        <figure class="h1-quote">
+          <span class="stars" role="img" aria-label="Avaliação 5 de 5 estrelas">
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+          </span>
+          <blockquote>A experiência mais completa que existe nesse mundo, profissional atenciosa e dedicada — você se apaixona pelo trabalho dela.</blockquote>
+          <cite><svg class="ico"><use href="#i-google"/></svg>Avaliação no Google</cite>
+        </figure>
+        <div class="h1-cta">
+          <a class="btn btn-primary" href="#p1"><svg class="ico"><use href="#i-calendar"/></svg>Agendar meu ensaio</a>
+          <a class="btn btn-ghost" href="#p1"><svg class="ico"><use href="#i-camera"/></svg>Ver as 32 fotos</a>
+        </div>
+      </div>
+
+      <div class="h1-photos">
+        <div class="cell"><img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/f00300d2-e52f-4b6f-9710-350a173fdf00/public" alt="Camila Nogueira em ensaio corporativo, em pé, sorrindo, blazer bege" width="936" height="1406" loading="eager"></div>
+        <div class="cell"><img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/6d768995-575c-49cd-4401-cc91a658d400/public" alt="Camila Nogueira sentada, look mostarda, em ensaio corporativo de estúdio" width="936" height="1319" loading="lazy"></div>
+        <div class="h1-meta">
+          <div class="m"><svg class="ico"><use href="#i-folder"/></svg><span class="mt"><span class="ml">Categoria</span><span class="mv">Corporativo</span></span></div>
+          <div class="m"><svg class="ico"><use href="#i-pin"/></svg><span class="mt"><span class="ml">Local</span><span class="mv">Estúdio Lillia Tavares</span></span></div>
+          <a class="m" href="https://www.instagram.com/studiocnmais" target="_blank" rel="noopener noreferrer"><svg class="ico"><use href="#i-external"/></svg><span class="mt"><span class="ml">Site da cliente</span><span class="mv">@studiocnmais</span></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 ═══════════ -->
+<section class="stage" id="p2">
+  <div class="caption">
+    <div class="cap-num">02</div>
+    <div class="cap-body">
+      <div class="cap-tags">
+        <span class="tag tag-evo">Evolução</span>
+        <span class="tag tag-lens">Arte + Produto</span>
+      </div>
+      <h3 class="cap-title">Split Cinematográfico — a foto vira protagonista</h3>
+      <p class="cap-rationale">A imagem domina ~58% da largura como deve numa página de fotografia. A segunda foto entra como <strong>inset polaroid</strong> levemente inclinado, o filete <strong>mostarda</strong> assina o segundo look, e o badge <strong>«1 / 32»</strong> resolve o "existe galeria abaixo?". Painel direito reúne narrativa, meta e CTA num só fluxo.
+        <span class="trade"><b>Trade-off:</b> a melhor coesão forma↔conteúdo do conjunto; depende de a primeira foto ter bom respiro à esquerda (esta tem).</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="h2-wrap">
+      <div class="h2-visual">
+        <span class="h2-badge"><svg class="ico"><use href="#i-camera"/></svg>1 / 32</span>
+        <img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/f00300d2-e52f-4b6f-9710-350a173fdf00/public" alt="Camila Nogueira em pé, sorrindo, durante ensaio corporativo" width="936" height="1406" loading="eager">
+        <a class="h2-inset" href="#p2" aria-label="Ver segunda foto do ensaio">
+          <img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/6d768995-575c-49cd-4401-cc91a658d400/public" alt="Camila Nogueira sentada, look mostarda" width="936" height="1319" loading="lazy">
+        </a>
+        <div class="h2-strip"></div>
+      </div>
+
+      <div class="h2-panel">
+        <nav class="crumbs" aria-label="Você está em">
+          <a href="#p2">Home</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p2">Ensaios</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p2">Corporativo</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <span aria-current="page">Camila Nogueira</span>
+        </nav>
+        <p class="h2-cat">Ensaio Corporativo</p>
+        <h2 class="h2-title">Camila Nogueira</h2>
+        <p class="h2-sub">Sua vida através da psicoarquitetura</p>
+        <p class="h2-desc">A Camila foi a arquiteta responsável pelo nosso estúdio. No ambiente que ela criou eu me sinto em casa — ela transforma espaços em lugares <em>acolhedores e inspiradores</em>.</p>
+        <figure class="h2-quote">
+          <span class="stars" role="img" aria-label="Avaliação 5 de 5 estrelas">
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+          </span>
+          <blockquote>Não tem como não voltar pra fazer outro ensaio. Você se apaixona pelo trabalho dela.</blockquote>
+          <cite>— Avaliação no Google</cite>
+        </figure>
+        <div class="h2-foot">
+          <div class="h2-metarow">
+            <span class="m"><svg class="ico"><use href="#i-folder"/></svg>Corporativo</span>
+            <span class="m"><svg class="ico"><use href="#i-pin"/></svg>Estúdio Lillia Tavares</span>
+            <span class="m"><svg class="ico"><use href="#i-external"/></svg><a href="https://www.instagram.com/studiocnmais" target="_blank" rel="noopener noreferrer">@studiocnmais</a></span>
+          </div>
+          <div class="h2-cta">
+            <a class="btn btn-primary" href="#p2"><svg class="ico"><use href="#i-calendar"/></svg>Agendar meu ensaio</a>
+            <a class="btn btn-ghost" href="#p2"><svg class="ico"><use href="#i-camera"/></svg>Ver galeria</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 ═══════════ -->
+<section class="stage" id="p3">
+  <div class="caption">
+    <div class="cap-num">03</div>
+    <div class="cap-body">
+      <div class="cap-tags">
+        <span class="tag tag-bold">Ousada</span>
+        <span class="tag tag-lens">Arte + Acessibilidade</span>
+      </div>
+      <h3 class="cap-title">Manchete Editorial — o nome como capa de revista</h3>
+      <p class="cap-rationale">O nome da cliente vira <strong>manchete</strong> (até 92px) com grifo mostarda no sobrenome — o gesto gráfico mais autoral do conjunto. Abaixo, as duas fotos numa faixa, e a coluna de dados marcada com <strong>&lt;dl&gt;/&lt;dt&gt;/&lt;dd&gt;</strong> semântico real. Depoimento em bloco terracota com contraste 7:1.
+        <span class="trade"><b>Trade-off:</b> impacto alto; exige nome curto/médio — testei com "Camila Nogueira" e o clamp protege quebras.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="h3">
+      <nav class="crumbs" aria-label="Você está em">
+        <a href="#p3">Home</a><svg class="sep"><use href="#i-chevron"/></svg>
+        <a href="#p3">Ensaios</a><svg class="sep"><use href="#i-chevron"/></svg>
+        <a href="#p3">Corporativo</a><svg class="sep"><use href="#i-chevron"/></svg>
+        <span aria-current="page">Camila Nogueira</span>
+      </nav>
+      <p class="h3-over">Ensaio Corporativo · Estúdio Lillia Tavares</p>
+      <h1 class="h3-head">Camila <span class="name">Nogueira</span>
+        <span class="h3-serif">Sua vida através da psicoarquitetura</span>
+      </h1>
+
+      <div class="h3-band">
+        <div class="cell"><img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/f00300d2-e52f-4b6f-9710-350a173fdf00/public" alt="Camila Nogueira em pé, sorrindo, em ensaio corporativo" width="936" height="1406" loading="lazy"></div>
+        <div class="cell"><img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/6d768995-575c-49cd-4401-cc91a658d400/public" alt="Camila Nogueira sentada, look mostarda, em ensaio corporativo" width="936" height="1319" loading="lazy"></div>
+      </div>
+
+      <div class="h3-lower">
+        <div>
+          <p class="h3-desc">Esse ensaio é muito especial para mim, pois a Camila foi a arquiteta responsável pelo nosso estúdio. Em seu perfil ela traz a frase <em>«Sua vida através da psicoarquitetura!»</em> e não podia estar mais certa: no meu ambiente de trabalho me sinto em casa, confortável. Ela transforma seus ambientes em espaços acolhedores e inspiradores.</p>
+          <div class="h3-cta">
+            <a class="btn btn-primary" href="#p3"><svg class="ico"><use href="#i-calendar"/></svg>Agendar meu ensaio</a>
+            <a class="btn btn-ghost" href="#p3"><svg class="ico"><use href="#i-camera"/></svg>Ver as 32 fotos</a>
+          </div>
+        </div>
+        <aside class="h3-aside">
+          <dl>
+            <div class="row"><svg class="ico"><use href="#i-folder"/></svg><div><dt>Categoria</dt><dd>Corporativo</dd></div></div>
+            <div class="row"><svg class="ico"><use href="#i-pin"/></svg><div><dt>Local</dt><dd>Estúdio Lillia Tavares</dd></div></div>
+            <div class="row"><svg class="ico"><use href="#i-external"/></svg><div><dt>Site da cliente</dt><dd><a href="https://www.instagram.com/studiocnmais" target="_blank" rel="noopener noreferrer">@studiocnmais</a></dd></div></div>
+          </dl>
+          <figure class="h3-quote">
+            <span class="stars" role="img" aria-label="Avaliação 5 de 5 estrelas">
+              <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+              <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+              <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+              <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+              <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            </span>
+            <blockquote>A experiência mais completa que existe nesse mundo.</blockquote>
+            <cite>— Avaliação no Google</cite>
+          </figure>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 ═══════════ -->
+<section class="stage on-dark" id="p4">
+  <div class="caption">
+    <div class="cap-num">04</div>
+    <div class="cap-body">
+      <div class="cap-tags">
+        <span class="tag tag-bold">Ousada</span>
+        <span class="tag tag-lens">Produto + Arte</span>
+        <span class="tag tag-evo">Variante: 1 foto</span>
+      </div>
+      <h3 class="cap-title">Paisagem Imersiva — quando o ensaio tem só uma horizontal</h3>
+      <p class="cap-rationale">Cobre o caso real em que existe <strong>uma única foto paisagem</strong> no lugar de duas retratos. Full-bleed com scrim direcional para garantir legibilidade do texto sobre a imagem (contraste &gt; 4.5:1 mantido). Inclui o <strong>estado de carregamento</strong> (botão abaixo) e o caso de <strong>depoimento ausente</strong>.
+        <span class="trade"><b>Trade-off:</b> mais dependente da qualidade/composição da foto; o scrim resolve legibilidade mas escurece parte da imagem.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="h4" id="h4-hero">
+      <div class="h4-bg">
+        <img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=1700,h=1134,q=90/https://images.fotografalilliatavares.com.br/images/49396ff2-872b-442c-dc06-fd1970b96700/public" alt="Camila Nogueira em ensaio corporativo, enquadramento horizontal de estúdio" width="1700" height="1134" loading="lazy">
+      </div>
+      <div class="h4-scrim"></div>
+      <div class="h4-inner">
+        <nav class="crumbs" aria-label="Você está em">
+          <a href="#p4">Home</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p4">Ensaios</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p4">Corporativo</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <span aria-current="page">Camila Nogueira</span>
+        </nav>
+        <p class="h4-cat"><svg class="ico ico-sm"><use href="#i-folder"/></svg>Ensaio Corporativo</p>
+        <h1 class="h4-title">Camila Nogueira</h1>
+        <p class="h4-sub">Sua vida através da psicoarquitetura</p>
+        <p class="h4-desc">A arquiteta responsável pelo nosso estúdio. Ela transforma ambientes em espaços <em>acolhedores e inspiradores</em> — e o ensaio respira esse mesmo cuidado.</p>
+        <figure class="h4-quote" id="h4-quote">
+          <span class="stars" role="img" aria-label="Avaliação 5 de 5 estrelas">
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+          </span>
+          <p>"Você se apaixona pelo trabalho dela." — Google</p>
+        </figure>
+        <div class="h4-cta">
+          <a class="btn btn-primary" href="#p4"><svg class="ico"><use href="#i-calendar"/></svg>Agendar meu ensaio</a>
+          <a class="btn btn-light" href="#p4"><svg class="ico"><use href="#i-camera"/></svg>Ver galeria</a>
+        </div>
+      </div>
+      <div class="h4-meta">
+        <span class="m"><svg class="ico"><use href="#i-pin"/></svg>Estúdio Lillia Tavares</span>
+        <a class="m" href="https://www.instagram.com/studiocnmais" target="_blank" rel="noopener noreferrer"><svg class="ico"><use href="#i-external"/></svg>@studiocnmais</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+    <button class="btn btn-ghost" style="border-color:rgba(244,242,233,.25);color:var(--cream)" type="button" onclick="document.getElementById('h4-hero').classList.toggle('skeleton')">Alternar estado: carregando ↔ carregado</button>
+    <button class="btn btn-ghost" style="border-color:rgba(244,242,233,.25);color:var(--cream)" type="button" onclick="(function(){var q=document.getElementById('h4-quote');q.classList.toggle('is-empty');q.dataset.t=q.dataset.t||q.innerHTML;if(q.classList.contains('is-empty')){q.innerHTML='Este ensaio ainda não tem depoimento publicado.'}else{q.innerHTML=q.dataset.t}})()">Simular: sem depoimento</button>
+  </div>
+</section>
+
+<!-- ═══════════ 05 ═══════════ -->
+<section class="stage" id="p5">
+  <div class="caption">
+    <div class="cap-num">05</div>
+    <div class="cap-body">
+      <div class="cap-tags">
+        <span class="tag tag-evo">Evolução segura</span>
+        <span class="tag tag-lens">UX + Acessibilidade</span>
+      </div>
+      <h3 class="cap-title">Díptico Sereno — luxo silencioso, baixa carga cognitiva</h3>
+      <p class="cap-rationale">A leitura mais calma do conjunto: nome em <strong>Playfair</strong> (não caixa-alta gritada), muito respiro, ritmo vertical generoso e as duas fotos como díptico limpo. Hierarquia clara, um único caminho de ação. Ideal se a marca quiser passar sofisticação acima de energia.
+        <span class="trade"><b>Trade-off:</b> elegante e altamente legível, mas a menos "vendedora" — a energia do mostarda fica de fora.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="h5">
+      <div class="h5-text">
+        <nav class="crumbs" aria-label="Você está em">
+          <a href="#p5">Home</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p5">Ensaios</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <a href="#p5">Corporativo</a><svg class="sep"><use href="#i-chevron"/></svg>
+          <span aria-current="page">Camila Nogueira</span>
+        </nav>
+        <p class="h5-eyebrow">Ensaio Corporativo</p>
+        <h1 class="h5-title">Camila Nogueira<em>psicoarquitetura</em></h1>
+        <div class="h5-rule"></div>
+        <p class="h5-desc">A Camila foi a arquiteta responsável pelo nosso estúdio. Ela transforma ambientes em espaços <em>acolhedores e inspiradores</em> — e este ensaio carrega o mesmo afeto.</p>
+        <figure class="h5-quote">
+          <span class="stars" role="img" aria-label="Avaliação 5 de 5 estrelas">
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+            <svg class="s" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7 5.2.7a.5.5 0 0 1 .3.9l-3.7 3.6.9 5.1a.5.5 0 0 1-.8.6L12 16.2l-4.6 2.4a.5.5 0 0 1-.8-.6l.9-5.1L3.8 9.3a.5.5 0 0 1 .3-.9l5.1-.7z"/></svg>
+          </span>
+          <blockquote>Você se apaixona pelo trabalho dela.</blockquote>
+          <cite>— Avaliação no Google</cite>
+        </figure>
+        <div class="h5-cta">
+          <a class="btn btn-primary" href="#p5"><svg class="ico"><use href="#i-calendar"/></svg>Agendar meu ensaio</a>
+          <a class="h5-link" href="#p5">Ver as 32 fotos do ensaio <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="h5-meta">
+          <span class="m"><span class="ml">Categoria</span>Corporativo</span>
+          <span class="m"><span class="ml">Local</span>Estúdio Lillia Tavares</span>
+          <span class="m"><span class="ml">Site</span><a href="https://www.instagram.com/studiocnmais" target="_blank" rel="noopener noreferrer">@studiocnmais</a></span>
+        </div>
+      </div>
+      <div class="h5-photos">
+        <div class="cell"><img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/f00300d2-e52f-4b6f-9710-350a173fdf00/public" alt="Camila Nogueira em pé, sorrindo, em ensaio corporativo" width="936" height="1406" loading="lazy"></div>
+        <div class="cell"><img class="photo" src="https://images.fotografalilliatavares.com.br/cdn-cgi/image/w=936,h=1406,q=90/https://images.fotografalilliatavares.com.br/images/6d768995-575c-49cd-4401-cc91a658d400/public" alt="Camila Nogueira sentada, look mostarda, em ensaio corporativo" width="936" height="1319" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RANKING ═══════════ -->
+<section class="ranking" id="ranking">
+  <p class="kicker">Curadoria · veredito</p>
+  <h2>Ranking da diretora de arte — melhor → pior</h2>
+
+  <div class="rank-item">
+    <div class="rank-pos">1</div>
+    <div>
+      <p class="rank-name">02 · Split Cinematográfico</p>
+      <p class="rank-title">A maior coerência entre forma e conteúdo</p>
+      <p class="rank-why">É a única que trata a foto como o produto que ela é, mantém a narrativa inteira num só fluxo de leitura e resolve três problemas de uma vez: <strong>identidade do ensaio</strong> (inset + mostarda), <strong>descoberta da galeria</strong> (badge 1/32) e <strong>conversão</strong> (CTA no painel). Robusta com a foto real.</p>
+    </div>
+  </div>
+
+  <div class="rank-item">
+    <div class="rank-pos">2</div>
+    <div>
+      <p class="rank-name">01 · Editorial Quente</p>
+      <p class="rank-title">A evolução que dá pra mandar pra produção amanhã</p>
+      <p class="rank-why">Menor risco de implementação, máxima fidelidade ao site atual, e já corrige tipografia, contraste e CTA. <strong>A escolha segura</strong> — se o objetivo for melhorar sem reescrever a página.</p>
+    </div>
+  </div>
+
+  <div class="rank-item">
+    <div class="rank-pos">3</div>
+    <div>
+      <p class="rank-name">03 · Manchete Editorial</p>
+      <p class="rank-title">O maior salto de personalidade</p>
+      <p class="rank-why">O grifo mostarda no sobrenome é o gesto que torna cada ensaio único — exatamente o conceito do brief. Cai uma posição só por <strong>depender do comprimento do nome</strong>; com nomes muito longos precisa de QA do clamp.</p>
+    </div>
+  </div>
+
+  <div class="rank-item">
+    <div class="rank-pos">4</div>
+    <div>
+      <p class="rank-name">04 · Paisagem Imersiva</p>
+      <p class="rank-title">Indispensável como variante, não como padrão</p>
+      <p class="rank-why">Resolve o caso de 1 foto horizontal com elegância e é a mais "uau" no primeiro impacto. Fica em 4º como <strong>regra geral</strong> porque depende fortemente da composição da foto e o scrim sempre sacrifica parte da imagem — mas é a resposta certa quando só existe uma paisagem.</p>
+    </div>
+  </div>
+
+  <div class="rank-item">
+    <div class="rank-pos">5</div>
+    <div>
+      <p class="rank-name">05 · Díptico Sereno</p>
+      <p class="rank-title">Lindo, porém o mais quieto</p>
+      <p class="rank-why">Tecnicamente impecável em legibilidade e ritmo. Em último não por qualidade, mas por <strong>ambição comercial</strong>: abre mão da energia do mostarda e do impacto que uma página de captação de clientes pede.</p>
+    </div>
+  </div>
+</section>
+
+<p class="foot">Conteúdo, paleta e tipografia (Lato + Playfair Display) extraídos ao vivo da página real. Fotos reais do ensaio servidas via Cloudflare Images. Todos os heros são navegáveis por teclado (Tab/Enter), respeitam <code>prefers-reduced-motion</code> e mantêm contraste AA. Abra com duplo-clique — sem dependências além das fontes.</p>
+
+</body>
+</html>
