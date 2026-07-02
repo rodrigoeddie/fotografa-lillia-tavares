@@ -57,7 +57,18 @@ export default defineEventHandler(async (event) => {
 - Binding: `DB` em `wrangler.toml`
 - Acesso: `getOrm(event)` retorna `DrizzleD1Database<typeof schema>` tipado; `getDB(event)` retorna o raw binding (para batch/transações)
 - Casing: schema declara colunas em `snake_case`; types camelCase via aliases ao final do arquivo de schema
-- Migrations: `server/db/migrations/NNN_descricao.sql`, aplicadas via `wrangler d1 execute`. Não usar `drizzle-kit push` em produção.
+
+### Migrations (controladas pela tabela `d1_migrations` desde jul/2026)
+
+- Arquivos em `server/db/migrations/NNN_descricao.sql` — **numerar manualmente com 3 dígitos** (não usar `wrangler d1 migrations create`: ele gera prefixo de 4 dígitos, que quebra a ordenação lexicográfica com os arquivos existentes).
+- A tabela `d1_migrations` (produção + preview) registra o que já foi aplicado; o wrangler pula automaticamente o que está registrado.
+- Fluxo para nova migration:
+  1. Criar `server/db/migrations/027_descricao.sql` (+ atualizar o schema Drizzle correspondente)
+  2. `bun run migrate:status` — confere o que está pendente
+  3. `bun run migrate:prod` — aplica em produção (**fazer backup antes**: `wrangler d1 export DB --remote --output=scripts/backups/...`)
+  4. `bun run migrate:preview` — aplica no banco de preview
+- A migration `019` é obsoleta (registrada como aplicada para ser pulada — ver nota no arquivo).
+- Não usar `drizzle-kit push` em produção. Os scripts legados `apply-all-migrations.ts` ficam só para o banco local (`migrate:local`).
 
 ### Schemas principais
 
@@ -90,6 +101,16 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 - Token em **cookie httpOnly** `cliente_session` (SameSite=Lax, 30d)
 - Validado por `getAuthenticatedCliente(event)` → retorna `{ clienteId }`
 - Login: `/api/cliente/auth/login`; logout limpa o cookie
+- Senha: formato `pbkdf2$<salt>$<hash>` (PBKDF2-SHA256 100k it., `utils/password.ts`) na coluna `senha_hash`. Hashes legados SHA-512 hex são aceitos no login e **re-hashados automaticamente** para PBKDF2.
+
+### Rate limiting
+- `rateLimit(event, escopo, { limit, windowSec })` em [server/utils/rate-limit.ts](utils/rate-limit.ts) — janela fixa por IP no KV binding `RATE_LIMIT`; fail-open sem binding (dev local)
+- Aplicado em: `cms-login` e `cliente/auth/login` (10/10min), `webhooks/sumup` (60/min), `public/consent` (20/10min)
+
+### LGPD
+- `DELETE /api/admin/clientes/[id]` = exclusão completa (direito ao esquecimento) via `LgpdService.wipeCliente()` — D1 + CF Images + R2
+- Consentimento de cookies auditado em `consentimentos` via `POST /api/public/consent`
+- Ver [docs/seguranca-lgpd.md](../docs/seguranca-lgpd.md)
 
 **Por que Web Crypto e não jose/jsonwebtoken**: Workers não rodam libs Node-only confiáveis e crypto.subtle é nativo.
 
@@ -129,6 +150,8 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 | `HeroBannerService` | hero banners por página |
 | `NotificacaoService` | Web Push (futuro) |
 | `AdminUserService` | usuários admin |
+| `PagamentoService` | checkouts SumUp + CRUD pagamentos |
+| `LgpdService` | exclusão completa de cliente (direito ao esquecimento) |
 
 ## Convenções de endpoint
 
@@ -141,8 +164,9 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 
 | Nome | Tipo | Uso |
 |---|---|---|
-| `DB` | D1 binding | banco principal |
+| `DB` | D1 binding | banco principal (preview usa `fotografa-lillia-preview`, separado) |
 | `R2` | R2 binding | bucket fotos cliente |
+| `RATE_LIMIT` | KV binding | rate limiting por IP (logins, webhook, consent) |
 | `JWT_SECRET` | secret | assinar tokens admin e cliente |
 | `KEYCMS` | secret | proteger `/admin/auth/setup` |
 | `CLOUDFLARE_API_KEY` | secret | upload CF Images |

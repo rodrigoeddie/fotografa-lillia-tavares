@@ -22,3 +22,4 @@ export * from './page-faq';
 export * from './hero-banners';
 export * from './pagamentos';
 export * from './linktree';
+export * from './consentimentos';

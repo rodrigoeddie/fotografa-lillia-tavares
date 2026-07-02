@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 usePageSeo('static', '/privacidade-e-termos');
+
+const { manage } = useCookieConsent();
 </script>
 
 <template>
@@ -9,7 +11,7 @@ usePageSeo('static', '/privacidade-e-termos');
         { label: 'Privacidade e Termos' },
       ]" />
       <h1 class="page-title">Política de Privacidade e Termos de Uso</h1>
-      <p class="updated">Última atualização: março de 2026</p>
+      <p class="updated">Última atualização: julho de 2026</p>
 
       <!-- POLÍTICA DE PRIVACIDADE -->
       <section class="section">
@@ -29,6 +31,8 @@ usePageSeo('static', '/privacidade-e-termos');
           <li><strong>Dados fornecidos voluntariamente:</strong> nome, e-mail, telefone e mensagens enviadas por formulários de contato ou WhatsApp.</li>
           <li><strong>Dados de navegação:</strong> endereço IP, tipo de navegador, páginas visitadas, tempo de permanência e origem do acesso, coletados automaticamente por cookies e ferramentas de análise.</li>
           <li><strong>Dados de redes sociais:</strong> caso você interaja com nossos perfis no Instagram, Facebook ou TikTok, esses dados são regidos pelas políticas de privacidade de cada plataforma.</li>
+          <li><strong>Dados de clientes de sessões fotográficas:</strong> nome, e-mail, telefone e as fotografias do seu ensaio, armazenadas em área restrita com acesso protegido por senha, exclusivamente para a prestação do serviço contratado.</li>
+          <li><strong>Registros técnicos (logs):</strong> registros de acesso ao servidor mantidos pela infraestrutura de hospedagem (Cloudflare), usados para segurança e diagnóstico de problemas.</li>
         </ul>
 
         <h3>1.3 Para quê usamos seus dados</h3>
@@ -59,7 +63,14 @@ usePageSeo('static', '/privacidade-e-termos');
           <li><strong>Marketing:</strong> Meta Pixel (Facebook/Instagram) - para mensurar e otimizar campanhas de anúncios.</li>
           <li><strong>Gravação de sessão:</strong> Smartlook - para identificar problemas de usabilidade.</li>
         </ul>
-        <p>Você pode gerenciar suas preferências de cookies a qualquer momento clicando em <strong>"Gerenciar Cookies"</strong> no rodapé do site.</p>
+        <p>
+          Cookies não essenciais só são ativados <strong>após o seu consentimento</strong> no aviso de cookies —
+          nenhuma dessas ferramentas é carregada antes da sua escolha. Você pode revisar ou revogar
+          suas preferências a qualquer momento:
+        </p>
+        <p>
+          <button type="button" class="manage-cookies" @click="manage">Gerenciar preferências de cookies</button>
+        </p>
 
         <h3>1.6 Compartilhamento de dados</h3>
         <p>
@@ -67,6 +78,8 @@ usePageSeo('static', '/privacidade-e-termos');
         </p>
         <ul>
           <li>Plataformas de análise e marketing (Google, Meta), para fins de análise e publicidade, conforme suas próprias políticas;</li>
+          <li><strong>SumUp</strong> (SumUp Serviços de Pagamento Ltda.), operadora que processa os pagamentos online opcionais da área do cliente. Os dados do cartão são informados diretamente no ambiente seguro da SumUp e <strong>nunca passam pelos nossos servidores</strong>;</li>
+          <li>Infraestrutura de hospedagem e armazenamento (Cloudflare), onde o site, o banco de dados e as fotos dos ensaios são hospedados;</li>
           <li>Prestadores de serviço que auxiliam na operação do site, sob obrigação de confidencialidade;</li>
           <li>Autoridades competentes, quando exigido por lei.</li>
         </ul>
@@ -93,7 +106,15 @@ usePageSeo('static', '/privacidade-e-termos');
         <p>
           Mantemos seus dados somente pelo tempo necessário para as finalidades descritas ou conforme exigido por lei.
           Dados de clientes são retidos por até 5 anos após o encerramento da relação comercial.
+          As fotografias dos ensaios seguem o mesmo prazo, salvo acordo diverso com o cliente.
           Dados coletados via cookies são retidos conforme as políticas de cada ferramenta (em geral, até 26 meses).
+          Registros técnicos (logs) são mantidos pela infraestrutura de hospedagem por períodos curtos, apenas para segurança e diagnóstico.
+        </p>
+        <p>
+          Você pode solicitar a <strong>eliminação definitiva</strong> dos seus dados (incluindo as fotos do seu ensaio)
+          a qualquer momento pelo e-mail
+          <a href="mailto:fotografalilliatavares@gmail.com">fotografalilliatavares@gmail.com</a> —
+          a exclusão remove seus dados do banco, do armazenamento de fotos e dos arquivos de entrega.
         </p>
 
         <h3>1.9 Segurança</h3>
@@ -230,6 +251,23 @@ usePageSeo('static', '/privacidade-e-termos');
 
       &:hover {
         color: v.$dark-green;
+      }
+    }
+
+    .manage-cookies {
+      padding: 10rem 18rem;
+      border: 1px solid v.$green;
+      border-radius: 6rem;
+      background: transparent;
+      color: v.$green;
+      font-size: 15rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+
+      &:hover {
+        background: v.$green;
+        color: white;
       }
     }
   }

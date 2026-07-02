@@ -15,6 +15,9 @@ Site institucional + admin CMS + área do cliente para sessões fotográficas. D
 
 ## Documentos relacionados
 
+- [docs/PROJETO.md](docs/PROJETO.md) — **Mapa de gestão: estado real de cada frente** (SEO, admin, pagamentos, LGPD, segurança, operacional)
+- [docs/ROADMAP.md](docs/ROADMAP.md) — **To-dos priorizados (P0–P4)** e decisões pendentes
+- [docs/seguranca-lgpd.md](docs/seguranca-lgpd.md) — Consentimento de cookies, direito ao esquecimento, CSP, rate limiting, senhas, ambientes
 - [server/CLAUDE.md](server/CLAUDE.md) — Backend: API, services, D1, JWT, R2, futuro SumUp
 - [shared/CLAUDE.md](shared/CLAUDE.md) — Schemas Zod compartilhados
 - [docs/sitemap.md](docs/sitemap.md) — Mapa de páginas (público + admin + cliente)
@@ -106,7 +109,7 @@ Endpoints públicos setam `Cache-Control: s-maxage=86400, stale-while-revalidate
 - **Público**: home, portfolio (`/ensaio-fotografico/[cat]/[slug]`), blog, depoimentos, preços, FAQ, agendamento, LPs dinâmicas
 - **Admin** (`/admin/*`, JWT em header `x-cms-token`): CRUD completo de portfolio/blog/depoimentos/sessões/clientes/LP/menu/SEO/cache
 - **Área do cliente** (`/area-cliente/*`, JWT em cookie `cliente_session`): cliente vê sessões, seleciona fotos, baixa entrega ZIP
-- **Futuro — Pagamentos SumUp**: gateway será integrado em `server/api/public/checkout/*` + `server/services/PagamentoService.ts`. Webhooks em `server/api/webhooks/sumup.ts`. Ver [server/CLAUDE.md](server/CLAUDE.md#sumup-futuro).
+- **Pagamentos SumUp** (implementado; go-live pendente de secrets/painel): checkout em `server/api/cliente/sessoes/[id]/checkout.ts` + `server/services/PagamentoService.ts`, webhook em `server/api/webhooks/sumup.ts`. Ver [server/CLAUDE.md](server/CLAUDE.md) e [docs/pagamentos-seguranca.md](docs/pagamentos-seguranca.md).
 
 ## Comandos comuns
 
@@ -115,8 +118,13 @@ bun install                          # deps
 bun run dev                          # nuxt dev
 bun run build                        # build cloudflare-pages
 bun run lint                         # se configurado
-wrangler d1 execute DB --remote ...  # rodar SQL em produção
+bun run migrate:status               # migrations pendentes em produção (tabela d1_migrations)
+bun run migrate:prod                 # aplica migrations pendentes em produção (backup antes!)
+bun run migrate:preview              # aplica no banco de preview
+wrangler d1 execute DB --remote ...  # SQL avulso em produção (não usar p/ migrations)
 ```
+
+> ⚠️ O Node do sistema é v16; o wrangler exige 22+. Os scripts `migrate:*` já rodam o wrangler via Bun (`bun node_modules/wrangler/bin/wrangler.js ...`) — usar essa forma para qualquer comando wrangler manual.
 
 ## Onde procurar primeiro
 

@@ -22,7 +22,7 @@ async function load() {
 }
 
 async function deleteCliente(id: number, nome: string) {
-  if (!confirm(`Excluir "${nome}"? Todas as sessões vinculadas serão removidas.`)) return;
+  if (!confirm(`Excluir "${nome}"? Exclusão LGPD definitiva: sessões, seleções, entregas, pagamentos, fotos (Cloudflare Images) e ZIPs (R2) serão apagados permanentemente.`)) return;
   try {
     await adminFetch(`/api/admin/clientes/${id}`, { method: 'DELETE' });
     showMessage('Cliente removido', 'success');

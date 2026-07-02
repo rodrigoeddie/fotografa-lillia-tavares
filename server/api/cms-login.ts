@@ -3,8 +3,12 @@ import { getOrm } from '~/server/utils/d1-client';
 import { AdminUserService } from '~/server/services/AdminUserService';
 import { verifyPassword } from '~/server/utils/password';
 import { signAdminToken } from '~/server/utils/admin-jwt';
+import { rateLimit } from '~/server/utils/rate-limit';
 
 export default defineEventHandler(async (event) => {
+  /* Brute force: 10 tentativas por IP a cada 10 minutos */
+  await rateLimit(event, 'cms-login', { limit: 10, windowSec: 600 });
+
   const body = await readBody(event);
   const { email, password } = body ?? {};
 

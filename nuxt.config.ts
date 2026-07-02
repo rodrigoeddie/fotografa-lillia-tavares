@@ -11,6 +11,28 @@ const siteConfig = {
   url: 'https://fotografalilliatavares.com.br'
 };
 
+// Content-Security-Policy do site inteiro.
+// ⚠️ Ao ativar um novo serviço externo (Meta Pixel, Smartlook, outro embed),
+// adicione o host aqui ANTES do deploy, senão o navegador bloqueia silenciosamente.
+// 'unsafe-inline' em script-src é exigido pelo payload inline do Nuxt e pelos
+// snippets de tracking; em style-src, pelos styles inline de componentes.
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "img-src 'self' data: blob: https:",
+  "media-src 'self' blob: https:",
+  "connect-src 'self' https://*.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://*.r2.cloudflarestorage.com https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com",
+  "frame-src 'self' https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.instagram.com",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  'upgrade-insecure-requests',
+].join('; ');
+
 export default defineNuxtConfig({
   siteConfig: siteConfig,
   debug: false,
@@ -323,7 +345,8 @@ export default defineNuxtConfig({
           'X-Frame-Options': 'SAMEORIGIN',
           'X-Content-Type-Options': 'nosniff',
           'Referrer-Policy': 'strict-origin-when-cross-origin',
-          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+          'Content-Security-Policy': contentSecurityPolicy,
         }
       }
     }

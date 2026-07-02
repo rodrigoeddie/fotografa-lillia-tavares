@@ -1,6 +1,7 @@
 import { defineEventHandler, readRawBody, getHeader, createError } from 'h3';
 import { getOrm } from '~/server/utils/d1-client';
 import { PagamentoService } from '~/server/services/PagamentoService';
+import { rateLimit } from '~/server/utils/rate-limit';
 
 /* Comparação em tempo constante para evitar timing attacks na verificação do HMAC. */
 function timingSafeEqual(a: string, b: string): boolean {
@@ -31,6 +32,9 @@ async function validateHmac(secret: string, rawBody: string, signature: string):
 }
 
 export default defineEventHandler(async (event) => {
+  /* Flood de webhooks forjados: 60 requisições por IP por minuto */
+  await rateLimit(event, 'webhook-sumup', { limit: 60, windowSec: 60 });
+
   const rawBody = await readRawBody(event) ?? '';
   const signature = getHeader(event, 'x-signature') ?? getHeader(event, 'x-payload-signature') ?? '';
   const secret = process.env.SUMUP_WEBHOOK_SECRET ?? '';

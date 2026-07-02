@@ -7,20 +7,34 @@ pages_build_output_dir = "dist"
 binding = "DB"
 database_name = "nuxt-content"
 database_id = "cc569ea7-cf4e-4078-a34c-a59d47d42432"
+migrations_dir = "server/db/migrations"
 
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "fotografa-lillia-ensaios"
 
-# Ambiente de preview para testes sem afetar produção
+# Rate limiting (logins + webhook) — ver server/utils/rate-limit.ts
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "98c8632316814423a6f42cf99fbcb4a3"
+
+# Ambiente de preview para testes sem afetar produção.
+# ⚠️ Banco SEPARADO do de produção (criado em 2026-07-01, começa vazio):
+# aplicar migrations com:
+#   bun node_modules/wrangler/bin/wrangler.js d1 execute fotografa-lillia-preview --remote --file=server/db/migrations/<arquivo>.sql
 [env.preview]
 name = "fotografa-lillia-tavares-preview"
 
 [[env.preview.d1_databases]]
 binding = "DB"
-database_name = "nuxt-content"
-database_id = "cc569ea7-cf4e-4078-a34c-a59d47d42432"
+database_name = "fotografa-lillia-preview"
+database_id = "2dffc005-5691-40e2-b884-e9b636e70d26"
+migrations_dir = "server/db/migrations"
 
 [[env.preview.r2_buckets]]
 binding = "R2"
 bucket_name = "fotografa-lillia-ensaios"
+
+[[env.preview.kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "98c8632316814423a6f42cf99fbcb4a3"

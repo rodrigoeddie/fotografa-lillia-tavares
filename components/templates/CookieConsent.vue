@@ -1,20 +1,37 @@
 <script setup lang="ts">
-const COOKIE_KEY = 'lgpd_consent'
+import type { ConsentPrefs } from '~/composables/useCookieConsent'
+
+const { consent, manageRequested, load, save: persist } = useCookieConsent()
 
 const visible = ref(false)
 const showDetails = ref(false)
 
-const preferences = ref({
+const preferences = ref<ConsentPrefs>({
   analytics: true,
   marketing: true,
   recording: true,
 })
 
 onMounted(() => {
-  const stored = localStorage.getItem(COOKIE_KEY)
-  if (!stored) {
+  load()
+  if (!consent.value) {
     setTimeout(() => { visible.value = true }, 1200)
   }
+})
+
+/* Reabertura via "Gerenciar cookies" na página de privacidade */
+watch(manageRequested, (requested) => {
+  if (!requested) return
+  manageRequested.value = false
+  if (consent.value) {
+    preferences.value = {
+      analytics: consent.value.analytics,
+      marketing: consent.value.marketing,
+      recording: consent.value.recording,
+    }
+  }
+  showDetails.value = true
+  visible.value = true
 })
 
 function acceptAll() {
@@ -29,9 +46,9 @@ function rejectAll() {
   save({ analytics: false, marketing: false, recording: false })
 }
 
-function save(prefs: typeof preferences.value) {
-  localStorage.setItem(COOKIE_KEY, JSON.stringify({ ...prefs, date: new Date().toISOString() }))
+async function save(prefs: ConsentPrefs) {
   visible.value = false
+  await persist(prefs)
 }
 </script>
 
@@ -43,8 +60,8 @@ function save(prefs: typeof preferences.value) {
         <div class="text">
           <p id="cookie-title">
             <strong>Sua privacidade importa.</strong>
-            Utilizamos cookies para melhorar sua experiência, analisar o tráfego e personalizar anúncios.
-            Ao continuar navegando, você concorda com nossa
+            Usamos cookies para analisar o tráfego e melhorar sua experiência — mas só com a sua autorização.
+            Nada além do essencial é carregado antes da sua escolha. Saiba mais na nossa
             <NuxtLink to="/privacidade-e-termos" class="privacy-link">Política de Privacidade</NuxtLink>.
           </p>
 

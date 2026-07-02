@@ -3,6 +3,7 @@ import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { ClienteService } from '~/server/services/ClienteService';
 import { encryptField } from '~/server/utils/encrypt-field';
+import { hashPassword } from '~/server/utils/password';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -25,8 +26,8 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 409, statusMessage: 'E-mail já cadastrado' });
     }
 
-    const hashBuffer = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(senha));
-    const senhaHash = Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
+    const { hash, salt } = await hashPassword(senha);
+    const senhaHash = `pbkdf2$${salt}$${hash}`;
 
     const fieldKey = process.env.FIELD_ENCRYPT_KEY;
     const senhaAcesso = fieldKey ? await encryptField(senha, fieldKey) : null;
