@@ -241,10 +241,6 @@ const categorias = computed(() => {
   @include m.max(sm) {
     grid-template-columns: 1fr 1fr;
   }
-
-  @include m.max(xs) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .card {
@@ -263,13 +259,9 @@ const categorias = computed(() => {
       flex: 1;
     }
 
-    @include m.max(sm) {
+    @include m.max(xs) {
       grid-column: 1 / 3;
       grid-row: 1;
-    }
-
-    @include m.max(xs) {
-      grid-column: 1;
     }
   }
 
@@ -282,26 +274,16 @@ const categorias = computed(() => {
     overflow: hidden;
   }
 
-  @include m.max(sm) {
+  @include m.max(xs) {
     display: block;
 
     &.small .img-wrap {
       aspect-ratio: auto;
-      height: 300rem;
+      aspect-ratio: .8;
     }
 
     &.featured .img-wrap {
-      height: 420rem;
-    }
-  }
-
-  @include m.max(xs) {
-    &.small .img-wrap {
-      height: 260rem;
-    }
-
-    &.featured .img-wrap {
-      height: 340rem;
+      aspect-ratio: 1;
     }
   }
 

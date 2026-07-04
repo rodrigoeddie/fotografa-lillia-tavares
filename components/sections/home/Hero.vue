@@ -234,14 +234,6 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
   flex: 0 0 50%;
   overflow: hidden;
   display: flex;
-
-  @include m.max(md) {
-    flex: none;
-  }
-
-  @include m.max(sm) {
-    flex-direction: column-reverse;
-  }
 }
 
 .services-panel {
@@ -254,8 +246,8 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
   flex: 0 0 42%;
   display: flex;
 
-  @include m.max(sm) {
-    flex: none;
+  @include m.max(md) {
+    flex: 1;
   }
 
   &::before {
@@ -328,9 +320,9 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
   overflow: hidden;
   flex: 1;
 
-  @include m.max(sm) {
+  @include m.max(md) {
     aspect-ratio: 3 / 2;
-    flex: none;
+    flex: 0 0 210rem;
   }
 
   .cover {

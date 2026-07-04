@@ -56,7 +56,7 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
           </span>
           <div class="txt">
             <strong>Endereço</strong>
-            <span>Centro · Mogi das Cruzes, SP</span>
+            <span>Av. Ver. Narciso Yague Guimarães, 124 — Sala 21 Vila Partenio · CEP 08780-200</span>
           </div>
         </div>
 
@@ -155,6 +155,7 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
     .pin-icon {
         font-size: 48rem;
         color: v.$green;
+        fill: v.$green;
         filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
     }
 
@@ -238,6 +239,10 @@ const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.1060
         justify-content: center;
         color: v.$panel-tan;
         font-size: 16rem;
+
+        svg {
+            fill: v.$panel-tan;
+        }
     }
 
     .txt {
