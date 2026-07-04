@@ -156,7 +156,7 @@ export default defineNuxtConfig({
   ],
 
   robots: {
-    disallow: ['/admin/', '/links'],
+    disallow: ['/admin/', '/links', '/_nuxt/', '/cdn-cgi/'],
   },
 
   sitemap: {
