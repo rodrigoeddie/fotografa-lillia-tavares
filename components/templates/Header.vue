@@ -155,11 +155,11 @@ onUnmounted(() => {
   padding: 5rem 15rem;
   border-radius: 8rem;
   align-items: center;
-  box-shadow: 0 0 5px;
+  // box-shadow: 0 0 5px;
   color: #128c7e;
   font-size: 17rem;
   position: fixed;
-  bottom: 20rem;
+  bottom: 65rem;
   display: flex;
   right: 20rem;
   gap: 10rem;

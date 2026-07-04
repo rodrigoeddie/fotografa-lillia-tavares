@@ -63,7 +63,12 @@ Código pronto e revisado; falta operação. Ordem sugerida:
 
 ## P3 — Produto, UX e redesigns
 
-- [ ] **Aplicar os 5 redesigns escolhidos** ([escolhas-redesign.md](escolhas-redesign.md)), um por vez, na ordem de impacto: hero home → portfolio masonry → CTA contato → estúdio → footer. Cada um: portar protótipo HTML → Vue/SCSS conforme frontend-standards, validar a11y (AA) e mobile.
+- [x] **Aplicar os 5 redesigns escolhidos** ([escolhas-redesign.md](escolhas-redesign.md)) — **feito**. Portados para Vue/SCSS conforme frontend-standards (sem BEM, rem, reuso de `_objects`, novos tokens em `_variables`, Lato-only, AA, `prefers-reduced-motion`):
+    - **Hero home** → `SectionsHomeHero` (díptico texto + painel sage + foto; nav global mantida por decisão do Rodrigo).
+    - **Portfolio masonry** → foto pura + legenda **hover-reveal** (não overlay pesado) + barra de categorias.
+    - **CTA contato** (`Tinyform`) → split-screen P4, acento pela cor do ensaio (`--color-highlight`).
+    - **Estúdio** → hero, fundo infinito (cards de cor real + foto), ambientes, depoimentos (`SectionsGeneralTestimonials`), e **localização mapa+painel** (novo `SectionsStudioLocation`; `StudioMap` intacto p/ aluguel/agende).
+    - **Footer** → P3 split assimétrico (menu data-driven e temas de LP preservados).
 - [ ] **Completar notificações:** admin consome a lista (badge + painel), notificar admin quando cliente finaliza seleção, notificar cliente em mudança de status, marcar como lida no cliente, prazo de seleção com aviso próximo do vencimento.
 - [ ] Melhorias do fluxo de sessão anotadas no TODO antigo: botão "cadastrar entrega" quando sessão está "Seleção concluída" sem entrega; nome do ZIP `Ensaio-{produto}-{cliente}`; bug do card em meus-ensaios que não reflete status "entregue"; bug da URL `/admin/entregas/save/{id}` carregando entrega errada — **retestar antes de corrigir** (podem já ter sido resolvidos).
 - [ ] Acessibilidade: ARIA no menu mobile (aria-expanded/controls), auditar lightbox (foco, ESC, role), formulário de agendamento (labels/erros), contraste dos temas de LP, fallback para alt vazio.

@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
   const props = defineProps({
     fromStudio: {
@@ -42,46 +41,52 @@
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="wrap-inner row container">
-      <div class="side side-text" data-ani-type="fade-right">
-        <h1 class="big-title">
-          <span>Sobre o Estúdio</span>
+  <section class="hero-wrapper">
+    <div class="hero">
+      <div class="copy" data-ani-type="fade-right">
+        <p class="kicker">Estúdio Fotográfico · Mogi das Cruzes, SP</p>
+
+        <h1 class="hero-title">
+          Um espaço feito para <em>revelar quem você é</em>
         </h1>
-        <p class="description green">
-          O estúdio está localizado em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" class="highlight light">Mogi das cruzes</a>, no coração da cidade, com ótimas opções para estacionamento e transportes.
+
+        <p class="lead">
+          O estúdio está localizado em <a href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7" target="_blank" rel="noopener" class="lead-link">Mogi das Cruzes</a>, no coração da cidade, com ótimas opções para estacionamento e transportes.
         </p>
 
-        <p class="description green">
-          Oferecemos <span class="highlight light">7 cenários</span> modernos e sofisticados, com fundo infinito fotográfico de <span class="highlight light">várias cores</span>, possibilitando diversas opções para seu ensaio.
+        <p class="lead">
+          Oferecemos 7 cenários modernos e sofisticados, com fundo infinito fotográfico de várias cores, possibilitando diversas opções para o seu ensaio.
         </p>
 
-        <NuxtLink
-          :to="fromStudio ? '/agende-seu-ensaio' : '/estudio-fotografico-em-mogi-das-cruzes'"
-          class="btn">
-            <span>{{ fromStudio ? 'Agende Seu Ensaio' : 'Ver mais' }}</span>
-        </NuxtLink>
+        <ul class="tags" aria-label="Características do estúdio">
+          <li class="tag">7 cenários exclusivos</li>
+          <li class="tag">4 cores de fundo infinito</li>
+          <li class="tag">Luz natural + artificial</li>
+          <li class="tag">Atendimento particular</li>
+        </ul>
+
+        <div class="cta-row">
+          <NuxtLink
+            :to="fromStudio ? '/agende-seu-ensaio' : '/estudio-fotografico-em-mogi-das-cruzes'"
+            class="btn">
+            <span>Agende Seu Ensaio</span>
+          </NuxtLink>
+
+          <a href="#fundo-infinito" class="link-secondary">
+            Conhecer os fundos
+            <Icon name="icons:arrow-right" class="icon" />
+          </a>
+        </div>
       </div>
 
-      <div class="slider" data-ani-type="fade-left">
+      <div class="media" data-ani-type="fade-left">
         <ClientOnly>
           <swiper-container
-            class="side wrap-images"
-            :class="{'is-studio': fromStudio}"
+            class="wrap-images"
             ref="containerRef"
             :loop="false"
             :slides-per-view="1"
-            :breakpoints="{
-              450: {
-                slidesPerView: 2
-              },
-              1024: {
-                slidesPerView: 1
-              },
-            }"
-            :pagination="{
-              clickable: true,
-            }"
+            :pagination="{ clickable: true }"
             :navigation="true">
               <swiper-slide class="item">
                 <nuxt-img
@@ -90,10 +95,11 @@
                     height="408"
                     @click="() => showImg(0)"
                     class="img-studio"
-                    alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um sofá"
-                    :fetchpriority="'high'"
+                    alt="Set de quarto do estúdio com cama de roupa bege, sofá curvo, plantas e luz natural pela cortina"
+                    fetchpriority="high"
                     :preload="true"
-                    :loading="'eager'" />
+                    loading="eager" />
+                <span class="caption">Set lifestyle</span>
               </swiper-slide>
 
               <swiper-slide class="item">
@@ -103,8 +109,9 @@
                   height="408"
                   @click="() => showImg(1)"
                   class="img-studio"
-                  alt="Um canto do café, com xicaras e canecas, e várias cápsulas de Dolce Gusto"
+                  alt="Espaço de café e recepção do estúdio, com xícaras, canecas e cápsulas de café"
                   loading="lazy" />
+                <span class="caption">Café &amp; recepção</span>
               </swiper-slide>
 
               <swiper-slide class="item">
@@ -114,8 +121,9 @@
                   height="408"
                   @click="() => showImg(2)"
                   class="img-studio"
-                  alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
+                  alt="Sala editorial com parede verde musgo, galeria de quadros, sofá e mesa central"
                   loading="lazy" />
+                <span class="caption">Sala editorial</span>
               </swiper-slide>
 
               <swiper-slide class="item">
@@ -125,8 +133,9 @@
                   height="408"
                   @click="() => showImg(3)"
                   class="img-studio"
-                  alt="O fundo infinito do estúdio, há 3 rolos de cores de fundo (branco, bege, e azul)"
+                  alt="Fundo infinito do estúdio, com três rolos de papel de fundo nas cores branco, bege e azul"
                   loading="lazy" />
+                <span class="caption">Fundo infinito</span>
               </swiper-slide>
           </swiper-container>
         </ClientOnly>
@@ -141,199 +150,181 @@
       :zoomDisabled="true"
       @hide="onHide"
     />
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
   @use "sass:color";
-  @mixin faux-bold($color: black) {
-    $darker-color: color.adjust($color, $lightness: 30%);
 
-    text-shadow:
-      0.5px 0 $darker-color,
-      -0.5px 0 $darker-color,
-      0 0.5px $darker-color,
-      0 -0.5px $darker-color,
-      0.5px 0.5px $darker-color,
-      -0.5px -0.5px $darker-color,
-      0.5px -0.5px $darker-color,
-      -0.5px 0.5px $darker-color;
-  }
+  $body: color.adjust(v.$green, $lightness: -12%);
 
-  .slider {
-    aspect-ratio: 1006/675;
-    padding: 6px 6px 0 6px;
-    background: white;
-    display: block;
-    flex-shrink: 0;
-    height: 100%;
-    width: 55%;
-    z-index: 3;
-
-    @include m.max(md) {
-      padding-bottom: 75rem !important;
-      flex-wrap: nowrap;
-      width: 100%;
-      gap: 0;
-    }
-
-    &:before {
-      content: '';
-
-      background-image:  linear-gradient(#7B785B 1px, transparent 1px), linear-gradient(to right, #7B785B 1px, #ffffff 1px);
-      background-color: #ffffff;
-      background-size: 20px 20px;
-      position: absolute;
-      opacity: 0.05;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      top: 0;
-    }
-  }
-
-  .wrapper {
+  .hero-wrapper {
     overflow: hidden;
+    background: white;
+  }
 
-    .studio-controls {
-      @include m.max(sm) {
-        bottom: 10rem;
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: stretch;
+
+    @include m.max(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .copy {
+    padding: clamp(40rem, 5vw, 72rem) clamp(24rem, 4vw, 56rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .kicker {
+    font-size: 12rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: v.$rose-deep;
+    margin-bottom: 16rem;
+  }
+
+  .hero-title {
+    font-family: v.$lato;
+    font-size: clamp(30rem, 3.4vw, 46rem);
+    font-weight: 900;
+    line-height: 1.12;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: v.$green;
+    margin-bottom: 24rem;
+
+    em {
+      font-style: normal;
+      color: v.$rose-deep;
+    }
+  }
+
+  .lead {
+    font-size: 17rem;
+    line-height: 1.7;
+    max-width: 46ch;
+    margin-bottom: 16rem;
+    color: $body;
+
+    .lead-link {
+      color: v.$rose-deep;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+
+      &:hover {
+        color: v.$green;
       }
     }
+  }
 
-    &.from-page-studio {
-      @include m.max(md) {
-        background: white;
-        padding-top: 20px;
-      }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rem;
+    margin: 12rem 0 28rem;
+    list-style: none;
 
-      .container {
-        background: white;
-      }
+    .tag {
+      background: v.$cream-light;
+      border: 1px solid #d7d6cd;
+      color: $body;
+      font-size: 13rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 6rem 13rem;
+      border-radius: 999px;
+    }
+  }
 
-      .side-text {
-        padding-bottom: 6px;
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 20rem;
+    flex-wrap: wrap;
+  }
 
-        @include m.max(md) {
-          padding-bottom: 30px;
-        }
-      }
+  .link-secondary {
+    font-size: 15rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: $body;
+    display: inline-flex;
+    align-items: center;
+    gap: 6rem;
+    text-decoration: underline;
+    text-decoration-color: #d7d6cd;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s, gap 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: v.$green;
+      gap: 10rem;
     }
 
-    .wrap-inner {
-      flex-wrap: wrap;
-      align-items: center;
+    .icon {
+      font-size: 15rem;
     }
+  }
 
-    &.from-home-studio {
-      @include m.min(md) {
-        &:before {
-          content: '';
+  .media {
+    position: relative;
+    overflow: hidden;
+    background: v.$cream-light;
+    min-height: 460rem;
 
-          background: white;
-          position: absolute;
-          display: block;
-          width: 100vw;
-          left: 50vw;
-          bottom: 0;
-          top: -1px;
-        }
-      }
-
-      @include m.min(md) {
-        &:after {
-          content: '';
-
-          background-image:  linear-gradient(#7B785B 1px, transparent 1px), linear-gradient(to right, #7B785B 1px, #ffffff 1px);
-          background-color: #ffffff;
-          background-size: 20px 20px;
-          position: absolute;
-          opacity: 0.05;
-          width: 100vw;
-          left: 50vw;
-          bottom: 0;
-          top: 0;
-        }
-      }
+    @include m.max(sm) {
+      order: -1;
+      min-height: 320rem;
     }
+  }
 
-    .side-text {
-      padding: 6px 0 35rem 35rem;
-      justify-content: flex-end;
-      flex-direction: column;
-      align-items: flex-start;
-      padding-right: 30rem;
-      display: flex;
-      width: 45%;
+  .wrap-images {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
 
-      @include m.max(md) {
-        align-items: flex-start;
+    .item {
+      position: relative;
+      height: 100%;
+
+      .img-studio {
+        display: block;
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: zoom-in;
       }
 
-      .big-title {
-        padding-bottom: 30rem;
-        padding-top: 0;
-
-        @include m.max(lg) {
-          padding-bottom: 0;
-        }
-
-        @include m.max(md) {
-          padding-bottom: 10rem;
-        }
-      }
-
-      .title {
-        font-size: 45rem;
-      }
-
-      .description {
-        line-height: 1.3em;
-        font-size: 26rem;
-
-        @include m.max(md) {
-          font-size: 16px;
-        }
-      }
-
-      .btn {
-        margin-top: 60rem;
-        float: right;
-
-        @include m.max(lg) {
-          margin-top: 20px;
-        }
-
-        @include m.max(md) {
-          display: inline-flex;
-          margin-top: 30rem;
-        }
+      .caption {
+        position: absolute;
+        left: 16rem;
+        bottom: 16rem;
+        background: rgba(44, 42, 21, 0.78);
+        color: white;
+        font-size: 12rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 6rem 13rem;
+        border-radius: 999px;
+        backdrop-filter: blur(4px);
       }
     }
+  }
 
-    .wrap-images {
-      &.is-studio {
-        padding: 6px;
-      }
-
-      .item {
-        height: auto;
-
-        @include m.max(md) {
-          width: 50% !important;
-        }
-
-        @media (max-width: 450px) {
-          width: 100% !important;
-        }
-
-        .img-studio {
-          display: block;
-          height: auto;
-          width: 100%;
-        }
-      }
+  @media (prefers-reduced-motion: reduce) {
+    .link-secondary,
+    .lead-link {
+      transition: none;
     }
   }
 </style>

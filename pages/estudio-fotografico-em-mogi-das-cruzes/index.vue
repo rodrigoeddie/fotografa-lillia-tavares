@@ -15,5 +15,6 @@ usePageSeo('static', '/estudio-fotografico-em-mogi-das-cruzes');
     :fromStudio="true" />
   <SectionsStudioBgs />
   <SectionsStudioCenarios />
-  <SectionsStudioMap />
+  <SectionsGeneralTestimonials />
+  <SectionsStudioLocation />
 </template>

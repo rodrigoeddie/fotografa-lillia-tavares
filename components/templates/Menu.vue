@@ -287,19 +287,25 @@ function toggleMenu() {
     }
 
     .menu {
-        font-size: 29rem;
+        border-top: 1px solid v.$light-beige;
+        padding-top: 24rem;
+        letter-spacing: .06em;
+        font-size: 13rem;
         display: flex;
+        flex-wrap: wrap;
+        width: 100%;
 
         @include m.max(sm) {
-            flex-wrap: wrap;
-            font-size: 16px;
-            width: 100dvw;
+            font-size: 14px;
+            width: 100%;
         }
 
         .link {
-            padding-right: 20rem;
+            padding-right: 18rem;
             color: v.$green;
             display: flex;
+            padding-top: 21rem;
+            padding-bottom: 18rem;
 
             @include m.max(sm) {
                 padding: 15px 0;

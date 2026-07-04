@@ -54,10 +54,30 @@ const { whatsappUrl } = useRuntimeConfig().public
     }
 
     &.from-footer {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 6rem 4rem;
+
+        @include m.max(sm) {
+            justify-content: center;
+        }
+
         .link-social {
-            @include m.max(md) {
-                font-size: 15rem;
+            padding: 6rem 12rem 6rem 0;
+            font-weight: 500;
+            font-size: 14rem;
+            height: auto;
+            gap: 7rem;
+
+            &:hover {
+                background: none;
+                color: v.$dark-green;
             }
+        }
+
+        .icon svg {
+            height: 18rem;
+            width: 18rem;
         }
     }
 

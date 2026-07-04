@@ -1,9 +1,11 @@
 <script lang="ts" setup>
     const cfImg = useCfImg()
+    const { whatsappUrl } = useRuntimeConfig().public
 
     const { trackEvent } = useTracking();
 
     const clickLogo = () => trackEvent('click-logo', { screen_name: 'Footer' });
+    const clickCta = () => trackEvent('click-whats', { screen_name: 'Footer' });
 
     const props = defineProps({
         lp: {
@@ -19,34 +21,63 @@
 
 <template>
     <div class="wrap-footer" data-component="templates/footer">
-        <header>
-            <NuxtLink
-              to="/"
-              @click="clickLogo"
-              class="logo"
-              aria-label="Voltar para a página inicial">
-                <nuxt-img
-                    provider="cloudflare"
-                    :src="cfImg(props.logo)"
-                    alt="Logotipo Lillia Tavares Fotografia"
-                    width="390"
-                    height="107"
-                    class="logo-black"
-                    format="avif"
-                    fetchpriority="high"
-                    preload
-                    placeholder />  
-                <span>Fotógrafa Lillia Tavares</span>
-            </NuxtLink>
+        <div class="footer-split">
+            <div class="footer-left">
+                <div class="footer-top">
+                    <NuxtLink
+                      to="/"
+                      @click="clickLogo"
+                      class="logo"
+                      aria-label="Voltar para a página inicial">
+                        <nuxt-img
+                            provider="cloudflare"
+                            :src="cfImg(props.logo)"
+                            alt="Logotipo Lillia Tavares Fotografia"
+                            width="390"
+                            height="107"
+                            class="logo-black"
+                            format="avif"
+                            fetchpriority="high"
+                            preload
+                            placeholder />
+                        <span>Fotógrafa Lillia Tavares</span>
+                    </NuxtLink>
 
-            <TemplatesSocial class="from-footer" />
-        </header>
+                    <TemplatesSocial class="from-footer" />
+                </div>
 
-        <footer>
-            <TemplatesMenu class="from-footer" :fromFooter="true" />
-        </footer>
+                <TemplatesMenu class="from-footer" :fromFooter="true" />
+            </div>
 
-        <address>
+            <div class="footer-right">
+                <span class="cta-label">Pronta para o seu ensaio?</span>
+                <p class="cta-heading">Vamos criar algo inesquecível juntas.</p>
+                <NuxtLink
+                  :to="`${whatsappUrl}?text=Olá, vim pelo seu site e queria agendar um ensaio...`"
+                  class="cta-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  @click="clickCta">
+                    <Icon name="icons:whatsapp" class="icon" />
+                    <span>Agendar meu ensaio</span>
+                </NuxtLink>
+
+                <a
+                  href="https://maps.app.goo.gl/2NPyJTUvUs9z12fW7"
+                  target="_blank"
+                  rel="noopener"
+                  class="cta-loc">
+                    <Icon name="icons:location-pin-solid" class="icon" />
+                    <span class="cta-loc-text">
+                        <strong>Mogi das Cruzes, SP · Alto Tietê</strong>
+                        Av. Ver. Narciso Yague Guimarães, 124 — Sala 21 
+                        Vila Partenio · CEP 08780-200
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <address class="footer-bar">
             <span>Copyright® <b>Fotógrafa Lillia Tavares</b> - Todos os direitos reservados</span>
             <NuxtLink to="/privacidade-e-termos" class="privacy-link">Privacidade e Termos</NuxtLink>
         </address>
@@ -54,202 +85,238 @@
 </template>
 
 <style scoped lang="scss">
-    header {
-        padding-bottom: v.$space;
-        justify-content: center;
+    @use 'sass:color';
+
+    /* olive-dark quente do painel de CTA (≈ #4a4836) — branco/creme passa AA */
+    $panel: color.adjust(v.$green, $lightness: -15%);
+
+    .footer-split {
+        border-top: 3rem solid v.$light-beige;
+        grid-template-columns: 1fr 540rem;
+        display: grid;
+
+        @include m.max(sm) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .footer-left {
+        justify-content: space-between;
         flex-direction: column;
-        padding-top: v.$space;
-        align-items: center;
+        padding: 44rem 40rem;
+        align-items: flex-start;
         background: white;
         display: flex;
-        gap: v.$space;
+        gap: 32rem;
 
         @include m.max(md) {
-            gap: 20rem;
+            padding: 32rem 24rem;
+            gap: 28rem;
         }
 
-        &:before {
-            content: '';
-
-            background-image:  linear-gradient(#7B785B 1px, transparent 1px), linear-gradient(to right, #7B785B 1px, #ffffff 1px);
-            background-color: #ffffff;
-            background-size: 20px 20px;
-            position: absolute;
-            opacity: 0.05;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            top: 0;
-
-            // @media (prefers-color-scheme: dark) {
-            //     background-image:  linear-gradient(#fff 1px, transparent 1px), linear-gradient(to right, #fff 1px, v.$dark-red 1px);
-            //     background-color: v.$dark-red;
-            // }
+        .footer-top {
+            flex-direction: column;
+            align-items: flex-start;
+            display: flex;
+            gap: 22rem;
+            width: 100%;
         }
 
         .logo {
-            width: 370rem;
+            width: 260rem;
+
+            @include m.max(md) {
+                width: 220rem;
+            }
 
             img {
                 height: auto;
             }
 
-            @include m.max(md) {
-                width: 245rem;
-            }
-
             span {
                 text-indent: -9999px;
-                display: block;
                 position: absolute;
+                display: block;
             }
         }
     }
 
-    footer {
+    .footer-right {
+        flex-direction: column;
         justify-content: center;
-        background: #f7f4e8;
-        align-items: center;
-        text-align: center;
-        flex-wrap: wrap;
-        height: 320rem;
+        align-items: flex-start;
+        padding: 44rem 40rem;
+        background: v.$rose-deep;
         display: flex;
+        gap: 18rem;
 
-        @include m.max(md) {
-            padding-bottom: 20px;
-            padding-top: 20px;
-            height: auto;
+        @include m.max(sm) {
+            align-items: center;
+            text-align: center;
+            padding: 40rem 28rem;
+        }
+
+        .cta-label {
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            color: v.$light-green;
+            font-weight: 700;
+            font-size: 13rem;
+        }
+
+        .cta-heading {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: v.$cream;
+            font-size: 27rem;
+            line-height: 1.2;
+            text-wrap: balance;
+        }
+
+        .cta-btn {
+            transition: background .2s, transform .12s;
+            text-transform: uppercase;
+            background: v.$cream;
+            letter-spacing: .06em;
+            border-radius: 999px;
+            margin-top: 4rem;
+            padding: 14rem 26rem;
+            align-items: center;
+            color: $panel;
+            font-weight: 900;
+            font-size: 15rem;
+            display: inline-flex;
+            gap: 8rem;
+
+            .icon {
+                font-size: 22rem;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                background: white;
+            }
+        }
+
+        .cta-loc {
+            transition: color .2s;
+            color: v.$light-green;
+            align-items: flex-start;
+            margin-top: 10rem;
+            font-size: 12.5rem;
+            line-height: 1.55;
+            display: flex;
+            gap: 8rem;
+
+            @include m.max(sm) {
+                justify-content: center;
+            }
+
+            .icon {
+                color: rgba(255, 255, 255, .55);
+                flex-shrink: 0;
+                margin-top: 3rem;
+                font-size: 14rem;
+            }
+
+            .cta-loc-text {
+                color: rgba(255, 255, 255, .72);
+
+                strong {
+                    text-transform: uppercase;
+                    letter-spacing: .04em;
+                    display: block;
+                    color: white;
+                    font-weight: 700;
+                    font-size: 13rem;
+                    margin-bottom: 3rem;
+                }
+            }
+
+            &:hover .cta-loc-text {
+                color: white;
+            }
         }
     }
 
-    address {
+    .footer-bar {
+        border-top: 1px solid v.$light-beige;
+        justify-content: space-between;
+        background: v.$cream;
+        flex-wrap: wrap;
         font-style: normal;
-        text-align: center;
-        color: v.$green;
-        font-size: 16px;
-        padding: 20px;
-        width: 100%;
-        display: flex;
         align-items: center;
-        flex-direction: column;
-        gap: 8px;
+        color: v.$green;
+        font-size: 14rem;
+        padding: 16rem 35rem;
+        display: flex;
+        gap: 10rem;
 
         @include m.max(sm) {
+            justify-content: center;
+            text-align: center;
             font-size: 12px;
         }
 
         .privacy-link {
-            font-size: 13px;
-            opacity: 0.7;
             text-decoration: underline;
             color: inherit;
+            font-size: 13rem;
+            opacity: 0.7;
 
             &:hover {
                 opacity: 1;
             }
-
-            @include m.max(sm) {
-                font-size: 11px;
-            }
         }
     }
 
+    /* ─── Temas de LP: painel de CTA + barra adotam a paleta da landing ─── */
     .lp-corporativo {
-        footer {
-            background: rgba(16, 28, 44, 0.1);
-        }
+        .footer-right {
+            background: v.$lp-corporativo;
 
-        header {
-            background-color: v.$lp-corporativo;
-
-            &:before {
-                display: none;
+            .cta-btn {
+                color: v.$lp-corporativo;
             }
         }
 
-        :deep(.social) {
-            .link-social {
-                color: white;
-            }
-
-            .icon-whatsapp * {
-                stroke: white !important;
-            }
-    
-            .icon {
-                fill: white;
-            }
-        }
-
-        :deep(.menu) .link,
-        address {
-            color: v.$lp-corporativo !important;
+        .footer-bar {
+            background: rgba(16, 28, 44, 0.08);
         }
     }
 
     .lp-dia-das-maes {
-        footer {
-            background: rgba(157, 126, 105, 0.1);
-        }
+        .footer-right {
+            background: v.$lp-dia-das-maes-dark;
 
-        header {
-            background-color: v.$lp-dia-das-maes;
-
-            &:before {
-                display: none;
+            .cta-btn {
+                color: v.$lp-dia-das-maes-dark;
             }
         }
 
-        :deep(.social) {
-            .link-social {
-                color: white;
-            }
-
-            .icon-whatsapp * {
-                stroke: white !important;
-            }
-    
-            .icon {
-                fill: white;
-            }
-        }
-
-        :deep(.menu) .link,
-        address {
-            color: v.$lp-dia-das-maes !important;
+        .footer-bar {
+            background: rgba(157, 126, 105, 0.12);
         }
     }
 
     .lp-presentes {
-        footer {
-            background: rgba(139, 94, 107, 0.1);
-        }
+        .footer-right {
+            background: v.$lp-presentes-dark;
 
-        header {
-            background-color: v.$lp-presentes;
-
-            &:before {
-                display: none;
+            .cta-btn {
+                color: v.$lp-presentes-dark;
             }
         }
 
-        :deep(.social) {
-            .link-social {
-                color: white;
-            }
-
-            .icon-whatsapp * {
-                stroke: white !important;
-            }
-    
-            .icon {
-                fill: white;
-            }
+        .footer-bar {
+            background: rgba(139, 94, 107, 0.12);
         }
+    }
 
-        :deep(.menu) .link,
-        address {
-            color: v.$lp-presentes !important;
+    @media (prefers-reduced-motion: reduce) {
+        .footer-right .cta-btn {
+            transition: none;
         }
     }
 </style>

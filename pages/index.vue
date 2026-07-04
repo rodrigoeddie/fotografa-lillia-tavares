@@ -3,23 +3,8 @@ usePageSeo('static', '/');
 </script>
 
 <template>
-  <div class="container wrap-hero-home">
-    <SectionsHomeAboutCta />
-    <SectionsHomeCTAServices />
-  </div>
+  <SectionsHomeHero />
   <SectionsHomePortfolio />
   <SectionsGeneralTestimonials />
   <SectionsStudioTiny :showMap="false" class="from-home-studio" />
 </template>
-
-<style scoped lang="scss">
-  .wrap-hero-home {
-    justify-content: space-between;
-    margin-top: 15rem;
-    display: flex;
-
-    @include m.max(md) {
-      flex-direction: column;
-    }
-  }
-</style>
