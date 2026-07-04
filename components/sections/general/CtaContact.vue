@@ -1,5 +1,6 @@
 <script setup>
 const cfImg = useCfImg()
+const { whatsappUrl } = useRuntimeConfig().public
 
 const props = defineProps({
   data: {
@@ -26,7 +27,7 @@ const props = defineProps({
             <li v-for="feature in props.data.features" :key="feature">{{ feature }}</li>
           </ul>
           <a 
-            :href="`https://wa.me/5511911159795?text=${encodeURIComponent(props.data.whatsappMessage)}`"
+            :href="`${whatsappUrl}?text=${encodeURIComponent(props.data.whatsappMessage)}`"
             target="_blank"
             rel="noopener noreferrer"
             class="btn"

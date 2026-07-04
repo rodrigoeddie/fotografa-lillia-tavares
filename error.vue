@@ -2,6 +2,7 @@
 import type { NuxtError } from '#app'
 
 const cfImg = useCfImg()
+const { whatsappUrl } = useRuntimeConfig().public
 
 const props = defineProps({
   error: Object as () => NuxtError
@@ -54,7 +55,7 @@ const message = computed(() => is404.value
       <p class="error-contact">
         Precisa de ajuda?
         <a
-          href="https://wa.me/5511911159795"
+          :href="whatsappUrl"
           target="_blank"
           rel="noopener noreferrer">
           Fale conosco pelo WhatsApp

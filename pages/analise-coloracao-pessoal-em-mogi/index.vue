@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const cfImg = useCfImg();
+const { whatsappUrl } = useRuntimeConfig().public;
 
 usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
 
@@ -194,7 +195,7 @@ const steps = [
         <p class="c-cta__desc">Agende sua análise de coloração pessoal em Mogi das Cruzes e transforme sua relação com as cores.</p>
         <a
           class="btn c-cta__btn"
-          href="https://wa.me/5511911159795?text=Olá, gostaria de agendar uma análise de coloração pessoal (mensagem do site)"
+          :href="`${whatsappUrl}?text=Olá, gostaria de agendar uma análise de coloração pessoal (mensagem do site)`"
         >
           <Icon name="icons:whatsapp" />
           Agendar pelo WhatsApp

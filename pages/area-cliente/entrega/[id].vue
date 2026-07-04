@@ -5,7 +5,7 @@ useHead({ title: 'Seu Ensaio — Lillia Tavares' });
 const { checkSession } = useClientAuth();
 const route = useRoute();
 const sessaoId = Number(route.params.id);
-const cfURI = useRuntimeConfig().public.cloudflareURI;
+const { cloudflareURI: cfURI, whatsappUrl } = useRuntimeConfig().public;
 
 interface EntregaData {
   cliente_nome: string;
@@ -66,7 +66,7 @@ onMounted(async () => {
           </a>
 
           <a
-            href="https://wa.me/5511911159795?text=Ol%C3%A1%20Lillia!%20Amei%20meu%20ensaio!%20Quero%20conversar%20sobre%20mais%20fotos%20%F0%9F%92%9B"
+            :href="`${whatsappUrl}?text=Ol%C3%A1%20Lillia!%20Amei%20meu%20ensaio!%20Quero%20conversar%20sobre%20mais%20fotos%20%F0%9F%92%9B`"
             target="_blank"
             rel="noopener"
             class="whatsapp-btn"

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { whatsappUrl } = useRuntimeConfig().public
 const { data: produtos } = await useFetch('/api/public/investimento');
 
 const categories = computed(() => {
@@ -83,7 +84,7 @@ const categories = computed(() => {
       <h2>Ainda tem dúvidas?</h2>
       <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
       <a
-        href="https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos"
+        :href="`${whatsappUrl}?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos`"
         target="_blank"
         rel="noopener noreferrer"
         class="investment-cta__button"

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { whatsappUrl } = useRuntimeConfig().public
+</script>
 
 <template>
     <div class="container">
@@ -15,7 +17,7 @@
             para ver as fotos do depoimento.
           </p>
           <div class="wrap-btns">
-            <a class="btn btn-primary" href="https://wa.me/5511911159795">Agendar meu ensaio</a>
+            <a class="btn btn-primary" :href="whatsappUrl">Agendar meu ensaio</a>
             <a class="btn btn-ghost" href="https://g.page/r/CU9H139Hyr99EBM/review" target="_blank">Deixar uma avaliação</a>
           </div>
         </div>

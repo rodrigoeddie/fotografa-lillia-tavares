@@ -39,6 +39,8 @@ const props = defineProps({
   }
 });
 
+const { whatsappUrl } = useRuntimeConfig().public
+
 const formattedPrice = computed(() => {
   return props.price.toLocaleString('pt-BR', {
     minimumFractionDigits: 0,
@@ -97,7 +99,7 @@ function splitFeature(feature) {
 
     <div class="pricing-card__cta">
       <a 
-        :href="`https://wa.me/5511911159795?text=Olá! Gostaria de saber mais sobre o pacote ${type} - ${title}.`"
+        :href="`${whatsappUrl}?text=Olá! Gostaria de saber mais sobre o pacote ${type} - ${title}.`"
         target="_blank"
         rel="noopener noreferrer"
         class="pricing-card__button"

@@ -86,7 +86,7 @@ function firstLandscapeIndex(images: CampaignImage[]) {
         7 cenários modernos, fundo infinito em 4 cores e equipamentos disponíveis.
       </p><br><br>
       <NuxtLink
-          to="https://wa.me/5511911159795?text=Olá, vim pelo seu site e queria mais informações sobre aluguel do estúdio..."
+          :to="`${configPublic.whatsappUrl}?text=Olá, vim pelo seu site e queria mais informações sobre aluguel do estúdio...`"
           class="btn"
           target="_blank"
           aria-label="Entrar em contato via WhatsApp"
@@ -113,7 +113,7 @@ function firstLandscapeIndex(images: CampaignImage[]) {
           Valores sujeitos a alteração. Entre em contato para confirmar disponibilidade e fechar sua reserva.
         </p>
         <NuxtLink
-          to="https://wa.me/5511911159795?text=Olá, vim pelo seu site e queria mais informações sobre aluguel do estúdio..."
+          :to="`${configPublic.whatsappUrl}?text=Olá, vim pelo seu site e queria mais informações sobre aluguel do estúdio...`"
           class="btn"
           target="_blank"
           aria-label="Entrar em contato via WhatsApp"

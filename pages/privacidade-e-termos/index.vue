@@ -2,6 +2,7 @@
 usePageSeo('static', '/privacidade-e-termos');
 
 const { manage } = useCookieConsent();
+const { whatsappUrl } = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -21,7 +22,7 @@ const { manage } = useCookieConsent();
         <p>
           Lillia Tavares Fotografia, com contato disponível pelo e-mail
           <a href="mailto:fotografalilliatavares@gmail.com">fotografalilliatavares@gmail.com</a>
-          e pelo WhatsApp <a href="https://wa.me/5511911159795" target="_blank" rel="noopener noreferrer">(11) 91115-9795</a>,
+          e pelo WhatsApp <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer">(11) 91115-9795</a>,
           é responsável pelo tratamento dos dados pessoais coletados neste site,
           em conformidade com a Lei Geral de Proteção de Dados - <strong>LGPD (Lei nº 13.709/2018)</strong>.
         </p>
@@ -181,7 +182,7 @@ const { manage } = useCookieConsent();
         </p>
         <ul>
           <li>E-mail: <a href="mailto:fotografalilliatavares@gmail.com">fotografalilliatavares@gmail.com</a></li>
-          <li>WhatsApp: <a href="https://wa.me/5511911159795" target="_blank" rel="noopener noreferrer">(11) 91115-9795</a></li>
+          <li>WhatsApp: <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer">(11) 91115-9795</a></li>
         </ul>
       </section>
   </main>

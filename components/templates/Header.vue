@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const cfImg = useCfImg()
+const { whatsappUrl } = useRuntimeConfig().public
 
 const isMobile = ref(false);
 const isMounted = ref(false);
@@ -132,7 +133,7 @@ onUnmounted(() => {
     </div>
 
     <NuxtLink
-      to="https://wa.me/5511911159795?text=Olá, vim pelo seu site e queria mais informações..."
+      :to="`${whatsappUrl}?text=Olá, vim pelo seu site e queria mais informações...`"
       class="fixed-whatsapp"
       @click="clickWhats"
       target="_blank"

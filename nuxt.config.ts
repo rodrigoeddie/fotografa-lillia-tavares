@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { fileURLToPath, URL } from 'node:url'
+// import { fileURLToPath, URL } from 'node:url'
 import { copyFileSync, mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { definePerson } from 'nuxt-schema-org/schema';
@@ -10,6 +10,8 @@ const siteConfig = {
   description: 'Lillia Tavares: Fotógrafa de retratos femininos que celebra a singularidade das mulheres. Destaque sua realeza com uma sessão única que empodera sua autoestima.',
   url: 'https://fotografalilliatavares.com.br'
 };
+
+const whatsappUrl = 'https://wa.me/5511911159795';
 
 // Content-Security-Policy do site inteiro.
 // ⚠️ Ao ativar um novo serviço externo (Meta Pixel, Smartlook, outro embed),
@@ -136,7 +138,7 @@ export default defineNuxtConfig({
         'https://www.facebook.com/fotografalilliatavares',
         'https://www.instagram.com/fotografalilliatavares',
         'https://www.tiktok.com/@fotografalilliatavares',
-        'https://wa.me/5511911159795',
+        whatsappUrl,
       ],
     })
   },
@@ -278,6 +280,7 @@ export default defineNuxtConfig({
       cfImageBase: 'https://images.fotografalilliatavares.com.br/images',
       /* URL canônica do site — fonte única em siteConfig.url. */
       siteUrl: siteConfig.url,
+      whatsappUrl,
     }
   },
 

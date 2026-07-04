@@ -3,6 +3,7 @@ definePageMeta({ layout: 'cliente' });
 useHead({ title: 'Área do Cliente — Lillia Tavares' });
 
 const cfImg = useCfImg();
+const { whatsappUrl } = useRuntimeConfig().public;
 
 const { login } = useClientAuth();
 const router = useRouter();
@@ -82,7 +83,7 @@ async function handleLogin() {
 
       <p class="login-help">
         Precisa de ajuda? Entre em contato pelo
-        <a href="https://wa.me/5511911159795" target="_blank" rel="noopener">WhatsApp</a>.
+        <a :href="whatsappUrl" target="_blank" rel="noopener">WhatsApp</a>.
       </p>
     </div>
   </div>

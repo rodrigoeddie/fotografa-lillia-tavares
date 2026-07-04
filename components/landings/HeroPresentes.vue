@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { whatsappUrl } = useRuntimeConfig().public
+
 defineProps<{
   data: {
     title: string;
@@ -21,7 +23,7 @@ defineProps<{
         </ul>
         <a
           class="hero-presentes__btn"
-          :href="`https://wa.me/5511911159795?text=${encodeURIComponent(data.whatsappMessage)}`"
+          :href="`${whatsappUrl}?text=${encodeURIComponent(data.whatsappMessage)}`"
         >
           <Icon name="icons:whatsapp" class="icon" />
           <span>{{ data.buttonText }}</span>

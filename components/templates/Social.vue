@@ -1,4 +1,8 @@
 
+<script setup lang="ts">
+const { whatsappUrl } = useRuntimeConfig().public
+</script>
+
 <template>
     <div class="social">
         <NuxtLink
@@ -23,7 +27,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="https://wa.me/5511911159795"
+          :to="whatsappUrl"
           class="link-social icon-whatsapp"
           target="_blank"
           aria-label="Telefone: (11) 91115-9795">
