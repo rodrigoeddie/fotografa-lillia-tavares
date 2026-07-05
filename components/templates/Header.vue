@@ -175,8 +175,9 @@ onUnmounted(() => {
 }
 
 .header {
+  @include m.card-shadow;
   justify-content: center;
-  // padding-bottom: 20rem;
+  background: white;
   display: flex;
   width: 100%;
   z-index: 9;
@@ -186,10 +187,7 @@ onUnmounted(() => {
   }
 
   .container {
-    // box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid v.$green;
     justify-content: space-between;
-    background: white;
     align-items: center;
     padding: 0 25rem;
     height: 63rem;

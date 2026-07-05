@@ -20,8 +20,8 @@
           Conheça nosso Estúdio
         </h1>
 
-        <p class="description green">
-          Se antes de agendar você deseja conhecer o estúdio, fique à vontade para marcar uma visita conosco ❤️
+        <p class="description green hm">
+          Se antes de agendar você deseja conhecer o estúdio, fique à vontade para marcar uma visita conosco!
         </p>
 
         <NuxtLink

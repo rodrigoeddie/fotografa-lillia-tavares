@@ -45,7 +45,7 @@ const isFewItems = computed(() => works.value.length <= 2);
         <p class="description-lp" v-else-if="props.lp == 'dia-das-maes'">
             Avaliação 5 estrelas de famílias que transformaram o Dia das Mães em lembranças para toda a vida
         </p>
-        <p class="description" v-else>
+        <p class="description hm" v-else>
             O que clientes dizem sobre os ensaios fotográficos feitos no estúdio
         </p>
 
@@ -162,7 +162,6 @@ const isFewItems = computed(() => works.value.length <= 2);
 
     .wrap-testimonials {
         background: #f7f4e8;
-        margin-bottom: calc(v.$space * 2);
         width: 100%;
         padding: 30rem 0 30rem 30rem;
 

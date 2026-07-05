@@ -301,11 +301,12 @@ function toggleMenu() {
         }
 
         .link {
+            padding-bottom: 18rem;
             padding-right: 18rem;
+            padding-top: 21rem;
+            font-size: 18rem;
             color: v.$green;
             display: flex;
-            padding-top: 21rem;
-            padding-bottom: 18rem;
 
             @include m.max(sm) {
                 padding: 15px 0;

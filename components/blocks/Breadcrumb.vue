@@ -41,6 +41,11 @@ if (props.schema !== false) {
             {{ item.label }}
         </NuxtLink>
         <span v-else>{{ item.label }}</span>
+
+        <Icon
+          v-if="index !== items.length - 1"
+          name="mdi:chevron-right"
+          class="breadcrumb-sep" />
       </li>
     </ul>
   </nav>
@@ -80,10 +85,16 @@ nav[aria-label=breadcrumb] {
           text-decoration: underline;
       }
 
-      li:not(:last-child)::after {
-          display: inline;
-          margin: 0 10rem;
-          content: "→";
+      .breadcrumb-sep {
+          margin: 0 6rem;
+          font-size: 16rem;
+          vertical-align: middle;
+          opacity: 0.6;
+          color: v.$green;
+
+          @include m.max(sm) {
+              font-size: 14rem;
+          }
       }
   }
 }
@@ -91,8 +102,9 @@ nav[aria-label=breadcrumb] {
 .lp-presentes {
   nav[aria-label=breadcrumb] .breadcrumb {
     li,
-    a {
-      color: v.$lp-presentes;      
+    a,
+    .breadcrumb-sep {
+      color: v.$lp-presentes;
       }
   }
 }

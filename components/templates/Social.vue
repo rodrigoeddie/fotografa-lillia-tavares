@@ -65,7 +65,7 @@ const { whatsappUrl } = useRuntimeConfig().public
         .link-social {
             padding: 6rem 12rem 6rem 0;
             font-weight: 500;
-            font-size: 14rem;
+            font-size: 17rem;
             height: auto;
             gap: 7rem;
 

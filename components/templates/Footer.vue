@@ -92,7 +92,8 @@
 
     .footer-split {
         border-top: 3rem solid v.$light-beige;
-        grid-template-columns: 1fr 540rem;
+        grid-template-columns: 1fr 38%;
+        background: v.$cream;
         display: grid;
 
         @include m.max(sm) {
@@ -105,7 +106,6 @@
         flex-direction: column;
         padding: 44rem 40rem;
         align-items: flex-start;
-        background: white;
         display: flex;
         gap: 32rem;
 
@@ -243,12 +243,12 @@
     .footer-bar {
         border-top: 1px solid v.$light-beige;
         justify-content: space-between;
-        background: v.$cream;
+        background: white;
         flex-wrap: wrap;
         font-style: normal;
         align-items: center;
         color: v.$green;
-        font-size: 14rem;
+        font-size: 17rem;
         padding: 16rem 35rem;
         display: flex;
         gap: 10rem;
@@ -262,7 +262,6 @@
         .privacy-link {
             text-decoration: underline;
             color: inherit;
-            font-size: 13rem;
             opacity: 0.7;
 
             &:hover {

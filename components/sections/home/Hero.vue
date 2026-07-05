@@ -35,7 +35,6 @@ const services = [
               class="btn primary"
               data-track-event="cta-agendar-home">
               <span>Agendar meu ensaio</span>
-              <Icon name="icons:arrow-right" class="icon" />
             </NuxtLink>
 
             <div class="quick-links">
@@ -102,11 +101,10 @@ $panel: color.adjust(v.$green, $lightness: -7%);
 $olive-light: color.adjust(v.$green, $lightness: 15%);
 
 .hero {
-  margin-top: 15rem;
+  background: v.$cream;
+  padding: 15rem 0;
 
   .shell {
-    @include m.card-shadow;
-    background: white;
     overflow: hidden;
     min-height: 480rem;
     display: flex;
@@ -119,10 +117,10 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
 }
 
 .intro {
-  flex: 0 0 50%;
-  flex-direction: column;
+  padding: 44rem 44rem 44rem 0;
   justify-content: center;
-  padding: 44rem;
+  flex-direction: column;
+  flex: 0 0 50%;
   display: flex;
   gap: 16rem;
 
@@ -155,7 +153,7 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
 }
 
 .lead {
-  color: v.$dark-green;
+  color: v.$rose-deep;
   font-weight: 900;
   font-size: clamp(34rem, 4.2vw, 46rem);
   line-height: 1.08;
@@ -231,8 +229,8 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
 }
 
 .aside {
-  flex: 0 0 50%;
   overflow: hidden;
+  flex: 0 0 50%;
   display: flex;
 }
 
