@@ -83,7 +83,7 @@ const enviar = async () => {
 
       <div class="right">
         <div class="cal">
-          <BlocksSimpleCalendar v-model="formData.date" />
+          <BlocksSimpleCalendar v-model="formData.date" compact />
           <input type="hidden" name="type" v-model="formData.sessionType">
         </div>
 
@@ -173,13 +173,13 @@ const enviar = async () => {
 }
 
 .right {
-  background: v.$light-beige;
+  background: v.$panel-tan;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 32rem;
+  padding: 28rem 32rem;
   display: flex;
-  gap: 18rem;
+  gap: 16rem;
 
   @include m.max(xs) {
     padding: 22rem 18rem;
@@ -187,17 +187,19 @@ const enviar = async () => {
 
   .cal,
   .confirm {
-    max-width: 340rem;
+    max-width: 310rem;
     width: 100%;
   }
 
   .selected {
-    border-left: 4rem solid var(--color-highlight, v.$dark-green);
-    color: v.$dark-green;
-    background: white;
-    padding: 12rem 14rem;
+    background: color-mix(in srgb, var(--color-highlight, v.$dark-green) 10%, white);
+    color: var(--color-highlight, v.$dark-green);
+    padding: 10rem 14rem;
     margin-bottom: 12rem;
     border-radius: 4rem;
+    min-height: 2.2rem;
+    display: flex;
+    align-items: center;
     font-weight: 700;
     font-size: 15rem;
 
@@ -209,11 +211,11 @@ const enviar = async () => {
   }
 
   .btn-send {
-    transition: filter .2s, transform .15s;
+    transition: background .2s, box-shadow .2s, transform .15s;
     background: var(--color-highlight, v.$dark-green);
-    box-shadow: 0 4rem 14rem rgba(0, 0, 0, .18);
+    box-shadow: 0 4rem 14rem color-mix(in srgb, var(--color-highlight, v.$dark-green) 28%, transparent);
     justify-content: center;
-    border-radius: 6rem;
+    border-radius: 5rem;
     padding: 14rem 20rem;
     align-items: center;
     font-weight: 900;
@@ -231,7 +233,7 @@ const enviar = async () => {
 
     &:hover {
       transform: translateY(-1px);
-      filter: brightness(1.12);
+      background: color-mix(in srgb, var(--color-highlight, v.$dark-green) 85%, black);
     }
 
     &:focus-visible {

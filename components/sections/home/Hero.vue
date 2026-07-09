@@ -102,7 +102,19 @@ $olive-light: color.adjust(v.$green, $lightness: 15%);
 
 .hero {
   background: v.$cream;
-  padding: 15rem 0;
+  
+  @include m.min(md) {
+    &:before {
+      content: '';
+
+      background: white;
+      position: absolute;
+      width: 50%;
+      left: 50%;
+      bottom: 0;
+      top: 0;
+    }
+  }
 
   .shell {
     overflow: hidden;

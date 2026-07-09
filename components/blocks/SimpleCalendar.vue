@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const props = defineProps<{ modelValue: string }>()
+const props = defineProps<{ modelValue: string; compact?: boolean }>()
 const emit = defineEmits<{ 'update:modelValue': [string] }>()
 
 const today = new Date()
@@ -52,7 +52,7 @@ const next = () => {
 </script>
 
 <template>
-  <div class="cal">
+  <div class="cal" :class="{ compact }">
     <div class="header">
       <button type="button" class="nav" :disabled="!canGoPrev" @click="prev">‹</button>
       <span class="title">
@@ -83,32 +83,22 @@ const next = () => {
 
 <style lang="scss" scoped>
 .cal {
+  --cal-accent: var(--color-highlight, #{v.$green});
+
   width: 100%;
   max-width: 360rem;
   margin: 0 auto;
   background: white;
-  border: 2px solid v.$green;
+  border: 2px solid var(--cal-accent);
   border-radius: 8px;
   overflow: hidden;
-
-  @include m.min(md) {
-    display: flex;
-    max-width: 560rem;
-  }
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: v.$green;
+    background: var(--cal-accent);
     padding: 14rem 16rem;
-    
-    @include m.min(md) {
-      flex-direction: row;
-      padding: 24rem 0;
-      min-width: 140rem;
-      gap: 15rem;
-    }
 
     .title {
       color: white;
@@ -117,27 +107,6 @@ const next = () => {
       text-transform: capitalize;
       display: flex;
       gap: 0.25em;
-
-      @include m.min(md) {
-        flex-direction: column-reverse;
-        align-items: center;
-        text-align: center;
-        gap: 15rem;
-      }
-
-      .month {
-        @include m.min(md) {
-          font-size: 25rem;
-        }
-      }
-
-      .year {
-        @include m.min(md) {
-          font-size: 20rem;
-          opacity: 0.8;
-          font-weight: 400;
-        }
-      }
     }
 
     .nav {
@@ -153,11 +122,6 @@ const next = () => {
 
       &:hover:not(:disabled) { opacity: 1; }
       &:disabled { opacity: 0.3; cursor: default; }
-
-      @include m.min(md) {
-        padding: 20rem;
-        font-size: 60rem;
-      }
     }
   }
 
@@ -167,16 +131,11 @@ const next = () => {
     gap: 4rem;
     padding: 12rem;
 
-    @include m.min(md) {
-      padding: 8rem 16rem 4rem;
-      flex: 1;
-    }
-
     .dow {
       text-align: center;
       font-size: 16rem;
       font-weight: 700;
-      color: v.$green;
+      color: var(--cal-accent);
       padding-bottom: 6rem;
     }
 
@@ -193,16 +152,96 @@ const next = () => {
       transition: background 0.15s, color 0.15s;
 
       &:hover:not(:disabled):not(.selected) {
-        background: color-mix(in srgb, v.$green 15%, transparent);
+        background: color-mix(in srgb, var(--cal-accent) 15%, transparent);
       }
 
       &.empty    { pointer-events: none; }
       &.past     { color: #ccc; cursor: default; }
       &.selected {
-        background: v.$green;
+        background: var(--cal-accent);
         color: white;
         font-weight: 700;
       }
+    }
+  }
+
+  /* Modo expandido (Form.vue / agendamento): calendário horizontal no desktop */
+  &:not(.compact) {
+    @include m.min(md) {
+      display: flex;
+      max-width: 560rem;
+
+      .header {
+        flex-direction: row;
+        padding: 24rem 0;
+        min-width: 140rem;
+        gap: 15rem;
+
+        .title {
+          flex-direction: column-reverse;
+          align-items: center;
+          text-align: center;
+          gap: 15rem;
+
+          .month { font-size: 25rem; }
+
+          .year {
+            font-size: 20rem;
+            opacity: 0.8;
+            font-weight: 400;
+          }
+        }
+
+        .nav {
+          padding: 20rem;
+          font-size: 60rem;
+        }
+      }
+
+      .grid {
+        padding: 8rem 16rem 4rem;
+        flex: 1;
+      }
+    }
+  }
+
+  /* Modo compacto (Tinyform / .cal-expanded do modelo P4): vertical, sem borda espessa */
+  &.compact {
+    max-width: 310rem;
+    border: none;
+    box-shadow: 0 2rem 12rem rgba(44, 42, 21, 0.08);
+
+    .header {
+      padding: 12rem 16rem;
+
+      .title {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.35em;
+        font-size: 18rem;
+
+        .month { font-size: 18rem; }
+
+        .year {
+          font-size: 16rem;
+          font-weight: 400;
+          opacity: 0.85;
+        }
+      }
+
+      .nav { font-size: 26rem; }
+    }
+
+    .grid {
+      gap: 2rem;
+      padding: 10rem 10rem 8rem;
+
+      .dow {
+        font-size: 12rem;
+        padding-bottom: 4rem;
+      }
+
+      .day { font-size: 14rem; }
     }
   }
 }
