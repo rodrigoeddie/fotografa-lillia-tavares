@@ -52,18 +52,18 @@
 | Tipo | estatica |
 | Funil | descoberta |
 | Serviço | transversal |
-| Status | **orfa** |
+| Status | incompleta (era **orfa** até 2026-07-09) |
 | Keyword | "fotógrafa lillia tavares" |
-| No menu | atual: não · flat v2: **sim** (item "Sobre") |
+| No menu | sim (item "Sobre", desde 2026-07-09) |
 
 **Propósito:** bio e construção de confiança — quem é a fotógrafa, trajetória, por que escolher. Cita coloração e consultoria de imagem.
 
-**Links de entrada:** **NENHUM** (era o hero da home, removido no redesign) → órfã, viola a regra de linking nº 1
+**Links de entrada:** menu, footer (flat v2 aplicada em 2026-07-09) — regra dos 2 mínimos atendida
 **Links de saída:** [triagem] mapear ao editar a página
-**CTAs:** [triagem] revisar após entrar no menu
+**CTAs:** [triagem] revisar
 
 **Issues:**
-- [ ] Entrar no menu flat v2 (resolve header + footer de uma vez — ROADMAP P0-C)
+- [x] Entrar no menu flat v2 — feito em 2026-07-09
 - [ ] Quick-link no hero da home (L11 — ROADMAP P0-B)
 - [ ] Parágrafo de consultoria de imagem com âncora linkável (L14 — ROADMAP P0-C; estratégia em [ia-site.md §7](ia-site.md))
 
@@ -76,7 +76,7 @@
 | Serviço | transversal |
 | Status | ok |
 | Keyword | "fotógrafa mogi das cruzes avaliações" |
-| No menu | atual: não · flat v2: não (candidata a submenu "Sobre") |
+| No menu | não (candidata a submenu "Sobre") |
 
 **Propósito:** prova social — 100 depoimentos 5 estrelas do Google Meu Negócio. Redutor de objeção.
 
@@ -102,7 +102,7 @@
 | Serviço | transversal |
 | Status | incompleta |
 | Keyword | "ensaio fotográfico dúvidas" |
-| No menu | atual: sim · flat v2: sim |
+| No menu | sim |
 
 **Propósito:** reduzir objeções e cortar atendimento repetitivo no WhatsApp.
 
@@ -122,7 +122,7 @@
 | Serviço | ensaio |
 | Status | ok |
 | Keyword | "agendar ensaio fotográfico mogi" |
-| No menu | atual: não · flat v2: **sim** (CTA do menu, substitui o link cru de WhatsApp) |
+| No menu | sim (CTA do menu desde 2026-07-09, substituiu o link cru de WhatsApp) |
 
 **Propósito:** página de conversão — calendário que monta o texto do link para WhatsApp.
 
@@ -163,7 +163,7 @@
 | Serviço | transversal (cada post puxa um serviço) |
 | Status | incompleta |
 | Keyword | por post (ver inventário) |
-| No menu | atual: sim · flat v2: sim |
+| No menu | sim |
 
 **Propósito:** motor de SEO — cada post mira uma keyword e alimenta links internos para portfolio/LPs/preços (regra de linking nº 2: todo post fecha com ≥1 link educativo + 1 CTA contextual).
 
@@ -212,7 +212,7 @@
 | Serviço | ensaio |
 | Status | ok |
 | Keyword | "ensaio fotográfico em mogi das cruzes" |
-| No menu | atual: sim ("Trabalhos") · flat v2: sim (**renomear para "Ensaios"**) |
+| No menu | sim ("Ensaios" — renomeado de "Trabalhos" em 2026-07-09) |
 
 **Propósito:** portfolio — prova de qualidade e porta de entrada orgânica por categoria.
 
@@ -243,7 +243,7 @@
 | Serviço | ensaio |
 | Status | incompleta |
 | Keyword | "quanto custa ensaio fotográfico mogi" |
-| No menu | atual: sim · flat v2: sim |
+| No menu | sim |
 
 **Propósito:** transparência de preço por categoria — passo natural entre portfolio e agendamento.
 
@@ -271,7 +271,7 @@
 | Serviço | aluguel + ensaio |
 | Status | incompleta |
 | Keyword | "estúdio fotográfico em mogi das cruzes" / aluguel: "aluguel de estúdio fotográfico mogi" |
-| No menu | atual: sim ("Estúdio") · flat v2: sim |
+| No menu | sim ("Estúdio") |
 
 **Propósito:** apresentar o estúdio próprio (diferencial competitivo) e vender o aluguel (serviço nº 2).
 
@@ -304,11 +304,11 @@
 | Serviço | coloracao |
 | Status | ok |
 | Keyword | "análise de coloração pessoal mogi" |
-| No menu | atual: não · flat v2: **sim** ("Coloração Pessoal") |
+| No menu | sim ("Coloração Pessoal", desde 2026-07-09) |
 
 **Propósito:** LP do serviço nº 3. Decisão registrada: fica em rota própria — nem filha de `/servicos` (não criar), nem de `/sobre` ([ia-site.md §7](ia-site.md)).
 
-**Links de entrada:** hero da home (painel de serviços), LP dia-das-maes (seção coloração — hoje quebrada, L10), menu (após flat v2)
+**Links de entrada:** menu, footer, hero da home (painel de serviços), LP dia-das-maes (seção coloração — hoje quebrada, L10)
 **Links de saída:** [triagem] mapear blocos
 **CTAs:** CTA do bloco da LP — ok
 
@@ -360,7 +360,7 @@
 | # | Seção | Status | Observação |
 |---|---|---|---|
 | 1 | Hero | ok | |
-| 2 | Lista de presentes | **vazia** | deveria listar a filha dia-das-maes (L9 — admin) |
+| 2 | Lista de presentes | ok | item "Dia das Mães" cadastrado em 2026-07-09 (L9 ✅); próximas ocasiões: Natal, aniversário, casais (P2) |
 | 3 | Entregáveis | ok | Vale-Ensaio, Nécessaire+Vale, Álbum, Prints/Quadros |
 | 4 | Por que ensaio é o presente perfeito | ok | |
 | 5 | CTA | ok | |
@@ -408,7 +408,7 @@
 
 ## Header / Footer (compartilhados)
 
-- **Menu** (`menu_items`, editável em `/admin/menu`): flat, sem submenu (coluna `parent_id` não existe — feature no ROADMAP P0-D). Itens atuais: Home · Trabalhos · Estúdio · Preços · Blog · FAQ · Falar no WhatsApp (externo). **Spec da v2 e do alvo com submenus: [ia-site.md §5–6](ia-site.md).**
+- **Menu** (`menu_items`, editável em `/admin/menu`): flat, sem submenu (coluna `parent_id` não existe — feature no ROADMAP P0-D). Itens atuais (flat v2 aplicada em 2026-07-09): Ensaios · Preços · Estúdio · Coloração Pessoal · Sobre · Blog · FAQ · Agende seu ensaio. **Spec e alvo com submenus: [ia-site.md §5–6](ia-site.md).**
 - **Footer**: reusa o MESMO componente/tabela do menu + blocos próprios (logo, social Instagram/Email/WhatsApp, CTA agende, endereço, copyright, `/privacidade-e-termos`). Editar o menu atualiza os dois.
 
 ## No-robots (referência)
@@ -421,17 +421,17 @@
 
 | # | Origem | Destino | Onde inserir | Execução |
 |---|---|---|---|---|
-| L1 | Post "PIPA Hub" | LP corporativo + `/ensaio-fotografico/corporativo` | CTA existente sem link | admin |
-| L2 | Post "Cartório de Mogi" | interim `/agende-seu-ensaio`; futuro portfolio casal | CTA do post | admin (trocar quando portfolio existir) |
-| L3 | Post "Fotos corporativas" | portfolio corporativo + LP corporativo | CTA ao fim do conteúdo | admin |
+| L1 | Post "PIPA Hub" | LP corporativo + `/ensaio-fotografico/corporativo` | CTA existente sem link | ✅ feito 2026-07-09 (admin) |
+| L2 | Post "Cartório de Mogi" | interim `/agende-seu-ensaio`; futuro portfolio casal | CTA do post | ✅ interim feito 2026-07-09 (trocar quando portfolio de casal existir) |
+| L3 | Post "Fotos corporativas" | portfolio corporativo + LP corporativo | CTA ao fim do conteúdo | ✅ feito 2026-07-09 (admin) |
 | L4 | Post "Natal 2025" | portfolios natal 2024/2025 | corpo | admin — **bloqueado**: cadastrar portfolios antes |
-| L5 | Post "Dia das mães 2025" | link novo (hoje redirect salva) | corpo | admin |
+| L5 | Post "Dia das mães 2025" | link novo (hoje redirect salva) | corpo | ✅ feito 2026-07-09 (admin) |
 | L6 | Posts em geral | seção "ensaios com esse tema" | fim do post | **código** (seção morta → ROADMAP P0-D) |
 | L7 | Página do estúdio | `/estudio-.../aluguel` | seção/CTA "Alugue o estúdio" | **código** — link de dinheiro nº 2 (P0-B) |
 | L8 | `/estudio-.../cenarios` + posts | cenário `dia-das-maes-2025` (semi-órfão) | lista de cenários + posts sazonais | admin/verificar |
-| L9 | LP presentes (hub) | LP filha dia-das-maes | bloco "lista de presentes" vazio | admin |
+| L9 | LP presentes (hub) | LP filha dia-das-maes | bloco "lista de presentes" | ✅ feito 2026-07-09 (item "Dia das Mães" sem ano — decisão em ia-site.md §7) |
 | L10 | LP dia-das-maes (seção coloração) | LP coloração | seção vazia/desconfigurada | **código** (bug do fallback, P0-B) + admin |
-| L11 | menu/footer + hero home | `/sobre` | item de menu (P0-C) + quick-link hero (P0-B) | admin + código |
+| L11 | menu/footer + hero home | `/sobre` | ✅ item de menu (feito 2026-07-09) · falta quick-link hero (P0-B) | ~~admin~~ + código |
 | L12 | `/precos` CTA "FAQ" | `/perguntas-frequentes` (hoje vai pro whats) | corrigir destino | código (P0-B) |
 | L13 | `/blog` | `/blog/[category]` | lista de categorias inexistente no índice | código (P0-B) |
 | L14 | `/sobre` + LP coloração | consultoria de imagem (âncora) | seções novas | admin/conteúdo (P0-C) |

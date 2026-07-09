@@ -49,6 +49,8 @@ Cada página pública pertence a um estágio. O estágio determina o CTA (§4) e
 
 ## 5. Spec do menu — flat v2 (executável hoje via `/admin/menu`, sem dev)
 
+> ✅ **Aplicada em 2026-07-09** via `/admin/menu`. Mantida aqui como referência até o menu com submenus (§6) entrar.
+
 Menu e footer compartilham a tabela `menu_items` — uma edição resolve os dois. Após salvar: purge de cache (`/admin/cache`).
 
 | # | Label | Path | Racional |
@@ -96,3 +98,4 @@ Registro para não re-discutir. Novas decisões entram aqui com data.
 - **2026-07-09 — Hero da home mantém `/agende-seu-ensaio` como CTA primário.** Parte do tráfego da home é morno (GBP, indicação, retorno de LP) e está pronto para converter — tirar a conversão do hero perde esse fluxo. A página `/sobre` sai da orfandade por menu (flat v2, item 5), footer (mesma tabela) e quick-link "Conheça a Lillia" no hero (task P0-B). Cliques já são rastreados (`data-track-event="cta-agendar-home"`) — se o GA4 mostrar outro padrão, reavaliar.
 - **2026-07-09 — Consultoria de imagem em 3 tempos.** (1) Agora: seção de upsell na LP de coloração (coloração → consultoria é o upsell natural) + parágrafo com âncora na `/sobre` + item futuro no submenu "Imagem & Estilo" apontando para a âncora. (2) LP própria (`/consultoria-de-imagem-em-mogi`, via admin) **somente quando houver oferta/preço definidos** (decisão pendente #8 do ROADMAP). (3) Nunca criar rota fina sem oferta — página sem preço/pacote não converte nem rankeia.
 - **2026-07-09 — Coloração pessoal fica na rota própria de LP** (`/analise-coloracao-pessoal-em-mogi`, keyword própria) — nem filha de `/servicos`, nem de `/sobre`.
+- **2026-07-09 — Itens do hub de presentes (lista de ocasiões) nunca levam ano no rótulo.** Cada ocasião (Dia das Mães, e futuramente Natal, aniversário, casais/dia dos namorados) é infraestrutura evergreen — reaproveitada todo ano, slug sem ano (`.../dia-das-maes`). Rotular como "Dia das Mães 2027" confunde quem visita fora de temporada. O ano só aparece em conteúdo datado de verdade (posts de blog de campanha, ex. "Nosso cenário do dia das mães 2025"). O link do hub para a ocasião permanece sempre ativo, mesmo fora de estação (regra de linking §3.6).

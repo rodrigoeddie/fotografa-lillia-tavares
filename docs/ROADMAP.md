@@ -24,8 +24,8 @@
 - [ ] Hero home: quick-link "Conheça a Lillia" → `/sobre` (CTA primário permanece `/agende-seu-ensaio`; L11).
 
 ### C. Conteúdo e links via admin (sem dev) — detalhes em [paginas.md](paginas.md)
-- [ ] **Menu flat v2** via `/admin/menu` (spec em [ia-site.md §5](ia-site.md)): Trabalhos→Ensaios, +Coloração Pessoal, +Sobre, CTA→`/agende-seu-ensaio`, remover Home; purge de cache; conferir header E footer (mesma tabela).
-- [ ] Executar matriz de links **L1–L5, L8, L9, L14** (CTAs dos posts, lista de presentes do hub, cenário semi-órfão, âncoras de consultoria).
+- [x] **Menu flat v2** via `/admin/menu` (spec em [ia-site.md §5](ia-site.md)) — **feito em 2026-07-09** pelo Rodrigo. Conferir purge de cache (`/admin/cache`) e o footer.
+- [ ] Executar matriz de links (detalhe em paginas.md): ✅ L1, L2 (interim), L3, L5, L9 — feitos em 2026-07-09; restam **L8** (cenário semi-órfão), **L14** (âncoras de consultoria) e **L4** (bloqueado pelos portfolios de Natal).
 - [ ] Cadastrar portfolios **Natal 2024/2025** (desbloqueia L4, prepara campanha Natal 2026).
 - [ ] Seção "consultoria de imagem" na LP de coloração + parágrafo com âncora na `/sobre`.
 - [ ] FAQ: inserir os dados pendentes.
