@@ -17,6 +17,8 @@ Site institucional + admin CMS + área do cliente para sessões fotográficas. D
 
 - [docs/PROJETO.md](docs/PROJETO.md) — **Mapa de gestão: estado real de cada frente** (SEO, admin, pagamentos, LGPD, segurança, operacional)
 - [docs/ROADMAP.md](docs/ROADMAP.md) — **To-dos priorizados (P0–P4)** e decisões pendentes
+- [docs/ia-site.md](docs/ia-site.md) — **Arquitetura de informação: funil, regras de linking, CTAs, spec do menu** — consultar ANTES de mexer em menu, links internos ou CTAs
+- [docs/paginas.md](docs/paginas.md) — **Estado editorial por rota** (seções, links de entrada/saída, issues) — atualizar ao alterar seções/links de uma página; rota nova exige seção nova lá
 - [docs/seguranca-lgpd.md](docs/seguranca-lgpd.md) — Consentimento de cookies, direito ao esquecimento, CSP, rate limiting, senhas, ambientes
 - [server/CLAUDE.md](server/CLAUDE.md) — Backend: API, services, D1, JWT, R2, futuro SumUp
 - [shared/CLAUDE.md](shared/CLAUDE.md) — Schemas Zod compartilhados
@@ -130,7 +132,8 @@ wrangler d1 execute DB --remote ...  # SQL avulso em produção (não usar p/ mi
 
 | Quero... | Vou em... |
 |---|---|
-| Adicionar/editar uma página pública | `pages/*.vue` |
+| Adicionar/editar uma página pública | `pages/*.vue` + registrar em [docs/paginas.md](docs/paginas.md) |
+| Mudar menu, links internos ou CTAs | [docs/ia-site.md](docs/ia-site.md) (regras) + [docs/paginas.md](docs/paginas.md) (estado) |
 | Criar/editar um bloco de LP | `components/landings/` + schema em `shared/schemas/landing-page.ts` |
 | Mudar um endpoint público | `server/api/public/<dominio>/*.ts` |
 | Mudar lógica de DB | `server/services/<Dominio>Service.ts` |

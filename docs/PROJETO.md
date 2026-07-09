@@ -1,6 +1,6 @@
 # PROJETO.md — Mapa de Controle do Projeto
 
-> **Última atualização:** 2026-07-01
+> **Última atualização:** 2026-07-09
 > Documento de gestão: estado real de cada frente do projeto, com riscos e lacunas. O futuro (to-dos priorizados) está em [ROADMAP.md](ROADMAP.md). A arquitetura está em [../CLAUDE.md](../CLAUDE.md).
 >
 > **Como manter:** ao fechar um item do ROADMAP ou mudar de fase, atualize a seção correspondente aqui e a data acima. Este documento só é útil se refletir a realidade.
@@ -9,7 +9,7 @@
 
 Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares** (ensaios fotográficos em Mogi das Cruzes / Alto Tietê). Projeto com ~3 anos, 434 commits, hoje em **Nuxt 4 + Cloudflare** (Pages, D1, R2, CF Images), Drizzle ORM, JWT próprio.
 
-**Momento atual:** o sistema de pagamentos SumUp na seleção de fotos está **codificado e revisado em segurança (jun/2026), mas não está em produção** — os bloqueios são operacionais (secrets, migration, webhook), não de código. Ver §3.
+**Momento atual (jul/2026):** fase de **arquitetura de informação e navegação** (P0 do ROADMAP) — a auditoria manual de páginas revelou menu flat sem hierarquia, página /sobre órfã, links internos faltantes e seções mortas; estratégia em [ia-site.md](ia-site.md), estado por página em [paginas.md](paginas.md). O go-live dos pagamentos SumUp (código pronto e revisado, bloqueios só operacionais — ver §3) é a próxima fase (P1) e pode rodar em paralelo.
 
 | Frente | Estado | Maior risco/lacuna |
 |---|---|---|
@@ -20,9 +20,10 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 | 5. Segurança | 🟢 Resolvido (P1 jul/2026) | Falta 2FA e log de auditoria (nice-to-have) |
 | 6. LGPD | 🟢 Conforme (P1 jul/2026) | Falta só automatizar retenção de 5 anos (decisão pendente) |
 | 7. Acessibilidade & Performance | 🟡 Boa base | Menu mobile/lightbox sem ARIA auditado; contraste não auditado |
-| 8. Redesigns | 🟡 Escolhidos, não aplicados | 5 protótipos selecionados, 0 implementados |
+| 8. Redesigns | 🟢 Aplicados (jul/2026) | Os 5 redesigns portados para produção |
 | 9. Operacional | 🔴 Frágil | Sem monitoramento de erros, sem e-mail transacional, backup manual |
 | 10. Marketing & conteúdo | 🟡 Em expansão | Hub de presentes, blog de links internos, GBP desatualizado |
+| 11. IA & navegação | 🟡 Em execução (P0) | Menu flat sem hierarquia, /sobre órfã, links internos faltantes, seções mortas no blog |
 
 ---
 
@@ -112,7 +113,7 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 
 ## 8. Redesigns
 
-5 protótipos escolhidos em [escolhas-redesign.md](escolhas-redesign.md) (30/jun): hero (`p1-v9-nav-cta` n3), footer (agente-c proposta 3), portfolio (`masonry-v2` proposta 4), CTA contato (agente-a proposta 4), estúdio (`curadoria-refinada`). **Nenhum foi aplicado** — os componentes reais em `components/sections/` seguem as versões antigas. Sem plano de implementação/ordem.
+5 protótipos escolhidos em [escolhas-redesign.md](escolhas-redesign.md) (30/jun) e **aplicados em jul/2026**: hero home (`SectionsHomeHero`, díptico + painel de serviços), portfolio masonry hover-reveal, CTA contato (`Tinyform` split-screen), estúdio (hero + fundo infinito + `SectionsStudioLocation`), footer P3 split assimétrico. Detalhes e decisões finais no item ✅ do ROADMAP P3.
 
 ## 9. Operacional
 
@@ -128,6 +129,14 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 - **Em construção (do TODO):** hub de presentes `/presente-ensaio-fotografico-mogi` (páginas-filhas por ocasião, interligação com dia das mães), post de blog para links internos, páginas internas dos demais preços, página de aluguel do estúdio, produtos no Google Business Profile desatualizados.
 - **Ads:** nada implementado; intenção declarada de avaliar CLI/MCP do Google Ads (ver ROADMAP).
 
+## 11. IA & navegação (fase atual — P0)
+
+**Estado:** auditoria manual página a página feita em jul/2026 e absorvida em documentação estruturada — estratégia (funil, regras de linking, estratégia de CTA, spec do menu) em [ia-site.md](ia-site.md); estado editorial por rota + matriz de 14 links faltantes (L1–L14) em [paginas.md](paginas.md).
+
+**Achados principais:** menu/footer data-driven (tabela `menu_items`) porém flat, sem submenus; `/sobre` órfã (0 links de entrada); página do estúdio não linka o aluguel (link de dinheiro nº 2); seção "ensaios com esse tema" + Tinyform dos posts mortas (campos `works`/`showSchedule` perdidos na migração Nuxt Content→D1); nomes de categoria exibindo slug cru (front usa mapas hardcoded em vez das tabelas `*_categorias`); bugs de cor de tema em 2 LPs.
+
+**Lacunas / próximo:** executar P0-B (quick-wins de código), P0-C (menu flat v2 + links via admin) e P0-D (submenus, religar seção do blog) do [ROADMAP.md](ROADMAP.md).
+
 ## Documentação — índice e saúde
 
 | Doc | Cobre | Estado |
@@ -138,8 +147,10 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 | [data-flow.md](data-flow.md) | D1→service→API→adapter→componente | 🟢 Atualizado |
 | [frontend-standards.md](frontend-standards.md) | SCSS/componentes | 🟢 Atualizado |
 | [pagamentos-seguranca.md](pagamentos-seguranca.md) | Revisão SumUp | 🟢 Atualizado |
-| [sitemap.md](sitemap.md) | Mapa de rotas | 🟡 Parcialmente defasado |
-| [escolhas-redesign.md](escolhas-redesign.md) | Redesigns escolhidos | 🟡 Só a lista, sem plano |
+| [ia-site.md](ia-site.md) | Estratégia de IA: funil, linking, CTAs, menu | 🟢 Criado 2026-07-09 |
+| [paginas.md](paginas.md) | Estado editorial por rota + matriz de links | 🟢 Criado 2026-07-09 |
+| [sitemap.md](sitemap.md) | Mapa de rotas (técnico rota→API) | 🟢 Atualizado 2026-07-09 |
+| [escolhas-redesign.md](escolhas-redesign.md) | Redesigns escolhidos | 🟢 Aplicados jul/2026 |
 | ../README.md | Setup | 🔴 Boilerplate Nuxt genérico |
 | **PROJETO.md** (este) | Estado por frente | criado 2026-07-01 |
 | [ROADMAP.md](ROADMAP.md) | To-dos priorizados | criado 2026-07-01 |

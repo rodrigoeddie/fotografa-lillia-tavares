@@ -2,6 +2,8 @@
 
 Mapa de todas as rotas e quais APIs/services alimentam cada uma. Fonte autoritativa do sitemap XML está em `server/api/__sitemap__/urls.ts`.
 
+> **Papéis dos docs:** plumbing técnico rota→API → **este doc** · estado editorial por página (seções, links, issues) → [paginas.md](paginas.md) · estratégia de IA (funil, linking, CTAs, menu) → [ia-site.md](ia-site.md).
+
 ## Público
 
 | Rota | Propósito | Dados |
@@ -12,6 +14,7 @@ Mapa de todas as rotas e quais APIs/services alimentam cada uma. Fonte autoritat
 | `/perguntas-frequentes` | FAQ geral | `/api/public/faq` (FaqService) |
 | `/agende-seu-ensaio` | Formulário + mapa | estática |
 | `/privacidade-e-termos` | Políticas | estática |
+| `/links` | Linktree (bio Instagram, tracking de cliques) — `noindex` | `/api/public/linktree` |
 
 ### Portfolio
 
@@ -35,9 +38,10 @@ Mapa de todas as rotas e quais APIs/services alimentam cada uma. Fonte autoritat
 |---|---|
 | `/precos-ensaios-fotograficos` | catálogo — `/api/public/investimento` (ProdutoService) |
 | `/precos-ensaios-fotograficos/[slug]` | pacote específico |
-| `/estudio` | apresentação do estúdio |
-| `/estudio/cenarios` | listagem — `/api/public/cenarios` (CenarioService) |
-| `/estudio/cenarios/[name]` | cenário específico |
+| `/estudio-fotografico-em-mogi-das-cruzes` | apresentação do estúdio |
+| `/estudio-fotografico-em-mogi-das-cruzes/aluguel` | aluguel do estúdio (valores, cenários, parceiros, mapa) |
+| `/estudio-fotografico-em-mogi-das-cruzes/cenarios` | listagem — `/api/public/cenarios` (CenarioService) |
+| `/estudio-fotografico-em-mogi-das-cruzes/cenarios/[name]` | cenário específico |
 
 ### Landing Pages dinâmicas (D1)
 
@@ -88,7 +92,10 @@ Layout: `cliente.vue`. Auth: cookie `cliente_session` (JWT httpOnly). Middleware
 │   ├── /ensaio-fotografico/[category]/[slug]
 │   ├── /blog/[category]/[slug]
 │   ├── /precos-ensaios-fotograficos/[slug]
-│   ├── /estudio/cenarios/[name]
+│   ├── /estudio-fotografico-em-mogi-das-cruzes
+│   │   ├── /aluguel
+│   │   └── /cenarios/[name]
+│   ├── /links               ← linktree (noindex)
 │   └── /<slug-lp>           ← dinâmico via D1 (BlockRenderer)
 │
 ├── /admin/*                 ← layout admin, JWT header
