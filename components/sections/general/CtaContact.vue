@@ -149,8 +149,10 @@ const props = defineProps({
     background-color: rgba(157, 126, 105, 0.8);
   }
 
-  .btn-cta {
-    background: rgba(v.$lp-dia-das-maes, 0.65);
+  /* o template usa .btn (classe global de _objects.scss, fundo verde da marca);
+     o override precisa mirar .btn para o botão seguir o tema */
+  .btn {
+    background: v.$lp-dia-das-maes-dark;
 
     &:hover {
       border-color: v.$lp-dia-das-maes-dark;
@@ -185,8 +187,8 @@ const props = defineProps({
     background-color: rgba(0, 0, 0, 0.2);
   }
 
-  .btn-cta {
-    background: rgba(v.$lp-presentes, 0.65);
+  .btn {
+    background: v.$lp-presentes-dark;
 
     &:hover {
       border-color: v.$lp-presentes-dark;

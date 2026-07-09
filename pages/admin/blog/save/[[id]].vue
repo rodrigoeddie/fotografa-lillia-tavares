@@ -24,6 +24,7 @@ async function onSaved() {
 }
 
 const categoriasOptions = ref<{ slug: string; titulo: string }[]>([]);
+const portfolioCategoriasOptions = ref<{ slug: string; titulo: string }[]>([]);
 
 // ─── Page URL ────────────────────────────────────────────────────────────────
 const pageUrl = computed(() => {
@@ -81,11 +82,13 @@ function insertLink() {
 }
 
 onMounted(async () => {
-  const [cats] = await Promise.all([
+  const [cats, portfolioCats] = await Promise.all([
     adminFetch<{ slug: string; titulo: string }[]>('/api/admin/blog/categorias'),
+    adminFetch<{ slug: string; titulo: string }[]>('/api/admin/portfolio/categorias').catch(() => []),
     init(),
   ]);
   categoriasOptions.value = cats ?? [];
+  portfolioCategoriasOptions.value = portfolioCats ?? [];
   nextTick(() => {
     if (editor.value && form.conteudo) {
       editor.value.commands.setContent(form.conteudo);
@@ -152,6 +155,26 @@ onBeforeUnmount(() => {
               <span>Publicado</span>
               <label class="switch">
                 <input type="checkbox" v-model="form.ativo" />
+                <span class="slider" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>Ensaios com esse tema</label>
+            <select v-model="form.works">
+              <option value="">— não exibir —</option>
+              <option v-for="c in portfolioCategoriasOptions" :key="c.slug" :value="c.slug">{{ c.titulo }}</option>
+            </select>
+            <p class="field-hint">Exibe até 3 trabalhos dessa categoria de portfolio no fim do post.</p>
+          </div>
+
+          <div class="form-field">
+            <label>Agendamento no fim do post?</label>
+            <div class="switch-row">
+              <span>Exibir formulário (Tinyform)</span>
+              <label class="switch">
+                <input type="checkbox" v-model="form.show_schedule" />
                 <span class="slider" />
               </label>
             </div>
@@ -309,6 +332,12 @@ onBeforeUnmount(() => {
 }
 
 .includes-row { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; input { flex: 1; } }
+
+.field-hint {
+  font-size: 12px;
+  color: #666;
+  margin: 4px 0 0;
+}
 
 .seo-hint {
   margin: 16px 0;

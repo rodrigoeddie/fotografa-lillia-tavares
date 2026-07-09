@@ -5,5 +5,5 @@ import { MenuService } from '~/server/services/MenuService';
 export default defineEventHandler(async (event) => {
   event.node.res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=600');
   const svc = new MenuService(getOrm(event));
-  return svc.list();
+  return svc.tree();
 });

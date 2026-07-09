@@ -19,6 +19,8 @@ export function useBlogPostForm(idParam: Ref<number | undefined>) {
     conteudo: '',
     ativo: true,
     seo_keywords: [] as string[],
+    works: '',
+    show_schedule: false,
   });
 
   async function init() {
@@ -37,6 +39,8 @@ export function useBlogPostForm(idParam: Ref<number | undefined>) {
       form.seo_keywords = p.seo_keywords
         ? (typeof p.seo_keywords === 'string' ? JSON.parse(p.seo_keywords) : p.seo_keywords)
         : [];
+      form.works = p.works ?? '';
+      form.show_schedule = p.show_schedule === 1;
     } catch (e: any) {
       showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');
       router.push('/admin/blog');

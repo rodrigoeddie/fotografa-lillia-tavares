@@ -2,6 +2,7 @@
 const cfImg = useCfImg()
 
 const { data: rawPosts } = await useFetch('/api/public/blog');
+const { titleFor } = await useBlogCategorias();
 
 const posts = computed(() =>
   ((rawPosts.value as any[] | null) ?? [])
@@ -20,6 +21,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
   </h1>
 
   <div class="container">
+    <SectionsBlogMenuCategories data-ani-type="fade" />
     <div class="wrap-posts">
       <article
         v-for="post in posts"
@@ -69,7 +71,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', { year: 'n
             <Icon
               name="icons:category"
               class="icon icon-category"/>
-            <span class="category">{{ post.category.title }}</span>
+            <span class="category">{{ titleFor(post.category.slug) }}</span>
           </NuxtLink>
         </div>
       </article>

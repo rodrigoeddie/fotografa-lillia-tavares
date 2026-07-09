@@ -93,6 +93,8 @@ export function adaptBlogPost(p: any) {
     // content was an array in Nuxt Content; wrap single HTML string for compatibility
     content: p.conteudo ? [p.conteudo] : [],
     contentImages: Array.isArray(p.conteudo_imagens) ? p.conteudo_imagens : [],
+    works: p.works ?? null,
+    showSchedule: p.show_schedule === 1,
   };
 }
 

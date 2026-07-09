@@ -51,6 +51,13 @@ const services = [
                 <Icon name="icons:location-pin-solid" class="icon" />
                 <span>Conhecer o estúdio</span>
               </NuxtLink>
+
+              <NuxtLink
+                to="/sobre-fotografa-lillia-tavares"
+                data-track-event="cta-ver-sobre">
+                <Icon name="icons:camera" class="icon" />
+                <span>Conheça a Lillia</span>
+              </NuxtLink>
             </div>
           </div>
         </div>

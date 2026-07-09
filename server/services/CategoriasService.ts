@@ -11,10 +11,9 @@ export class CategoriasService {
 
   // ─── Blog Categorias ──────────────────────────────────────────────────────
 
-  listBlog() {
-    return this.db
-      .select()
-      .from(blog_categorias)
+  listBlog(onlyAtivo = false) {
+    const q = this.db.select().from(blog_categorias);
+    return (onlyAtivo ? q.where(eq(blog_categorias.ativo, 1)) : q)
       .orderBy(asc(blog_categorias.ordem), asc(blog_categorias.titulo));
   }
 
@@ -50,10 +49,9 @@ export class CategoriasService {
 
   // ─── Portfolio Categorias ─────────────────────────────────────────────────
 
-  listPortfolio() {
-    return this.db
-      .select()
-      .from(portfolio_categorias)
+  listPortfolio(onlyAtivo = false) {
+    const q = this.db.select().from(portfolio_categorias);
+    return (onlyAtivo ? q.where(eq(portfolio_categorias.ativo, 1)) : q)
       .orderBy(asc(portfolio_categorias.ordem), asc(portfolio_categorias.titulo));
   }
 

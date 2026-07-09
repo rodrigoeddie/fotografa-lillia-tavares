@@ -201,6 +201,12 @@ const props = defineProps({
 
             .wrap {
                 color: v.$lp-corporativo-light;
+
+                /* a regra global .subtitle (_objects.scss) fixa o verde da marca;
+                   forçar herança para o título seguir a cor do tema */
+                .subtitle {
+                    color: inherit;
+                }
             }
         }
     }
@@ -238,6 +244,10 @@ const props = defineProps({
 
             .wrap {
                 color: v.$lp-dia-das-maes;
+
+                .subtitle {
+                    color: inherit;
+                }
             }
         }
     }

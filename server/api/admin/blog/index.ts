@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   if (getMethod(event) === 'POST') {
     const body = await readBody(event);
-    const { slug, categoria, titulo, descricao, data, imagem_cf_id, conteudo, conteudo_imagens, album, ativo, seo_keywords } = body ?? {};
+    const { slug, categoria, titulo, descricao, data, imagem_cf_id, conteudo, conteudo_imagens, album, ativo, seo_keywords, works, show_schedule } = body ?? {};
     if (!slug || !categoria || !titulo) throw createError({ statusCode: 400, statusMessage: 'slug, categoria e titulo são obrigatórios' });
 
     const result = await svc.create({
@@ -28,6 +28,8 @@ export default defineEventHandler(async (event) => {
       album: album ? JSON.stringify(album) : null,
       ativo: ativo !== false ? 1 : 0,
       seo_keywords: seo_keywords ? JSON.stringify(seo_keywords) : null,
+      works: works || null,
+      show_schedule: show_schedule ? 1 : 0,
     });
     return { success: true, id: result.meta.last_row_id };
   }

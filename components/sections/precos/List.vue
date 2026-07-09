@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { whatsappUrl } = useRuntimeConfig().public
 const { data: produtos } = await useFetch('/api/public/investimento');
 
 const categories = computed(() => {
@@ -47,52 +46,11 @@ const categories = computed(() => {
       </div>
     </div>
 
-    <section
-      class="investment-info"
-      data-ani-type="fade-up"
-      data-ani-delay="0.2">
-      <div class="container">
-        <h2 class="subtitle">Por que investir em fotografia profissional?</h2>
+    <SectionsGeneralWhyInvest />
 
-        <div class="investment-info__grid">
-          <div class="info-item">
-            <h3 class="info-item__title">Memórias Eternas</h3>
-            <p class="info-item__text">
-              Momentos especiais merecem ser eternizados com qualidade e profissionalismo.
-            </p>
-          </div>
-          <div class="info-item">
-            <h3 class="info-item__title">Experiência Completa</h3>
-            <p class="info-item__text">
-              Do planejamento à entrega, cuidamos de cada detalhe para sua satisfação.
-            </p>
-          </div>
-          <div class="info-item">
-            <h3 class="info-item__title">Qualidade Garantida</h3>
-            <p class="info-item__text">
-              Equipamentos profissionais e anos de experiência para resultados impecáveis.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="investment-cta"
-      data-ani-type="fade-up"
-      data-ani-delay="0.4">
-      <h2>Ainda tem dúvidas?</h2>
-      <p>Entre em contato e vamos conversar sobre o pacote ideal para você.</p>
-      <a
-        :href="`${whatsappUrl}?text=Olá! Gostaria de saber mais sobre os pacotes fotográficos`"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="investment-cta__button"
-        data-track-event="cta-whatsapp-precos"
-      >
-        Falar com a Fotógrafa
-      </a>
-    </section>
+    <SectionsGeneralCtaFaq
+      description="Reunimos as respostas para as dúvidas mais comuns sobre pacotes, valores e como funciona o ensaio."
+      whatsapp-message="Olá! Gostaria de saber mais sobre os pacotes fotográficos" />
   </div>
 </template>
 
@@ -171,72 +129,4 @@ const categories = computed(() => {
   }
 }
 
-.investment-info {
-  background: #f7f4e8;
-  padding: 48rem 32rem;
-  margin-bottom: 48rem;
-
-  &__title {
-    text-align: center;
-    font-size: 32rem;
-    font-weight: 600;
-    color: v.$green;
-    margin-bottom: 32rem;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250rem, 1fr));
-    gap: 32rem;
-  }
-}
-
-.info-item {
-  &__title {
-    font-size: 20rem;
-    font-weight: 600;
-    color: v.$green;
-    margin-bottom: 12rem;
-  }
-
-  &__text {
-    color: v.$green;
-    line-height: 1.6;
-  }
-}
-
-.investment-cta {
-  text-align: center;
-  padding: 48rem 0;
-
-  h2 {
-    font-size: 32rem;
-    font-weight: 600;
-    color: v.$green;
-    margin-bottom: 16rem;
-  }
-
-  p {
-    font-size: 18rem;
-    color: v.$green;
-    margin-bottom: 32rem;
-  }
-
-  &__button {
-    display: inline-block;
-    padding: 16rem 40rem;
-    background: v.$green;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background: #000;
-      transform: translateY(-2rem);
-      box-shadow: 0 4rem 12rem rgba(0, 0, 0, 0.2);
-    }
-  }
-}
 </style>

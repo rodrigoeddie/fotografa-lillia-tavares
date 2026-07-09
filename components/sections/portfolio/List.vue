@@ -36,20 +36,20 @@ const ensaiosData = computed(() => {
   return props.category ? adapted.slice(0, 3) : adapted;
 });
 
-const CATEGORY_ORDER = ['corporativo', 'sensual-intimista', 'dia-das-maes', 'gestante', 'aniversario', 'casal'];
+const { categorias, titleFor } = await usePortfolioCategorias();
 const workPage = '/ensaio-fotografico';
 
 const currentCategory = computed(() => {
   const cat = routeCategory.value;
-  return cat ? { slug: cat, title: PORTFOLIO_CATEGORIAS[cat] ?? cat } : null;
+  return cat ? { slug: cat, title: titleFor(cat) } : null;
 });
 
 const ensaiosByCategory = computed(() => {
   if (props.fromHome || props.category || routeCategory.value) return null;
-  return CATEGORY_ORDER
-    .map((slug) => {
-      const items = ensaiosData.value.filter((item: any) => item.categoria === slug).slice(0, 4);
-      return { title: PORTFOLIO_CATEGORIAS[slug] ?? slug, path: `/ensaio-fotografico/${slug}`, items };
+  return categorias.value
+    .map((c) => {
+      const items = ensaiosData.value.filter((item: any) => item.categoria === c.slug).slice(0, 4);
+      return { title: titleFor(c.slug), path: `/ensaio-fotografico/${c.slug}`, items };
     })
     .filter((g) => g.items.length > 0);
 });

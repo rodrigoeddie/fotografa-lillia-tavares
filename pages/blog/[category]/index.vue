@@ -3,18 +3,21 @@ const cfImg = useCfImg();
 const $route = useRoute();
 const category = $route.params.category as string;
 
-const categoryTitle = BLOG_CATEGORIAS[category] ?? category;
-const fallbackTitle = categoryTitle + ' | BLOG';
-
 // SEO via DB — já aplica todos os meta tags reativamente (useSeoMeta + useHead)
 // Deve ser chamado ANTES de qualquer await
 usePageSeo('static', `/blog/${category}`);
+
+const { categorias, titleFor } = await useBlogCategorias();
+const categoryTitle = computed(() => titleFor(category));
+const categoryDescription = computed(
+  () => categorias.value.find((c) => c.slug === category)?.descricao ?? ''
+);
 
 // Schema.org estruturado para a página de listagem da categoria
 useSchemaOrg([
   defineWebPage({
     '@type': 'CollectionPage',
-    name: fallbackTitle,
+    name: () => categoryTitle.value + ' | BLOG',
     url: `https://fotografalilliatavares.com.br/blog/${category}`,
   })
 ]);
@@ -42,8 +45,11 @@ const formatDate = (date: string) =>
     ]" />
     <div class="category-header">
       <h1 class="title">{{ categoryTitle }}</h1>
+      <p v-if="categoryDescription" class="category-description">{{ categoryDescription }}</p>
     </div>
-  
+
+    <SectionsBlogMenuCategories />
+
     <div class="wrap-posts">
       <article v-for="post in postsData" :key="post.id" class="post-item">
         <NuxtLink
@@ -78,7 +84,7 @@ const formatDate = (date: string) =>
               <Icon
                 name="icons:category"
                 class="icon icon-category"/>
-              <span class="category">{{ post.category.title }}</span>
+              <span class="category">{{ titleFor(post.category.slug) }}</span>
             </NuxtLink>
           </div>
         </div>
@@ -92,6 +98,14 @@ const formatDate = (date: string) =>
   margin: 0 auto 30rem;
   background: white;
   padding: 20px;
+}
+
+.category-description {
+  max-width: 720rem;
+  padding: 10rem 0 5rem;
+  color: v.$green;
+  font-size: 18rem;
+  line-height: 1.6;
 }
 
 :deep(h2) {

@@ -6,16 +6,24 @@ const props = defineProps({
   data: {
     type: Object,
     required: false,
-    default: {
-        title: 'Análise de Coloração Pessoal',
-        subtitle: 'Um presente ainda mais especial',
-        description: `
-            <p>Além do ensaio fotográfico, você pode incluir uma <b>análise de coloração pessoal</b>. Uma experiência única que revela quais cores valorizam a beleza natural, trazendo mais autoestima e confiança.</p>
-            <p>Um momento de cuidado, transformação e carinho que vai muito além das fotos.</p>
-        `,
-    }
+    default: () => ({})
   }
 });
+
+// Defaults por campo: o admin salva '{}' quando os campos ficam vazios, então
+// um default no nível do objeto nunca aplicaria (data é definido e truthy).
+const DEFAULTS = {
+  title: 'Análise de Coloração Pessoal',
+  subtitle: 'Um presente ainda mais especial',
+  description: `
+      <p>Além do ensaio fotográfico, você pode incluir uma <b>análise de coloração pessoal</b>. Uma experiência única que revela quais cores valorizam a beleza natural, trazendo mais autoestima e confiança.</p>
+      <p>Um momento de cuidado, transformação e carinho que vai muito além das fotos.</p>
+  `,
+};
+
+const title = computed(() => props.data?.title || DEFAULTS.title);
+const subtitle = computed(() => props.data?.subtitle || DEFAULTS.subtitle);
+const description = computed(() => props.data?.description || DEFAULTS.description);
 </script>
 
 <template>
@@ -38,9 +46,9 @@ const props = defineProps({
               class="img"/>
         </div>
         <div class="text">
-            <h1 class="title" v-html="props.data?.title"></h1>
-            <p class="subtitle"><b>{{ props.data?.subtitle }}</b></p>
-            <div class="description" v-html="props.data?.description"></div>
+            <h1 class="title" v-html="title"></h1>
+            <p class="subtitle"><b>{{ subtitle }}</b></p>
+            <div class="description" v-html="description"></div>
         </div>
     </NuxtLink>
 </template>

@@ -11,20 +11,19 @@ onMounted(() => {
   }
 });
 
-const CATEGORY_ORDER = ['corporativo', 'sensual-intimista', 'dia-das-maes', 'gestante', 'aniversario', 'casal'];
-
 const { data: portfolioWorks } = await useFetch('/api/public/portfolio');
+const { categorias, titleFor } = await usePortfolioCategorias();
 
 const categories = computed(() => {
   const activeCategories = new Set(
     ((portfolioWorks.value as any[] | null) ?? []).map((w: any) => w.categoria)
   );
-  return CATEGORY_ORDER
-    .filter((slug) => activeCategories.has(slug))
-    .map((slug) => ({
-      slug,
-      title: PORTFOLIO_CATEGORIAS[slug] ?? slug,
-      path: `/ensaio-fotografico/${slug}`,
+  return categorias.value
+    .filter((c) => activeCategories.has(c.slug))
+    .map((c) => ({
+      slug: c.slug,
+      title: titleFor(c.slug),
+      path: `/ensaio-fotografico/${c.slug}`,
     }));
 });
 </script>

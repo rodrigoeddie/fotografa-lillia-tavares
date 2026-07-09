@@ -14,6 +14,8 @@ export const blog_posts = sqliteTable('blog_posts', {
   album:             text(),                  // JSON
   ativo:             integer().notNull().default(1),
   seo_keywords:      text(),                  // JSON
+  works:             text(),                  // slug de categoria do portfolio (seção "ensaios com esse tema")
+  show_schedule:     integer().notNull().default(0),
   criado_em:         text().notNull().default(sql`(datetime('now'))`),
 });
 

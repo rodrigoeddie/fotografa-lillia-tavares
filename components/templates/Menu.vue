@@ -1,8 +1,15 @@
 <script lang="ts" setup>
+interface MenuItem {
+  label: string;
+  path: string;
+  blank: boolean;
+  children?: MenuItem[];
+}
+
 const isMobile = ref(false);
 const isMounted = ref(false);
 
-const { data: menu } = await useFetch<{ label: string; path: string; blank: boolean }[]>('/api/public/menu', {
+const { data: menu } = await useFetch<MenuItem[]>('/api/public/menu', {
   key: 'menu',
 });
 
@@ -36,9 +43,28 @@ const props = defineProps({
 });
 
 const isOpen = ref(false);
+const openSubmenu = ref<number | null>(null);
 
 function toggleMenu() {
     isOpen.value = !isOpen.value;
+    if (!isOpen.value) openSubmenu.value = null;
+}
+
+function toggleSubmenu(idx: number) {
+    openSubmenu.value = openSubmenu.value === idx ? null : idx;
+}
+
+function closeAll() {
+    isOpen.value = false;
+    openSubmenu.value = null;
+}
+
+function onItemEnter(idx: number) {
+    if (!props.fromFooter && !isMobile.value) openSubmenu.value = idx;
+}
+
+function onItemLeave(idx: number) {
+    if (!props.fromFooter && !isMobile.value && openSubmenu.value === idx) openSubmenu.value = null;
 }
 </script>
 
@@ -52,22 +78,66 @@ function toggleMenu() {
             'opened': isOpen,
             'not-opened': !isOpen,
             'hidden': !props.fromFooter && isMounted && isMobile && !isOpen
-          }">
-            <NuxtLink
-              v-for="item in menu"
-              :key="item.path"
-              :to="item.path"
-              :target="item.blank ? '_blank' : undefined"
-              :rel="item.blank ? 'noopener noreferrer' : undefined"
-              class="link"
-              :class="{ 'button': item.blank }"
-              @click="isOpen = false">
-                <span class="txt">{{ item.label }}</span>
-                <Icon
-                    v-if="item.blank"
-                    name="icons:external"
-                    class="icon icon-external"/>
-            </NuxtLink>
+          }"
+          @keydown.escape="openSubmenu = null">
+            <template v-for="(item, idx) in menu" :key="item.path + idx">
+                <div
+                  v-if="item.children?.length"
+                  class="item has-children"
+                  :class="{ 'submenu-open': openSubmenu === idx }"
+                  @mouseenter="onItemEnter(idx)"
+                  @mouseleave="onItemLeave(idx)">
+                    <span class="item-row">
+                        <NuxtLink
+                          :to="item.path"
+                          class="link"
+                          @click="closeAll">
+                            <span class="txt">{{ item.label }}</span>
+                        </NuxtLink>
+                        <button
+                          v-if="!props.fromFooter"
+                          type="button"
+                          class="submenu-toggle"
+                          :aria-expanded="openSubmenu === idx"
+                          :aria-controls="`submenu-${idx}`"
+                          :aria-label="(openSubmenu === idx ? 'Fechar submenu ' : 'Abrir submenu ') + item.label"
+                          @click="toggleSubmenu(idx)">
+                            <span class="chevron" aria-hidden="true"></span>
+                        </button>
+                    </span>
+
+                    <div
+                      v-show="props.fromFooter || openSubmenu === idx"
+                      :id="`submenu-${idx}`"
+                      class="submenu">
+                        <NuxtLink
+                          v-for="child in item.children"
+                          :key="child.path"
+                          :to="child.path"
+                          :target="child.blank ? '_blank' : undefined"
+                          :rel="child.blank ? 'noopener noreferrer' : undefined"
+                          class="sublink"
+                          @click="closeAll">
+                            {{ child.label }}
+                        </NuxtLink>
+                    </div>
+                </div>
+
+                <NuxtLink
+                  v-else
+                  :to="item.path"
+                  :target="item.blank ? '_blank' : undefined"
+                  :rel="item.blank ? 'noopener noreferrer' : undefined"
+                  class="link"
+                  :class="{ 'button': item.blank }"
+                  @click="closeAll">
+                    <span class="txt">{{ item.label }}</span>
+                    <Icon
+                        v-if="item.blank"
+                        name="icons:external"
+                        class="icon icon-external"/>
+                </NuxtLink>
+            </template>
         </nav>
 
         <button
@@ -85,7 +155,7 @@ function toggleMenu() {
 
         <div
           :class="{
-            'opened': isOpen, 
+            'opened': isOpen,
             'not-opened': !isOpen,
             'visible': props.fromFooter || (isOpen && isMobile),
             'hidden': !props.fromFooter && (!isOpen || !isMobile)
@@ -143,6 +213,126 @@ function toggleMenu() {
             visibility: visible;
         }
 
+        .item {
+            position: relative;
+
+            @include m.min(xs) {
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 100%;
+            }
+
+            @include m.max(sm) {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                width: 100%;
+            }
+
+            .item-row {
+                display: inline-flex;
+                align-items: center;
+
+                @include m.min(xs) {
+                    height: 100%;
+                }
+
+                @include m.max(sm) {
+                    justify-content: flex-end;
+                }
+            }
+
+            .submenu-toggle {
+                background: transparent;
+                align-items: center;
+                cursor: pointer;
+                display: flex;
+                border: none;
+                padding: 8rem;
+                color: v.$green;
+
+                @include m.max(sm) {
+                    background: white;
+                    align-self: stretch;
+                    padding: 0 15px;
+                }
+
+                .chevron {
+                    transition: transform .2s;
+                    border-right: 2px solid currentColor;
+                    border-bottom: 2px solid currentColor;
+                    transform: rotate(45deg);
+                    margin-top: -4rem;
+                    display: block;
+                    height: 8rem;
+                    width: 8rem;
+                }
+
+                &[aria-expanded="true"] .chevron {
+                    transform: rotate(-135deg);
+                    margin-top: 4rem;
+                }
+
+                &:hover {
+                    color: v.$dark-green;
+                }
+            }
+
+            .submenu {
+                @include m.min(xs) {
+                    box-shadow: 0 14rem 30rem -12rem rgba(42, 37, 32, 0.35);
+                    border-top: 3rem solid v.$green;
+                    flex-direction: column;
+                    position: absolute;
+                    background: white;
+                    min-width: 240rem;
+                    padding: 10rem 0;
+                    display: flex;
+                    z-index: 10;
+                    top: 100%;
+                    left: 0;
+                }
+
+                @include m.max(sm) {
+                    flex-direction: column;
+                    align-items: flex-end;
+                    position: static;
+                    display: flex;
+                    width: 100%;
+                }
+            }
+
+            .sublink {
+                text-transform: uppercase;
+                font-family: v.$openExtra;
+                transition: background .2s, color .2s;
+                padding: 12rem 20rem;
+                color: v.$green;
+                font-weight: 900;
+                font-size: 16rem;
+                display: block;
+
+                @include m.max(sm) {
+                    background: #f4f2e9;
+                    text-align: right;
+                    padding: 12px 30px;
+                    font-size: 13px;
+                    width: 100%;
+                }
+
+                &:hover,
+                &.router-link-active {
+                    background: #f4f2e9;
+                    color: v.$dark-green;
+
+                    @include m.max(sm) {
+                        background: v.$light-green;
+                    }
+                }
+            }
+        }
+
         .link {
             transition: left .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             color: v.$green;
@@ -155,28 +345,6 @@ function toggleMenu() {
 
             @include m.max(sm) {
                 left: -60px;
-            }
-
-            &:nth-child(1) {
-                transition-delay: .035s;
-            }
-            &:nth-child(2) {
-                transition-delay: .045s;
-            }
-            &:nth-child(3) {
-                transition-delay: .055s;
-            }
-            &:nth-child(4) {
-                transition-delay: .065s;
-            }
-            &:nth-child(5) {
-                transition-delay: .075s;
-            }
-            &:nth-child(6) {
-                transition-delay: .085s;
-            }
-            &:nth-child(7) {
-                transition-delay: .095s;
             }
 
             @include m.max(sm) {
@@ -221,7 +389,7 @@ function toggleMenu() {
                 padding: 15px;
                 height: 27px;
                 left: 18rem;
-                
+
                 @include m.max(sm) {
                     display: inline-table;
                     height: 50px;
@@ -232,6 +400,15 @@ function toggleMenu() {
                       0 1px 0 rgba(42, 37, 32, 0.9),
                       0 14px 30px -12px rgba(42, 37, 32, 0.5),
                       0 4px 10px -4px rgba(42, 37, 32, 0.5);
+                }
+            }
+        }
+
+        @for $i from 1 through 8 {
+            > :nth-child(#{$i}) {
+                &.link,
+                .link {
+                    transition-delay: #{0.025 + $i * 0.01}s;
                 }
             }
         }
@@ -275,7 +452,7 @@ function toggleMenu() {
     &:before {
         @include m.max(sm) {
             content: '';
-            
+
             background: rgba(255, 255, 255, .5);
             transform: translateX(-50%);
             position: absolute;
@@ -298,6 +475,41 @@ function toggleMenu() {
         @include m.max(sm) {
             font-size: 14px;
             width: 100%;
+        }
+
+        .item {
+            flex-direction: column;
+            display: flex;
+
+            @include m.max(sm) {
+                width: 50%;
+            }
+
+            .item-row {
+                display: flex;
+            }
+
+            .submenu {
+                flex-direction: column;
+                display: flex;
+            }
+
+            .sublink {
+                font-family: v.$openExtra;
+                padding: 6rem 18rem 6rem 20rem;
+                color: v.$green;
+                font-size: 14rem;
+                display: block;
+
+                @include m.max(sm) {
+                    padding: 6px 0;
+                }
+
+                &:hover,
+                &.router-link-active {
+                    color: v.$dark-green;
+                }
+            }
         }
 
         .link {
@@ -347,6 +559,12 @@ function toggleMenu() {
                 @include m.max(sm) {
                     display: none;
                 }
+            }
+        }
+
+        .item .link {
+            @include m.max(sm) {
+                width: 100%;
             }
         }
     }
