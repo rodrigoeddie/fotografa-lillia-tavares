@@ -43,7 +43,7 @@
 | hero painel | secundário | `/agende-seu-ensaio` | ok |
 
 **Issues:**
-- [ ] Quick-link "Conheça a Lillia" → `/sobre-fotografa-lillia-tavares` no hero (L11 — ROADMAP P0-B; CTA primário permanece, decisão em [ia-site.md §7](ia-site.md))
+- [x] Quick-link "Conheça a Lillia" → `/sobre-fotografa-lillia-tavares` no hero — feito em 2026-07-09 (L11; CTA primário permanece, decisão em [ia-site.md §7](ia-site.md))
 
 ## /sobre-fotografa-lillia-tavares
 
@@ -58,13 +58,13 @@
 
 **Propósito:** bio e construção de confiança — quem é a fotógrafa, trajetória, por que escolher. Cita coloração e consultoria de imagem.
 
-**Links de entrada:** menu, footer (flat v2 aplicada em 2026-07-09) — regra dos 2 mínimos atendida
+**Links de entrada:** menu, footer, hero da home (quick-link "Conheça a Lillia") — regra dos 2 mínimos superada
 **Links de saída:** [triagem] mapear ao editar a página
 **CTAs:** [triagem] revisar
 
 **Issues:**
 - [x] Entrar no menu flat v2 — feito em 2026-07-09
-- [ ] Quick-link no hero da home (L11 — ROADMAP P0-B)
+- [x] Quick-link no hero da home — feito em 2026-07-09 (L11)
 - [ ] Parágrafo de consultoria de imagem com âncora linkável (L14 — ROADMAP P0-C; estratégia em [ia-site.md §7](ia-site.md))
 
 ## /depoimentos
@@ -106,7 +106,7 @@
 
 **Propósito:** reduzir objeções e cortar atendimento repetitivo no WhatsApp.
 
-**Links de entrada:** menu, footer; futuro: CTA FAQ da página de preços (L12, hoje aponta pro whats)
+**Links de entrada:** menu, footer, CTA FAQ da página de preços (L12 ✅ 2026-07-09)
 **Links de saída:** — [triagem] mapear
 **CTAs:** [triagem] revisar
 
@@ -171,22 +171,22 @@
 | # | Seção | Status | Observação |
 |---|---|---|---|
 | 1 | Lista de posts | ok | |
-| 2 | Lista de categorias | **faltando** | L13 — ROADMAP P0-B |
+| 2 | Lista de categorias | ok | barra `SectionsBlogMenuCategories` (L13 ✅ 2026-07-09) |
 
 **Seções ([category]):**
 | # | Seção | Status | Observação |
 |---|---|---|---|
 | 1 | Lista filtrada | ok | |
-| 2 | Nome da categoria | **bug** | exibe o slug cru ("casamento-intimista" em vez de "Casamento Intimista") — tabela `blog_categorias.titulo` existe mas o front usa mapa hardcoded em `useD1Adapters.ts` — ROADMAP P0-B |
-| 3 | Descrição/conteúdo da categoria | faltando | página "protocolar" — usar `blog_categorias.descricao` — ROADMAP P2 |
+| 2 | Nome da categoria | ok | lido de `blog_categorias.titulo` via `useBlogCategorias` (✅ 2026-07-09) |
+| 3 | Descrição da categoria | ok | exibe `blog_categorias.descricao` quando preenchida (✅ 2026-07-09) |
 
 **Seções ([slug] — post):**
 | # | Seção | Status | Observação |
 |---|---|---|---|
 | 1 | Hero | ok | |
 | 2 | Conteúdo | ok | |
-| 3 | Ensaios com esse tema | **morta** | campos `works`/`showSchedule` do editor são descartados na API (resquício Nuxt Content→D1) — L6, ROADMAP P0-D |
-| 4 | Tinyform | **morta** | mesmo bug (`showSchedule`) — ROADMAP P0-D |
+| 3 | Ensaios com esse tema | religada (código) | migration 027 + campos no form do post (✅ 2026-07-09); **preencher por post via admin** (P0-E) |
+| 4 | Tinyform | religada (código) | switch "Agendamento no fim do post" no admin; ligar nos posts relevantes (P0-E) |
 
 **Links de entrada:** menu, footer
 **CTAs:** por post (ver inventário) — padrão: link educativo + CTA contextual ao fim; Tinyform ao fim quando religado.
@@ -251,8 +251,8 @@
 | # | Seção | Status | Observação |
 |---|---|---|---|
 | 1 | Lista de itens | ok | só "corporativo" e "sensual intimista" têm interna |
-| 2 | Por que investir em fotografia | ok | [ ] componentizar como seção reutilizável (ROADMAP P0-D) |
-| 3 | CTA para FAQ | **bug** | linka pro WhatsApp em vez de `/perguntas-frequentes` (L12 — ROADMAP P0-B) · [ ] componentizar (ROADMAP P0-D) |
+| 2 | Por que investir em fotografia | ok | componentizada: `SectionsGeneralWhyInvest` (✅ 2026-07-09) |
+| 3 | CTA para FAQ | ok | componentizada: `SectionsGeneralCtaFaq` → `/perguntas-frequentes` + whats secundário (L12 ✅ 2026-07-09) |
 
 **Seções ([slug]):** pacotes · o que está incluso — ok
 **Links de entrada:** menu, footer
@@ -275,17 +275,14 @@
 
 **Propósito:** apresentar o estúdio próprio (diferencial competitivo) e vender o aluguel (serviço nº 2).
 
-**Seções (página):** hero, fundo infinito, ambientes, depoimentos, localização mapa+painel (redesign jul/2026)
-| Issue | |
-|---|---|
-| **Não linka o aluguel** | L7 — link de dinheiro nº 2; adicionar seção/CTA "Alugue o estúdio" (ROADMAP P0-B) |
+**Seções (página):** hero, fundo infinito, ambientes, cenários, **CTA aluguel** (`SectionsStudioRentCta`, L7 ✅ 2026-07-09), depoimentos, localização mapa+painel
 
 **Seções (/aluguel):**
 | # | Seção | Status | Observação |
 |---|---|---|---|
 | 1 | Hero | ok | |
 | 2 | Valores | ok | |
-| 3 | Cenários | verificar | [ ] confirmar se reutiliza cenários do admin · [ ] admin precisa de status ativar/desativar (ROADMAP P0-D) |
+| 3 | Cenários | ok | reutiliza o admin (`/api/public/cenarios?slug=estudio`, confirmado); status ativo/inativo por cenário implementado (migration 029, ✅ 2026-07-09) |
 | 4 | Parceiros | ok | |
 | 5 | Mapa | ok | |
 
@@ -334,7 +331,7 @@
 | 1 | Hero | ok | |
 | 2 | Mini portfolio | ok | |
 | 3 | Para quem | ok | keywords: Instagram, advogados... |
-| 4 | Como funciona | **bug** | títulos dos itens em **verde**, tema é azul-marinho (ROADMAP P0-B) |
+| 4 | Como funciona | ok | títulos verdes corrigidos (herança do tema, ✅ 2026-07-09) |
 | 5 | Pacotes | ok | |
 | 6 | Depoimentos | ok | |
 | 7 | CTA | ok | |
@@ -373,9 +370,9 @@
 | 2 | Mini portfolio | ok | |
 | 3 | Como funciona o ensaio | ok | |
 | 4 | Depoimentos | ok | |
-| 5 | CTA presenteie | **bug** | botão **verde**, fora do tema marrom (ROADMAP P0-B) |
+| 5 | CTA presenteie | ok | botão verde corrigido (seletor `.btn` no tema, ✅ 2026-07-09) |
 | 6 | Ideias de presente | ok | keywords SEO |
-| 7 | Coloração pessoal | **bug** | vazia/desconfigurada; com itens vazios deveria cair no conteúdo default e não cai (L10 — ROADMAP P0-B + admin) |
+| 7 | Coloração pessoal | ok | fallback por campo implementado — bloco vazio agora exibe o conteúdo default (L10 ✅ 2026-07-09) |
 | 8 | O estúdio (bloco das LPs) | ok | |
 | 9 | CTA para o hub de presentes | ok | backlink correto |
 
@@ -408,7 +405,7 @@
 
 ## Header / Footer (compartilhados)
 
-- **Menu** (`menu_items`, editável em `/admin/menu`): flat, sem submenu (coluna `parent_id` não existe — feature no ROADMAP P0-D). Itens atuais (flat v2 aplicada em 2026-07-09): Ensaios · Preços · Estúdio · Coloração Pessoal · Sobre · Blog · FAQ · Agende seu ensaio. **Spec e alvo com submenus: [ia-site.md §5–6](ia-site.md).**
+- **Menu** (`menu_items`, editável em `/admin/menu`): **suporta submenus de 1 nível** desde 2026-07-09 (migration 028 `parent_id`; dropdown acessível no desktop, acordeão no mobile, colunas no footer). Itens atuais (flat v2 aplicada em 2026-07-09): Ensaios · Preços · Estúdio · Coloração Pessoal · Sobre · Blog · FAQ · Agende seu ensaio — aninhar é opcional, spec alvo em [ia-site.md §6](ia-site.md).
 - **Footer**: reusa o MESMO componente/tabela do menu + blocos próprios (logo, social Instagram/Email/WhatsApp, CTA agende, endereço, copyright, `/privacidade-e-termos`). Editar o menu atualiza os dois.
 
 ## No-robots (referência)
@@ -426,14 +423,14 @@
 | L3 | Post "Fotos corporativas" | portfolio corporativo + LP corporativo | CTA ao fim do conteúdo | ✅ feito 2026-07-09 (admin) |
 | L4 | Post "Natal 2025" | portfolios natal 2024/2025 | corpo | admin — **bloqueado**: cadastrar portfolios antes |
 | L5 | Post "Dia das mães 2025" | link novo (hoje redirect salva) | corpo | ✅ feito 2026-07-09 (admin) |
-| L6 | Posts em geral | seção "ensaios com esse tema" | fim do post | **código** (seção morta → ROADMAP P0-D) |
-| L7 | Página do estúdio | `/estudio-.../aluguel` | seção/CTA "Alugue o estúdio" | **código** — link de dinheiro nº 2 (P0-B) |
+| L6 | Posts em geral | seção "ensaios com esse tema" | fim do post | ✅ código religado 2026-07-09 (migration 027) — falta preencher o campo nos posts via admin (P0-E) |
+| L7 | Página do estúdio | `/estudio-.../aluguel` | seção/CTA "Alugue o estúdio" | ✅ feito 2026-07-09 (`SectionsStudioRentCta`) |
 | L8 | `/estudio-.../cenarios` + posts | cenário `dia-das-maes-2025` (semi-órfão) | lista de cenários + posts sazonais | admin/verificar |
 | L9 | LP presentes (hub) | LP filha dia-das-maes | bloco "lista de presentes" | ✅ feito 2026-07-09 (item "Dia das Mães" sem ano — decisão em ia-site.md §7) |
-| L10 | LP dia-das-maes (seção coloração) | LP coloração | seção vazia/desconfigurada | **código** (bug do fallback, P0-B) + admin |
-| L11 | menu/footer + hero home | `/sobre` | ✅ item de menu (feito 2026-07-09) · falta quick-link hero (P0-B) | ~~admin~~ + código |
-| L12 | `/precos` CTA "FAQ" | `/perguntas-frequentes` (hoje vai pro whats) | corrigir destino | código (P0-B) |
-| L13 | `/blog` | `/blog/[category]` | lista de categorias inexistente no índice | código (P0-B) |
+| L10 | LP dia-das-maes (seção coloração) | LP coloração | seção vazia/desconfigurada | ✅ fallback corrigido 2026-07-09 (defaults por campo no bloco coloracao) |
+| L11 | menu/footer + hero home | `/sobre` | ✅ item de menu + quick-link "Conheça a Lillia" no hero (2026-07-09) | ✅ completo |
+| L12 | `/precos` CTA "FAQ" | `/perguntas-frequentes` (hoje vai pro whats) | destino corrigido; whats virou link secundário | ✅ feito 2026-07-09 (`SectionsGeneralCtaFaq`) |
+| L13 | `/blog` | `/blog/[category]` | barra de categorias no índice e na categoria | ✅ feito 2026-07-09 (`SectionsBlogMenuCategories`) |
 | L14 | `/sobre` + LP coloração | consultoria de imagem (âncora) | seções novas | admin/conteúdo (P0-C) |
 
 ## Rastreabilidade da auditoria (nota → destino)

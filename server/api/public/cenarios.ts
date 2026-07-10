@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const { slug } = getQuery(event);
 
   if (slug) {
-    return svc.getPaginaComCenariosBySlug(String(slug));
+    return svc.getPaginaComCenariosBySlug(String(slug), true);
   }
-  return svc.listPaginasComCenarios();
+  return svc.listPaginasComCenarios(true);
 });

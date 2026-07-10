@@ -23,7 +23,7 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 | 8. Redesigns | 🟢 Aplicados (jul/2026) | Os 5 redesigns portados para produção |
 | 9. Operacional | 🔴 Frágil | Sem monitoramento de erros, sem e-mail transacional, backup manual |
 | 10. Marketing & conteúdo | 🟡 Em expansão | Hub de presentes, blog de links internos, GBP desatualizado |
-| 11. IA & navegação | 🟡 Em execução (P0) | Menu flat sem hierarquia, /sobre órfã, links internos faltantes, seções mortas no blog |
+| 11. IA & navegação | 🟡 Código pronto (P0-B/D) | Falta operação: migrations 027–029 em produção + deploy + conteúdo dos posts (P0-E) |
 
 ---
 
@@ -131,11 +131,9 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 
 ## 11. IA & navegação (fase atual — P0)
 
-**Estado:** auditoria manual página a página feita em jul/2026 e absorvida em documentação estruturada — estratégia (funil, regras de linking, estratégia de CTA, spec do menu) em [ia-site.md](ia-site.md); estado editorial por rota + matriz de 14 links faltantes (L1–L14) em [paginas.md](paginas.md).
+**Estado (2026-07-09):** auditoria absorvida em [ia-site.md](ia-site.md) + [paginas.md](paginas.md); **P0-B e P0-D executados no código** (verificados em dev com smoke test): categorias de blog/portfolio lidas do D1, barra de categorias no blog, bugs de tema das LPs corrigidos, CTA FAQ dos preços, CTA de aluguel no estúdio, quick-link /sobre no hero, submenus (migration 028 + Menu.vue + editor), seção "ensaios com esse tema"/Tinyform religadas (migration 027), status ativo em cenários (migration 029), seções WhyInvest/CtaFaq componentizadas. **P0-C parcial pelo Rodrigo**: menu flat v2 aplicado, links L1–L3/L5/L9 feitos via admin.
 
-**Achados principais:** menu/footer data-driven (tabela `menu_items`) porém flat, sem submenus; `/sobre` órfã (0 links de entrada); página do estúdio não linka o aluguel (link de dinheiro nº 2); seção "ensaios com esse tema" + Tinyform dos posts mortas (campos `works`/`showSchedule` perdidos na migração Nuxt Content→D1); nomes de categoria exibindo slug cru (front usa mapas hardcoded em vez das tabelas `*_categorias`); bugs de cor de tema em 2 LPs.
-
-**Lacunas / próximo:** executar P0-B (quick-wins de código), P0-C (menu flat v2 + links via admin) e P0-D (submenus, religar seção do blog) do [ROADMAP.md](ROADMAP.md).
+**Lacunas / próximo (P0-E do [ROADMAP.md](ROADMAP.md)):** rodar migrations 027–029 em produção **antes do deploy**; deploy + purge; preencher "ensaios com esse tema"/Tinyform nos posts; opcionalmente aninhar o menu ([ia-site.md §6](ia-site.md)); restam L4 (bloqueado pelos portfolios de Natal), L8 e L14.
 
 ## Documentação — índice e saúde
 

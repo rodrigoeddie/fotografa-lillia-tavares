@@ -17,6 +17,7 @@ interface CenarioForm {
   imagem_exemplo_titulo: string;
   imagem_exemplo_orientacao: string;
   ordem: number;
+  ativo: boolean;
 }
 
 export function useCenarioForm(idParam: Ref<number | undefined>) {
@@ -48,6 +49,7 @@ export function useCenarioForm(idParam: Ref<number | undefined>) {
       imagem_exemplo_titulo: '',
       imagem_exemplo_orientacao: '',
       ordem: cenarios.value.length + 1,
+      ativo: true,
     });
   }
 
@@ -76,6 +78,7 @@ export function useCenarioForm(idParam: Ref<number | undefined>) {
         imagem_exemplo_titulo: c.imagem_exemplo_titulo ?? '',
         imagem_exemplo_orientacao: c.imagem_exemplo_orientacao ?? '',
         ordem: c.ordem ?? 0,
+        ativo: c.ativo !== 0,
       }));
     } catch (e: any) {
       showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');

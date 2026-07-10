@@ -14,14 +14,14 @@
 ### A. Documentação
 - [x] Criar [ia-site.md](ia-site.md) (funil, regras de linking, estratégia de CTA, spec do menu) + [paginas.md](paginas.md) (registro por rota); atualizar sitemap.md, CLAUDE.md e PROJETO.md; deletar `organizacao-das-paginas.md` com rastreabilidade 100% — **feito em 2026-07-09**.
 
-### B. Quick-wins de código (bugs da auditoria)
-- [ ] **Categorias de blog/portfolio lidas do D1** (`blog_categorias.titulo`/`portfolio_categorias.titulo`) em vez dos mapas hardcoded `BLOG_CATEGORIAS`/`PORTFOLIO_CATEGORIAS` em `composables/useD1Adapters.ts` — categorias novas param de aparecer como slug cru.
-- [ ] `/blog`: lista de categorias no índice (L13).
-- [ ] LP corporativo: títulos de "como funciona" verdes no tema azul-marinho.
-- [ ] LP dia-das-maes: botão do CTA "presenteie" verde, fora do tema marrom + seção coloração vazia não cai no conteúdo default (bug do fallback, L10).
-- [ ] `/precos`: CTA "FAQ" aponta pro WhatsApp — corrigir para `/perguntas-frequentes` (L12).
-- [ ] Página do estúdio: seção/CTA linkando `/estudio-.../aluguel` (L7 — **link de dinheiro nº 2**).
-- [ ] Hero home: quick-link "Conheça a Lillia" → `/sobre` (CTA primário permanece `/agende-seu-ensaio`; L11).
+### B. Quick-wins de código (bugs da auditoria) ✅ **executados em 2026-07-09** (verificados em dev)
+- [x] **Categorias de blog/portfolio lidas do D1** — novo `composables/useCategorias.ts` (`useBlogCategorias`/`usePortfolioCategorias`, fallback pros mapas antigos); aplicado em blog index/categoria e portfolio List/MenuCategories. "Casamento Intimista" deixou de aparecer como slug cru.
+- [x] `/blog`: barra de categorias no índice e na página de categoria (novo `SectionsBlogMenuCategories`) + descrição da categoria (`blog_categorias.descricao`) exibida (L13).
+- [x] LP corporativo: títulos de "como funciona" seguiam o verde global de `.subtitle` (_objects.scss) — corrigido com `color: inherit` nos temas (corporativo E dia-das-maes).
+- [x] LP dia-das-maes/presentes: override de botão mirava `.btn-cta`, classe que não existe no template (`CtaContact.vue` usa `.btn`) — seletor corrigido; bloco coloração ganhou defaults por campo (o admin salva `{}`, que nunca ativava o default do prop) (L10).
+- [x] `/precos`: CTA "Ainda tem dúvidas?" agora leva a `/perguntas-frequentes` com WhatsApp como link secundário (L12).
+- [x] Página do estúdio: novo `SectionsStudioRentCta` linkando `/estudio-.../aluguel` (L7 — **link de dinheiro nº 2**).
+- [x] Hero home: quick-link "Conheça a Lillia" → `/sobre` (`cta-ver-sobre` trackeado; CTA primário permanece; L11).
 
 ### C. Conteúdo e links via admin (sem dev) — detalhes em [paginas.md](paginas.md)
 - [x] **Menu flat v2** via `/admin/menu` (spec em [ia-site.md §5](ia-site.md)) — **feito em 2026-07-09** pelo Rodrigo. Conferir purge de cache (`/admin/cache`) e o footer.
@@ -30,11 +30,18 @@
 - [ ] Seção "consultoria de imagem" na LP de coloração + parágrafo com âncora na `/sobre`.
 - [ ] FAQ: inserir os dados pendentes.
 
-### D. Features de navegação (dev)
-- [ ] **Submenus**: migration `parent_id` em `menu_items` + `MenuEditor.vue` com aninhamento (1 nível) + `Menu.vue` dropdown acessível (aria-expanded/controls, teclado) + acordeão mobile + footer em colunas — spec em [ia-site.md §6](ia-site.md).
-- [ ] **Religar "ensaios com esse tema" + Tinyform do post** (L6): colunas `works`/`show_schedule` na `blog_posts` (migration), persistir nos handlers admin (`server/api/admin/blog/index.ts` e `[id].ts` descartam os campos hoje), expor no `adaptBlogPost` — resquício da migração Nuxt Content→D1; o editor já tem os campos.
-- [ ] Cenários: status ativo/inativo no admin + confirmar reuso na página de aluguel.
-- [ ] Componentizar "porque investir em fotografia" e "CTA FAQ" (seções repetidas — candidatas conforme regra dos 3+ usos).
+### D. Features de navegação (dev) ✅ **código pronto em 2026-07-09**
+- [x] **Submenus**: migration 028 (`parent_id` em `menu_items`) + `MenuService.tree()`/`replace()` aninhado + `Menu.vue` com dropdown acessível (aria-expanded/controls, Escape, hover no desktop, acordeão no mobile) + footer em colunas + `MenuEditor.vue` com subitens (＋Sub / ▲▼). Menu flat atual renderiza idêntico — aninhar é opcional via `/admin/menu` (spec alvo em [ia-site.md §6](ia-site.md)).
+- [x] **Religar "ensaios com esse tema" + Tinyform do post** (L6): migration 027 (`works`/`show_schedule` em `blog_posts`) + handlers admin + `useBlogPostForm` + campos no form de post (select de categoria de portfolio + switch) + `adaptBlogPost`. O editor legado `components/admin/BlogEditor.vue` (era fs/Nuxt Content) segue órfão — arquivar no P4.
+- [x] Cenários: migration 029 (`ativo`) + toggle no admin + endpoints públicos filtram `ativo=1`. Reuso no aluguel **confirmado**: a página já consome `/api/public/cenarios?slug=estudio`.
+- [x] Componentizar: `SectionsGeneralWhyInvest` ("porque investir") e `SectionsGeneralCtaFaq` extraídos de `precos/List.vue`, reutilizáveis em outras páginas.
+
+### E. Operação para publicar o P0-B/D (ordem importa)
+- [ ] **Rodar migrations 027–029 em produção** (backup antes): `bun run migrate:status` → backup → `bun run migrate:prod` → `bun run migrate:preview`. **Aplicar ANTES do deploy** — o código novo seleciona as colunas novas.
+- [ ] Deploy + purge de cache (`/admin/cache`).
+- [ ] No `/admin/menu`: aninhar o menu conforme [ia-site.md §6](ia-site.md) quando quiser ativar os submenus (opcional — flat continua funcionando).
+- [ ] Nos posts do blog: preencher "Ensaios com esse tema" + ligar o Tinyform nos posts relevantes (fecha o L6 de conteúdo).
+- [ ] Testar em produção: /blog (barra de categorias), /blog/casamento-intimista (título), LP corporativo (títulos azuis), LP dia-das-maes (botão marrom + seção coloração com default), /precos (CTA FAQ), página do estúdio (CTA aluguel), hero (Conheça a Lillia).
 
 ## P1 — Go-live dos pagamentos SumUp (próxima fase; era P0)
 

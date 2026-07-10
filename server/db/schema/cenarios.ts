@@ -21,6 +21,7 @@ export const cenarios = sqliteTable('cenarios', {
   imagem_exemplo_titulo:      text(),
   imagem_exemplo_orientacao:  text(),
   ordem:                      integer().notNull().default(0),
+  ativo:                      integer().notNull().default(1),
 }, (t) => ({
   paginaIdx: index('idx_cenarios_pagina').on(t.pagina_id),
 }));

@@ -35,6 +35,7 @@ export default defineEventHandler(async (event) => {
           imagem_exemplo_titulo: c.imagem_exemplo_titulo ?? null,
           imagem_exemplo_orientacao: c.imagem_exemplo_orientacao ?? null,
           ordem: i + 1,
+          ativo: c.ativo === false ? 0 : 1,
         });
       }
     }

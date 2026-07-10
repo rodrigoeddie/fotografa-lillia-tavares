@@ -1,4 +1,4 @@
-import { eq, asc } from 'drizzle-orm';
+import { eq, and, asc } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import {
   cenario_paginas,
@@ -40,8 +40,11 @@ export class CenarioService {
 
   // ── Cenários ──────────────────────────────────────────────
 
-  listByPagina(paginaId: number) {
-    return this.db.select().from(cenarios).where(eq(cenarios.pagina_id, paginaId)).orderBy(asc(cenarios.ordem));
+  listByPagina(paginaId: number, onlyAtivo = false) {
+    const where = onlyAtivo
+      ? and(eq(cenarios.pagina_id, paginaId), eq(cenarios.ativo, 1))
+      : eq(cenarios.pagina_id, paginaId);
+    return this.db.select().from(cenarios).where(where).orderBy(asc(cenarios.ordem));
   }
 
   async getById(id: number) {
@@ -63,16 +66,16 @@ export class CenarioService {
 
   // ── Composições ───────────────────────────────────────────
 
-  async listPaginasComCenarios() {
+  async listPaginasComCenarios(onlyAtivo = false) {
     const paginas = await this.listPaginas();
     return Promise.all(
-      paginas.map(async (p) => ({ ...p, cenarios: await this.listByPagina(p.id) })),
+      paginas.map(async (p) => ({ ...p, cenarios: await this.listByPagina(p.id, onlyAtivo) })),
     );
   }
 
-  async getPaginaComCenariosBySlug(slug: string) {
+  async getPaginaComCenariosBySlug(slug: string, onlyAtivo = false) {
     const pagina = await this.getPaginaBySlug(slug);
     if (!pagina) return null;
-    return { ...pagina, cenarios: await this.listByPagina(pagina.id) };
+    return { ...pagina, cenarios: await this.listByPagina(pagina.id, onlyAtivo) };
   }
 }

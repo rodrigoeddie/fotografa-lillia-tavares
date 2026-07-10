@@ -53,6 +53,10 @@ onMounted(init);
         <div v-for="(c, i) in cenarios" :key="i" class="cenario-block">
           <div class="cenario-block-header">
             <strong>{{ i + 1 }}. {{ c.titulo || '(sem título)' }}</strong>
+            <label class="ativo-toggle" :title="c.ativo ? 'Visível no site' : 'Oculto do site'">
+              <input type="checkbox" v-model="c.ativo" />
+              <span>{{ c.ativo ? 'Ativo' : 'Inativo' }}</span>
+            </label>
             <button class="btn-icon btn-danger" @click="removeCenario(i)">🗑</button>
           </div>
           <div class="form-grid">
@@ -150,5 +154,20 @@ onMounted(init);
   max-width: 200px;
   border-radius: 6px;
   margin-top: 0.5rem;
+}
+
+.ativo-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  margin-right: 12px;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+
+  input:checked + span {
+    color: #4ade80;
+  }
 }
 </style>
