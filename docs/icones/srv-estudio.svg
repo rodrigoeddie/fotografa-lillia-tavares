@@ -1,0 +1,9 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- softbox no tripé — serviço: estúdio / aluguel -->
+  <path d="M14.5 8.5l17-1.5-1.5 15-16.5 1.5z" fill="#DFDCC6"/>
+  <path d="M13 7.5l17.5-1.6-1.6 15.4-17.3 1.6z" stroke="#35331F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M13 7.5l14.3 12.2M30.4 6l-15.6 13.3" stroke="#35331F" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M21 22.5l.8 6.5" stroke="#35331F" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M21.8 29l-7.3 12.5M21.8 29l7.6 12.5M21.8 29l-.3 13" stroke="#35331F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="21.8" cy="29" r="2.2" fill="#B06F5E" stroke="#35331F" stroke-width="1.6"/>
+</svg>

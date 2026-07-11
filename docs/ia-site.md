@@ -69,26 +69,35 @@ Menu e footer compartilham a tabela `menu_items` — uma edição resolve os doi
 
 ## 6. Spec do menu — alvo com submenus (exige dev; 1 nível, máximo)
 
-Grupos na ordem exata da prioridade de negócio (§1):
+Cinco grupos na ordem exata da prioridade de negócio (§1). Os quatro primeiros abrem dropdown; o quinto é o CTA (sem submenu).
 
-```
-Ensaios                          Estúdio                         Imagem & Estilo         Sobre                     [CTA] Agende seu ensaio
-├─ Portfólio                     ├─ Conheça o estúdio            ├─ Análise de           ├─ A fotógrafa Lillia
-│  /ensaio-fotografico           │  /estudio-fotografico-...     │  coloração pessoal    ├─ Depoimentos
-├─ Preços e pacotes              ├─ Aluguel do estúdio           └─ Consultoria de       ├─ Blog
-│  /precos-ensaios-...           │  /estudio-.../aluguel            imagem (futuro,      └─ FAQ
-├─ Ensaio corporativo            └─ Cenários                        ver §7)
-│  /ensaio-profissional-...         /estudio-.../cenarios
-└─ Presenteie um ensaio
-   /presente-ensaio-...-mogi
-```
+**1. Ensaios** — grupo âncora (prioridade nº 1)
+- Portfólio → `/ensaio-fotografico`
+- Preços e pacotes → `/precos-ensaios-fotograficos`
+- Ensaio corporativo → `/ensaio-profissional-em-mogi`
+- Presenteie um ensaio → `/presente-ensaio-fotografico-mogi`
 
-**Escopo técnico** (item do ROADMAP P0-D):
-- Migration: coluna `parent_id INTEGER NULL REFERENCES menu_items(id)` em `menu_items`.
-- `MenuEditor.vue`: aninhamento de 1 nível no drag-and-drop (hoje é lista plana).
-- `Menu.vue`: dropdown acessível — `aria-expanded`/`aria-controls`, navegação por teclado, hover + click — e acordeão no mobile.
-- Footer: renderizar grupos como colunas (o footer P3 split assimétrico já aplicado comporta isso).
-- Ao ativar: atualizar esta seção (a flat v2 vira histórico) e o campo "No menu" dos registros em [paginas.md](paginas.md).
+**2. Estúdio** — prioridade nº 2
+- Conheça o estúdio → `/estudio-fotografico-em-mogi-das-cruzes`
+- Aluguel do estúdio → `/estudio-fotografico-em-mogi-das-cruzes/aluguel`
+- Cenários → `/estudio-fotografico-em-mogi-das-cruzes/cenarios`
+
+**3. Imagem & Estilo** — prioridade nº 3
+- Análise de coloração pessoal → `/analise-coloracao-pessoal-em-mogi`
+- Consultoria de imagem → `/consultoria-de-imagem-em-mogi` (página criada em 2026-07-11 — ver §7)
+
+**4. Sobre** — resolve a página órfã + descoberta
+- A fotógrafa Lillia → `/sobre-fotografa-lillia-tavares`
+- Depoimentos → `/depoimentos`
+- Blog → `/blog`
+- FAQ → `/perguntas-frequentes`
+
+**5. Agende seu ensaio** `[CTA]` → `/agende-seu-ensaio` — botão destacado, sem dropdown
+
+**Estado técnico:**
+- Código pronto desde 2026-07-09 (ROADMAP P0-D ✓): migration 028 (`parent_id`), `MenuService.tree()/replace()`, dropdown acessível no `Menu.vue`, footer em colunas, `MenuEditor.vue` com subitens.
+- **Dados: migration `030_menu_submenus_seed.sql` (2026-07-11)** aplica exatamente a estrutura acima (delete-all + reinsert). Aplicar com `migrate:prod`/`migrate:preview` + purge de cache (`/admin/cache`). Depois de aplicada, o menu segue editável em `/admin/menu` e a flat v2 (§5) vira histórico.
+- Pendência menor: o destaque visual do CTA (item 5) — hoje `Menu.vue` só estiliza como botão itens com `blank=true`; o CTA interno renderiza como link comum (igual ao comportamento atual em produção).
 
 ## 7. Decisões de IA tomadas
 
@@ -96,6 +105,7 @@ Registro para não re-discutir. Novas decisões entram aqui com data.
 
 - **2026-07-09 — NÃO criar rota `/servicos`.** O grupo "serviços" do menu com submenus **é** a taxonomia — visível em todas as páginas, sem custo de mais uma página. `/servicos` seria uma doorway page sem keyword (ninguém busca "serviços"; buscam "ensaio fotográfico em mogi", "aluguel de estúdio fotográfico", "análise de coloração pessoal") e forçaria um `/servicos/ensaio-fotografico` colidindo semanticamente com o portfolio `/ensaio-fotografico`. As páginas de dinheiro já existem por keyword (tabela §1) — o trabalho de IA é interligá-las, não adicionar camada de hierarquia.
 - **2026-07-09 — Hero da home mantém `/agende-seu-ensaio` como CTA primário.** Parte do tráfego da home é morno (GBP, indicação, retorno de LP) e está pronto para converter — tirar a conversão do hero perde esse fluxo. A página `/sobre` sai da orfandade por menu (flat v2, item 5), footer (mesma tabela) e quick-link "Conheça a Lillia" no hero (task P0-B). Cliques já são rastreados (`data-track-event="cta-agendar-home"`) — se o GA4 mostrar outro padrão, reavaliar.
-- **2026-07-09 — Consultoria de imagem em 3 tempos.** (1) Agora: seção de upsell na LP de coloração (coloração → consultoria é o upsell natural) + parágrafo com âncora na `/sobre` + item futuro no submenu "Imagem & Estilo" apontando para a âncora. (2) LP própria (`/consultoria-de-imagem-em-mogi`, via admin) **somente quando houver oferta/preço definidos** (decisão pendente #8 do ROADMAP). (3) Nunca criar rota fina sem oferta — página sem preço/pacote não converte nem rankeia.
+- **2026-07-11 — Consultoria de imagem: página própria criada (supera a decisão #8 e o "3 tempos" abaixo).** Rodrigo decidiu antecipar a LP própria: `/consultoria-de-imagem-em-mogi` (página estática, SEO seed na migration 031) com dois pacotes — consultoria solo e combo coloração + consultoria — com **valores fictícios** até a Lillia definir a oferta real. Entra no submenu "Imagem & Estilo" (migration 030). Links de entrada: menu + intro e cross-sell da LP de coloração (metade do L14). Pendências: confirmar preços reais, foto própria (hoje reusa a da coloração), parágrafo com âncora na `/sobre` (outra metade do L14).
+- **2026-07-09 — Consultoria de imagem em 3 tempos.** *(superada em 2026-07-11 — ver acima)* (1) Agora: seção de upsell na LP de coloração (coloração → consultoria é o upsell natural) + parágrafo com âncora na `/sobre` + item futuro no submenu "Imagem & Estilo" apontando para a âncora. (2) LP própria (`/consultoria-de-imagem-em-mogi`, via admin) **somente quando houver oferta/preço definidos** (decisão pendente #8 do ROADMAP). (3) Nunca criar rota fina sem oferta — página sem preço/pacote não converte nem rankeia.
 - **2026-07-09 — Coloração pessoal fica na rota própria de LP** (`/analise-coloracao-pessoal-em-mogi`, keyword própria) — nem filha de `/servicos`, nem de `/sobre`.
 - **2026-07-09 — Itens do hub de presentes (lista de ocasiões) nunca levam ano no rótulo.** Cada ocasião (Dia das Mães, e futuramente Natal, aniversário, casais/dia dos namorados) é infraestrutura evergreen — reaproveitada todo ano, slug sem ano (`.../dia-das-maes`). Rotular como "Dia das Mães 2027" confunde quem visita fora de temporada. O ano só aparece em conteúdo datado de verdade (posts de blog de campanha, ex. "Nosso cenário do dia das mães 2025"). O link do hub para a ocasião permanece sempre ativo, mesmo fora de estação (regra de linking §3.6).

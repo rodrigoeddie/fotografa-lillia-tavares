@@ -108,8 +108,8 @@ const steps = [
           valoriza a expressão e simplifica decisões diárias do guarda-roupa.
         </p>
         <p class="description">
-          Combinada com a consultoria de imagem, ela vira ferramenta de posicionamento: alinha visual
-          com mensagem, intenção com presença.
+          Combinada com a <NuxtLink to="/consultoria-de-imagem-em-mogi">consultoria de imagem</NuxtLink>,
+          ela vira ferramenta de posicionamento: alinha visual com mensagem, intenção com presença.
         </p>
       </div>
     </section>
@@ -184,6 +184,7 @@ const steps = [
       </p>
       <div class="c-crosssell__actions">
         <NuxtLink to="/ensaio-fotografico" class="btn">Ver ensaios fotográficos</NuxtLink>
+        <NuxtLink to="/consultoria-de-imagem-em-mogi" class="btn btn-white">Conhecer a consultoria de imagem</NuxtLink>
         <NuxtLink to="/presente-ensaio-fotografico-mogi" class="btn btn-white">Presentear com ensaio + coloração</NuxtLink>
       </div>
     </section>

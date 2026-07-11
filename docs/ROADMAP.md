@@ -27,7 +27,7 @@
 - [x] **Menu flat v2** via `/admin/menu` (spec em [ia-site.md §5](ia-site.md)) — **feito em 2026-07-09** pelo Rodrigo. Conferir purge de cache (`/admin/cache`) e o footer.
 - [ ] Executar matriz de links (detalhe em paginas.md): ✅ L1, L2 (interim), L3, L5, L9 — feitos em 2026-07-09; restam **L8** (cenário semi-órfão), **L14** (âncoras de consultoria) e **L4** (bloqueado pelos portfolios de Natal).
 - [ ] Cadastrar portfolios **Natal 2024/2025** (desbloqueia L4, prepara campanha Natal 2026).
-- [ ] Seção "consultoria de imagem" na LP de coloração + parágrafo com âncora na `/sobre`.
+- [ ] ~~Seção "consultoria de imagem" na LP de coloração~~ **metade feita em 2026-07-11** (links na intro + cross-sell da coloração para a **página própria** `/consultoria-de-imagem-em-mogi`, criada — decisão #8 superada); resta o parágrafo com âncora na `/sobre`.
 - [ ] FAQ: inserir os dados pendentes.
 
 ### D. Features de navegação (dev) ✅ **código pronto em 2026-07-09**
@@ -37,11 +37,10 @@
 - [x] Componentizar: `SectionsGeneralWhyInvest` ("porque investir") e `SectionsGeneralCtaFaq` extraídos de `precos/List.vue`, reutilizáveis em outras páginas.
 
 ### E. Operação para publicar o P0-B/D (ordem importa)
-- [ ] **Rodar migrations 027–029 em produção** (backup antes): `bun run migrate:status` → backup → `bun run migrate:prod` → `bun run migrate:preview`. **Aplicar ANTES do deploy** — o código novo seleciona as colunas novas.
-- [ ] Deploy + purge de cache (`/admin/cache`).
-- [ ] No `/admin/menu`: aninhar o menu conforme [ia-site.md §6](ia-site.md) quando quiser ativar os submenus (opcional — flat continua funcionando).
+- [ ] **Rodar migrations 027–031 em produção** (backup antes): `bun run migrate:status` → backup → `bun run migrate:prod` → `bun run migrate:preview`. **Aplicar ANTES do deploy** — o código novo seleciona as colunas novas. ⚠️ A **030 substitui o menu inteiro** pela estrutura aninhada do §6 (era o passo manual do /admin/menu, agora automatizado); a **031** semeia o SEO da página de consultoria.
+- [ ] Deploy + purge de cache (`/admin/cache`) — obrigatório após a 030 (menu tem s-maxage=3600).
 - [ ] Nos posts do blog: preencher "Ensaios com esse tema" + ligar o Tinyform nos posts relevantes (fecha o L6 de conteúdo).
-- [ ] Testar em produção: /blog (barra de categorias), /blog/casamento-intimista (título), LP corporativo (títulos azuis), LP dia-das-maes (botão marrom + seção coloração com default), /precos (CTA FAQ), página do estúdio (CTA aluguel), hero (Conheça a Lillia).
+- [ ] Testar em produção: /blog (barra de categorias), /blog/casamento-intimista (título), LP corporativo (títulos azuis), LP dia-das-maes (botão marrom + seção coloração com default), /precos (CTA FAQ), página do estúdio (CTA aluguel), hero (Conheça a Lillia), **menu com submenus (desktop hover + mobile acordeão + footer em colunas)**, **/consultoria-de-imagem-em-mogi (title/canonical/JSON-LD + links da coloração)**.
 
 ## P1 — Go-live dos pagamentos SumUp (próxima fase; era P0)
 
@@ -79,7 +78,7 @@
 - [ ] Post Natal 2024: expandir conteúdo (muito curto).
 - [ ] Páginas internas dos demais preços (`/precos-ensaios-fotograficos/[slug]` faltantes).
 - [ ] Página de aluguel do estúdio: revisar conteúdo/SEO (a rota existe; links de entrada resolvidos no P0 — L7).
-- [ ] LP de consultoria de imagem quando houver oferta definida (decisão #8).
+- [x] LP de consultoria de imagem — **página criada em 2026-07-11** (`/consultoria-de-imagem-em-mogi`) com **valores fictícios**; falta oferta/preço reais (decisão #8) + foto própria.
 - [ ] Atualizar produtos no Google Business Profile (+ campanhas sazonais: dia das mães, natal, namorados).
 
 ### Ads (quando o orgânico + pagamentos estiverem rodando)
@@ -122,7 +121,7 @@
 5. **Ads:** verba e momento de entrada; Google Ads primeiro ou Meta? (P2)
 6. ~~Hero da home: trocar CTA por /sobre?~~ **Resolvido (2026-07-09):** mantém `/agende-seu-ensaio` como CTA primário; `/sobre` exposta via menu + quick-link (racional em [ia-site.md §7](ia-site.md)).
 7. **Chatbot de atendimento** com os dados do site: vale o custo/manutenção agora? (backlog — reavaliar depois do P0/P1)
-8. **Consultoria de imagem:** definir oferta/preço para justificar LP própria (até lá: seção na LP de coloração + âncora na /sobre).
+8. **Consultoria de imagem:** página própria criada em 2026-07-11 com **valores fictícios** (solo R$ 590 · combo coloração+consultoria R$ 890) — falta a Lillia definir a oferta/preço reais e atualizar `pages/consultoria-de-imagem-em-mogi/index.vue` (+ foto própria).
 9. **Lead magnet (e-book + form de e-mail marketing):** pré-requisito técnico é o e-mail transacional (P4); decidir tema do e-book e ferramenta de disparo.
 10. ~~Criar rota /servicos?~~ **Resolvido (2026-07-09): não criar** — racional em [ia-site.md §7](ia-site.md).
 

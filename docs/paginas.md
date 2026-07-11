@@ -310,7 +310,42 @@
 **CTAs:** CTA do bloco da LP — ok
 
 **Issues:**
-- [ ] Seção de upsell "Consultoria de imagem" (L14 — ROADMAP P0-C; LP própria só quando houver oferta, decisão #8)
+- [x] Links para a consultoria de imagem: intro (âncora no parágrafo) + botão no cross-sell — feito 2026-07-11 (metade da L14; a LP própria existe desde 2026-07-11, decisão #8 superada)
+
+## /consultoria-de-imagem-em-mogi
+
+| Campo | Valor |
+|---|---|
+| Tipo | estatica |
+| Funil | conversao |
+| Serviço | consultoria |
+| Status | incompleta (valores fictícios) |
+| Keyword | "consultoria de imagem mogi das cruzes" |
+| No menu | sim (submenu "Imagem & Estilo", migration 030) |
+
+**Propósito:** página do serviço de consultoria de imagem (decisão #8 superada em 2026-07-11 — racional em [ia-site.md §7](ia-site.md)). Vende a consultoria solo e o combo com coloração.
+
+**Seções:**
+| # | Seção | Status | Observação |
+|---|---|---|---|
+| 1 | Intro (foto circular + voz-lillia) | incompleta | foto reusa a da coloração — trocar quando houver foto própria |
+| 2 | Benefícios (4 cards) | ok | |
+| 3 | Como funciona | ok | reusa `LandingsHowWorks` |
+| 4 | Pacotes (2× `BlocksPricingCard`) | **incompleta** | **valores FICTÍCIOS** (R$ 590 / combo R$ 890) — confirmar oferta real |
+| 5 | Para quem é | ok | |
+| 6 | Cross-sell (coloração + ensaios) | ok | |
+| 7 | FAQ (4 itens + FAQPage JSON-LD) | ok | |
+| 8 | CTA final (rose-deep, WhatsApp) | ok | |
+
+**Links de entrada:** menu (submenu Imagem & Estilo, migration 030), LP coloração (intro + cross-sell) — regra dos 2 mínimos ok
+**Links de saída:** `/analise-coloracao-pessoal-em-mogi`, `/ensaio-fotografico`, WhatsApp (pacotes + CTA)
+**CTAs:** âncora #pacotes no intro; WhatsApp nos pacotes e no CTA final — ok (conversão: sem Tinyform)
+
+**Issues:**
+- [ ] **Valores fictícios** — definir oferta/preço reais com a Lillia e atualizar a página (resto da decisão #8)
+- [ ] Foto própria da consultoria (hoje reusa a imagem da coloração)
+- [ ] Parágrafo com âncora na `/sobre` linkando para cá (outra metade da L14)
+- [ ] SEO seed via migration 031 — refinar og_image/score depois via `/admin/seo`
 
 ## /ensaio-profissional-em-mogi
 
@@ -405,7 +440,7 @@
 
 ## Header / Footer (compartilhados)
 
-- **Menu** (`menu_items`, editável em `/admin/menu`): **suporta submenus de 1 nível** desde 2026-07-09 (migration 028 `parent_id`; dropdown acessível no desktop, acordeão no mobile, colunas no footer). Itens atuais (flat v2 aplicada em 2026-07-09): Ensaios · Preços · Estúdio · Coloração Pessoal · Sobre · Blog · FAQ · Agende seu ensaio — aninhar é opcional, spec alvo em [ia-site.md §6](ia-site.md).
+- **Menu** (`menu_items`, editável em `/admin/menu`): **suporta submenus de 1 nível** desde 2026-07-09 (migration 028 `parent_id`; dropdown acessível no desktop, acordeão no mobile, colunas no footer). **Migration `030_menu_submenus_seed.sql` (2026-07-11) troca a flat v2 pela estrutura aninhada do [ia-site.md §6](ia-site.md)** (5 grupos: Ensaios · Estúdio · Imagem & Estilo · Sobre · CTA Agende) — já aplicada no banco local; produção/preview via `migrate:prod`/`migrate:preview` + purge de cache. Após aplicar, atualizar os campos "No menu" das rotas que entram em submenu (depoimentos, ensaio-profissional, presente hub).
 - **Footer**: reusa o MESMO componente/tabela do menu + blocos próprios (logo, social Instagram/Email/WhatsApp, CTA agende, endereço, copyright, `/privacidade-e-termos`). Editar o menu atualiza os dois.
 
 ## No-robots (referência)
@@ -431,7 +466,7 @@
 | L11 | menu/footer + hero home | `/sobre` | ✅ item de menu + quick-link "Conheça a Lillia" no hero (2026-07-09) | ✅ completo |
 | L12 | `/precos` CTA "FAQ" | `/perguntas-frequentes` (hoje vai pro whats) | destino corrigido; whats virou link secundário | ✅ feito 2026-07-09 (`SectionsGeneralCtaFaq`) |
 | L13 | `/blog` | `/blog/[category]` | barra de categorias no índice e na categoria | ✅ feito 2026-07-09 (`SectionsBlogMenuCategories`) |
-| L14 | `/sobre` + LP coloração | consultoria de imagem (âncora) | seções novas | admin/conteúdo (P0-C) |
+| L14 | `/sobre` + LP coloração | consultoria de imagem | seções novas | ✅ metade LP coloração feita 2026-07-11 (links diretos para `/consultoria-de-imagem-em-mogi`, que agora existe); resta o parágrafo com âncora na `/sobre` |
 
 ## Rastreabilidade da auditoria (nota → destino)
 

@@ -13,6 +13,7 @@ Mapa de todas as rotas e quais APIs/services alimentam cada uma. Fonte autoritat
 | `/depoimentos` | Galeria de testemunhos | `/api/public/depoimentos` (DepoimentoService) |
 | `/perguntas-frequentes` | FAQ geral | `/api/public/faq` (FaqService) |
 | `/agende-seu-ensaio` | Formulário + mapa | estática |
+| `/consultoria-de-imagem-em-mogi` | Consultoria de imagem (pacotes + combo com coloração) | estática + `usePageSeo` (seed migration 031) |
 | `/privacidade-e-termos` | Políticas | estática |
 | `/links` | Linktree (bio Instagram, tracking de cliques) — `noindex` | `/api/public/linktree` |
 

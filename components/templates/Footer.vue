@@ -165,7 +165,7 @@
         }
 
         .cta-heading {
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: v.$serif-pessoal;
             font-style: italic;
             font-weight: 400;
             color: v.$cream;

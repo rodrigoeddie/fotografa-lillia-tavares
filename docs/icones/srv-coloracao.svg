@@ -1,0 +1,8 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- leque de cartelas — serviço: análise de coloração pessoal -->
+  <path d="M12 40.5l-4.2-19.8c2.4-1.4 5-2.2 7.8-2.4l4 19.5z" fill="#7B785B" stroke="#35331F" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M19.6 37.8l-1.9-20.1c2.7-.7 5.4-.8 8.1-.4l1.6 20z" fill="#DFDCC6" stroke="#35331F" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M27.4 37.3l1.9-20c2.8.5 5.4 1.5 7.7 3l-2.2 19.7z" fill="#E3BCAE" stroke="#35331F" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M34.8 40l4.4-16.5c1.6 1.3 3 2.9 4.1 4.7L39.7 41.6z" fill="#B06F5E" stroke="#35331F" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="12.6" cy="24.4" r="1.4" fill="#F7F4E8"/>
+</svg>

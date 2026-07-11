@@ -40,5 +40,12 @@ $open: 'Lato', arial;
 $lato: 'Lato', arial;
 $openExtra: 'Lato', arial;
 
+/* voz pessoal — serif itálica para quando o texto é a Lillia falando
+   (ver docs/design-system.md §Tipografia; classe .voz-lillia em _objects.scss) */
+$serif-pessoal: Georgia, 'Times New Roman', Times, serif;
+
+/* manuscrita do logo — uso pontual/decorativo (assinaturas, detalhes) */
+$manuscrita: 'The Girl Next Door', cursive;
+
 $space: 20rem;
 $bigSpace: 35rem;

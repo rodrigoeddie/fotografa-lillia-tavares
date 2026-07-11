@@ -14,8 +14,11 @@
   font-weight: 900;
 }
 
+/* Voz da Lillia — texto pessoal/acolhedor em primeira pessoa ou citação.
+   Regras de uso em docs/design-system.md. `.hm` é alias legado (não usar em código novo). */
+.voz-lillia,
 .hm {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: v.$serif-pessoal;
   font-style: italic;
 }
 

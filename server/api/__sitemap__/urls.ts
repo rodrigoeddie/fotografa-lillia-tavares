@@ -13,6 +13,7 @@ const STATIC_ROUTES = [
   '/perguntas-frequentes',
   '/agende-seu-ensaio',
   '/analise-coloracao-pessoal-em-mogi',
+  '/consultoria-de-imagem-em-mogi',
   '/blog',
   '/ensaio-fotografico',
   '/estudio-fotografico-em-mogi-das-cruzes',

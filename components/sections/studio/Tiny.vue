@@ -20,7 +20,7 @@
           Conheça nosso Estúdio
         </h1>
 
-        <p class="description green hm">
+        <p class="description green voz-lillia">
           Se antes de agendar você deseja conhecer o estúdio, fique à vontade para marcar uma visita conosco!
         </p>
 

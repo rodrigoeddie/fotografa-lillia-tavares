@@ -1,0 +1,8 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- caixa de presente com laço — categoria blog / hub: presentes -->
+  <path d="M12.5 22.5h25l-1 19.5H14z" fill="#DFDCC6"/>
+  <path d="M10.5 15.5h27l-.4 6.5H11z" fill="#E3BCAE"/>
+  <path d="M11 15.2h26.4l-.5 6.6H11.4zM13 21.8l.9 18.7h20.5l1-18.7" stroke="#35331F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.2 15.4V40.3" stroke="#35331F" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M24 15c-3.6-.6-6.6-2.3-6.4-4.7.2-1.7 1.7-2.7 3.3-2.4 2.4.4 3.3 3.6 3.1 7.1zM24.5 15c3.6-.6 6.5-2.3 6.3-4.7-.2-1.7-1.7-2.7-3.3-2.4-2.3.4-3.2 3.6-3 7.1z" stroke="#35331F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
