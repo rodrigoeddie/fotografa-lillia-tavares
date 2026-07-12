@@ -1,0 +1,7 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- etiqueta de preço — usado no submenu "Preços e pacotes" (P5 do header) -->
+  <path d="M26.5 9.5l12 12c1 1 1 2.6 0 3.6L27.1 36.5c-1 1-2.6 1-3.6 0l-12-12c-.5-.5-.8-1.2-.7-1.9l.8-10.3c.1-1.2 1-2.1 2.2-2.2l10.3-.8c.7-.1 1.4.2 1.9.7z" fill="#DFDCC6"/>
+  <path d="M24.5 7.5l12 12c1 1 1 2.6 0 3.6L25.1 34.5c-1 1-2.6 1-3.6 0l-12-12c-.5-.5-.8-1.2-.7-1.9l.8-10.3c.1-1.2 1-2.1 2.2-2.2l10.3-.8c.7-.1 1.4.2 1.9.7z" stroke="#35331F" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="16.8" cy="16.6" r="2.2" fill="#B06F5E" stroke="#35331F" stroke-width="1.6"/>
+  <path d="M23 40.5c4.6 1 8.2-.2 11.6-3.4" stroke="#35331F" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

@@ -97,7 +97,7 @@ Cinco grupos na ordem exata da prioridade de negócio (§1). Os quatro primeiros
 **Estado técnico:**
 - Código pronto desde 2026-07-09 (ROADMAP P0-D ✓): migration 028 (`parent_id`), `MenuService.tree()/replace()`, dropdown acessível no `Menu.vue`, footer em colunas, `MenuEditor.vue` com subitens.
 - **Dados: migration `030_menu_submenus_seed.sql` (2026-07-11)** aplica exatamente a estrutura acima (delete-all + reinsert). Aplicar com `migrate:prod`/`migrate:preview` + purge de cache (`/admin/cache`). Depois de aplicada, o menu segue editável em `/admin/menu` e a flat v2 (§5) vira histórico.
-- Pendência menor: o destaque visual do CTA (item 5) — hoje `Menu.vue` só estiliza como botão itens com `blank=true`; o CTA interno renderiza como link comum (igual ao comportamento atual em produção).
+- **Header P5 aplicado (2026-07-11 — [docs/header-redesign](header-redesign/README.md)):** CTA do menu virou pílula no estilo da P2 — clara com borda verde (classe `.cta` por `CTA_PATH` no `Menu.vue` — migrar para flag no DB quando houver), bullets separadores removidos (corrigia o encavalamento com o chevron), dropdown-vitrine com ícone + descrição em todos os subitens (`SUBMENU_META` no `Menu.vue` + `BlocksBrandIcon`), e strip utilitário no `Header.vue` (endereço + Instagram + WhatsApp alinhados à direita; some no sticky/mobile).
 
 ## 7. Decisões de IA tomadas
 

@@ -1,0 +1,7 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- página com linhas — sobre: blog -->
+  <path d="M15.5 9.5c4.8-.5 9.4-.5 13.5-.2l7.5 7.4c.3 8.4.2 16.6-.3 24.7-6.9.8-13.8.8-20.7 0-.4-10.6-.4-21.3 0-31.9z" fill="#DFDCC6"/>
+  <path d="M13.5 8c4.8-.5 9.4-.5 13.5-.2l7.5 7.4c.3 8.4.2 16.6-.3 24.7-6.9.8-13.8.8-20.7 0-.4-10.6-.4-21.3 0-31.9z" stroke="#35331F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M27 7.8l.3 7.5 7.2.2" fill="#E3BCAE" stroke="#35331F" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M18.5 21.5c3.6-.3 7.2-.3 10.8 0M18.5 26.5c3.6-.3 7.2-.3 10.8 0M18.5 31.5c2.4-.2 4.8-.2 7.2 0" stroke="#35331F" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -49,14 +49,19 @@ let headerPassedOnce = false;
 let initialHeaderTopPosition = 0;
 let cachedHeaderHeight = 0;
 let cachedWrapperMain: HTMLElement | null = null;
+let baseWrapperPadding = 0;
+let headerStartsFixed = false;
 let rafId: number | null = null;
 
 const applyScrolled = () => {
   if (isScrolled.value) return;
   isScrolled.value = true;
   headerRef.value?.classList.add('is-scrolled');
-  if (cachedWrapperMain) {
-    cachedWrapperMain.style.paddingTop = `${cachedHeaderHeight + 30}px`;
+  /* compensa exatamente a altura que o header tira do fluxo ao virar fixed —
+     deslocamento líquido zero (sem "pulinho"). Se o header já nasce fixed
+     (mobile interno), não há o que compensar. */
+  if (cachedWrapperMain && !headerStartsFixed) {
+    cachedWrapperMain.style.paddingTop = `${cachedHeaderHeight + baseWrapperPadding}px`;
   }
 };
 
@@ -91,8 +96,12 @@ onMounted(() => {
   if (headerRef.value) {
     initialHeaderTopPosition = headerRef.value.offsetTop;
     cachedHeaderHeight = headerRef.value.offsetHeight;
+    headerStartsFixed = getComputedStyle(headerRef.value).position === 'fixed';
   }
   cachedWrapperMain = document.querySelector<HTMLElement>('.wrapper-main');
+  if (cachedWrapperMain) {
+    baseWrapperPadding = parseFloat(getComputedStyle(cachedWrapperMain).paddingTop) || 0;
+  }
 
   window.addEventListener('scroll', handleScroll, { passive: true });
 });
@@ -108,6 +117,26 @@ onUnmounted(() => {
     ref="headerRef"
     class="header"
     :class="isMounted ? {'mobile': isMobile, 'desktop': !isMobile} : {}">
+    <!-- strip utilitário (P5 — docs/header-redesign): contato imediato; some no sticky e no mobile -->
+    <div class="strip">
+      <div class="strip-in">
+        <span class="addr">Av. Ver. Narciso Yague Guimarães, 124 · Sala 21 · Mogi das Cruzes</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="strip-links">
+          <NuxtLink
+            to="https://www.instagram.com/fotografalilliatavares/"
+            target="_blank"
+            rel="noopener noreferrer">Instagram</NuxtLink>
+          <span class="sep" aria-hidden="true">·</span>
+          <NuxtLink
+            :to="`${whatsappUrl}?text=Olá, vim pelo seu site e queria mais informações...`"
+            target="_blank"
+            rel="noopener noreferrer"
+            @click="clickWhats">WhatsApp (11) 91115-9795</NuxtLink>
+        </span>
+      </div>
+    </div>
+
     <div class="container">
       <h1 class="logo">
         <NuxtLink
@@ -177,6 +206,8 @@ onUnmounted(() => {
 .header {
   @include m.card-shadow;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background: white;
   display: flex;
   width: 100%;
@@ -186,11 +217,57 @@ onUnmounted(() => {
     padding-bottom: 0;
   }
 
+  .strip {
+    border-bottom: 1px solid v.$light-beige;
+    background: v.$cream;
+    width: 100%;
+
+    @include m.max(sm) {
+      display: none;
+    }
+
+    .strip-in {
+      justify-content: flex-end;
+      align-items: baseline;
+      letter-spacing: .06em;
+      padding: 7rem 25rem;
+      max-width: 1750rem;
+      font-size: 15rem;
+      margin: 0 auto;
+      display: flex;
+      gap: 18rem;
+
+      .addr {
+        letter-spacing: .02em;
+        color: v.$panel;
+      }
+
+      a {
+        text-transform: uppercase;
+        transition: color .2s;
+        color: v.$rose-deep;
+        font-weight: 900;
+        font-size: 14rem;
+
+        &:hover {
+          text-decoration: underline;
+          color: v.$dark-red;
+        }
+      }
+
+      .sep {
+        color: v.$beige;
+        padding: 0 6rem;
+      }
+    }
+  }
+
   .container {
     justify-content: space-between;
+    transition: height .3s;
     align-items: center;
     padding: 0 25rem;
-    height: 63rem;
+    height: 72rem;
     display: flex;
 
     @include m.max(xs) {
@@ -229,6 +306,19 @@ onUnmounted(() => {
   &.is-scrolled {
     position: fixed;
     top: 0;
+
+    /* colapso do sticky: strip some primeiro, andar principal compacta.
+       height só no desktop — o seletor também casa com .mobile:not(.from-home),
+       onde 60rem fluido esmagaria o header (o mobile mantém os 55px do base) */
+    .strip {
+      display: none;
+    }
+
+    .container {
+      @include m.min(sm) {
+        height: 60rem;
+      }
+    }
 
     .logo {
       width: 218rem;

@@ -26,8 +26,8 @@
 
 <style scoped lang="scss">
 .wrapper-main {
-  padding-top: 20px;
-
+  /* desktop sem padding: o header (com strip) encosta no topo; a compensação
+     do header fixo é calculada no JS do Header.vue (deslocamento líquido zero) */
   @include m.max(sm) {
     padding-top: 55px;
   }

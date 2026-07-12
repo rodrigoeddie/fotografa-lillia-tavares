@@ -48,6 +48,14 @@ Conjunto de ícones desenhado a partir da anatomia do logotipo (hortênsia + câ
 | [srv-estudio.svg](srv-estudio.svg) | softbox no tripé | estúdio / aluguel |
 | [srv-coloracao.svg](srv-coloracao.svg) | leque de cartelas | análise de coloração |
 | [srv-consultoria.svg](srv-consultoria.svg) | cabide com coração | consultoria de imagem |
+| [tag-precos.svg](tag-precos.svg) | etiqueta de preço | preços e pacotes (submenu do header P5) |
+| [srv-aluguel.svg](srv-aluguel.svg) | chave | aluguel do estúdio |
+| [sobre-fotografa.svg](sobre-fotografa.svg) | hortênsia com folha (eco do logo) | a fotógrafa Lillia |
+| [sobre-depoimentos.svg](sobre-depoimentos.svg) | balão de fala com coração + estrela | depoimentos |
+| [sobre-blog.svg](sobre-blog.svg) | página com linhas | blog |
+| [sobre-faq.svg](sobre-faq.svg) | balão com interrogação | FAQ / perguntas frequentes |
+
+**Em uso desde 2026-07-11:** 13 ícones integrados ao dropdown do menu (todos os subitens) via [components/blocks/BrandIcon.vue](../../components/blocks/BrandIcon.vue) — inline, sem a classe `.icon` (ver ⚠️ abaixo).
 
 **Futuros** (quando as categorias existirem): natal (bola de árvore com laço), casamento civil/casal (aliança dupla), espetáculo (máscara/cortina).
 

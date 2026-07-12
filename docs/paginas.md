@@ -441,7 +441,8 @@
 ## Header / Footer (compartilhados)
 
 - **Menu** (`menu_items`, editável em `/admin/menu`): **suporta submenus de 1 nível** desde 2026-07-09 (migration 028 `parent_id`; dropdown acessível no desktop, acordeão no mobile, colunas no footer). **Migration `030_menu_submenus_seed.sql` (2026-07-11) troca a flat v2 pela estrutura aninhada do [ia-site.md §6](ia-site.md)** (5 grupos: Ensaios · Estúdio · Imagem & Estilo · Sobre · CTA Agende) — já aplicada no banco local; produção/preview via `migrate:prod`/`migrate:preview` + purge de cache. Após aplicar, atualizar os campos "No menu" das rotas que entram em submenu (depoimentos, ensaio-profissional, presente hub).
-- **Footer**: reusa o MESMO componente/tabela do menu + blocos próprios (logo, social Instagram/Email/WhatsApp, CTA agende, endereço, copyright, `/privacidade-e-termos`). Editar o menu atualiza os dois.
+- **Header P5 (2026-07-11, escolha em [escolhas-redesign.md](escolhas-redesign.md)):** strip utilitário acima do menu (endereço + Instagram + WhatsApp à direita; desktop only, some no sticky), CTA "Agende seu ensaio" como pílula clara com borda verde (estilo do botão da P2), dropdown-vitrine (ícone `BlocksBrandIcon` + descrição de 1 linha em todos os subitens — mapa `SUBMENU_META` no `Menu.vue`), sem bullets separadores (fix do encavalamento com o chevron). Diagnóstico e alternativas em [header-redesign/](header-redesign/README.md).
+- **Footer**: reusa o MESMO componente/tabela do menu + blocos próprios (logo, social Instagram/Email/WhatsApp, CTA agende, endereço, copyright, `/privacidade-e-termos`). Editar o menu atualiza os dois. A vitrine (ícones/descrições) é só do header — o footer segue com labels puros.
 
 ## No-robots (referência)
 

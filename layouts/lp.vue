@@ -61,7 +61,8 @@ body.lp-presentes {
 }
 
 .wrapper-main {
-  padding-top: 20px;
+  /* sem padding no topo — mesmo racional do layout default (P5 do header) */
+  padding-top: 0;
 }
 </style>
 

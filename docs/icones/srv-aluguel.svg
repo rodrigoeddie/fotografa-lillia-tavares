@@ -1,0 +1,9 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- chave — serviço: aluguel do estúdio -->
+  <path d="M18.5 14c4 .8 6.6 4.2 6 8.1-.6 3.9-4.2 6.6-8.2 6-4-.7-6.6-4.3-6-8.2.7-3.9 4.2-6.5 8.2-5.9z" fill="#DFDCC6"/>
+  <circle cx="16.8" cy="19.6" r="6.9" stroke="#35331F" stroke-width="2.2"/>
+  <circle cx="16.8" cy="19.6" r="2.5" stroke="#35331F" stroke-width="1.8"/>
+  <path d="M22.2 24.4c5 4.7 10 9.6 14.8 14.4" stroke="#35331F" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M30.4 31.4l-3.3 3.3M35 35.8l-3.3 3.3" stroke="#35331F" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="21.4" cy="24.6" r="1.6" fill="#B06F5E"/>
+</svg>

@@ -6,6 +6,26 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
+/* P5 (docs/header-redesign): CTA destacado + vitrine do dropdown (ícone + descrição).
+   Presentation-only — quando houver campos próprios em menu_items, migrar para o DB. */
+const CTA_PATH = '/agende-seu-ensaio';
+
+const SUBMENU_META: Record<string, { desc?: string; icon?: string }> = {
+  '/ensaio-fotografico':                              { desc: 'Ensaios por categoria, no estúdio', icon: 'ensaio' },
+  '/precos-ensaios-fotograficos':                     { desc: 'Transparência antes de agendar', icon: 'precos' },
+  '/ensaio-profissional-em-mogi':                     { desc: 'LinkedIn, marca pessoal, equipes', icon: 'corporativo' },
+  '/presente-ensaio-fotografico-mogi':                { desc: 'Vale-ensaio para quem você ama', icon: 'presente' },
+  '/estudio-fotografico-em-mogi-das-cruzes':          { desc: 'Ambientes e fundo infinito', icon: 'estudio' },
+  '/estudio-fotografico-em-mogi-das-cruzes/aluguel':  { desc: 'Para fotógrafos e criadores', icon: 'aluguel' },
+  '/estudio-fotografico-em-mogi-das-cruzes/cenarios': { desc: 'Montagens sazonais', icon: 'cenarios' },
+  '/analise-coloracao-pessoal-em-mogi':               { desc: 'Sua cartela de cores, no estúdio', icon: 'coloracao' },
+  '/consultoria-de-imagem-em-mogi':                   { desc: 'Estilo, biotipo e guarda-roupa', icon: 'consultoria' },
+  '/sobre-fotografa-lillia-tavares':                  { desc: 'Quem vai te fotografar', icon: 'fotografa' },
+  '/depoimentos':                                     { desc: 'Avaliações 5 estrelas de clientes', icon: 'depoimentos' },
+  '/blog':                                            { desc: 'Bastidores, dicas e novidades', icon: 'blog' },
+  '/perguntas-frequentes':                            { desc: 'Tire suas dúvidas antes de agendar', icon: 'faq' },
+};
+
 const isMobile = ref(false);
 const isMounted = ref(false);
 
@@ -106,21 +126,33 @@ function onItemLeave(idx: number) {
                         </button>
                     </span>
 
-                    <div
-                      v-show="props.fromFooter || openSubmenu === idx"
-                      :id="`submenu-${idx}`"
-                      class="submenu">
-                        <NuxtLink
-                          v-for="child in item.children"
-                          :key="child.path"
-                          :to="child.path"
-                          :target="child.blank ? '_blank' : undefined"
-                          :rel="child.blank ? 'noopener noreferrer' : undefined"
-                          class="sublink"
-                          @click="closeAll">
-                            {{ child.label }}
-                        </NuxtLink>
-                    </div>
+                    <Transition name="submenu">
+                        <div
+                          v-show="props.fromFooter || openSubmenu === idx"
+                          :id="`submenu-${idx}`"
+                          class="submenu">
+                            <NuxtLink
+                              v-for="child in item.children"
+                              :key="child.path"
+                              :to="child.path"
+                              :target="child.blank ? '_blank' : undefined"
+                              :rel="child.blank ? 'noopener noreferrer' : undefined"
+                              class="sublink"
+                              @click="closeAll">
+                                <BlocksBrandIcon
+                                  v-if="!props.fromFooter && SUBMENU_META[child.path]?.icon"
+                                  :name="SUBMENU_META[child.path].icon!"
+                                  :size="30"
+                                  class="sub-ic" />
+                                <span class="sub-txt">
+                                    <span class="sub-label">{{ child.label }}</span>
+                                    <span
+                                      v-if="!props.fromFooter && SUBMENU_META[child.path]?.desc"
+                                      class="sub-desc">{{ SUBMENU_META[child.path].desc }}</span>
+                                </span>
+                            </NuxtLink>
+                        </div>
+                    </Transition>
                 </div>
 
                 <NuxtLink
@@ -129,7 +161,7 @@ function onItemLeave(idx: number) {
                   :target="item.blank ? '_blank' : undefined"
                   :rel="item.blank ? 'noopener noreferrer' : undefined"
                   class="link"
-                  :class="{ 'button': item.blank }"
+                  :class="{ 'button': item.blank, 'cta': item.path === CTA_PATH }"
                   @click="closeAll">
                     <span class="txt">{{ item.label }}</span>
                     <Icon
@@ -243,13 +275,17 @@ function onItemLeave(idx: number) {
                 }
             }
 
+            .item-row .link {
+                padding-right: 4rem;
+            }
+
             .submenu-toggle {
                 background: transparent;
                 align-items: center;
                 cursor: pointer;
                 display: flex;
                 border: none;
-                padding: 8rem;
+                padding: 6rem 18rem 6rem 4rem;
                 color: v.$green;
 
                 @include m.max(sm) {
@@ -282,12 +318,13 @@ function onItemLeave(idx: number) {
             .submenu {
                 @include m.min(xs) {
                     box-shadow: 0 14rem 30rem -12rem rgba(42, 37, 32, 0.35);
+                    border-radius: 0 0 10rem 10rem;
                     border-top: 3rem solid v.$green;
                     flex-direction: column;
                     position: absolute;
                     background: white;
-                    min-width: 240rem;
-                    padding: 10rem 0;
+                    min-width: 340rem;
+                    padding: 14rem 8rem;
                     display: flex;
                     z-index: 10;
                     top: 100%;
@@ -303,22 +340,56 @@ function onItemLeave(idx: number) {
                 }
             }
 
+            /* vitrine (P5): ícone + label + descrição de 1 linha */
             .sublink {
-                text-transform: uppercase;
-                font-family: v.$openExtra;
                 transition: background .2s, color .2s;
-                padding: 12rem 20rem;
+                font-family: v.$openExtra;
+                border-radius: 8rem;
+                align-items: center;
+                padding: 10rem 14rem;
                 color: v.$green;
-                font-weight: 900;
-                font-size: 16rem;
-                display: block;
+                display: flex;
+                gap: 13rem;
 
                 @include m.max(sm) {
+                    justify-content: flex-end;
                     background: #f4f2e9;
                     text-align: right;
+                    border-radius: 0;
                     padding: 12px 30px;
-                    font-size: 13px;
                     width: 100%;
+                }
+
+                .sub-ic {
+                    @include m.max(sm) {
+                        display: none;
+                    }
+                }
+
+                .sub-label {
+                    text-transform: uppercase;
+                    line-height: 1.25;
+                    font-weight: 900;
+                    font-size: 18rem;
+                    display: block;
+
+                    @include m.max(sm) {
+                        display: inline;
+                        font-size: 13px;
+                    }
+                }
+
+                .sub-desc {
+                    color: v.$panel;
+                    line-height: 1.3;
+                    font-weight: 400;
+                    font-size: 16rem;
+                    margin-top: 1rem;
+                    display: block;
+
+                    @include m.max(sm) {
+                        display: none;
+                    }
                 }
 
                 &:hover,
@@ -368,14 +439,9 @@ function onItemLeave(idx: number) {
                 }
             }
 
-            &:after {
-                color: #d8d4c5;
-                right: -6rem;
-                padding: 0;
-
-                @include m.max(sm) {
-                    display: none;
-                }
+            /* P5: sem separador — o bullet global virava ruído colado no chevron dos grupos */
+            &::after {
+                content: none;
             }
 
             &.button {
@@ -400,6 +466,43 @@ function onItemLeave(idx: number) {
                       0 1px 0 rgba(42, 37, 32, 0.9),
                       0 14px 30px -12px rgba(42, 37, 32, 0.5),
                       0 4px 10px -4px rgba(42, 37, 32, 0.5);
+                }
+            }
+
+            /* CTA do menu (estilo de botão da P2): pílula clara com borda verde —
+               fecha a pendência do ia-site.md §6 */
+            &.cta {
+                transition: background .2s, box-shadow .25s, color .2s;
+                border: 1px solid v.$green;
+                border-radius: 999px;
+                padding: 12rem 26rem;
+                background: #f4f2e9;
+                align-self: center;
+                margin-left: 14rem;
+                font-size: 19rem;
+                color: v.$green;
+                height: auto;
+
+                &::before,
+                &::after {
+                    content: none;
+                }
+
+                &:hover {
+                    box-shadow:
+                      0 1px 0 rgba(42, 37, 32, 0.9),
+                      0 10rem 22rem -10rem rgba(42, 37, 32, 0.5);
+                    background: white;
+                    color: v.$green;
+                }
+
+                @include m.max(sm) {
+                    border: 1px solid v.$green;
+                    background: #f4f2e9;
+                    border-radius: 0;
+                    color: v.$green;
+                    padding: 15px 30px;
+                    margin-left: 0;
                 }
             }
         }
@@ -666,6 +769,25 @@ function onItemLeave(idx: number) {
     }
     span.open:nth-child(3) {
         transform: translateY(-12px) rotate(-45deg);
+    }
+}
+
+/* entrada suave do dropdown (P5) */
+.submenu-enter-active,
+.submenu-leave-active {
+    transition: opacity .15s ease, transform .15s ease;
+}
+
+.submenu-enter-from,
+.submenu-leave-to {
+    transform: translateY(-4rem);
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .submenu-enter-active,
+    .submenu-leave-active {
+        transition: none;
     }
 }
 </style>
