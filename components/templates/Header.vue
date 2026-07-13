@@ -302,6 +302,20 @@ onUnmounted(() => {
     }
   }
 
+  /* mobile: fixed já no primeiro paint via CSS puro — a classe .mobile só
+     chega na hidratação e o atraso empurrava a página inteira (CLS ~0.93) */
+  @include m.max(sm) {
+    &:not(.from-home) {
+      position: fixed;
+      top: 0;
+
+      .logo {
+        width: 218rem;
+        margin-top: 0;
+      }
+    }
+  }
+
   &.mobile:not(.from-home),
   &.is-scrolled {
     position: fixed;

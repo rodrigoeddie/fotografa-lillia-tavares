@@ -1,0 +1,1 @@
+import{R as r}from"../build/server.mjs";import"../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";import"../routes/renderer.mjs";const e=r({defaults:{"@type":"AggregateRating"}});export{e as aggregateRatingResolver};

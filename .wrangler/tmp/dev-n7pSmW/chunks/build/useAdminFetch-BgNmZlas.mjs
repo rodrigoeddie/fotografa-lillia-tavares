@@ -1,0 +1,1 @@
+import{u as e}from"./useAdminAuth-1G-RZQ52.mjs";function useAdminFetch(){const{cmsToken:n}=e();return{adminFetch:function(e,t={}){const s=n.value;return $fetch(e,{...t,headers:{...t.headers??{},...s?{"x-cms-token":s}:{}}})}}}export{useAdminFetch as u};

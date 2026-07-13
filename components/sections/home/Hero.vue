@@ -25,59 +25,59 @@ const services = [
           <div class="body">
             <p>Especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem. Transformo cada ensaio fotográfico em uma experiência acolhedora, criando imagens que comunicam autenticidade, confiança e profissionalismo.</p>
             <p>
-              <NuxtLink to="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio e atendimento para todo o Alto Tietê.</NuxtLink>
+              <a href="/estudio-fotografico-em-mogi-das-cruzes">Estúdio próprio e atendimento para todo o Alto Tietê.</a>
             </p>
           </div>
 
           <div class="actions">
-            <NuxtLink
-              to="/agende-seu-ensaio"
+            <a
+              href="/agende-seu-ensaio"
               class="btn primary"
               data-track-event="cta-agendar-home">
               <span>Agendar meu ensaio</span>
-            </NuxtLink>
+            </a>
 
             <div class="quick-links">
-              <NuxtLink
-                to="/ensaio-fotografico"
+              <a
+                href="/ensaio-fotografico"
                 data-track-event="cta-ver-portfolio">
                 <Icon name="icons:image-regular" class="icon" />
                 <span>Ver meus trabalhos</span>
-              </NuxtLink>
+              </a>
 
-              <NuxtLink
-                to="/estudio-fotografico-em-mogi-das-cruzes"
+              <a
+                href="/estudio-fotografico-em-mogi-das-cruzes"
                 data-track-event="cta-ver-estudio">
                 <Icon name="icons:location-pin-solid" class="icon" />
                 <span>Conhecer o estúdio</span>
-              </NuxtLink>
+              </a>
 
-              <NuxtLink
-                to="/sobre-fotografa-lillia-tavares"
+              <a
+                href="/sobre-fotografa-lillia-tavares"
                 data-track-event="cta-ver-sobre">
                 <Icon name="icons:camera" class="icon" />
                 <span>Conheça a Lillia</span>
-              </NuxtLink>
+              </a>
             </div>
           </div>
         </div>
 
         <div class="aside">
           <nav class="services-panel" aria-label="Serviços">
-            <NuxtLink
+            <a
               v-for="service in services"
               :key="service.num"
-              :to="service.to"
+              :href="service.to"
               class="service"
               :class="{ highlight: service.highlight }">
               <span class="num">{{ service.num }}</span>
               <span class="name">{{ service.title }}</span>
-            </NuxtLink>
+            </a>
 
-            <NuxtLink to="/agende-seu-ensaio" class="panel-cta">
+            <a href="/agende-seu-ensaio" class="panel-cta">
               <span>Agendar agora</span>
               <Icon name="icons:arrow-right" class="icon" />
-            </NuxtLink>
+            </a>
           </nav>
 
           <div class="photo">
@@ -90,7 +90,7 @@ const services = [
               height="900"
               format="avif"
               fetchpriority="high"
-              preload
+              :preload="{ fetchPriority: 'high' }"
               loading="eager"
               class="img cover" />
           </div>

@@ -8,6 +8,7 @@
   });
 
   const configPublic = useRuntimeConfig().public;
+  const cfImg = useCfImg();
 </script>
 
 <template>
@@ -33,18 +34,22 @@
 
       <div class="side wrap-images">
           <nuxt-img
-              :src='configPublic.cloudflareURI + "a4ac25f9-9b44-43be-803f-601c72f14600/thumb"'
+              provider="cloudflare"
+              :src='cfImg("a4ac25f9-9b44-43be-803f-601c72f14600")'
               width="612"
               height="408"
+              sizes="100vw md:40vw"
               class="img-studio"
               alt="Foto de um comodo com a cortina iluminada de fundo, da esquerda pra direita: um abajour, a cama, e um cofá"
               format="avif"
               placeholder
               loading="lazy" />
           <nuxt-img
-              :src='configPublic.cloudflareURI + "1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00/thumb"'
+              provider="cloudflare"
+              :src='cfImg("1a88f2d4-10c6-4c91-96a3-9ff4ac42fc00")'
               width="612"
               height="408"
+              sizes="100vw md:40vw"
               class="img-studio"
               alt="O escritório, uma parede verde musgo de fundo com quadros, na esquerda um sofá, no centro a mesa, e uma estante na direita"
               format="avif"

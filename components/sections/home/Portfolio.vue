@@ -45,9 +45,9 @@ const categorias = computed(() => {
           <div class="head-left">
             <p class="eyebrow">Portfólio</p>
             <h2 id="portfolio-title" class="title">
-              <NuxtLink to="/ensaio-fotografico" aria-label="Ver últimos trabalhos">
+              <a href="/ensaio-fotografico" aria-label="Ver últimos trabalhos">
                 Explore meus últimos trabalhos
-              </NuxtLink>
+              </a>
             </h2>
           </div>
           <p v-if="cards.length" class="count">{{ cards.length }} {{ cards.length === 1 ? 'ensaio' : 'ensaios' }}</p>
@@ -55,20 +55,20 @@ const categorias = computed(() => {
 
         <nav v-if="categorias.length" class="cat-bar" aria-label="Categorias de ensaio">
           <span class="cat-bar-label">Navegando por</span>
-          <NuxtLink
+          <a
             v-for="cat in categorias"
             :key="cat.slug"
-            :to="'/ensaio-fotografico/' + cat.slug"
+            :href="'/ensaio-fotografico/' + cat.slug"
             class="cat-link">
             {{ cat.title }}
-          </NuxtLink>
-          <NuxtLink to="/ensaio-fotografico" class="cat-link all">Ver todos</NuxtLink>
+          </a>
+          <a href="/ensaio-fotografico" class="cat-link all">Ver todos</a>
         </nav>
       </div>
 
       <div v-if="featured" class="grid" role="list">
-        <NuxtLink
-          :to="featured.path"
+        <a
+          :href="featured.path"
           class="card featured"
           role="listitem"
           :aria-label="'Ver ensaio de ' + featured.title"
@@ -82,8 +82,7 @@ const categorias = computed(() => {
               width="480"
               height="720"
               format="avif"
-              fetchpriority="high"
-              loading="eager"
+              loading="lazy"
               class="img cover" />
           </div>
           <div class="overlay" aria-hidden="true"></div>
@@ -92,12 +91,12 @@ const categorias = computed(() => {
             <h3>{{ featured.title }}</h3>
             <span class="reveal-btn">Ver ensaio <Icon name="icons:arrow-right" class="icon" /></span>
           </div>
-        </NuxtLink>
+        </a>
 
-        <NuxtLink
+        <a
           v-for="card in rest"
           :key="card.id"
-          :to="card.path"
+          :href="card.path"
           class="card small"
           role="listitem"
           :aria-label="'Ver ensaio de ' + card.title"
@@ -122,17 +121,17 @@ const categorias = computed(() => {
             <h3>{{ card.title }}</h3>
             <span class="reveal-btn">Ver ensaio <Icon name="icons:arrow-right" class="icon" /></span>
           </div>
-        </NuxtLink>
+        </a>
       </div>
     </div>
 
     <div class="ac pb50">
-      <NuxtLink
-        to="/ensaio-fotografico"
+      <a
+        href="/ensaio-fotografico"
         aria-label="Ver todos os trabalhos"
         class="btn">
         <span>Ver todos os trabalhos</span>
-      </NuxtLink>
+      </a>
     </div>
   </section>
 </template>

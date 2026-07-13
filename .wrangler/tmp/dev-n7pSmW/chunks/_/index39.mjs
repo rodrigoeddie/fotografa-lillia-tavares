@@ -1,0 +1,1 @@
+import{R as r}from"../build/server.mjs";import"../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";import"../routes/renderer.mjs";const e=r({defaults:{"@type":"ReadAction"},resolve:(r,e)=>(r.target.includes(e.meta.url)||r.target.unshift(e.meta.url),r)});export{e as readActionResolver};

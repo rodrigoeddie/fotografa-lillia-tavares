@@ -93,6 +93,10 @@ const swiper    = useSwiper(swiperRef, {
 .hero-banners {
   width: 100%;
   margin-bottom: 25rem;
+  /* reserva a altura do slide (aspect 4.8) antes do swiper montar no cliente:
+     sem isso o <ClientOnly> nasce vazio e empurra o <main> inteiro (CLS) */
+  aspect-ratio: 4.8;
+  overflow: hidden;
 }
 
 .hero-swiper {

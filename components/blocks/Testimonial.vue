@@ -40,6 +40,7 @@ const props = defineProps({
             :height="'100'"
             :alt="'' + name"
             :class="'image-testimonial'"
+            :format="testimonial.avatar ? 'avif' : undefined"
             placeholder
             loading="lazy"/>
         <div class="text-testimonial">

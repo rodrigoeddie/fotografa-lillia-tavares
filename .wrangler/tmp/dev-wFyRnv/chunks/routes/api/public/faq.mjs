@@ -1,0 +1,1 @@
+import{d as e,g as o}from"../../../nitro/nitro.mjs";import{F as r}from"../../../_/FaqService.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";const t=e(async e=>(e.node.res.setHeader("Cache-Control","s-maxage=86400, stale-while-revalidate=3600"),new r(o(e)).listCategoriasComPerguntas()));export{t as default};

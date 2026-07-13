@@ -1,0 +1,1 @@
+const a=[".faq-section[data-v-1bfc6469]{max-width:1200rem;margin:0 auto;padding:15rem 20rem}.title[data-v-1bfc6469]{color:#7b785b;padding-bottom:15rem}.faq-category[data-v-1bfc6469]{margin-bottom:48rem}.faq-category[data-v-1bfc6469]:last-child{margin-bottom:0}"];export{a as default};

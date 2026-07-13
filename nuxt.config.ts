@@ -88,18 +88,21 @@ export default defineNuxtConfig({
           rel: 'preconnect',
           href: 'https://images.fotografalilliatavares.com.br'
         },
+        /* Preload das fontes do above-the-fold: garante que o Lato chega antes
+           do primeiro paint (CSS é inline) — sem swap visível nem CLS. */
         {
-          rel: 'preconnect',
-          href: 'https://fonts.googleapis.com'
-        },
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          href: '/fonts/Lato-Regular.woff2',
           crossorigin: ''
         },
         {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap'
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          href: '/fonts/Lato-Black.woff2',
+          crossorigin: ''
         },
       ],
 
@@ -187,7 +190,7 @@ export default defineNuxtConfig({
     cloudflare: {
       baseURL: 'https://images.fotografalilliatavares.com.br'
     },
-    quality: 90,
+    quality: 80,
     format: ['webp'],
     densities: [1, 2],
     screens: {
@@ -360,6 +363,12 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: false,
     emitRouteChunkError: 'automatic',
+  },
+
+  features: {
+    /* Inlina todo o CSS SSR no HTML — elimina requests render-blocking
+       de folhas por componente no primeiro paint (Lighthouse FCP/LCP). */
+    inlineStyles: true,
   },
 
   hooks: {

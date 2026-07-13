@@ -1,0 +1,1 @@
+const e=[".preview-tabs[data-v-1475c630],.seo-preview[data-v-1475c630]{flex-direction:column;display:flex}.preview-tabs[data-v-1475c630]{gap:24rem}.preview-item[data-v-1475c630]{flex-direction:column;gap:8rem;display:flex}.preview-label[data-v-1475c630]{text-transform:uppercase;letter-spacing:.08em;color:#666;font-size:11rem;font-weight:600}"];export{e as default};

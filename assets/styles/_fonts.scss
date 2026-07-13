@@ -1,11 +1,12 @@
 // Lato — self-hosted (evita render-blocking do Google Fonts)
 // Apenas os pesos usados no site: 400 (Regular) e 900 (Black)
+// Arquivos em public/fonts/ (URL estável p/ preload no nuxt.config.ts)
 
 @font-face {
   font-family: 'Lato';
   src:
-    url('../fonts/Lato-Regular.woff2') format('woff2'),
-    url('../fonts/Lato-Regular.woff') format('woff');
+    url('/fonts/Lato-Regular.woff2') format('woff2'),
+    url('/fonts/Lato-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -14,20 +15,20 @@
 @font-face {
   font-family: 'Lato';
   src:
-    url('../fonts/Lato-Black.woff2') format('woff2'),
-    url('../fonts/Lato-Black.woff') format('woff');
+    url('/fonts/Lato-Black.woff2') format('woff2'),
+    url('/fonts/Lato-Black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
+// Fallback com métricas ajustadas ao Lato (via fontaine): o swap da fonte
+// não desloca o layout (CLS ~0) porque o Arial escalado ocupa o mesmo espaço.
 @font-face {
-  font-family: 'The Girl Next Door';
-  src:
-    url('../fonts/TheGirlNextDoor.woff2') format('woff2'),
-    url('../fonts/TheGirlNextDoor.woff') format('woff'),
-    url('../fonts/TheGirlNextDoor.ttf') format('ttf');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  font-family: 'Lato Fallback';
+  src: local('Arial');
+  size-adjust: 97.4159%;
+  ascent-override: 101.3182%;
+  descent-override: 21.8607%;
+  line-gap-override: 0%;
 }
