@@ -250,9 +250,12 @@ export default defineNuxtConfig({
       target: 'esnext',
       rollupOptions: {
         output: {
-          manualChunks: {
-            'vendor-swiper': ['swiper'],
-            'vendor-gsap': ['gsap', 'gsap/ScrollTrigger'],
+          /* Vite 8 usa o Rolldown internamente, que só aceita manualChunks como
+             função (a forma objeto do Rollup foi removida). Casamos pelo path em
+             node_modules para agrupar cada vendor em seu próprio chunk. */
+          manualChunks(id) {
+            if (id.includes('node_modules/swiper')) return 'vendor-swiper'
+            if (id.includes('node_modules/gsap')) return 'vendor-gsap'
           },
         },
       },
@@ -301,7 +304,19 @@ export default defineNuxtConfig({
     minify: true,
     compressPublicAssets: true,
     compatibilityDate: '2026-04-03',
-    
+
+    /* Nuxt 4.5 / unhead 3.1.8: o novo streaming SSR embute o runtime como uma
+       string literal (`streamingIifeCode`) que contém o token `typeof window`.
+       O replace padrão do Nitro (`typeof window` → `"undefined"`) NÃO é AST-aware
+       e injeta aspas duplas não escapadas dentro dessa string, fechando-a cedo →
+       "RollupError: Expected a semicolon" no bundle do Nitro. Neutralizar o
+       replace (identidade) resolve sem custo real: no Cloudflare Workers `window`
+       já é undefined em runtime, só perdemos o dead-code-elimination estático.
+       Remover quando unhead/Nitro corrigirem upstream. */
+    replace: {
+      'typeof window': 'typeof window',
+    },
+
     rollupConfig: {
       output: {
         manualChunks: undefined
