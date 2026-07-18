@@ -19,7 +19,7 @@ const SUBMENU_META: Record<string, { desc?: string; icon?: string }> = {
   '/estudio-fotografico-em-mogi-das-cruzes/aluguel':  { desc: 'Para fotógrafos e criadores', icon: 'aluguel' },
   '/estudio-fotografico-em-mogi-das-cruzes/cenarios': { desc: 'Montagens sazonais', icon: 'cenarios' },
   '/analise-coloracao-pessoal-em-mogi':               { desc: 'Sua cartela de cores, no estúdio', icon: 'coloracao' },
-  '/consultoria-de-imagem-em-mogi':                   { desc: 'Estilo, biotipo e guarda-roupa', icon: 'consultoria' },
+  /* '/consultoria-de-imagem-em-mogi' — página desativada (jul/2026), voltará no futuro */
   '/sobre-fotografa-lillia-tavares':                  { desc: 'Quem vai te fotografar', icon: 'fotografa' },
   '/depoimentos':                                     { desc: 'Avaliações 5 estrelas de clientes', icon: 'depoimentos' },
   '/blog':                                            { desc: 'Bastidores, dicas e novidades', icon: 'blog' },

@@ -4,6 +4,17 @@ const { whatsappUrl } = useRuntimeConfig().public;
 
 usePageSeo('static', '/analise-coloracao-pessoal-em-mogi');
 
+/* Preço vem do sistema de produtos (admin › Investimento). A seção de preço só
+   renderiza quando o produto "analise-coloracao-pessoal" estiver ATIVO e com
+   pacotes cadastrados — nada aparece até a Lillia definir os valores no admin. */
+const { data: produtosData } = await useFetch('/api/public/investimento');
+const coloracaoProduto = computed(() => {
+  const found = ((produtosData.value as any[] | null) ?? []).find(
+    (p) => p.slug === 'analise-coloracao-pessoal',
+  );
+  return found ? adaptProduto(found) : null;
+});
+
 const breadcrumbs = [
   { label: 'Home', to: '/' },
   { label: 'Análise de Coloração Pessoal' },
@@ -107,10 +118,6 @@ const steps = [
           naturais, pele, cabelo e olhos. O resultado é uma paleta personalizada que ilumina o rosto,
           valoriza a expressão e simplifica decisões diárias do guarda-roupa.
         </p>
-        <p class="description">
-          Combinada com a <NuxtLink to="/consultoria-de-imagem-em-mogi">consultoria de imagem</NuxtLink>,
-          ela vira ferramenta de posicionamento: alinha visual com mensagem, intenção com presença.
-        </p>
       </div>
     </section>
 
@@ -175,6 +182,24 @@ const steps = [
       :data="{ title: 'Como funciona a análise de coloração pessoal?', list: steps }"
     />
 
+    <!-- Investimento (dinâmico: só aparece quando o produto está ativo no admin) -->
+    <section
+      v-if="coloracaoProduto && coloracaoProduto.packages.length"
+      class="c-investment container"
+      data-ani-type="fade-up"
+    >
+      <div class="ac">
+        <span class="c-eyebrow c-eyebrow--center">Investimento</span>
+        <h2 class="big-title pt0">Quanto custa a análise de coloração pessoal?</h2>
+      </div>
+      <SectionsGeneralPricingGrid :data="coloracaoProduto" />
+      <div class="c-investment__foot">
+        <NuxtLink to="/precos-ensaios-fotograficos/analise-coloracao-pessoal" class="btn btn-white">
+          Ver todos os detalhes
+        </NuxtLink>
+      </div>
+    </section>
+
     <!-- Cross-sell -->
     <section class="c-crosssell container" data-ani-type="fade-up">
       <h2 class="big-title green">Combine com um ensaio fotográfico</h2>
@@ -184,7 +209,6 @@ const steps = [
       </p>
       <div class="c-crosssell__actions">
         <NuxtLink to="/ensaio-fotografico" class="btn">Ver ensaios fotográficos</NuxtLink>
-        <NuxtLink to="/consultoria-de-imagem-em-mogi" class="btn btn-white">Conhecer a consultoria de imagem</NuxtLink>
         <NuxtLink to="/presente-ensaio-fotografico-mogi" class="btn btn-white">Presentear com ensaio + coloração</NuxtLink>
       </div>
     </section>
@@ -493,6 +517,21 @@ const steps = [
 .c-steps {
   padding-top: 60rem;
   padding-bottom: 60rem;
+}
+
+.c-investment {
+  padding-top: 60rem;
+  padding-bottom: 40rem;
+
+  .ac {
+    text-align: center;
+  }
+
+  &__foot {
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+  }
 }
 
 .c-crosssell {

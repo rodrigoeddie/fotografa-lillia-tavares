@@ -82,9 +82,9 @@ Cinco grupos na ordem exata da prioridade de negócio (§1). Os quatro primeiros
 - Aluguel do estúdio → `/estudio-fotografico-em-mogi-das-cruzes/aluguel`
 - Cenários → `/estudio-fotografico-em-mogi-das-cruzes/cenarios`
 
-**3. Imagem & Estilo** — prioridade nº 3
-- Análise de coloração pessoal → `/analise-coloracao-pessoal-em-mogi`
-- Consultoria de imagem → `/consultoria-de-imagem-em-mogi` (página criada em 2026-07-11 — ver §7)
+**3. Coloração Pessoal** — prioridade nº 3
+- Link direto → `/analise-coloracao-pessoal-em-mogi`
+- _(jul/2026: o grupo "Imagem & Estilo" foi colapsado num link direto — a Consultoria de imagem foi **desativada** (volta no futuro), então restava só a coloração. Migration 032. Quando a consultoria voltar, recriar o submenu "Imagem & Estilo" com os dois itens.)_
 
 **4. Sobre** — resolve a página órfã + descoberta
 - A fotógrafa Lillia → `/sobre-fotografa-lillia-tavares`

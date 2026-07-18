@@ -301,16 +301,18 @@
 | Serviço | coloracao |
 | Status | ok |
 | Keyword | "análise de coloração pessoal mogi" |
-| No menu | sim ("Coloração Pessoal", desde 2026-07-09) |
+| No menu | sim ("Coloração Pessoal" — link direto de topo desde jul/2026, migration 032) |
 
 **Propósito:** LP do serviço nº 3. Decisão registrada: fica em rota própria — nem filha de `/servicos` (não criar), nem de `/sobre` ([ia-site.md §7](ia-site.md)).
 
+**Preço (dinâmico):** desde jul/2026 a página exibe uma **seção de investimento** que lê o produto `analise-coloracao-pessoal` do sistema de preços (admin › Investimento, migration 033). O produto nasce **inativo/sem preço** — a seção só aparece quando a Lillia cadastrar o valor e **ativar** no admin. Quando ativo, também vira card em `/precos-ensaios-fotograficos` e ganha detalhe em `/precos-ensaios-fotograficos/analise-coloracao-pessoal`.
+
 **Links de entrada:** menu, footer, hero da home (painel de serviços), LP dia-das-maes (seção coloração — hoje quebrada, L10)
-**Links de saída:** [triagem] mapear blocos
-**CTAs:** CTA do bloco da LP — ok
+**Links de saída:** `/precos-ensaios-fotograficos/analise-coloracao-pessoal` (quando produto ativo), `/ensaio-fotografico`, `/presente-ensaio-fotografico-mogi`
+**CTAs:** CTA do bloco da LP + WhatsApp no CTA final — ok
 
 **Issues:**
-- [x] Links para a consultoria de imagem: intro (âncora no parágrafo) + botão no cross-sell — feito 2026-07-11 (metade da L14; a LP própria existe desde 2026-07-11, decisão #8 superada)
+- [x] Links para a consultoria de imagem removidos em jul/2026 (página de consultoria desativada — ver seção `/consultoria-de-imagem-em-mogi`)
 
 ## /consultoria-de-imagem-em-mogi
 
@@ -319,9 +321,11 @@
 | Tipo | estatica |
 | Funil | conversao |
 | Serviço | consultoria |
-| Status | incompleta (valores fictícios) |
+| Status | **DESATIVADA** (jul/2026) — retorna 404, volta no futuro |
 | Keyword | "consultoria de imagem mogi das cruzes" |
-| No menu | sim (submenu "Imagem & Estilo", migration 030) |
+| No menu | não (removida em jul/2026 — migration 032) |
+
+> ⚠️ **Página desativada em jul/2026** (decisão do Rodrigo — voltará quando houver oferta/preço reais). A rota `/consultoria-de-imagem-em-mogi` retorna **404** (`throw createError` no topo do `<script setup>`); removida do menu (migration 032), do sitemap (`server/api/__sitemap__/urls.ts`) e dos links de entrada da LP de coloração. O arquivo `.vue` foi **mantido intacto** para reativar. **Para reativar:** remover o `createError`, recolocar no menu + sitemap + links da coloração, definir valores reais. Os pontos abaixo seguem pendentes de quando ela voltar.
 
 **Propósito:** página do serviço de consultoria de imagem (decisão #8 superada em 2026-07-11 — racional em [ia-site.md §7](ia-site.md)). Vende a consultoria solo e o combo com coloração.
 

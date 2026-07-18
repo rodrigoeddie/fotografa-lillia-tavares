@@ -1,4 +1,14 @@
 <script lang="ts" setup>
+/* ────────────────────────────────────────────────────────────────────────
+ * PÁGINA TEMPORARIAMENTE DESATIVADA (jul/2026) — voltará no futuro.
+ * Retorna 404 até a Lillia definir a oferta/preço reais da consultoria.
+ * Para reativar: remover o bloco de createError abaixo, recolocar a rota no
+ * menu (migration) + sitemap (server/api/__sitemap__/urls.ts) e os links de
+ * entrada na LP de coloração. Ver docs/paginas.md e docs/ia-site.md.
+ * ──────────────────────────────────────────────────────────────────────── */
+throw createError({ statusCode: 404, statusMessage: 'Página não encontrada' });
+
+// eslint-disable-next-line no-unreachable
 const cfImg = useCfImg();
 const { whatsappUrl } = useRuntimeConfig().public;
 
