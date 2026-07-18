@@ -7,6 +7,9 @@
 .cache
 dist
 
+# Cloudflare / wrangler local state (D1, KV, R2, caches, tmp builds) — nunca versionar
+.wrangler
+
 # Node dependencies
 node_modules
 

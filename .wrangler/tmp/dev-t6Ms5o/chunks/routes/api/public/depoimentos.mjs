@@ -1,1 +1,0 @@
-import{d as e,g as o,C as r}from"../../../nitro/nitro.mjs";import{D as t}from"../../../_/DepoimentoService.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";const s=e(async e=>(e.node.res.setHeader("Cache-Control","s-maxage=86400, stale-while-revalidate=3600"),new t(o(e),r(e)).list()));export{s as default};

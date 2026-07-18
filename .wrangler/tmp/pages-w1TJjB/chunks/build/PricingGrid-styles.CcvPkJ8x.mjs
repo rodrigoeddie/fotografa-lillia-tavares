@@ -1,1 +1,0 @@
-const i=["[data-v-949868e3] swiper-container{--swiper-pagination-bottom:0rem}.pricing-grid[data-v-949868e3]{margin-bottom:35rem;padding-top:35rem;position:relative}@media (width<=599px){.pricing-grid[data-v-949868e3]{padding-top:15rem}}.pricing-grid .pricing-swiper swiper-slide[data-v-949868e3]{height:auto;margin-bottom:60rem;display:flex}"];export{i as default};

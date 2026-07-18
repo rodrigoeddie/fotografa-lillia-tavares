@@ -1,1 +1,0 @@
-import{R as r}from"../build/server.mjs";import"../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";import"../routes/renderer.mjs";const o=r({cast:r=>"string"==typeof r?{url:r}:r,defaults:{"@type":"VirtualLocation"}});export{o as virtualLocationResolver};

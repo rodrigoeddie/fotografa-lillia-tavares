@@ -1,1 +1,0 @@
-import{R as o}from"../build/server.mjs";import"../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";import"../routes/renderer.mjs";const r=o({defaults:{"@type":"OpeningHoursSpecification",opens:"00:00",closes:"23:59"}});export{r as openingHoursResolver};

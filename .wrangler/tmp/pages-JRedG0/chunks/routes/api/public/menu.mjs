@@ -1,1 +1,0 @@
-import{d as e,g as r}from"../../../nitro/nitro.mjs";import{M as o}from"../../../_/MenuService.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";const t=e(async e=>{e.node.res.setHeader("Cache-Control","s-maxage=3600, stale-while-revalidate=600");return new o(r(e)).tree()});export{t as default};

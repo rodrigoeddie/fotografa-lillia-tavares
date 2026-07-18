@@ -1,1 +1,0 @@
-import{O as e,F as o}from"./server.mjs";import{u as r}from"./cookie-ChUufTBH.mjs";import"../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";import"../routes/renderer.mjs";const s=e(async()=>r("cliente_session").value?void 0:o("/area-cliente"));export{s as default};

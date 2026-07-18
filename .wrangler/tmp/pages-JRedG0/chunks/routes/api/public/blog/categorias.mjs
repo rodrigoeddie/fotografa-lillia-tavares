@@ -1,1 +1,0 @@
-import{d as e,g as o}from"../../../../nitro/nitro.mjs";import{C as r}from"../../../../_/CategoriasService.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";const t=e(async e=>(e.node.res.setHeader("Cache-Control","s-maxage=3600, stale-while-revalidate=600"),new r(o(e)).listBlog(!0)));export{t as default};

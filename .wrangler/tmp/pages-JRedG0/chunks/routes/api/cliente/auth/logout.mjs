@@ -1,1 +1,0 @@
-import{d as e,ar as t}from"../../../../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";const o=e(e=>(t(e,"cliente_session",{httpOnly:!0,secure:!0,sameSite:"strict",path:"/"}),{success:!0}));export{o as default};

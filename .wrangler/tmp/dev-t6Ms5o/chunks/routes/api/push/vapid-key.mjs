@@ -1,1 +1,0 @@
-import{d as o}from"../../../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";const r=o(o=>{var r,e,t;return{vapidPublicKey:null!=(t=null==(e=null==(r=o.context.cloudflare)?void 0:r.env)?void 0:e.VAPID_PUBLIC_KEY)?t:null}});export{r as default};

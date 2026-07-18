@@ -1,1 +1,0 @@
-import{O as o}from"./server.mjs";import{u as r}from"./useAdminAuth-1G-RZQ52.mjs";import"../nitro/nitro.mjs";import"node:buffer";import"node:events";import"node:process";import"cloudflare:workers";import"node:timers";import"../routes/renderer.mjs";import"./cookie-ChUufTBH.mjs";const e=o(()=>{const{authenticated:o}=r();o.value});export{e as default};
