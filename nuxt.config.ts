@@ -268,6 +268,15 @@ export default defineNuxtConfig({
         'sweetalert2',
       ]
     },
+    server: {
+      watch: {
+        /* Não vigiar .wrangler/ (12k+ arquivos de cache do nitro-cloudflare-dev),
+           scripts/backups (.sqlite/.sql grandes) nem dist. No macOS o chokidar 4+
+           usa fs.watch/kqueue (1 FD por arquivo) e estoura kern.maxfilesperproc
+           (10240) → "EMFILE: too many open files, watch". */
+        ignored: ['**/.wrangler/**', '**/scripts/backups/**', '**/dist/**'],
+      },
+    },
   },
 
   runtimeConfig: {
