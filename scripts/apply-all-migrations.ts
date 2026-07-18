@@ -28,13 +28,14 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 
-const flag   = process.argv.includes('--remote') ? '--remote' : '--local';
-const fresh  = process.argv.includes('--fresh');
-const dbName = 'nuxt-content';
+const flag     = process.argv.includes('--remote') ? '--remote' : '--local';
+const fresh    = process.argv.includes('--fresh');
+const dbName   = 'nuxt-content';
+const wrangler = 'node_modules/wrangler/bin/wrangler.js';
 
 function run(file: string) {
   console.log(`→ ${file} (${flag})`);
-  const res = spawnSync('wrangler', ['d1', 'execute', dbName, flag, `--file=${file}`], { stdio: 'inherit' });
+  const res = spawnSync('bun', [wrangler, 'd1', 'execute', dbName, flag, `--file=${file}`], { stdio: 'inherit' });
   if (res.status !== 0) {
     console.error(`✗ Falhou em ${file}`);
     process.exit(res.status ?? 1);
@@ -69,7 +70,7 @@ async function runDrizzle(srcPath: string) {
     const tmpPath = join(tmpDir, `stmt_${Date.now()}_${Math.random().toString(36).slice(2)}.sql`);
     await writeFile(tmpPath, patched);
 
-    const res = spawnSync('wrangler', ['d1', 'execute', dbName, flag, `--file=${tmpPath}`], {
+    const res = spawnSync('bun', [wrangler, 'd1', 'execute', dbName, flag, `--file=${tmpPath}`], {
       stdio: isAlterAdd ? 'pipe' : 'inherit',
     });
 

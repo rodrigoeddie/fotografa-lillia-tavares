@@ -127,7 +127,7 @@ bun run migrate:preview              # aplica no banco de preview
 wrangler d1 execute DB --remote ...  # SQL avulso em produção (não usar p/ migrations)
 ```
 
-> ⚠️ O Node do sistema é v16; o wrangler exige 22+. Os scripts `migrate:*` já rodam o wrangler via Bun (`bun node_modules/wrangler/bin/wrangler.js ...`) — usar essa forma para qualquer comando wrangler manual.
+> ⚠️ O binário `wrangler` não fica no PATH global — invocá-lo direto dá "command not found". Os scripts `migrate:*` rodam via Bun (`bun node_modules/wrangler/bin/wrangler.js ...`); para qualquer comando wrangler manual, usar essa forma ou `npx wrangler ...`. (Node do sistema: v24, que já satisfaz o mínimo 22+ do wrangler.)
 
 ## Onde procurar primeiro
 

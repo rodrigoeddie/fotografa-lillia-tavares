@@ -16,6 +16,7 @@ import { tmpdir } from 'node:os';
 const D1_DIR      = '.wrangler/state/v3/d1/miniflare-D1DatabaseObject';
 const BACKUPS_DIR = 'scripts/backups';
 const DB_NAME     = 'nuxt-content';
+const WRANGLER    = 'node_modules/wrangler/bin/wrangler.js';
 
 const remote = process.argv.includes('--remote');
 const flag   = remote ? '--remote' : '--local';
@@ -61,8 +62,9 @@ if (remote) {
   // ── Busca tabelas existentes em produção ──────────────────────────────────
   console.log('🔍  Consultando tabelas existentes em produção…');
   const queryRes = spawnSync(
-    'wrangler',
+    'bun',
     [
+      WRANGLER,
       'd1', 'execute', DB_NAME, '--remote',
       '--command', "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT LIKE 'd1_%'",
       '--json',
@@ -97,8 +99,8 @@ if (remote) {
     writeFileSync(tmpPath, dropSql);
 
     const dropRes = spawnSync(
-      'wrangler',
-      ['d1', 'execute', DB_NAME, '--remote', `--file=${tmpPath}`],
+      'bun',
+      [WRANGLER, 'd1', 'execute', DB_NAME, '--remote', `--file=${tmpPath}`],
       { stdio: 'inherit' },
     );
 
@@ -150,8 +152,8 @@ if (remote) {
 }
 
 const result = spawnSync(
-  'wrangler',
-  ['d1', 'execute', DB_NAME, flag, `--file=${applyFile}`],
+  'bun',
+  [WRANGLER, 'd1', 'execute', DB_NAME, flag, `--file=${applyFile}`],
   { stdio: 'inherit' },
 );
 
