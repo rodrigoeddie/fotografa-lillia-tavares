@@ -32,7 +32,7 @@ const hasImage = computed(() => !!props.imageCfId);
     <span v-if="hasImage" class="thumb" :style="{ backgroundColor: props.corDestaque || undefined }">
       <img :src="cfImg(props.imageCfId, 'thumbnail')" :alt="props.label" loading="lazy" />
     </span>
-    <span v-else-if="props.icone" class="icon">
+    <span v-else-if="props.icone" class="lt-icon">
       <Icon :name="props.icone" />
     </span>
 
@@ -85,7 +85,7 @@ const hasImage = computed(() => !!props.imageCfId);
   img { width: 100%; height: 100%; object-fit: cover; display: block; }
 }
 
-.icon {
+.lt-icon {
   width: 44rem;
   height: 44rem;
   border-radius: 12rem;
