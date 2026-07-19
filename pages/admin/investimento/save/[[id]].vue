@@ -52,6 +52,62 @@ function addAndExpand() {
   });
 }
 
+// ─── Modelos pré-preenchidos de pacote (quase sempre iguais) ──────────────────
+const PACOTE_PRESETS: PacoteForm[] = [
+  {
+    title: 'Pacote 01', subtitle: '', preco: 299, num_parcelas: 3, preco_parcelas: 115,
+    fotos_incluidas: 5, preco_foto_extra: 30, is_recommended: false,
+    features: [
+      '5 fotos editadas', '30 minutos de sessão', 'Entrega em 7 dias úteis',
+      '1 Cenário', '1 look', 'Fotos extras por R$30 cada',
+    ],
+  },
+  {
+    title: 'Pacote 02', subtitle: '', preco: 579, num_parcelas: 4, preco_parcelas: 168,
+    fotos_incluidas: 10, preco_foto_extra: 28, is_recommended: false,
+    features: [
+      '10 fotos editadas', '40 minutos de sessão', 'Entrega em 5 dias úteis',
+      '1 Cenário', '2 trocas de roupa', 'Orientação completa de poses', 'Fotos extras por R$28 cada',
+    ],
+  },
+  {
+    title: 'Pacote 03', subtitle: '', preco: 799, num_parcelas: 4, preco_parcelas: 224,
+    fotos_incluidas: 25, preco_foto_extra: 20, is_recommended: false,
+    features: [
+      '25 fotos editadas', '1 hora e 30 minutos de sessão', 'Entrega em 3 dias úteis',
+      'Até 3 cenários', '3 trocas de roupa', 'Formato digital em alta resolução',
+      'Orientação completa de poses', 'Fotos extras por R$20 cada',
+    ],
+  },
+  {
+    title: 'Pacote 04', subtitle: '', preco: 1199, num_parcelas: 5, preco_parcelas: 260,
+    fotos_incluidas: 40, preco_foto_extra: 19, is_recommended: false,
+    features: [
+      '40 fotos editadas', '2 horas de sessão', 'Entrega em 3 dias úteis',
+      'Até 4 cenários', '4 trocas de roupa', 'Orientação completa de poses', 'Fotos extras por R$19 cada',
+    ],
+  },
+];
+
+function clonePreset(p: PacoteForm): PacoteForm {
+  return { ...p, features: [...p.features] };
+}
+
+function addPacotePreset(preset: PacoteForm) {
+  const prevLen = pacotes.value.length;
+  pacotes.value.push(clonePreset(preset));
+  nextTick(() => {
+    collapsed.value = new Set(Array.from({ length: prevLen }, (_, i) => i));
+  });
+}
+
+function addAllPacotePresets() {
+  for (const p of PACOTE_PRESETS) pacotes.value.push(clonePreset(p));
+  nextTick(() => {
+    collapsed.value = new Set(pacotes.value.map((_, i) => i));
+  });
+}
+
 // ─── Sugestões pré-preenchidas de "o que está incluso" ────────────────────────
 const INCLUDE_SUGGESTIONS = [
   'Orientação e consultoria durante todo o ensaio',
@@ -216,6 +272,24 @@ onMounted(init);
           <button class="btn-secondary btn-sm" @click="addAndExpand">+ Adicionar pacote</button>
         </div>
 
+        <div class="suggestions suggestions--models">
+          <div class="suggestions-header">
+            <span>Modelos prontos</span>
+            <button class="btn-add-small" @click="addAllPacotePresets">+ Adicionar os 4 modelos</button>
+          </div>
+          <div class="model-chips">
+            <button
+              v-for="p in PACOTE_PRESETS" :key="p.title"
+              class="model-chip" type="button"
+              @click="addPacotePreset(p)"
+            >
+              <span class="material-symbols-outlined">add</span>
+              <span class="model-chip-name">{{ p.title }}</span>
+              <span class="model-chip-meta">R$ {{ p.preco }} · {{ p.fotos_incluidas }} fotos</span>
+            </button>
+          </div>
+        </div>
+
         <div class="pacotes-list" @dragover.prevent @drop.prevent="onDragEnd">
           <div
             v-for="(pacote, pi) in pacotes" :key="pi"
@@ -347,6 +421,22 @@ onMounted(init);
   .material-symbols-outlined { font-size: 16px; color: t.$text-3; flex-shrink: 0; }
   &:hover { border-color: t.$accent; color: t.$accent; .material-symbols-outlined { color: t.$accent; } }
 }
+
+// Package model presets
+.suggestions--models { margin-top: 0; margin-bottom: 16px; padding-top: 0; border-top: none; }
+.model-chips {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px;
+}
+.model-chip {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap; text-align: left;
+  background: t.$surface; border: 1px dashed t.$border-strong; color: t.$text-2;
+  font-size: 13px; font-family: inherit; padding: 8px 10px; border-radius: 6px; cursor: pointer;
+  transition: border-color .12s, color .12s;
+  .material-symbols-outlined { font-size: 16px; color: t.$text-3; flex-shrink: 0; }
+  &:hover { border-color: t.$accent; color: t.$accent; .material-symbols-outlined { color: t.$accent; } }
+}
+.model-chip-name { font-weight: 500; }
+.model-chip-meta { font-size: 11px; color: t.$text-3; width: 100%; }
 
 // Switch
 .switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: t.$text; font-size: 14px; }
