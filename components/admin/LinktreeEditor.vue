@@ -16,6 +16,17 @@ const tipoOptions = Object.entries(TIPO_LABELS) as [LinktreeItemType, string][];
 const avatarInput = ref<HTMLInputElement | null>(null);
 const bannerInputs = ref<Record<number, HTMLInputElement | null>>({});
 
+/* Prévia: iframe da página real /links (reflete o último estado salvo). */
+const previewTick = ref(0);
+const previewUrl = computed(() => (previewTick.value ? `/links?_=${previewTick.value}` : '/links'));
+function reloadPreview() { previewTick.value++; }
+
+/* Salva e, em seguida, recarrega a prévia com o estado novo. */
+async function saveAndPreview() {
+  await save();
+  reloadPreview();
+}
+
 async function onAvatarPick(e: Event) {
   const file = (e.target as HTMLInputElement).files?.[0];
   if (!file) return;
@@ -35,13 +46,15 @@ defineExpose({ load });
 
 <template>
   <div class="lt-editor">
+    <div class="lt-layout">
+      <div class="lt-main">
     <div class="lt-header">
       <h2>Linktree</h2>
       <div class="lt-header-actions">
         <NuxtLink to="/links" target="_blank" class="lt-preview-link">
           <span class="material-symbols-outlined">open_in_new</span> Ver /links
         </NuxtLink>
-        <button class="lt-btn lt-btn-save" :disabled="saving" @click="save">
+        <button class="lt-btn lt-btn-save" :disabled="saving" @click="saveAndPreview">
           {{ saving ? 'Salvando...' : 'Salvar' }}
         </button>
       </div>
@@ -199,12 +212,84 @@ defineExpose({ load });
         </div>
       </div>
     </template>
+      </div>
+
+      <aside class="lt-preview">
+        <div class="lt-preview-head">
+          <span>Prévia <em>/links</em></span>
+          <button class="lt-preview-refresh" title="Atualizar prévia" @click="reloadPreview">
+            <span class="material-symbols-outlined">refresh</span>
+          </button>
+        </div>
+        <div class="lt-phone">
+          <iframe :src="previewUrl" title="Prévia da página /links" loading="lazy" />
+        </div>
+        <p class="lt-preview-note">Mostra o último estado salvo. Salve para atualizar.</p>
+      </aside>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-tokens' as t;
-.lt-editor { color: t.$text; max-width: 760px; }
+.lt-editor { color: t.$text; }
+
+.lt-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+.lt-main { flex: 1; min-width: 0; max-width: 760px; }
+
+/* Prévia (aside sticky) */
+.lt-preview {
+  position: sticky;
+  top: 20px;
+  flex-shrink: 0;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lt-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: t.$text-2;
+  em { color: t.$text-3; font-style: normal; }
+}
+.lt-preview-refresh {
+  background: none;
+  border: 1px solid t.$border-strong;
+  border-radius: 6px;
+  color: t.$text-2;
+  cursor: pointer;
+  padding: 3px;
+  display: flex;
+  .material-symbols-outlined { font-size: 18px; }
+  &:hover { color: t.$text; border-color: t.$accent-line; }
+}
+.lt-phone {
+  width: 100%;
+  aspect-ratio: 390 / 780;
+  background: t.$bg;
+  border: 8px solid #1a1a1a;
+  border-radius: 32px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+}
+.lt-preview-note { font-size: 11px; color: t.$text-3; text-align: center; }
+
+@include m.max(lg) {
+  .lt-preview { display: none; }
+}
 
 .lt-header {
   display: flex;

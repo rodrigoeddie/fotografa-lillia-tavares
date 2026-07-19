@@ -653,6 +653,8 @@ defineExpose({ openWork, selectedWork });
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 * { box-sizing: border-box; }
 
 .field {
@@ -701,7 +703,7 @@ defineExpose({ openWork, selectedWork });
   font-size: 14px;
   line-height: 1.5;
   &:focus { outline: none; border-color: #666; }
-  a { color: #60a5fa; text-decoration: underline; }
+  a { color: t.$accent; text-decoration: underline; }
   b, strong { font-weight: 700; }
   &.rich-editor-single { min-height: 36px; }
 }
@@ -726,7 +728,7 @@ defineExpose({ openWork, selectedWork });
     position: absolute; cursor: pointer; inset: 0; background: #444; border-radius: 24px; transition: 0.2s;
     &::before { content: ''; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
   }
-  input:checked + .slider { background: #2563eb; }
+  input:checked + .slider { background: t.$accent; }
   input:checked + .slider::before { transform: translateX(20px); }
 }
 
@@ -834,8 +836,8 @@ defineExpose({ openWork, selectedWork });
 }
 
 .btn-save {
-  width: 100%; padding: 12px; background: #2563eb; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer;
-  &:hover { background: #1d4ed8; }
+  width: 100%; padding: 12px; background: t.$accent; color: t.$accent-ink; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer;
+  &:hover { background: t.$accent-hi; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
@@ -860,7 +862,7 @@ defineExpose({ openWork, selectedWork });
 
 .album-item {
   background: #1a1a1a; border: 2px solid #333; border-radius: 6px; overflow: hidden; transition: border-color 0.2s; position: relative;
-  &.drag-over { border-color: #2563eb; }
+  &.drag-over { border-color: t.$accent-line; }
   &:hover { border-color: #555; }
   &.grid-full { width: 100%; }
   &.grid-w50 { width: calc(50% - 2px); }
@@ -896,8 +898,8 @@ defineExpose({ openWork, selectedWork });
 }
 
 .btn-browse {
-  background: #1a2a3a; color: #60a5fa; border: 1px solid #1e40af; padding: 6px 14px; border-radius: 4px; font-size: 12px; cursor: pointer;
-  &:hover { background: #1e3a5a; }
+  background: t.$surface-2; color: t.$text; border: 1px solid t.$border; padding: 6px 14px; border-radius: 4px; font-size: 12px; cursor: pointer;
+  &:hover { background: t.$surface-3; }
 }
 
 .uploading { color: #facc15; font-size: 14px; font-weight: 500; }
@@ -950,7 +952,7 @@ defineExpose({ openWork, selectedWork });
 
 .cf-item {
   cursor: pointer; border: 2px solid #333; border-radius: 6px; overflow: hidden; transition: border-color 0.2s;
-  &:hover { border-color: #2563eb; }
+  &:hover { border-color: t.$accent-line; }
   img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
   .cf-filename { display: block; padding: 4px 6px; font-size: 10px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: #151515; }
 }

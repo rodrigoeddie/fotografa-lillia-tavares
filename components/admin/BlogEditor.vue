@@ -673,6 +673,8 @@ defineExpose({ openFile });
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .blog-editor {
   color: #eee;
 }
@@ -696,9 +698,9 @@ defineExpose({ openFile });
 .editor-path { font-size: 12px; color: #666; font-family: monospace; }
 
 .btn-save {
-  background: #2563eb; border: none; color: #fff; padding: 8px 20px;
+  background: t.$accent; border: none; color: t.$accent-ink; padding: 8px 20px;
   border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
-  &:hover:not(:disabled) { background: #1d4ed8; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 
@@ -709,7 +711,7 @@ defineExpose({ openFile });
     background: none; border: none; border-bottom: 2px solid transparent;
     color: #888; padding: 10px 20px; font-size: 13px; cursor: pointer;
     &:hover { color: #ccc; }
-    &.active { color: #60a5fa; border-bottom-color: #3b82f6; }
+    &.active { color: t.$accent; border-bottom-color: t.$accent; }
   }
 }
 
@@ -722,7 +724,7 @@ defineExpose({ openFile });
   input[type="text"], input[type="date"], input[type="number"], textarea, select {
     width: 100%; background: #1a1a1a; border: 1px solid #333; color: #eee;
     padding: 8px 12px; border-radius: 6px; font-size: 14px;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
   textarea { resize: vertical; font-family: inherit; }
 }
@@ -741,14 +743,14 @@ defineExpose({ openFile });
 .new-cat-row {
   display: flex; gap: 6px; margin-top: 8px;
   input { flex: 1; background: #1a1a1a; border: 1px solid #333; color: #eee; padding: 6px 10px; border-radius: 6px; font-size: 13px;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 }
 
 .btn-small {
-  background: #1e2d3d; border: 1px solid #2d4a6a; color: #60a5fa; padding: 6px 12px;
+  background: t.$surface-2; border: 1px solid t.$border; color: t.$text; padding: 6px 12px;
   border-radius: 6px; font-size: 12px; cursor: pointer; white-space: nowrap;
-  &:hover { background: #253d55; }
+  &:hover { background: t.$surface-3; }
   &.ok { color: #4ade80; border-color: #166534; }
   &.cancel { color: #f87171; border-color: #7f1d1d; }
   &.danger { color: #f87171; border-color: #7f1d1d; &:hover { background: #450a0a; } }
@@ -763,7 +765,7 @@ defineExpose({ openFile });
 .image-fields {
   display: flex; gap: 8px; flex-wrap: wrap;
   input, select { flex: 1; min-width: 80px; background: #1a1a1a; border: 1px solid #333; color: #eee; padding: 6px 8px; border-radius: 4px; font-size: 12px;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 }
 
@@ -775,7 +777,7 @@ defineExpose({ openFile });
     background: #222; border: 1px solid #444; color: #ccc; padding: 6px 12px;
     border-radius: 4px; font-size: 12px; cursor: pointer;
     &:hover { background: #333; color: #fff; }
-    &.is-active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+    &.is-active { background: t.$accent; color: t.$accent-ink; border-color: t.$accent; }
   }
   .toolbar-sep { width: 1px; background: #444; margin: 0 4px; }
 }
@@ -793,7 +795,7 @@ defineExpose({ openFile });
     outline: none;
 
     p { margin-bottom: 12px; }
-    a { color: #60a5fa; text-decoration: underline; }
+    a { color: t.$accent; text-decoration: underline; }
     strong { font-weight: 700; }
     em { font-style: italic; }
     h2 { font-size: 20px; margin: 16px 0 8px; color: #eee; }
@@ -820,7 +822,7 @@ defineExpose({ openFile });
   background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px;
   padding: 12px; margin-bottom: 8px;
   transition: border-color 0.15s;
-  &.drag-over { border-color: #3b82f6; }
+  &.drag-over { border-color: t.$accent-line; }
 }
 
 .image-card-header {
@@ -839,7 +841,7 @@ defineExpose({ openFile });
   display: flex; gap: 6px; flex-wrap: wrap;
   input, select { width: 100%; background: #111; border: 1px solid #333; color: #eee;
     padding: 5px 8px; border-radius: 4px; font-size: 11px; margin-top: 3px;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 }
 
@@ -881,7 +883,7 @@ defineExpose({ openFile });
 .cf-thumb {
   cursor: pointer; border: 2px solid transparent; border-radius: 6px;
   overflow: hidden; background: #111; transition: border-color 0.15s;
-  &:hover { border-color: #3b82f6; }
+  &:hover { border-color: t.$accent-line; }
   img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
   .cf-filename { display: block; font-size: 9px; color: #888; padding: 3px 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -911,7 +913,7 @@ defineExpose({ openFile });
   input {
     flex: 1; background: #111; border: 1px solid #444; color: #eee;
     padding: 8px 12px; border-radius: 6px; font-size: 13px;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 }
 
@@ -927,7 +929,7 @@ defineExpose({ openFile });
   width: 100%; background: #111; border: 1px solid #333; color: #eee;
   padding: 8px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 10px;
   box-sizing: border-box;
-  &:focus { outline: none; border-color: #3b82f6; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .link-pages {
@@ -940,10 +942,10 @@ defineExpose({ openFile });
   background: none; border: 1px solid transparent; border-radius: 6px;
   padding: 8px 10px; cursor: pointer; text-align: left;
   transition: background 0.12s, border-color 0.12s;
-  &:hover { background: #1e2d3d; border-color: #2d4a6a; }
+  &:hover { background: t.$surface-2; border-color: t.$border; }
 }
 
 .link-page-label { font-size: 13px; color: #ddd; font-weight: 500; flex: 1; }
-.link-page-url { font-size: 11px; color: #60a5fa; font-family: monospace; }
+.link-page-url { font-size: 11px; color: t.$accent; font-family: monospace; }
 .link-page-group { font-size: 10px; color: #555; background: #222; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
 </style>
