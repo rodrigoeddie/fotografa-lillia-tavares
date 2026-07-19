@@ -15,7 +15,7 @@ Mapa de todas as rotas e quais APIs/services alimentam cada uma. Fonte autoritat
 | `/agende-seu-ensaio` | Formulário + mapa | estática |
 | ~~`/consultoria-de-imagem-em-mogi`~~ | **DESATIVADA (jul/2026)** — retorna 404, fora do menu/sitemap; volta no futuro (ver docs/paginas.md) | estática (`.vue` mantido) |
 | `/privacidade-e-termos` | Políticas | estática |
-| `/links` | Linktree (bio Instagram, tracking de cliques) — `noindex` | `/api/public/linktree` |
+| `/links` | Linktree (bio Instagram, tracking de cliques) — `noindex`. Renderiza o **preset ativo** (ver admin/linktree) | `/api/public/linktree` |
 
 ### Portfolio
 
@@ -62,7 +62,7 @@ Layout: `lp.vue`. Classe tema: `lp-<slug>` (ex: `lp-presentes`, `lp-dia-das-maes
 
 Layout: `admin.vue`. Auth: header `x-cms-token` (JWT). `robots: noindex, nofollow`.
 
-**Conteúdo**: `/admin/portfolio`, `/admin/portfolio/categorias`, `/admin/blog`, `/admin/blog/categorias`, `/admin/depoimentos`, `/admin/investimento`, `/admin/faq`, `/admin/hero-banners`, `/admin/landing-pages`, `/admin/menu`, `/admin/page-faq`
+**Conteúdo**: `/admin/portfolio`, `/admin/portfolio/categorias`, `/admin/blog`, `/admin/blog/categorias`, `/admin/depoimentos`, `/admin/investimento`, `/admin/faq`, `/admin/hero-banners`, `/admin/landing-pages`, `/admin/menu`, `/admin/page-faq`, `/admin/linktree` (presets de linktree — cabeçalho+tema+blocos por temporada; 1 ativo por vez alimenta `/links`)
 
 **Operação**: `/admin/clientes`, `/admin/sessoes` (→ `/[id]/fotos`, `/[id]/selecao`, `/[id]/lotes`), `/admin/entregas`, `/admin/cenarios`
 

@@ -1,7 +1,7 @@
-import { eq, asc, desc, sql } from 'drizzle-orm';
+import { eq, asc, desc, sql, count } from 'drizzle-orm';
 import type { ORM } from '~/server/utils/d1-client';
 import {
-  linktree_profile,
+  linktree_presets,
   linktree_items,
   linktree_clicks,
   blog_posts,
@@ -33,6 +33,21 @@ export interface RenderedProfile {
   tema: 'claro' | 'escuro' | 'marrom' | 'azul';
 }
 
+/** Resumo de preset p/ a lista do admin. */
+export interface PresetSummary {
+  id: number;
+  titulo: string;
+  ativo: boolean;
+  tema: string;
+  nome: string;
+  blocos: number;
+}
+
+const TEMAS = ['claro', 'escuro', 'marrom', 'azul'] as const;
+function normalizeTema(t: string | null | undefined): RenderedProfile['tema'] {
+  return (TEMAS as readonly string[]).includes(t ?? '') ? (t as RenderedProfile['tema']) : 'claro';
+}
+
 /** Sanitização conservadora p/ HTML do bloco custom (conteúdo de admin confiável). */
 function sanitizeHtml(input: string): string {
   return input
@@ -45,29 +60,137 @@ function sanitizeHtml(input: string): string {
 export class LinktreeService {
   constructor(private db: ORM) {}
 
-  // ── Perfil ──────────────────────────────────────────────────────
-  async getProfile() {
-    const [row] = await this.db.select().from(linktree_profile).where(eq(linktree_profile.id, 1));
+  // ── Presets ─────────────────────────────────────────────────────
+  async listPresets(): Promise<PresetSummary[]> {
+    const presets = await this.db.select().from(linktree_presets).orderBy(asc(linktree_presets.id));
+    const counts = await this.db
+      .select({ preset_id: linktree_items.preset_id, n: count() })
+      .from(linktree_items)
+      .groupBy(linktree_items.preset_id);
+    const byPreset = new Map(counts.map((c) => [c.preset_id, Number(c.n)]));
+    return presets.map((p) => ({
+      id: p.id,
+      titulo: p.titulo,
+      ativo: !!p.ativo,
+      tema: normalizeTema(p.tema),
+      nome: p.nome,
+      blocos: byPreset.get(p.id) ?? 0,
+    }));
+  }
+
+  async getPreset(id: number) {
+    const [row] = await this.db.select().from(linktree_presets).where(eq(linktree_presets.id, id));
     return row ?? null;
   }
 
-  async updateProfile(data: LinktreeProfileInput) {
-    const values = {
-      avatar_cf_id:  data.avatarCfId ?? null,
-      nome:          data.nome ?? '',
-      headline:      data.headline ?? null,
-      tema:          data.tema ?? 'claro',
-      atualizado_em: new Date().toISOString(),
-    };
+  /** Preset ativo (fallback: menor id). */
+  async getActivePreset() {
+    const [active] = await this.db.select().from(linktree_presets).where(eq(linktree_presets.ativo, true));
+    if (active) return active;
+    const [first] = await this.db.select().from(linktree_presets).orderBy(asc(linktree_presets.id)).limit(1);
+    return first ?? null;
+  }
+
+  /** Cria um preset novo (inativo) com cabeçalho vazio. Retorna o id. */
+  async createPreset(titulo: string): Promise<number> {
+    const [row] = await this.db
+      .insert(linktree_presets)
+      .values({ titulo, ativo: false, nome: '', tema: 'claro', atualizado_em: new Date().toISOString() })
+      .returning({ id: linktree_presets.id });
+    return row!.id;
+  }
+
+  /** Duplica cabeçalho + blocos de um preset em um novo preset inativo. Retorna o id. */
+  async duplicatePreset(sourceId: number, titulo: string): Promise<number> {
+    const src = await this.getPreset(sourceId);
+    if (!src) throw new Error('Preset de origem não encontrado');
+    const [row] = await this.db
+      .insert(linktree_presets)
+      .values({
+        titulo,
+        ativo: false,
+        avatar_cf_id: src.avatar_cf_id ?? null,
+        nome: src.nome,
+        headline: src.headline ?? null,
+        tema: src.tema,
+        atualizado_em: new Date().toISOString(),
+      })
+      .returning({ id: linktree_presets.id });
+    const newId = row!.id;
+
+    const items = await this.db.select().from(linktree_items).where(eq(linktree_items.preset_id, sourceId)).orderBy(asc(linktree_items.ordem));
+    if (items.length) {
+      const inserts = items.map((it) =>
+        this.db.insert(linktree_items).values({
+          preset_id: newId,
+          ordem: it.ordem,
+          ativo: !!it.ativo,
+          tipo: it.tipo,
+          config: it.config,
+        }),
+      );
+      await this.db.batch(inserts as any);
+    }
+    return newId;
+  }
+
+  async renamePreset(id: number, titulo: string) {
     return this.db
-      .insert(linktree_profile)
-      .values({ id: 1, ...values })
-      .onConflictDoUpdate({ target: linktree_profile.id, set: values });
+      .update(linktree_presets)
+      .set({ titulo, atualizado_em: new Date().toISOString() })
+      .where(eq(linktree_presets.id, id));
+  }
+
+  /** Ativa um preset (desativa os demais). Índice único parcial garante 1 ativo. */
+  async activatePreset(id: number) {
+    const now = new Date().toISOString();
+    return this.db.batch([
+      this.db.update(linktree_presets).set({ ativo: false }).where(eq(linktree_presets.ativo, true)),
+      this.db.update(linktree_presets).set({ ativo: true, atualizado_em: now }).where(eq(linktree_presets.id, id)),
+    ] as any);
+  }
+
+  /** Remove um preset e seus blocos. Não permite apagar o último; reativa outro se preciso. */
+  async deletePreset(id: number) {
+    const presets = await this.db.select().from(linktree_presets).orderBy(asc(linktree_presets.id));
+    if (presets.length <= 1) throw new Error('Não é possível excluir o único preset');
+    const alvo = presets.find((p) => p.id === id);
+    if (!alvo) return;
+
+    await this.db.batch([
+      this.db.delete(linktree_items).where(eq(linktree_items.preset_id, id)),
+      this.db.delete(linktree_presets).where(eq(linktree_presets.id, id)),
+    ] as any);
+
+    // Se o excluído era o ativo, promove o preset restante mais antigo.
+    if (alvo.ativo) {
+      const proximo = presets.find((p) => p.id !== id);
+      if (proximo) await this.activatePreset(proximo.id);
+    }
+  }
+
+  /** Atualiza o cabeçalho do preset + substitui seus blocos. */
+  async savePreset(id: number, profile: LinktreeProfileInput, items: LinktreeItemInput[]) {
+    await this.db
+      .update(linktree_presets)
+      .set({
+        avatar_cf_id: profile.avatarCfId ?? null,
+        nome:         profile.nome ?? '',
+        headline:     profile.headline ?? null,
+        tema:         profile.tema ?? 'claro',
+        atualizado_em: new Date().toISOString(),
+      })
+      .where(eq(linktree_presets.id, id));
+    await this.replaceItems(id, items);
   }
 
   // ── Itens (admin: dados crus) ───────────────────────────────────
-  async listItems(): Promise<LinktreeItemInput[]> {
-    const rows = await this.db.select().from(linktree_items).orderBy(asc(linktree_items.ordem));
+  async listItems(presetId: number): Promise<LinktreeItemInput[]> {
+    const rows = await this.db
+      .select()
+      .from(linktree_items)
+      .where(eq(linktree_items.preset_id, presetId))
+      .orderBy(asc(linktree_items.ordem));
     return rows
       .map((r) => {
         try {
@@ -84,30 +207,36 @@ export class LinktreeService {
       .filter((b): b is LinktreeItemInput => b !== null);
   }
 
-  /** Substitui todos os itens (delete + insert atômico via batch), ordem = índice. */
-  async replaceItems(items: LinktreeItemInput[]) {
+  /** Substitui os itens de um preset (delete + insert atômico via batch), ordem = índice. */
+  async replaceItems(presetId: number, items: LinktreeItemInput[]) {
     const inserts = items.map((item, idx) =>
       this.db.insert(linktree_items).values({
+        preset_id: presetId,
         ordem:  idx,
         ativo:  item.ativo,
         tipo:   item.tipo,
         config: JSON.stringify(item.config),
       }),
     );
-    return this.db.batch([this.db.delete(linktree_items), ...inserts] as any);
+    return this.db.batch([
+      this.db.delete(linktree_items).where(eq(linktree_items.preset_id, presetId)),
+      ...inserts,
+    ] as any);
   }
 
-  // ── Árvore pública (referências resolvidas server-side) ─────────
+  // ── Árvore pública (preset ativo, referências resolvidas server-side) ───────
   async getPublicTree(): Promise<{ profile: RenderedProfile; blocks: RenderedBlock[] }> {
-    const profileRow = await this.getProfile();
+    const preset = await this.getActivePreset();
     const profile: RenderedProfile = {
-      nome:       profileRow?.nome ?? 'Fotógrafa Lillia Tavares',
-      headline:   profileRow?.headline ?? null,
-      avatarCfId: profileRow?.avatar_cf_id ?? null,
-      tema:       (['claro', 'escuro', 'marrom', 'azul'].includes(profileRow?.tema ?? '') ? profileRow!.tema as RenderedProfile['tema'] : 'claro'),
+      nome:       preset?.nome || 'Fotógrafa Lillia Tavares',
+      headline:   preset?.headline ?? null,
+      avatarCfId: preset?.avatar_cf_id ?? null,
+      tema:       normalizeTema(preset?.tema),
     };
 
-    const items = (await this.listItems()).filter((i) => i.ativo);
+    if (!preset) return { profile, blocks: [] };
+
+    const items = (await this.listItems(preset.id)).filter((i) => i.ativo);
     const blocks: RenderedBlock[] = [];
 
     for (const item of items) {

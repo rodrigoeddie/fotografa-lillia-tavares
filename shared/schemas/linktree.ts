@@ -93,6 +93,14 @@ export const LinktreeSaveSchema = z.object({
   items:   LinktreeItemsReplaceSchema,
 });
 
+// ── presets (temporadas/temas) ─────────────────────────────────────────────────
+/** Título do preset exibido no admin (ex.: "Padrão", "Dia das Mães"). */
+export const LinktreePresetTitleSchema = z.object({
+  titulo: z.string().trim().min(1).max(80),
+});
+
+export type LinktreePresetTitleInput = z.infer<typeof LinktreePresetTitleSchema>;
+
 // ── types ──────────────────────────────────────────────────────────────────────
 export type LinktreeItemType  = z.infer<typeof LinktreeItemSchema>['tipo'];
 export type LinktreeItemInput = z.infer<typeof LinktreeItemSchema>;

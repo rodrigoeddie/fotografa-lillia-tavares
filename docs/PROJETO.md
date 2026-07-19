@@ -82,7 +82,7 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 - **26 tabelas** D1 com schema Drizzle completo em `server/db/schema/`; **migração para Drizzle concluída** (19+ services usando `getOrm()`). 26 migrations, última `026_consentimentos.sql`.
 - **Produção em paridade com o repositório desde 2026-07-01** (aplicadas 023 pagamentos, 024/025 linktree, 026 consentimentos, com backup prévio). Exceção: a migration **019 é obsoleta** — `portfolio_works.depoimento_id` nunca entrou no schema Drizzle nem é usada pelo código (o vínculo é `depoimentos.portfolio_link`); não foi aplicada em produção de propósito.
 - **Controle de migrations (desde 2026-07-01):** tabela `d1_migrations` (padrão do wrangler) em produção e preview, com backfill das 001–026. Fluxo: `bun run migrate:status` → `bun run migrate:prod` → `bun run migrate:preview`. Arquivos numerados manualmente com 3 dígitos (`027_...`). Ver [../server/CLAUDE.md](../server/CLAUDE.md).
-- Domínios: auth (admin_users, clientes), sessões (sessoes, sessao_fotos, selecao_lotes, selecoes, entregas, pagamentos), conteúdo (portfolio, blog, depoimentos, faq, categorias), LP/SEO (landing_pages, lp_blocks, page_seo), produtos/pacotes, menu, linktree, notificações/push.
+- Domínios: auth (admin_users, clientes), sessões (sessoes, sessao_fotos, selecao_lotes, selecoes, entregas, pagamentos), conteúdo (portfolio, blog, depoimentos, faq, categorias), LP/SEO (landing_pages, lp_blocks, page_seo), produtos/pacotes, menu, linktree (linktree_presets + linktree_items + linktree_clicks — migration **034** aplicada em prod 2026-07-19; **preview NÃO** aplicou: travou na 030_menu_submenus_seed por falta da coluna `menu_items.blank` no banco de preview — divergência antiga, resolver antes de usar preview), notificações/push.
 - Backup: scripts `db-backup.ts`/`db-restore.ts` existem, **execução manual** — último backup em `scripts/backups/` é de 21/mai/2026.
 
 ## 5. Segurança
@@ -125,7 +125,7 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 ## 10. Marketing & conteúdo
 
 - **Norte:** venda de ensaios fotográficos em Mogi das Cruzes e Alto Tietê (orgânico como canal principal hoje).
-- **Ativos:** LPs de campanha (dia das mães, corporativo com domínio próprio 301, coloração pessoal), linktree com tracking de cliques, depoimentos (70+), blog.
+- **Ativos:** LPs de campanha (dia das mães, corporativo com domínio próprio 301, coloração pessoal), linktree com **presets por temporada** (cabeçalho+tema+blocos; 1 ativo por vez) + tracking de cliques, depoimentos (70+), blog.
 - **Em construção (do TODO):** hub de presentes `/presente-ensaio-fotografico-mogi` (páginas-filhas por ocasião, interligação com dia das mães), post de blog para links internos, páginas internas dos demais preços, página de aluguel do estúdio, produtos no Google Business Profile desatualizados.
 - **Ads:** nada implementado; intenção declarada de avaliar CLI/MCP do Google Ads (ver ROADMAP).
 

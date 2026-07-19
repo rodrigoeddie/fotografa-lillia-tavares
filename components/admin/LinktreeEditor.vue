@@ -3,12 +3,20 @@ import type { LinktreeItemType } from '~/shared/schemas/linktree';
 
 const cfImg = useCfImg();
 const {
-  loading, saving, profile, items, itemClicks,
+  loading, loadingPreset, saving,
+  presets, selectedId, selectedPreset, isSelectedActive, dirty,
+  profile, items, itemClicks,
   posts, works, deps,
-  load, addItem, removeItem, save, uploadImage,
+  load, selectPreset,
+  createPreset, duplicatePreset, renamePreset, deletePreset, activatePreset,
+  addItem, removeItem, save, uploadImage,
   dragIdx, dragOverIdx, onDragStart, onDragOver, onDrop,
   TIPO_LABELS, DESTINO_OPTIONS,
 } = useLinktreeForm();
+
+const TEMA_LABELS: Record<string, string> = {
+  claro: 'Claro', escuro: 'Escuro', marrom: 'Marrom', azul: 'Azul',
+};
 
 const novoTipo = ref<LinktreeItemType>('atalho');
 const tipoOptions = Object.entries(TIPO_LABELS) as [LinktreeItemType, string][];
@@ -54,7 +62,7 @@ defineExpose({ load });
         <NuxtLink to="/links" target="_blank" class="lt-preview-link">
           <span class="material-symbols-outlined">open_in_new</span> Ver /links
         </NuxtLink>
-        <button class="lt-btn lt-btn-save" :disabled="saving" @click="saveAndPreview">
+        <button class="lt-btn lt-btn-save" :disabled="saving || selectedId === null" @click="saveAndPreview">
           {{ saving ? 'Salvando...' : 'Salvar' }}
         </button>
       </div>
@@ -63,6 +71,63 @@ defineExpose({ load });
     <p v-if="loading" class="lt-loading">Carregando...</p>
 
     <template v-else>
+      <!-- Presets (temporadas / temas) -->
+      <section class="lt-presets">
+        <div class="lt-presets-head">
+          <div>
+            <h3>Presets</h3>
+            <p class="lt-presets-hint">Coleções de links por temporada. Só uma fica no ar por vez.</p>
+          </div>
+          <button class="lt-btn lt-btn-sm" @click="createPreset">+ Novo preset</button>
+        </div>
+
+        <div class="lt-preset-tabs">
+          <button
+            v-for="p in presets"
+            :key="p.id"
+            class="lt-preset-tab"
+            :class="{ 'is-selected': p.id === selectedId, 'is-live': p.ativo }"
+            @click="selectPreset(p.id)"
+          >
+            <span class="lt-preset-name">{{ p.titulo }}</span>
+            <span v-if="p.ativo" class="lt-live-badge">no ar</span>
+            <span class="lt-preset-meta">{{ p.blocos }} bloco{{ p.blocos === 1 ? '' : 's' }} · {{ TEMA_LABELS[p.tema] || p.tema }}</span>
+          </button>
+        </div>
+
+        <div v-if="selectedPreset" class="lt-preset-actions">
+          <button
+            v-if="!isSelectedActive"
+            class="lt-btn lt-btn-live"
+            @click="activatePreset(selectedPreset.id)"
+          >
+            <span class="material-symbols-outlined">rocket_launch</span> Publicar este preset
+          </button>
+          <span v-else class="lt-live-note">
+            <span class="material-symbols-outlined">public</span> Este preset está no ar
+          </span>
+          <div class="lt-preset-tools">
+            <button class="lt-btn lt-btn-sm lt-btn-ghost" @click="renamePreset(selectedPreset.id)">Renomear</button>
+            <button class="lt-btn lt-btn-sm lt-btn-ghost" @click="duplicatePreset(selectedPreset.id)">Duplicar</button>
+            <button
+              class="lt-btn lt-btn-sm lt-btn-ghost lt-btn-danger"
+              :disabled="presets.length <= 1"
+              :title="presets.length <= 1 ? 'É o único preset' : 'Excluir preset'"
+              @click="deletePreset(selectedPreset.id)"
+            >Excluir</button>
+          </div>
+        </div>
+      </section>
+
+      <div v-if="selectedPreset" class="lt-editing-banner" :class="{ 'is-dirty': dirty }">
+        Editando <strong>{{ selectedPreset.titulo }}</strong>
+        <span v-if="!isSelectedActive" class="lt-editing-draft">· rascunho (não está no ar)</span>
+        <span v-if="dirty" class="lt-editing-dirty">· alterações não salvas</span>
+      </div>
+
+      <p v-if="loadingPreset" class="lt-loading">Abrindo preset...</p>
+
+      <template v-else-if="selectedPreset">
       <!-- Perfil -->
       <section class="lt-card">
         <h3>Cabeçalho</h3>
@@ -211,6 +276,7 @@ defineExpose({ load });
           </div>
         </div>
       </div>
+      </template>
     </template>
       </div>
 
@@ -299,6 +365,105 @@ defineExpose({ load });
   h2 { font-size: 22px; }
 }
 .lt-header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* Presets */
+.lt-presets {
+  background: t.$surface;
+  border: 1px solid t.$border;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.lt-presets-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  h3 { font-size: 14px; color: t.$text; }
+}
+.lt-presets-hint { font-size: 12px; color: t.$text-3; margin-top: 2px; }
+
+.lt-preset-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lt-preset-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  min-width: 140px;
+  padding: 9px 12px;
+  background: t.$bg;
+  border: 1px solid t.$border-strong;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  &:hover { border-color: t.$accent-line; }
+  &.is-selected { border-color: t.$accent; background: t.$surface-2; }
+  &.is-live { box-shadow: inset 3px 0 0 t.$success, 0 0 0 1px transparent; }
+}
+.lt-preset-name { font-size: 13px; font-weight: 600; color: t.$text; }
+.lt-preset-meta { font-size: 11px; color: t.$text-3; }
+.lt-live-badge {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: t.$success;
+  background: color-mix(in srgb, t.$success 16%, transparent);
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+
+.lt-preset-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid t.$border;
+}
+.lt-preset-tools { display: flex; gap: 8px; }
+.lt-btn-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: t.$success;
+  color: #06210f;
+  .material-symbols-outlined { font-size: 18px; }
+  &:hover:not(:disabled) { filter: brightness(1.08); background: t.$success; }
+}
+.lt-live-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: t.$success;
+  .material-symbols-outlined { font-size: 18px; }
+}
+.lt-btn-danger {
+  &:hover:not(:disabled) { color: t.$danger; border-color: t.$danger; }
+}
+
+.lt-editing-banner {
+  font-size: 13px;
+  color: t.$text-2;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  background: t.$surface-2;
+  border-radius: 8px;
+  strong { color: t.$text; }
+  &.is-dirty { box-shadow: inset 3px 0 0 t.$accent; }
+}
+.lt-editing-draft { color: t.$text-3; }
+.lt-editing-dirty { color: t.$accent; }
 
 .lt-preview-link {
   display: inline-flex;
