@@ -199,6 +199,7 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .audit-actions {
@@ -209,7 +210,7 @@ onMounted(load);
 }
 
 .audit-info {
-  color: #888;
+  color: t.$text-3;
   font-size: 13rem;
   margin: 0;
 }
@@ -222,8 +223,8 @@ onMounted(load);
 }
 
 .stat-card {
-  background: #1a1a1a;
-  border: 1rem solid #333;
+  background: t.$surface;
+  border: 1rem solid t.$border-strong;
   border-radius: 8rem;
   padding: 12rem 16rem;
   min-width: 130rem;
@@ -231,11 +232,11 @@ onMounted(load);
   flex-direction: column;
 
   .stat-value { font-size: 22rem; font-weight: 700; line-height: 1; }
-  .stat-label { font-size: 12rem; color: #888; margin-top: 4rem; }
+  .stat-label { font-size: 12rem; color: t.$text-3; margin-top: 4rem; }
 
-  &.stat-bad   { .stat-value { color: #f87171; } }
-  &.stat-ok    { .stat-value { color: #fbbf24; } }
-  &.stat-info  { .stat-value { color: #94a3b8; } }
+  &.stat-bad   { .stat-value { color: t.$danger; } }
+  &.stat-ok    { .stat-value { color: t.$warning; } }
+  &.stat-info  { .stat-value { color: t.$text-2; } }
 }
 
 .audit-filters {
@@ -247,14 +248,14 @@ onMounted(load);
 
 .filter-btn {
   padding: 6rem 14rem;
-  border: 1rem solid #444;
+  border: 1rem solid t.$border-strong;
   border-radius: 4rem;
   background: transparent;
-  color: #ccc;
+  color: t.$text;
   font-size: 13rem;
   cursor: pointer;
-  &:hover { background: #2a2a2a; }
-  &.active { background: #1e293b; color: white; border-color: #60a5fa; }
+  &:hover { background: t.$border; }
+  &.active { background: t.$accent; color: t.$accent-ink; border-color: t.$accent; }
 }
 
 .audit-list {
@@ -264,8 +265,8 @@ onMounted(load);
 }
 
 .audit-row {
-  background: #161616;
-  border: 1rem solid #2a2a2a;
+  background: t.$surface;
+  border: 1rem solid t.$border;
   border-radius: 8rem;
   padding: 12rem 16rem;
 }
@@ -280,14 +281,14 @@ onMounted(load);
 .row-title {
   flex: 1;
   font-size: 14rem;
-  color: #ddd;
+  color: t.$text;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .row-when {
-  color: #555;
+  color: t.$text-3;
   font-size: 11rem;
 }
 
@@ -306,7 +307,7 @@ onMounted(load);
 }
 
 .audit-pending {
-  color: #666;
+  color: t.$text-3;
   font-style: italic;
   font-size: 13rem;
 }
@@ -323,10 +324,10 @@ onMounted(load);
   align-items: center;
   gap: 6rem;
 
-  small { color: #888; margin-left: 4rem; }
+  small { color: t.$text-3; margin-left: 4rem; }
 
-  &.ok   { color: #86efac; }
-  &.fail { color: #f87171; }
+  &.ok   { color: t.$success; }
+  &.fail { color: t.$danger; }
 
   .check-icon {
     width: 14rem;
@@ -340,12 +341,12 @@ onMounted(load);
   grid-column: 1 / -1;
   margin: 4rem 0 0;
   padding: 8rem 12rem;
-  background: rgba(248, 113, 113, 0.08);
+  background: t.$danger-bg;
   border-radius: 4rem;
   list-style: none;
   font-family: 'Fira Code', monospace;
   font-size: 11rem;
-  color: #f87171;
+  color: t.$danger;
 
   li {
     padding: 2rem 0;

@@ -62,12 +62,13 @@ onBeforeUnmount(() => editor.value?.destroy());
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 .rtb {
   margin-top: 4px;
-  border: 1px solid #333;
+  border: 1px solid t.$border-strong;
   border-radius: 6px;
   overflow: hidden;
-  background: #111;
+  background: t.$bg;
 }
 
 .rtb-toolbar {
@@ -75,34 +76,34 @@ onBeforeUnmount(() => editor.value?.destroy());
   align-items: center;
   gap: 2px;
   padding: 6px 8px;
-  background: #161616;
-  border-bottom: 1px solid #2a2a2a;
+  background: t.$surface;
+  border-bottom: 1px solid t.$border;
 
   button {
     background: none;
     border: 1px solid transparent;
-    color: #bbb;
+    color: t.$text-2;
     width: 28px;
     height: 26px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    &:hover { background: #222; color: #eee; }
-    &.active { background: #2563eb; color: #fff; }
+    &:hover { background: t.$surface-2; color: t.$text; }
+    &.active { background: t.$accent; color: t.$accent-ink; }
   }
 
-  .rtb-sep { width: 1px; height: 18px; background: #333; margin: 0 4px; }
+  .rtb-sep { width: 1px; height: 18px; background: t.$border-strong; margin: 0 4px; }
 }
 
 :deep(.rtb-content) {
   min-height: 80px;
   padding: 10px 12px;
-  color: #eee;
+  color: t.$text;
   font-size: 14px;
   line-height: 1.5;
   outline: none;
 
   p { margin: 0 0 6px; &:last-child { margin-bottom: 0; } }
-  a { color: #93c5fd; text-decoration: underline; }
+  a { color: t.$accent; text-decoration: underline; }
 }
 </style>

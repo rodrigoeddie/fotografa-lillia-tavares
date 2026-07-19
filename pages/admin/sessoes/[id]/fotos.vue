@@ -282,6 +282,7 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .text-muted {
@@ -306,7 +307,7 @@ onMounted(load);
   gap: 20rem;
 
   .queue-item {
-    background-color: black;
+    background-color: t.$surface;
     width: calc(20% - 15rem);
     flex-direction: column;
     align-items: center;
@@ -317,13 +318,13 @@ onMounted(load);
     gap: 8px;
 
     &.is-done {
-      background: rgb(0, 63, 0);
+      background: t.$success-bg;
     }
     &.is-error {
-      background: rgb(80, 0, 0);
+      background: t.$danger-bg;
     }
     &.is-processing {
-      background: rgb(121, 79, 0);
+      background: t.$warning-bg;
     }
   }
 }
@@ -350,7 +351,7 @@ onMounted(load);
   margin-left: auto;
   background: none;
   border: none;
-  color: #9ca3af;
+  color: t.$text-2;
   cursor: pointer;
   font-size: 12px;
   padding: 2px 4px;
@@ -360,23 +361,23 @@ onMounted(load);
   top: 10px;
 
   &:hover {
-    color: #dc2626;
-    background: #fee2e2;
+    color: t.$danger;
+    background: t.$danger-bg;
   }
 }
 
-.queue-name { flex: 1; color: whitesmoke; }
+.queue-name { flex: 1; color: t.$text; }
 
 .queue-progress {
   width: 80px;
   height: 4px;
-  background: #e5e7eb;
+  background: t.$surface-3;
   border-radius: 2px;
   overflow: hidden;
 }
 .queue-fill {
   height: 100%;
-  background: #1f2937;
+  background: t.$accent;
   transition: width 0.2s;
 }
 
@@ -404,19 +405,19 @@ onMounted(load);
 
 .btn-capa {
   position: absolute; top: 4px; left: 4px;
-  background: rgba(0,0,0,0.55); color: #d1d5db;
+  background: rgba(0,0,0,0.55); color: t.$text;
   border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.15s, color 0.15s;
   .material-symbols-outlined { font-size: 16px; }
-  &:hover { background: rgba(0,0,0,0.8); color: #fbbf24; }
-  &.active { color: #fbbf24; background: rgba(0,0,0,0.75); }
+  &:hover { background: rgba(0,0,0,0.8); color: t.$accent; }
+  &.active { color: t.$accent; background: rgba(0,0,0,0.75); }
   &:disabled { opacity: 0.5; cursor: default; }
 }
 
 .capa-badge {
   position: absolute; bottom: 6px; left: 6px;
-  background: rgba(251,191,36,0.9); color: #1c1917;
+  background: t.$accent; color: t.$accent-ink;
   border-radius: 4px; padding: 2px 6px;
   font-size: 11px; font-weight: 700;
   display: flex; align-items: center; gap: 2px;
@@ -424,7 +425,7 @@ onMounted(load);
 }
 
 .foto-card.is-capa {
-  outline: 2px solid #fbbf24;
+  outline: 2px solid t.$accent;
   outline-offset: 2px;
 }
 </style>

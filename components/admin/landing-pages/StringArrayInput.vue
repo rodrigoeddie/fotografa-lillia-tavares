@@ -40,6 +40,7 @@ function move(i: number, dir: -1 | 1) {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 .str-arr {
   display: flex;
   flex-direction: column;
@@ -48,7 +49,7 @@ function move(i: number, dir: -1 | 1) {
 
 label {
   font-size: 13rem;
-  color: #ccc;
+  color: t.$text;
   margin-bottom: 4rem;
 }
 
@@ -59,27 +60,27 @@ label {
 
   input {
     flex: 1;
-    background: #222;
-    color: #eee;
-    border: 1rem solid #444;
+    background: t.$surface-2;
+    color: t.$text;
+    border: 1rem solid t.$border-strong;
     border-radius: 4rem;
     padding: 6rem 8rem;
     font-size: 13rem;
-    &:focus { outline: none; border-color: #60a5fa; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 }
 
 .btn-sm {
-  background: #2a2a2a;
-  color: #aaa;
-  border: 1rem solid #444;
+  background: t.$surface-2;
+  color: t.$text-2;
+  border: 1rem solid t.$border-strong;
   border-radius: 4rem;
   padding: 4rem 8rem;
   cursor: pointer;
   font-size: 12rem;
-  &:hover:not(:disabled) { background: #3a3a3a; color: #fff; }
+  &:hover:not(:disabled) { background: t.$surface-3; color: t.$text; }
   &:disabled { opacity: 0.3; cursor: not-allowed; }
-  &.btn-danger:hover:not(:disabled) { background: #450a0a; color: #f87171; border-color: #7f1d1d; }
+  &.btn-danger:hover:not(:disabled) { background: t.$danger-bg; color: t.$danger; border-color: t.$danger; }
 }
 
 .add-btn {

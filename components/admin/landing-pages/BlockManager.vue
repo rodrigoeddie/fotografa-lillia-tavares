@@ -191,6 +191,7 @@ function summary(b: { tipo: string; dados: any }): string {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .block-manager {
@@ -209,7 +210,7 @@ function summary(b: { tipo: string; dados: any }): string {
   align-items: stretch;
 
   &.expanded {
-    background: #1a1a1a;
+    background: t.$surface;
   }
 }
 
@@ -223,7 +224,7 @@ function summary(b: { tipo: string; dados: any }): string {
 
   .item-meta {
     flex: 1;
-    color: #888;
+    color: t.$text-3;
     font-size: 12rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -251,14 +252,14 @@ function summary(b: { tipo: string; dados: any }): string {
 }
 
 .validation-pill {
-  color: #fbbf24;
+  color: t.$warning;
   font-size: 14rem;
   margin-right: 4rem;
 }
 
 .block-editor {
   padding: 12rem 0;
-  border-top: 1rem solid #333;
+  border-top: 1rem solid t.$border-strong;
 
   :deep(.block-editor-fields) {
     display: flex;
@@ -269,13 +270,13 @@ function summary(b: { tipo: string; dados: any }): string {
   :deep(.form-field label) {
     display: block;
     font-size: 13rem;
-    color: #ccc;
+    color: t.$text;
     margin-bottom: 4rem;
   }
 
   :deep(.form-field small) {
     display: block;
-    color: #666;
+    color: t.$text-3;
     font-size: 11rem;
     margin-top: 2rem;
   }
@@ -284,15 +285,15 @@ function summary(b: { tipo: string; dados: any }): string {
   :deep(.form-field textarea),
   :deep(.form-field select) {
     width: 100%;
-    background: #222;
-    color: #eee;
-    border: 1rem solid #444;
+    background: t.$surface-2;
+    color: t.$text;
+    border: 1rem solid t.$border-strong;
     border-radius: 4rem;
     padding: 6rem 8rem;
     font-size: 13rem;
     font-family: inherit;
 
-    &:focus { outline: none; border-color: #60a5fa; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 
   :deep(.form-field textarea) {
@@ -300,11 +301,11 @@ function summary(b: { tipo: string; dados: any }): string {
   }
 
   .block-error {
-    color: #f87171;
+    color: t.$danger;
     font-size: 12rem;
     margin-top: 8rem;
     padding: 8rem;
-    background: rgba(248, 113, 113, 0.1);
+    background: t.$danger-bg;
     border-radius: 4rem;
   }
 
@@ -326,7 +327,7 @@ function summary(b: { tipo: string; dados: any }): string {
 }
 
 .bm-modal-content {
-  background: #1a1a1a;
+  background: t.$surface;
   padding: 24rem;
   border-radius: 8rem;
   max-width: 600rem;
@@ -345,17 +346,17 @@ function summary(b: { tipo: string; dados: any }): string {
 }
 
 .bm-type {
-  background: #222;
-  color: #ddd;
-  border: 1rem solid #333;
+  background: t.$surface-2;
+  color: t.$text;
+  border: 1rem solid t.$border;
   border-radius: 4rem;
   padding: 10rem;
   cursor: pointer;
   text-align: center;
 
   &:hover {
-    background: #333;
-    border-color: #555;
+    background: t.$surface-3;
+    border-color: t.$border-strong;
   }
 }
 </style>

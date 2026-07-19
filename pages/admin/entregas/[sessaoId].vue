@@ -155,15 +155,16 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .page-back {
   display: inline-block;
-  color: #888;
+  color: t.$text-3;
   text-decoration: none;
   font-size: 13px;
   margin-bottom: 6px;
-  &:hover { color: #fff; }
+  &:hover { color: t.$text; }
 }
 
 .header-actions {
@@ -173,9 +174,9 @@ onMounted(load);
 }
 
 .btn-secondary {
-  background: #1e3a2a;
-  border-color: #2d6a4f;
-  color: #4ade80;
+  background: t.$surface-2;
+  border-color: t.$border;
+  color: t.$text;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -190,7 +191,7 @@ onMounted(load);
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #666;
+  color: t.$text-3;
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -206,14 +207,14 @@ onMounted(load);
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
-  background: #161616;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 8px;
 }
 
 .lote-label {
   font-size: 13px;
-  color: #ccc;
+  color: t.$text;
   flex: 1;
 }
 
@@ -222,15 +223,15 @@ onMounted(load);
   padding: 3px 10px;
   border-radius: 20px;
   font-weight: 600;
-  &.active, &.status-entregue    { background: #1a3a1a; color: #4ade80; border: 1px solid #166534; }
-  &.inactive                      { background: #3a1a1a; color: #f87171; border: 1px solid #7f1d1d; }
-  &.status-aguardando_selecao     { background: #1e2d3d; color: #60a5fa; border: 1px solid #1e40af; }
-  &.status-selecao_concluida      { background: #2d2a1a; color: #facc15; border: 1px solid #854d0e; }
+  &.active, &.status-entregue    { background: t.$success-bg; color: t.$success; border: 1px solid t.$success; }
+  &.inactive                      { background: t.$danger-bg; color: t.$danger; border: 1px solid t.$danger; }
+  &.status-aguardando_selecao     { background: t.$warning-bg; color: t.$warning; border: 1px solid t.$warning; }
+  &.status-selecao_concluida      { background: t.$accent-dim; color: t.$accent; border: 1px solid t.$accent-line; }
 }
 
 .btn-primary {
-  background: #1e3a5f;
-  border-color: #2563eb;
-  color: #93c5fd;
+  background: t.$accent;
+  border-color: t.$accent;
+  color: t.$accent-ink;
 }
 </style>

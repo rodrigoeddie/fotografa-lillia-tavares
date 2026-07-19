@@ -1,0 +1,46 @@
+// ─── Admin design tokens ───────────────────────────────────────────────────
+// Só variáveis SCSS (nenhuma regra) → não gera CSS, pode ser @use em vários
+// arquivos sem duplicar output. Paleta dark própria do painel; acento pêssego
+// puxado da marca (o mesmo do sino de notificações).
+
+// Superfícies (do fundo para a frente)
+$bg:            #0f1114;
+$surface:       #16181d;
+$surface-2:     #1c2027;
+$surface-3:     #22272f;
+
+// Bordas
+$border:        #262a31;
+$border-strong: #333a44;
+
+// Texto
+$text:          #e7e9ec;
+$text-2:        #9aa1ad;
+$text-3:        #6b727d;
+
+// Acento (marca)
+$accent:        #e8a87c;
+$accent-hi:     #f0bd97;
+$accent-ink:    #1a120c;                     // texto sobre o acento sólido
+$accent-dim:    rgba(232, 168, 124, 0.14);
+$accent-line:   rgba(232, 168, 124, 0.35);
+
+// Semânticas (separadas do acento)
+$success:       #59d499;
+$success-bg:    rgba(89, 212, 153, 0.14);
+$danger:        #f2777a;
+$danger-bg:     rgba(242, 119, 122, 0.14);
+$warning:       #e8c07c;
+$warning-bg:    rgba(232, 192, 124, 0.14);
+$info:          #7ba3d6;
+
+// Raios
+$radius:        12px;
+$radius-sm:     8px;
+$radius-xs:     6px;
+
+// Sombra
+$shadow:        0 8px 28px rgba(0, 0, 0, 0.45);
+
+// Shell
+$sidebar-w:     248px;

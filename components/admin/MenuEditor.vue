@@ -194,6 +194,7 @@ defineExpose({ load });
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .menu-editor {
@@ -205,12 +206,12 @@ defineExpose({ load });
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px 0 16px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid t.$border;
   margin-bottom: 20px;
   h2 { font-size: 20px; margin: 0 0 4px; }
 }
 
-.dep-meta { font-size: 13px; color: #666; margin: 0; }
+.dep-meta { font-size: 13px; color: t.$text-3; margin: 0; }
 
 .dep-header-actions {
   display: flex;
@@ -218,22 +219,22 @@ defineExpose({ load });
 }
 
 .btn-add-review {
-  background: #1e2d3d;
-  border: 1px solid #2d4a6a;
-  color: #60a5fa;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text;
   padding: 7px 16px;
   border-radius: 6px;
   flex-shrink: 0;
   font-size: 13px;
   cursor: pointer;
-  &:hover { background: #253d55; }
+  &:hover { background: t.$surface-3; }
 }
 
 .btn-save {
   width: 100%;
   padding: 12px;
-  background: #2563eb;
-  color: white;
+  background: t.$accent;
+  color: t.$accent-ink;
   border: none;
   border-radius: 6px;
   font-size: 15px;
@@ -242,29 +243,29 @@ defineExpose({ load });
   width: auto;
   padding: 8px 20px;
   font-size: 14px;
-  &:hover { background: #1d4ed8; }
+  &:hover { background: t.$accent-hi; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 .dep-drag-handle {
   font-size: 16px;
-  color: #444;
+  color: t.$text-3;
   cursor: grab;
   padding: 0 2px;
   flex-shrink: 0;
-  &:hover { color: #777; }
+  &:hover { color: t.$text-2; }
   &:active { cursor: grabbing; }
 }
 
 .btn-remove-review {
   background: none;
   border: none;
-  color: #555;
+  color: t.$text-3;
   font-size: 14px;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
-  &:hover { background: #3a1a1a; color: #f87171; }
+  &:hover { background: t.$danger-bg; color: t.$danger; }
 }
 
 .menu-list {
@@ -285,37 +286,37 @@ defineExpose({ load });
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 8px;
   transition: border-color 0.15s;
   user-select: none;
-  &.menu-drag-over { border-color: #60a5fa; }
+  &.menu-drag-over { border-color: t.$accent; }
 }
 
 .menu-subitem-row {
   margin-left: 32px;
-  background: #141414;
+  background: t.$bg;
   border-style: dashed;
 }
 
 .menu-subitem-indent {
-  color: #444;
+  color: t.$text-3;
   font-size: 14px;
   flex-shrink: 0;
 }
 
 .btn-icon {
-  background: #2a2a2a;
-  border: 1px solid #444;
-  color: #aaa;
+  background: t.$surface-2;
+  border: 1px solid t.$border-strong;
+  color: t.$text-2;
   border-radius: 5px;
   padding: 4px 8px;
   font-size: 12px;
   cursor: pointer;
-  &:hover:not(:disabled) { background: #3a3a3a; color: #eee; }
+  &:hover:not(:disabled) { background: t.$surface-3; color: t.$text; }
   &:disabled { opacity: 0.35; cursor: not-allowed; }
-  &.btn-danger:hover { background: #450a0a; color: #f87171; border-color: #7f1d1d; }
+  &.btn-danger:hover { background: t.$danger-bg; color: t.$danger; border-color: t.$danger; }
 }
 
 .item-actions {
@@ -326,7 +327,7 @@ defineExpose({ load });
 
 .menu-item-order {
   font-size: 11px;
-  color: #444;
+  color: t.$text-3;
   font-family: monospace;
   width: 18px;
   flex-shrink: 0;
@@ -335,25 +336,25 @@ defineExpose({ load });
 
 .menu-item-label {
   flex: 0 0 200px;
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: t.$bg;
+  border: 1px solid t.$border;
   border-radius: 5px;
-  color: #ccc;
+  color: t.$text;
   font-size: 13px;
   padding: 6px 10px;
-  &:focus { outline: none; border-color: #444; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .menu-item-path {
   flex: 1;
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: t.$bg;
+  border: 1px solid t.$border;
   border-radius: 5px;
-  color: #7eb6d4;
+  color: t.$info;
   font-size: 13px;
   font-family: monospace;
   padding: 6px 10px;
-  &:focus { outline: none; border-color: #444; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .menu-item-blank {
@@ -365,13 +366,13 @@ defineExpose({ load });
 
 .menu-item-blank-label {
   font-size: 12px;
-  color: #555;
+  color: t.$text-3;
   white-space: nowrap;
 }
 
 .menu-empty {
   font-size: 13px;
-  color: #555;
+  color: t.$text-3;
   padding: 24px 0;
   text-align: center;
 }

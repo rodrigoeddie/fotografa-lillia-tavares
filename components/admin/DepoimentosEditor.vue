@@ -279,21 +279,23 @@ defineExpose({ load, depData });
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .field {
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-bottom: 12px;
 
-  label { font-size: 13px; color: #aaa; font-weight: 500; }
+  label { font-size: 13px; color: t.$text-2; font-weight: 500; }
   input[type="text"], select, textarea {
-    background: #222;
-    border: 1px solid #444;
-    color: #eee;
+    background: t.$surface-2;
+    border: 1px solid t.$border-strong;
+    color: t.$text;
     padding: 8px 10px;
     border-radius: 4px;
     font-size: 14px;
-    &:focus { outline: none; border-color: #666; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
   textarea { resize: vertical; font-family: inherit; }
 }
@@ -307,12 +309,12 @@ defineExpose({ load, depData });
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px 0 16px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid t.$border;
   margin-bottom: 20px;
   h2 { font-size: 20px; margin: 0 0 4px; }
 }
 
-.dep-meta { font-size: 13px; color: #666; margin: 0; }
+.dep-meta { font-size: 13px; color: t.$text-3; margin: 0; }
 
 .dep-header-actions {
   display: flex;
@@ -320,28 +322,28 @@ defineExpose({ load, depData });
 }
 
 .btn-add-review {
-  background: #1e2d3d;
-  border: 1px solid #2d4a6a;
-  color: #60a5fa;
+  background: t.$accent;
+  border: 1px solid transparent;
+  color: t.$accent-ink;
   padding: 7px 16px;
   border-radius: 6px;
   flex-shrink: 0;
   font-size: 13px;
   cursor: pointer;
-  &:hover { background: #253d55; }
+  &:hover { background: t.$accent-hi; }
 }
 
 .btn-save {
   width: auto;
   padding: 8px 20px;
-  background: #2563eb;
-  color: white;
+  background: t.$accent;
+  color: t.$accent-ink;
   border: none;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  &:hover { background: #1d4ed8; }
+  &:hover { background: t.$accent-hi; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
@@ -362,25 +364,25 @@ defineExpose({ load, depData });
 
 .dep-search {
   flex: 1;
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
   border-radius: 6px;
-  color: #ccc;
+  color: t.$text;
   font-size: 13px;
   padding: 7px 12px;
-  &:focus { outline: none; border-color: #444; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .btn-dep-ctrl {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  color: #999;
+  background: t.$surface-2;
+  border: 1px solid t.$border-strong;
+  color: t.$text-2;
   font-size: 12px;
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
   white-space: nowrap;
-  &:hover { background: #252525; color: #ccc; }
+  &:hover { background: t.$surface-3; color: t.$text; }
 }
 
 .dep-list {
@@ -390,13 +392,13 @@ defineExpose({ load, depData });
 }
 
 .dep-card {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 8px;
   overflow: hidden;
   transition: border-color 0.15s;
   cursor: default;
-  &.dep-drag-over { border-color: #60a5fa; }
+  &.dep-drag-over { border-color: t.$accent; }
 }
 
 .dep-card-header {
@@ -404,18 +406,18 @@ defineExpose({ load, depData });
   align-items: center;
   gap: 8px;
   padding: 7px 10px;
-  background: #141414;
-  border-bottom: 1px solid #222;
+  background: t.$surface-2;
+  border-bottom: 1px solid t.$border;
   user-select: none;
 }
 
 .dep-drag-handle {
   font-size: 16px;
-  color: #444;
+  color: t.$text-3;
   cursor: grab;
   padding: 0 2px;
   flex-shrink: 0;
-  &:hover { color: #777; }
+  &:hover { color: t.$text-2; }
   &:active { cursor: grabbing; }
 }
 
@@ -425,7 +427,7 @@ defineExpose({ load, depData });
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  background: #1e2d3d;
+  background: t.$surface-2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -435,7 +437,7 @@ defineExpose({ load, depData });
 .dep-card-name {
   font-size: 13px;
   font-weight: 500;
-  color: #ccc;
+  color: t.$text;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -446,27 +448,27 @@ defineExpose({ load, depData });
 .btn-favorite-dep {
   background: none;
   border: none;
-  color: #444;
+  color: t.$text-3;
   font-size: 16px;
   cursor: pointer;
   padding: 2px 5px;
   border-radius: 4px;
   line-height: 1;
   transition: color 0.15s;
-  &.active { color: #facc15; }
-  &:hover { color: #fbbf24; }
+  &.active { color: t.$warning; }
+  &:hover { color: t.$warning; }
 }
 
 .btn-collapse-dep {
   background: none;
   border: none;
-  color: #666;
+  color: t.$text-3;
   font-size: 14px;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
   line-height: 1;
-  &:hover { background: #222; color: #aaa; }
+  &:hover { background: t.$surface-2; color: t.$text-2; }
 }
 
 .dep-stars {
@@ -480,21 +482,21 @@ defineExpose({ load, depData });
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: #444;
+  color: t.$text-3;
   padding: 0 1px;
-  &.active { color: #facc15; }
-  &:hover { color: #fbbf24; }
+  &.active { color: t.$warning; }
+  &:hover { color: t.$warning; }
 }
 
 .btn-remove-review {
   background: none;
   border: none;
-  color: #555;
+  color: t.$text-3;
   font-size: 14px;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
-  &:hover { background: #3a1a1a; color: #f87171; }
+  &:hover { background: t.$danger-bg; color: t.$danger; }
 }
 
 .dep-card-body {
@@ -522,15 +524,15 @@ defineExpose({ load, depData });
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    background: #1e2d3d;
+    background: t.$surface-2;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    color: #555;
+    color: t.$text-3;
     img { width: 100%; height: 100%; object-fit: cover; }
     .avatar-uploading { font-size: 18px; animation: spin 1s linear infinite; }
-    .avatar-empty { color: #444; }
+    .avatar-empty { color: t.$text-3; }
   }
 
   .avatar-actions {
@@ -546,22 +548,22 @@ defineExpose({ load, depData });
     cursor: pointer;
     font-size: 11px;
     padding: 4px 10px;
-    background: #1e2d3d;
-    border: 1px solid #334;
+    background: t.$surface-2;
+    border: 1px solid t.$border;
     border-radius: 4px;
-    color: #7eb6d4;
+    color: t.$text;
     transition: background 0.15s;
     width: fit-content;
-    &:hover { background: #243a4e; }
+    &:hover { background: t.$surface-3; }
   }
 
   .avatar-url-input {
     font-size: 10px;
     padding: 4px 6px;
-    background: #111;
-    border: 1px solid #2a2a2a;
+    background: t.$surface-2;
+    border: 1px solid t.$border;
     border-radius: 4px;
-    color: #888;
+    color: t.$text-2;
     width: 100%;
     box-sizing: border-box;
   }

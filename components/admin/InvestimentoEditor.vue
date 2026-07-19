@@ -321,6 +321,8 @@ defineExpose({ openFile });
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .icon-preview {
     width: 100rem;
 }
@@ -332,7 +334,7 @@ defineExpose({ openFile });
 .inv-loading,
 .inv-empty {
   text-align: center;
-  color: #888;
+  color: t.$text-2;
   padding: 60px 20px;
   font-size: 15px;
 }
@@ -344,7 +346,7 @@ defineExpose({ openFile });
   align-items: flex-start;
   margin-bottom: 28px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid t.$border;
 }
 
 .inv-title-row {
@@ -353,10 +355,10 @@ defineExpose({ openFile });
   gap: 12px;
   margin-bottom: 4px;
 
-  h2 { font-size: 22px; color: #eee; }
+  h2 { font-size: 22px; color: t.$text; }
 }
 
-.inv-path { font-size: 12px; color: #555; }
+.inv-path { font-size: 12px; color: t.$text-3; }
 
 .inv-active-toggle {
   display: inline-flex;
@@ -367,14 +369,14 @@ defineExpose({ openFile });
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  background: #2a1a1a;
-  color: #f87171;
-  border: 1px solid #5a2a2a;
+  background: t.$danger-bg;
+  color: t.$danger;
+  border: 1px solid t.$danger;
 
   &.active {
-    background: #1a3a1a;
-    color: #4ade80;
-    border-color: #2a5a2a;
+    background: t.$success-bg;
+    color: t.$success;
+    border-color: t.$success;
   }
 
   input { display: none; }
@@ -383,8 +385,8 @@ defineExpose({ openFile });
 /* Sections */
 .inv-section {
   margin-bottom: 32px;
-  background: #161616;
-  border: 1px solid #222;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 10px;
   padding: 20px;
 }
@@ -399,7 +401,7 @@ defineExpose({ openFile });
 .inv-section-title {
   font-size: 15px;
   font-weight: 600;
-  color: #ccc;
+  color: t.$text;
   margin-bottom: 16px;
   display: flex;
   align-items: center;
@@ -407,8 +409,8 @@ defineExpose({ openFile });
 }
 
 .count-badge {
-  background: #1e3a5a;
-  color: #60a5fa;
+  background: t.$accent-dim;
+  color: t.$accent;
   font-size: 11px;
   padding: 1px 7px;
   border-radius: 10px;
@@ -429,24 +431,24 @@ defineExpose({ openFile });
 
   label {
     font-size: 12px;
-    color: #888;
+    color: t.$text-2;
     font-weight: 500;
-    small { color: #555; margin-left: 4px; }
+    small { color: t.$text-3; margin-left: 4px; }
   }
 
   input, textarea {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    color: #eee;
+    background: t.$surface-2;
+    border: 1px solid t.$border-strong;
+    color: t.$text;
     padding: 8px 10px;
     border-radius: 6px;
     font-size: 13px;
     font-family: inherit;
     resize: vertical;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 
-  // (checkbox variant removed — using .switch instead)
+  /* (checkbox variant removed — using .switch instead) */
 }
 
 .icon-textarea { font-family: 'Fira Code', monospace; font-size: 12px; }
@@ -455,13 +457,13 @@ defineExpose({ openFile });
 .pkg-list { display: flex; flex-direction: column; gap: 10px; }
 
 .pkg-card {
-  border: 1px solid #2a2a2a;
+  border: 1px solid t.$border;
   border-radius: 8px;
   overflow: hidden;
-  background: #111;
+  background: t.$bg;
 
-  &.pkg-drag-over { border-color: #3b82f6; }
-  &.pkg-recommended { border-color: #d97706; }
+  &.pkg-drag-over { border-color: t.$accent; }
+  &.pkg-recommended { border-color: t.$warning; }
 }
 
 .pkg-card-header {
@@ -470,27 +472,27 @@ defineExpose({ openFile });
   gap: 8px;
   padding: 10px 14px;
   cursor: pointer;
-  background: #1a1a1a;
+  background: t.$surface;
   user-select: none;
-  &:hover { background: #202020; }
+  &:hover { background: t.$surface-2; }
 }
 
-.drag-handle { color: #555; cursor: grab; font-size: 16px; flex-shrink: 0; }
-.pkg-collapse-icon { font-size: 10px; color: #666; width: 12px; flex-shrink: 0; }
-.pkg-name { flex: 1; font-size: 13px; font-weight: 600; color: #eee; }
-.pkg-price { font-size: 13px; color: #4ade80; margin-right: 4px; }
+.drag-handle { color: t.$text-3; cursor: grab; font-size: 16px; flex-shrink: 0; }
+.pkg-collapse-icon { font-size: 10px; color: t.$text-3; width: 12px; flex-shrink: 0; }
+.pkg-name { flex: 1; font-size: 13px; font-weight: 600; color: t.$text; }
+.pkg-price { font-size: 13px; color: t.$success; margin-right: 4px; }
 .pkg-badge {
-  font-size: 11px; background: #78350f; color: #fcd34d; padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; background: t.$warning-bg; color: t.$warning; padding: 2px 8px; border-radius: 10px;
 }
 
 .btn-remove-pkg {
-  background: none; border: none; color: #555; cursor: pointer; font-size: 13px; padding: 2px 4px;
-  &:hover { color: #f87171; }
+  background: none; border: none; color: t.$text-3; cursor: pointer; font-size: 13px; padding: 2px 4px;
+  &:hover { color: t.$danger; }
 }
 
 .pkg-card-body {
   padding: 16px;
-  border-top: 1px solid #222;
+  border-top: 1px solid t.$border;
 }
 
 .pkg-fields-grid {
@@ -509,7 +511,7 @@ defineExpose({ openFile });
   align-items: center;
   margin-bottom: 8px;
 
-  label { font-size: 12px; color: #888; font-weight: 500; }
+  label { font-size: 12px; color: t.$text-2; font-weight: 500; }
 }
 
 .feature-list,
@@ -526,69 +528,69 @@ defineExpose({ openFile });
   gap: 6px;
 }
 
-.feature-bullet { color: #555; font-size: 14px; flex-shrink: 0; }
+.feature-bullet { color: t.$text-3; font-size: 14px; flex-shrink: 0; }
 
 .feature-input {
   flex: 1;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  color: #ddd;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text;
   padding: 6px 8px;
   border-radius: 5px;
   font-size: 12px;
-  &:focus { outline: none; border-color: #3b82f6; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .btn-remove-item {
-  background: none; border: none; color: #444; cursor: pointer; font-size: 12px; padding: 2px 4px; border-radius: 3px; flex-shrink: 0;
-  &:hover { color: #f87171; background: #2a1a1a; }
+  background: none; border: none; color: t.$text-3; cursor: pointer; font-size: 12px; padding: 2px 4px; border-radius: 3px; flex-shrink: 0;
+  &:hover { color: t.$danger; background: t.$danger-bg; }
 }
 
-.empty-hint { font-size: 12px; color: #555; padding: 8px 0; font-style: italic; }
+.empty-hint { font-size: 12px; color: t.$text-3; padding: 8px 0; font-style: italic; }
 
 /* Save buttons */
 .btn-save {
-  background: #1e40af;
+  background: t.$accent;
   border: none;
-  color: #fff;
+  color: t.$accent-ink;
   padding: 8px 20px;
   border-radius: 7px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  &:hover:not(:disabled) { background: #2563eb; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
   &--lg { padding: 11px 32px; font-size: 14px; }
 }
 
 .btn-add {
-  background: #1a2a1a;
-  border: 1px solid #2a4a2a;
-  color: #4ade80;
+  background: t.$accent;
+  border: 1px solid transparent;
+  color: t.$accent-ink;
   padding: 5px 12px;
   border-radius: 6px;
   font-size: 12px;
   cursor: pointer;
-  &:hover { background: #1f331f; }
+  &:hover { background: t.$accent-hi; }
 }
 
 .btn-add-small {
-  background: #1a2a1a;
-  border: 1px solid #2a4a2a;
-  color: #4ade80;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text;
   padding: 3px 8px;
   border-radius: 5px;
   font-size: 11px;
   cursor: pointer;
-  &:hover { background: #1f331f; }
+  &:hover { background: t.$surface-3; }
 }
 
 .inv-footer {
   display: flex;
   justify-content: flex-end;
   padding: 16px 0 8px;
-  border-top: 1px solid #222;
+  border-top: 1px solid t.$border;
   margin-top: 8px;
 }
 
@@ -607,12 +609,12 @@ defineExpose({ openFile });
   position: relative;
   width: 40px;
   height: 22px;
-  background: #333;
+  background: t.$border-strong;
   border-radius: 11px;
   transition: background 0.2s;
   flex-shrink: 0;
 
-  .switch input:checked ~ & { background: #2563eb; }
+  .switch input:checked ~ & { background: t.$accent; }
 }
 
 .switch-thumb {
@@ -630,9 +632,9 @@ defineExpose({ openFile });
 
 .switch-label {
   font-size: 13px;
-  color: #888;
+  color: t.$text-2;
   min-width: 24px;
 
-  .switch input:checked ~ & { color: #60a5fa; }
+  .switch input:checked ~ & { color: t.$accent; }
 }
 </style>

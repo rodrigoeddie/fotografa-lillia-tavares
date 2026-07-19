@@ -162,6 +162,8 @@ onMounted(loadClientes);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .clientes-editor {
   padding: 24px;
 }
@@ -182,8 +184,8 @@ onMounted(loadClientes);
 }
 
 .editor-form-card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 8px;
   padding: 24px;
   margin-bottom: 24px;
@@ -213,18 +215,18 @@ onMounted(loadClientes);
   label {
     font-size: 13px;
     font-weight: 500;
-    color: #374151;
+    color: t.$text;
   }
 
   input {
     padding: 8px 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid t.$border;
     border-radius: 6px;
     font-size: 14px;
 
     &:focus {
       outline: none;
-      border-color: #6b7280;
+      border-color: t.$accent-line;
     }
   }
 }
@@ -244,10 +246,10 @@ onMounted(loadClientes);
   th {
     text-align: left;
     padding: 8px 12px;
-    background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
+    background: t.$surface-2;
+    border-bottom: 1px solid t.$border;
     font-weight: 600;
-    color: #374151;
+    color: t.$text-2;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.02em;
@@ -255,12 +257,12 @@ onMounted(loadClientes);
 
   td {
     padding: 12px;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid t.$border;
     vertical-align: middle;
   }
 
   tr:hover td {
-    background: #f9fafb;
+    background: t.$surface-2;
   }
 }
 
@@ -271,21 +273,21 @@ onMounted(loadClientes);
 }
 
 .count-badge {
-  background: #e5e7eb;
-  color: #374151;
+  background: t.$surface-2;
+  color: t.$text-2;
   font-size: 12px;
   font-weight: 600;
   padding: 0.1em 0.5em;
   border-radius: 999px;
 }
 
-.text-muted { color: #6b7280; }
+.text-muted { color: t.$text-2; }
 .text-sm { font-size: 13px; }
-.loading-hint, .empty-hint { color: #9ca3af; font-size: 14px; padding: 32px 0; text-align: center; }
+.loading-hint, .empty-hint { color: t.$text-3; font-size: 14px; padding: 32px 0; text-align: center; }
 
 .btn-primary {
-  background: #1f2937;
-  color: #fff;
+  background: t.$accent;
+  color: t.$accent-ink;
   border: none;
   border-radius: 6px;
   padding: 8px 16px;
@@ -294,19 +296,19 @@ onMounted(loadClientes);
   font-weight: 500;
 
   &:disabled { opacity: 0.5; cursor: not-allowed; }
-  &:hover:not(:disabled) { background: #111827; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
 }
 
 .btn-secondary {
-  background: #fff;
-  color: #374151;
-  border: 1px solid #d1d5db;
+  background: t.$surface-2;
+  color: t.$text;
+  border: 1px solid t.$border;
   border-radius: 6px;
   padding: 8px 16px;
   font-size: 14px;
   cursor: pointer;
 
-  &:hover { background: #f9fafb; }
+  &:hover { background: t.$surface-3; }
 }
 
 .btn-icon {
@@ -318,7 +320,7 @@ onMounted(loadClientes);
   font-size: 16px;
   line-height: 1;
 
-  &:hover { background: #f3f4f6; }
-  &.btn-danger:hover { background: #fef2f2; }
+  &:hover { background: t.$surface-2; }
+  &.btn-danger:hover { background: t.$danger-bg; }
 }
 </style>

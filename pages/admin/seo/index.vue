@@ -134,6 +134,7 @@ onMounted(evaluate);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .seo-summary {
@@ -144,20 +145,20 @@ onMounted(evaluate);
 }
 
 .stat-card {
-  background: white;
-  border: 1px solid var(--border, #e2e8f0);
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 8px;
   padding: 16rem 24rem;
   text-align: center;
   min-width: 110px;
 
   .stat-value { display: block; font-size: 16rem; font-weight: 700; line-height: 1; }
-  .stat-label { font-size: 17rem; color: #64748b; margin-top: 5rem; display: block; }
+  .stat-label { font-size: 17rem; color: t.$text-2; margin-top: 5rem; display: block; }
 
-  &.stat-total { border-color: #ccc; background: #f9f9f9; .stat-value { color: #333; } }
-  &.stat-good { border-color: #86efac; background: #f0fdf4; .stat-value { color: #16a34a; } }
-  &.stat-ok   { border-color: #fde68a; background: #fffbeb; .stat-value { color: #d97706; } }
-  &.stat-bad  { border-color: #fca5a5; background: #fef2f2; .stat-value { color: #dc2626; } }
+  &.stat-total { border-color: t.$border-strong; background: t.$surface-2; .stat-value { color: t.$text; } }
+  &.stat-good { border-color: t.$success; background: t.$success-bg; .stat-value { color: t.$success; } }
+  &.stat-ok   { border-color: t.$warning; background: t.$warning-bg; .stat-value { color: t.$warning; } }
+  &.stat-bad  { border-color: t.$danger; background: t.$danger-bg; .stat-value { color: t.$danger; } }
 }
 
 .seo-filters {
@@ -171,21 +172,21 @@ onMounted(evaluate);
     display: flex;
     align-items: center;
     gap: 7rem;
-    label { font-size: 14rem; color: #64748b; font-weight: 600; }
+    label { font-size: 14rem; color: t.$text-2; font-weight: 600; }
   }
 }
 
 .filter-btn {
   padding: 4rem 12rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid t.$border-strong;
   border-radius: 4px;
-  background: black;
+  background: t.$surface-2;
   font-size: 14rem;
   cursor: pointer;
-  &.active { background: #1e293b; color: white; border-color: #1e293b; }
-  &.filter-bad.active  { background: #dc2626; border-color: #dc2626; }
-  &.filter-ok.active   { background: #d97706; border-color: #d97706; }
-  &.filter-good.active { background: #16a34a; border-color: #16a34a; }
+  &.active { background: t.$accent; color: t.$accent-ink; border-color: t.$accent; }
+  &.filter-bad.active  { background: t.$danger; border-color: t.$danger; }
+  &.filter-ok.active   { background: t.$warning; border-color: t.$warning; }
+  &.filter-good.active { background: t.$success; border-color: t.$success; }
 }
 
 .score-badge {
@@ -198,9 +199,9 @@ onMounted(evaluate);
   font-size: 13px;
   flex-shrink: 0;
 
-  &.score-good { background: #dcfce7; color: #16a34a; }
-  &.score-ok   { background: #fef9c3; color: #854d0e; }
-  &.score-bad  { background: #fee2e2; color: #dc2626; }
+  &.score-good { background: t.$success-bg; color: t.$success; }
+  &.score-ok   { background: t.$warning-bg; color: t.$warning; }
+  &.score-bad  { background: t.$danger-bg; color: t.$danger; }
 }
 
 .type-badge {
@@ -226,7 +227,7 @@ onMounted(evaluate);
 
 .item-route {
   font-size: 12px;
-  color: #64748b;
+  color: t.$text-2;
   font-family: monospace;
   flex-shrink: 0;
 }
@@ -246,9 +247,9 @@ onMounted(evaluate);
   gap: 3px;
 }
 
-.issue-error   { color: #f87171; &::before { content: '✗ '; } }
-.issue-warning { color: #fbbf24; &::before { content: '⚠ '; } }
-.issue-info    { color: #6b7280; &::before { content: 'ℹ '; } }
+.issue-error   { color: t.$danger; &::before { content: '✗ '; } }
+.issue-warning { color: t.$warning; &::before { content: '⚠ '; } }
+.issue-info    { color: t.$text-3; &::before { content: 'ℹ '; } }
 
 .header-actions {
   display: flex;

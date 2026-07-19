@@ -353,15 +353,16 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .seo-hint {
   margin: 16px 0;
   padding: 16px;
-  background: #1a1a1a;
-  border: 1px dashed #444;
+  background: t.$surface;
+  border: 1px dashed t.$border-strong;
   border-radius: 8px;
-  color: #888;
+  color: t.$text-3;
   font-size: 13px;
   text-align: center;
 }
@@ -369,7 +370,7 @@ onMounted(async () => {
 .form-section-title {
   font-size: 13px;
   font-weight: 600;
-  color: #9ca3af;
+  color: t.$text-2;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
@@ -382,7 +383,7 @@ onMounted(async () => {
 .page-link {
   font-size: 13px;
   font-weight: normal;
-  color: #60a5fa;
+  color: t.$accent;
   text-decoration: none;
   margin-left: 10px;
   &:hover { text-decoration: underline; }
@@ -391,15 +392,15 @@ onMounted(async () => {
 // ── Slug + generate button
 .input-with-btn { display: flex; gap: 6px; align-items: stretch; input { flex: 1; } }
 .btn-ghost-sm {
-  background: #2a2a2a;
-  border: 1px solid #555;
-  color: #aaa;
+  background: t.$surface-2;
+  border: 1px solid t.$border-strong;
+  color: t.$text-2;
   border-radius: 6px;
   padding: 0 10px;
   cursor: pointer;
   font-size: 18px;
   line-height: 1;
-  &:hover { background: #3a3a3a; color: #eee; }
+  &:hover { background: t.$surface-3; color: t.$text; }
 }
 
 // ── Color field (color picker + hex text)
@@ -426,7 +427,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: space-between;
   padding: 6px 0;
-  color: #ddd;
+  color: t.$text;
   font-size: 14px;
 }
 .switch {
@@ -438,7 +439,7 @@ onMounted(async () => {
   .slider {
     position: absolute;
     inset: 0;
-    background: #444;
+    background: t.$border-strong;
     border-radius: 22px;
     transition: 0.3s;
     cursor: pointer;
@@ -454,7 +455,7 @@ onMounted(async () => {
       transition: 0.3s;
     }
   }
-  input:checked + .slider { background: #4ade80; }
+  input:checked + .slider { background: t.$accent; }
   input:checked + .slider::before { transform: translateX(18px); }
 }
 
@@ -465,28 +466,28 @@ onMounted(async () => {
   margin-bottom: 4px;
   button {
     padding: 3px 10px;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    color: #eee;
+    background: t.$surface-2;
+    border: 1px solid t.$border-strong;
+    color: t.$text;
     border-radius: 4px;
     font-size: 13px;
     cursor: pointer;
-    &:hover { background: #3a3a3a; }
+    &:hover { background: t.$surface-3; }
   }
-  .btn-estudio { background: #1e3a5f; border-color: #2563eb; color: #93c5fd; &:hover { background: #1e40af; } }
+  .btn-estudio { background: t.$accent-dim; border-color: t.$accent; color: t.$accent; &:hover { background: t.$accent-line; } }
 }
 .rich-editor {
   padding: 10px 13px;
-  border: 1px solid #999;
+  border: 1px solid t.$border-strong;
   border-radius: 6px;
   min-height: 80px;
-  color: white;
+  color: t.$text;
   background: transparent;
   font-size: 15px;
   font-family: inherit;
   outline: none;
-  &:focus { border-color: #6b7280; }
-  a { color: #60a5fa; }
+  &:focus { border-color: t.$accent-line; }
+  a { color: t.$accent; }
 }
 .rich-editor-single { min-height: 46px; }
 
@@ -495,8 +496,8 @@ onMounted(async () => {
   display: flex;
   gap: 10px;
   margin-top: 8px;
-  background: #1e1e1e;
-  border: 1px solid #333;
+  background: t.$surface;
+  border: 1px solid t.$border-strong;
   border-radius: 8px;
   padding: 10px 12px;
   align-items: flex-start;
@@ -513,8 +514,8 @@ onMounted(async () => {
   flex-direction: column;
   gap: 2px;
   font-size: 13px;
-  strong { color: #eee; font-size: 14px; }
-  span { color: #f59e0b; font-size: 12px; }
-  p { color: #9ca3af; margin: 0; line-height: 1.4; }
+  strong { color: t.$text; font-size: 14px; }
+  span { color: t.$warning; font-size: 12px; }
+  p { color: t.$text-2; margin: 0; line-height: 1.4; }
 }
 </style>

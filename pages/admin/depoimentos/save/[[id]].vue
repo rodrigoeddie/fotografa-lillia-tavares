@@ -180,10 +180,11 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .form-section-title {
-  font-size: 13px; font-weight: 600; color: #9ca3af;
+  font-size: 13px; font-weight: 600; color: t.$text-2;
   text-transform: uppercase; letter-spacing: 0.05em; margin: 0;
 }
 
@@ -191,41 +192,41 @@ onMounted(async () => {
 .star-row { display: flex; align-items: center; gap: 4px; padding: 8px 0; }
 .star-btn {
   background: none; border: none; font-size: 24px; cursor: pointer;
-  color: #444; padding: 0 1px; transition: color 0.15s; line-height: 1;
-  &.active { color: #facc15; }
-  &:hover { color: #fbbf24; }
+  color: t.$border-strong; padding: 0 1px; transition: color 0.15s; line-height: 1;
+  &.active { color: t.$warning; }
+  &:hover { color: t.$warning; }
 }
-.star-count { font-size: 13px; color: #888; margin-left: 6px; }
+.star-count { font-size: 13px; color: t.$text-3; margin-left: 6px; }
 
 // Avatar upload
 .avatar-upload-row { display: flex; gap: 12px; align-items: center; }
 .avatar-thumb {
   width: 52px; height: 52px; border-radius: 50%;
-  background: #1e2d3d; overflow: hidden; flex-shrink: 0;
+  background: t.$surface-2; overflow: hidden; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border: 2px solid #333;
+  border: 2px solid t.$border-strong;
   img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-loading, .avatar-empty { font-size: 20px; color: #555; }
+  .avatar-loading, .avatar-empty { font-size: 20px; color: t.$text-3; }
 }
 .avatar-actions { display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .btn-upload {
   display: inline-flex; align-items: center; gap: 6px;
-  background: #1e3a5f; border: 1px solid #2563eb; color: #93c5fd;
+  background: t.$surface-2; border: 1px solid t.$border; color: t.$text;
   padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer;
-  &:hover { background: #1e40af; }
+  &:hover { background: t.$surface-3; }
 }
 .cf-id-input { font-size: 13px; }
 
 // Switch
-.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: #ddd; font-size: 14px; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: t.$text; font-size: 14px; }
 .switch {
   position: relative; display: inline-block; width: 40px; height: 22px;
   input { opacity: 0; width: 0; height: 0; }
   .slider {
-    position: absolute; inset: 0; background: #444; border-radius: 22px; transition: 0.3s; cursor: pointer;
+    position: absolute; inset: 0; background: t.$border-strong; border-radius: 22px; transition: 0.3s; cursor: pointer;
     &::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
   }
-  input:checked + .slider { background: #4ade80; }
+  input:checked + .slider { background: t.$accent; }
   input:checked + .slider::before { transform: translateX(18px); }
 }
 
@@ -233,16 +234,16 @@ onMounted(async () => {
 .rich-toolbar {
   display: flex; gap: 4px; margin-bottom: 4px;
   button {
-    padding: 3px 10px; background: #2a2a2a; border: 1px solid #444;
-    color: #eee; border-radius: 4px; font-size: 13px; cursor: pointer;
-    &:hover { background: #3a3a3a; }
+    padding: 3px 10px; background: t.$surface-2; border: 1px solid t.$border;
+    color: t.$text; border-radius: 4px; font-size: 13px; cursor: pointer;
+    &:hover { background: t.$surface-3; }
   }
 }
 .rich-editor {
-  padding: 10px 13px; border: 1px solid #999; border-radius: 6px;
-  min-height: 120px; color: white; background: transparent;
+  padding: 10px 13px; border: 1px solid t.$border-strong; border-radius: 6px;
+  min-height: 120px; color: t.$text; background: transparent;
   font-size: 15px; font-family: inherit; outline: none;
-  &:focus { border-color: #6b7280; }
-  a { color: #60a5fa; }
+  &:focus { border-color: t.$accent-line; }
+  a { color: t.$accent; }
 }
 </style>

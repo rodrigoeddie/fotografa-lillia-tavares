@@ -141,6 +141,7 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .rs2-wrapper {
@@ -153,15 +154,15 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   align-items: center;
   min-height: 42px;
   padding: 6px 10px;
-  background: #111;
-  border: 1px solid #999;
+  background: t.$bg;
+  border: 1px solid t.$border-strong;
   border-radius: 6px;
   cursor: text;
   gap: 6px;
   flex-wrap: wrap;
 
   &.open {
-    border-color: #6b7280;
+    border-color: t.$accent-line;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
@@ -179,9 +180,9 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #1e3a5f;
-  border: 1px solid #2d5a9e;
-  color: #93c5fd;
+  background: t.$accent-dim;
+  border: 1px solid t.$accent-line;
+  color: t.$accent-hi;
   border-radius: 4px;
   padding: 2px 8px;
   font-size: 12px;
@@ -191,12 +192,12 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 .rs2-tag-x {
   background: none;
   border: none;
-  color: #60a5fa;
+  color: t.$accent;
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
   padding: 0 0 0 2px;
-  &:hover { color: #ef4444; }
+  &:hover { color: t.$danger; }
 }
 
 .rs2-search {
@@ -204,17 +205,17 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   min-width: 120px;
   background: transparent;
   border: none;
-  color: #fff;
+  color: t.$text;
   font-size: 14px;
   font-family: inherit;
   outline: none;
   padding: 2px 0;
 
-  &::placeholder { color: #555; }
+  &::placeholder { color: t.$text-3; }
 }
 
 .rs2-arrow {
-  color: #6b7280;
+  color: t.$text-3;
   font-size: 10px;
   flex-shrink: 0;
   user-select: none;
@@ -226,8 +227,8 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   left: 0;
   right: 0;
   z-index: 100;
-  background: #111;
-  border: 1px solid #6b7280;
+  background: t.$bg;
+  border: 1px solid t.$border-strong;
   border-top: none;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -248,25 +249,25 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   padding: 9px 12px;
   background: none;
   border: none;
-  color: #ccc;
+  color: t.$text;
   font-size: 13px;
   font-family: inherit;
   text-align: left;
   cursor: pointer;
   transition: background .12s;
 
-  &:hover { background: #1a2535; }
+  &:hover { background: t.$surface-2; }
 
   &.selected {
-    background: #0f1e35;
-    color: #93c5fd;
+    background: t.$accent-dim;
+    color: t.$accent-hi;
   }
 }
 
 .rs2-check {
   width: 16px;
   flex-shrink: 0;
-  color: #60a5fa;
+  color: t.$accent;
   font-size: 12px;
   text-align: center;
 }
@@ -277,19 +278,19 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 
 .rs2-opt-route {
   font-size: 11px;
-  color: #555;
+  color: t.$text-3;
   font-family: monospace;
 }
 
 .rs2-empty {
   padding: 10px 12px;
-  color: #555;
+  color: t.$text-3;
   font-size: 13px;
   font-style: italic;
 }
 
 .rs2-custom {
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid t.$border;
 }
 
 .rs2-add-custom {
@@ -299,12 +300,12 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   padding: 9px 12px;
   background: none;
   border: none;
-  color: #60a5fa;
+  color: t.$accent;
   font-size: 13px;
   font-family: inherit;
   cursor: pointer;
   width: 100%;
   text-align: left;
-  &:hover { background: #1a2535; }
+  &:hover { background: t.$surface-2; }
 }
 </style>

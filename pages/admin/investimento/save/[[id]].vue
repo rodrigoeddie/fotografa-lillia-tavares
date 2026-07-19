@@ -288,32 +288,33 @@ onMounted(init);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .form-section-title {
-  font-size: 13px; font-weight: 600; color: #9ca3af;
+  font-size: 13px; font-weight: 600; color: t.$text-2;
   text-transform: uppercase; letter-spacing: 0.05em; margin: 0;
   display: flex; align-items: center; gap: 8px;
 }
 
 // Icon preview
 .icon-preview {
-  margin-top: 8px; padding: 12px; background: #111; border-radius: 6px;
+  margin-top: 8px; padding: 12px; background: t.$bg; border-radius: 6px;
   display: flex; align-items: center; gap: 8px;
   font-size: 32px;
   svg { width: 40px; height: 40px; }
 }
 
 // Switch
-.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: #ddd; font-size: 14px; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: t.$text; font-size: 14px; }
 .switch {
   position: relative; display: inline-block; width: 40px; height: 22px;
   input { opacity: 0; width: 0; height: 0; }
   .slider {
-    position: absolute; inset: 0; background: #444; border-radius: 22px; transition: 0.3s; cursor: pointer;
+    position: absolute; inset: 0; background: t.$border-strong; border-radius: 22px; transition: 0.3s; cursor: pointer;
     &::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
   }
-  input:checked + .slider { background: #4ade80; }
+  input:checked + .slider { background: t.$accent; }
   input:checked + .slider::before { transform: translateX(18px); }
 }
 
@@ -326,56 +327,56 @@ onMounted(init);
   display: flex;
   align-items: center;
   gap: 6px;
-  
+
   input {
-    border: 1px solid #999;
+    border: 1px solid t.$border-strong;
     border-radius: 4px;
     padding: 5px;
     flex: 1;
   }
 }
-.bullet { color: #9ca3af; font-size: 16px; flex-shrink: 0; }
-.drag-handle-sm { font-size: 14px; color: #444; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
-.feature-row.drag-over { outline: 1px dashed #60a5fa; border-radius: 4px; }
+.bullet { color: t.$text-2; font-size: 16px; flex-shrink: 0; }
+.drag-handle-sm { font-size: 14px; color: t.$border-strong; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
+.feature-row.drag-over { outline: 1px dashed t.$accent; border-radius: 4px; }
 .btn-remove-sm {
-  background: none; border: none; color: #555; font-size: 13px; cursor: pointer;
+  background: none; border: none; color: t.$text-3; font-size: 13px; cursor: pointer;
   padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
-  &:hover { background: #3a1a1a; color: #f87171; }
+  &:hover { background: t.$danger-bg; color: t.$danger; }
 }
 
 // Pacote cards
 .pacotes-list { display: flex; flex-direction: column; gap: 8px; }
 .pacote-card {
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 8px;
+  background: t.$surface; border: 1px solid t.$border; border-radius: 8px;
   overflow: hidden; transition: border-color 0.15s;
-  &.drag-over { border-color: #60a5fa; }
-  &.is-recommended { border-color: #a16207; }
+  &.drag-over { border-color: t.$accent; }
+  &.is-recommended { border-color: t.$warning; }
 }
 .pacote-card-header {
   display: flex; align-items: center; gap: 8px; padding: 10px 14px;
   cursor: pointer; user-select: none;
-  &:hover { background: #1a1a1a; }
+  &:hover { background: t.$surface-2; }
 }
-.drag-handle { font-size: 16px; color: #444; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
-.pkg-collapse { font-size: 12px; color: #666; flex-shrink: 0; }
-.pkg-title { flex: 1; font-size: 14px; font-weight: 500; color: #ddd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pkg-price { font-size: 13px; color: #9ca3af; flex-shrink: 0; }
-.pkg-badge { background: #78350f; color: #fcd34d; font-size: 11px; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
-.pacote-card-body { padding: 14px; border-top: 1px solid #222; }
+.drag-handle { font-size: 16px; color: t.$border-strong; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
+.pkg-collapse { font-size: 12px; color: t.$text-3; flex-shrink: 0; }
+.pkg-title { flex: 1; font-size: 14px; font-weight: 500; color: t.$text; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pkg-price { font-size: 13px; color: t.$text-2; flex-shrink: 0; }
+.pkg-badge { background: t.$warning-bg; color: t.$warning; font-size: 11px; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+.pacote-card-body { padding: 14px; border-top: 1px solid t.$surface-2; }
 
 // Features sub-section
 .pkg-features { margin-top: 12px; }
-.pkg-features-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; label { font-size: 13px; color: #9ca3af; font-weight: 500; } }
+.pkg-features-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; label { font-size: 13px; color: t.$text-2; font-weight: 500; } }
 .btn-add-small {
-  background: #1a1a1a; border: 1px solid #333; color: #888; font-size: 12px;
+  background: t.$surface; border: 1px solid t.$border; color: t.$text-3; font-size: 12px;
   padding: 4px 10px; border-radius: 4px; cursor: pointer;
-  &:hover { color: #60a5fa; border-color: #60a5fa; }
+  &:hover { color: t.$accent; border-color: t.$accent; }
 }
 
 // Dashed add
 .btn-add-dashed {
-  background: none; border: 1px dashed #444; color: #888; width: 100%;
+  background: none; border: 1px dashed t.$border-strong; color: t.$text-3; width: 100%;
   padding: 10px; border-radius: 6px; font-size: 13px; cursor: pointer; margin-top: 8px;
-  &:hover { border-color: #60a5fa; color: #60a5fa; }
+  &:hover { border-color: t.$accent; color: t.$accent; }
 }
 </style>

@@ -121,8 +121,9 @@ function onClienteCriado(cliente: { id: number; nome: string; email: string }) {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
-.field-hint { font-size: 11px; color: #6b7280; &.warn { color: #b45309; } }
+.field-hint { font-size: 11px; color: t.$text-3; &.warn { color: t.$warning; } }
 
 .cliente-row {
   display: flex;
@@ -142,14 +143,14 @@ function onClienteCriado(cliente: { id: number; nome: string; email: string }) {
   justify-content: center;
   height: 48px;
   width: 48px;
-  background: #1e2d3d;
-  border: 1px solid #2d4a6a;
+  background: t.$accent;
+  border: 1px solid t.$accent;
   border-radius: 6px;
-  color: #60a5fa;
+  color: t.$accent-ink;
   cursor: pointer;
 
   .material-symbols-outlined { font-size: 20px; }
 
-  &:hover { background: #253d55; }
+  &:hover { background: t.$accent-hi; }
 }
 </style>

@@ -135,12 +135,14 @@ async function purge(key: string) {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .cache-page {
   max-width: 720px;
 
   h2 { font-size: 28px; margin-bottom: 8px; }
   .subtitle {
-    color: #888;
+    color: t.$text-3;
     font-size: 14px;
     margin-bottom: 32px;
     line-height: 1.6;
@@ -158,14 +160,14 @@ async function purge(key: string) {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 10px;
   padding: 18px 20px;
 
   &--all {
-    border-color: #7f1d1d;
-    background: #1f1010;
+    border-color: t.$danger;
+    background: t.$danger-bg;
   }
 
   &__info {
@@ -177,7 +179,7 @@ async function purge(key: string) {
   &__icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
 
   h3 { font-size: 15px; margin-bottom: 3px; }
-  p  { font-size: 12px; color: #888; }
+  p  { font-size: 12px; color: t.$text-3; }
 }
 
 .url-list {
@@ -186,7 +188,7 @@ async function purge(key: string) {
   list-style: none;
   li {
     font-size: 11px;
-    color: #555;
+    color: t.$text-3;
     font-family: monospace;
   }
 }
@@ -196,8 +198,8 @@ async function purge(key: string) {
   padding: 8px 20px;
   border-radius: 6px;
   border: none;
-  background: #1d4ed8;
-  color: #fff;
+  background: t.$accent;
+  color: t.$accent-ink;
   font-size: 14px;
   cursor: pointer;
   min-width: 90px;
@@ -205,20 +207,21 @@ async function purge(key: string) {
   align-items: center;
   justify-content: center;
 
-  &:hover:not(:disabled) { background: #2563eb; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 
   &--danger {
-    background: #b91c1c;
-    &:hover:not(:disabled) { background: #dc2626; }
+    background: t.$danger;
+    color: t.$accent-ink;
+    &:hover:not(:disabled) { background: t.$danger; }
   }
 }
 
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
+  border: 2px solid rgba(26, 18, 12, 0.25);
+  border-top-color: t.$accent-ink;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }

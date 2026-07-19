@@ -239,40 +239,42 @@ defineExpose({ load });
 </template>
 
 <style lang="scss" scoped>
-.faq-editor { color: #eee; }
+@use '~/assets/styles/admin-tokens' as t;
 
-.loading { text-align: center; padding: 40px; color: #888; }
-.empty-state { text-align: center; padding: 40px; color: #666; font-size: 14px; }
+.faq-editor { color: t.$text; }
+
+.loading { text-align: center; padding: 40px; color: t.$text-3; }
+.empty-state { text-align: center; padding: 40px; color: t.$text-3; font-size: 14px; }
 
 .editor-header {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #333;
+  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid t.$border-strong;
   h2 { font-size: 20px; }
 }
 
 .btn-save {
-  background: #2563eb; border: none; color: #fff; padding: 8px 20px;
+  background: t.$accent; border: none; color: t.$accent-ink; padding: 8px 20px;
   border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
-  &:hover:not(:disabled) { background: #1d4ed8; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 
 // Fields
 .field-row {
   margin-bottom: 16px;
-  label { display: block; font-size: 12px; color: #999; margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  label { display: block; font-size: 12px; color: t.$text-2; margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
   input[type="text"], textarea {
-    width: 100%; background: #1a1a1a; border: 1px solid #333; color: #eee;
+    width: 100%; background: t.$surface; border: 1px solid t.$border-strong; color: t.$text;
     padding: 8px 12px; border-radius: 6px; font-size: 14px;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
   textarea { resize: vertical; font-family: inherit; }
 }
 
 .btn-small {
-  background: #1e2d3d; border: 1px solid #2d4a6a; color: #60a5fa; padding: 6px 12px;
+  background: t.$surface-2; border: 1px solid t.$border; color: t.$text; padding: 6px 12px;
   border-radius: 6px; font-size: 12px; cursor: pointer; white-space: nowrap;
-  &:hover { background: #253d55; }
+  &:hover { background: t.$surface-3; }
 }
 
 // Categories
@@ -282,22 +284,22 @@ defineExpose({ load });
 }
 
 .category-block {
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 8px;
+  background: t.$surface; border: 1px solid t.$border; border-radius: 8px;
   margin-bottom: 12px; transition: border-color 0.15s;
-  &.drag-over { border-color: #3b82f6; }
+  &.drag-over { border-color: t.$accent; }
 }
 
 .category-header {
   display: flex; align-items: center; gap: 8px; padding: 12px 16px;
   cursor: pointer; user-select: none;
-  &:hover { background: #1a1a1a; border-radius: 8px; }
+  &:hover { background: t.$surface-2; border-radius: 8px; }
 }
 
-.drag-handle { cursor: grab; font-size: 16px; color: #555; &:active { cursor: grabbing; } }
-.cat-expand { font-size: 12px; color: #888; width: 16px; }
+.drag-handle { cursor: grab; font-size: 16px; color: t.$text-3; &:active { cursor: grabbing; } }
+.cat-expand { font-size: 12px; color: t.$text-3; width: 16px; }
 .cat-name { font-weight: 600; font-size: 14px; }
-.cat-slug { font-size: 11px; color: #666; font-family: monospace; }
-.cat-count { font-size: 11px; color: #888; margin-left: auto; }
+.cat-slug { font-size: 11px; color: t.$text-3; font-family: monospace; }
+.cat-count { font-size: 11px; color: t.$text-3; margin-left: auto; }
 
 .cat-actions {
   display: flex; gap: 4px; margin-left: 8px;
@@ -313,33 +315,33 @@ defineExpose({ load });
 .category-body { padding: 0 16px 16px; }
 
 .question-item {
-  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px;
+  background: t.$surface-2; border: 1px solid t.$border; border-radius: 6px;
   padding: 10px 12px; margin-bottom: 8px; transition: border-color 0.15s;
-  &.drag-over { border-color: #3b82f6; }
+  &.drag-over { border-color: t.$accent; }
 }
 
 .question-header {
   display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
 }
 
-.q-idx { font-size: 11px; color: #666; font-weight: 600; flex: 1; }
+.q-idx { font-size: 11px; color: t.$text-3; font-weight: 600; flex: 1; }
 
 .question-fields {
   display: flex; flex-direction: column; gap: 8px;
 }
 
 .q-input, .q-answer {
-  width: 100%; background: #111; border: 1px solid #333; color: #eee;
+  width: 100%; background: t.$bg; border: 1px solid t.$border-strong; color: t.$text;
   padding: 8px 10px; border-radius: 4px; font-size: 13px; font-family: inherit;
-  &:focus { outline: none; border-color: #3b82f6; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .q-answer { resize: vertical; min-height: 60px; }
 
 .btn-add-question {
-  background: none; border: 1px dashed #444; color: #888; width: 100%;
+  background: none; border: 1px dashed t.$border-strong; color: t.$text-2; width: 100%;
   padding: 10px; border-radius: 6px; font-size: 13px; cursor: pointer;
   margin-top: 4px;
-  &:hover { border-color: #60a5fa; color: #60a5fa; }
+  &:hover { border-color: t.$accent; color: t.$accent; }
 }
 </style>

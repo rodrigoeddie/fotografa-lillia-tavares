@@ -79,6 +79,8 @@ function format() {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .jsonld-editor {
   display: flex;
   flex-direction: column;
@@ -92,7 +94,7 @@ function format() {
 
   label {
     font-size: 13rem;
-    color: #ccc;
+    color: t.$text;
     font-weight: 500;
     display: flex;
     justify-content: space-between;
@@ -101,9 +103,9 @@ function format() {
 }
 
 select, textarea {
-  background: #222;
-  color: #eee;
-  border: 1rem solid #444;
+  background: t.$surface-2;
+  color: t.$text;
+  border: 1rem solid t.$border-strong;
   border-radius: 4rem;
   padding: 8rem;
   font-size: 13rem;
@@ -111,7 +113,7 @@ select, textarea {
 
   &:focus {
     outline: none;
-    border-color: #60a5fa;
+    border-color: t.$accent;
   }
 }
 
@@ -122,23 +124,23 @@ textarea {
 }
 
 .btn-format {
-  background: #333;
-  color: #aaa;
-  border: 1rem solid #444;
+  background: t.$surface-3;
+  color: t.$text-2;
+  border: 1rem solid t.$border-strong;
   border-radius: 4rem;
   padding: 2rem 6rem;
   cursor: pointer;
   font-size: 12rem;
-  &:hover { background: #444; color: #fff; }
+  &:hover { background: t.$border-strong; color: t.$text; }
 }
 
 .err {
-  color: #f87171;
+  color: t.$danger;
   font-size: 12rem;
 }
 
 .hint {
-  color: #666;
+  color: t.$text-3;
   font-size: 11rem;
 }
 </style>

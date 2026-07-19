@@ -203,7 +203,8 @@ defineExpose({ load });
 </template>
 
 <style lang="scss" scoped>
-.lt-editor { color: #eee; max-width: 760px; }
+@use '~/assets/styles/admin-tokens' as t;
+.lt-editor { color: t.$text; max-width: 760px; }
 
 .lt-header {
   display: flex;
@@ -218,23 +219,23 @@ defineExpose({ load });
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #93c5fd;
+  color: t.$accent;
   text-decoration: none;
   font-size: 13px;
   .material-symbols-outlined { font-size: 16px; }
-  &:hover { color: #bfdbfe; }
+  &:hover { color: t.$accent-hi; }
 }
 
-.lt-loading, .lt-empty { color: #888; padding: 16px 0; }
-.lt-empty { text-align: center; border: 1px dashed #333; border-radius: 8px; }
+.lt-loading, .lt-empty { color: t.$text-3; padding: 16px 0; }
+.lt-empty { text-align: center; border: 1px dashed t.$border-strong; border-radius: 8px; }
 
 .lt-card {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 10px;
   padding: 18px;
   margin-bottom: 18px;
-  h3 { font-size: 14px; color: #ccc; margin-bottom: 14px; }
+  h3 { font-size: 14px; color: t.$text; margin-bottom: 14px; }
 }
 
 .lt-profile { display: flex; gap: 20px; }
@@ -244,13 +245,13 @@ defineExpose({ load });
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 1px solid #333; }
+  img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 1px solid t.$border-strong; }
 }
 .lt-avatar-empty {
   width: 84px; height: 84px; border-radius: 50%;
-  background: #222; border: 1px solid #333;
+  background: t.$surface-2; border: 1px solid t.$border-strong;
   display: flex; align-items: center; justify-content: center;
-  .material-symbols-outlined { font-size: 40px; color: #555; }
+  .material-symbols-outlined { font-size: 40px; color: t.$text-3; }
 }
 .lt-profile-fields { flex: 1; display: flex; flex-direction: column; gap: 12px; }
 
@@ -264,31 +265,31 @@ defineExpose({ load });
 label {
   display: block;
   font-size: 12px;
-  color: #999;
-  span { color: #999; }
+  color: t.$text-2;
+  span { color: t.$text-2; }
 }
 
 input[type='text'], select, textarea {
   width: 100%;
   margin-top: 4px;
   padding: 8px 10px;
-  background: #111;
-  border: 1px solid #333;
+  background: t.$bg;
+  border: 1px solid t.$border-strong;
   border-radius: 6px;
-  color: #eee;
+  color: t.$text;
   font-size: 14px;
   font-family: inherit;
-  &:focus { outline: none; border-color: #2563eb; }
+  &:focus { outline: none; border-color: t.$accent-line; }
 }
 
 .lt-list { display: flex; flex-direction: column; gap: 10px; }
 
 .lt-item {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 10px;
   overflow: hidden;
-  &.is-dragover { border-color: #2563eb; }
+  &.is-dragover { border-color: t.$accent; }
   &.is-inactive { opacity: 0.55; }
 }
 
@@ -297,33 +298,33 @@ input[type='text'], select, textarea {
   align-items: center;
   gap: 10px;
   padding: 8px 12px;
-  background: #161616;
-  border-bottom: 1px solid #222;
+  background: t.$surface;
+  border-bottom: 1px solid t.$border;
 }
-.lt-drag { cursor: grab; color: #666; font-size: 16px; user-select: none; }
+.lt-drag { cursor: grab; color: t.$text-3; font-size: 16px; user-select: none; }
 .lt-ordem {
   width: 22px; height: 22px;
   display: flex; align-items: center; justify-content: center;
-  background: #252525; border-radius: 5px; font-size: 12px; color: #aaa;
+  background: t.$surface-3; border-radius: 5px; font-size: 12px; color: t.$text-2;
 }
-.lt-tipo { flex: 1; font-size: 13px; color: #ddd; font-weight: 500; }
+.lt-tipo { flex: 1; font-size: 13px; color: t.$text; font-weight: 500; }
 
 .lt-clicks {
   display: inline-flex;
   align-items: center;
   gap: 3px;
   font-size: 12px;
-  color: #888;
-  background: #222;
+  color: t.$text-3;
+  background: t.$surface-2;
   padding: 2px 8px;
   border-radius: 999px;
   .material-symbols-outlined { font-size: 14px; }
 }
 
 .lt-del {
-  background: none; border: none; color: #777; cursor: pointer; display: flex;
+  background: none; border: none; color: t.$text-3; cursor: pointer; display: flex;
   .material-symbols-outlined { font-size: 20px; }
-  &:hover { color: #ef4444; }
+  &:hover { color: t.$danger; }
 }
 
 .lt-item-body {
@@ -337,41 +338,41 @@ input[type='text'], select, textarea {
   display: flex;
   align-items: center;
   gap: 10px;
-  img { width: 120px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid #333; }
+  img { width: 120px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid t.$border-strong; }
 }
 .lt-banner-empty {
-  width: 120px; height: 64px; border-radius: 6px; background: #222; border: 1px solid #333;
+  width: 120px; height: 64px; border-radius: 6px; background: t.$surface-2; border: 1px solid t.$border-strong;
   display: flex; align-items: center; justify-content: center;
-  .material-symbols-outlined { color: #555; }
+  .material-symbols-outlined { color: t.$text-3; }
 }
 
 .lt-btn {
-  background: #2563eb;
+  background: t.$accent;
   border: none;
-  color: #fff;
+  color: t.$accent-ink;
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  &:hover:not(:disabled) { background: #1d4ed8; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 .lt-btn-save { min-width: 96px; }
 .lt-btn-sm { padding: 5px 10px; font-size: 12px; font-weight: 500; }
-.lt-btn-ghost { background: transparent; border: 1px solid #444; color: #aaa; &:hover { background: #222; color: #eee; } }
+.lt-btn-ghost { background: transparent; border: 1px solid t.$border-strong; color: t.$text-2; &:hover { background: t.$surface-2; color: t.$text; } }
 
 /* Switch ativo */
 .lt-switch { position: relative; display: inline-block; width: 38px; height: 20px; }
 .lt-switch input { opacity: 0; width: 0; height: 0; }
 .lt-slider {
   position: absolute; inset: 0; cursor: pointer;
-  background: #444; border-radius: 20px; transition: 0.2s;
+  background: t.$border-strong; border-radius: 20px; transition: 0.2s;
   &::before {
     content: ''; position: absolute; height: 14px; width: 14px; left: 3px; bottom: 3px;
     background: #fff; border-radius: 50%; transition: 0.2s;
   }
 }
-.lt-switch input:checked + .lt-slider { background: #16a34a; }
+.lt-switch input:checked + .lt-slider { background: t.$accent; }
 .lt-switch input:checked + .lt-slider::before { transform: translateX(18px); }
 </style>

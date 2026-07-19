@@ -254,15 +254,16 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .form-section-title {
-  font-size: 13px; font-weight: 600; color: #9ca3af;
+  font-size: 13px; font-weight: 600; color: t.$text-2;
   text-transform: uppercase; letter-spacing: 0.05em; margin: 0;
 }
 
 .page-link {
-  font-size: 13px; font-weight: normal; color: #60a5fa;
+  font-size: 13px; font-weight: normal; color: t.$accent;
   text-decoration: none; margin-left: 10px;
   &:hover { text-decoration: underline; }
 }
@@ -270,21 +271,21 @@ onBeforeUnmount(() => {
 // Slug row
 .input-with-btn { display: flex; gap: 6px; align-items: stretch; input { flex: 1; } }
 .btn-ghost-sm {
-  background: #2a2a2a; border: 1px solid #555; color: #aaa;
+  background: t.$surface-2; border: 1px solid t.$border-strong; color: t.$text-2;
   border-radius: 6px; padding: 0 10px; cursor: pointer; font-size: 18px; line-height: 1;
-  &:hover { background: #3a3a3a; color: #eee; }
+  &:hover { background: t.$surface-3; color: t.$text; }
 }
 
 // Switch
-.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: #ddd; font-size: 14px; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; color: t.$text; font-size: 14px; }
 .switch {
   position: relative; display: inline-block; width: 40px; height: 22px;
   input { opacity: 0; width: 0; height: 0; }
   .slider {
-    position: absolute; inset: 0; background: #444; border-radius: 22px; transition: 0.3s; cursor: pointer;
+    position: absolute; inset: 0; background: t.$border-strong; border-radius: 22px; transition: 0.3s; cursor: pointer;
     &::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
   }
-  input:checked + .slider { background: #4ade80; }
+  input:checked + .slider { background: t.$accent; }
   input:checked + .slider::before { transform: translateX(18px); }
 }
 
@@ -292,42 +293,42 @@ onBeforeUnmount(() => {
 .cover-section { display: flex; gap: 20px; align-items: flex-start; }
 .cover-preview-wrap {
   width: 180px; flex-shrink: 0; border-radius: 8px; overflow: hidden;
-  background: #1a1a1a; border: 1px solid #333; min-height: 120px;
+  background: t.$surface; border: 1px solid t.$border-strong; min-height: 120px;
   display: flex; align-items: center; justify-content: center;
 }
 .cover-preview { width: 100%; display: block; border-radius: 8px; }
-.cover-loading, .cover-empty { font-size: 13px; color: #666; padding: 16px; text-align: center; }
+.cover-loading, .cover-empty { font-size: 13px; color: t.$text-3; padding: 16px; text-align: center; }
 .cover-actions { flex: 1; display: flex; flex-direction: column; gap: 8px; }
 .btn-upload {
   display: inline-flex; align-items: center; gap: 6px;
-  background: #1e3a5f; border: 1px solid #2563eb; color: #93c5fd;
+  background: t.$accent-dim; border: 1px solid t.$accent; color: t.$accent;
   padding: 8px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; align-self: flex-start;
-  &:hover { background: #1e40af; }
+  &:hover { background: t.$accent-line; }
 }
 
 // Rich editor
 .rich-toolbar {
   display: flex; gap: 4px; margin-bottom: 4px; flex-wrap: wrap; align-items: center;
   button {
-    padding: 3px 10px; background: #2a2a2a; border: 1px solid #444;
-    color: #eee; border-radius: 4px; font-size: 13px; cursor: pointer;
-    &:hover { background: #3a3a3a; }
-    &.is-active { background: #1e3a5f; border-color: #2563eb; color: #93c5fd; }
+    padding: 3px 10px; background: t.$surface-2; border: 1px solid t.$border-strong;
+    color: t.$text; border-radius: 4px; font-size: 13px; cursor: pointer;
+    &:hover { background: t.$surface-3; }
+    &.is-active { background: t.$accent-dim; border-color: t.$accent; color: t.$accent; }
   }
 }
-.tb-sep { color: #444; padding: 0 2px; font-size: 16px; }
+.tb-sep { color: t.$text-3; padding: 0 2px; font-size: 16px; }
 .tiptap-content {
-  border: 1px solid #999; border-radius: 6px; min-height: 320px;
-  &:focus-within { border-color: #6b7280; }
+  border: 1px solid t.$border-strong; border-radius: 6px; min-height: 320px;
+  &:focus-within { border-color: t.$accent-line; }
   :deep(.tiptap-editor) {
-    padding: 12px 14px; color: white; background: transparent;
+    padding: 12px 14px; color: t.$text; background: transparent;
     font-size: 15px; font-family: inherit; outline: none; line-height: 1.7; min-height: 320px;
     h2 { font-size: 1.4em; font-weight: 600; margin: 1em 0 0.4em; }
     h3 { font-size: 1.2em; font-weight: 600; margin: 0.8em 0 0.3em; }
-    a { color: #60a5fa; }
+    a { color: t.$accent; }
     ul { padding-left: 1.4em; }
     li { margin-bottom: 4px; }
-    p.is-empty::before { content: attr(data-placeholder); color: #555; pointer-events: none; float: left; height: 0; }
+    p.is-empty::before { content: attr(data-placeholder); color: t.$text-3; pointer-events: none; float: left; height: 0; }
   }
 }
 
@@ -335,17 +336,17 @@ onBeforeUnmount(() => {
 
 .field-hint {
   font-size: 12px;
-  color: #666;
+  color: t.$text-3;
   margin: 4px 0 0;
 }
 
 .seo-hint {
   margin: 16px 0;
   padding: 16px;
-  background: #1a1a1a;
-  border: 1px dashed #444;
+  background: t.$surface;
+  border: 1px dashed t.$border-strong;
   border-radius: 8px;
-  color: #888;
+  color: t.$text-3;
   font-size: 13px;
   text-align: center;
 }

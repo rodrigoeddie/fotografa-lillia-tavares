@@ -47,15 +47,17 @@ provide('showMessage', showMessage);
   <!-- Login Screen -->
   <div v-if="!authenticated" class="login-screen">
     <form class="login-box" @submit.prevent="handleLogin">
+      <div class="login-mark">L</div>
       <h1>Administração</h1>
+      <p class="login-sub">Fotógrafa Lillia Tavares</p>
       <label>
         <span>E-mail</span>
         <input v-model="loginEmail" type="email" placeholder="email@gmail.com" autofocus autocomplete="email" />
       </label>
-      
+
       <label>
         <span>Senha</span>
-        <input v-model="loginPassword" type="password" placeholder="*****" autocomplete="current-password" />
+        <input v-model="loginPassword" type="password" placeholder="•••••" autocomplete="current-password" />
       </label>
 
       <button type="submit" :disabled="loginLoading">{{ loginLoading ? 'Verificando...' : 'Entrar' }}</button>
@@ -64,16 +66,60 @@ provide('showMessage', showMessage);
   </div>
 
   <!-- CMS -->
-  <div v-else class="admin-cms">
-    <div class="container">
-      <header class="cms-header">
-        <div class="cms-header-left">
-          <button class="btn-sidebar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" :class="{ active: fileSidebarOpen }" title="Menu">
-            <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">menu</span> Menu
-          </button>
-          <NuxtLink to="/admin" class="cms-title-link"><h1>Administração</h1></NuxtLink>
-        </div>
-        <div class="cms-header-right">
+  <div v-else class="admin-cms" :class="{ 'sidebar-collapsed': !fileSidebarOpen }">
+    <!-- Sidebar -->
+    <Transition name="slide-sidebar">
+      <aside v-show="fileSidebarOpen" class="sidebar">
+        <NuxtLink to="/admin" class="brand">
+          <span class="brand-mark">L</span>
+          <span class="brand-text">
+            <span class="brand-name">Lillia Tavares</span>
+            <span class="brand-sub">Administração</span>
+          </span>
+        </NuxtLink>
+
+        <nav class="nav">
+          <template v-if="canAccess('clientes') || canAccess('sessoes') || canAccess('entregas')">
+            <div class="nav-label">Sistema</div>
+            <NuxtLink v-if="canAccess('clientes')" to="/admin/clientes" class="nav-item" active-class="active"><span class="material-symbols-outlined">group</span> Clientes</NuxtLink>
+            <NuxtLink v-if="canAccess('sessoes')" to="/admin/sessoes" class="nav-item" active-class="active"><span class="material-symbols-outlined">photo_library</span> Ensaios</NuxtLink>
+            <NuxtLink v-if="canAccess('entregas')" to="/admin/entregas" class="nav-item" active-class="active"><span class="material-symbols-outlined">folder_zip</span> Entregas</NuxtLink>
+          </template>
+
+          <template v-if="canAccess('hero-banners') || canAccess('portfolio')">
+            <div class="nav-label">Site</div>
+            <NuxtLink v-if="canAccess('hero-banners')" to="/admin/hero-banners" class="nav-item" active-class="active"><span class="material-symbols-outlined">panorama</span> Banners</NuxtLink>
+            <NuxtLink v-if="canAccess('portfolio')" to="/admin/portfolio" class="nav-item" active-class="active"><span class="material-symbols-outlined">camera_alt</span> Portfolio</NuxtLink>
+            <NuxtLink v-if="canAccess('investimento')" to="/admin/investimento" class="nav-item" active-class="active"><span class="material-symbols-outlined">payments</span> Preços</NuxtLink>
+            <NuxtLink v-if="canAccess('depoimentos')" to="/admin/depoimentos" class="nav-item" active-class="active"><span class="material-symbols-outlined">star</span> Avaliações</NuxtLink>
+            <NuxtLink v-if="canAccess('faq')" to="/admin/faq" class="nav-item" active-class="active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
+            <NuxtLink v-if="canAccess('blog')" to="/admin/blog" class="nav-item" active-class="active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
+            <NuxtLink v-if="canAccess('cenarios')" to="/admin/cenarios" class="nav-item" active-class="active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
+            <NuxtLink v-if="canAccess('landing-pages')" to="/admin/landing-pages" class="nav-item" active-class="active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
+            <NuxtLink v-if="canAccess('menu')" to="/admin/menu" class="nav-item" active-class="active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
+            <NuxtLink v-if="canAccess('linktree')" to="/admin/linktree" class="nav-item" active-class="active"><span class="material-symbols-outlined">link</span> Linktree</NuxtLink>
+          </template>
+
+          <template v-if="canAccess('seo') || canAccess('cache') || isSuperAdmin">
+            <div class="nav-label">Ferramentas</div>
+            <NuxtLink v-if="canAccess('seo')" to="/admin/seo" class="nav-item" active-class="active"><span class="material-symbols-outlined">search</span> SEO</NuxtLink>
+            <NuxtLink v-if="canAccess('cache')" to="/admin/cache" class="nav-item" active-class="active"><span class="material-symbols-outlined">cached</span> Cache</NuxtLink>
+            <NuxtLink v-if="isSuperAdmin" to="/admin/usuarios" class="nav-item" active-class="active"><span class="material-symbols-outlined">manage_accounts</span> Usuários</NuxtLink>
+          </template>
+        </nav>
+      </aside>
+    </Transition>
+
+    <!-- Main -->
+    <div class="main">
+      <header class="topbar">
+        <button class="topbar-toggle" @click="fileSidebarOpen = !fileSidebarOpen" title="Alternar menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <div class="topbar-spacer"></div>
+
+        <div class="topbar-actions">
           <!-- Notificações -->
           <div class="notif-wrap" v-if="authenticated">
             <button class="notif-bell" :class="{ 'has-unread': adminUnread > 0 }" @click="toggleAdminNotif" title="Notificações">
@@ -92,11 +138,11 @@ provide('showMessage', showMessage);
           </div>
 
           <NuxtLink to="/" class="back-link">
-            <span class="material-symbols-outlined"> arrow_back </span>
+            <span class="material-symbols-outlined">arrow_back</span>
             <span>Voltar ao site</span>
           </NuxtLink>
           <button class="btn-logout" @click="logout">
-            <span class="material-symbols-outlined"> exit_to_app </span>
+            <span class="material-symbols-outlined">exit_to_app</span>
             <span>Sair</span>
           </button>
         </div>
@@ -106,41 +152,9 @@ provide('showMessage', showMessage);
         <div v-if="message" class="notification" :class="messageType">{{ message }}</div>
       </Transition>
 
-      <div class="cms-layout">
-        <!-- File Sidebar -->
-        <Transition name="slide-sidebar">
-          <div v-show="fileSidebarOpen" class="file-sidebar">
-            <!-- Navegação DB -->
-            <div class="fs-db-nav">
-              <div class="fs-db-label">------</div>
-              <NuxtLink v-if="canAccess('clientes')"      to="/admin/clientes"      class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">group</span> Clientes</NuxtLink>
-              <NuxtLink v-if="canAccess('sessoes')"       to="/admin/sessoes"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">photo_library</span> Ensaios</NuxtLink>
-              <NuxtLink v-if="canAccess('entregas')"      to="/admin/entregas"      class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">folder_zip</span> Entregas</NuxtLink>
-              <template v-if="canAccess('hero-banners') || canAccess('portfolio')">
-                <div class="fs-db-label" style="margin-top:1rem">Site</div>
-                <NuxtLink v-if="canAccess('hero-banners')"   to="/admin/hero-banners"   class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">panorama</span> Banners</NuxtLink>
-                <NuxtLink v-if="canAccess('portfolio')"      to="/admin/portfolio"      class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">camera_alt</span> Portfolio</NuxtLink>
-                <NuxtLink v-if="canAccess('investimento')"   to="/admin/investimento"   class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">payments</span> Preços</NuxtLink>
-                <NuxtLink v-if="canAccess('depoimentos')"    to="/admin/depoimentos"    class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">star</span> Avaliações</NuxtLink>
-                <NuxtLink v-if="canAccess('faq')"            to="/admin/faq"            class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
-                <NuxtLink v-if="canAccess('blog')"           to="/admin/blog"           class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
-                <NuxtLink v-if="canAccess('cenarios')"       to="/admin/cenarios"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
-                <NuxtLink v-if="canAccess('landing-pages')"  to="/admin/landing-pages"  class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
-                <NuxtLink v-if="canAccess('menu')"           to="/admin/menu"           class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
-                <NuxtLink v-if="canAccess('linktree')"       to="/admin/linktree"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">link</span> Linktree</NuxtLink>
-              </template>
-              <template v-if="canAccess('seo') || canAccess('cache') || isSuperAdmin">
-                <div class="fs-db-label" style="margin-top:1rem">Ferramentas</div>
-                <NuxtLink v-if="canAccess('seo')"    to="/admin/seo"       class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">search</span> SEO</NuxtLink>
-                <NuxtLink v-if="canAccess('cache')"  to="/admin/cache"     class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">cached</span> Cache</NuxtLink>
-                <NuxtLink v-if="isSuperAdmin"        to="/admin/usuarios"  class="fs-db-link" active-class="fs-db-link--active"><span class="material-symbols-outlined">manage_accounts</span> Usuários</NuxtLink>
-              </template>
-            </div>
-          </div>
-        </Transition>
-
-        <!-- Main CMS content (child page) -->
-        <div class="cms-main">
+      <!-- Main CMS content (child page) -->
+      <div class="cms-main">
+        <div class="cms-main-inner">
           <slot />
         </div>
       </div>
@@ -149,156 +163,289 @@ provide('showMessage', showMessage);
 </template>
 
 <style lang="scss" scoped>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+@use '~/assets/styles/admin-tokens' as t;
 
-label {
-  span {
-    padding-bottom: 10rem;
-    text-align: left;
-    color: white;
-    display: block;
-  }
-}
+* { box-sizing: border-box; }
 
-.container {
-  margin: 0 auto;
-  width: 1800rem;
-}
-
+/* ─── Login ─────────────────────────────── */
 .login-screen {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #111;
+  background: t.$bg;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .login-box {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 12px;
+  background: t.$surface;
+  border: 1px solid t.$border;
+  border-radius: t.$radius;
+  box-shadow: t.$shadow;
   padding: 40px;
-  width: 360px;
+  width: 380px;
   text-align: center;
 
+  .login-mark {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, t.$accent, #c98159);
+    color: t.$accent-ink;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 22px;
+  }
+
   h1 {
-    margin-bottom: 24px;
-    font-weight: bold;
-    font-size: 25px;
-    color: #eee;
+    font-weight: 680;
+    font-size: 22px;
+    color: t.$text;
+    margin: 0;
+  }
+
+  .login-sub {
+    color: t.$text-3;
+    font-size: 13px;
+    margin: 4px 0 28px;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 16px;
+
+    span {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: t.$text-2;
+      margin-bottom: 7px;
+    }
   }
 
   input {
     width: 100%;
-    padding: 12px 14px;
-    background: #222;
-    border: 1px solid #444;
-    color: #eee;
-    border-radius: 6px;
-    font-size: 16px;
-    margin-bottom: 20px;
+    padding: 11px 13px;
+    background: t.$bg;
+    border: 1px solid t.$border-strong;
+    color: t.$text;
+    border-radius: t.$radius-sm;
+    font-size: 15px;
+    transition: border-color 0.15s, box-shadow 0.15s;
 
     &:focus {
       outline: none;
-      border-color: #2563eb;
+      border-color: t.$accent-line;
+      box-shadow: 0 0 0 3px t.$accent-dim;
     }
   }
 
   button {
     width: 100%;
+    margin-top: 8px;
     padding: 12px;
-    background: #2563eb;
-    color: white;
+    background: t.$accent;
+    color: t.$accent-ink;
     border: none;
-    border-radius: 6px;
+    border-radius: t.$radius-sm;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
+    transition: background 0.15s;
 
-    &:hover {
-      background: #1d4ed8;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-    }
+    &:hover:not(:disabled) { background: t.$accent-hi; }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
   }
 
   .login-error {
-    color: #f87171;
-    margin-top: 12px;
-    font-size: 14px;
+    color: t.$danger;
+    margin-top: 14px;
+    font-size: 13.5px;
   }
 }
 
+/* ─── Shell ─────────────────────────────── */
 .admin-cms {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #111;
-  color: #eee;
-  min-height: 100vh;
-}
-
-.cms-header {
   display: flex;
-  padding-top: 20px;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 16px;
+  align-items: stretch;
+  min-height: 100vh;
+  background: t.$bg;
+  color: t.$text;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+}
 
-  h1 {
-    font-size: 24px;
+/* ─── Sidebar ─────────────────────────────── */
+.sidebar {
+  width: t.$sidebar-w;
+  flex-shrink: 0;
+  background: t.$surface;
+  border-right: 1px solid t.$border;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 20px 20px;
+  text-decoration: none;
+  color: inherit;
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, t.$accent, #c98159);
+    color: t.$accent-ink;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
   }
 
-  .back-link {
-    text-decoration: none;
-    align-items: center;
-    color: #888;
-    display: flex;
-    gap: 5rem;
+  .brand-text { display: flex; flex-direction: column; line-height: 1.25; }
+  .brand-name { font-size: 14px; font-weight: 650; letter-spacing: 0.2px; }
+  .brand-sub { font-size: 11px; color: t.$text-3; }
 
-    .material-symbols-outlined {
-      font-size: 18px;
-    }
+  &:hover .brand-name { color: t.$accent-hi; }
+}
 
-    &:hover {
-      color: #fff;
+.nav {
+  padding: 4px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: t.$text-3;
+  padding: 18px 10px 7px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 11px;
+  border-radius: t.$radius-sm;
+  color: t.$text-2;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+  white-space: nowrap;
+
+  .material-symbols-outlined { font-size: 20px; flex-shrink: 0; opacity: 0.85; }
+
+  &:hover { background: t.$surface-2; color: t.$text; }
+
+  &.active {
+    background: t.$accent-dim;
+    color: t.$accent-hi;
+
+    .material-symbols-outlined { opacity: 1; }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: t.$accent;
     }
   }
 }
 
-.cms-header-right {
+/* ─── Main ─────────────────────────────── */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
   display: flex;
   align-items: center;
   gap: 16px;
+  padding: 14px 32px;
+  border-bottom: 1px solid t.$border;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(15, 17, 20, 0.82);
+  backdrop-filter: blur(10px);
 }
 
-// Notification bell (reused in both layouts)
+.topbar-spacer { flex: 1; }
+
+.topbar-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: t.$radius-sm;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text-2;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+
+  .material-symbols-outlined { font-size: 20px; }
+  &:hover { color: t.$text; border-color: t.$border-strong; }
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Notification bell */
 .notif-wrap { position: relative; }
 
 .notif-bell {
-  background: none;
-  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: t.$radius-sm;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
   cursor: pointer;
-  color: #666;
-  display: flex;
-  align-items: center;
+  color: t.$text-2;
+  display: grid;
+  place-items: center;
   position: relative;
-  padding: 0;
+  transition: color 0.15s, border-color 0.15s;
 
-  .material-symbols-outlined { font-size: 22px; }
-  &:hover { color: #fff; }
-  &.has-unread { color: #e8a87c; }
+  .material-symbols-outlined { font-size: 20px; }
+  &:hover { color: t.$text; border-color: t.$border-strong; }
+  &.has-unread { color: t.$accent; }
 }
 
 .notif-badge {
   position: absolute;
-  top: -4px;
-  right: -6px;
-  background: #e8a87c;
-  color: #111;
+  top: 4px;
+  right: 5px;
+  background: t.$accent;
+  color: t.$accent-ink;
   font-size: 10px;
   font-weight: 700;
   border-radius: 10px;
@@ -309,12 +456,12 @@ label {
 .notif-dropdown {
   position: absolute;
   right: 0;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   width: 300px;
-  background: #1e1e1e;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  background: t.$surface;
+  border: 1px solid t.$border;
+  border-radius: t.$radius;
+  box-shadow: t.$shadow;
   z-index: 200;
   overflow: hidden;
 }
@@ -322,75 +469,65 @@ label {
 .notif-header {
   font-size: 13px;
   font-weight: 700;
-  color: #ccc;
-  padding: 12px 16px;
-  border-bottom: 1px solid #2a2a2a;
+  color: t.$text;
+  padding: 13px 16px;
+  border-bottom: 1px solid t.$border;
   margin: 0;
 }
 
 .notif-empty {
   font-size: 13px;
-  color: #555;
-  padding: 16px;
+  color: t.$text-3;
+  padding: 20px 16px;
   margin: 0;
   text-align: center;
 }
 
 .notif-item {
   padding: 12px 16px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid t.$border;
 
   &:last-child { border-bottom: none; }
-  &.unread { background: #1a1208; }
+  &.unread { background: t.$accent-dim; }
 }
 
-.notif-titulo {
+.notif-titulo { font-size: 13px; font-weight: 600; color: t.$text; margin: 0 0 2px; }
+.notif-mensagem { font-size: 12px; color: t.$text-2; margin: 0 0 4px; }
+.notif-data { font-size: 11px; color: t.$text-3; margin: 0; }
+
+.back-link {
+  text-decoration: none;
+  align-items: center;
+  color: t.$text-2;
+  display: flex;
+  gap: 7px;
   font-size: 13px;
-  font-weight: 600;
-  color: #ddd;
-  margin: 0 0 2px;
-}
+  padding: 9px 14px;
+  border-radius: t.$radius-sm;
+  border: 1px solid t.$border;
+  background: t.$surface-2;
+  transition: color 0.15s, border-color 0.15s;
 
-.notif-mensagem {
-  font-size: 12px;
-  color: #888;
-  margin: 0 0 4px;
-}
-
-.notif-data {
-  font-size: 11px;
-  color: #555;
-  margin: 0;
+  .material-symbols-outlined { font-size: 18px; }
+  &:hover { color: t.$text; border-color: t.$border-strong; }
 }
 
 .btn-logout {
-  background: transparent;
-  border: 1px solid #444;
-  color: #888;
-  padding: 6px 14px;
-  border-radius: 6px;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text-2;
+  padding: 9px 14px;
+  border-radius: t.$radius-sm;
   display: flex;
   align-items: center;
-  gap: 5rem;
+  gap: 7px;
   cursor: pointer;
   font-size: 13px;
   transition: border-color 0.15s, color 0.15s;
 
-  .material-symbols-outlined {
-    font-size: 18px;
-    vertical-align: middle;
-  }
+  .material-symbols-outlined { font-size: 18px; }
 
-  &:hover {
-    border-color: #ef4444;
-    color: #ef4444;
-  }
-}
-
-.cms-title-link {
-  text-decoration: none;
-  color: inherit;
-  &:hover h1 { color: #93c5fd; }
+  &:hover { border-color: t.$danger; color: t.$danger; }
 }
 
 .notification {
@@ -402,165 +539,36 @@ label {
   min-width: 320px;
   max-width: 600px;
   padding: 14px 24px;
-  border-radius: 8px;
+  border-radius: t.$radius-sm;
   font-weight: 500;
   font-size: 14px;
   text-align: center;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-  &.success { background: #1a3a1a; color: #4ade80; border: 1px solid #166534; }
-  &.error { background: #3a1a1a; color: #f87171; border: 1px solid #7f1d1d; }
+  box-shadow: t.$shadow;
+
+  &.success { background: t.$success-bg; color: t.$success; border: 1px solid rgba(89, 212, 153, 0.4); }
+  &.error { background: t.$danger-bg; color: t.$danger; border: 1px solid rgba(242, 119, 122, 0.4); }
 }
 
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
-.loading { text-align: center; padding: 40px; color: #888; }
-
-/* Layout */
-.cms-layout {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-}
-
+/* Content */
 .cms-main {
   flex: 1;
   min-width: 0;
-  padding: 0 10px 20px 20px;
+  padding: 30px 32px 60px;
 }
 
-.cms-header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.btn-sidebar-toggle {
-  background: #1e2d3d;
-  border: 1px solid #2d4a6a;
-  color: #60a5fa;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  white-space: nowrap;
-  &:hover { background: #253d55; }
-}
-
-/* File sidebar */
-.file-sidebar {
-  width: 133px;
-  flex-shrink: 0;
-  background: #111;
-  border-right: 1px solid #222;
-  min-height: calc(100vh - 60px);
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.fs-db-nav {
-  padding: 0 8px 6px;
-  border-bottom: 1px solid #222;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.fs-db-label {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #555;
-  font-weight: 700;
-  padding: 20px 4px 4px;
-
-  &:first-child {
-    padding-top: 0;
-  }
-}
-
-.fs-db-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px;
-  border-radius: 5px;
-  font-size: 13px;
-  color: #aaa;
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s;
-
-  .material-symbols-outlined {
-    font-size: 18px;
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
-  &:hover { background: #1e1e1e; color: #eee; }
-  &--active {
-    background: #252525;
-    color: #fff;
-    .material-symbols-outlined { opacity: 1; }
-  }
-}
-
-.fs-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 12px 8px;
-  border-bottom: 1px solid #222;
-}
-
-.fs-tree { padding: 4px 0; }
-
-.fs-node {
-  display: flex;
-  align-items: center;
-  height: 28px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 12px;
-  color: #ccc;
-  padding-right: 4px;
-  position: relative;
-  &:hover { background: #1a1a1a; }
-  &.is-dir { color: #93c5fd; font-weight: 500; }
-}
-
-.fs-toggle { width: 16px; flex-shrink: 0; text-align: center; font-size: 9px; color: #555; }
-.fs-icon { width: 18px; flex-shrink: 0; text-align: center; font-size: 13px; }
-.fs-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.fs-rename-input {
-  flex: 1; background: #222; border: 1px solid #3b82f6; color: #eee; font-size: 12px; padding: 1px 4px; border-radius: 3px; outline: none;
-}
-
-.fs-action-btn {
-  background: none; border: none; color: #888; font-size: 11px; cursor: pointer; padding: 2px 4px; border-radius: 3px;
-  &:hover { background: #2a2a2a; color: #eee; }
-  &.ok { color: #4ade80; &:hover { background: #14532d; color: #86efac; } }
-  &.cancel { color: #f87171; &:hover { background: #450a0a; color: #fca5a5; } }
-}
-
-.fs-node.is-selected {
-  background: #1a2a3a;
-  &:hover { background: #1a2a3a; }
-  .fs-name { color: #93c5fd; }
-}
-
-.fs-create-row {
-  display: flex; align-items: center; gap: 6px; padding: 4px 8px; background: #0d1a2a; border-top: 1px solid #1e3a5a; flex-wrap: wrap;
-}
-
-.fs-create-input {
-  flex: 1; min-width: 80px; background: #111; border: 1px solid #2d4a6a; color: #eee; font-size: 12px; padding: 3px 6px; border-radius: 3px; outline: none;
+.cms-main-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* Sidebar slide transition */
 .slide-sidebar-enter-active,
 .slide-sidebar-leave-active {
-  transition: width 0.25s ease, opacity 0.25s ease;
+  transition: width 0.25s ease, opacity 0.2s ease;
   overflow: hidden;
 }
 .slide-sidebar-enter-from,
@@ -569,71 +577,10 @@ label {
   opacity: 0;
 }
 
-/* Context menu */
-.ctx-overlay { position: fixed; inset: 0; z-index: 19998; }
-
-.ctx-menu {
-  position: fixed; z-index: 19999; background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 4px; min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); font-size: 13px;
-}
-
-.ctx-item {
-  display: flex; align-items: center; gap: 8px; width: 100%; background: none; border: none; color: #ddd; padding: 7px 12px; border-radius: 5px; cursor: pointer; text-align: left; white-space: nowrap;
-  &:hover { background: #2a3a4a; color: #fff; }
-  &.danger { color: #f87171; &:hover { background: #450a0a; color: #fca5a5; } }
-}
-
-.ctx-icon { width: 18px; text-align: center; flex-shrink: 0; opacity: 0.8; }
-.ctx-sep { height: 1px; background: #333; margin: 4px 8px; }
-
-/* File editor modal */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 9999;
-}
-
-.modal-content {
-  background: #1a1a1a; border: 1px solid #333; border-radius: 12px; width: 90vw; max-width: 1000px; max-height: 80vh; overflow-y: auto; padding: 24px;
-}
-
-.modal-file-editor {
-  max-width: 1100px;
-  height: 82vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 0;
-
-  .modal-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid #2a2a2a;
-    flex-shrink: 0;
-    h3 { font-size: 14px; color: #ccc; font-weight: 400; }
-    code { background: #222; padding: 1px 6px; border-radius: 4px; font-size: 13px; color: #93c5fd; }
-  }
-}
-
-.modal-header {
-  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
-  h3 { font-size: 18px; color: #eee; }
-}
-
-.modal-header-actions { display: flex; align-items: center; gap: 8px; }
-
-.modal-close {
-  background: #333; border: none; color: #eee; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 16px;
-  &:hover { background: #444; }
-}
-
-.editor-dirty { font-size: 12px; color: #facc15; margin-left: 8px; }
-
-.btn-save-file {
-  background: #1e40af; border: none; color: #fff; padding: 6px 16px; border-radius: 6px; font-size: 13px; cursor: pointer;
-  &:hover:not(:disabled) { background: #2563eb; }
-  &:disabled { opacity: 0.4; cursor: not-allowed; }
-}
-
-.file-editor-textarea {
-  flex: 1; width: 100%; background: #0d0d0d; border: none; color: #d4d4d4;
-  font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; line-height: 1.6;
-  padding: 16px 20px; resize: none; outline: none; tab-size: 2;
+@media (max-width: 899px) {
+  .cms-main { padding: 22px 18px 48px; }
+  .topbar { padding: 12px 18px; }
+  .back-link span:last-child { display: none; }
+  .btn-logout span:last-child { display: none; }
 }
 </style>

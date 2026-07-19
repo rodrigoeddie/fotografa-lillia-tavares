@@ -157,10 +157,11 @@ onMounted(init);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .form-section-title {
-  font-size: 13px; font-weight: 600; color: #9ca3af;
+  font-size: 13px; font-weight: 600; color: t.$text-2;
   text-transform: uppercase; letter-spacing: 0.05em; margin: 0;
   display: flex; align-items: center; gap: 8px;
 }
@@ -168,9 +169,9 @@ onMounted(init);
 // Slug row
 .input-with-btn { display: flex; gap: 6px; align-items: stretch; input { flex: 1; } }
 .btn-ghost-sm {
-  background: #2a2a2a; border: 1px solid #555; color: #aaa;
+  background: t.$surface-2; border: 1px solid t.$border; color: t.$text-2;
   border-radius: 6px; padding: 0 10px; cursor: pointer; font-size: 18px; line-height: 1;
-  &:hover { background: #3a3a3a; color: #eee; }
+  &:hover { background: t.$surface-3; color: t.$text; }
 }
 
 // Perguntas section header
@@ -180,45 +181,45 @@ onMounted(init);
 }
 .perguntas-actions { display: flex; gap: 6px; align-items: center; }
 .btn-ctrl {
-  background: #1a1a1a; border: 1px solid #333; color: #999;
+  background: t.$surface; border: 1px solid t.$border; color: t.$text-2;
   font-size: 12px; padding: 5px 10px; border-radius: 6px; cursor: pointer;
-  &:hover { background: #222; color: #ccc; }
+  &:hover { background: t.$surface-2; color: t.$text; }
 }
 
 // Pergunta cards
 .perguntas-list { display: flex; flex-direction: column; gap: 8px; }
 .pergunta-card {
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 8px;
+  background: t.$surface; border: 1px solid t.$border; border-radius: 8px;
   overflow: hidden; transition: border-color 0.15s;
-  &.drag-over { border-color: #60a5fa; }
+  &.drag-over { border-color: t.$accent; }
 }
 .pergunta-card-header {
   display: flex; align-items: center; gap: 8px; padding: 10px 14px;
   cursor: pointer; user-select: none;
-  &:hover { background: #1a1a1a; }
+  &:hover { background: t.$surface-2; }
 }
-.drag-handle { font-size: 16px; color: #444; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
-.q-num { font-size: 11px; color: #666; font-weight: 600; flex-shrink: 0; }
-.q-preview { flex: 1; font-size: 13px; color: #bbb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.q-toggle { font-size: 12px; color: #666; flex-shrink: 0; }
+.drag-handle { font-size: 16px; color: t.$border-strong; cursor: grab; flex-shrink: 0; &:active { cursor: grabbing; } }
+.q-num { font-size: 11px; color: t.$text-3; font-weight: 600; flex-shrink: 0; }
+.q-preview { flex: 1; font-size: 13px; color: t.$text-2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.q-toggle { font-size: 12px; color: t.$text-3; flex-shrink: 0; }
 .btn-remove {
-  background: none; border: none; color: #555; font-size: 13px;
+  background: none; border: none; color: t.$text-3; font-size: 13px;
   cursor: pointer; padding: 2px 5px; border-radius: 4px; flex-shrink: 0;
-  &:hover { background: #3a1a1a; color: #f87171; }
+  &:hover { background: t.$danger-bg; color: t.$danger; }
 }
 .pergunta-card-body {
-  padding: 12px 14px; border-top: 1px solid #222;
+  padding: 12px 14px; border-top: 1px solid t.$surface-2;
   display: flex; flex-direction: column; gap: 12px;
 }
 
 // Pages card
 .pages-card { margin-top: 24px; }
-.pages-hint { font-size: 12px; color: #666; margin: 4px 0 12px; }
+.pages-hint { font-size: 12px; color: t.$text-3; margin: 4px 0 12px; }
 
 // Dashed add button
 .btn-add-dashed {
-  background: none; border: 1px dashed #444; color: #888; width: 100%;
+  background: none; border: 1px dashed t.$border-strong; color: t.$text-3; width: 100%;
   padding: 10px; border-radius: 6px; font-size: 13px; cursor: pointer; margin-top: 4px;
-  &:hover { border-color: #60a5fa; color: #60a5fa; }
+  &:hover { border-color: t.$accent; color: t.$accent; }
 }
 </style>

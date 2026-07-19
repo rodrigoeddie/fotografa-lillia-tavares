@@ -222,14 +222,15 @@ onMounted(init);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .form-card {
   margin-bottom: 24px;
-  border: 1px solid #21262d;
+  border: 1px solid t.$border;
   border-radius: 10px;
   padding: 20px;
-  background: #0d1117;
+  background: t.$surface;
 }
 
 .form-section-title {
@@ -238,18 +239,18 @@ onMounted(init);
   gap: 8px;
   font-size: 13px;
   font-weight: 600;
-  color: #8b949e;
+  color: t.$text-2;
   margin: 0 0 16px;
   text-transform: uppercase;
   letter-spacing: .05em;
 
-  .material-symbols-outlined { font-size: 16px; color: #60a5fa; }
+  .material-symbols-outlined { font-size: 16px; color: t.$accent; }
 }
 
 .aspect-hint {
   font-size: 11px;
   font-weight: 400;
-  color: #555;
+  color: t.$text-3;
   text-transform: none;
   letter-spacing: 0;
   margin-left: 4px;
@@ -268,8 +269,8 @@ onMounted(init);
   aspect-ratio: 24 / 5;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #21262d;
-  background: #161b22;
+  border: 1px solid t.$border;
+  background: t.$surface-2;
 
   &.mobile-preview {
     width: 160px;
@@ -300,7 +301,7 @@ onMounted(init);
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover { background: rgba(180, 0, 0, .8); }
+  &:hover { background: t.$danger; }
 }
 
 .banner-placeholder {
@@ -311,9 +312,9 @@ onMounted(init);
   gap: 8px;
   width: 100%;
   aspect-ratio: 24 / 5;
-  border: 2px dashed #21262d;
+  border: 2px dashed t.$border;
   border-radius: 8px;
-  color: #30363d;
+  color: t.$text-3;
   font-size: 13px;
 
   .material-symbols-outlined { font-size: 32px; }
@@ -327,9 +328,9 @@ onMounted(init);
 
 .btn-upload {
   align-self: flex-start;
-  background: #1e2d3d;
-  border: 1px solid #2d4a6a;
-  color: #60a5fa;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text;
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 13px;
@@ -341,7 +342,7 @@ onMounted(init);
 
   &.loading { opacity: .6; cursor: not-allowed; }
   input[type='file'] { display: none; }
-  &:hover:not(.loading) { background: #253d55; }
+  &:hover:not(.loading) { background: t.$surface-3; }
 }
 
 /* ── CTA url chips ───────────────────────────────────────── */
@@ -351,7 +352,7 @@ onMounted(init);
 
 .hint-label {
   font-size: 12px;
-  color: #555;
+  color: t.$text-3;
   margin: 0 0 8px;
 }
 
@@ -365,26 +366,26 @@ onMounted(init);
   font-size: 12px;
   padding: 3px 10px;
   border-radius: 20px;
-  background: #161b22;
-  border: 1px solid #21262d;
-  color: #8b949e;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text-2;
   cursor: pointer;
   font-family: inherit;
   transition: all .12s;
 
-  &:hover { background: #1f2937; color: #e6edf3; }
+  &:hover { background: t.$surface-3; color: t.$text; }
 
   &.active {
-    background: #1e3a5f;
-    border-color: #2d5a9e;
-    color: #93c5fd;
+    background: t.$accent-dim;
+    border-color: t.$accent;
+    color: t.$accent;
   }
 }
 
 /* ── Pages hint ──────────────────────────────────────────── */
 .pages-hint {
   font-size: 13px;
-  color: #555;
+  color: t.$text-3;
   margin: -8px 0 12px;
 }
 
@@ -393,5 +394,5 @@ onMounted(init);
   gap: 14px;
 }
 
-.required { color: #f87171; }
+.required { color: t.$danger; }
 </style>

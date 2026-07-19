@@ -590,29 +590,31 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .fotos-editor {
-  color: #eee;
+  color: t.$text;
 }
 
-.loading { text-align: center; padding: 40px; color: #888; }
+.loading { text-align: center; padding: 40px; color: t.$text-3; }
 
 /* Page header */
 .editor-header {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #333;
+  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid t.$border-strong;
   div { display: flex; align-items: center; gap: 12px; }
   h2 { font-size: 20px; }
 }
 
 .btn-back {
-  color: #60a5fa; font-size: 13px; text-decoration: none; white-space: nowrap;
-  &:hover { color: #93c5fd; }
+  color: t.$accent; font-size: 13px; text-decoration: none; white-space: nowrap;
+  &:hover { color: t.$accent-hi; }
 }
 
 .btn-save {
-  background: #2563eb; border: none; color: #fff; padding: 8px 20px;
+  background: t.$accent; border: none; color: t.$accent-ink; padding: 8px 20px;
   border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
-  &:hover:not(:disabled) { background: #1d4ed8; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
   &--lg { padding: 10px 28px; }
 }
@@ -627,57 +629,57 @@ onMounted(load);
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
 }
 
-.zip-label { font-size: 12px; color: #888; white-space: nowrap; }
+.zip-label { font-size: 12px; color: t.$text-3; white-space: nowrap; }
 
 .zip-inline-bar {
-  width: 80px; height: 4px; background: #333; border-radius: 2px; overflow: hidden;
+  width: 80px; height: 4px; background: t.$surface-3; border-radius: 2px; overflow: hidden;
 }
-.zip-inline-fill { height: 100%; background: #22c55e; transition: width 0.2s; }
+.zip-inline-fill { height: 100%; background: t.$success; transition: width 0.2s; }
 
 .zip-errors {
   margin-bottom: 12px; padding: 8px 12px;
-  background: #2a0a0a; border: 1px solid #7f1d1d; border-radius: 6px;
-  font-size: 12px; color: #fca5a5; list-style: none;
+  background: t.$danger-bg; border: 1px solid t.$danger; border-radius: 6px;
+  font-size: 12px; color: t.$danger; list-style: none;
 }
 
 .empty-list {
-  text-align: center; padding: 40px; color: #666; font-size: 13px;
+  text-align: center; padding: 40px; color: t.$text-3; font-size: 13px;
   &--sm { padding: 16px; font-size: 12px; }
 }
 
 /* Section label + divider */
 .section-label {
-  width: 100%; font-size: 11px; color: #555; text-transform: uppercase;
+  width: 100%; font-size: 11px; color: t.$text-3; text-transform: uppercase;
   letter-spacing: 1px; margin-bottom: 8px; padding: 4px 0;
-  &--highlight { color: #d97706; }
+  &--highlight { color: t.$warning; }
 }
 
 .section-divider {
-  width: 100%; height: 1px; background: #2a2a2a; margin: 20px 0 16px;
+  width: 100%; height: 1px; background: t.$border; margin: 20px 0 16px;
 }
 
 /* Buttons */
 .btn-small {
-  background: #1e2d3d; border: 1px solid #2d4a6a; color: #60a5fa;
+  background: t.$surface-2; border: 1px solid t.$border; color: t.$text;
   padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; white-space: nowrap;
-  &:hover { background: #253d55; }
-  &.danger { color: #f87171; border-color: #7f1d1d; &:hover { background: #450a0a; } }
+  &:hover { background: t.$surface-3; }
+  &.danger { color: t.$danger; border-color: t.$danger; &:hover { background: t.$danger-bg; } }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 
 .btn-add {
-  color: #4ade80; border-color: #166534;
-  &:hover { background: #052e16; }
+  color: t.$accent; border-color: t.$accent-line;
+  &:hover { background: t.$accent-dim; }
 }
 
 /* Add presets footer (mirrors Legacy.vue album-footer) */
 .add-presets {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  margin: 16px 0; padding: 12px; background: #111; border-radius: 8px; border: 1px solid #2a2a2a;
+  margin: 16px 0; padding: 12px; background: t.$bg; border-radius: 8px; border: 1px solid t.$border;
 }
 
 .add-presets-label {
-  font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+  font-size: 11px; color: t.$text-3; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
 }
 
 /* Mosaic canvas */
@@ -695,13 +697,13 @@ onMounted(load);
 
 /* Image card */
 .image-card {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   box-sizing: border-box;
   padding: 8px;
   transition: border-color 0.15s;
-  &.drag-over { border-color: #3b82f6; }
-  &--highlight { border-left: 2px solid #d97706; }
+  &.drag-over { border-color: t.$accent; }
+  &--highlight { border-left: 2px solid t.$warning; }
 }
 
 /* Card header */
@@ -709,32 +711,32 @@ onMounted(load);
   display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
 }
 
-.drag-handle { cursor: grab; font-size: 16px; color: #555; &:active { cursor: grabbing; } }
-.image-idx { font-size: 11px; color: #666; font-weight: 600; min-width: 24px; }
+.drag-handle { cursor: grab; font-size: 16px; color: t.$text-3; &:active { cursor: grabbing; } }
+.image-idx { font-size: 11px; color: t.$text-3; font-weight: 600; min-width: 24px; }
 
 .img-thumb {
   width: 44px; height: 44px; border-radius: 4px; overflow: hidden;
-  border: 1px solid #333; flex-shrink: 0;
+  border: 1px solid t.$border-strong; flex-shrink: 0;
   img { width: 100%; height: 100%; object-fit: cover; }
 }
 
 /* Photo preview */
 .mc-photo {
-  width: 100%; background: #111; margin-bottom: 6px;
+  width: 100%; background: t.$bg; margin-bottom: 6px;
   img { display: block; width: 100%; height: auto; }
 }
 
 .mc-photo-empty {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 6px; color: #444; font-size: 11px;
-  border: 1px dashed #333; border-radius: 4px;
+  gap: 6px; color: t.$text-3; font-size: 11px;
+  border: 1px dashed t.$border-strong; border-radius: 4px;
   cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s;
-  &:hover { border-color: #555; background: rgba(255,255,255,0.02); color: #666; }
+  &:hover { border-color: t.$border-strong; background: rgba(255,255,255,0.02); color: t.$text-2; }
   &.is-drop-active {
-    border-color: #3b82f6; background: rgba(59,130,246,0.07); color: #60a5fa; border-style: solid;
+    border-color: t.$accent; background: t.$accent-dim; color: t.$accent; border-style: solid;
   }
   &.is-uploading {
-    border-color: #22c55e; background: rgba(34,197,94,0.07); color: #4ade80;
+    border-color: t.$success; background: t.$success-bg; color: t.$success;
   }
 }
 
@@ -742,23 +744,23 @@ onMounted(load);
 .image-card-fields {
   display: flex; gap: 6px; flex-wrap: wrap;
   input, select {
-    width: 100%; background: #111; border: 1px solid #333; color: #eee;
+    width: 100%; background: t.$bg; border: 1px solid t.$border-strong; color: t.$text;
     padding: 5px 8px; border-radius: 4px; font-size: 11px; margin-top: 3px;
     box-sizing: border-box;
-    &:focus { outline: none; border-color: #3b82f6; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 }
 
 .field-label {
   display: flex; flex-direction: column; flex: 1; min-width: 70px;
-  font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.4px;
+  font-size: 10px; color: t.$text-3; text-transform: uppercase; letter-spacing: 0.4px;
   &--cls { min-width: 120px; flex: 2; }
   &--num { min-width: 50px; max-width: 70px; flex: 0 0 auto; }
   &--full { width: 100%; flex: 0 0 100%; }
 }
 
 .size-info {
-  width: 100%; font-size: 10px; color: #444; font-family: monospace;
+  width: 100%; font-size: 10px; color: t.$text-3; font-family: monospace;
   padding: 2px 0; letter-spacing: 0.3px;
 }
 
@@ -767,31 +769,31 @@ onMounted(load);
   display: inline-flex !important; align-items: center; gap: 6px;
   cursor: pointer; padding-top: 14px; user-select: none;
   text-transform: none !important; letter-spacing: 0 !important;
-  font-size: 11px; color: #ccc;
+  font-size: 11px; color: t.$text;
 }
 
 .toggle-input { display: none; }
 
 .toggle-track {
-  width: 32px; height: 18px; background: #2a2a2a; border-radius: 9px;
-  position: relative; flex-shrink: 0; border: 1px solid #444;
+  width: 32px; height: 18px; background: t.$border; border-radius: 9px;
+  position: relative; flex-shrink: 0; border: 1px solid t.$border-strong;
   transition: background 0.2s, border-color 0.2s;
 }
 
 .toggle-thumb {
   position: absolute; left: 2px; top: 2px;
-  width: 12px; height: 12px; background: #555;
+  width: 12px; height: 12px; background: t.$text-3;
   border-radius: 50%; transition: transform 0.2s, background 0.2s;
 }
 
 .toggle-input:checked + .toggle-track {
-  background: #1e3a5f; border-color: #3b82f6;
-  .toggle-thumb { transform: translateX(14px); background: #60a5fa; }
+  background: t.$accent-dim; border-color: t.$accent;
+  .toggle-thumb { transform: translateX(14px); background: t.$accent; }
 }
 
 .toggle-input.highlight-toggle:checked + .toggle-track {
-  background: #451a03; border-color: #d97706;
-  .toggle-thumb { transform: translateX(14px); background: #f59e0b; }
+  background: t.$warning-bg; border-color: t.$warning;
+  .toggle-thumb { transform: translateX(14px); background: t.$warning; }
 }
 
 /* Class chips */
@@ -800,11 +802,11 @@ onMounted(load);
 }
 
 .cls-chip {
-  background: #222; border: 1px solid #3a3a3a; color: #888;
+  background: t.$surface-2; border: 1px solid t.$border-strong; color: t.$text-3;
   padding: 1px 6px; border-radius: 3px; font-size: 10px;
   cursor: pointer; font-family: monospace;
-  &:hover { border-color: #555; color: #bbb; }
-  &.active { background: #1e3a5f; border-color: #3b82f6; color: #60a5fa; }
+  &:hover { border-color: t.$border-strong; color: t.$text-2; }
+  &.active { background: t.$accent-dim; border-color: t.$accent; color: t.$accent; }
 }
 
 /* Bottom save */
@@ -817,7 +819,7 @@ onMounted(load);
 }
 
 .modal-content {
-  background: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+  background: t.$surface; border: 1px solid t.$border-strong; border-radius: 12px;
   width: 90vw; max-width: 1000px; max-height: 80vh; overflow-y: auto; padding: 24px;
 }
 
@@ -825,16 +827,16 @@ onMounted(load);
 
 .modal-header {
   display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
-  h3 { font-size: 18px; color: #eee; }
+  h3 { font-size: 18px; color: t.$text; }
 }
 
 .modal-close {
-  background: #333; border: none; color: #eee; width: 32px; height: 32px;
+  background: t.$surface-3; border: none; color: t.$text; width: 32px; height: 32px;
   border-radius: 6px; cursor: pointer; font-size: 16px;
-  &:hover { background: #444; }
+  &:hover { background: t.$border-strong; }
 }
 
-.cf-error { text-align: center; padding: 20px; color: #f87171; }
+.cf-error { text-align: center; padding: 20px; color: t.$danger; }
 
 .cf-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -843,21 +845,21 @@ onMounted(load);
 
 .cf-thumb {
   cursor: pointer; border: 2px solid transparent; border-radius: 6px;
-  overflow: hidden; background: #111; transition: border-color 0.15s;
-  &:hover { border-color: #3b82f6; }
+  overflow: hidden; background: t.$bg; transition: border-color 0.15s;
+  &:hover { border-color: t.$accent; }
   img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
-  .cf-filename { display: block; font-size: 9px; color: #888; padding: 3px 4px;
+  .cf-filename { display: block; font-size: 9px; color: t.$text-3; padding: 3px 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 
 .cf-pagination {
   display: flex; justify-content: center; align-items: center; gap: 16px;
   button {
-    background: #222; border: 1px solid #444; color: #ccc; padding: 6px 14px;
+    background: t.$surface-2; border: 1px solid t.$border-strong; color: t.$text; padding: 6px 14px;
     border-radius: 6px; font-size: 12px; cursor: pointer;
-    &:hover:not(:disabled) { background: #333; }
+    &:hover:not(:disabled) { background: t.$surface-3; }
     &:disabled { opacity: 0.3; cursor: not-allowed; }
   }
-  span { font-size: 12px; color: #888; }
+  span { font-size: 12px; color: t.$text-3; }
 }
 </style>

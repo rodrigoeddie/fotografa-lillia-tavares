@@ -127,6 +127,7 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .page-header {
@@ -134,28 +135,28 @@ onMounted(load);
   align-items: center;
   gap: 10px;
 
-  .material-symbols-outlined { font-size: 22px; color: #60a5fa; }
+  .material-symbols-outlined { font-size: 22px; color: t.$accent; }
 }
 
 .btn-add-item {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #1e3a5f;
-  border: 1px solid #2d5a9e;
-  color: #93c5fd;
+  background: t.$accent;
+  border: 1px solid t.$accent;
+  color: t.$accent-ink;
   padding: 8px 14px;
   border-radius: 6px;
   font-size: 13px;
   text-decoration: none;
   margin-left: auto;
-  &:hover { background: #253d55; }
+  &:hover { background: t.$accent-hi; }
 }
 
 .empty-state {
   text-align: center;
   padding: 60px 20px;
-  color: #555;
+  color: t.$text-3;
 
   p { margin-bottom: 20px; }
 
@@ -176,13 +177,13 @@ onMounted(load);
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  background: #0d1117;
-  border: 1px solid #21262d;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 10px;
   padding: 14px;
   transition: border-color .15s;
 
-  &:hover { border-color: #30363d; }
+  &:hover { border-color: t.$border-strong; }
 }
 
 .banner-thumb {
@@ -191,8 +192,8 @@ onMounted(load);
   height: 46px;
   border-radius: 6px;
   overflow: hidden;
-  background: #161b22;
-  border: 1px solid #21262d;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
 }
 
 .thumb-img {
@@ -208,7 +209,7 @@ onMounted(load);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #30363d;
+  color: t.$text-3;
   .material-symbols-outlined { font-size: 20px; }
 }
 
@@ -230,13 +231,13 @@ onMounted(load);
 .banner-titulo {
   font-size: 15px;
   font-weight: 600;
-  color: #e6edf3;
+  color: t.$text;
   margin: 0;
 }
 
 .banner-sub {
   font-size: 13px;
-  color: #8b949e;
+  color: t.$text-2;
   margin: 0;
 }
 
@@ -246,8 +247,8 @@ onMounted(load);
   border-radius: 20px;
   font-weight: 500;
 
-  &.active   { background: #0d3321; color: #3fb950; border: 1px solid #1a5c36; }
-  &.inactive { background: #2d1b1b; color: #f87171; border: 1px solid #5c2d2d; }
+  &.active   { background: t.$success-bg; color: t.$success; border: 1px solid t.$success; }
+  &.inactive { background: t.$danger-bg; color: t.$danger; border: 1px solid t.$danger; }
 }
 
 .banner-meta {
@@ -261,9 +262,9 @@ onMounted(load);
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: #8b949e;
-  background: #161b22;
-  border: 1px solid #21262d;
+  color: t.$text-2;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
   border-radius: 20px;
   padding: 2px 10px;
 
@@ -272,7 +273,7 @@ onMounted(load);
 
 .meta-target { font-size: 10px; }
 
-.pages-pill .material-symbols-outlined { color: #60a5fa; }
+.pages-pill .material-symbols-outlined { color: t.$accent; }
 
 .banner-routes {
   display: flex;
@@ -284,9 +285,9 @@ onMounted(load);
 .route-chip {
   font-size: 11px;
   font-family: monospace;
-  background: #161b22;
-  border: 1px solid #30363d;
-  color: #8b949e;
+  background: t.$surface-2;
+  border: 1px solid t.$border-strong;
+  color: t.$text-2;
   border-radius: 4px;
   padding: 1px 7px;
 }
@@ -303,22 +304,22 @@ onMounted(load);
   justify-content: center;
   width: 34px;
   height: 34px;
-  background: #161b22;
-  border: 1px solid #21262d;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
   border-radius: 6px;
-  color: #8b949e;
+  color: t.$text-2;
   text-decoration: none;
   cursor: pointer;
   transition: all .15s;
 
   .material-symbols-outlined { font-size: 18px; }
-  &:hover { background: #1f2937; color: #e6edf3; border-color: #30363d; }
+  &:hover { background: t.$surface-3; color: t.$text; border-color: t.$border-strong; }
 
-  &.danger:hover { background: #2d1b1b; color: #f87171; border-color: #5c2d2d; }
+  &.danger:hover { background: t.$danger-bg; color: t.$danger; border-color: t.$danger; }
 }
 
 .loading-hint {
-  color: #555;
+  color: t.$text-3;
   padding: 20px 0;
   font-size: 14px;
 }

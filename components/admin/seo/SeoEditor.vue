@@ -298,12 +298,13 @@ async function onStandaloneSubmit(e: Event) {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .seo-editor {
   &.mode-inline {
-    background: #0f0f0f;
-    border: 1rem solid #2a2a2a;
+    background: t.$bg;
+    border: 1rem solid t.$border;
     border-radius: 8rem;
     padding: 16rem;
     margin-top: 24rem;
@@ -335,15 +336,15 @@ async function onStandaloneSubmit(e: Event) {
 .counter {
   font-weight: normal;
   font-size: 11rem;
-  color: #888;
+  color: t.$text-3;
   margin-left: 8rem;
-  &.warn { color: #fbbf24; }
-  &.info { color: #94a3b8; }
+  &.warn { color: t.$warning; }
+  &.info { color: t.$text-2; }
 }
 
 .form-field label {
   font-size: 13rem;
-  color: #ccc;
+  color: t.$text;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -352,15 +353,15 @@ async function onStandaloneSubmit(e: Event) {
 
 textarea, input[type="text"], input:not([type]) {
   width: 100%;
-  background: #222;
-  color: #eee;
-  border: 1rem solid #444;
+  background: t.$surface-2;
+  color: t.$text;
+  border: 1rem solid t.$border-strong;
   border-radius: 4rem;
   padding: 8rem;
   font-size: 13rem;
   font-family: inherit;
 
-  &:focus { outline: none; border-color: #60a5fa; }
+  &:focus { outline: none; border-color: t.$accent; }
 }
 
 textarea { resize: vertical; }
@@ -371,12 +372,12 @@ textarea { resize: vertical; }
   gap: 8rem;
   margin-top: 16rem;
   padding-top: 16rem;
-  border-top: 1rem solid #2a2a2a;
+  border-top: 1rem solid t.$border;
 }
 
 .loading-hint {
   padding: 20rem;
   text-align: center;
-  color: #888;
+  color: t.$text-3;
 }
 </style>

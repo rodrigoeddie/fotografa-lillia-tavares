@@ -111,18 +111,19 @@ onMounted(init);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .form-section {
   margin-top: 28px;
-  border-top: 1px solid #222;
+  border-top: 1px solid t.$surface-2;
   padding-top: 20px;
 }
 
 .form-section-title {
   font-size: 14px;
   font-weight: 600;
-  color: #aaa;
+  color: t.$text-2;
   margin: 0 0 14px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -140,7 +141,7 @@ onMounted(init);
   max-width: 300px;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #333;
+  border: 1px solid t.$border-strong;
 
   img {
     width: 100%;
@@ -170,12 +171,12 @@ onMounted(init);
   width: 100%;
   max-width: 480px;
   height: 120px;
-  border: 2px dashed #333;
+  border: 2px dashed t.$border-strong;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #555;
+  color: t.$text-3;
   font-size: 13px;
 }
 
@@ -187,9 +188,9 @@ onMounted(init);
 }
 
 .btn-upload {
-  background: #1e2d3d;
-  border: 1px solid #2d4a6a;
-  color: #60a5fa;
+  background: t.$surface-2;
+  border: 1px solid t.$border;
+  color: t.$text;
   padding: 7px 16px;
   border-radius: 6px;
   font-size: 13px;
@@ -200,21 +201,21 @@ onMounted(init);
   white-space: nowrap;
   &.loading { opacity: 0.6; cursor: not-allowed; }
   input[type='file'] { display: none; }
-  &:hover:not(.loading) { background: #253d55; }
+  &:hover:not(.loading) { background: t.$surface-3; }
 }
 
-.or-sep { font-size: 12px; color: #555; }
+.or-sep { font-size: 12px; color: t.$text-3; }
 
 .bg-id-input {
   flex: 1;
   min-width: 200px;
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: t.$bg;
+  border: 1px solid t.$border;
   border-radius: 5px;
-  color: #7eb6d4;
+  color: t.$info;
   font-size: 13px;
   font-family: monospace;
   padding: 7px 10px;
-  &:focus { outline: none; border-color: #444; }
+  &:focus { outline: none; border-color: t.$border-strong; }
 }
 </style>

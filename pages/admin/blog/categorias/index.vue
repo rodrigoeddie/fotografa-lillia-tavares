@@ -269,6 +269,7 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 // ─── Nova categoria form ─────────────────────────────────────────────────────
@@ -277,8 +278,8 @@ onMounted(load);
   flex-direction: column;
   gap: 12px;
   padding: 16px 20px;
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: t.$bg;
+  border: 1px solid t.$border;
   border-radius: 8px;
   margin-bottom: 20px;
 }
@@ -294,8 +295,8 @@ onMounted(load);
 .new-form, .edit-row {
   .form-field {
     label              { font-size: 12px; }
-    input, textarea    { padding: 7px 10px; font-size: 13px; background: #1a1a1a; }
-    small              { font-size: 11px; color: #555; }
+    input, textarea    { padding: 7px 10px; font-size: 13px; background: t.$surface; }
+    small              { font-size: 11px; color: t.$text-3; }
     &--check label     { flex-direction: row; align-items: center; gap: 8px; cursor: pointer; }
     &--full            { width: 100%; }
   }
@@ -310,8 +311,8 @@ onMounted(load);
 
 // ─── Inline edit ─────────────────────────────────────────────────────────────
 .item-row--editing {
-  border-color: #b3881a !important;
-  background: #1a1500 !important;
+  border-color: t.$warning !important;
+  background: t.$warning-bg !important;
 }
 
 .edit-row {
@@ -333,8 +334,8 @@ onMounted(load);
 
 // ─── Expanded linked items ───────────────────────────────────────────────────
 .cat-detail {
-  background: #0d0d0d;
-  border: 1px solid #2a2a2a;
+  background: t.$bg;
+  border: 1px solid t.$border;
   border-top: none;
   border-radius: 0 0 8px 8px;
   padding: 10px 16px;
@@ -352,12 +353,12 @@ onMounted(load);
 
 .cat-link {
   font-size: 12px;
-  color: #60a5fa;
+  color: t.$accent;
   text-decoration: none;
-  background: #1e2d3d;
+  background: t.$accent-dim;
   padding: 3px 10px;
   border-radius: 4px;
-  border: 1px solid #2d4a6a;
-  &:hover { background: #253d55; }
+  border: 1px solid t.$accent-line;
+  &:hover { background: t.$surface-3; }
 }
 </style>

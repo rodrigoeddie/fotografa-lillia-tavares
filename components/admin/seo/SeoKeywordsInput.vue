@@ -59,6 +59,8 @@ function removeAt(i: number) {
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
+
 .kw-input {
   display: flex;
   flex-direction: column;
@@ -70,20 +72,20 @@ function removeAt(i: number) {
   flex-wrap: wrap;
   gap: 6rem;
   align-items: center;
-  background: #222;
-  border: 1rem solid #444;
+  background: t.$surface-2;
+  border: 1rem solid t.$border-strong;
   border-radius: 4rem;
   padding: 6rem;
   min-height: 36rem;
 
   &:focus-within {
-    border-color: #60a5fa;
+    border-color: t.$accent;
   }
 }
 
 .kw-tag {
-  background: #1e3a5f;
-  color: #93c5fd;
+  background: t.$accent-dim;
+  color: t.$accent-hi;
   font-size: 12rem;
   padding: 3rem 8rem;
   border-radius: 4rem;
@@ -95,19 +97,19 @@ function removeAt(i: number) {
 .kw-remove {
   background: none;
   border: none;
-  color: #93c5fd;
+  color: t.$accent-hi;
   cursor: pointer;
   font-size: 14rem;
   line-height: 1;
   padding: 0 2rem;
 
-  &:hover { color: #fff; }
+  &:hover { color: t.$text; }
 }
 
 input {
   background: transparent;
   border: none;
-  color: #eee;
+  color: t.$text;
   outline: none;
   flex: 1;
   min-width: 100rem;
@@ -117,7 +119,7 @@ input {
 }
 
 .kw-meta {
-  color: #666;
+  color: t.$text-3;
   font-size: 11rem;
 }
 </style>

@@ -132,6 +132,7 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 /* Tabela */
@@ -146,30 +147,30 @@ onMounted(load);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #555;
+    color: t.$text-3;
     padding: 8px 14px;
-    border-bottom: 1px solid #2a2a2a;
+    border-bottom: 1px solid t.$border;
   }
 
   td {
     padding: 12px 14px;
-    border-bottom: 1px solid #1e1e1e;
+    border-bottom: 1px solid t.$surface;
     vertical-align: middle;
-    color: #ccc;
+    color: t.$text;
   }
 
-  tbody tr:hover td { background: #161616; }
+  tbody tr:hover td { background: t.$surface; }
 }
 
 .col-username {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #eee;
+  color: t.$text;
   font-weight: 500;
 }
 
-.col-email { color: #888; }
+.col-email { color: t.$text-3; }
 
 .col-actions {
   display: flex;
@@ -179,7 +180,7 @@ onMounted(load);
 
 .user-icon {
   font-size: 22px;
-  color: #555;
+  color: t.$text-3;
   flex-shrink: 0;
 }
 
@@ -193,15 +194,15 @@ onMounted(load);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
-  &.role-super_admin { background: #1e3a5f; color: #60a5fa; }
-  &.role-editor      { background: #1a3a1a; color: #4ade80; }
-  &.role-sessions    { background: #3a2a0a; color: #fbbf24; }
+  &.role-super_admin { background: t.$accent-dim; color: t.$accent; }
+  &.role-editor      { background: t.$success-bg; color: t.$success; }
+  &.role-sessions    { background: t.$warning-bg; color: t.$warning; }
 }
 
 .btn-warning {
-  color: #f59e0b;
-  border-color: #78350f;
-  &:hover { background: #451a03; color: #fcd34d; border-color: #f59e0b; }
+  color: t.$warning;
+  border-color: t.$warning;
+  &:hover { background: t.$warning-bg; color: t.$warning; border-color: t.$warning; }
 }
 
 /* Modal */
@@ -216,8 +217,8 @@ onMounted(load);
 }
 
 .modal-box {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: t.$surface;
+  border: 1px solid t.$border-strong;
   border-radius: 12px;
   padding: 28px;
   width: 440px;
@@ -230,19 +231,19 @@ onMounted(load);
   align-items: center;
   margin-bottom: 24px;
 
-  h3 { font-size: 16px; color: #eee; }
+  h3 { font-size: 16px; color: t.$text; }
 }
 
 .modal-close {
-  background: #333;
+  background: t.$surface-3;
   border: none;
-  color: #eee;
+  color: t.$text;
   width: 28px;
   height: 28px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  &:hover { background: #444; }
+  &:hover { background: t.$border-strong; }
 }
 
 .form-group {
@@ -251,7 +252,7 @@ onMounted(load);
   label {
     display: block;
     font-size: 12px;
-    color: #888;
+    color: t.$text-3;
     margin-bottom: 6px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -260,19 +261,19 @@ onMounted(load);
   input, select {
     width: 100%;
     padding: 10px 12px;
-    background: #222;
-    border: 1px solid #444;
-    color: #eee;
+    background: t.$surface-2;
+    border: 1px solid t.$border-strong;
+    color: t.$text;
     border-radius: 6px;
     font-size: 14px;
-    &:focus { outline: none; border-color: #2563eb; }
+    &:focus { outline: none; border-color: t.$accent-line; }
   }
 
-  select option { background: #222; }
+  select option { background: t.$surface-2; }
 }
 
 .hint {
-  color: #555;
+  color: t.$text-3;
   font-size: 11px;
   text-transform: none;
   letter-spacing: 0;
@@ -287,25 +288,25 @@ onMounted(load);
 
 .btn-cancel {
   background: transparent;
-  border: 1px solid #444;
-  color: #888;
+  border: 1px solid t.$border-strong;
+  color: t.$text-3;
   padding: 8px 18px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
-  &:hover { border-color: #666; color: #ccc; }
+  &:hover { border-color: t.$text-3; color: t.$text; }
 }
 
 .btn-save {
-  background: #2563eb;
+  background: t.$accent;
   border: none;
-  color: #fff;
+  color: t.$accent-ink;
   padding: 8px 20px;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  &:hover:not(:disabled) { background: #1d4ed8; }
+  &:hover:not(:disabled) { background: t.$accent-hi; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 </style>

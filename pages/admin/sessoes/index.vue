@@ -247,6 +247,7 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .wrap-info {
@@ -277,8 +278,8 @@ onMounted(load);
 }
 
 .kanban-col {
-  background: #161616;
-  border: 1px solid #2a2a2a;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 10px;
   min-height: 200px;
   display: flex;
@@ -291,7 +292,7 @@ onMounted(load);
   align-items: center;
   justify-content: space-between;
   padding: 12px 14px 10px;
-  border-bottom: 4px solid #2a2a2a;
+  border-bottom: 4px solid t.$border;
 
   .col-label {
     font-size: 13px;
@@ -299,12 +300,12 @@ onMounted(load);
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #ccc;
+    color: t.$text;
   }
 
   .col-count {
-    background: #2a2a2a;
-    color: #888;
+    background: t.$border;
+    color: t.$text-3;
     font-size: 11px;
     font-weight: 700;
     padding: 2px 7px;
@@ -313,13 +314,13 @@ onMounted(load);
 }
 
 .kanban-col--aguardando_fotos,
-.kanban-col--aguardando_fotos .kanban-col-header { border-bottom-color: #92200e40; }
+.kanban-col--aguardando_fotos .kanban-col-header { border-bottom-color: t.$danger-bg; }
 .kanban-col--aguardando_selecao,
-.kanban-col--aguardando_selecao .kanban-col-header { border-bottom-color: #af921e40; }
+.kanban-col--aguardando_selecao .kanban-col-header { border-bottom-color: t.$warning-bg; }
 .kanban-col--selecao_concluida,
-.kanban-col--selecao_concluida .kanban-col-header { border-bottom-color: #16653440; }
+.kanban-col--selecao_concluida .kanban-col-header { border-bottom-color: t.$success-bg; }
 .kanban-col--entregue,
-.kanban-col--entregue .kanban-col-header { border-bottom-color: #4c1d9540; }
+.kanban-col--entregue .kanban-col-header { border-bottom-color: t.$accent-dim; }
 
 .kanban-cards {
   padding: 10px;
@@ -330,8 +331,8 @@ onMounted(load);
 }
 
 .kanban-card {
-  background: #1e1e1e;
-  border: 1px solid #2e2e2e;
+  background: t.$surface;
+  border: 1px solid t.$border;
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -340,13 +341,13 @@ onMounted(load);
   align-items: flex-start;
   transition: border-color 0.15s, box-shadow 0.15s;
 
-  &:hover { border-color: #444; box-shadow: 0 2px 8px #0004; }
+  &:hover { border-color: t.$border-strong; box-shadow: 0 2px 8px #0004; }
 }
 
 .card-thumb {
   width: 100px;
   height: 100px;
-  background: #111;
+  background: t.$bg;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,7 +355,7 @@ onMounted(load);
 
   img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  .material-symbols-outlined { font-size: 32px; color: #333; }
+  .material-symbols-outlined { font-size: 32px; color: t.$border-strong; }
 }
 
 .card-body {
@@ -362,20 +363,20 @@ onMounted(load);
   min-width: 0;
   padding: 10px 12px 0 0;
 
-  .card-name { font-size: 13px; font-weight: 600; color: #e5e7eb; margin: 0 0 2px; }
-  .card-sub  { font-size: 11px; color: #6b7280; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-name { font-size: 13px; font-weight: 600; color: t.$text; margin: 0 0 2px; }
+  .card-sub  { font-size: 11px; color: t.$text-3; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .card-badge {
     display: inline-block;
     font-size: 10px;
-    background: #2a2a2a;
-    color: #9ca3af;
+    background: t.$surface-2;
+    color: t.$text-2;
     padding: 2px 6px;
     border-radius: 4px;
     margin: 0;
   }
 }
 .card-actions {
-  border-top: 1px solid #2a2a2a;
+  border-top: 1px solid t.$border;
   padding: 12px 12px 10px;
   justify-content: center;
   flex-shrink: 0;
@@ -397,14 +398,14 @@ onMounted(load);
   border: none;
   flex-direction: column;
   display: flex;
-  color: #777;
+  color: t.$text-3;
   gap: 4rem;
 
   &:before {
     content: '';
 
     display: inline-block;
-    background: #363636;
+    background: t.$border-strong;
     position: absolute;
     margin-left: 5px;
     height: 40px;
@@ -426,26 +427,26 @@ onMounted(load);
   }
 
   &:hover {
-    border-bottom: 2px solid #555;
-    color: white;
+    border-bottom: 2px solid t.$border-strong;
+    color: t.$text;
   }
 
   &--danger:hover {
-    color: #ef4444;
+    color: t.$danger;
   }
 
   &--primary {
-    color: #8ba87a;
+    color: t.$success;
     &:hover {
-      border-bottom-color: #8ba87a;
-      color: #b5d4a0;
+      border-bottom-color: t.$success;
+      color: t.$success;
     }
   }
 }
 
 .kanban-empty {
   text-align: center;
-  color: #3a3a3a;
+  color: t.$text-3;
   font-size: 12px;
   padding: 20px 0;
   margin: 0;
@@ -453,10 +454,10 @@ onMounted(load);
 }
 
 .card-action--share {
-  color: #6b9fd4;
+  color: t.$accent;
   &:hover {
-    border-bottom-color: #6b9fd4;
-    color: #93c5fd;
+    border-bottom-color: t.$accent;
+    color: t.$accent-hi;
   }
 }
 
@@ -471,8 +472,8 @@ onMounted(load);
 }
 
 .share-modal {
-  background: #1e1e1e;
-  border: 1px solid #333;
+  background: t.$surface;
+  border: 1px solid t.$border-strong;
   border-radius: 12px;
   width: 100%;
   max-width: 420px;
@@ -487,18 +488,18 @@ onMounted(load);
   align-items: center;
   gap: 10px;
 
-  h3 { flex: 1; font-size: 16px; font-weight: 600; margin: 0; color: #e5e7eb; }
+  h3 { flex: 1; font-size: 16px; font-weight: 600; margin: 0; color: t.$text; }
 
-  .material-symbols-outlined { color: #6b9fd4; font-size: 20px; }
+  .material-symbols-outlined { color: t.$accent; font-size: 20px; }
 
   .share-close {
     background: none;
     border: none;
-    color: #6b7280;
+    color: t.$text-3;
     cursor: pointer;
     font-size: 14px;
     padding: 4px;
-    &:hover { color: #e5e7eb; }
+    &:hover { color: t.$text; }
   }
 }
 
@@ -518,14 +519,14 @@ onMounted(load);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #6b7280;
+    color: t.$text-3;
   }
 
   span {
     font-size: 14px;
-    color: #e5e7eb;
-    background: #111;
-    border: 1px solid #2a2a2a;
+    color: t.$text;
+    background: t.$bg;
+    border: 1px solid t.$border;
     border-radius: 6px;
     padding: 8px 12px;
     word-break: break-all;
@@ -557,8 +558,8 @@ onMounted(load);
 }
 
 .btn-share-copy {
-  background: #2a2a2a;
-  color: #e5e7eb;
+  background: t.$surface-2;
+  color: t.$text;
 }
 
 .btn-share-whats {

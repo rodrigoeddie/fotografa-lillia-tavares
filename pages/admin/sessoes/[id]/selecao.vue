@@ -86,17 +86,18 @@ onMounted(load);
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .selecao-summary {
   display: flex; gap: 24px; margin-bottom: 24px;
-  padding: 16px 24px; background: #f9fafb; border-radius: 8px; flex-wrap: wrap;
+  padding: 16px 24px; background: t.$surface; border-radius: 8px; flex-wrap: wrap;
 }
 .summary-stat {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
-  .stat-value { font-size: 28px; font-weight: 700; color: #1f2937; }
-  .stat-label { font-size: 12px; color: #6b7280; text-transform: uppercase; }
-  &.stat-extra .stat-value { color: #d97706; }
+  .stat-value { font-size: 28px; font-weight: 700; color: t.$text; }
+  .stat-label { font-size: 12px; color: t.$text-2; text-transform: uppercase; }
+  &.stat-extra .stat-value { color: t.$warning; }
 }
 .selecao-grid {
   column-gap: 12px;
@@ -111,7 +112,7 @@ onMounted(load);
   overflow: hidden;
 
   &.selected {
-    border-color: #22c55e;
+    border-color: t.$success;
 
     .selecao-img-wrap {
       img {
@@ -137,8 +138,8 @@ onMounted(load);
   position: absolute;
   bottom: 4px;
   right: 4px;
-  background: #22c55e;
-  color: #fff;
+  background: t.$success;
+  color: t.$accent-ink;
   border-radius: 50%;
   width: 22px;
   height: 22px;
@@ -149,5 +150,5 @@ onMounted(load);
   font-weight: 700;
 }
 
-.selecao-comment { padding: 6px 8px; font-size: 12px; color: #374151; background: #fff; border-top: 1px solid #f3f4f6; }
+.selecao-comment { padding: 6px 8px; font-size: 12px; color: t.$text; background: t.$surface; border-top: 1px solid t.$border; }
 </style>

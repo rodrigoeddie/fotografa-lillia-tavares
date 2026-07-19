@@ -84,38 +84,62 @@ const sections = computed(() => ({
 </template>
 
 <style lang="scss" scoped>
-.admin-dashboard {
-  max-width: 800px;
+@use '~/assets/styles/admin-tokens' as t;
 
-  h2 { font-size: 28px; margin-bottom: 8px; }
-  .subtitle { color: #888; margin-bottom: 32px; font-size: 14px; }
+.admin-dashboard {
+  max-width: 960px;
+
+  h2 { font-size: 26px; font-weight: 680; letter-spacing: -0.3px; margin-bottom: 8px; color: t.$text; }
+  .subtitle { color: t.$text-2; margin-bottom: 32px; font-size: 13.5px; }
+
+  > h3 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: t.$text-3;
+    margin: 0;
+  }
 }
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
 }
 
 .dashboard-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 20px;
+  background: t.$surface;
+  border: 1px solid t.$border;
+  border-radius: t.$radius;
+  padding: 18px;
   text-decoration: none;
-  color: #eee;
-  transition: border-color 0.2s, background 0.2s;
+  color: t.$text;
+  transition: border-color 0.18s, background 0.18s, transform 0.18s;
 
   &:hover {
-    border-color: #3b82f6;
-    background: #1a2a3a;
+    border-color: t.$accent-line;
+    background: t.$surface-2;
+    transform: translateY(-2px);
   }
 
-  .card-icon { font-size: 28px; flex-shrink: 0; }
-  h3 { font-size: 16px; margin-bottom: 4px; }
-  p { font-size: 12px; color: #888; }
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: t.$surface-3;
+    color: t.$accent;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    :deep(.material-symbols-outlined) { font-size: 22px; }
+  }
+
+  h3 { font-size: 14.5px; font-weight: 620; margin-bottom: 3px; }
+  p { font-size: 12.5px; color: t.$text-3; line-height: 1.45; }
 }
 </style>

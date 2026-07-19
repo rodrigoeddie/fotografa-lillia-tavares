@@ -90,6 +90,7 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 
 .css-wrapper {
@@ -103,14 +104,14 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   justify-content: space-between;
   min-height: 48px;
   padding: 10px 13px;
-  background: #000;
-  border: 1px solid #999;
+  background: t.$surface-2;
+  border: 1px solid t.$border-strong;
   border-radius: 6px;
   cursor: pointer;
   gap: 8px;
 
   &.open {
-    border-color: #6b7280;
+    border-color: t.$accent-line;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
@@ -119,7 +120,7 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 .css-selected {
   flex: 1;
   font-size: 15px;
-  color: #fff;
+  color: t.$text;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -130,17 +131,17 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 
 .css-email {
   font-size: 12px;
-  color: #6b7280;
+  color: t.$text-2;
 }
 
 .css-placeholder {
   flex: 1;
   font-size: 15px;
-  color: #555;
+  color: t.$text-3;
 }
 
 .css-arrow {
-  color: #6b7280;
+  color: t.$text-2;
   font-size: 10px;
   flex-shrink: 0;
   user-select: none;
@@ -152,8 +153,8 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   left: 0;
   right: 0;
   z-index: 200;
-  background: #111;
-  border: 1px solid #6b7280;
+  background: t.$surface;
+  border: 1px solid t.$accent-line;
   border-top: none;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -164,26 +165,26 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 
 .css-search-wrap {
   padding: 8px;
-  border-bottom: 1px solid #1f2937;
+  border-bottom: 1px solid t.$border;
   position: sticky;
   top: 0;
-  background: #111;
+  background: t.$surface;
 }
 
 .css-search {
   width: 100%;
   padding: 8px 10px;
-  background: #000;
-  border: 1px solid #333;
+  background: t.$bg;
+  border: 1px solid t.$border-strong;
   border-radius: 5px;
-  color: #fff;
+  color: t.$text;
   font-size: 13px;
   font-family: inherit;
   outline: none;
   box-sizing: border-box;
 
-  &::placeholder { color: #555; }
-  &:focus { border-color: #6b7280; }
+  &::placeholder { color: t.$text-3; }
+  &:focus { border-color: t.$accent-line; }
 }
 
 .css-list {
@@ -199,15 +200,15 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
   padding: 10px 13px;
   background: none;
   border: none;
-  color: #ccc;
+  color: t.$text;
   font-size: 14px;
   font-family: inherit;
   text-align: left;
   cursor: pointer;
   transition: background .12s;
 
-  &:hover { background: #1a2535; }
-  &.active { background: #0f1e35; color: #93c5fd; }
+  &:hover { background: t.$surface-2; }
+  &.active { background: t.$accent-dim; color: t.$accent; }
 }
 
 .css-nome {
@@ -219,13 +220,13 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside));
 
 .css-opt-email {
   font-size: 11px;
-  color: #555;
+  color: t.$text-3;
   flex-shrink: 0;
 }
 
 .css-empty {
   padding: 12px 13px;
-  color: #555;
+  color: t.$text-3;
   font-size: 13px;
   font-style: italic;
   margin: 0;
