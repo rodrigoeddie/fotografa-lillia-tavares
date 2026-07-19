@@ -52,12 +52,32 @@ function addAndExpand() {
   });
 }
 
+// ─── Sugestões pré-preenchidas de "o que está incluso" ────────────────────────
+const INCLUDE_SUGGESTIONS = [
+  'Orientação e consultoria durante todo o ensaio',
+  'Fotos digitais em alta resolução enviadas por email',
+  'Para garantia da vaga é necessário um sinal de R$100.',
+  'Os pacotes contemplam ensaios individuais',
+  'Oferecemos o serviço de make por R$120, sendo necessário confirmar junto ao agendamento.',
+  '* Para necessidades diferentes dos pacotes, por favor, entre em contato.',
+  'Orçamento válido por 30 dias a partir da data de recebimento.',
+];
+const availableSuggestions = computed(() =>
+  INCLUDE_SUGGESTIONS.filter((s) => !form.includes.includes(s)),
+);
+function addSuggestion(text: string) {
+  form.includes.push(text);
+}
+function addAllSuggestions() {
+  for (const s of availableSuggestions.value) form.includes.push(s);
+}
+
 // ─── Focus on new feature input ───────────────────────────────────────────────
 const includesList = ref<HTMLElement | null>(null);
 const featuresLists = ref<Record<number, HTMLElement>>({});
 
 function addInclude() {
-  form.value.includes.push('');
+  form.includes.push('');
   nextTick(() => {
     const inputs = includesList.value?.querySelectorAll<HTMLInputElement>('input');
     inputs?.[inputs.length - 1]?.focus();
@@ -112,8 +132,7 @@ onMounted(init);
           </div>
           <div class="form-field form-field--full">
             <label>Ícone <small>(SVG ou emoji)</small></label>
-            <textarea v-model="form.icon" rows="3" placeholder="<svg ...> ou 🎉" />
-            <div v-if="form.icon" class="icon-preview" v-html="form.icon" />
+            <AdminIconPicker v-model="form.icon" />
           </div>
           <div class="form-field">
             <label>Ativo</label>
@@ -169,6 +188,22 @@ onMounted(init);
           <p v-if="form.includes.length === 0" class="empty-hint">Nenhum item.</p>
         </div>
         <button class="btn-add-dashed" @click="addInclude">+ Adicionar item</button>
+
+        <div v-if="availableSuggestions.length" class="suggestions">
+          <div class="suggestions-header">
+            <span>Sugestões</span>
+            <button class="btn-add-small" @click="addAllSuggestions">+ Adicionar todas</button>
+          </div>
+          <div class="suggestions-chips">
+            <button
+              v-for="s in availableSuggestions" :key="s"
+              class="suggestion-chip" type="button"
+              @click="addSuggestion(s)"
+            >
+              <span class="material-symbols-outlined">add</span>{{ s }}
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- ── Pacotes ─────────────────────────────────────────────────────── -->
@@ -297,12 +332,20 @@ onMounted(init);
   display: flex; align-items: center; gap: 8px;
 }
 
-// Icon preview
-.icon-preview {
-  margin-top: 8px; padding: 12px; background: t.$bg; border-radius: 6px;
-  display: flex; align-items: center; gap: 8px;
-  font-size: 32px;
-  svg { width: 40px; height: 40px; }
+// Suggestions
+.suggestions { margin-top: 14px; padding-top: 12px; border-top: 1px solid t.$border; }
+.suggestions-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+  span { font-size: 12px; color: t.$text-3; text-transform: uppercase; letter-spacing: 0.05em; }
+}
+.suggestions-chips { display: flex; flex-direction: column; gap: 6px; }
+.suggestion-chip {
+  display: flex; align-items: center; gap: 6px; width: 100%; text-align: left;
+  background: t.$surface; border: 1px dashed t.$border-strong; color: t.$text-2;
+  font-size: 13px; font-family: inherit; padding: 7px 10px; border-radius: 6px; cursor: pointer;
+  transition: border-color .12s, color .12s;
+  .material-symbols-outlined { font-size: 16px; color: t.$text-3; flex-shrink: 0; }
+  &:hover { border-color: t.$accent; color: t.$accent; .material-symbols-outlined { color: t.$accent; } }
 }
 
 // Switch

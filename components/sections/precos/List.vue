@@ -61,9 +61,13 @@ const categories = computed(() => {
   height: 48rem;
   color: v.$green;
 
-  :deep(svg:not([fill='none'])) {
+  :deep(svg) {
     width: 100%;
     height: 100%;
+  }
+
+  /* ícones monocromáticos ganham a cor do tema; os da marca (fill="none" na raiz) mantêm as cores próprias */
+  :deep(svg:not([fill='none'])) {
     fill: v.$green;
   }
 }

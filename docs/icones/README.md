@@ -25,7 +25,7 @@ Conjunto de ícones desenhado a partir da anatomia do logotipo (hortênsia + câ
 | Arquivo | Metáfora | Slug |
 |---|---|---|
 | [cat-corporativo.svg](cat-corporativo.svg) | crachá com foto | `corporativo` |
-| [cat-sensual-intimista.svg](cat-sensual-intimista.svg) | pena | `sensual-intimista` |
+| [cat-sensual-intimista.svg](cat-sensual-intimista.svg) | lábios sensuais | `sensual-intimista` |
 | [cat-dia-das-maes.svg](cat-dia-das-maes.svg) | coração mãe + coração bebê | `dia-das-maes` |
 | [cat-gestante.svg](cat-gestante.svg) | perfil gestante | `gestante` |
 | [cat-aniversario.svg](cat-aniversario.svg) | balão + confetes | `aniversario` |
