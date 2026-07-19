@@ -169,12 +169,10 @@ function handleDropOnCard(e: DragEvent, idx: number) {
 async function uploadFileToCard(file: File, targetIdx: number) {
   uploadingIdx.value = targetIdx;
   try {
-    const cmsToken = import.meta.client ? sessionStorage.getItem('cms_token') : '';
     const fd = new FormData();
     fd.append('file', file, file.name);
-    const res = await $fetch<{ id: string }>('/api/admin/upload', {
+    const res = await adminFetch<{ id: string }>('/api/admin/upload', {
       method: 'POST',
-      headers: { 'x-cms-token': cmsToken ?? '' },
       body: fd,
     });
     const foto = fotos.value[targetIdx];
@@ -279,10 +277,8 @@ async function uploadZip() {
       const fd = new FormData();
       fd.append('file', new File([blob], filename, { type: mimeType }), filename);
       try {
-        const cmsToken = import.meta.client ? sessionStorage.getItem('cms_token') : '';
-        const res = await $fetch<{ id: string }>('/api/admin/upload', {
+        const res = await adminFetch<{ id: string }>('/api/admin/upload', {
           method: 'POST',
-          headers: { 'x-cms-token': cmsToken ?? '' },
           body: fd,
         });
         const preset = IMAGE_PRESETS['retrato-w33']!;

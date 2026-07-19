@@ -34,7 +34,7 @@ export function useHeroBannerForm(idParam: Ref<number | undefined>) {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const result = await $fetch<any>('/api/upload', { method: 'POST', body: formData });
+      const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
       if (result.success && result.result?.id) {
         form[target] = result.result.id;
       }

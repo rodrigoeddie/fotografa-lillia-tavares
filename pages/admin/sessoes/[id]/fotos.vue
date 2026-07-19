@@ -98,11 +98,9 @@ async function startUpload() {
       const formData = new FormData();
       formData.append('file', watermarkedBlob, item.name.replace(/\.[^.]+$/, '.jpg'));
 
-      const token = sessionStorage.getItem('cms_token');
-      const res = await $fetch<any>('/api/upload', {
+      const res = await adminFetch<any>('/api/upload', {
         method: 'POST',
         body: formData,
-        headers: token ? { 'x-cms-token': token } : {},
       });
       item.progress = 80;
 

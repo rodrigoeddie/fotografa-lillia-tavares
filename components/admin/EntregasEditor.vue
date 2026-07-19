@@ -228,11 +228,9 @@ async function uploadBgImage(e: Event) {
   try {
     const fd = new FormData();
     fd.append('file', file);
-    const token = import.meta.client ? sessionStorage.getItem('cms_token') : null;
-    const res = await $fetch<any>('/api/upload', {
+    const res = await adminFetch<any>('/api/upload', {
       method: 'POST',
       body: fd,
-      headers: token ? { 'x-cms-token': token } : {},
     });
     form.bg_image_id = res.result?.id ?? '';
     if (!form.bg_image_id) throw new Error('ID de imagem não retornado');

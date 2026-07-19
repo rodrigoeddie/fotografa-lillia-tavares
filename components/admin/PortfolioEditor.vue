@@ -68,6 +68,7 @@ const props = defineProps<{
 }>();
 
 const cfImg = useCfImg();
+const { adminFetch } = useAdminFetch();
 const ESTUDIO_LINK = `< href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>`;
 const DEP_PATH = 'depoimentos/index.json';
 
@@ -249,7 +250,7 @@ async function uploadImage(file: File, index: number) {
   const formData = new FormData();
   formData.append('file', file);
   try {
-    const result = await $fetch<any>('/api/upload', { method: 'POST', body: formData });
+    const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
     if (result.success && result.result) {
       albumItem.imageId = result.result.id;
       props.showMessage('Imagem enviada!', 'success');

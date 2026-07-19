@@ -23,6 +23,7 @@ const props = defineProps<{
 }>();
 
 const cfImg = useCfImg();
+const { adminFetch } = useAdminFetch();
 const DEP_PATH = 'depoimentos/index.json';
 
 const depData = ref<DepoimentosData | null>(null);
@@ -96,7 +97,7 @@ async function uploadAvatar(file: File, reviewIndex: number) {
   const formData = new FormData();
   formData.append('file', file);
   try {
-    const result = await $fetch<any>('/api/upload', { method: 'POST', body: formData });
+    const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
     if (result.success && result.result) {
       const targetReview = depData.value.reviews[reviewIndex];
       if (targetReview) targetReview.photo = result.result.id;

@@ -2,6 +2,7 @@
 definePageMeta({ layout: 'admin' });
 const route = useRoute();
 const router = useRouter();
+const { adminFetch } = useAdminFetch();
 
 const idParam = computed(() => {
   const id = route.params.id as string;
@@ -28,7 +29,7 @@ async function uploadBgImage(e: Event) {
   const formData = new FormData();
   formData.append('file', file);
   try {
-    const result = await $fetch<any>('/api/upload', { method: 'POST', body: formData });
+    const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
     if (result.success && result.result?.id) {
       form.bg_image = result.result.id;
     }
