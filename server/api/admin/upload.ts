@@ -1,17 +1,19 @@
-import { defineEventHandler, readMultipartFormData, createError } from 'h3';
+import { defineEventHandler, createError, getHeader, getRequestWebStream } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 
+/**
+ * Upload para Cloudflare Images.
+ *
+ * O corpo multipart é repassado por STREAMING direto para a API do CF Images,
+ * sem bufferizar/re-encodar no Worker — reparsear + reconstruir o FormData de
+ * uma foto grande estoura o limite de CPU/memória do Worker (Error 1102).
+ */
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
 
-  const parts = await readMultipartFormData(event);
-  if (!parts || parts.length === 0) {
-    throw createError({ statusCode: 400, statusMessage: 'No file uploaded' });
-  }
-
-  const filePart = parts.find(p => p.name === 'file');
-  if (!filePart || !filePart.data) {
-    throw createError({ statusCode: 400, statusMessage: 'File field is required' });
+  const contentType = getHeader(event, 'content-type') ?? '';
+  if (!contentType.includes('multipart/form-data')) {
+    throw createError({ statusCode: 400, statusMessage: 'Esperado multipart/form-data' });
   }
 
   const accountId = (event.context as any).cloudflare?.env?.CLOUDFLARE_ACCOUNT_ID
@@ -23,16 +25,27 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'Cloudflare credentials not configured' });
   }
 
+  const body = getRequestWebStream(event);
+  if (!body) {
+    throw createError({ statusCode: 400, statusMessage: 'Corpo da requisição ausente' });
+  }
+
   const cfUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1`;
-  const formData = new FormData();
-  const blob = new Blob([filePart.data], { type: filePart.type || 'image/jpeg' });
-  formData.append('file', blob, filePart.filename || 'image.jpg');
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${apiKey}`,
+    'content-type': contentType,
+  };
+  const contentLength = getHeader(event, 'content-length');
+  if (contentLength) headers['content-length'] = contentLength;
 
   const response = await fetch(cfUrl, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}` },
-    body: formData,
-  });
+    headers,
+    body,
+    // streaming de request body exige duplex 'half'
+    duplex: 'half',
+  } as RequestInit);
 
   const result = await response.json() as any;
 

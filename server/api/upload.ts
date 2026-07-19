@@ -1,54 +1,52 @@
-
-import { defineEventHandler, readMultipartFormData, createError } from 'h3';
+import { defineEventHandler, createError, getHeader, getRequestWebStream } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 
-const MAX_UPLOAD_BYTES = 15 * 1024 * 1024; // 15 MB
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'];
-
+/**
+ * Upload para Cloudflare Images.
+ *
+ * O corpo multipart é repassado por STREAMING direto para a API do CF Images,
+ * sem bufferizar/re-encodar no Worker — reparsear + reconstruir o FormData de
+ * uma foto grande estoura o limite de CPU/memória do Worker (Error 1102).
+ * A validação de tamanho/tipo fica a cargo do próprio CF Images.
+ */
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
 
-  const parts = await readMultipartFormData(event);
-
-  if (!parts || parts.length === 0) {
-    throw createError({ statusCode: 400, statusMessage: 'No file uploaded' });
-  }
-
-  const filePart = parts.find(p => p.name === 'file');
-  if (!filePart || !filePart.data) {
-    throw createError({ statusCode: 400, statusMessage: 'File field is required' });
-  }
-
-  if (filePart.data.length > MAX_UPLOAD_BYTES) {
-    throw createError({ statusCode: 413, statusMessage: 'Arquivo excede o limite de 15 MB' });
-  }
-  if (filePart.type && !ALLOWED_TYPES.includes(filePart.type)) {
-    throw createError({ statusCode: 415, statusMessage: 'Tipo de arquivo não permitido' });
+  const contentType = getHeader(event, 'content-type') ?? '';
+  if (!contentType.includes('multipart/form-data')) {
+    throw createError({ statusCode: 400, statusMessage: 'Esperado multipart/form-data' });
   }
 
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const apiKey = process.env.CLOUDFLARE_API_KEY;
-
   if (!accountId || !apiKey) {
     throw createError({ statusCode: 500, statusMessage: 'Cloudflare credentials not configured' });
   }
 
+  const body = getRequestWebStream(event);
+  if (!body) {
+    throw createError({ statusCode: 400, statusMessage: 'Corpo da requisição ausente' });
+  }
+
   const cfUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1`;
 
-  const formData = new FormData();
-  const blob = new Blob([filePart.data], { type: filePart.type || 'image/jpeg' });
-  formData.append('file', blob, filePart.filename || 'image.jpg');
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${apiKey}`,
+    'content-type': contentType,
+  };
+  const contentLength = getHeader(event, 'content-length');
+  if (contentLength) headers['content-length'] = contentLength;
 
   try {
     const response = await fetch(cfUrl, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: formData,
-    });
+      headers,
+      body,
+      // streaming de request body exige duplex 'half'
+      duplex: 'half',
+    } as RequestInit);
 
-    const result = await response.json();
+    const result = await response.json() as any;
 
     if (!result.success) {
       throw createError({
