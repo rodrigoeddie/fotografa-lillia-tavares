@@ -69,6 +69,7 @@ const props = defineProps<{
 
 const cfImg = useCfImg();
 const { adminFetch } = useAdminFetch();
+const { resizeImage } = useImageResize();
 const ESTUDIO_LINK = `< href='https://www.fotografalilliatavares.com.br/estudio'>Estúdio Lillia Tavares</a>`;
 const DEP_PATH = 'depoimentos/index.json';
 
@@ -247,8 +248,9 @@ async function uploadImage(file: File, index: number) {
   const albumItem = workData.value.album[index];
   if (!albumItem) return;
   albumItem._uploading = true;
+  const resized = await resizeImage(file);
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', resized, resized.name);
   try {
     const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
     if (result.success && result.result) {

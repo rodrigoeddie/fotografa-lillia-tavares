@@ -5,6 +5,7 @@ interface Sessao { id: number; nome_sessao: string; cliente_nome: string; produt
 export function useEntregaForm(entregaIdParam: Ref<number | undefined>) {
   const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
   const { adminFetch } = useAdminFetch();
+  const { resizeImage } = useImageResize();
   const cfURI = useRuntimeConfig().public.cloudflareURI;
   const router = useRouter();
   const route = useRoute();
@@ -164,8 +165,9 @@ export function useEntregaForm(entregaIdParam: Ref<number | undefined>) {
     if (!file) return;
     isBgUploading.value = true;
     try {
+      const resized = await resizeImage(file);
       const fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', resized, resized.name);
       const res = await adminFetch<any>('/api/upload', {
         method: 'POST', body: fd,
       });

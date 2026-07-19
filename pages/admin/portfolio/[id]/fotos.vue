@@ -6,6 +6,7 @@ const { adminFetch } = useAdminFetch();
 
 const id = computed(() => Number(route.params.id));
 const cfImg = useCfImg();
+const { resizeImage } = useImageResize();
 
 interface PortfolioFoto {
   id?: number;
@@ -169,8 +170,9 @@ function handleDropOnCard(e: DragEvent, idx: number) {
 async function uploadFileToCard(file: File, targetIdx: number) {
   uploadingIdx.value = targetIdx;
   try {
+    const resized = await resizeImage(file);
     const fd = new FormData();
-    fd.append('file', file, file.name);
+    fd.append('file', resized, resized.name);
     const res = await adminFetch<{ id: string }>('/api/admin/upload', {
       method: 'POST',
       body: fd,
@@ -274,8 +276,9 @@ async function uploadZip() {
       const filename = entry.name.split('/').pop() ?? 'image.jpg';
       const mimeType = filename.endsWith('.png') ? 'image/png'
         : filename.endsWith('.webp') ? 'image/webp' : 'image/jpeg';
+      const resized = await resizeImage(new File([blob], filename, { type: mimeType }));
       const fd = new FormData();
-      fd.append('file', new File([blob], filename, { type: mimeType }), filename);
+      fd.append('file', resized, resized.name);
       try {
         const res = await adminFetch<{ id: string }>('/api/admin/upload', {
           method: 'POST',
@@ -461,7 +464,7 @@ onMounted(load);
               <span class="drag-handle">⠿</span>
               <span class="image-idx">#{{ idx + 1 }}</span>
               <div v-if="foto.cf_image_id" class="img-thumb">
-                <img :src="`${CF_IMG}${foto.cf_image_id}/w=80`" :alt="foto.alt || ''" />
+                <img :src="cfImg(foto.cf_image_id, 'w=80')" :alt="foto.alt || ''" />
               </div>
               <button class="btn-small" @click="openCfBrowser(idx)">
                 {{ foto.cf_image_id ? 'Trocar' : 'Selecionar' }}
@@ -469,7 +472,7 @@ onMounted(load);
               <button class="btn-small danger" @click="removeFoto(idx)">✕</button>
             </div>
             <div class="mc-photo">
-              <img v-if="foto.cf_image_id" :src="`${CF_IMG}${foto.cf_image_id}/w=600`" :alt="foto.alt || ''" loading="lazy" />
+              <img v-if="foto.cf_image_id" :src="cfImg(foto.cf_image_id, 'w=600')" :alt="foto.alt || ''" loading="lazy" />
               <div
                 v-else
                 class="mc-photo-empty"

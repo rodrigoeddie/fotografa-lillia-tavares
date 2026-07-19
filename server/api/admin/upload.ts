@@ -50,7 +50,14 @@ export default defineEventHandler(async (event) => {
   const result = await response.json() as any;
 
   if (!result.success) {
-    throw createError({ statusCode: 400, statusMessage: 'Cloudflare upload failed', data: result.errors });
+    const tooLarge = Array.isArray(result.errors) && result.errors.some((e: any) => e.code === 5413);
+    throw createError({
+      statusCode: tooLarge ? 413 : 400,
+      statusMessage: tooLarge
+        ? 'Imagem acima do limite de 10 MB do Cloudflare Images — reduza o arquivo e tente novamente'
+        : 'Falha no upload para o Cloudflare Images',
+      data: result.errors,
+    });
   }
 
   return { id: result.result.id, filename: result.result.filename };

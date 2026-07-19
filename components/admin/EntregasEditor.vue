@@ -4,6 +4,7 @@ const props = defineProps<{
 }>();
 
 const { adminFetch } = useAdminFetch();
+const { resizeImage } = useImageResize();
 const cfURI = useRuntimeConfig().public.cloudflareURI;
 
 interface Sessao { id: number; nome_sessao: string; cliente_nome: string; status: string; }
@@ -226,8 +227,9 @@ async function uploadBgImage(e: Event) {
   if (!file) return;
   isBgUploading.value = true;
   try {
+    const resized = await resizeImage(file);
     const fd = new FormData();
-    fd.append('file', file);
+    fd.append('file', resized, resized.name);
     const res = await adminFetch<any>('/api/upload', {
       method: 'POST',
       body: fd,

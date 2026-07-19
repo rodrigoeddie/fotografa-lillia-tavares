@@ -15,6 +15,7 @@ const idParam = computed(() => {
 const cfImg = useCfImg();
 const { isEdit, loading, saving, form, init, save } = useBlogPostForm(idParam);
 const { adminFetch } = useAdminFetch();
+const { resizeImage } = useImageResize();
 
 const seoEditorRef = ref<{ save: () => Promise<number | null> } | null>(null);
 
@@ -47,8 +48,9 @@ function generateSlug() {
 const coverUploading = ref(false);
 async function uploadCover(file: File) {
   coverUploading.value = true;
+  const resized = await resizeImage(file);
   const fd = new FormData();
-  fd.append('file', file);
+  fd.append('file', resized, resized.name);
   try {
     const result = await adminFetch<{ id: string }>('/api/admin/upload', { method: 'POST', body: fd });
     if (result.id) form.imagem_cf_id = result.id;

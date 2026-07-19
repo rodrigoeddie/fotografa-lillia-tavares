@@ -3,6 +3,7 @@ import type { Ref } from 'vue';
 export function useHeroBannerForm(idParam: Ref<number | undefined>) {
   const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
   const { adminFetch } = useAdminFetch();
+  const { resizeImage } = useImageResize();
 
   const isEdit  = computed(() => !!idParam.value && !isNaN(idParam.value));
   const loading = ref(false);
@@ -31,8 +32,9 @@ export function useHeroBannerForm(idParam: Ref<number | undefined>) {
     if (!file) return;
     if (loadingKey === 'uploading') uploading.value = true;
     else form.uploading_mobile = true;
+    const resized = await resizeImage(file);
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', resized, resized.name);
     try {
       const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
       if (result.success && result.result?.id) {

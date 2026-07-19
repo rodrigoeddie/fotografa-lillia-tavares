@@ -35,6 +35,7 @@ function defaultConfig(tipo: LinktreeItemType): Record<string, any> {
 export function useLinktreeForm() {
   const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
   const { adminFetch } = useAdminFetch();
+  const { resizeImage } = useImageResize();
 
   const loading = ref(false);   // carga inicial (lista + opções)
   const loadingPreset = ref(false); // troca de preset selecionado
@@ -226,8 +227,9 @@ export function useLinktreeForm() {
   }
 
   async function uploadImage(file: File): Promise<string | null> {
+    const resized = await resizeImage(file);
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', resized, resized.name);
     try {
       const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
       if (result.success && result.result) return result.result.id as string;

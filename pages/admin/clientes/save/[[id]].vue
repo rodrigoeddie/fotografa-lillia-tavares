@@ -3,6 +3,7 @@ definePageMeta({ layout: 'admin' });
 const route = useRoute();
 const router = useRouter();
 const { adminFetch } = useAdminFetch();
+const { resizeImage } = useImageResize();
 
 const idParam = computed(() => {
   const id = route.params.id as string;
@@ -26,8 +27,9 @@ async function uploadBgImage(e: Event) {
   const file = (e.target as HTMLInputElement).files?.[0];
   if (!file) return;
   uploading.value = true;
+  const resized = await resizeImage(file);
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', resized, resized.name);
   try {
     const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
     if (result.success && result.result?.id) {

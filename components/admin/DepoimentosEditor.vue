@@ -24,6 +24,7 @@ const props = defineProps<{
 
 const cfImg = useCfImg();
 const { adminFetch } = useAdminFetch();
+const { resizeImage } = useImageResize();
 const DEP_PATH = 'depoimentos/index.json';
 
 const depData = ref<DepoimentosData | null>(null);
@@ -94,8 +95,9 @@ function removeReview(index: number) {
 async function uploadAvatar(file: File, reviewIndex: number) {
   if (!depData.value) return;
   avatarUploading.value = reviewIndex;
+  const resized = await resizeImage(file);
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', resized, resized.name);
   try {
     const result = await adminFetch<any>('/api/upload', { method: 'POST', body: formData });
     if (result.success && result.result) {
