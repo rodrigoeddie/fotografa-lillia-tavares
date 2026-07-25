@@ -31,6 +31,9 @@ export default defineEventHandler(async (event) => {
     const work = await svc.getById(id);
     if (!work) throw createError({ statusCode: 404, statusMessage: 'Portfolio work não encontrado' });
 
+    const existing = await svc.getBySlug(slug);
+    if (existing && existing.id !== id) throw createError({ statusCode: 409, statusMessage: `Já existe outro ensaio com o slug "${slug}". Escolha outro.` });
+
     await svc.update(id, {
       slug,
       categoria,

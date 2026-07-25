@@ -29,6 +29,9 @@ export default defineEventHandler(async (event) => {
     } = body ?? {};
     if (!slug || !categoria) throw createError({ statusCode: 400, statusMessage: 'slug e categoria são obrigatórios' });
 
+    const existing = await svc.getBySlug(slug);
+    if (existing) throw createError({ statusCode: 409, statusMessage: `Já existe um ensaio com o slug "${slug}". Escolha outro.` });
+
     const result = await svc.create({
       slug,
       categoria,

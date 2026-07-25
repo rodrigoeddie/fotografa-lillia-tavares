@@ -74,7 +74,11 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
     }
     saving.value = true;
     try {
-      const body = { ...form };
+      /* O slug no DB (e na URL) é sempre `categoria/nome`. Normaliza para garantir
+         o prefixo da categoria, mesmo que tenham digitado só o nome do cliente. */
+      const nome = form.slug.includes('/') ? form.slug.split('/').pop() : form.slug;
+      const slug = `${form.categoria}/${nome}`;
+      const body = { ...form, slug };
       let workId: number;
       if (isEdit.value) {
         await adminFetch(`/api/admin/portfolio/${idParam.value}`, { method: 'PUT', body });

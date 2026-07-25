@@ -105,10 +105,36 @@ function generateSlug() {
   form.slug = form.categoria ? `${form.categoria}/${base}` : base;
 }
 
+// ─── Verificação de slug duplicado ────────────────────────────────────────────
+/* Carrega os slugs já cadastrados (exceto o próprio work em edição) para avisar
+   em tempo real. O servidor também bloqueia com 409 — isto é só a UX. */
+const existingSlugs = ref<Set<string>>(new Set());
+
+async function loadExistingSlugs() {
+  try {
+    const works = await adminFetch<{ id: number; slug: string }[]>('/api/admin/portfolio');
+    existingSlugs.value = new Set(
+      works.filter(w => w.id !== idParam.value).map(w => w.slug),
+    );
+  } catch { /* silent — o 409 do servidor cobre */ }
+}
+
+/* Mesma normalização do save(): o slug final é sempre `categoria/nome`. */
+const normalizedSlug = computed(() => {
+  if (!form.categoria || !form.slug) return '';
+  const nome = form.slug.includes('/') ? form.slug.split('/').pop() : form.slug;
+  return `${form.categoria}/${nome}`;
+});
+
+const slugConflict = computed(
+  () => !!normalizedSlug.value && existingSlugs.value.has(normalizedSlug.value),
+);
+
 // ─── Init ────────────────────────────────────────────────────────────────────
 onMounted(async () => {
   await init();
   await loadDepoimentos();
+  await loadExistingSlugs();
   // v-show keeps refs always mounted, so we can set innerHTML directly here.
   if (localEditorRef.value) localEditorRef.value.innerHTML = form.local ?? '';
   if (descricaoEditorRef.value) descricaoEditorRef.value.innerHTML = form.descricao ?? '';
@@ -140,9 +166,15 @@ onMounted(async () => {
           <div class="form-field">
             <label>Slug</label>
             <div class="input-with-btn">
-              <input v-model="form.slug" type="text" placeholder="corporativo/nome-cliente" />
+              <input v-model="form.slug" type="text" placeholder="corporativo/nome-cliente" :class="{ 'input-error': slugConflict }" />
               <button class="btn-ghost-sm" type="button" title="Gerar slug a partir do título" @click="generateSlug">↻</button>
             </div>
+            <p v-if="slugConflict" class="slug-conflict">
+              ⚠ Já existe um ensaio com o slug <strong>{{ normalizedSlug }}</strong>. Adicione um diferencial (ex.: <code>{{ normalizedSlug }}-2</code>).
+            </p>
+            <p v-else-if="normalizedSlug" class="slug-preview">
+              URL: <code>/ensaio-fotografico/{{ normalizedSlug }}</code>
+            </p>
           </div>
 
           <div class="form-field">
@@ -343,7 +375,7 @@ onMounted(async () => {
           class="btn-secondary"
           @click="router.push(`/admin/portfolio/${idParam}/fotos`)"
         >🖼 Gerenciar fotos</button>
-        <button class="btn-primary" :disabled="saving" @click="save(onSaved)">
+        <button class="btn-primary" :disabled="saving || slugConflict" @click="save(onSaved)">
           {{ saving ? 'Salvando...' : (isEdit ? '💾 Salvar' : '💾 Criar') }}
         </button>
       </div>
@@ -377,6 +409,34 @@ onMounted(async () => {
 }
 
 .code-textarea { font-family: monospace; font-size: 0.85rem; }
+
+.input-error {
+  border-color: #e5484d !important;
+}
+
+.slug-conflict {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #e5484d;
+
+  code {
+    font-family: monospace;
+    background: t.$surface;
+    padding: 1px 4px;
+    border-radius: 4px;
+  }
+}
+
+.slug-preview {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: t.$text-3;
+
+  code {
+    font-family: monospace;
+    color: t.$text-2;
+  }
+}
 .includes-row { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; input { flex: 1; } }
 
 // ── Page link (Ver página)
