@@ -160,7 +160,7 @@ onMounted(async () => {
     </div>
 
     <div v-if="loading" class="loading-hint">Carregando...</div>
-    <div v-show="!loading">
+    <div class="wrap-cards" v-show="!loading">
 
       <!-- ── Dados do work ───────────────────────────────────────────────── -->
       <div class="form-card">
@@ -417,6 +417,10 @@ onMounted(async () => {
 
 .input-error {
   border-color: #e5484d !important;
+}
+
+.form-card {
+  margin-bottom: 10px;
 }
 
 .slug-conflict {
