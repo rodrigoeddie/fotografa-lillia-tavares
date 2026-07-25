@@ -9,7 +9,11 @@ const idParam = computed(() => {
 });
 
 const categoriasOptions = ['corporativo', 'dia-das-maes', 'sensual-intimista', 'aniversario', 'gestante', 'casal'];
-const { isEdit, loading, saving, form, init, save } = usePortfolioWorkForm(idParam);
+const { isEdit, loading, saving, form, fotos, init, save } = usePortfolioWorkForm(idParam);
+
+const ogImageOptions = computed(() =>
+  fotos.value.map(f => ({ cfId: f.cf_image_id, alt: f.alt ?? undefined })),
+);
 const { adminFetch } = useAdminFetch();
 const cfImg = useCfImg();
 
@@ -360,6 +364,7 @@ onMounted(async () => {
           entity-type="portfolio"
           :entity-id="idParam"
           :page-url="`https://fotografalilliatavares.com.br/ensaio-fotografico/${form.slug}`"
+          :image-options="ogImageOptions"
           mode="inline"
         />
       </div>

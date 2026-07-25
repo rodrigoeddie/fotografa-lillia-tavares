@@ -30,6 +30,8 @@ const props = defineProps<{
   mode?: 'inline' | 'standalone';
   /** Defaults sugeridos quando não há registro ainda. */
   defaults?: Partial<SeoFormState>;
+  /** Imagens da entidade-pai (ex.: fotos do portfolio) para escolher a OG image. */
+  imageOptions?: { cfId: string; alt?: string }[];
 }>();
 
 const emit = defineEmits<{
@@ -38,7 +40,13 @@ const emit = defineEmits<{
 }>();
 
 const { adminFetch } = useAdminFetch();
+const cfImg = useCfImg();
 const showMessage = inject<(msg: string, type: 'success' | 'error') => void>('showMessage')!;
+
+function pickOgImage(opt: { cfId: string; alt?: string }) {
+  form.og_image_cf_id = opt.cfId;
+  if (opt.alt && !form.og_image_alt) form.og_image_alt = opt.alt;
+}
 
 const loading = ref(false);
 const saving = ref(false);
@@ -249,6 +257,19 @@ async function onStandaloneSubmit(e: Event) {
           <div class="form-field">
             <label>OG image (Cloudflare Image ID)</label>
             <input v-model="form.og_image_cf_id" placeholder="ex: a0839ccd-..." />
+            <div v-if="imageOptions?.length" class="og-image-picker">
+              <button
+                v-for="opt in imageOptions"
+                :key="opt.cfId"
+                type="button"
+                class="og-thumb"
+                :class="{ selected: form.og_image_cf_id === opt.cfId }"
+                :title="opt.alt || opt.cfId"
+                @click="pickOgImage(opt)"
+              >
+                <img :src="cfImg(opt.cfId, 'w=120')" :alt="opt.alt || ''" loading="lazy" />
+              </button>
+            </div>
           </div>
 
           <div class="form-field">
@@ -325,6 +346,40 @@ async function onStandaloneSubmit(e: Event) {
   display: flex;
   flex-direction: column;
   gap: 12rem;
+}
+
+.og-image-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rem;
+  margin-top: 8rem;
+}
+
+.og-thumb {
+  width: 60rem;
+  height: 60rem;
+  padding: 0;
+  border: 2rem solid t.$border;
+  border-radius: 6rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: t.$surface;
+  transition: border-color 0.15s;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &:hover {
+    border-color: t.$border-strong;
+  }
+
+  &.selected {
+    border-color: t.$accent;
+  }
 }
 
 .seo-side {

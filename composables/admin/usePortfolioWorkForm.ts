@@ -8,6 +8,7 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
   const isEdit = computed(() => !!idParam.value && !isNaN(idParam.value));
   const loading = ref(false);
   const saving = ref(false);
+  const fotos = ref<{ cf_image_id: string; alt: string | null }[]>([]);
 
   const form = reactive({
     slug: '',
@@ -59,6 +60,7 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
       form.seo_keywords = w.seo_keywords
         ? (typeof w.seo_keywords === 'string' ? JSON.parse(w.seo_keywords) : w.seo_keywords)
         : [];
+      fotos.value = Array.isArray(w.fotos) ? w.fotos : [];
     } catch (e: any) {
       showMessage('Erro ao carregar: ' + (e.statusMessage || e.message), 'error');
       router.push('/admin/portfolio');
@@ -97,5 +99,5 @@ export function usePortfolioWorkForm(idParam: Ref<number | undefined>) {
     }
   }
 
-  return { isEdit, loading, saving, form, init, save };
+  return { isEdit, loading, saving, form, fotos, init, save };
 }
