@@ -10,7 +10,15 @@ const sessaoId = route.query.sessao_id as string;
 type StatusPag = 'verificando' | 'pago' | 'cancelado' | 'pendente' | 'erro';
 const status = ref<StatusPag>('verificando');
 
+const { pagamentosAtivos } = useRuntimeConfig().public;
+
 onMounted(async () => {
+  /* Gateway desligado: nada de checkout SumUp em circulação — volta para os ensaios. */
+  if (!pagamentosAtivos) {
+    await router.replace('/area-cliente/meus-ensaios');
+    return;
+  }
+
   /* A SumUp não anexa o checkout_id no retorno; usamos o id guardado no checkout. */
   const checkoutId = (route.query.checkout_id as string) || sessionStorage.getItem('sumup_checkout_id') || '';
   if (!checkoutId) {

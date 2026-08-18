@@ -9,6 +9,11 @@ const sessaoId = Number(route.params.id);
 const cfURI = useRuntimeConfig().public.cloudflareURI;
 const cfImg = useCfImg();
 
+/* Kill-switch do gateway (ver nuxt.config.ts). Com OFF a seleção continua
+   idêntica; muda só o passo final: em vez de "Pagar agora", o cliente vê o
+   resumo dos valores e combina o pagamento com a Lillia. */
+const { pagamentosAtivos, whatsappUrl } = useRuntimeConfig().public;
+
 interface LoteInfo {
   id: number;
   sessao_id: number;
@@ -240,6 +245,15 @@ async function pagarOnline() {
   }
 }
 
+const whatsappCombinar = computed(() => {
+  const nome = state.value?.sessao.nome_sessao ?? '';
+  const valor = checkoutInfo.value ? fmt(checkoutInfo.value.valor_total) : '';
+  const texto = `Olá, Lillia! Finalizei a seleção de fotos do ensaio "${nome}"`
+    + (valor ? ` (total de ${valor}).` : '.')
+    + ' Gostaria de combinar o pagamento.';
+  return `${whatsappUrl}?text=${encodeURIComponent(texto)}`;
+});
+
 function combinarComLillia() {
   router.push('/area-cliente/meus-ensaios');
 }
@@ -426,8 +440,8 @@ onMounted(load);
           <template v-else-if="step === 'checkout'">
             <div class="cart-header">
               <div class="cart-header-left">
-                <span class="material-symbols-outlined">payments</span>
-                <span class="cart-title">Pagamento</span>
+                <span class="material-symbols-outlined">{{ pagamentosAtivos ? 'payments' : 'receipt_long' }}</span>
+                <span class="cart-title">{{ pagamentosAtivos ? 'Pagamento' : 'Resumo da seleção' }}</span>
               </div>
               <span class="cart-badge success-badge">✓ Seleção enviada</span>
             </div>
@@ -484,17 +498,21 @@ onMounted(load);
               <!-- Total -->
               <div v-if="checkoutInfo.valor_total > 0" class="cart-total">
                 <div class="cart-total-row">
-                  <span>Total</span>
+                  <span>{{ pagamentosAtivos ? 'Total' : 'Total a combinar' }}</span>
                   <strong>{{ fmt(checkoutInfo.valor_total) }}</strong>
                 </div>
-                <div v-if="checkoutInfo.num_parcelas > 1" class="parcelas-hint">
+                <div v-if="pagamentosAtivos && checkoutInfo.num_parcelas > 1" class="parcelas-hint">
                   Parcele em até {{ checkoutInfo.num_parcelas }}x no cartão
+                </div>
+                <div v-else-if="!pagamentosAtivos && checkoutInfo.num_parcelas > 1" class="parcelas-hint">
+                  Parcelamento em até {{ checkoutInfo.num_parcelas }}x a combinar com a Lillia
                 </div>
               </div>
 
               <!-- Botões de pagamento -->
               <div class="finalizar-wrap checkout-actions">
-                <template v-if="checkoutInfo.valor_total > 0">
+                <!-- Gateway ativo: pagar online ou combinar -->
+                <template v-if="checkoutInfo.valor_total > 0 && pagamentosAtivos">
                   <button class="finalizar-btn" :disabled="checkoutPaying" @click="pagarOnline">
                     <span class="material-symbols-outlined">credit_card</span>
                     {{ checkoutPaying ? 'Aguarde...' : 'Pagar agora (cartão ou PIX)' }}
@@ -506,6 +524,23 @@ onMounted(load);
                   </button>
                   <p class="checkout-info-txt">
                     Você pode pagar online de forma segura ou combinar o pagamento diretamente com a fotógrafa.
+                  </p>
+                </template>
+
+                <!-- Gateway desligado: pagamento combinado direto com a fotógrafa -->
+                <template v-else-if="checkoutInfo.valor_total > 0">
+                  <a class="finalizar-btn" :href="whatsappCombinar" target="_blank" rel="noopener">
+                    <span class="material-symbols-outlined">chat</span>
+                    Combinar pagamento no WhatsApp
+                  </a>
+                  <div class="ou-separator"><span>ou</span></div>
+                  <button class="btn-pagar-depois" @click="combinarComLillia">
+                    <span class="material-symbols-outlined">home</span>
+                    Ir para meus ensaios
+                  </button>
+                  <p class="checkout-info-txt">
+                    Sua seleção já foi enviada. O pagamento das fotos extras é combinado
+                    diretamente com a Lillia — ela entra em contato com as formas disponíveis.
                   </p>
                 </template>
                 <template v-else>
@@ -740,6 +775,7 @@ onMounted(load);
   background: #5e2012; color: #fff; border: none; border-radius: 10px;
   padding: 14px 32px; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap;
   transition: background 0.15s;
+  text-decoration: none;
   .material-symbols-outlined { font-size: 20px; }
   &:hover:not(:disabled) { background: #4a1a0f; }
   &:disabled { opacity: 0.6; cursor: not-allowed; }

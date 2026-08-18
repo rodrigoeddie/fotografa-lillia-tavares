@@ -112,7 +112,7 @@ Endpoints públicos setam `Cache-Control: s-maxage=86400, stale-while-revalidate
 - **Público**: home, portfolio (`/ensaio-fotografico/[cat]/[slug]`), blog, depoimentos, preços, FAQ, agendamento, LPs dinâmicas
 - **Admin** (`/admin/*`, JWT em header `x-cms-token`): CRUD completo de portfolio/blog/depoimentos/sessões/clientes/LP/menu/SEO/cache
 - **Área do cliente** (`/area-cliente/*`, JWT em cookie `cliente_session`): cliente vê sessões, seleciona fotos, baixa entrega ZIP
-- **Pagamentos SumUp** (implementado; go-live pendente de secrets/painel): checkout em `server/api/cliente/sessoes/[id]/checkout.ts` + `server/services/PagamentoService.ts`, webhook em `server/api/webhooks/sumup.ts`. Ver [server/CLAUDE.md](server/CLAUDE.md) e [docs/pagamentos-seguranca.md](docs/pagamentos-seguranca.md).
+- **Pagamentos SumUp** (implementado, **desligado por padrão** — flag `NUXT_PUBLIC_PAGAMENTOS_ATIVOS`; a seleção de fotos funciona sem ele): checkout em `server/api/cliente/sessoes/[id]/checkout.ts` + `server/services/PagamentoService.ts`, webhook em `server/api/webhooks/sumup.ts`. Ver [server/CLAUDE.md](server/CLAUDE.md) e [docs/pagamentos-seguranca.md](docs/pagamentos-seguranca.md).
 
 ## Comandos comuns
 

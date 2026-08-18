@@ -175,12 +175,29 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 | `R2_ACCESS_KEY_ID` | secret | presign R2 |
 | `R2_SECRET_ACCESS_KEY` | secret | presign R2 |
 | `R2_BUCKET_NAME` | var | nome do bucket |
+| `NUXT_PUBLIC_PAGAMENTOS_ATIVOS` | var | `'true'` liga o checkout SumUp; ausente/qualquer outro valor = gateway desligado (seleção de fotos não é afetada) |
 
-## SumUp (implementado)
+## SumUp (implementado — desligado por flag)
 
 > 🔒 **Antes de mexer aqui ou configurar keys, ler [docs/pagamentos-seguranca.md](../docs/pagamentos-seguranca.md)** — revisão de segurança, regras invioláveis e checklist de produção.
 
-Integração de pagamentos ativa:
+### Kill-switch `NUXT_PUBLIC_PAGAMENTOS_ATIVOS`
+
+O gateway está **OFF por padrão**. Fonte única: `server/utils/pagamentos-flag.ts`
+(`pagamentosAtivos()`) no backend e `runtimeConfig.public.pagamentosAtivos` no front.
+Ligar = setar `NUXT_PUBLIC_PAGAMENTOS_ATIVOS=true` no Cloudflare Pages (nada de código muda).
+
+Com a flag OFF:
+- **Seleção de fotos segue 100% funcional** — lotes, autosave, finalização, extras,
+  desconto progressivo e o resumo de valores (GET do checkout) continuam iguais.
+- `POST /api/cliente/sessoes/[id]/checkout` recusa com **503** (nenhum checkout SumUp é criado).
+- O passo final da seleção vira "Resumo da seleção" com CTA de WhatsApp para combinar
+  o pagamento com a fotógrafa; `/area-cliente/pagamento/retorno` redireciona para meus-ensaios.
+- O webhook **não** foi bloqueado de propósito: ele só confirma pagamentos já existentes e
+  já é fail-closed sem `SUMUP_WEBHOOK_SECRET`. Manter ativo evita perder confirmação de
+  algum checkout legado ao religar a flag.
+
+Integração de pagamentos:
 
 ```
 server/
@@ -209,6 +226,6 @@ Lógica de cálculo:
 Pontos de atenção:
 - Validar webhook por assinatura HMAC (`X-Signature` header) usando `SUMUP_WEBHOOK_SECRET`
 - Idempotência: `sumup_checkout_id` UNIQUE na tabela
-- Secrets em wrangler: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`, `SITE_URL`
+- Secrets em wrangler: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`, `SITE_URL` + a flag `NUXT_PUBLIC_PAGAMENTOS_ATIVOS`
 - Não armazenar dados de cartão nem PAN — SumUp Checkout cuida disso
 - URL do webhook a configurar no painel SumUp: `https://fotografalilliatavares.com.br/api/webhooks/sumup`

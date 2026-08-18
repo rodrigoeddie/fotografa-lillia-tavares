@@ -61,6 +61,10 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 
 **Estado do fluxo cliente:** completo — login (cookie httpOnly `cliente_session`, JWT 30d) → meus-ensaios → seleção com autosave e comentários por foto → checkout → entrega (ZIP via presigned URL R2, 24h).
 
+**⚠️ Gateway DESLIGADO desde ago/2026** — flag `NUXT_PUBLIC_PAGAMENTOS_ATIVOS` (default `false`).
+Todo o código continua no lugar; a seleção de fotos é o que está em uso. Religar = setar a var
+como `'true'` no Cloudflare Pages e refazer a checklist de go-live abaixo.
+
 **Regras de negócio do pagamento (implementadas):**
 - Lote 1: `total = fotos extras + valor_restante_pacote` (campo editável no admin da sessão). Lotes 2+: só extras.
 - Desconto progressivo de 5% a cada 5 fotos extras. Valor **sempre recalculado no servidor**.
@@ -70,7 +74,7 @@ Site institucional + CMS admin + área do cliente da **Fotógrafa Lillia Tavares
 **Segurança (revisada jun/2026, [pagamentos-seguranca.md](pagamentos-seguranca.md)):** webhook HMAC fail-closed, status `pago` terminal, verificação de amount+currency na confirmação, `sumup_checkout_id` UNIQUE, nenhum dado de cartão passa pelo servidor.
 
 **🔴 Bloqueios de go-live (nenhum é de código):**
-1. Secrets no Cloudflare Pages: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`, `SITE_URL`.
+1. Secrets no Cloudflare Pages: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`, `SITE_URL` + `NUXT_PUBLIC_PAGAMENTOS_ATIVOS=true` (a flag que liga o gateway).
 2. Migration em produção: `wrangler d1 execute DB --remote --file=server/db/migrations/023_pagamentos.sql`.
 3. Cadastrar webhook no painel SumUp: `https://fotografalilliatavares.com.br/api/webhooks/sumup`.
 4. Validar em sandbox: unidade/moeda do `amount` na resposta SumUp e o esquema exato do HMAC (header `X-Signature`, SHA-256 do corpo cru) — o código assume ambos.

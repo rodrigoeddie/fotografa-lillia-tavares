@@ -4,6 +4,7 @@ import { getOrm } from '~/server/utils/d1-client';
 import { SessaoService } from '~/server/services/SessaoService';
 import { PagamentoService } from '~/server/services/PagamentoService';
 import { ProdutoService } from '~/server/services/ProdutoService';
+import { pagamentosAtivos } from '~/server/utils/pagamentos-flag';
 
 function calcExtras(selecionadas: number, fotosIncluidas: number, precoFotoExtra: number) {
   const extras = Math.max(0, selecionadas - fotosIncluidas);
@@ -77,6 +78,11 @@ export default defineEventHandler(async (event) => {
 
   /* ── POST: criar checkout SumUp ────────────────────────────── */
   if (getMethod(event) === 'POST') {
+    /* Gateway desligado (NUXT_PUBLIC_PAGAMENTOS_ATIVOS != 'true'): a seleção
+       segue funcionando, o pagamento é combinado direto com a fotógrafa. */
+    if (!pagamentosAtivos()) {
+      throw createError({ statusCode: 503, statusMessage: 'Pagamento online indisponível no momento — combine com a fotógrafa.' });
+    }
     if (!apiKey || !merchantCode) {
       throw createError({ statusCode: 503, statusMessage: 'Gateway de pagamento não configurado' });
     }

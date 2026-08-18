@@ -296,6 +296,11 @@ export default defineNuxtConfig({
       /* URL canônica do site — fonte única em siteConfig.url. */
       siteUrl: siteConfig.url,
       whatsappUrl,
+      /* Kill-switch do gateway (SumUp). OFF por padrão: a seleção de fotos segue
+         100% funcional, o resumo de valores continua sendo calculado e exibido,
+         mas o checkout online some da UI e o endpoint POST recusa (503).
+         Ligar: NUXT_PUBLIC_PAGAMENTOS_ATIVOS=true no Cloudflare Pages / .env. */
+      pagamentosAtivos: process.env.NUXT_PUBLIC_PAGAMENTOS_ATIVOS === 'true',
     }
   },
 

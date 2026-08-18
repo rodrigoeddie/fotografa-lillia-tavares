@@ -48,6 +48,7 @@
 
 - [ ] **Sandbox primeiro:** criar checkout de teste e confirmar (a) unidade/moeda do `amount` na resposta (código assume reais + BRL) e (b) esquema do HMAC do webhook (header `X-Signature`, HMAC-SHA256 do corpo cru). São as duas suposições não validadas do código.
 - [ ] Configurar secrets no Cloudflare Pages: `SUMUP_API_KEY`, `SUMUP_WEBHOOK_SECRET`, `SUMUP_MERCHANT_CODE`, `SITE_URL=https://fotografalilliatavares.com.br`.
+- [ ] Ligar o kill-switch: `NUXT_PUBLIC_PAGAMENTOS_ATIVOS=true` (default `false` desde ago/2026 — sem ela o checkout fica 503 e a seleção segue funcionando).
 - [x] Rodar migration em produção — **feito em 2026-07-01** (023 + 024/025 linktree + 026 consentimentos; backup prévio em `scripts/backups/backup-prod-2026-07-01.sql`). Produção agora está em paridade com o repositório (exceto a 019, obsoleta — ver nota no arquivo).
 - [ ] Cadastrar webhook no painel SumUp: `https://fotografalilliatavares.com.br/api/webhooks/sumup`.
 - [ ] Teste ponta a ponta em produção com valor baixo (cartão + pix), conferindo confirmação via webhook E via página de retorno.

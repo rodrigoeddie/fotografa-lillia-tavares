@@ -62,6 +62,12 @@ em `wrangler.toml`). O código lê via `process.env.*`.
 | `SUMUP_MERCHANT_CODE` | secret/var | `merchant_code` no checkout | sim |
 | `SUMUP_WEBHOOK_SECRET` | secret | HMAC do webhook | **sim — sem ele o webhook recusa tudo (fail-closed)** |
 | `SITE_URL` | var | base do `return_url` | recomendado |
+| `NUXT_PUBLIC_PAGAMENTOS_ATIVOS` | var | **kill-switch do gateway** — só `'true'` habilita o checkout | **sim para ir a produção** — sem ela o POST do checkout responde 503 e a UI mostra só "combinar com a Lillia" |
+
+> 🔌 **Gateway desligado por padrão (ago/2026).** Enquanto `NUXT_PUBLIC_PAGAMENTOS_ATIVOS`
+> não for `'true'`, nenhum checkout é criado e nenhum valor é cobrado — a seleção de fotos
+> continua funcionando normalmente e o pagamento é combinado direto com a fotógrafa.
+> Ao religar, refazer a checklist de produção abaixo.
 
 > ⚠️ **Confirme o segredo do HMAC com a SumUp.** A validação assume HMAC-SHA256 do corpo
 > cru com `SUMUP_WEBHOOK_SECRET`, comparado ao header `X-Signature` (hex, com possível
