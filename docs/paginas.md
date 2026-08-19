@@ -49,7 +49,7 @@
 
 | Campo | Valor |
 |---|---|
-| Tipo | estatica |
+| Tipo | dinamica-d1 (desde 2026-08-19) |
 | Funil | descoberta |
 | Serviço | transversal |
 | Status | incompleta (era **orfa** até 2026-07-09) |
@@ -57,6 +57,8 @@
 | No menu | sim (item "Sobre", desde 2026-07-09) |
 
 **Propósito:** bio e construção de confiança — quem é a fotógrafa, trajetória, por que escolher. Cita coloração e consultoria de imagem.
+
+**Seções:** apresentação (H1 + foto + bio), "O que eu ofereço" (cards de serviço) e "Nossa história" (linha do tempo). Todo o conteúdo vem de `/api/public/sobre` (tabelas `sobre_pagina`, `sobre_servicos`, `sobre_marcos`) e é editável em `/admin/sobre`; `composables/useSobreConteudo.ts` mantém um fallback com o texto original caso o banco não responda.
 
 **Links de entrada:** menu, footer, hero da home (quick-link "Conheça a Lillia") — regra dos 2 mínimos superada
 **Links de saída:** [triagem] mapear ao editar a página

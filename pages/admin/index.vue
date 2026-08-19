@@ -11,6 +11,7 @@ const ALL_SECTIONS = {
     { label: 'Blog',          description: 'Posts do blog',                    icon: '<span class="material-symbols-outlined"> article </span>',        slug: 'blog' },
     { label: 'FAQ',           description: 'Perguntas frequentes',             icon: '<span class="material-symbols-outlined"> quiz </span>',           slug: 'faq' },
     { label: 'Hero Banners',  description: 'Banners de destaque por página',   icon: '<span class="material-symbols-outlined"> image </span>',          slug: 'hero-banners' },
+    { label: 'Sobre',         description: 'Textos da página Sobre e "Nossa história"', icon: '<span class="material-symbols-outlined"> person_book </span>', slug: 'sobre' },
     { label: 'Menu',          description: 'Menu de navegação',                icon: '<span class="material-symbols-outlined"> menu </span>',           slug: 'menu' },
   ],
   sistema: [

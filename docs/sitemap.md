@@ -9,7 +9,7 @@ Mapa de todas as rotas e quais APIs/services alimentam cada uma. Fonte autoritat
 | Rota | Propósito | Dados |
 |---|---|---|
 | `/` | Home (hero, portfolio destaque, depoimentos) | `usePageSeo('static','/')` + `/api/public/portfolio?home=1` |
-| `/sobre-fotografa-lillia-tavares` | Bio | estática |
+| `/sobre-fotografa-lillia-tavares` | Bio + linha do tempo "Nossa história" | `/api/public/sobre` (SobreService) — editável em `/admin/sobre` |
 | `/depoimentos` | Galeria de testemunhos | `/api/public/depoimentos` (DepoimentoService) |
 | `/perguntas-frequentes` | FAQ geral | `/api/public/faq` (FaqService) |
 | `/agende-seu-ensaio` | Formulário + mapa | estática |
@@ -62,7 +62,7 @@ Layout: `lp.vue`. Classe tema: `lp-<slug>` (ex: `lp-presentes`, `lp-dia-das-maes
 
 Layout: `admin.vue`. Auth: header `x-cms-token` (JWT). `robots: noindex, nofollow`.
 
-**Conteúdo**: `/admin/portfolio`, `/admin/portfolio/categorias`, `/admin/blog`, `/admin/blog/categorias`, `/admin/depoimentos`, `/admin/investimento`, `/admin/faq`, `/admin/hero-banners`, `/admin/landing-pages`, `/admin/menu`, `/admin/page-faq`, `/admin/linktree` (presets de linktree — cabeçalho+tema+blocos por temporada; 1 ativo por vez alimenta `/links`)
+**Conteúdo**: `/admin/portfolio`, `/admin/portfolio/categorias`, `/admin/blog`, `/admin/blog/categorias`, `/admin/depoimentos`, `/admin/investimento`, `/admin/faq`, `/admin/hero-banners`, `/admin/landing-pages`, `/admin/menu`, `/admin/page-faq`, `/admin/sobre` (textos da página Sobre), `/admin/linktree` (presets de linktree — cabeçalho+tema+blocos por temporada; 1 ativo por vez alimenta `/links`)
 
 **Operação**: `/admin/clientes`, `/admin/sessoes` (→ `/[id]/fotos`, `/[id]/selecao`, `/[id]/lotes`), `/admin/entregas`, `/admin/cenarios`
 

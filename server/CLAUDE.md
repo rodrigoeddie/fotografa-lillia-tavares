@@ -148,6 +148,7 @@ export type TabelaInsert = typeof tabela.$inferInsert;
 | `EntregaService` | entregas finalizadas (ZIP) |
 | `MenuService` | menu de navegação |
 | `HeroBannerService` | hero banners por página |
+| `SobreService` | conteúdo da página Sobre (bio, cards de serviço, linha do tempo) |
 | `NotificacaoService` | Web Push (futuro) |
 | `AdminUserService` | usuários admin |
 | `PagamentoService` | checkouts SumUp + CRUD pagamentos |

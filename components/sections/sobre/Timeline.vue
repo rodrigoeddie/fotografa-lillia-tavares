@@ -27,111 +27,15 @@ function onMouseUp() {
   if (scrollRef.value) scrollRef.value.style.userSelect = '';
 }
 
-interface Milestone {
-  year: number;
-  month?: string;
-  title: string;
-  description: string;
-  image?: string;
-  format?: string;
-}
-
-const milestones: Milestone[] = [
-  {
-    year: 2019,
-    title: 'Espetáculo da Lola',
-    description: 'Primeiros registros profissionais em cobertura de espetáculo teatral — o clique que confirmou a vocação.',
-    image: '4f6db13c-469a-4636-b6b0-5f3f8dd71100',
-  },
-  {
-    year: 2019,
-    title: 'Ensaio na praia',
-    description: 'Primeiros ensaios externos com luz natural, descobrindo o retrato feminino como linguagem.',
-    image: 'dfef0926-9e7f-4292-3515-f61e93a55600',
-  },
-  {
-    year: 2021,
-    month: 'Formação',
-    title: 'Etec de Artes',
-    description: 'Formação técnica em fotografia pela Etec, construindo a base técnica e artística.',
-    image: 'cad71dbd-ff03-467e-b1d6-08d299ce5f00',
-  },
-  {
-    year: 2021,
-    month: 'Prêmio',
-    title: 'Prêmio Mogi Revela 2021',
-    description: 'Ganhadora do 11º Prêmio Mogi Revela de Fotografia — mostra exibida no Centro Cultural de Mogi das Cruzes, um marco no reconhecimento da carreira.',
-    image: '67da3987-5e01-4fc9-2417-2c5e2f61ad00',
-    format: 'portrait',
-  },
-  {
-    year: 2022,
-    month: 'Formação',
-    title: 'Senac',
-    description: 'Formação técnica em fotografia pelo Senac, reforçando a base técnica e artística.',
-  },
-  {
-    year: 2022,
-    month: 'Formação',
-    title: 'Senac',
-    description: 'Especialização em consultoria de imagem pelo Senac, integrando moda e fotografia.',
-  },
-  {
-    year: 2023,
-    title: 'Fashion Week',
-    description: 'Cobertura de desfile de moda — experiência de bastidor e fotografia editorial em ritmo acelerado.',
-  },
-  {
-    year: 2024,
-    month: 'Junho',
-    title: 'Inauguração do Estúdio',
-    description: 'Abertura do primeiro estúdio fotográfico próprio em Mogi das Cruzes, com sete cenários exclusivos.',
-  },
-  {
-    year: 2024,
-    month: 'Dezembro',
-    title: 'Natal 2024',
-    description: 'Primeira temporada de Natal no estúdio — cenários temáticos e centenas de famílias fotografadas.',
-  },
-  {
-    year: 2025,
-    month: 'Maio',
-    title: 'Dia das Mães 2025',
-    description: 'Campanha especial para mães e filhos, com ensaios emocionantes e cenários delicados.',
-  },
-  {
-    year: 2025,
-    month: 'Junho',
-    title: '1 Ano de Estúdio',
-    description: 'Um ano de sonho realizado: centenas de ensaios, histórias transformadas e autoestima elevada.',
-  },
-  {
-    year: 2025,
-    month: 'Dezembro',
-    title: 'Natal 2025',
-    description: 'Segunda temporada natalina, com cenários renovados e novos temas exclusivos.',
-  },
-  {
-    year: 2026,
-    month: 'Maio',
-    title: 'Dia das Mães 2026',
-    description: 'Mais uma edição especial celebrando o vínculo entre mães e filhos através da fotografia.',
-  },
-  {
-    year: 2026,
-    month: 'Junho',
-    title: '2 Anos de Estúdio',
-    description: 'Dois anos construindo histórias, revelando beleza e fortalecendo a autoestima de mulheres em Mogi.',
-  },
-];
+const { pagina, marcos } = await useSobreConteudo();
 </script>
 
 <template>
   <section class="timeline-section">
     <div class="container">
-      <h2 class="big-title centered">Nossa história</h2>
-      <div class="ac">
-        <p class="description">Uma jornada de evolução, aprendizado e muitas histórias fotografadas.</p>
+      <h2 class="big-title centered">{{ pagina.timeline_titulo }}</h2>
+      <div v-if="pagina.timeline_descricao" class="ac">
+        <p class="description">{{ pagina.timeline_descricao }}</p>
       </div>
     </div>
 
@@ -148,30 +52,30 @@ const milestones: Milestone[] = [
         <div class="timeline-line" aria-hidden="true" />
 
         <article
-          v-for="(item, index) in milestones"
-          :key="index"
+          v-for="(item, index) in marcos"
+          :key="item.id"
           class="timeline-item"
           :class="{ 'timeline-item-up': index % 2 === 0 }"
           data-ani-type="fade-up"
         >
           <div class="timeline-card" :class="{ 'card-up': index % 2 === 0 }">
             <nuxt-img
-              v-if="item.image"
+              v-if="item.imagem_cf_id"
               provider="cloudflare"
-              :src="cfImg(item.image)"
-              :alt="item.title"
-              :width="item.format === 'portrait' ? 160 : 240"
-              :height="item.format === 'portrait' ? 280 : 160"
+              :src="cfImg(item.imagem_cf_id)"
+              :alt="item.titulo"
+              :width="item.formato === 'portrait' ? 160 : 240"
+              :height="item.formato === 'portrait' ? 280 : 160"
               format="avif"
               class="timeline-img"
-              :class="{ 'timeline-img-portrait': item.format === 'portrait' }"
+              :class="{ 'timeline-img-portrait': item.formato === 'portrait' }"
             />
             <span class="timeline-date">
-              <strong>{{ item.year }}</strong>
-              <span v-if="item.month"> · {{ item.month }}</span>
+              <strong>{{ item.ano }}</strong>
+              <span v-if="item.mes"> · {{ item.mes }}</span>
             </span>
-            <h3 class="timeline-title">{{ item.title }}</h3>
-            <p class="description">{{ item.description }}</p>
+            <h3 class="timeline-title">{{ item.titulo }}</h3>
+            <p v-if="item.descricao" class="description">{{ item.descricao }}</p>
           </div>
 
           <div class="timeline-dot" aria-hidden="true" />

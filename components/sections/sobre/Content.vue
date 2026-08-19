@@ -1,12 +1,9 @@
 <script setup lang="ts">
-const cfImg = useCfImg()
+import { NuxtLink } from '#components';
 
-const image = {
-  id: "5aaf1433-aaa7-42ed-7198-15626f964000",
-  alt: "Fotógrafa Lillia Tavares segurando sua câmera fotográfica",
-  width: 935,
-  height: 935,
-};
+const cfImg = useCfImg();
+
+const { pagina, servicos, bioParagrafos } = await useSobreConteudo();
 </script>
 
 <template>
@@ -15,19 +12,19 @@ const image = {
 
       <header class="sobre-header">
         <h1 class="big-title green centered">
-          Sobre a Fotógrafa Lillia Tavares
+          {{ pagina.titulo }}
         </h1>
       </header>
 
       <!-- Bio -->
       <div class="sobre-bio">
-        <div class="sobre-bio__image">
+        <div v-if="pagina.imagem_cf_id" class="sobre-bio__image">
           <nuxt-img
             provider="cloudflare"
-            :src="cfImg(image?.id || '5aaf1433-aaa7-42ed-7198-15626f964000')"
-            :alt="image?.alt || 'Fotógrafa Lillia Tavares'"
-            :width="image?.width || 935"
-            :height="image?.height || 935"
+            :src="cfImg(pagina.imagem_cf_id)"
+            :alt="pagina.imagem_alt || 'Fotógrafa Lillia Tavares'"
+            :width="pagina.imagem_width || 935"
+            :height="pagina.imagem_height || 935"
             sizes="100vw sm:50vw md:935px"
             format="webp"
             placeholder
@@ -36,84 +33,41 @@ const image = {
         </div>
 
         <div class="description">
-          <p>
-            Sou fotógrafa em Mogi das Cruzes e consultora de imagem, formada pela Etec de Artes e pelo Senac. Sou especialista em retratos femininos, fotografia corporativa e reposicionamento de imagem, capturando fotografias com intenção, presença e identidade.
-          </p>
-          <p>
-            Cresci cercada pela fotografia, em uma família que sempre fez questão de registrar e
-            guardar cada momento vivido. Aprendi desde cedo que imagens não são apenas registros,
-            são memórias que atravessam o tempo. Esse olhar atento para os detalhes, para a luz e
-            para as emoções me acompanha em cada ensaio.
-          </p>
-          <p>
-            Atuo profissionalmente desde 2019, transformando a fotografia em uma ferramenta de
-            fortalecimento da autoestima e construção de imagem. Em junho de 2024, inaugurei meu primeiro estúdio fotográfico em Mogi das Cruzes, criando um espaço pensado para acolher, direcionar e revelar o melhor de cada pessoa.
-          </p>
-          <p>
-            Cada ensaio é uma experiência guiada. Eu direciono poses, expressões e postura de
-            forma natural, respeitando a individualidade de cada cliente. Meu objetivo é que você
-            se sinta confiante, confortável e verdadeiramente representada nas suas fotos.
-          </p>
+          <p v-for="(paragrafo, i) in bioParagrafos" :key="i">{{ paragrafo }}</p>
         </div>
       </div>
 
       <!-- Serviços -->
-      <section class="sobre-servicos">
-        <h2 class="title">O que eu ofereço</h2>
+      <section v-if="servicos.length" class="sobre-servicos">
+        <h2 v-if="pagina.servicos_titulo" class="title">{{ pagina.servicos_titulo }}</h2>
 
         <div class="servicos-grid">
-
-          <!-- Principal: Ensaios -->
-          <NuxtLink
-            to="/ensaio-fotografico"
-            class="servico-card servico-card--principal"
-            data-ani-type="fade-up"
-          >
-            <span class="servico-card__tag">Produto principal</span>
-            <h3 class="servico-card__titulo">Ensaios Fotográficos em Mogi das Cruzes</h3>
-            <p class="servico-card__desc">
-              Retratos femininos, corporativos, gestantes, família e debutantes. Cada sessão é
-              conduzida com direção de poses, expressão e postura — tudo para revelar sua melhor
-              versão com autenticidade.
-            </p>
-
-            <p>Como fotógrafa em Mogi das Cruzes, meu propósito é criar retratos que fortaleçam a autoestima, comuniquem identidade e gerem conexão verdadeira.</p>
-            <br>
-            <span class="servico-card__cta">Ver tipos de ensaio</span>
-          </NuxtLink>
-
-          <!-- Secundário: Estúdio -->
-          <NuxtLink
-            to="/estudio-fotografico-em-mogi-das-cruzes/aluguel"
+          <component
+            :is="servico.cta_url ? NuxtLink : 'div'"
+            v-for="servico in servicos"
+            :key="servico.id"
+            :to="servico.cta_url || undefined"
             class="servico-card"
+            :class="{ 'servico-card--principal': servico.destaque === 1 }"
             data-ani-type="fade-up"
           >
-            <h3 class="servico-card__titulo">Estúdio Fotográfico</h3>
-            <p class="servico-card__subtitulo">Aluguel de espaço em Mogi das Cruzes</p>
-            <p class="servico-card__desc">
-              Sete cenários modernos e sofisticados, do corporativo elegante ao intimista delicado.
-              Fácil acesso, ótimas opções de estacionamento e infraestrutura completa para
-              fotógrafos e criadores de conteúdo.
-            </p>
-            <span class="servico-card__cta">Conhecer o espaço</span>
-          </NuxtLink>
+            <span v-if="servico.tag" class="servico-card__tag">{{ servico.tag }}</span>
+            <h3 class="servico-card__titulo">{{ servico.titulo }}</h3>
+            <p v-if="servico.subtitulo" class="servico-card__subtitulo">{{ servico.subtitulo }}</p>
+            <p v-if="servico.descricao" class="servico-card__desc">{{ servico.descricao }}</p>
+            <p v-if="servico.descricao_extra">{{ servico.descricao_extra }}</p>
+            <br v-if="servico.descricao_extra">
 
-          <!-- Secundário: Consultoria -->
-          <div class="servico-card" data-ani-type="fade-up">
-            <h3 class="servico-card__titulo">Consultoria de Imagem</h3>
-            <p class="servico-card__desc">
-              Análise e reposicionamento de imagem pessoal, disponível de forma independente ou
-              como parte do pacote <strong>Do Tom ao Clique</strong>, que une consultoria ao
-              ensaio fotográfico em uma experiência única.
-            </p>
+            <span v-if="servico.cta_url && servico.cta_label" class="servico-card__cta">{{ servico.cta_label }}</span>
+
             <NuxtLink
-              to="/analise-coloracao-pessoal-em-mogi"
+              v-if="servico.sub_link_url && servico.sub_link_label"
+              :to="servico.sub_link_url"
               class="servico-card__sub-link"
             >
-              Análise de Coloração Pessoal
+              {{ servico.sub_link_label }}
             </NuxtLink>
-          </div>
-
+          </component>
         </div>
       </section>
     </div>

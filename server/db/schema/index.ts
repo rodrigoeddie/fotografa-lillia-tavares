@@ -23,3 +23,4 @@ export * from './hero-banners';
 export * from './pagamentos';
 export * from './linktree';
 export * from './consentimentos';
+export * from './sobre';

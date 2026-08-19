@@ -119,6 +119,7 @@ provide('showMessage', showMessage);
             <NuxtLink v-if="canAccess('faq')" to="/admin/faq" class="nav-item" active-class="active"><span class="material-symbols-outlined">help_outline</span> FAQ</NuxtLink>
             <NuxtLink v-if="canAccess('blog')" to="/admin/blog" class="nav-item" active-class="active"><span class="material-symbols-outlined">edit_note</span> Blog</NuxtLink>
             <NuxtLink v-if="canAccess('cenarios')" to="/admin/cenarios" class="nav-item" active-class="active"><span class="material-symbols-outlined">domain</span> Cenários</NuxtLink>
+            <NuxtLink v-if="canAccess('sobre')" to="/admin/sobre" class="nav-item" active-class="active"><span class="material-symbols-outlined">person_book</span> Sobre</NuxtLink>
             <NuxtLink v-if="canAccess('landing-pages')" to="/admin/landing-pages" class="nav-item" active-class="active"><span class="material-symbols-outlined">view_compact_alt</span> Landing Pages</NuxtLink>
             <NuxtLink v-if="canAccess('menu')" to="/admin/menu" class="nav-item" active-class="active"><span class="material-symbols-outlined">menu</span> Menu</NuxtLink>
             <NuxtLink v-if="canAccess('linktree')" to="/admin/linktree" class="nav-item" active-class="active"><span class="material-symbols-outlined">link</span> Linktree</NuxtLink>

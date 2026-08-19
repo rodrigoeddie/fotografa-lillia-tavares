@@ -20,7 +20,7 @@ import { getAdminPayload } from '~/server/utils/auth-helpers';
 const ROLE_API_SECTIONS: Record<string, Set<string>> = {
   editor: new Set([
     'hero-banners', 'portfolio', 'depoimentos', 'faq', 'page-faq', 'blog',
-    'cenarios', 'landing-pages', 'menu', 'linktree', 'seo', 'page-seo', 'cache',
+    'cenarios', 'landing-pages', 'menu', 'linktree', 'seo', 'page-seo', 'cache', 'sobre',
   ]),
   sessions: new Set([
     'clientes', 'sessoes', 'entregas', 'produtos',
