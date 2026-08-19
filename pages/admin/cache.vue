@@ -67,6 +67,16 @@ const sections = [
     ],
   },
   {
+    key: 'sobre',
+    label: 'Sobre',
+    description: 'Bio, cards de serviço e a linha do tempo "Nossa história".',
+    icon: '👤',
+    urls: [
+      `${BASE}/sobre-fotografa-lillia-tavares`,
+      `${BASE}/api/public/sobre`,
+    ],
+  },
+  {
     key: 'menu',
     label: 'Menu',
     description: 'Navegação do site.',
@@ -76,6 +86,23 @@ const sections = [
     ],
   },
 ];
+
+const status = ref<{ ok: boolean; zona?: string; motivo?: string } | null>(null);
+const checando = ref(false);
+
+/** Confere se o purge está utilizável (secrets + token com acesso à zona). */
+async function checarConfig() {
+  checando.value = true;
+  try {
+    status.value = await adminFetch('/api/admin/cache/purge');
+  } catch (e: any) {
+    status.value = { ok: false, motivo: e.statusMessage || e.data?.statusMessage || e.message };
+  } finally {
+    checando.value = false;
+  }
+}
+
+onMounted(checarConfig);
 
 async function purge(key: string) {
   const section = sections.find(s => s.key === key);
@@ -88,7 +115,7 @@ async function purge(key: string) {
     });
     showMessage(`Cache "${section.label}" limpo com sucesso!`, 'success');
   } catch (e: any) {
-    showMessage('Erro: ' + (e.data?.statusMessage || e.message), 'error');
+    showMessage('Erro: ' + (e.statusMessage || e.data?.statusMessage || e.message), 'error');
   } finally {
     loading.value = null;
   }
@@ -101,6 +128,16 @@ async function purge(key: string) {
     <p class="subtitle">
       O Cloudflare armazena páginas e APIs em cache por até 24h. Use esta página para
       forçar a atualização imediata após salvar conteúdo no banco.
+    </p>
+
+    <p v-if="checando" class="cache-status">Verificando a configuração do purge...</p>
+    <p v-else-if="status" class="cache-status" :class="status.ok ? 'cache-status--ok' : 'cache-status--erro'">
+      <template v-if="status.ok">
+        ✅ Purge ativo{{ status.zona ? ` na zona ${status.zona}` : '' }} — os botões abaixo funcionam.
+      </template>
+      <template v-else>
+        ⚠️ O purge não vai funcionar: {{ status.motivo }}
+      </template>
     </p>
 
     <div class="cache-grid">
@@ -153,6 +190,19 @@ async function purge(key: string) {
     margin-bottom: 32px;
     line-height: 1.6;
   }
+}
+
+.cache-status {
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  border: 1px solid t.$border;
+  color: t.$text-2;
+
+  &--ok    { border-color: t.$accent-line; }
+  &--erro  { border-color: t.$danger; background: t.$danger-bg; }
 }
 
 .cache-grid {

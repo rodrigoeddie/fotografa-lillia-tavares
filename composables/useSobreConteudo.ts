@@ -124,13 +124,16 @@ const FALLBACK_MARCOS: SobreMarco[] = [
 ];
 
 export async function useSobreConteudo() {
-  const { data } = await useAsyncData<SobreConteudo | null>('sobre-conteudo', async () => {
-    try {
-      return await $fetch<SobreConteudo>('/api/public/sobre');
-    } catch {
-      return null;
-    }
+  /* useFetch (e não $fetch cru dentro de useAsyncData): no SSR do worker só ele
+     herda o contexto da requisição — sem isso o handler não enxerga o binding
+     do D1 e a página cai no fallback abaixo. */
+  const { data, error } = await useFetch<SobreConteudo>('/api/public/sobre', {
+    key: 'sobre-conteudo',
   });
+
+  if (error.value) {
+    console.error('[sobre] /api/public/sobre falhou, usando fallback:', error.value);
+  }
 
   const pagina   = computed<SobrePagina>(() => data.value?.pagina ?? FALLBACK_PAGINA);
   const servicos = computed<SobreServico[]>(() => data.value?.servicos?.length ? data.value.servicos : FALLBACK_SERVICOS);
