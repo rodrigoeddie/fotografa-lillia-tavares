@@ -141,6 +141,12 @@ async function purge(key: string) {
   max-width: 720px;
 
   h2 { font-size: 28px; margin-bottom: 8px; }
+
+  @include m.max(sm) {
+    h2 { font-size: 21px; }
+    .subtitle { margin-bottom: 20px; }
+  }
+
   .subtitle {
     color: t.$text-3;
     font-size: 14px;
@@ -165,6 +171,14 @@ async function purge(key: string) {
   border-radius: 10px;
   padding: 18px 20px;
 
+  /* A lista de URLs em monospace não quebra: empilha e deixa o botão largo. */
+  @include m.max(sm) {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+  }
+
   &--all {
     border-color: t.$danger;
     background: t.$danger-bg;
@@ -173,6 +187,7 @@ async function purge(key: string) {
   &__info {
     display: flex;
     align-items: flex-start;
+    min-width: 0;
     gap: 14px;
   }
 
@@ -190,12 +205,16 @@ async function purge(key: string) {
     font-size: 11px;
     color: t.$text-3;
     font-family: monospace;
+    overflow-wrap: anywhere;
   }
 }
 
 .btn-purge {
   flex-shrink: 0;
   padding: 8px 20px;
+
+  @include m.max(sm) { width: 100%; }
+
   border-radius: 6px;
   border: none;
   background: t.$accent;

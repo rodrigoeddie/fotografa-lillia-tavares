@@ -2,6 +2,7 @@
 // Consumido via `@use '~/assets/styles/admin-shared' as *;` em cada página.
 // Os nomes de classe são estáveis — todo o visual do painel vem daqui.
 @use 'admin-tokens' as *;
+@use 'mixins' as m;
 
 .page {
   padding: 0 0 24px;
@@ -864,3 +865,114 @@
     border-color: $accent-line;
   }
 }
+
+// ─── Responsivo ──────────────────────────────────────────────────────────────
+// O painel nasceu desktop-only. Este bloco adapta os primitivos compartilhados
+// para telas pequenas; ajustes específicos de página ficam na própria página.
+
+@include m.max(sm) {   // < 900px — tablet retrato e celular
+  .page { padding-bottom: 16px; }
+
+  .page-header {
+    margin-bottom: 18px;
+    gap: 10px;
+
+    h2 { font-size: 18px; flex: 1 1 100%; }
+  }
+
+  .page-back { margin-bottom: 14px; }
+
+  .form-card { padding: 16px; gap: 16px; }
+
+  // Uma coluna: `auto-fit` sozinho não basta porque campos com
+  // `grid-column: span N` forçariam colunas implícitas e estourariam a tela.
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+
+    > * { grid-column: 1 / -1; }
+  }
+
+  .form-actions {
+    flex-direction: column;
+    padding-top: 18px;
+    gap: 10px;
+
+    > * { width: 100%; justify-content: center; }
+  }
+
+  .dep-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    gap: 12px;
+
+    h2 { font-size: 19px; }
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    width: 100%;
+
+    > * { flex: 1 1 auto; justify-content: center; }
+  }
+
+  .filter-bar { padding: 10px; margin-bottom: 14px; }
+
+  // Listas: os campos de largura fixa passam a ocupar a linha inteira.
+  .item-row {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 12px;
+
+    &.item-300 { width: 100%; }
+  }
+
+  .item-slug,
+  .item-categoria { flex: 1 1 100%; }
+
+  .item-meta.item-stars { width: auto; }
+
+  .item-actions { margin-left: auto; }
+
+  .link-row { padding: 6px 8px; gap: 10px; }
+
+  // Tabelas: envolver em .table-scroll (ver páginas) para rolar na horizontal.
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -14px;
+    padding: 0 14px;
+  }
+
+  .data-table {
+    font-size: 12.5px;
+    min-width: 560px;
+
+    th { padding: 10px 12px; }
+    td { padding: 11px 12px; }
+  }
+
+  .upload-section { padding: 16px; }
+  .upload-drop { padding: 24px 16px; }
+
+  .bg-card { flex-wrap: wrap; gap: 12px; }
+  .bg-card-actions { flex-direction: row; flex-wrap: wrap; }
+
+  .file-card { flex-wrap: wrap; }
+
+  .btn-selecao { width: auto; }
+}
+
+@include m.max(xs) {   // < 600px — celular
+  .page-header h2 { font-size: 17px; }
+  .dep-header h2 { font-size: 18px; }
+
+  .form-card { padding: 14px; }
+
+  .item-title { white-space: normal; }
+}
+
+// A rolagem horizontal da tabela só existe no mobile; no desktop é inerte.
+.table-scroll { max-width: 100%; }

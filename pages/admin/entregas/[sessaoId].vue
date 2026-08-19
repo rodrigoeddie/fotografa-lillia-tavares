@@ -210,12 +210,20 @@ onMounted(load);
   background: t.$surface;
   border: 1px solid t.$border;
   border-radius: 8px;
+
+  /* Rótulo + status + 2 ações não cabem em uma linha no celular. */
+  @include m.max(sm) {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
 
 .lote-label {
   font-size: 13px;
   color: t.$text;
   flex: 1;
+
+  @include m.max(sm) { flex: 1 1 100%; }
 }
 
 .status-pill {

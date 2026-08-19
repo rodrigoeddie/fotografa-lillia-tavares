@@ -23,7 +23,28 @@ const {
   load: loadAdminNotif, toggleOpen: toggleAdminNotif, requestPushPermission,
 } = useNotifications('admin', adminFetch);
 
+/* No desktop a sidebar fica fixa e aberta; abaixo de 900px ela vira uma
+   gaveta sobreposta, que começa fechada e se fecha ao trocar de rota. */
+const MOBILE_BP = 900;
 const fileSidebarOpen = ref(true);
+const isMobile = ref(false);
+
+function syncViewport() {
+  const mobile = window.innerWidth < MOBILE_BP;
+  if (mobile === isMobile.value) return;
+  isMobile.value = mobile;
+  fileSidebarOpen.value = !mobile;
+}
+
+onMounted(() => {
+  syncViewport();
+  window.addEventListener('resize', syncViewport);
+});
+onBeforeUnmount(() => window.removeEventListener('resize', syncViewport));
+
+watch(() => route.fullPath, () => {
+  if (isMobile.value) fileSidebarOpen.value = false;
+});
 
 async function handleLogin() {
   await doLogin();
@@ -67,6 +88,9 @@ provide('showMessage', showMessage);
 
   <!-- CMS -->
   <div v-else class="admin-cms" :class="{ 'sidebar-collapsed': !fileSidebarOpen }">
+    <!-- Backdrop da gaveta (só aparece no mobile, via CSS) -->
+    <div v-if="fileSidebarOpen" class="sidebar-backdrop" @click="fileSidebarOpen = false"></div>
+
     <!-- Sidebar -->
     <Transition name="slide-sidebar">
       <aside v-show="fileSidebarOpen" class="sidebar">
@@ -577,10 +601,51 @@ provide('showMessage', showMessage);
   opacity: 0;
 }
 
+.sidebar-backdrop { display: none; }
+
 @media (max-width: 899px) {
-  .cms-main { padding: 22px 18px 48px; }
-  .topbar { padding: 12px 18px; }
+  .cms-main { padding: 20px 14px 48px; }
+  .topbar { padding: 10px 14px; gap: 10px; }
   .back-link span:last-child { display: none; }
   .btn-logout span:last-child { display: none; }
+  .back-link, .btn-logout { padding: 9px 11px; }
+  .topbar-actions { gap: 7px; }
+
+  /* Sidebar → gaveta sobreposta: não rouba largura do conteúdo. */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100dvh;
+    z-index: 60;
+    width: min(t.$sidebar-w, 84vw);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(0, 0, 0, 0.55);
+    display: block;
+  }
+
+  /* A gaveta desliza; a transição de largura do desktop não serve aqui. */
+  .slide-sidebar-enter-active,
+  .slide-sidebar-leave-active { transition: transform 0.22s ease, opacity 0.2s ease; }
+  .slide-sidebar-enter-from,
+  .slide-sidebar-leave-to { width: min(t.$sidebar-w, 84vw) !important; transform: translateX(-100%); opacity: 1; }
+
+  .notif-dropdown { width: min(300px, calc(100vw - 28px)); max-height: 70vh; overflow-y: auto; }
+
+  /* Abaixo do topbar: centralizado no topo ele cobre os botões do header. */
+  .notification {
+    min-width: 0;
+    width: calc(100vw - 28px);
+    top: 66px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
 }
 </style>

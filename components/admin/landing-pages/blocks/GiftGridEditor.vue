@@ -87,7 +87,9 @@ function removeItem(i: number) {
   strong { font-size: 13rem; color: #aaa; flex: 1; }
 }
 .active-toggle { font-size: 12rem; color: #888; display: flex; gap: 4rem; align-items: center; }
-.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem;
+  @include m.max(sm) { grid-template-columns: 1fr; }
+}
 .btn-sm {
   background: #2a2a2a; color: #aaa; border: 1rem solid #444; border-radius: 4rem;
   padding: 3rem 8rem; cursor: pointer; font-size: 11rem;

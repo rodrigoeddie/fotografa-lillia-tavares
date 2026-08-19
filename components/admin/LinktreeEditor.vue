@@ -304,6 +304,12 @@ defineExpose({ load });
   display: flex;
   align-items: flex-start;
   gap: 28px;
+
+  /* A prévia de 340px não cabe ao lado do editor: passa a ficar embaixo. */
+  @include m.max(md) {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 .lt-main { flex: 1; min-width: 0; max-width: 760px; }
 
@@ -316,6 +322,12 @@ defineExpose({ load });
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @include m.max(md) {
+    position: static;
+    width: 100%;
+    max-width: 340px;
+  }
 }
 .lt-preview-head {
   display: flex;
@@ -509,7 +521,7 @@ defineExpose({ load });
   display: flex;
   gap: 10px;
   margin-bottom: 14px;
-  select { flex: 1; max-width: 280px; }
+  select { flex: 1; max-width: 280px; min-width: 0; }
 }
 
 label {

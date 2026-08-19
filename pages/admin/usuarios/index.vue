@@ -213,6 +213,7 @@ onMounted(load);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
   z-index: 9999;
 }
 
@@ -222,7 +223,11 @@ onMounted(load);
   border-radius: 12px;
   padding: 28px;
   width: 440px;
-  max-width: 95vw;
+  max-width: 100%;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+
+  @include m.max(xs) { padding: 20px; }
 }
 
 .modal-head {

@@ -286,6 +286,12 @@ onMounted(load);
   align-items: start;
   overflow-x: auto;
   min-width: 0;
+
+  /* Kanban de 3 colunas não cabe: vira uma coluna por status, empilhada. */
+  @include m.max(sm) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 .kanban-col {
@@ -480,6 +486,7 @@ onMounted(load);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
   z-index: 9999;
 }
 

@@ -50,6 +50,8 @@ function update<K extends keyof Data>(key: K, value: Data[K]) {
 .form-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @include m.max(sm) { grid-template-columns: 1fr; }
   gap: 8rem;
 }
 </style>

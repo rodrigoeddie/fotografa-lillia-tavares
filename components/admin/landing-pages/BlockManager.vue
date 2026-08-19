@@ -341,6 +341,8 @@ function summary(b: { tipo: string; dados: any }): string {
 .bm-types {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+
+  @include m.max(sm) { grid-template-columns: 1fr; }
   gap: 8rem;
   margin-bottom: 16rem;
 }

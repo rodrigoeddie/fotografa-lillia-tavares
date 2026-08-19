@@ -384,6 +384,10 @@ onMounted(load);
   column-gap: 12px;
   columns: 6;
   gap: 12px;
+
+  @include m.max(lg) { columns: 4; }
+  @include m.max(sm) { columns: 3; column-gap: 8px; }
+  @include m.max(xs) { columns: 2; }
 }
 
 .foto-card {

@@ -83,6 +83,8 @@ function removeStep(i: number) {
 .form-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @include m.max(sm) { grid-template-columns: 1fr; }
   gap: 8rem;
 }
 

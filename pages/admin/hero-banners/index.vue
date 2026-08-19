@@ -194,6 +194,8 @@ onMounted(load);
   overflow: hidden;
   background: t.$surface-2;
   border: 1px solid t.$border;
+
+  @include m.max(xs) { width: 100%; }
 }
 
 .thumb-img {

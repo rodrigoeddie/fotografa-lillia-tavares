@@ -216,6 +216,8 @@ onMounted(load);
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @include m.max(sm) { grid-template-columns: 1fr; }
   gap: 16rem;
 
   &.inline-edit {

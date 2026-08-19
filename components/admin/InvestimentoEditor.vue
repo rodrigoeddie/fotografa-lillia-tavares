@@ -498,6 +498,9 @@ defineExpose({ openFile });
 .pkg-fields-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
+  @include m.max(md) { grid-template-columns: 1fr 1fr; }
+  @include m.max(sm) { grid-template-columns: 1fr; }
   gap: 12px;
   margin-bottom: 16px;
 }

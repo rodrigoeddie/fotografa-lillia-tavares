@@ -93,6 +93,8 @@ async function handleSave() {
   border-radius: 12px;
   width: 100%;
   max-width: 540px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
