@@ -2,6 +2,7 @@ import { defineEventHandler, createError, getRouterParam, getQuery } from 'h3';
 import { validateAdminToken } from '~/server/utils/auth-helpers';
 import { getOrm } from '~/server/utils/d1-client';
 import { SessaoService } from '~/server/services/SessaoService';
+import { calcExtras } from '~/server/utils/extras-calc';
 
 export default defineEventHandler(async (event) => {
   await validateAdminToken(event);
@@ -18,7 +19,11 @@ export default defineEventHandler(async (event) => {
   if (!loteId) {
     const lotes = await svc.listLotes(sessaoId);
     if (!lotes.length) {
-      return { sessao, lotes: [], fotos: [], total: 0, selecionadas: 0, extras: 0, valor_extras: 0 };
+      return {
+        sessao, lotes: [], fotos: [], total: 0, selecionadas: 0,
+        extras: 0, preco_foto_extra: sessao.preco_foto_extra,
+        desconto_percent: 0, valor_extras_bruto: 0, valor_extras: 0,
+      };
     }
     loteId = lotes[lotes.length - 1]!.id;
   }
@@ -30,6 +35,10 @@ export default defineEventHandler(async (event) => {
   const todosLotes = await svc.listLotes(sessaoId);
   const selecionadas = fotos.filter((r) => r.selecionada === 1);
 
+  const { extras, descontoPercent, valorExtrasBruto, valorExtras } = calcExtras(
+    selecionadas.length, sessao.fotos_incluidas, sessao.preco_foto_extra,
+  );
+
   return {
     sessao,
     lote,
@@ -37,7 +46,10 @@ export default defineEventHandler(async (event) => {
     fotos,
     total: fotos.length,
     selecionadas: selecionadas.length,
-    extras: Math.max(0, selecionadas.length - sessao.fotos_incluidas),
-    valor_extras: Math.max(0, selecionadas.length - sessao.fotos_incluidas) * sessao.preco_foto_extra,
+    extras,
+    preco_foto_extra: sessao.preco_foto_extra,
+    desconto_percent: descontoPercent,
+    valor_extras_bruto: valorExtrasBruto,
+    valor_extras: valorExtras,
   };
 });

@@ -10,6 +10,8 @@ const sessaoId = computed(() => Number(route.params.id));
 
 interface Sessao { id: number; nome_sessao: string; fotos_incluidas: number; cliente_nome: string; }
 
+function fmt(v: number) { return `R$ ${v.toFixed(2).replace('.', ',')}`; }
+
 const sessao = ref<Sessao | null>(null);
 const selecao = ref<any>(null);
 const loading = ref(true);
@@ -57,11 +59,28 @@ onMounted(load);
           <span class="stat-value">{{ selecao.extras }}</span>
           <span class="stat-label">fotos extras</span>
         </div>
+        <div v-if="selecao.desconto_percent > 0" class="summary-stat stat-desconto">
+          <span class="stat-value">{{ selecao.desconto_percent }}%</span>
+          <span class="stat-label">desconto extras</span>
+        </div>
         <div class="summary-stat" :class="{ 'stat-extra': selecao.valor_extras > 0 }">
-          <span class="stat-value">{{ selecao.valor_extras > 0 ? `R$ ${selecao.valor_extras.toFixed(2).replace('.', ',')}` : '—' }}</span>
+          <span class="stat-value">
+            <span v-if="selecao.desconto_percent > 0" class="stat-value-old">{{ fmt(selecao.valor_extras_bruto) }}</span>
+            {{ selecao.valor_extras > 0 ? fmt(selecao.valor_extras) : '—' }}
+          </span>
           <span class="stat-label">valor extras</span>
         </div>
       </div>
+
+      <p v-if="selecao.desconto_percent > 0" class="selecao-desconto-hint">
+        <span class="material-symbols-outlined">sell</span>
+        <span>
+          {{ selecao.extras }} extras &times; {{ fmt(selecao.preco_foto_extra) }} =
+          {{ fmt(selecao.valor_extras_bruto) }} &mdash; com {{ selecao.desconto_percent }}% OFF
+          (5% a cada 5 extras) o cliente paga <strong>{{ fmt(selecao.valor_extras) }}</strong>,
+          economizando {{ fmt(selecao.valor_extras_bruto - selecao.valor_extras) }}.
+        </span>
+      </p>
 
       <div class="selecao-grid">
         <div v-for="foto in selecao.fotos" :key="foto.id" class="selecao-card" :class="{ selected: foto.selecionada === 1 }">
@@ -98,6 +117,30 @@ onMounted(load);
   .stat-value { font-size: 28px; font-weight: 700; color: t.$text; }
   .stat-label { font-size: 12px; color: t.$text-2; text-transform: uppercase; }
   &.stat-extra .stat-value { color: t.$warning; }
+  &.stat-desconto .stat-value { color: t.$success; }
+  .stat-value-old {
+    text-decoration: line-through;
+    font-weight: 500;
+    font-size: 16px;
+    color: t.$text-3;
+    margin-right: 6px;
+  }
+}
+.selecao-desconto-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: -12px 0 24px;
+  padding: 10px 14px;
+  background: t.$surface;
+  border: 1px solid t.$border;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: t.$text-2;
+
+  strong { color: t.$text; }
+  .material-symbols-outlined { font-size: 18px; color: t.$success; }
 }
 .selecao-grid {
   column-gap: 12px;

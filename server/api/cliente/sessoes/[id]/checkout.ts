@@ -5,14 +5,7 @@ import { SessaoService } from '~/server/services/SessaoService';
 import { PagamentoService } from '~/server/services/PagamentoService';
 import { ProdutoService } from '~/server/services/ProdutoService';
 import { pagamentosAtivos } from '~/server/utils/pagamentos-flag';
-
-function calcExtras(selecionadas: number, fotosIncluidas: number, precoFotoExtra: number) {
-  const extras = Math.max(0, selecionadas - fotosIncluidas);
-  const descontoPercent = Math.floor(extras / 5) * 5;
-  const bruto = extras * precoFotoExtra;
-  const valor = bruto * (1 - descontoPercent / 100);
-  return { extras, descontoPercent, valorExtrasBruto: bruto, valorExtras: valor };
-}
+import { calcExtras } from '~/server/utils/extras-calc';
 
 export default defineEventHandler(async (event) => {
   const clienteId = await getAuthenticatedCliente(event);

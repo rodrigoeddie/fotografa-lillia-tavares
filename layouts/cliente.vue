@@ -98,10 +98,11 @@ onMounted(async () => {
   display: flex;
   z-index: 2;
 
-  @include m.max(xs) {
+  @include m.max(sm) {
     padding-left: 15px;
-    padding-right: 0;
+    padding-right: 15px;
     height: 55px;
+    gap: 10px;
   }
 }
 
@@ -113,6 +114,12 @@ onMounted(async () => {
   @include m.max(md) {
     margin-top: -20rem;
     width: 215px;
+  }
+
+  @include m.max(sm) {
+    margin-top: -8px;
+    width: 150px;
+    flex-shrink: 0;
   }
 
   img {
@@ -133,22 +140,37 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 24px;
+
+  @include m.max(sm) {
+    gap: 14px;
+  }
 }
 
 .cliente-welcome {
   font-size: 14px;
   color: #6b7280;
+
+  /* No mobile o nome sai para o header caber; o "Olá" volta no meus-ensaios. */
+  @include m.max(sm) {
+    display: none;
+  }
 }
 
 .nav-link {
   font-size: 14px;
   color: #374151;
   text-decoration: none;
+  white-space: nowrap;
 
   &:hover { color: #5e2012; }
+
+  @include m.max(sm) {
+    font-size: 13px;
+  }
 }
 
 .nav-btn-logout {
+  white-space: nowrap;
   font-size: 14px;
   color: #6b7280;
   background: none;
@@ -199,12 +221,14 @@ onMounted(async () => {
   right: 0;
   top: calc(100% + 8px);
   width: 300px;
+  max-width: calc(100vw - 30px);
+  max-height: 70vh;
+  overflow-y: auto;
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   z-index: 100;
-  overflow: hidden;
 }
 
 .notif-header {
@@ -254,5 +278,11 @@ onMounted(async () => {
   padding-right: 10px;
   padding-left: 10px;
   width: 1820rem;
+  max-width: 100%;
+
+  @include m.max(sm) {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 </style>

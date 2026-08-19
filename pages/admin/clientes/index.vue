@@ -95,6 +95,10 @@ onMounted(load);
 <style lang="scss" scoped>
 @use '~/assets/styles/admin-shared' as *;
 
+.item-row.item-300 {
+  width: 255px;
+}
+
 .item-info {
   .material-symbols-outlined {
     padding-right: 4px;

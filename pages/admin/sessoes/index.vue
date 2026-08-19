@@ -110,6 +110,17 @@ function shareText(s: Sessao) {
   return `Olá ${s.cliente_nome}! Suas fotos estão prontas para seleção 🎉\n\nAcesse a sua área do cliente:\n🔗 ${LINK_AREA_CLIENTE}\n📧 E-mail: ${s.cliente_email}\n🔑 Senha: ${s.cliente_senha ?? '(não cadastrada)'}`;
 }
 
+/* O deep link do WhatsApp entrega emoji (pares surrogate, fora do BMP) corrompidos
+   em parte dos clientes — acentos passam normalmente. Para o link mandamos a
+   mesma mensagem sem os emoji decorativos; o "Copiar" segue com eles. */
+function shareTextPlain(s: Sessao) {
+  return shareText(s)
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}]/gu, '')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/^ +| +$/gm, '')
+    .trim();
+}
+
 async function copyShare(s: Sessao) {
   await navigator.clipboard.writeText(shareText(s));
   showMessage('Copiado!', 'success');
@@ -118,7 +129,7 @@ async function copyShare(s: Sessao) {
 function whatsappShare(s: Sessao) {
   const celular = s.cliente_celular?.replace(/\D/g, '');
   if (!celular) { showMessage('Cliente sem celular cadastrado', 'error'); return; }
-  const url = `https://wa.me/55${celular}?text=${encodeURIComponent(shareText(s))}`;
+  const url = `https://api.whatsapp.com/send?phone=55${celular}&text=${encodeURIComponent(shareTextPlain(s))}`;
   window.open(url, '_blank');
 }
 
@@ -399,6 +410,7 @@ onMounted(load);
   flex-direction: column;
   display: flex;
   color: t.$text-3;
+  text-align: center;
   gap: 4rem;
 
   &:before {

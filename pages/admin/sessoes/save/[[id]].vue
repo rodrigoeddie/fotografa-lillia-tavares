@@ -35,7 +35,7 @@ function onClienteCriado(cliente: { id: number; nome: string; email: string }) {
       <div class="form-grid">
 
         <!-- Cliente: searchable select em criação, texto informativo em edição -->
-        <div v-if="!isEdit" class="form-field">
+        <div v-if="!isEdit" class="form-field form-field--cliente">
           <label>Cliente</label>
           <div class="cliente-row">
             <AdminClienteSearchSelect
@@ -124,6 +124,11 @@ function onClienteCriado(cliente: { id: number; nome: string; email: string }) {
 @use '~/assets/styles/admin-tokens' as t;
 @use '~/assets/styles/admin-shared' as *;
 .field-hint { font-size: 11px; color: t.$text-3; &.warn { color: t.$warning; } }
+
+/* Ocupa 2 colunas do .form-grid (auto-fit minmax(240px, 1fr)) */
+.form-field--cliente {
+  grid-column: span 2;
+}
 
 .cliente-row {
   display: flex;

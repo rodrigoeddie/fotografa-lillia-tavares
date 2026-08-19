@@ -14,6 +14,11 @@ const cfImg = useCfImg();
    resumo dos valores e combina o pagamento com a Lillia. */
 const { pagamentosAtivos, whatsappUrl } = useRuntimeConfig().public;
 
+/* No mobile o painel lateral vira um bottom sheet: fica recolhido (só o
+   cabeçalho + botão de finalizar) para não cobrir a grade de fotos. No
+   desktop o `.cart-body` usa `display: contents` e nada muda. */
+const cartAberto = ref(false);
+
 interface LoteInfo {
   id: number;
   sessao_id: number;
@@ -333,94 +338,100 @@ onMounted(load);
 
           <!-- ── Step: Seleção (carrinho) ───────────────────── -->
           <template v-if="step === 'selecao'">
-            <div class="cart-header">
+            <div class="cart-header" role="button" tabindex="0" @click="cartAberto = !cartAberto" @keydown.enter="cartAberto = !cartAberto">
               <div class="cart-header-left">
                 <span class="material-symbols-outlined">shopping_cart</span>
                 <span class="cart-title">Seu carrinho</span>
               </div>
-              <span v-if="totalSelecionadas > 0" class="cart-badge">{{ totalSelecionadas }}</span>
+              <div class="cart-header-right">
+                <span v-if="extras > 0" class="cart-header-total">{{ fmt(valorExtras) }}</span>
+                <span v-if="totalSelecionadas > 0" class="cart-badge">{{ totalSelecionadas }}</span>
+                <span class="material-symbols-outlined cart-toggle">{{ cartAberto ? 'expand_more' : 'expand_less' }}</span>
+              </div>
             </div>
 
-            <div v-if="totalSelecionadas === 0" class="cart-empty">
-              <span class="material-symbols-outlined">add_photo_alternate</span>
-              <p>Toque nas fotos para adicioná-las ao carrinho</p>
+            <div class="cart-body" :class="{ open: cartAberto }">
+              <div v-if="totalSelecionadas === 0" class="cart-empty">
+                <span class="material-symbols-outlined">add_photo_alternate</span>
+                <p>Toque nas fotos para adicioná-las ao carrinho</p>
+              </div>
+
+              <template v-else>
+                <div class="cart-items">
+                  <div class="cart-item">
+                    <div class="cart-item-icon">
+                      <span class="material-symbols-outlined">photo_library</span>
+                    </div>
+                    <div class="cart-item-details">
+                      <span class="cart-item-name">{{ state.sessao.produto_tipo }}</span>
+                      <span class="cart-item-sub">{{ state.sessao.pacote_titulo }}</span>
+                      <span class="cart-item-qty">{{ Math.min(totalSelecionadas, fotos_incluidas) }} / {{ fotos_incluidas }} fotos incluídas</span>
+                    </div>
+                    <span class="cart-item-price cart-item-price--free">Incluso</span>
+                  </div>
+
+                  <div v-if="extras > 0" class="cart-item cart-item--extras">
+                    <div class="cart-item-icon">
+                      <span class="material-symbols-outlined">add_circle</span>
+                    </div>
+                    <div class="cart-item-details">
+                      <span class="cart-item-name">{{ extras }} foto{{ extras > 1 ? 's' : '' }} extra{{ extras > 1 ? 's' : '' }}</span>
+                      <span class="cart-item-sub">{{ fmt(state.sessao.preco_foto_extra) }} / foto</span>
+                    </div>
+                    <div class="cart-item-price-wrap">
+                      <span v-if="descontoPercent > 0" class="cart-item-price-old">{{ fmt(valorExtrasBruto) }}</span>
+                      <span class="cart-item-price">{{ fmt(valorExtras) }}</span>
+                    </div>
+                  </div>
+
+                  <div v-if="descontoPercent > 0 && extras > 0" class="cart-discount-row">
+                    <span class="cart-discount-tag">
+                      <span class="material-symbols-outlined">local_offer</span>
+                      {{ descontoPercent }}% OFF aplicado
+                    </span>
+                    <span class="cart-discount-saving">–{{ fmt(economiaTotalExtras) }}</span>
+                  </div>
+                </div>
+
+                <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
+                  <span class="material-symbols-outlined">local_offer</span>
+                  <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
+                </div>
+
+                <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
+                  <div class="desconto-meter-texto">
+                    <template v-if="descontoPercent === 0">
+                      <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
+                    </template>
+                    <template v-else>
+                      <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
+                    </template>
+                  </div>
+                  <div class="desconto-barra-wrap">
+                    <div class="desconto-segmentos">
+                      <div v-for="i in 5" :key="i" class="segmento" :class="{ filled: (extras % 5) >= i }"></div>
+                    </div>
+                    <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
+                  </div>
+                  <div class="desconto-tiers">
+                    <span v-for="tier in [5, 10, 15, 20, 25, 30, 35]" :key="tier" class="tier-badge" :class="{ ativo: descontoPercent >= tier }">
+                      <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                      {{ tier }}%
+                    </span>
+                  </div>
+                </div>
+
+                <div v-if="extras > 0" class="cart-total">
+                  <div v-if="descontoPercent > 0" class="cart-total-savings">
+                    🎉 Você economizou <strong>{{ fmt(economiaTotalExtras) }}</strong>
+                  </div>
+                  <div class="cart-total-row">
+                    <span>Total extras</span>
+                    <strong>{{ fmt(valorExtras) }}</strong>
+                  </div>
+                </div>
+              </template>
             </div>
-
-            <template v-else>
-              <div class="cart-items">
-                <div class="cart-item">
-                  <div class="cart-item-icon">
-                    <span class="material-symbols-outlined">photo_library</span>
-                  </div>
-                  <div class="cart-item-details">
-                    <span class="cart-item-name">{{ state.sessao.produto_tipo }}</span>
-                    <span class="cart-item-sub">{{ state.sessao.pacote_titulo }}</span>
-                    <span class="cart-item-qty">{{ Math.min(totalSelecionadas, fotos_incluidas) }} / {{ fotos_incluidas }} fotos incluídas</span>
-                  </div>
-                  <span class="cart-item-price cart-item-price--free">Incluso</span>
-                </div>
-
-                <div v-if="extras > 0" class="cart-item cart-item--extras">
-                  <div class="cart-item-icon">
-                    <span class="material-symbols-outlined">add_circle</span>
-                  </div>
-                  <div class="cart-item-details">
-                    <span class="cart-item-name">{{ extras }} foto{{ extras > 1 ? 's' : '' }} extra{{ extras > 1 ? 's' : '' }}</span>
-                    <span class="cart-item-sub">{{ fmt(state.sessao.preco_foto_extra) }} / foto</span>
-                  </div>
-                  <div class="cart-item-price-wrap">
-                    <span v-if="descontoPercent > 0" class="cart-item-price-old">{{ fmt(valorExtrasBruto) }}</span>
-                    <span class="cart-item-price">{{ fmt(valorExtras) }}</span>
-                  </div>
-                </div>
-
-                <div v-if="descontoPercent > 0 && extras > 0" class="cart-discount-row">
-                  <span class="cart-discount-tag">
-                    <span class="material-symbols-outlined">local_offer</span>
-                    {{ descontoPercent }}% OFF aplicado
-                  </span>
-                  <span class="cart-discount-saving">–{{ fmt(economiaTotalExtras) }}</span>
-                </div>
-              </div>
-
-              <div v-if="state.sessao.preco_foto_extra > 0 && extras === 0" class="desconto-teaser">
-                <span class="material-symbols-outlined">local_offer</span>
-                <span>A cada <strong>5 fotos extras</strong> você ganha <strong class="desconto-destaque">5% OFF</strong> — quanto mais, maior o desconto!</span>
-              </div>
-
-              <div v-if="state.sessao.preco_foto_extra > 0 && extras > 0" class="desconto-meter">
-                <div class="desconto-meter-texto">
-                  <template v-if="descontoPercent === 0">
-                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} e você ganha <strong class="desconto-destaque">5% OFF</strong>!</span>
-                  </template>
-                  <template v-else>
-                    <span>Mais <strong>{{ faltamParaProximoDesconto }}</strong> foto extra{{ faltamParaProximoDesconto > 1 ? 's' : '' }} para <strong class="desconto-destaque">{{ proximoDescontoPercent }}% OFF</strong>!</span>
-                  </template>
-                </div>
-                <div class="desconto-barra-wrap">
-                  <div class="desconto-segmentos">
-                    <div v-for="i in 5" :key="i" class="segmento" :class="{ filled: (extras % 5) >= i }"></div>
-                  </div>
-                  <span class="desconto-barra-label">{{ extras % 5 }}/5</span>
-                </div>
-                <div class="desconto-tiers">
-                  <span v-for="tier in [5, 10, 15, 20, 25, 30, 35]" :key="tier" class="tier-badge" :class="{ ativo: descontoPercent >= tier }">
-                    <span class="material-symbols-outlined">{{ descontoPercent >= tier ? 'check_circle' : 'radio_button_unchecked' }}</span>
-                    {{ tier }}%
-                  </span>
-                </div>
-              </div>
-
-              <div v-if="extras > 0" class="cart-total">
-                <div v-if="descontoPercent > 0" class="cart-total-savings">
-                  🎉 Você economizou <strong>{{ fmt(economiaTotalExtras) }}</strong>
-                </div>
-                <div class="cart-total-row">
-                  <span>Total extras</span>
-                  <strong>{{ fmt(valorExtras) }}</strong>
-                </div>
-              </div>
-            </template>
 
             <div class="finalizar-wrap">
               <button
@@ -438,12 +449,15 @@ onMounted(load);
 
           <!-- ── Step: Checkout ──────────────────────────────── -->
           <template v-else-if="step === 'checkout'">
-            <div class="cart-header">
+            <div class="cart-header" role="button" tabindex="0" @click="cartAberto = !cartAberto" @keydown.enter="cartAberto = !cartAberto">
               <div class="cart-header-left">
                 <span class="material-symbols-outlined">{{ pagamentosAtivos ? 'payments' : 'receipt_long' }}</span>
                 <span class="cart-title">{{ pagamentosAtivos ? 'Pagamento' : 'Resumo da seleção' }}</span>
               </div>
-              <span class="cart-badge success-badge">✓ Seleção enviada</span>
+              <div class="cart-header-right">
+                <span class="cart-badge success-badge">✓ Seleção enviada</span>
+                <span class="material-symbols-outlined cart-toggle">{{ cartAberto ? 'expand_more' : 'expand_less' }}</span>
+              </div>
             </div>
 
             <div v-if="checkoutLoading" class="cart-empty">
@@ -452,60 +466,62 @@ onMounted(load);
             </div>
 
             <template v-else-if="checkoutInfo">
-              <div class="checkout-success-msg">
-                <span class="material-symbols-outlined">check_circle</span>
-                Suas fotos foram selecionadas! A Lillia já foi notificada.
-              </div>
-
-              <div class="cart-items">
-                <!-- Fotos extras -->
-                <div v-if="checkoutInfo.extras > 0" class="cart-item cart-item--extras">
-                  <div class="cart-item-icon">
-                    <span class="material-symbols-outlined">add_circle</span>
-                  </div>
-                  <div class="cart-item-details">
-                    <span class="cart-item-name">{{ checkoutInfo.extras }} foto{{ checkoutInfo.extras > 1 ? 's' : '' }} extra{{ checkoutInfo.extras > 1 ? 's' : '' }}</span>
-                    <span v-if="checkoutInfo.desconto_percent > 0" class="cart-item-sub">{{ checkoutInfo.desconto_percent }}% OFF aplicado</span>
-                  </div>
-                  <div class="cart-item-price-wrap">
-                    <span v-if="checkoutInfo.desconto_percent > 0" class="cart-item-price-old">{{ fmt(checkoutInfo.valor_extras_bruto) }}</span>
-                    <span class="cart-item-price">{{ fmt(checkoutInfo.valor_extras) }}</span>
-                  </div>
+              <div class="cart-body" :class="{ open: cartAberto }">
+                <div class="checkout-success-msg">
+                  <span class="material-symbols-outlined">check_circle</span>
+                  Suas fotos foram selecionadas! A Lillia já foi notificada.
                 </div>
 
-                <!-- Saldo do pacote (apenas lote 1) -->
-                <div v-if="checkoutInfo.valor_restante_pacote > 0" class="cart-item">
-                  <div class="cart-item-icon">
-                    <span class="material-symbols-outlined">inventory_2</span>
+                <div class="cart-items">
+                  <!-- Fotos extras -->
+                  <div v-if="checkoutInfo.extras > 0" class="cart-item cart-item--extras">
+                    <div class="cart-item-icon">
+                      <span class="material-symbols-outlined">add_circle</span>
+                    </div>
+                    <div class="cart-item-details">
+                      <span class="cart-item-name">{{ checkoutInfo.extras }} foto{{ checkoutInfo.extras > 1 ? 's' : '' }} extra{{ checkoutInfo.extras > 1 ? 's' : '' }}</span>
+                      <span v-if="checkoutInfo.desconto_percent > 0" class="cart-item-sub">{{ checkoutInfo.desconto_percent }}% OFF aplicado</span>
+                    </div>
+                    <div class="cart-item-price-wrap">
+                      <span v-if="checkoutInfo.desconto_percent > 0" class="cart-item-price-old">{{ fmt(checkoutInfo.valor_extras_bruto) }}</span>
+                      <span class="cart-item-price">{{ fmt(checkoutInfo.valor_extras) }}</span>
+                    </div>
                   </div>
-                  <div class="cart-item-details">
-                    <span class="cart-item-name">Saldo do pacote</span>
-                    <span class="cart-item-sub">Valor restante após a entrada</span>
+
+                  <!-- Saldo do pacote (apenas lote 1) -->
+                  <div v-if="checkoutInfo.valor_restante_pacote > 0" class="cart-item">
+                    <div class="cart-item-icon">
+                      <span class="material-symbols-outlined">inventory_2</span>
+                    </div>
+                    <div class="cart-item-details">
+                      <span class="cart-item-name">Saldo do pacote</span>
+                      <span class="cart-item-sub">Valor restante após a entrada</span>
+                    </div>
+                    <span class="cart-item-price">{{ fmt(checkoutInfo.valor_restante_pacote) }}</span>
                   </div>
-                  <span class="cart-item-price">{{ fmt(checkoutInfo.valor_restante_pacote) }}</span>
+
+                  <!-- Nenhum extra / saldo -->
+                  <div v-if="checkoutInfo.extras === 0 && checkoutInfo.valor_restante_pacote === 0" class="cart-item">
+                    <div class="cart-item-details">
+                      <span class="cart-item-name">Nenhum valor adicional</span>
+                      <span class="cart-item-sub">Tudo incluso no seu pacote!</span>
+                    </div>
+                    <span class="cart-item-price cart-item-price--free">Pago</span>
+                  </div>
                 </div>
 
-                <!-- Nenhum extra / saldo -->
-                <div v-if="checkoutInfo.extras === 0 && checkoutInfo.valor_restante_pacote === 0" class="cart-item">
-                  <div class="cart-item-details">
-                    <span class="cart-item-name">Nenhum valor adicional</span>
-                    <span class="cart-item-sub">Tudo incluso no seu pacote!</span>
+                <!-- Total -->
+                <div v-if="checkoutInfo.valor_total > 0" class="cart-total">
+                  <div class="cart-total-row">
+                    <span>{{ pagamentosAtivos ? 'Total' : 'Total a combinar' }}</span>
+                    <strong>{{ fmt(checkoutInfo.valor_total) }}</strong>
                   </div>
-                  <span class="cart-item-price cart-item-price--free">Pago</span>
-                </div>
-              </div>
-
-              <!-- Total -->
-              <div v-if="checkoutInfo.valor_total > 0" class="cart-total">
-                <div class="cart-total-row">
-                  <span>{{ pagamentosAtivos ? 'Total' : 'Total a combinar' }}</span>
-                  <strong>{{ fmt(checkoutInfo.valor_total) }}</strong>
-                </div>
-                <div v-if="pagamentosAtivos && checkoutInfo.num_parcelas > 1" class="parcelas-hint">
-                  Parcele em até {{ checkoutInfo.num_parcelas }}x no cartão
-                </div>
-                <div v-else-if="!pagamentosAtivos && checkoutInfo.num_parcelas > 1" class="parcelas-hint">
-                  Parcelamento em até {{ checkoutInfo.num_parcelas }}x a combinar com a Lillia
+                  <div v-if="pagamentosAtivos && checkoutInfo.num_parcelas > 1" class="parcelas-hint">
+                    Parcele em até {{ checkoutInfo.num_parcelas }}x no cartão
+                  </div>
+                  <div v-else-if="!pagamentosAtivos && checkoutInfo.num_parcelas > 1" class="parcelas-hint">
+                    Parcelamento em até {{ checkoutInfo.num_parcelas }}x a combinar com a Lillia
+                  </div>
                 </div>
               </div>
 
@@ -563,6 +579,12 @@ onMounted(load);
 .selecao-page {
   padding-bottom: 100px;
   padding-right: 350px;
+
+  /* No mobile o painel deixa de ser coluna lateral e vira gaveta inferior. */
+  @include m.max(md) {
+    padding-bottom: 170px;
+    padding-right: 0;
+  }
 }
 
 .loading-state,
@@ -590,10 +612,22 @@ onMounted(load);
 
     span { font-size: 17px; }
     &:hover { color: #5e2012; }
+
+    /* Estático no mobile: absoluto ele monta em cima do título centralizado. */
+    @include m.max(md) {
+      position: static;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
   }
 
   h1 { font-size: 24px; font-weight: 700; color: #1f2937; margin-top: 8px; margin-bottom: 4px; }
   .selecao-sub { font-size: 14px; color: #6b7280; }
+
+  @include m.max(xs) {
+    h1 { font-size: 20px; }
+    .selecao-sub { font-size: 13px; }
+  }
 }
 
 .status-banner {
@@ -613,6 +647,8 @@ onMounted(load);
 .fotos-grid {
   column-gap: 12px;
   columns: 2;
+
+  @include m.max(xs) { column-gap: 8px; }
 
   @media (min-width: 640px)  { columns: 3; }
   @media (min-width: 1024px) { columns: 4; }
@@ -660,11 +696,71 @@ onMounted(load);
   display: flex; flex-direction: column; border-top-left-radius: 10px; border-bottom-left-radius: 10px; overflow: hidden;
 
   .sticky-bar-inner { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
+
+  @include m.max(md) {
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.16);
+    border-left: none;
+    border-top: 1px solid #f0ede8;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    right: 0;
+    left: 0;
+    top: auto;
+    max-height: 88vh;
+    padding-bottom: env(safe-area-inset-bottom);
+
+    .sticky-bar-inner { height: auto; overflow: visible; }
+  }
+}
+
+/* Desktop: transparente ao layout (a coluna se comporta como antes).
+   Mobile: é o miolo colapsável da gaveta. */
+.cart-body {
+  display: contents;
+
+  @include m.max(md) {
+    display: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 55vh;
+
+    &.open { display: block; }
+  }
+}
+
+.cart-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Só faz sentido na gaveta recolhida; no desktop o total aparece em .cart-total. */
+.cart-header-total {
+  display: none;
+  font-size: 14px;
+  font-weight: 800;
+  color: #5e2012;
+
+  @include m.max(md) { display: inline; }
+}
+
+.cart-toggle {
+  display: none;
+  font-size: 22px;
+  color: #9b3a22;
+
+  @include m.max(md) { display: inline-flex; }
 }
 
 .cart-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 20px 16px; border-bottom: 1px solid #f0ede8; background: #fdf8f5; flex-shrink: 0;
+
+  @include m.max(md) {
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
 
   .cart-header-left { display: flex; align-items: center; gap: 8px; .material-symbols-outlined { font-size: 22px; color: #5e2012; } }
   .cart-title { font-size: 17px; font-weight: 700; color: #1f2937; }
@@ -766,6 +862,8 @@ onMounted(load);
 .finalizar-wrap {
   padding: 16px; border-top: 1px solid #f0ede8; background: #fff; margin-top: auto;
   display: flex; flex-direction: column; align-items: stretch; gap: 8px; flex-shrink: 0;
+
+  @include m.max(md) { margin-top: 0; padding: 12px 16px 16px; }
 }
 
 .finalizar-hint { font-size: 12px; color: #9b3a22; font-weight: 600; text-align: center; }
@@ -773,9 +871,10 @@ onMounted(load);
 .finalizar-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
   background: #5e2012; color: #fff; border: none; border-radius: 10px;
-  padding: 14px 32px; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  padding: 14px 32px; font-size: 16px; font-weight: 700; cursor: pointer; white-space: normal;
   transition: background 0.15s;
   text-decoration: none;
+  min-height: 48px;
   .material-symbols-outlined { font-size: 20px; }
   &:hover:not(:disabled) { background: #4a1a0f; }
   &:disabled { opacity: 0.6; cursor: not-allowed; }

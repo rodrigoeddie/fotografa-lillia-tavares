@@ -207,8 +207,13 @@ onMounted(async () => {
   position: relative;
   text-align: right;
 
-  @media (max-width: 600px) {
-    height: 180px;
+  @include m.max(md) {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+  }
+
+  @include m.max(xs) {
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
   }
   
@@ -221,10 +226,18 @@ onMounted(async () => {
     flex-direction: column;
     justify-content: flex-end;
     padding: 24px;
-  
+
+    @include m.max(xs) {
+      padding: 16px;
+    }
+
     p {
       color: white;
       font-size: 18rem;
+
+      @include m.max(md) {
+        font-size: 14px;
+      }
     }
   }
   
@@ -234,6 +247,10 @@ onMounted(async () => {
     color: #fff;
     text-shadow: 0 1px 6px rgba(0,0,0,0.4);
     margin: 0;
+
+    @include m.max(xs) {
+      font-size: 21px;
+    }
   }
 }
 
@@ -246,6 +263,10 @@ onMounted(async () => {
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 4px;
+
+    @include m.max(xs) {
+      font-size: 23px;
+    }
   }
 
   &.has-hero {
@@ -259,7 +280,7 @@ onMounted(async () => {
 }
 
 .loading-state { text-align: center; padding: 48px; color: #9ca3af; }
-.empty-state { text-align: center; padding: 64px 32px; .empty-icon { font-size: 48px; margin-bottom: 16px; } p { color: #374151; font-size: 16px; } .text-muted { color: #9ca3af; font-size: 14px; margin-top: 4px; } }
+.empty-state { text-align: center; padding: 64px 32px; @include m.max(xs) { padding: 48px 16px; } .empty-icon { font-size: 48px; margin-bottom: 16px; } p { color: #374151; font-size: 16px; } .text-muted { color: #9ca3af; font-size: 14px; margin-top: 4px; } }
 
 .sessoes-grid {
   justify-content: flex-end;
@@ -268,6 +289,10 @@ onMounted(async () => {
   display: flex;
   width: 100%;
   gap: 15px;
+
+  @include m.max(md) {
+    justify-content: flex-start;
+  }
 }
 
 .shoot-card {
@@ -279,6 +304,15 @@ onMounted(async () => {
   overflow: hidden;
   color: inherit;
   display: flex;
+
+  @include m.max(lg) {
+    width: calc(50% - 15px);
+  }
+
+  @include m.max(md) {
+    flex-direction: column;
+    width: 100%;
+  }
 
   &--link {
     transition: box-shadow 0.15s, transform 0.15s;
@@ -293,6 +327,10 @@ onMounted(async () => {
     border: none;
     background: transparent;
     pointer-events: none;
+
+    @include m.max(md) {
+      display: none;
+    }
   }
   
   .shoot-thumb {
@@ -302,6 +340,17 @@ onMounted(async () => {
     flex-shrink: 0;
     height: 100%;
     background: #f3f0ec;
+
+    /* Empilhado a capa vira faixa: altura fixa evita um 16/9 gigante no tablet. */
+    @include m.max(md) {
+      aspect-ratio: auto;
+      height: 220px;
+      width: 100%;
+    }
+
+    @include m.max(xs) {
+      height: 180px;
+    }
   
     img {
       width: 100%;
@@ -318,6 +367,12 @@ onMounted(async () => {
 
   .wrap-info {
     padding: 20px;
+    min-width: 0;
+    flex: 1;
+
+    @include m.max(xs) {
+      padding: 16px;
+    }
   }
   
   .shoot-thumb-placeholder {
@@ -373,6 +428,11 @@ onMounted(async () => {
     margin-top: 30px;
     display: flex;
     gap: 0;
+
+    @include m.max(xs) {
+      margin-bottom: 22px;
+      margin-top: 22px;
+    }
     
     .progress-step {
       text-transform: uppercase;
@@ -384,6 +444,10 @@ onMounted(async () => {
       font-size: 12px;
       display: flex;
       opacity: 0;
+
+      @include m.max(xs) {
+        font-size: 10px;
+      }
       
       &.done {
         color: #d1d5db;
@@ -408,6 +472,11 @@ onMounted(async () => {
       height: 2px;
       background: #e5e7eb;
       margin: 0 6px;
+      min-width: 8px;
+
+      @include m.max(xs) {
+        margin: 0 3px;
+      }
     
       &.done {
         background: #5e2012;
@@ -417,6 +486,11 @@ onMounted(async () => {
   
   .shoot-cta {
     display: inline-block;
+
+    @include m.max(md) {
+      display: block;
+    }
+
     background: #5e2012;
     color: #fff;
     text-decoration: none;
@@ -453,6 +527,12 @@ onMounted(async () => {
   font-weight: 600;
   text-decoration: none;
   transition: border-color 0.15s, box-shadow 0.15s;
+
+  @include m.max(xs) {
+    font-size: 14px;
+    padding: 12px 16px;
+    text-align: left;
+  }
 
   svg {
     color: #ea4335;
